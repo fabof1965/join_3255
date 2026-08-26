@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/standart.css">
     <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/assets.css">
 
     <script src="./script.js"></script>
 </head>
@@ -15,10 +16,17 @@
 <body>
 
     <main class="log-in-main">
+
+        <header class="page-header">Hier entsteht sowas wie ein header</header>
+
         <section class="log-in-section">
-            <h2 class="log-in-heading">Log in</h2>
 
             <form class="log-in-form">
+
+                <div class="heading-container">
+                    <h2 class="log-in-heading">Log in</h2>
+                    <hr class="headline-underline">
+                </div>
 
                 <div class="login-area">
                     <div class="input-wrapper">
@@ -28,14 +36,14 @@
                     </div>
                     <div class="input-wrapper">
                         <label class="visually-hidden" for="password">Passwort</label>
-                        <input id="password" class="login-input-field" type="password" placeholder="Passwort">
+                        <input id="password" class="login-input-field login-input-field" type="password" placeholder="Passwort">
                         <img src="./assets/icons/lock.svg" alt="lock icon">
                     </div>
                 </div>
 
                 <div class="submit-btn-container">
-                    <button type="button">Log in</button>
-                    <button type="button">Guest log in</button>
+                    <button class="login-btn">Log in</button>
+                    <button class="submit-btn">Guest log in</button>
                 </div>
             </form>
 

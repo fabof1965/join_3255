@@ -2,6 +2,20 @@
     box-sizing: border-box;
 }
 
+input{
+    outline: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+}
+
 body{
     margin: 0;
 }
