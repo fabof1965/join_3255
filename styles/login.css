@@ -1,4 +1,4 @@
-.log-in-main{
+.log-in-main {
     display: flex;
     justify-content: center;
 }
@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-around;
     gap: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: 652px;
@@ -17,14 +18,54 @@
     color: black;
 }
 
-.log-in-heading{
+.log-in-heading {
     text-decoration: underline;
     text-align: center;
 }
 
-.login-area{
+.login-area {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.log-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 422px;
+    height: 152px;
+}
+
+.login-input-field {
+    width: 350px;
+    border: none;
+    padding-right: 32px;
+    box-sizing: border-box;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #686868;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.submit-btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
