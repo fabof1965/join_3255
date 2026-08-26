@@ -83,5 +83,59 @@ body {
                 }
             }
         }
+        .card-blue-large {
+            background-color: #29abe2;
+            color: #ffffff;
+            flex: 2;
+            justify-content: space-between;
+            padding: 30px;
+
+            .card-left {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .card-divider {
+                width: 2px;
+                height: 50px;
+                background-color: rgba(255, 255, 255, 0.4);
+            }
+
+            .card-right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+
+                .card-date {
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+
+                .card-subtext {
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+            }
+        }
+
+        .card-white {
+            flex: 1;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .card-light-blue {
+            background-color: #e2f2ff;
+            flex: 1;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            border: 1px solid #b0e0e6;
+        }
     }
 }
