@@ -16,16 +16,32 @@
 
     <main class="log-in-main">
         <section class="log-in-section">
-            <form class="log-in-form">
-                <h2 class="log-in-heading">Log in</h2>
-            <div class="login-area">
-                <label for="email"><input type="email" placeholder="Email"></label>
-                <label for="password"><input type="password" placeholder="Passwort"></label>
-            </div>
-            <button type="button">Log in</button>
-            <button type="button">Guest log in</button>
+            <h2 class="log-in-heading">Log in</h2>
 
+            <form class="log-in-form">
+
+                <div class="login-area">
+                    <div class="input-wrapper">
+                        <label for="email" class="visually-hidden">Email</label>
+                        <input id="email" class="login-input-field" type="email" placeholder="Email" required>
+                        <img src="./assets/icons/mail.svg" alt="mail icon">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="visually-hidden" for="password">Passwort</label>
+                        <input id="password" class="login-input-field" type="password" placeholder="Passwort">
+                        <img src="./assets/icons/lock.svg" alt="lock icon">
+                    </div>
+                </div>
+
+                <div class="submit-btn-container">
+                    <button type="button">Log in</button>
+                    <button type="button">Guest log in</button>
+                </div>
             </form>
+
+            <div class="submit-btn-wrapper">
+
+            </div>
         </section>
 
 
