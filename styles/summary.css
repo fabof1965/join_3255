@@ -1,3 +1,5 @@
+@import './root.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 }
 
 body {
-    background-color: #f6f7f8;
+    background-color: var(--white-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +26,7 @@ body {
             margin-bottom: 40px;
 
             .username {
-                color: #29abe2;
+                color: var(--primary-color);
                 font-weight: 700;
             }
         }
@@ -63,29 +65,29 @@ body {
                 display: block;
 
                 &.dark {
-                    color: #2a3647;
+                    color: var(--black-color);
                 }
             }
 
             .card-label {
                 font-size: 14px;
                 font-weight: 400;
-                color: #ffffff;
+                color: var(-white-color);
                 text-align: center;
 
                 &.dark {
-                    color: #2a3647;
+                    color: var(--black-color);
                 }
 
                 &.blue-text {
-                    color: #29abe2;
+                    color: var(--primary-color);
                     font-weight: 600;
                 }
             }
         }
         .card-blue-large {
-            background-color: #29abe2;
-            color: #ffffff;
+            background-color: var(--primary-color);
+            color: var(--white-color);
             flex: 2;
             justify-content: space-between;
             padding: 30px;
@@ -99,7 +101,7 @@ body {
             .card-divider {
                 width: 2px;
                 height: 50px;
-                background-color: rgba(255, 255, 255, 0.4);
+                background-color: var(--white-color);
             }
 
             .card-right {
@@ -117,7 +119,7 @@ body {
 
                 .card-subtext {
                     font-size: 14px;
-                    color: rgba(255, 255, 255, 0.9);
+                    color: var(--white-color);
                 }
             }
         }
@@ -130,7 +132,7 @@ body {
         }
 
         .card-light-blue {
-            background-color: #e2f2ff;
+            background-color: var(--secondary-color);
             flex: 1;
             flex-direction: column;
             gap: 10px;
