@@ -1,0 +1,14 @@
+:root {
+    --primary-color: #1268FF;
+    --secondary-color: #D2E3FF;
+    --menu-color: #42526E;
+    --menu-hover-color: var(--secondary-color);
+    --black-color: #000000;
+    --red-color: #FF0000;
+    --green-color: #00FF00;
+    --white-color: #FFFFFF;
+    --medium-task-color: #FFA800;
+    --user-story-color: #FF7A00;
+    --search-bar-outline-color: #686868;
+    --no-todo-color: var(--search-bar-outline-color);
+}
