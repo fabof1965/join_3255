@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif, Arial;
+}
+
+body {
+    background-color: #F6F7F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    .summary-container {
+        max-width: 1000px;
+        width: 100%;
+        padding: 40px;
+
+        .greeting {
+            font-size: 38px;
+            font-weight: 400;
+            color: #2A3647;
+            margin-bottom: 40px;
+
+            .username {
+                color: #29ABE2;
+                font-weight: 700;
+            }
+        }
+    }
+}
