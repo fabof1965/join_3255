@@ -1,0 +1,30 @@
+.log-in-main{
+    display: flex;
+    justify-content: center;
+}
+
+.log-in-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 652px;
+    height: 448px;
+    margin-top: 16px;
+    background-color: white;
+    border-radius: 16px;
+    color: black;
+}
+
+.log-in-heading{
+    text-decoration: underline;
+    text-align: center;
+}
+
+.login-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
