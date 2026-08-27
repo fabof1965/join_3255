@@ -8,27 +8,31 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/standart.css">
     <link rel="stylesheet" href="./styles/login.css">
-    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/root.css">
+    <link rel="stylesheet" href="./styles/typography.css">
 
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
+    <script src="./scripts/login.js" defer></script>
 </head>
 
-<body>
+<body class="login-body">
+
+    <header class="page-header content-wrapper">
+        <img src="./assets/img/join-logo.jpg" alt="">
+
+        <div class="sign-up-container">
+            <div class="sign-up-wrapper">
+                <p>Not a join user ?</p>
+                <button id="sign-up-btn" class="login-btn btn">Sign up</button>
+            </div>
+        </div>
+    </header>
 
     <main class="log-in-main">
 
-        <header class="page-header">
-            <img src="./assets/img/join-logo.jpg" alt="">
-
-            <div class="sign-up-container">
-            <p>Not a join user ?</p>
-            <button class="login-btn">Sign up</button>
-            </div>
-        </header>
-
         <section class="log-in-section">
 
-            <form class="log-in-form">
+            <form onsubmit="userLogin(event)" id="log-in-form" class="log-in-form">
 
                 <div class="heading-container">
                     <h2 class="log-in-heading">Log in</h2>
@@ -43,25 +47,28 @@
                     </div>
                     <div class="input-wrapper">
                         <label class="visually-hidden" for="password">Passwort</label>
-                        <input id="password" class="login-input-field login-input-field" type="password"
+                        <input id="password" class="login-input-field" type="password"
                             placeholder="Passwort" required>
                         <img src="./assets/icons/lock.svg" alt="lock icon">
                     </div>
                 </div>
 
                 <div class="submit-btn-container">
-                    <button class="login-btn">Log in</button>
-                    <button class="submit-btn">Guest log in</button>
+                    <button class="login-btn btn">Log in</button>
+                    <button class="submit-btn btn">Guest log in</button>
                 </div>
             </form>
 
-            <div class="submit-btn-wrapper">
-
-            </div>
         </section>
 
-
     </main>
+
+    <footer class="login-footer">
+        <div class="legal-wrapper">
+            <a class="legal-link" href="#">Privacy Policy</a>
+            <a class="legal-link" href="#">Legal Notice</a>
+        </div>
+    </footer>
 
 </body>
 

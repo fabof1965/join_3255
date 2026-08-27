@@ -1,0 +1,10 @@
+.btn{
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.content-wrapper{
+    max-width: 1440px;
+    margin: auto;
+}
