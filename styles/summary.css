@@ -1,10 +1,11 @@
-@import './root.css';
+@import "./root.css";
+@import "./typography.css";
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif, Arial;
+    font-family: "Open Sans", sans-serif, Arial;
 }
 
 body {
@@ -13,31 +14,70 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: "Open Sans", sans-serif;
 
     .summary-container {
-        max-width: 1000px;
-        width: 100%;
+        width: 912px;
+        height: 591px;
+        max-width: 100%;
         padding: 40px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         .greeting {
-            font-size: 38px;
-            font-weight: 400;
-            color: #2a3647;
+            width: 745px;
+            height: 77px;
             margin-bottom: 40px;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+
+            .greeting-text {
+                width: 338px;
+                height: 58px;
+                font-size: 48px;
+                font-weight: 400;
+                color: var(--greeting-text-color);
+            }
 
             .username {
-                color: var(--primary-color);
+                width: 385px;
+                height: 77px;
+                font-size: 64px;
                 font-weight: 700;
+                color: var(--primary-color);
+
             }
         }
     }
     .summary-row {
+        width: 912px;
+        height: 191px;
         display: flex;
         gap: 24px;
         margin-bottom: 24px;
 
+        &:first-of-type {
+            align-items: center;
+        }
+
+        &:last-of-type {
+            width: 912px;
+            height: 219px;
+        }
+
+        .card-content-top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
         .card {
-            background-color: #ffffff;
+            background-color: var(--white-color);
             border-radius: 20px;
             padding: 24px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -45,6 +85,7 @@ body {
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            line-height: 1.2;
             transition:
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
@@ -60,7 +101,7 @@ body {
             }
 
             .card-number {
-                font-size: 40px;
+                font-size: 48px;
                 font-weight: 700;
                 display: block;
 
@@ -70,9 +111,9 @@ body {
             }
 
             .card-label {
-                font-size: 14px;
+                font-size: 23px;
                 font-weight: 400;
-                color: var(-white-color);
+                color: var(--white-color);
                 text-align: center;
 
                 &.dark {
@@ -88,19 +129,31 @@ body {
         .card-blue-large {
             background-color: var(--primary-color);
             color: var(--white-color);
-            flex: 2;
+            width: 672px;
+            height: 191px;
+            flex: 0 0 672px;
             justify-content: space-between;
-            padding: 30px;
+            padding: 30px 40px;
+
+            /* @media(max-width:768px){
+                width:100%;   Adapts to the screen width 
+                height: auto;  Adjusts the height flexibly based on the content 
+                flex: unset;  Removes the fixed Flex size 
+            } */
 
             .card-left {
                 display: flex;
+                justify-content: center;
+                flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 24px;
+                width: 140px;
+                height: 113px;
             }
 
             .card-divider {
                 width: 2px;
-                height: 140px;
+                height: 150px;
                 background-color: var(--white-color);
             }
 
@@ -110,30 +163,49 @@ body {
                 gap: 20px;
                 flex-direction: column;
                 align-items: flex-start;
+                width: 274px;
+                height: 81px;
                 gap: 4px;
 
                 .card-date {
-                    font-size: 18px;
+                    font-size: 33px;
                     font-weight: 700;
                 }
 
                 .card-subtext {
-                    font-size: 14px;
+                    font-size: 23px;
                     color: var(--white-color);
                 }
             }
         }
 
-        .card-white {
-            flex: 1;
+        .card-top-right {
+            width: 208px;
+            height: 191px;
+            flex: 0 0 208px;
+            display: flex;
             flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .card-white,
+        .card-light-blue {
+            width: 204px;
+            height: 219px;
+            flex: 0 0 204px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            padding: 54px 16px;
             gap: 10px;
             text-align: center;
         }
 
         .card-light-blue {
             background-color: var(--secondary-color);
-            flex: 1;
             flex-direction: column;
             gap: 10px;
             text-align: center;
