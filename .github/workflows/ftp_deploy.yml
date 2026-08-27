@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /
+          server-dir: /projects/
           exclude: |
             **/.git*
             **/.github/**
-          log-level: verbose
+          #log-level: verbose //comment it in and delete this message if you need a detailed log of the deployment process
