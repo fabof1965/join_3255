@@ -62,3 +62,7 @@
   width: 100px;
   text-align: left;
 }
+
+.sidebar-footer a:hover {
+  color: var(--primary-color);
+}
