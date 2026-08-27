@@ -23,5 +23,4 @@ jobs:
           exclude: |
             **/.git*
             **/.github/**
-          timeout: 60000
           log-level: verbose
