@@ -92,7 +92,7 @@ body {
             .card-label {
                 font-size: 14px;
                 font-weight: 400;
-                color: var(-white-color);
+                color: var(--white-color);
                 text-align: center;
 
                 &.dark {
@@ -164,6 +164,7 @@ body {
             flex: 0 0 208px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 10px;
             text-align: center;
         }
