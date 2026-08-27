@@ -11,4 +11,6 @@
     --user-story-color: #FF7A00;
     --search-bar-outline-color: #686868;
     --no-todo-color: var(--search-bar-outline-color);
+    --greeting-text-color:#2A3647;
+
 }
