@@ -1,4 +1,4 @@
-.page-header {
+/* .page-header {
     display: flex;
     justify-content: space-between;
     height: 63px;
@@ -7,7 +7,7 @@
     padding-right: 40px;
     padding-left: 40px;
     font-size: 23px;
-}
+} */
 
 .sign-up-container{
     display: flex;
@@ -100,4 +100,23 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+.login-btn {
+    width: 135px;
+    height: 48px;
+    background-color: #1268FF;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.submit-btn {
+    width: 135px;
+    height: 48px;
+    background-color: transparent;
+    color: #647188;
+    border: #647188 2px solid;
+    border-radius: 8px;
+    font-size: 18px;
 }
