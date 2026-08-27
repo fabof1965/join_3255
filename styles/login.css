@@ -1,164 +1,225 @@
 .log-in-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex: 1;
-    margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  margin-top: 80px;
 }
 
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    text-align: center;
-    padding-right: 40px;
-    padding-left: 40px;
-    font-size: 23px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  padding-right: 40px;
+  padding-left: 40px;
+  font-size: 23px;
 }
 
 .login-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 40px 0;
 }
 
-.sign-up-container{
-    display: flex;
-    justify-content: flex-start;
+.sign-up-container {
+  display: flex;
+  justify-content: flex-start;
 }
 
-.sign-up-wrapper{
-    display: flex;
-    align-items: center;
-    height: 48px;
-    gap: 35px;
+.sign-up-wrapper {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  gap: 35px;
 }
 
 .login-btn {
-    width: 135px;
-    height: 48px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 8px;
-    font-size: 18px;
+  width: 135px;
+  height: 48px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
 }
 
-.login-btn:hover{
-    background-color: #4589FF;
+.login-btn:hover {
+  background-color: #4589ff;
 }
 
 .log-in-section {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 652px;
-    height: 448px;
-    padding: 0 48px;
-    margin-top: 16px;
-    background-color: white;
-    border-radius: 16px;
-    color: black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 652px;
+  height: 448px;
+  padding: 0 48px;
+  margin-top: 16px;
+  background-color: white;
+  border-radius: 16px;
+  color: black;
 }
 
 .log-in-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .heading-container {
-    width: 422px;
-    height: 74px;
+  width: 422px;
+  height: 74px;
 }
 
 .log-in-heading {
-    text-align: center;
-    font-size: 48px;
+  text-align: center;
+  font-size: 48px;
 }
 
 .headline-underline {
-    width: 150px;
-    border: 2px solid #4589FF;
+  width: 150px;
+  border: 2px solid #4589ff;
 }
 
 .login-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 422px;
-    height: 152px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 422px;
+  height: 152px;
 }
 
 .input-wrapper {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid var(--search-bar-outline-color);
-    justify-content: center;
-    margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid var(--search-bar-outline-color);
+  justify-content: center;
+  margin-bottom: 8px;
 }
 
-.input-wrapper:nth-child(2){
-    margin-top: 30px;
+.input-wrapper:nth-child(2) {
+  margin-top: 30px;
 }
 
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .login-input-field {
-    width: 350px;
-    border: none;
-    padding-right: 32px;
-    box-sizing: border-box;
-    font-size: 19px;
+  width: 350px;
+  border: none;
+  padding-right: 32px;
+  box-sizing: border-box;
+  font-size: 19px;
 }
 
 .submit-btn-container {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .submit-btn {
-    width: 135px;
-    height: 48px;
-    color: #647188;
-    border: #647188 2px solid;
-    border-radius: 8px;
-    font-size: 18px;
+  width: 135px;
+  height: 48px;
+  color: #647188;
+  border: #647188 2px solid;
+  border-radius: 8px;
+  font-size: 18px;
 }
 
-.login-footer{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex-shrink: 0;
+.login-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
 }
 
-.legal-wrapper{
-    display: flex;
-    gap: 20px;
-    width: 240px;
+.legal-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 240px;
 }
 
-.legal-link{
-    color: var(--menu-color);
-    text-decoration: none;
+.legal-link {
+  color: var(--menu-color);
+  text-decoration: none;
 }
 
-.legal-link:hover{
-    color: var(--primary-color);
-    font-weight: bold;
+.legal-link:hover {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.logo-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: logo-animation-background 300ms ease-in-out 200ms forwards;
+}
+
+.logo-animation img {
+  position: absolute;
+}
+
+.logo-animation-white {
+  width: 265px;
+  animation: white-logo 300ms ease-in-out 200ms forwards;
+}
+
+.logo-animation-blue {
+  width: 265px;
+  opacity: 0;
+  animation: blue-logo 300ms ease-in-out 200ms forwards;
+}
+
+@keyframes logo-animation-background {
+  from {
+    background-color: var(--primary-color);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@keyframes white-logo {
+  from {
+    width: 265px;
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    width: 100.03px;
+    opacity: 0;
+    transform: translate(-600px, -350px);
+  }
+}
+
+@keyframes blue-logo {
+  from {
+    width: 265px;
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  to {
+    width: 100.03px;
+    opacity: 1;
+    transform: translate(-630px, -412px);
+  }
 }
