@@ -22,4 +22,5 @@ jobs:
           server-dir: /
           exclude: |
             **/.git*
-            **/.github*
+            **/.github/**
+          log-level: verbose
