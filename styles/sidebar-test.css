@@ -1,0 +1,22 @@
+.sidebar {
+  min-height: 100vh;
+  width: 232px;
+  display: flex;
+  align-items: center;
+  padding: 66px 0;
+  flex-direction: column;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: var(--menu-color);
+  text-align: left;
+  display: block;
+}
+
+.sidebar-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: fit-content;
+}
