@@ -22,4 +22,6 @@ jobs:
           server-dir: /
           exclude: |
             **/.git*
-            **/.github*
+            **/.github/**
+          timeout: 60000
+          log-level: verbose
