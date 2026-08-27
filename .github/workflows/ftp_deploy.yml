@@ -21,6 +21,6 @@ jobs:
           local-dir: ./
           server-dir: /join_3255/
           exclude: |
-            **/.git*
+            **/.git/**
             **/.github/**
           #log-level: verbose //comment it in and delete this message if you need a detailed log of the deployment process
