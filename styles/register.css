@@ -1,0 +1,14 @@
+.register-body{
+    background-color: var(--primary-color);
+    height: 100vh;
+}
+
+.register-main{
+    display: flex;
+}
+
+.sign-up-form{
+    height: 607px;
+    width: 598px;
+    background-color: var(--white-color);
+}
