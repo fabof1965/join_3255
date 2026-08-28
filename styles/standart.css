@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 @import "../assets/fonts/open-sans-v44-latin_latin-ext-500.woff2";
 @import "../assets/fonts/open-sans-v44-latin_latin-ext-600.woff2";
 @import "../assets/fonts/open-sans-v44-latin_latin-ext-700.woff2";
