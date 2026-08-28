@@ -21,7 +21,6 @@ async function postData(path = "", data = {}) {
         return responseToJson = await response.json();
     } catch (error) {
         console.error('Fehler beim Hochladen der Post-Daten', error);
-        // hier eine DOM Manipulation erstellen
     }
 }
 
@@ -35,6 +34,5 @@ async function patchData(path = "", data = {}) {
         return responseToJson = await response.json();
     } catch (error) {
         console.error('Fehler beim Hochladen der Patchdaten', error);
-        // hier eine DOM Manipulation erstellen
     }
 }
