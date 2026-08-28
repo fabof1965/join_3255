@@ -50,7 +50,25 @@ body {
                 font-size: 64px;
                 font-weight: 700;
                 color: var(--primary-color);
+            }
+        }
+        
+        &.guest-container {
+            width: 100%;
 
+            .greeting {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+
+                .greeting-text {
+                    width: auto;
+                    text-align: center;
+                }
+
+                .username {
+                    display: none;
+                }
             }
         }
     }
@@ -207,7 +225,6 @@ body {
         .card-light-blue {
             background-color: var(--secondary-color);
             flex-direction: column;
-            gap: 10px;
             text-align: center;
             border: 1px solid #b0e0e6;
         }
