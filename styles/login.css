@@ -159,6 +159,7 @@
   z-index: 9999;
   background-color: var(--primary-color);
   animation: logo-animation-background 600ms ease-in-out 600ms forwards;
+  pointer-events: none;
 }
 
 .logo-animation-white {
