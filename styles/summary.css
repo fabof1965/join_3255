@@ -1,11 +1,10 @@
 @import "./root.css";
 @import "./typography.css";
+@import "./standart.css";
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Open Sans", sans-serif, Arial;
 }
 
 body {
@@ -13,13 +12,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100dvh;
     font-family: "Open Sans", sans-serif;
 
     .summary-container {
-        width: 912px;
-        height: 591px;
-        max-width: 100%;
+        max-width: 912px;
+        min-height: 591px;
+        width: 100%;
+        height: auto;
         padding: 40px;
         margin: 0 auto;
         display: flex;
@@ -27,32 +27,35 @@ body {
         align-items: center;
 
         .greeting {
-            width: 745px;
-            height: 77px;
+            max-width: 745px;
+            min-height: 77px;
+            width: 100%;
+            height: auto;
             margin-bottom: 40px;
             line-height: 1.2;
             display: flex;
             align-items: center;
             gap: 15px;
             padding: 10px 0;
+            flex-wrap: wrap;
 
             .greeting-text {
-                width: 338px;
-                height: 58px;
+                width: auto;
+                height: auto;
                 font-size: 48px;
                 font-weight: 400;
                 color: var(--greeting-text-color);
             }
 
             .username {
-                width: 385px;
-                height: 77px;
+                width: auto;
+                height: auto;
                 font-size: 64px;
                 font-weight: 700;
                 color: var(--primary-color);
             }
         }
-        
+
         &.guest-container {
             width: 100%;
 
@@ -73,19 +76,24 @@ body {
         }
     }
     .summary-row {
-        width: 912px;
-        height: 191px;
+        max-width: 912px;
+        min-height: 191px;
+        width: 100%;
+        height: auto;
         display: flex;
         gap: 24px;
         margin-bottom: 24px;
+        flex-wrap: wrap;
 
         &:first-of-type {
             align-items: center;
         }
 
         &:last-of-type {
-            width: 912px;
-            height: 219px;
+            max-width: 912px;
+            min-height: 219px;
+            width: 100%;
+            height: auto;
         }
 
         .card-content-top {
@@ -147,11 +155,15 @@ body {
         .card-blue-large {
             background-color: var(--primary-color);
             color: var(--white-color);
-            width: 672px;
-            height: 191px;
-            flex: 0 0 672px;
+            max-width: 672px;
+            min-height: 191px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex: 1;
             justify-content: space-between;
             padding: 30px 40px;
+            align-items: center;
 
             /* @media(max-width:768px){
                 width:100%;   Adapts to the screen width 
@@ -160,13 +172,15 @@ body {
             } */
 
             .card-left {
+                max-width: 140px;
+                min-height: 113px;
+                width: 100%;
+                height: auto;
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
                 align-items: center;
                 gap: 24px;
-                width: 140px;
-                height: 113px;
             }
 
             .card-divider {
@@ -176,13 +190,13 @@ body {
             }
 
             .card-right {
+                max-width: 274px;
+                min-height: 81px;
+                width: 100%;
+                height: auto;
                 display: flex;
-                align-items: center;
-                gap: 20px;
                 flex-direction: column;
                 align-items: flex-start;
-                width: 274px;
-                height: 81px;
                 gap: 4px;
 
                 .card-date {
@@ -198,10 +212,12 @@ body {
         }
 
         .card-top-right {
-            width: 208px;
-            height: 191px;
-            flex: 0 0 208px;
+            max-width: 208px;
+            min-height: 191px;
+            width: 100%;
+            height: auto;
             display: flex;
+            flex: 1;
             flex-direction: column;
             align-items: center;
             gap: 10px;
@@ -210,13 +226,15 @@ body {
 
         .card-white,
         .card-light-blue {
-            width: 204px;
-            height: 219px;
-            flex: 0 0 204px;
+            max-width: 204px;
+            min-height: 219px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex: 1;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            display: flex;
             padding: 54px 16px;
             gap: 10px;
             text-align: center;
