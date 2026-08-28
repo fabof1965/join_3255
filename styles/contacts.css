@@ -10,3 +10,28 @@ header {
     width: 60px;
 }
 
+.title-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.help-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--white-color);
+    padding: 8px;
+    height: 20px;
+    width: 20px;
+}
+
+.help-link:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
