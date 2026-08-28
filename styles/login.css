@@ -26,7 +26,8 @@
 
 .sign-up-container {
   display: flex;
-  justify-content: flex-start;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .sign-up-wrapper {
@@ -164,29 +165,27 @@
 }
 
 .logo-animation {
-  position: fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   inset: 0;
   z-index: 9999;
   background-color: var(--primary-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: logo-animation-background 300ms ease-in-out 200ms forwards;
-}
-
-.logo-animation img {
-  position: absolute;
+  animation: logo-animation-background 600ms ease-in-out 600ms forwards;
 }
 
 .logo-animation-white {
-  width: 265px;
-  animation: white-logo 300ms ease-in-out 200ms forwards;
+  position: relative;
+  width: 120px;
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
+  transform: scale(2);
+  animation: white-logo 600ms ease-in-out 600ms forwards;
 }
 
-.logo-animation-blue {
-  width: 265px;
-  opacity: 0;
-  animation: blue-logo 300ms ease-in-out 200ms forwards;
+.logo-animation-white path {
+  fill: var(--white-color);
+  animation: colorChange 600ms ease-in-out 600ms forwards;
 }
 
 @keyframes logo-animation-background {
@@ -198,28 +197,36 @@
   }
 }
 
-@keyframes white-logo {
-  from {
-    width: 265px;
-    opacity: 1;
-    transform: translate(0, 0);
+@keyframes colorChange {
+  0% {
+    fill: var(--white-color);
   }
-  to {
-    width: 100.03px;
-    opacity: 0;
-    transform: translate(-600px, -350px);
+
+  20% {
+    fill: var(--white-color);
+  }
+
+  100% {
+    fill: var(--primary-color);
   }
 }
 
-@keyframes blue-logo {
-  from {
-    width: 265px;
-    opacity: 0;
-    transform: translate(0, 0);
+@keyframes white-logo {
+  0% {
+    top: calc(50% - 60px);
+    left: calc(50% - 60px);
+    transform: translate(calc(50% - 60px), calc(50% - 60px) scale(2));
   }
-  to {
-    width: 100.03px;
-    opacity: 1;
-    transform: translate(-630px, -412px);
+
+  20% {
+    top: calc(50% - 80px);
+    left: calc(50% - 80px);
+    transform: translate(calc(50% - 80px), calc(50% - 80px)) scale(1.5);
+  }
+
+  100% {
+    top: -5px;
+    left: 40px;
+    transform: translate(40px, 0) scale(0.5);
   }
 }
