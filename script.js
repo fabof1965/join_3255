@@ -4,3 +4,15 @@ let backToLogin = document.getElementById('arrow-back');
 backToLogin.addEventListener("click", () => {
   window.location.href = "../index.html"
 })
+
+function renderSidebar() {
+  const sidebarContainer = document.getElementById("sidebar");
+
+  if (!sidebarContainer) {
+    return;
+  }
+
+  sidebarContainer.innerHTML = sidebarTemplate;
+}
+
+renderSidebar();
