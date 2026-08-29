@@ -1,4 +1,4 @@
-.register-header{
+.register-header {
     width: 100%;
     max-width: 1440px;
     margin: auto;
@@ -34,20 +34,19 @@
     border-radius: 16px;
 }
 
-.sign-up-header-wrapper{
+.sign-up-header-wrapper {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.sign-up-heading-container{
+.sign-up-heading-container {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-/* .sign-up-button-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
+.legal-link-register {
+    color: var(--menu-color);
+    text-decoration: none;
+}
