@@ -65,8 +65,7 @@
     display: flex;
     align-items: center;
     border-bottom: 2px solid var(--search-bar-outline-color);
-    justify-content: center;
-    
+    justify-content: center; 
 }
 
 .register-input-container:nth-child(2){
@@ -86,6 +85,11 @@
     width: 100%;
     justify-content: center;
     margin-bottom: 17px;
+}
+
+.privacy-policity-link{
+    color: #005DFF;
+    text-decoration: none;
 }
 
 .sign-up-button-container{
