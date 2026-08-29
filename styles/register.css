@@ -1,13 +1,23 @@
-.register-body{
+.register-body {
     background-color: var(--primary-color);
-    height: 100vh;
-}
-
-.register-main{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 40px 0;
 }
 
-.sign-up-form{
+.register-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    margin-top: 80px;
+}
+
+.sign-up-form {
     height: 607px;
     width: 598px;
     background-color: var(--white-color);
