@@ -73,11 +73,6 @@
   font-size: 48px;
 }
 
-.headline-underline {
-  width: 150px;
-  border: 2px solid #4589ff;
-}
-
 .login-area {
   display: flex;
   flex-direction: column;
@@ -109,14 +104,6 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-.login-input-field {
-  width: 350px;
-  border: none;
-  padding-right: 32px;
-  box-sizing: border-box;
-  font-size: 19px;
 }
 
 .submit-btn-container {

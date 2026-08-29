@@ -4,6 +4,11 @@
   background: none;
 }
 
+.headline-underline {
+  width: 150px;
+  border: 2px solid #4589ff;
+}
+
 .auth-btn {
   width: 135px;
   height: 48px;
@@ -15,6 +20,14 @@
 
 .auth-btn:hover {
   background-color: #4589ff;
+}
+
+.input-field {
+  width: 350px;
+  border: none;
+  padding-right: 32px;
+  box-sizing: border-box;
+  font-size: 19px;
 }
 
 .login-footer {
