@@ -1,8 +1,7 @@
-function renderSidebar() {
-  document.getElementById("sidebar").innerHTML = `
+const sidebarTemplate = `
   <aside class="sidebar">
       <nav class="sidebar-navigation">
-        <a href="#">
+        <a href="./summary.html">
           <img src="../assets/icons/summary.svg" alt="" />
           <span>Summary</span>
         </a>
@@ -25,6 +24,3 @@ function renderSidebar() {
       </div>
     </aside>
   `;
-}
-
-renderSidebar();
