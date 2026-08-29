@@ -4,7 +4,7 @@ let testUser = JSON.parse(localStorage.getItem('testUser')) || [
 
 let signUp = document.getElementById('sign-up-btn');
 signUp.addEventListener("click", () => {
-    window.location.href = "../pages/register.html"
+    window.location.href = "./pages/register.html";
 });
 
 function userLogin(event) {
