@@ -2,6 +2,8 @@
     outline: none;
     border: none;
     background: none;
+    padding-block: 0;
+    padding-inline: 0;
 }
 
 .auth-btn {

@@ -17,8 +17,8 @@
 </head>
 
 <body class="register-body">
-    <header>
-        <div class="register-header">
+    <header class="register-header">
+        <div class="register-header-wrapper">
             <img src="../assets/img/join-logo-white.png" alt="join logo white">
         </div>
     </header>
@@ -26,13 +26,30 @@
     <main class="register-body">
 
         <form class="sign-up-form">
-            <h1>Sign up</h1>
-            <input type="name" id="name">
-            <input type="password" id="password">
+            <div class="sign-up-header-wrapper">
+                <div class="sign-up-button-container">
+                    <button type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
+                            alt="arrow-left"></button>
+                </div>
+                <div class="sign-up-heading-container">
+                    <h1>Sign up</h1>
+                </div>
+            </div>
+            <div>
+                <div class="register-input-container"><input type="name" id="name" required></div>
+                <div class="register-input-container"><input type="email" id="email" required></div>
+                <div class="register-input-container"><input type="password" id="password" required></div>
+                <div class="register-input-container"><input type="password" id="confirm-password" required></div>
+            </div>
         </form>
     </main>
 
-    <footer></footer>
+    <footer class="login-footer">
+        <div class="legal-wrapper">
+            <a class="legal-link" href="#">Privacy Policy</a>
+            <a class="legal-link" href="#">Legal Notice</a>
+        </div>
+    </footer>
 
 </body>
 

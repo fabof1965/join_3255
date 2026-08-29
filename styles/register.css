@@ -1,3 +1,10 @@
+.register-header{
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    font-weight: 700 !important;
+}
+
 .register-body {
     background-color: var(--primary-color);
     display: flex;
@@ -18,7 +25,29 @@
 }
 
 .sign-up-form {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
     height: 607px;
     width: 598px;
     background-color: var(--white-color);
+    border-radius: 16px;
 }
+
+.sign-up-header-wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.sign-up-heading-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* .sign-up-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
