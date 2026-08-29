@@ -73,10 +73,9 @@ während der eigentliche Inhalt aufgeräumt und zentriert an seinem Platz bleibt
 .content-wrapper {
     display: flex;
     justify-content: center;
-    flex: 1;
     padding: 40px;
     box-sizing: border-box;
-
+    flex: 1;
     @media (min-width: 1440px) {
         max-width: 100%;
     }
