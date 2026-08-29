@@ -1,5 +1,4 @@
-function renderSidebar() {
-  document.getElementById("sidebar").innerHTML = `
+const sidebarTemplate = `
   <aside class="sidebar">
       <nav class="sidebar-navigation">
         <a href="./summary.html">
@@ -25,6 +24,3 @@ function renderSidebar() {
       </div>
     </aside>
   `;
-}
-
-renderSidebar();
