@@ -2,7 +2,7 @@ function renderSidebar() {
   document.getElementById("sidebar").innerHTML = `
   <aside class="sidebar">
       <nav class="sidebar-navigation">
-        <a href="#">
+        <a href="./summary.html">
           <img src="../assets/icons/summary.svg" alt="" />
           <span>Summary</span>
         </a>
