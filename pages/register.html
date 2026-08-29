@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Sign up</title>
     <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/standart.css">
@@ -27,19 +27,33 @@
 
         <form class="sign-up-form">
             <div class="sign-up-header-wrapper">
-                <div class="sign-up-button-container">
+                <div>
                     <button type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
                             alt="arrow-left"></button>
                 </div>
                 <div class="sign-up-heading-container">
-                    <h1>Sign up</h1>
+                    <h1 class="sign-up-heading">Sign up</h1>
+                    <hr class="headline-underline" />
                 </div>
             </div>
-            <div>
-                <div class="register-input-container"><input type="name" id="name" required></div>
-                <div class="register-input-container"><input type="email" id="email" required></div>
-                <div class="register-input-container"><input type="password" id="password" required></div>
-                <div class="register-input-container"><input type="password" id="confirm-password" required></div>
+            <div class="register-input-container-wrapper">
+                <div class="register-input-container"><input class="input-field" type="name" id="name"
+                        placeholder="Name" required><img src="../assets/icons/person.svg" alt="person logo"></div>
+                <div class="register-input-container"><input class="input-field" type="email" id="email"
+                        placeholder="Email"><img src="../assets/icons/mail.svg" alt="mail logo"></div>
+                <div class="register-input-container"><input class="input-field" type="password" id="password" required
+                        placeholder="Password"><img src="../assets/icons/lock.svg" alt="lock logo"></div>
+                <div class="register-input-container"><input class="input-field" type="password" id="confirm-password"
+                        required placeholder="Confirm Password"><img src="../assets/icons/lock.svg" alt="lock logo">
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="checkbox"><p>I accept the <a href="#">Privacy policity</a></p>
+            </div>
+
+            <div class="sign-up-button-container">
+                <button class="btn auth-btn">Sign-up</button>
             </div>
         </form>
     </main>
