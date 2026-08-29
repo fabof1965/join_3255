@@ -1,10 +1,24 @@
+.content-wrapper{
+    max-width: 1440px;
+    margin: auto;
+}
+
 .btn{
     outline: none;
     border: none;
     background: none;
 }
 
-.content-wrapper{
-    max-width: 1440px;
-    margin: auto;
+.auth-btn {
+  width: 135px;
+  height: 48px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
 }
+
+.auth-btn:hover {
+  background-color: #4589ff;
+}
+
