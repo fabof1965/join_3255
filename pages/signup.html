@@ -8,25 +8,25 @@
     <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/standart.css">
-    <link rel="stylesheet" href="../styles/register.css">
+    <link rel="stylesheet" href="../styles/signup.css">
     <link rel="stylesheet" href="../styles/root.css">
     <link rel="stylesheet" href="../styles/typography.css">
 
     <script src="../script.js" defer></script>
     <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/register.js" defer></script>
+    <script src="../scripts/signup.js" defer></script>
 </head>
 
-<body class="register-body">
-    <header class="register-header">
-        <div class="register-header-wrapper">
+<body class="sign-up-body">
+    <header class="sign-up-header">
+        <div class="sign-up-page-header-wrapper">
             <img src="../assets/img/join-logo-white.png" alt="join logo white">
         </div>
     </header>
 
-    <main class="register-body">
+    <main class="sign-up-body">
 
-        <form id="registerForm" class="sign-up-form">
+        <form id="signUpForm" class="sign-up-form">
             <div class="sign-up-header-wrapper">
                 <div>
                     <button onclick="backtoLogin()" type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
@@ -37,20 +37,20 @@
                     <hr class="headline-underline" />
                 </div>
             </div>
-            <div class="register-input-container-wrapper">
-                <div class="register-input-container"><input class="input-field" type="name" id="name"
+            <div class="sign-up-input-container-wrapper">
+                <div class="sign-up-input-container"><input class="input-field" type="name" id="name"
                         placeholder="Name" required><img src="../assets/icons/person.svg" alt="person logo"></div>
 
-                <div class="register-input-container"><input class="input-field" type="email" id="email"
+                <div class="sign-up-input-container"><input class="input-field" type="email" id="email"
                         placeholder="Email"><img src="../assets/icons/mail.svg" alt="mail logo"></div>
 
-                <div class="register-input-container"><input class="input-field" type="password" id="password" required
+                <div class="sign-up-input-container"><input class="input-field" type="password" id="password" required
                         placeholder="Password">
                     <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img"
                         src="../assets/icons/lock.svg" alt="lock-img">
                 </div>
 
-                <div class="register-input-container"><input class="input-field" type="password" id="confirm-password"
+                <div class="sign-up-input-container"><input class="input-field" type="password" id="confirm-password"
                         required placeholder="Confirm Password"><img src="../assets/icons/lock.svg"
                         alt="lock logo">
                 </div>
@@ -67,10 +67,10 @@
         </form>
     </main>
 
-    <footer class="register-footer">
+    <footer class="sign-up-footer">
         <div class="legal-wrapper">
-            <a class="legal-link-register" href="#">Privacy Policy</a>
-            <a class="legal-link-register" href="#">Legal Notice</a>
+            <a class="legal-link-sign-up" href="#">Privacy Policy</a>
+            <a class="legal-link-sign-up" href="#">Legal Notice</a>
         </div>
     </footer>
 

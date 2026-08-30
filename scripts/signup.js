@@ -1,6 +1,6 @@
 let allUsers = [];
 
-let registerForm = document.getElementById('registerForm');
+let signUpForm = document.getElementById('signUpForm');
 let name = document.getElementById('name');
 let email = document.getElementById('email');
 let password = document.getElementById('password');
@@ -21,7 +21,7 @@ function backtoLogin() {
 }
 
 async function registerUser(event) {
-  if (!registerForm.reportValidity()) {
+  if (!signUpForm.reportValidity()) {
     return;
   }
   if (!acceptPrivacyPolicity()) {
@@ -31,7 +31,7 @@ async function registerUser(event) {
   let name = document.getElementById('name');
   let response = await postData('users', { name: name.value, email: email.value, password: password.value });
   allUsers.push({ id: response.name, name: name.value, email: email.value, password: password.value });
-  registerForm.reset();
+  signUpForm.reset();
   window.location.href = "../index.html";
 }
 

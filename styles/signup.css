@@ -1,11 +1,11 @@
-.register-header {
+.sign-up-header {
     width: 100%;
     max-width: 1440px;
     margin: auto;
     font-weight: 700 !important;
 }
 
-.register-body {
+.sign-up-body {
     background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     padding: 40px 0;
 }
 
-.register-main {
+.sign-up-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,7 +51,7 @@
     font-weight: 700;
 }
 
-.register-input-container-wrapper {
+.sign-up-input-container-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,22 +61,22 @@
     gap: 10px;
 }
 
-.register-input-container {
+.sign-up-input-container {
     display: flex;
     align-items: center;
     border-bottom: 2px solid var(--search-bar-outline-color);
     justify-content: center; 
 }
 
-.register-input-container:nth-child(2){
+.sign-up-input-container:nth-child(2){
     margin-top: 30px;
 }
 
-.register-input-container:nth-child(3){
+.sign-up-input-container:nth-child(3){
     margin-top: 30px;
 }
 
-.register-input-container:nth-child(4){
+.sign-up-input-container:nth-child(4){
     margin-top: 30px;
 }
 
@@ -98,7 +98,7 @@
     justify-content: center;
 }
 
-.legal-link-register {
+.legal-link-sign-up {
     color: var(--white-color);
     text-decoration: none;
 }
