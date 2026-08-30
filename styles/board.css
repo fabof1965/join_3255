@@ -54,6 +54,16 @@
   gap: 24px;
 }
 
+.board-columns[hidden] {
+  display: none;
+}
+
+.search-no-results {
+  margin-bottom: 24px;
+  color: var(--search-bar-outline-color);
+  font-size: 16px;
+}
+
 .column-header {
   display: flex;
   align-items: center;

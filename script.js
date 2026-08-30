@@ -9,6 +9,10 @@ if (backToLogin) {
   });
 }
 
+/**
+ * Renders the shared sidebar template when its container exists.
+ * @returns {void}
+ */
 function renderSidebar() {
   const sidebarContainer = document.getElementById("sidebar");
 
@@ -19,6 +23,10 @@ function renderSidebar() {
   sidebarContainer.innerHTML = sidebarTemplate;
 }
 
+/**
+ * Renders the shared header template when its container exists.
+ * @returns {void}
+ */
 function renderHeader() {
   const headerContainer = document.getElementById("header");
 

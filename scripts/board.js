@@ -140,4 +140,54 @@ function renderEmptyTaskLists(taskLists) {
 }
 
 
+/**
+ * Finds tasks whose title or description contains the search term.
+ * @param {string} searchTerm - Text entered in the search field.
+ * @returns {Object[]} Matching tasks.
+ */
+function filterTasks(searchTerm) {
+  const normalizedTerm = searchTerm.trim().toLowerCase();
+  return exampleTasks.filter((task) =>
+    `${task.title} ${task.description}`.toLowerCase().includes(normalizedTerm),
+  );
+}
+
+
+/**
+ * Shows or hides the message for a search without matches.
+ * @param {boolean} shouldShow - Whether the message should be visible.
+ * @returns {void}
+ */
+function toggleNoResultsMessage(shouldShow) {
+  const message = document.getElementById("search-no-results");
+  const boardColumns = document.querySelector(".board-columns");
+  message.hidden = !shouldShow;
+  boardColumns.hidden = shouldShow;
+}
+
+
+/**
+ * Renders tasks matching the current search input.
+ * @param {InputEvent} event - Search field input event.
+ * @returns {void}
+ */
+function searchTasks(event) {
+  const searchTerm = event.target.value;
+  const filteredTasks = filterTasks(searchTerm);
+  renderBoard(filteredTasks);
+  toggleNoResultsMessage(searchTerm.trim() !== "" && !filteredTasks.length);
+}
+
+
+/**
+ * Activates the live board search.
+ * @returns {void}
+ */
+function initializeTaskSearch() {
+  const searchInput = document.getElementById("task-search");
+  searchInput.addEventListener("input", searchTasks);
+}
+
+
 renderBoard(exampleTasks);
+initializeTaskSearch();

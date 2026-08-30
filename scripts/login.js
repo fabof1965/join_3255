@@ -7,6 +7,11 @@ signUp.addEventListener("click", () => {
     window.location.href = "./pages/register.html";
 });
 
+/**
+ * Validates the entered credentials and opens the summary page.
+ * @param {SubmitEvent} event - Login form submission event.
+ * @returns {void}
+ */
 function userLogin(event) {
     event.preventDefault();
     let email = document.getElementById('email');
