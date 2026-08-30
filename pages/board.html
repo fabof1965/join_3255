@@ -23,9 +23,49 @@
     <div class="main-layout">
       <div id="sidebar"></div>
 
-      <div class="board-container">
-        <input type="text" />
-      </div>
+      <main class="board-container">
+        <div class="board-toolbar">
+          <div class="board-search">
+            <input type="text" placeholder="Find Task" />
+            <button
+              type="button"
+              class="search-button"
+              aria-label="Search Tasks"
+            ></button>
+          </div>
+          <button type="button" class="add-task-button">Add Task +</button>
+        </div>
+        <div class="board-columns">
+          <section class="board-column">
+            <header class="column-header">
+              <h2>To do</h2>
+              <button type="button">+</button>
+            </header>
+            <div class="task-list"></div>
+          </section>
+          <section class="board-column">
+            <header class="column-header">
+              <h2>In progress</h2>
+              <button type="button">+</button>
+            </header>
+            <div class="task-list"></div>
+          </section>
+          <section class="board-column">
+            <header class="column-header">
+              <h2>Await feedback</h2>
+              <button type="button">+</button>
+            </header>
+            <div class="task-list"></div>
+          </section>
+          <section class="board-column">
+            <header class="column-header">
+              <h2>Done</h2>
+              <button type="button">+</button>
+            </header>
+            <div class="task-list"></div>
+          </section>
+        </div>
+      </main>
     </div>
 
     <script src="../script.js"></script>

@@ -6,3 +6,15 @@
   flex: 1;
   min-width: 0;
 }
+
+.board-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
