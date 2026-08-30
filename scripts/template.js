@@ -41,5 +41,33 @@ const headerTemplate = `
           <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
         </button>
       </div>
-    </header>
+  </header>
 `;
+
+const taskCardTemplate = `
+    <article class="task-card">
+      <span class="task-category {{categoryClass}}">{{category}}</span>
+      <div class="task-content">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+      </div>
+      {{subtaskProgress}}
+      <div class="task-footer">
+        <div class="assigned-users">{{assignedUsers}}</div>
+        <span class="task-priority task-priority-{{priority}}" aria-label="{{priority}} priority">{{prioritySymbol}}</span>
+      </div>
+    </article>
+`;
+
+const subtaskProgressTemplate = `
+    <div class="subtask-progress">
+      <div class="progress-track" role="progressbar" aria-valuenow="{{completed}}" aria-valuemin="0" aria-valuemax="{{total}}">
+        <div class="progress-fill" style="width: {{progress}}%"></div>
+      </div>
+      <span>{{completed}}/{{total}} Subtasks</span>
+    </div>
+`;
+
+const userBadgeTemplate = `<span class="user-badge">{{initials}}</span>`;
+
+const emptyTaskListTemplate = `<p class="empty-task-list">{{text}}</p>`;

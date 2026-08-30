@@ -41,35 +41,50 @@
               <h2>To do</h2>
               <button type="button">+</button>
             </header>
-            <div class="task-list">
-              <p class="empty-task-list">No tasks To do</p>
-            </div>
+            <div
+              class="task-list"
+              data-status="toDo"
+              data-empty-text="No tasks To do"
+            ></div>
           </section>
           <section class="board-column">
             <header class="column-header">
               <h2>In progress</h2>
               <button type="button">+</button>
             </header>
-            <div class="task-list"></div>
+            <div
+              class="task-list"
+              data-status="inProgress"
+              data-empty-text="No tasks in progress"
+            ></div>
           </section>
           <section class="board-column">
             <header class="column-header">
               <h2>Await feedback</h2>
               <button type="button">+</button>
             </header>
-            <div class="task-list"></div>
+            <div
+              class="task-list"
+              data-status="awaitFeedback"
+              data-empty-text="No tasks awaiting feedback"
+            ></div>
           </section>
           <section class="board-column">
             <header class="column-header">
               <h2>Done</h2>
               <button type="button">+</button>
             </header>
-            <div class="task-list"></div>
+            <div
+              class="task-list"
+              data-status="done"
+              data-empty-text="No tasks done"
+            ></div>
           </section>
         </div>
       </main>
     </div>
 
     <script src="../script.js"></script>
+    <script src="../scripts/board.js"></script>
   </body>
 </html>
