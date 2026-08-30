@@ -17,6 +17,8 @@ let password = document.getElementById('password');
 let confirmPassword = document.getElementById('confirm-password');
 password.addEventListener("input", comparePassword);
 confirmPassword.addEventListener("input", comparePassword);
+password.addEventListener("input", resetPasswordIconIfEmpty);
+
 
 async function registerUser() {
   let name = document.getElementById('name');
@@ -35,13 +37,25 @@ function comparePassword() {
 
 function toggleShowPassword() {
   let toggleIcon = document.getElementById('password-toggle-icon');
+  if (password.value === "") {
+    return;
+  }
   if (password.type === "password") {
     password.type = "text";
-    toggleIcon.src ="../assets/icons/toggleicon.svg"
-  } else{
+    toggleIcon.src = "../assets/icons/visibility.svg"
+  } else {
     password.type = "password"
-    toggleIcon.src ="../assets/icons/lock.svg"
+    toggleIcon.src = "../assets/icons/visibility_off.svg"
   }
 }
+
+function resetPasswordIconIfEmpty() {
+  let toggleIcon = document.getElementById('password-toggle-icon');
+  if (password.value === "") {
+    password.type = "password";
+    toggleIcon.src = "../assets/icons/lock.svg"
+  }
+}
+
 
 // pricavy policity have to checked before sending the form
