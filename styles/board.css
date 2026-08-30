@@ -5,16 +5,84 @@
 .board-container {
   flex: 1;
   min-width: 0;
+  padding: 0 64px;
+  padding-top: 72px;
+}
+
+.board-search {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid var(--search-bar-outline-color);
+  width: 312px;
+  height: 51px;
+  padding: 16px;
+  align-items: center;
+}
+
+.board-search input {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  flex: 1;
+}
+
+.search-button {
+  height: 32px;
+  width: 32px;
+}
+
+.add-task-button {
+  background-color: var(--primary-color);
+  color: white;
+  height: 51px;
+  border-radius: 10px;
+  border: none;
+  font-size: 23px;
+  padding: 0 16px;
 }
 
 .board-toolbar {
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-bottom: 48px;
 }
 
 .board-columns {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.column-header h2 {
+  font-size: 23px;
+  color: var(--menu-color);
+}
+
+.column-header button {
+  height: 24px;
+  width: 24px;
+  border-radius: 8px;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  background: none;
+  font-size: 16px;
+}
+
+.empty-task-list {
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #e7e7e7;
+  color: var(--no-todo-color);
+  border: 1px dashed var(--search-bar-outline-color);
 }
