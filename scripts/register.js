@@ -5,25 +5,30 @@ backToLogin.addEventListener("click", () => {
   window.location.href = "../index.html"
 });
 
-// function getUserData() {
-//   let name = document.getElementById('name').value;
-//   let email = document.getElementById('email').value;
-//   let password = document.getElementById('password').value;
-//   let confirmPassword = document.getElementById('confirm-password').value;
-//   let userData = createUserObject(name, email, password);
-//   return userData;
-// }
+let registerForm = document.getElementById('registerForm');
+registerForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  registerUser();
+});
 
-// function createUserObject(name, email, password) {
-//   let userObject = {
-//     "name": name,
-//     "email":email,
-//     "password": password
-//   };
-//   return userObject;
-// }
+let name = document.getElementById('name');
+let email = document.getElementById('email');
+let password = document.getElementById('password');
+let confirmPassword = document.getElementById('confirm-password');
+password.addEventListener("input", comparePassword);
+confirmPassword.addEventListener("input", comparePassword);
 
-// user Objekt erstellen
+async function registerUser() {
+  let name = document.getElementById('name');
+  let response = await postData('users', { name: name.value, email: email.value, password: password.value });
+  allUsers.push({ id: response.name, name: name.value, email: email.value, password: password.value });
+  registerForm.reset();
+}
 
-// wie würde ich es machen 
-  // ich würde die Daten in das Array pushen und dann in der Firebase speichern
+function comparePassword() {
+  if (password.value !== confirmPassword.value) {
+    confirmPassword.setCustomValidity("Passwords do not match");
+  } else {
+    confirmPassword.setCustomValidity("");
+  }
+}
