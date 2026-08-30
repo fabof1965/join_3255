@@ -54,3 +54,11 @@
   gap: 20px;
   width: 240px;
 }
+
+.lock-img{
+  cursor: pointer;
+}
+
+.checkbox{
+  cursor: pointer;
+}
