@@ -29,7 +29,7 @@
         <form id="registerForm" class="sign-up-form">
             <div class="sign-up-header-wrapper">
                 <div>
-                    <button type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
+                    <button onclick="backtoLogin()" type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
                             alt="arrow-left"></button>
                 </div>
                 <div class="sign-up-heading-container">
@@ -47,22 +47,22 @@
                 <div class="register-input-container"><input class="input-field" type="password" id="password" required
                         placeholder="Password">
                     <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img"
-                        src="../assets/icons/lock.svg" alt="show password">
+                        src="../assets/icons/lock.svg" alt="lock-img">
                 </div>
 
                 <div class="register-input-container"><input class="input-field" type="password" id="confirm-password"
-                        required placeholder="Confirm Password"><img class="lock-img" src="../assets/icons/lock.svg"
+                        required placeholder="Confirm Password"><img src="../assets/icons/lock.svg"
                         alt="lock logo">
                 </div>
             </div>
 
             <div class="checkbox-container">
-                <input type="checkbox" id="checkbox">
+                <input class="checkbox" type="checkbox" id="checkbox">
                 <p>I accept the <a class="privacy-policity-link" href="#">Privacy policity</a></p>
             </div>
 
             <div class="sign-up-button-container">
-                <button type="submit" class="btn auth-btn">Sign-up</button>
+                <button onclick="registerUser(event)" type="submit" class="btn auth-btn">Sign-up</button>
             </div>
         </form>
     </main>
