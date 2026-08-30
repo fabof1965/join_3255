@@ -24,3 +24,7 @@ const sidebarTemplate = `
       </div>
     </aside>
   `;
+
+const headerTemplate = `
+
+`;
