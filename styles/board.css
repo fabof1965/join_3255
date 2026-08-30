@@ -29,6 +29,9 @@
 .search-button {
   height: 32px;
   width: 32px;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .add-task-button {
@@ -98,9 +101,25 @@
 }
 
 .task-list {
+  min-height: max(80px, calc(100vh - 310px));
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border-radius: 24px;
+  transition: background-color 100ms ease;
+}
+
+.task-list-dragover {
+  background-color: var(--secondary-color);
+}
+
+.task-card-drop-before {
+  box-shadow: 0 -4px 0 var(--primary-color);
+}
+.task-list-drop-end::after {
+  content: "";
+  height: 4px;
+  background-color: var(--primary-color);
 }
 
 .task-card {
@@ -112,6 +131,12 @@
   background-color: var(--white-color);
   border-radius: 24px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.14);
+  cursor: grab;
+}
+
+.task-card-dragging {
+  opacity: 0.5;
+  cursor: grabbing;
 }
 
 .task-category {
@@ -190,6 +215,14 @@
   border-radius: 50%;
 }
 
+.user-badge:nth-child(2) {
+  background-color: #6e52ff;
+}
+
+.user-badge:nth-child(3) {
+  background-color: #ff3d8d;
+}
+
 .user-badge + .user-badge {
   margin-left: -8px;
 }
@@ -203,4 +236,165 @@
 
 .task-priority-low {
   color: var(--green-color);
+}
+
+.task-priority-medium {
+  color: var(--medium-task-color);
+}
+
+.task-priority-urgent {
+  color: var(--red-color);
+}
+
+.task-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.task-overlay-backdrop[hidden] {
+  display: none;
+}
+.task-overlay {
+  width: min(528px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
+  background-color: var(--white-color);
+  border-radius: 30px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+}
+.task-overlay-header,
+.task-overlay-row,
+.task-overlay-user,
+.task-overlay-subtask,
+.task-overlay-actions {
+  display: flex;
+  align-items: center;
+}
+.task-overlay-header {
+  justify-content: space-between;
+}
+.task-overlay-category {
+  padding: 4px 24px;
+  color: var(--white-color);
+  border-radius: 8px;
+  font-size: 23px;
+}
+.task-overlay-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.task-overlay-close img,
+.task-overlay-actions img {
+  width: 24px;
+  height: 24px;
+}
+.task-overlay h2 {
+  color: var(--black-color);
+  font-size: 61px;
+  line-height: 1.2;
+}
+.task-overlay-description,
+.task-overlay-row,
+.task-overlay-user {
+  color: var(--black-color);
+  font-size: 19px;
+}
+.task-overlay-row {
+  gap: 25px;
+}
+.task-overlay-row strong,
+.task-overlay-section h3 {
+  color: var(--menu-color);
+  font-size: 21px;
+}
+.task-overlay-priority {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-overlay-priority img {
+  width: 17px;
+  height: 12px;
+}
+.task-overlay-section,
+.task-overlay-users,
+.task-overlay-subtasks {
+  display: flex;
+  flex-direction: column;
+}
+.task-overlay-section {
+  gap: 8px;
+}
+.task-overlay-users,
+.task-overlay-subtasks {
+  gap: 4px;
+}
+.task-overlay-user {
+  gap: 16px;
+  padding: 7px 16px;
+}
+.task-overlay-user-badge {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-color);
+  background-color: #00bee8;
+  border-radius: 50%;
+}
+.task-overlay-user:nth-child(2) .task-overlay-user-badge {
+  background-color: #6e52ff;
+}
+.task-overlay-subtask {
+  gap: 16px;
+  height: 32px;
+  padding: 6px 16px;
+}
+.task-overlay-subtask img {
+  width: 24px;
+  height: 24px;
+}
+.task-overlay-section-hidden {
+  display: none;
+}
+
+.task-overlay-actions {
+  align-self: flex-end;
+  gap: 8px;
+}
+
+.task-overlay-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  color: var(--greeting-text-color);
+  background: none;
+  font-size: 16px;
+}
+
+.task-overlay-actions > span {
+  width: 1px;
+  height: 24px;
+  background-color: var(--search-bar-outline-color);
+}
+
+.overlay-open {
+  overflow: hidden;
 }
