@@ -26,5 +26,20 @@ const sidebarTemplate = `
   `;
 
 const headerTemplate = `
-
+  <header class="header">
+      <div class="header-left">
+        <button class="header-icon-button" type="button" aria-label="Header Logo">
+          <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
+        </button>
+      </div>
+      <div class="header-right">
+        <span>Kanban Project Management Tool</span>
+        <button class="header-icon-button" type="button" aria-label="Open help">
+          <img class="help-icon" src="../assets/icons/help.svg" alt="" />
+        </button>
+        <button class="header-icon-button" type="button" aria-label="Open user profile">
+          <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
+        </button>
+      </div>
+    </header>
 `;

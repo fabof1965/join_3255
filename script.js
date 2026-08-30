@@ -19,4 +19,15 @@ function renderSidebar() {
   sidebarContainer.innerHTML = sidebarTemplate;
 }
 
+function renderHeader() {
+  const headerContainer = document.getElementById("header");
+
+  if (!headerContainer) {
+    return;
+  }
+
+  headerContainer.innerHTML = headerTemplate;
+}
+
 renderSidebar();
+renderHeader();
