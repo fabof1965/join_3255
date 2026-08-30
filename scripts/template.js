@@ -9,7 +9,7 @@ const sidebarTemplate = `
           <img src="../assets/icons/add_task.svg" alt="" />
           <span>Add Task</span>
         </a>
-        <a href="">
+        <a href="../pages/board.html">
           <img src="../assets/icons/board.svg" alt="" />
           <span>Board</span>
         </a>
