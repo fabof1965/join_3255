@@ -32,3 +32,16 @@ function comparePassword() {
     confirmPassword.setCustomValidity("");
   }
 }
+
+function toggleShowPassword() {
+  let toggleIcon = document.getElementById('password-toggle-icon');
+  if (password.type === "password") {
+    password.type = "text";
+    toggleIcon.src ="../assets/icons/toggleicon.svg"
+  } else{
+    password.type = "password"
+    toggleIcon.src ="../assets/icons/lock.svg"
+  }
+}
+
+// pricavy policity have to checked before sending the form

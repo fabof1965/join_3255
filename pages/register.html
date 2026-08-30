@@ -40,12 +40,19 @@
             <div class="register-input-container-wrapper">
                 <div class="register-input-container"><input class="input-field" type="name" id="name"
                         placeholder="Name" required><img src="../assets/icons/person.svg" alt="person logo"></div>
+
                 <div class="register-input-container"><input class="input-field" type="email" id="email"
                         placeholder="Email"><img src="../assets/icons/mail.svg" alt="mail logo"></div>
+
                 <div class="register-input-container"><input class="input-field" type="password" id="password" required
-                        placeholder="Password"><img src="../assets/icons/lock.svg" alt="lock logo"></div>
+                        placeholder="Password">
+                    <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img"
+                        src="../assets/icons/lock.svg" alt="show password">
+                </div>
+
                 <div class="register-input-container"><input class="input-field" type="password" id="confirm-password"
-                        required placeholder="Confirm Password"><img src="../assets/icons/lock.svg" alt="lock logo">
+                        required placeholder="Confirm Password"><img class="lock-img" src="../assets/icons/lock.svg"
+                        alt="lock logo">
                 </div>
             </div>
 
