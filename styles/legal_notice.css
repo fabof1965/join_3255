@@ -1,0 +1,41 @@
+@import "./privacy_policy.css";
+
+.legal-notice-page .legal-notice-link {
+  width: 112px;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-weight: 700;
+}
+
+.imprint-section {
+  gap: 16px !important;
+}
+
+.imprint-section h2 {
+  color: var(--primary-color);
+}
+
+.legal-notice-page .legal-sections {
+  gap: 24px;
+}
+
+.legal-notice-page .legal-sections h3 {
+  font-size: 19px;
+}
+
+.legal-notice-page .legal-sections p + p {
+  margin-top: 8px;
+}
+
+.legal-notice-page .legal-sections p span,
+.legal-notice-page .legal-sections a {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .imprint-section h2 {
+    font-size: 23px;
+  }
+}

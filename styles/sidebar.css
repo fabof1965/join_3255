@@ -38,10 +38,22 @@
   justify-content: center;
   border-radius: 15px;
   padding: 5px 0;
+  transition: background-color 100ms ease, color 100ms ease;
 }
 
 .sidebar-navigation a:hover {
   background-color: var(--secondary-color);
+}
+
+.sidebar a.active,
+.sidebar a.active:hover {
+  background-color: var(--active-menu-color);
+  color: var(--white-color);
+  font-weight: 700;
+}
+
+.sidebar-navigation a.active img {
+  filter: brightness(0) invert(1);
 }
 
 .sidebar-navigation a img {

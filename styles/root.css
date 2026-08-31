@@ -1,5 +1,6 @@
 :root {
     --primary-color: #1268FF;
+    --active-menu-color: #4589FF;
     --secondary-color: #D2E3FF;
     --menu-color: #42526E;
     --menu-hover-color: var(--secondary-color);

@@ -21,6 +21,21 @@ function renderSidebar() {
   }
 
   sidebarContainer.innerHTML = sidebarTemplate;
+  markActiveSidebarLink();
+}
+
+/**
+ * Marks the sidebar link that belongs to the current page.
+ * @returns {void}
+ */
+function markActiveSidebarLink() {
+  const currentPath = window.location.pathname;
+  const sidebarLinks = document.querySelectorAll('.sidebar a[href]:not([href=""])');
+
+  sidebarLinks.forEach((link) => {
+    const linkPath = new URL(link.href).pathname;
+    link.classList.toggle("active", linkPath === currentPath);
+  });
 }
 
 /**

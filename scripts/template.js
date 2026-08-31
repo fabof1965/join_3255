@@ -19,8 +19,8 @@ const sidebarTemplate = `
         </a>
       </nav>
       <div class="sidebar-footer">
-        <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="#">Legal Notice</a>
+        <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
+        <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
       </div>
     </aside>
   `;
