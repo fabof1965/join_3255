@@ -3,14 +3,9 @@
 @import "./standart.css";
 
 * {
-<<<<<<< HEAD
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-=======
-  margin: 0;
-  padding: 0;
->>>>>>> 3d21b55dca97d897cfeddcbdf8196af2bc1b3429
 }
 
 /* 1. Body linksbündig ausrichten */
@@ -27,31 +22,6 @@ body {
 
 /* 2. Hauptlayout haftet fest am linken Rand (kein zentrieren durch auto) */
 .main-layout {
-<<<<<<< HEAD
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    max-width: 1440px;
-    max-height: 1024px;
-    margin: 0; /* Wichtig: Verhindert das Zentrieren nach rechts */
-    background-color: var(--white-color, #ffffff);
-    box-shadow: none;
-    overflow: hidden;
-    position: relative;
-
-    .sidebar-frame {
-        border: none;
-        width: 232px;
-        height: 100%;
-        flex-shrink: 0;
-
-        @media (max-width: 768px) {
-            width: 100% !important;
-            height: auto !important;
-            min-height: unset !important;
-            max-height: none !important;
-            order: 2 !important;
-=======
   display: flex;
   width: 100%;
   min-height: 100vh;
@@ -227,7 +197,6 @@ body {
           flex-direction: column;
           align-items: center;
           gap: 24px;
->>>>>>> 3d21b55dca97d897cfeddcbdf8196af2bc1b3429
         }
 
         .card-divider {
@@ -468,9 +437,4 @@ body {
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-} 
-*/
->>>>>>> 3d21b55dca97d897cfeddcbdf8196af2bc1b3429
