@@ -36,7 +36,8 @@ body {
 .main-layout {
     display: flex;
     width: 100%;
-    min-height: 100dvh;
+    height: calc(100dvh - 96px);
+    min-height: 0;
     /* Mobile Anpassung: Layout von nebeneinander auf untereinander umschalten */
     @media (max-width: 768px) {
         flex-direction: column;
@@ -89,4 +90,3 @@ während der eigentliche Inhalt aufgeräumt und zentriert an seinem Platz bleibt
     
     }
 }
-

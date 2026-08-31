@@ -1,13 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy</title>
-</head>
-<body>
-    <div class="main-container">
-
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../styles/standart.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/privacy_policy.css" />
+    <script src="../scripts/template.js"></script>
+  </head>
+  <body class="legal-page privacy-policy-page">
+    <div id="header"></div>
+    <div class="main-layout">
+      <div id="sidebar"></div>
+      <main class="legal-content-wrapper">
+        <div class="legal-content">
+          <div class="legal-title-row">
+            <h1>Privacy Policy</h1>
+            <button class="legal-back-button" type="button" aria-label="Go back">
+              <img src="../assets/icons/arrow-left-line.png" alt="" />
+            </button>
+          </div>
+          <div class="legal-sections">
+            <section><h2>General information</h2><p>This privacy policy explains how personal data is handled when you use Join, an educational Kanban project created by Saeed Ghorbani, Jan-Simon Boecker, Cem Eren Ölmez and Fabian Gerdes.</p></section>
+            <section><h2>Responsible contact</h2><p>Join project team<br />c/o Developer Akademie GmbH<br />Tassiloplatz 25<br />81541 Munich, Germany<br />Email: <a href="mailto:cemerenswe@gmail.com">cemerenswe@gmail.com</a></p></section>
+            <section><h2>Data processed by Join</h2><p>Depending on the functions you use, Join may process names, email addresses, login information, contacts, tasks, descriptions, due dates, priorities, assignments and subtasks. Technical connection data such as an IP address may also be processed when online services are requested.</p></section>
+            <section><h2>Purpose and legal basis</h2><p>Data is processed to provide the login, contact and task-management features of Join. Processing is based on your request to use these features and, where required, your consent. Join is a training project and is not intended for storing sensitive or confidential information.</p></section>
+            <section><h2>Firebase Realtime Database</h2><p>Join uses Firebase Realtime Database, a service provided by Google, to make shared application data available. The configured database region is europe-west1 in Belgium. Google may process service and connection data under its applicable privacy and data-processing terms.</p></section>
+            <section><h2>Local storage</h2><p>Join may store login or application information in your browser's local storage. This data remains on your device until it is removed by the application, by you through the browser settings or when the browser storage is cleared.</p></section>
+            <section><h2>Storage period and deletion</h2><p>Personal data is kept only for as long as it is needed for the educational project or until deletion is requested. Browser data can be removed through your browser settings. For deletion of data stored by the project, contact us using the email address above.</p></section>
+            <section><h2>Your rights</h2><p>Subject to applicable law, you may request access, correction, deletion, restriction or portability of your personal data and object to its processing. You may also withdraw consent for future processing and lodge a complaint with a competent data-protection authority.</p></section>
+            <section><h2>Changes to this policy</h2><p>We may update this privacy policy when Join's functions or services change. The current version is dated August 31, 2026.</p></section>
+          </div>
+        </div>
+      </main>
     </div>
-</body>
+    <nav class="mobile-navigation" aria-label="Main navigation">
+      <a href="./summary.html"><img src="../assets/icons/summary.svg" alt="" /><span>Summary</span></a>
+      <a href="./board.html"><img src="../assets/icons/add_task.svg" alt="" /><span>Add Task</span></a>
+      <a href="./board.html"><img src="../assets/icons/board.svg" alt="" /><span>Board</span></a>
+      <a href="#"><img src="../assets/icons/contacts.svg" alt="" /><span>Contacts</span></a>
+    </nav>
+    <script src="../script.js"></script>
+    <script src="../scripts/privacyPolicy.js"></script>
+  </body>
 </html>
