@@ -1,12 +1,24 @@
-.content-wrapper{
-    max-width: 1440px;
-    margin: auto;
+.btn {
+  outline: none;
+  border: none;
+  background: none;
 }
 
-.btn{
-    outline: none;
-    border: none;
-    background: none;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.headline-underline {
+  width: 150px;
+  border: 2px solid #4589ff;
 }
 
 .auth-btn {
@@ -22,3 +34,31 @@
   background-color: #4589ff;
 }
 
+.input-field {
+  width: 350px;
+  border: none;
+  padding-right: 32px;
+  box-sizing: border-box;
+  font-size: 19px;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.legal-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 240px;
+}
+
+.lock-img{
+  cursor: pointer;
+}
+
+.checkbox{
+  cursor: pointer;
+}

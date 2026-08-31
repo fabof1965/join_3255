@@ -1,0 +1,45 @@
+.header {
+  height: 96px;
+  background-color: var(--primary-color);
+  padding: 0 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left img {
+  height: 56px;
+}
+
+.header-right {
+  color: white;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.header-icon-button {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.header-icon-button img {
+  display: block;
+}
+
+.help-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.profile-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}

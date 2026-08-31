@@ -1,5 +1,6 @@
 :root {
     --primary-color: #1268FF;
+    --active-menu-color: #4589FF;
     --secondary-color: #D2E3FF;
     --menu-color: #42526E;
     --menu-hover-color: var(--secondary-color);
@@ -9,8 +10,8 @@
     --white-color: #FFFFFF;
     --medium-task-color: #FFA800;
     --user-story-color: #FF7A00;
+    --technical-task-color: #0038FF;
     --search-bar-outline-color: #686868;
     --no-todo-color: var(--search-bar-outline-color);
     --greeting-text-color:#2A3647;
-
 }
