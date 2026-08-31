@@ -77,7 +77,7 @@ const taskOverlayTemplate = `
     <header class="task-overlay-header">
       <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
       <button class="task-overlay-close" type="button" aria-label="Close task details">
-        <img src="../assets/icons/close-task-overlay.png" alt="" />
+        <img src="../assets/icons/close-task-overlay.svg" alt="" />
       </button>
     </header>
     <h2 id="task-overlay-title">{{title}}</h2>
@@ -124,7 +124,7 @@ const addTaskTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
     <header class="add-task-header">
       <h2 id="add-task-title">Add Task</h2>
-      <button class="add-task-close" type="button" aria-label="Close add task"><img src="../assets/icons/close-task-overlay.png" alt="" /></button>
+      <button class="add-task-close" type="button" aria-label="Close add task"><img src="../assets/icons/close-task-overlay.svg" alt="" /></button>
     </header>
     <form id="add-task-form" class="add-task-form" novalidate>
       <label class="add-task-field add-task-title-field">
