@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/standart.css">
+    <link rel="stylesheet" href="../styles/signup.css">
+    <link rel="stylesheet" href="../styles/root.css">
+    <link rel="stylesheet" href="../styles/typography.css">
+
+    <script src="../script.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/signup.js" defer></script>
+</head>
+
+<body class="sign-up-body">
+    <header class="sign-up-header">
+        <div class="sign-up-page-header-wrapper">
+            <img src="../assets/img/join-logo-white.png" alt="join logo white">
+        </div>
+    </header>
+
+    <main class="sign-up-body">
+
+        <form id="signUpForm" class="sign-up-form">
+            <div class="sign-up-header-wrapper">
+                <div>
+                    <button onclick="backtoLogin()" type="button" id="arrow-back" class="btn"><img src="../assets/icons/arrow-left-line.png"
+                            alt="arrow-left"></button>
+                </div>
+                <div class="sign-up-heading-container">
+                    <h1 class="sign-up-heading">Sign up</h1>
+                    <hr class="headline-underline" />
+                </div>
+            </div>
+            <div class="sign-up-input-container-wrapper">
+                <div class="sign-up-input-container"><input class="input-field" type="name" id="name"
+                        placeholder="Name" required><img src="../assets/icons/person.svg" alt="person logo"></div>
+
+                <div class="sign-up-input-container"><input class="input-field" type="email" id="email"
+                        placeholder="Email"><img src="../assets/icons/mail.svg" alt="mail logo"></div>
+
+                <div class="sign-up-input-container"><input class="input-field" type="password" id="password" required
+                        placeholder="Password">
+                    <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img"
+                        src="../assets/icons/lock.svg" alt="lock-img">
+                </div>
+
+                <div class="sign-up-input-container"><input class="input-field" type="password" id="confirm-password"
+                        required placeholder="Confirm Password"><img src="../assets/icons/lock.svg"
+                        alt="lock logo">
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <input class="checkbox" type="checkbox" id="checkbox">
+                <p>I accept the <a class="privacy-policity-link" href="#">Privacy policity</a></p>
+            </div>
+
+            <div class="sign-up-button-container">
+                <button onclick="registerUser(event)" type="submit" class="btn auth-btn">Sign-up</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="sign-up-footer">
+        <div class="legal-wrapper">
+            <a class="legal-link-sign-up" href="#">Privacy Policy</a>
+            <a class="legal-link-sign-up" href="#">Legal Notice</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
