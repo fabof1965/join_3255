@@ -16,7 +16,7 @@ function logInGuestUser() {
 
 let signUp = document.getElementById('sign-up-btn');
 signUp.addEventListener("click", () => {
-    window.location.href = "../pages/signup.html"
+    window.location.href = "./pages/signup.html"
 });
 
 function userLogin(event) {
