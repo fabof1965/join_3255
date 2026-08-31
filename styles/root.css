@@ -10,6 +10,7 @@
     --white-color: #FFFFFF;
     --medium-task-color: #FFA800;
     --user-story-color: #FF7A00;
+    --contact-seperator-color: #686868;
     --technical-task-color: #0038FF;
     --search-bar-outline-color: #686868;
     --no-todo-color: var(--search-bar-outline-color);
