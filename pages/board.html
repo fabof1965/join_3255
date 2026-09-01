@@ -11,12 +11,15 @@
     />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/root.css" />
-    <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/add-task.css" />
-    <script src="../scripts/template.js"></script>
+    <script src="../scripts/template.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/add-task.js" defer></script>
+    <script src="../scripts/board-overlay.js" defer></script>
   </head>
   <body>
     <header id="header"></header>
@@ -92,9 +95,5 @@
     <div id="task-overlay" class="task-overlay-backdrop" hidden></div>
     <div id="add-task-overlay" class="add-task-backdrop" hidden></div>
 
-    <script src="../script.js"></script>
-    <script src="../scripts/board.js"></script>
-    <script src="../scripts/add-task.js"></script>
-    <script src="../scripts/board-overlay.js"></script>
   </body>
 </html>

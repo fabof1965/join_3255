@@ -9,11 +9,11 @@
       href="../assets/icons/logo-blue.svg"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/summary.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
     <link rel="stylesheet" href="../styles/header.css" />
-    <script src="../scripts/template.js"></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/template.js" defer></script>
     <script src="../scripts/summary.js" defer></script>
   </head>
 
@@ -25,7 +25,8 @@
         <div class="summary-container">
           <div class="greeting">
             <span class="greeting-text">Good morning,</span>
-            <span class="username" id="username">Sofia Müller</span>
+            <!-- dynamic username rendering -->
+            <span class="username" id="username">Sofia Müller</span> 
           </div>
 
           <div class="summary-row">
@@ -100,6 +101,5 @@
         </div>
       </div>
     </div>
-    <script src="../script.js"></script>
   </body>
 </html>
