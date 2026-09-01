@@ -148,3 +148,35 @@
     font-size: 16px;
     color: var(--primary-color);
 }
+
+/* dialog */
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+    margin: auto; 
+    padding: 0;
+    border: none;
+}
+
+#dialog-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--primary-color);
+}
+
+.dialog-header-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-dialog-button {
+    background-color: transparent;
+    border: none;
+    margin-left: auto;
+}
+
+.logo-header {
+    /* margin-left: auto; */
+    width: 60px;
+}

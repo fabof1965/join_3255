@@ -27,3 +27,15 @@ function loadContact() {
 function showContact() {
 
 }
+
+function openContactDialog() {
+    const contactDialog = document.getElementById("contact-dialog");
+
+    contactDialog.showModal();
+}
+
+function closeContactDialog() {
+    const contactDialog = document.getElementById("contact-dialog");
+
+    contactDialog.close();
+}

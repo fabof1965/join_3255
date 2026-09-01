@@ -21,7 +21,7 @@
     <main class="contacts-main">
         <div id="sidebar"></div>
          <section class="contacts-section">
-            <button class="btn-new-contact" onclick="addNewContact()">
+            <button class="btn-new-contact" onclick="openContactDialog()">
                 Add new contact
                 <img src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
@@ -54,7 +54,7 @@
                     <div class="name-edit-delete">
                         <h2 class="name large-text">Anton Mayer</h2>
                         <div class="edit-delete">
-                            <button class="edit">
+                            <button class="edit" onclick="openContactDialog()">
                                 <img src="../assets/icons/edit.svg" alt="Edit contact">
                                     Edit
                             </button>
@@ -78,7 +78,6 @@
                         <span>+49 1111 111 11 1</span>
                     </section>
                 </main>
-
              </div>
          </section>
     </main>
@@ -86,5 +85,29 @@
     <footer>
 
     </footer>
+
+    <dialog id="contact-dialog">
+        <header id="dialog-header">
+            <button class="close-dialog-button" onclick="closeContactDialog()">
+                <img class="close-dialog-img" src="../assets/icons/close-task-overlay.svg" alt="Close icon">
+            </button>
+            <div class="dialog-header-content">
+                <img class="logo-header" src="../assets/icons/logo-white.svg" alt="Join Logo white">
+                <h2 id="dialog-headline">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit, accusantium. Rem alias exercitationem at delectus omnis aspernatur sunt quos provident impedit facere nam asperiores, sed dignissimos porro natus dolorem! Quia.
+                </h2>
+                <span id="dialog-subheading">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum quo voluptatibus modi officiis nihil possimus, labore veniam! Dolore, saepe. Iusto numquam eligendi porro voluptate facilis quibusdam voluptatem mollitia impedit eveniet!
+                </span>
+            </div>
+        </header>
+        <main id="dialogMain">
+            
+        </main>
+        <footer id="dialogFooter">
+
+        </footer>
+    </dialog>
+
 </body>
 </html>
