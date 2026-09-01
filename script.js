@@ -1,6 +1,3 @@
-const BASE_URL =
-  "https://join-3255-default-rtdb.europe-west1.firebasedatabase.app/";
-
 let backToLogin = document.getElementById("arrow-back");
 
 if (backToLogin) {

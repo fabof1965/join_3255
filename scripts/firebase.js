@@ -1,3 +1,5 @@
+const BASE_URL = "https://join-3255-default-rtdb.europe-west1.firebasedatabase.app/";
+
 /**
  * Retrieves data from a Firebase path.
  * @param {string} path - Relative database path.
