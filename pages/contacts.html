@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon">
+    <script src="../scripts/template.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+</head>
+<body onload="loopThroughAlphabet()">
+    <div id="header"></div>
+
+    <main class="contacts-main">
+        <div id="sidebar"></div>
+         <section class="contacts-section">
+            <button class="btn-new-contact" onclick="addNewContact()">
+                Add new contact
+                <img src="../assets/icons/new_contact.svg" alt="new contact">
+            </button>
+            <div id="contacts">
+                <!-- content should be generated and not be written by hand -->
+                <div class="letter">
+                    A
+                </div>
+                
+                <div class="seperator"></div>
+
+                <div class="contact">
+                    <div class="profile-badge">
+                        AM
+                    </div>
+                    <div class="name-and-mail">
+                        <span class="name">Anton Mayer</span>
+                        <span class="mail">antom@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+         </section>
+         <section class="contact-details">
+            <!-- this should be generated if clicked onto a contact -->
+             <div class="detailed-contact">
+                <header class="detail-header">
+                    <div class="profile-badge-large large-text">
+                        AM
+                    </div>
+                    <div class="name-edit-delete">
+                        <h2 class="name large-text">Anton Mayer</h2>
+                        <div class="edit-delete">
+                            <button class="edit">
+                                <img src="../assets/icons/edit.svg" alt="Edit contact">
+                                    Edit
+                            </button>
+                            <button class="delete">
+                                <img src="../assets/icons/delete.svg" alt="Delete contact">
+                                    Delete
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <main class="contact-information">
+                    <h3 class="info-headline">
+                        Contact Information
+                    </h3>
+                    <section class="email">
+                        <h4>E-Mail</h4>
+                        <span class="email-text">antom@gmail.com</span>
+                    </section>
+                    <section class="phone">
+                        <h4>Phone</h4>
+                        <span>+49 1111 111 11 1</span>
+                    </section>
+                </main>
+
+             </div>
+         </section>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>

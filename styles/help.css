@@ -1,7 +1,7 @@
 
 @import "./root.css";
 @import "./typography.css";
-@import "./standart.css";
+@import "./standard.css";
 
 
 body {
@@ -57,7 +57,6 @@ body {
             .help-title {
                 font-size: 61px;
                 font-weight: 700;
-                color: var(--black-color, #000);
                 line-height: 1.2;
                 margin: 0;
             }

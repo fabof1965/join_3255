@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 4px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--addTaskBackdrop-color);
 }
 
 .add-task-backdrop[hidden] {
@@ -20,7 +20,7 @@
   padding: 24px 40px;
   background-color: var(--white-color);
   border-radius: 30px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--addTaskBoxShadow);
 }
 
 .add-task-header {
@@ -128,7 +128,7 @@
   border: none;
   border-radius: 10px;
   background-color: var(--white-color);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--addTaskBoxShadow);
   font-size: 19px;
   cursor: pointer;
   transition: transform 100ms ease;
@@ -149,7 +149,7 @@
 }
 
 .add-task-priority [data-priority="low"].selected {
-  background-color: #7ae229;
+  background-color: var(--low-task-color);
   color: var(--black-color);
 }
 

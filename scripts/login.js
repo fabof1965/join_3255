@@ -3,15 +3,12 @@ let testUser = JSON.parse(localStorage.getItem('testUser')) || [
 ];
 
 function logInGuestUser() {
-    const GUEST_USER = { // guest user object
+    const GUEST_USER = {
         email: "guestuser@mail.de",
         password: "guestpassword"
     };
     sessionStorage.setItem(JSON.stringify, GUEST_USER);
     window.location.href = './pages/summary_guest.html';
-
-    // sessionStorage
-    // wohin soll die reise gehen
 }
 
 let signUp = document.getElementById('sign-up-btn');

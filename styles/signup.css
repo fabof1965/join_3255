@@ -1,24 +1,21 @@
 .sign-up-header {
+    padding-top: 40px;
     width: 100%;
     max-width: 1440px;
     margin: auto;
-    font-weight: 700 !important;
 }
 
 .sign-up-body {
     background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100vh;
-    padding: 40px 0;
 }
 
 .sign-up-main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     flex: 1;
     margin-top: 80px;
@@ -65,34 +62,41 @@
     display: flex;
     align-items: center;
     border-bottom: 2px solid var(--search-bar-outline-color);
-    justify-content: center; 
+    justify-content: center;
 }
 
-.sign-up-input-container:nth-child(2){
+.sign-up-input-container:nth-child(2) {
     margin-top: 30px;
 }
 
-.sign-up-input-container:nth-child(3){
+.sign-up-input-container:nth-child(3) {
     margin-top: 30px;
 }
 
-.sign-up-input-container:nth-child(4){
+.sign-up-input-container:nth-child(4) {
     margin-top: 30px;
 }
 
-.checkbox-container{
+.checkbox-container {
     display: flex;
     width: 100%;
     justify-content: center;
     margin-bottom: 17px;
 }
 
-.privacy-policity-link{
-    color: #005DFF;
+.sign-up-footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.privacy-policity-link {
+    color: var(--primary-color);
     text-decoration: none;
 }
 
-.sign-up-button-container{
+.sign-up-button-container {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -101,4 +105,8 @@
 .legal-link-sign-up {
     color: var(--white-color);
     text-decoration: none;
+}
+
+.sign-up-footer{
+    padding-bottom: 40px;
 }

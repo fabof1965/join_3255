@@ -12,7 +12,7 @@
 }
 
 .header-right {
-  color: white;
+  color: var(--white-color);
   align-items: center;
   display: flex;
   gap: 8px;
