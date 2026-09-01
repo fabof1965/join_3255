@@ -1,4 +1,5 @@
 :root {
+    /* Color-Values */
     --primary-color: #1268FF;
     --active-menu-color: #4589FF;
     --secondary-color: #D2E3FF;
@@ -8,11 +9,29 @@
     --red-color: #FF0000;
     --green-color: #00FF00;
     --white-color: #FFFFFF;
+    --guest-login-button-text-color: #647188;
+    --guest-login-button-border: 2px solid var(--guest-login-button-text-color); 
+    --low-task-color: #7AE229;
     --medium-task-color: #FFA800;
     --user-story-color: #FF7A00;
     --contact-seperator-color: #686868;
     --technical-task-color: #0038FF;
+    --empty-task-background-color: #E7E7E7;
+    --user-badge-background-color: var(--user-story-color);
+    --second-user-badge-background-color: #6E52FF;
+    --third-user-badge-background-color: #FF3D8D;
+    --progress-track-background-color: #F4F4F4;
     --search-bar-outline-color: #686868;
     --no-todo-color: var(--search-bar-outline-color);
     --greeting-text-color:#2A3647;
+    --addTaskBackdrop-color: rgba(0, 0, 0, 0.3);
+    
+    /* shadows and other visual elements */
+    --login-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
+    --addTaskBoxShadow: 0 0 4px rgba(0, 0, 0, 0.32);
+    --task-card-box-shadow: 0 0 5px rgba(0, 0, 0, 0.14);
+    --user-badge-border: 2px solid var(--white-color);
+    --privacy-policy-box-shadow-mobile: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    --sidebar-box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
 }

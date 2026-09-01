@@ -47,14 +47,14 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--login-box-shadow);
   width: 652px;
   height: 448px;
   padding: 0 48px;
   margin-top: 16px;
-  background-color: white;
+  background-color: var(--white-color);
   border-radius: 16px;
-  color: black;
+  color: var(--black-color);
 }
 
 .log-in-form {
@@ -85,7 +85,7 @@
 .input-wrapper {
   display: flex;
   align-items: center;
-  border-bottom: 2px solid var(--search-bar-outline-color);
+  border-bottom: var(--login-input-border-bottom);
   justify-content: center;
   margin-bottom: 8px;
 }
@@ -102,8 +102,8 @@
 .guest-login-btn {
   width: 135px;
   height: 48px;
-  color: #647188;
-  border: #647188 2px solid;
+  color: var(--guest-login-button-text-color);
+  border: var(--guest-login-button-border);
   border-radius: 8px;
   font-size: 18px;
 }

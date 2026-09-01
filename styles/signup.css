@@ -92,7 +92,7 @@
 }
 
 .privacy-policity-link {
-    color: #005DFF;
+    color: var(--primary-color);
     text-decoration: none;
 }
 
