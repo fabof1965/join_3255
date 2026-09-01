@@ -26,7 +26,7 @@ const sidebarTemplate = `
   `;
 
 const headerTemplate = `
-  <header class="header">
+    <div class="content-wrapper2">
       <div class="header-left">
         <button class="header-icon-button" type="button" aria-label="Header Logo">
           <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
@@ -41,7 +41,7 @@ const headerTemplate = `
           <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
         </button>
       </div>
-  </header>
+    </div>
 `;
 
 const taskCardTemplate = `

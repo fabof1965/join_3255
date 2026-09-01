@@ -21,6 +21,7 @@ signUp.addEventListener("click", () => {
  * @param {SubmitEvent} event - Login form submission event.
  * @returns {void}
  */
+
 function userLogin(event) {
     event.preventDefault();
     let email = document.getElementById('email');
