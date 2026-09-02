@@ -5,15 +5,13 @@
 }
 
 .sidebar {
-  width: 232px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
-  padding: 66px 0;
   box-shadow: var(--sidebar-box-shadow);
+  padding-left: 56px;
 }
 
 .sidebar a {
@@ -27,15 +25,13 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 100%;
-  padding: 0 23px;
 }
 
 .sidebar-navigation a {
   display: flex;
   align-items: center;
   gap: 5px;
-  justify-content: center;
+  justify-content: flex-start;
   border-radius: 15px;
   padding: 5px 0;
   transition: background-color 100ms ease, color 100ms ease;
