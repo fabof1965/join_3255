@@ -18,7 +18,7 @@
     gap: 16px;
     padding: 56px 24px;
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
-    width: 35%;
+    width: 30%;
 }
 
 .btn-new-contact {
@@ -32,6 +32,10 @@
     color: var(--white-color);
 }
 
+/* .btn-new-contact:hover {
+    box-shadow: var(--login-box-shadow);
+} */
+
 #contacts {
     display: flex;
     flex-direction: column;
@@ -39,6 +43,7 @@
 
 .letter {
     padding: 16px 42px;
+    font-size: 24px;
 }
 
 .seperator {
@@ -46,21 +51,32 @@
     margin: 8px 0 8px 0;
 }
 
-.contact {
+.contact-card {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 32px;
     padding: 8px 32px;
+    font-size: 24px;
+}
+
+.contact-card:hover {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    cursor: pointer;
+
+    .profile-badge {
+        border: 2px solid var(--white-color);
+    }
 }
 
 .profile-badge {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
     border-radius: 50%;
     background-color: var(--user-story-color);
 }
@@ -69,11 +85,6 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
-
-.name {
-    color: var(--black-color);
-    font-size: 23px;
 }
 
 .mail {
@@ -91,7 +102,7 @@
     align-items: center;
     width: 80px;
     height: 80px;
-    padding: 4px;
+    padding: 8px;
     border-radius: 50%;
     background-color: var(--user-story-color);
 }
@@ -188,6 +199,5 @@ dialog[open] {
 }
 
 .logo-header {
-    /* margin-left: auto; */
     width: 60px;
 }

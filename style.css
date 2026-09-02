@@ -24,6 +24,10 @@ body {
   background: none;
 }
 
+.btn:hover {
+  box-shadow: var(--button-box-shadow);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -43,8 +47,4 @@ body {
   color: white;
   border-radius: 8px;
   font-size: 18px;
-}
-
-.auth-btn:hover {
-  background-color: #4589ff;
 }
