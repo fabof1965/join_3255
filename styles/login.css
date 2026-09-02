@@ -125,19 +125,6 @@
   justify-content: space-around;
 }
 
-.auth-btn {
-  width: 135px;
-  height: 48px;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 8px;
-  font-size: 18px;
-}
-
-.auth-btn:hover {
-  background-color: #4589ff;
-}
-
 .guest-login-btn {
   width: 135px;
   height: 48px;
