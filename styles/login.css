@@ -135,6 +135,11 @@
   font-size: 18px;
 }
 
+.guest-login-btn:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 .login-footer {
   display: flex;
   justify-content: center;

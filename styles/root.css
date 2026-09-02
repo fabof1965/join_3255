@@ -25,6 +25,7 @@
     --no-todo-color: var(--search-bar-outline-color);
     --greeting-text-color:#2A3647;
     --addTaskBackdrop-color: rgba(0, 0, 0, 0.3);
+    --badge-dialog-background-color: #D1D1D1;
     
     /* shadows and other visual elements */
     --login-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

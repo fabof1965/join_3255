@@ -103,7 +103,34 @@
             </div>
         </header>
         <main id="dialogMain">
-            
+            <form>
+                <div class="badge-image-container">
+                    <img src="../assets/icons/person.svg" alt="" id="user-img">
+                </div>
+
+                <div class="login-area">
+                    <div class="input-wrapper">
+                        <label for="name" class="visually-hidden">Name</label>
+                        <input id="name" class="input-field" type="text" placeholder="Name" required />
+                        <img src="../assets/icons/person.svg" alt="person icon" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="email" class="visually-hidden">Email</label>
+                        <input id="email" class="input-field" type="email" placeholder="Email" required />
+                        <img src="../assets/icons/mail.svg" alt="mail icon" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="phone" class="visually-hidden">Phone</label>
+                        <input id="phone" class="input-field" type="number" placeholder="Phone" required />
+                        <img src="../assets/icons/phone.svg" alt="phone icon" />
+                    </div>
+                </div>
+
+                <div class="submit-btn-container">
+                    <button onclick="closeContactDialog()" class="btn">Cancel</button>
+                    <button class="accept-btn btn">Create contact</button>
+                </div>
+            </form>
         </main>
         <footer id="dialogFooter">
 
