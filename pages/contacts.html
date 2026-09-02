@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
     <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../styles/help.css">
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
-    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
     <script src="../scripts/template.js" defer></script>
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js" defer></script>
@@ -20,7 +22,7 @@
     <main class="contacts-main">
         <aside id="sidebar" class="sidebar"></aside>
          <section class="contacts-section">
-            <button class="btn-new-contact" onclick="openContactDialog()">
+            <button class="btn-new-contact btn" onclick="openContactDialog()">
                 Add new contact
                 <img src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
@@ -87,7 +89,7 @@
 
     <dialog id="contact-dialog">
         <header id="dialog-header">
-            <button class="close-dialog-button" onclick="closeContactDialog()">
+            <button class="close-dialog-button btn" onclick="closeContactDialog()">
                 <img class="close-dialog-img" src="../assets/icons/close-task-overlay.svg" alt="Close icon">
             </button>
             <div class="dialog-header-content">

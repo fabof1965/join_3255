@@ -1,28 +1,35 @@
 .contacts-main {
     display: flex;
-    justify-content: space-between;
-    max-width: 1440px;
     margin: 0 auto;
+    max-width: 1440px;
+    width: 100%;
+}
+
+@media(max-width: 1550px) {
+    .contacts-main {
+        padding: 0 var(--padding-left-right);
+        margin: 0;
+    }
 }
 
 .contacts-section {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 66px 24px;
+    padding: 56px 24px;
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
+    width: 35%;
 }
 
 .btn-new-contact {
     display: flex;
     gap: 16px;
     font-size: 23px;
-    padding: 8px 32px;
+    padding: 16px 32px;
     align-items: center;
+    justify-content: center;
     background-color: var(--primary-color);
     color: var(--white-color);
-    border: none;
-    border-radius: 10px;
 }
 
 #contacts {
@@ -31,7 +38,7 @@
 }
 
 .letter {
-    padding: 16px 40px;
+    padding: 16px 42px;
 }
 
 .seperator {
@@ -113,18 +120,19 @@
 
 .edit-delete {
     display: flex;
-    gap: 16px;
+    gap: 32px;
     align-items: center;
 }
 
 .edit, .delete {
     display: flex;
-    gap: 16px;
+    gap: 4px;
     align-items: center;
     border: none;
     background-color: transparent;
     color: var(--black-color);
     font-size: 16px;
+    cursor: pointer;
 }
 
 .edit:hover, .delete:hover {

@@ -19,7 +19,9 @@ body {
 .btn {
   outline: none;
   border: none;
-  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+
 }
 
 .visually-hidden {

@@ -35,4 +35,8 @@
     --privacy-policy-box-shadow-mobile: 0 -1px 3px rgba(0, 0, 0, 0.1);
     --sidebar-box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
     --headline-underline-border: 2px solid var(--primary-color);
+
+    /* layout and spacing */
+    --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
+    --padding-left-right: clamp(16px, calc(4.571px + 3.571vw), 56px);
 }

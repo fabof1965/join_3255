@@ -9,7 +9,7 @@
   align-items: flex-start;
   justify-content: space-between;
   box-shadow: var(--sidebar-box-shadow);
-  padding: 66px 0 66px 56px;
+  padding: 66px 0 66px 0;
 }
 
 .sidebar a {
@@ -64,15 +64,10 @@
 .sidebar-footer {
   display: flex;
   flex-direction: column;
+  padding-left: 8px;
   width: 100%;
-  padding: 0 23px;
   gap: 15px;
-  align-items: center;
-}
-
-.sidebar-footer a {
-  width: 100px;
-  text-align: left;
+  align-items: flex-start;
 }
 
 .sidebar-footer a:hover {
