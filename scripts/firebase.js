@@ -11,19 +11,6 @@ async function getData(path = "") {
 }
 
 /**
- * Deletes data at a Firebase path.
- * @param {string} path - Relative database path.
- * @returns {Promise<*>} Firebase response data.
- */
-async function deleteData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "DELETE",
-    });
-    console.log(path)
-    return responseToJson = await response.json();
-}
-
-/**
  * Creates data at a Firebase path.
  * @param {string} path - Relative database path.
  * @param {Object} data - Data to create.
