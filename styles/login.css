@@ -139,12 +139,12 @@
   justify-content: center;
   width: 100%;
   flex-shrink: 0;
+  padding-bottom: 40px;
 }
 
 .legal-wrapper {
   display: flex;
   gap: 20px;
-  width: 240px;
 }
 
 .legal-link-login {
