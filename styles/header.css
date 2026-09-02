@@ -1,7 +1,6 @@
-.header {
-  height: 96px;
+#header {
   background-color: var(--primary-color);
-  padding: 0 56px;
+  padding: 16px 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
