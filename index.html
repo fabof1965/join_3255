@@ -52,10 +52,10 @@
                         <img src="./assets/icons/mail.svg" alt="mail icon" />
                     </div>
                     <div class="input-wrapper">
-                        <label class="visually-hidden" for="password">Passwort</label>
+                        <label for="password" class="visually-hidden">Passwort</label>
                         <input id="password" class="input-field" type="password" placeholder="Passwort"
                             required />
-                        <img src="./assets/icons/lock.svg" alt="lock icon" />
+                        <img onclick="toggleShowPassword()" id="password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon" />
                     </div>
                 </div>
 

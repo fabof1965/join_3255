@@ -13,7 +13,6 @@ function initEventListeners() {
   checkbox.addEventListener("change", acceptPrivacyPolicity);
   password.addEventListener("input", comparePassword);
   confirmPassword.addEventListener("input", comparePassword);
-  password.addEventListener("input", resetPasswordIconIfEmpty);
 }
 
 function backtoLogin() {
@@ -40,31 +39,6 @@ function comparePassword() {
     confirmPassword.setCustomValidity("Passwords do not match");
   } else {
     confirmPassword.setCustomValidity("");
-  }
-}
-
-function toggleShowPassword() {
-  let toggleIcon = document.getElementById('password-toggle-icon');
-  if (password.value === "") {
-    return;
-  }
-  if (password.type === "password") {
-    password.type = "text";
-    toggleIcon.src = '../assets/icons/visibility.svg';
-    toggleIcon.alt = "show password";
-  } else {
-    password.type = "password";
-    toggleIcon.src = "../assets/icons/visibility_off.svg";
-    toggleIcon.alt = "hide password";
-  }
-}
-
-function resetPasswordIconIfEmpty() {
-  let toggleIcon = document.getElementById('password-toggle-icon');
-  if (password.value === "") {
-    password.type = "password";
-    toggleIcon.src = "../assets/icons/lock.svg";
-    toggleIcon.alt = "lock-img";
   }
 }
 

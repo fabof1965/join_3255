@@ -51,3 +51,35 @@ function renderHeader() {
 
 renderSidebar();
 renderHeader();
+
+function resetPasswordIconIfEmpty() {
+  let toggleIcon = document.getElementById('password-toggle-icon');
+  if (password.value === "") {
+    password.type = "password";
+    toggleIcon.src = "../assets/icons/lock.svg";
+    toggleIcon.alt = "lock-img";
+  }
+}
+
+let passwordInput = document.getElementById('password');
+if (passwordInput) {
+  passwordInput.addEventListener('input', resetPasswordIconIfEmpty);
+}
+
+function toggleShowPassword() {
+  let toggleIcon = document.getElementById('password-toggle-icon');
+  if (password.value === "") {
+    return;
+  }
+  if (password.type === "password") {
+    password.type = "text";
+    toggleIcon.src = '../assets/icons/visibility.svg';
+    toggleIcon.alt = "show password";
+  } else {
+    password.type = "password";
+    toggleIcon.src = "../assets/icons/visibility_off.svg";
+    toggleIcon.alt = "hide password";
+  }
+}
+
+
