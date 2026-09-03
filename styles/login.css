@@ -107,6 +107,8 @@
   padding-right: 32px;
   box-sizing: border-box;
   font-size: 19px;
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .visually-hidden {

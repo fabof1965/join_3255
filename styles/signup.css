@@ -92,6 +92,7 @@
   padding-right: 32px;
   box-sizing: border-box;
   font-size: 19px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .lock-img{
@@ -123,7 +124,6 @@
 
 .privacy-policity-link:hover{
     font-weight: 600;
-    /* text-decoration: underline; */
 }
 
 .sign-up-button-container {
@@ -160,5 +160,5 @@
 }
 
 .legal-link-sign-up:hover{
-    font-weight: 700;
+    font-weight: bold;
 }
