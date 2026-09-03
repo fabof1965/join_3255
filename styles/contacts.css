@@ -201,3 +201,19 @@ dialog[open] {
 .logo-header {
     width: 60px;
 }
+
+.badge-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem auto 3rem auto;
+}
+
+#user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background-color: var(--badge-dialog-background-color);
+    border: var(--user-badge-border);
+}
