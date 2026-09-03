@@ -1,11 +1,3 @@
-let backToLogin = document.getElementById("arrow-back");
-
-if (backToLogin) {
-  backToLogin.addEventListener("click", () => {
-    window.location.href = "../index.html";
-  });
-}
-
 /**
  * Renders the shared sidebar template when its container exists.
  * @returns {void}
@@ -52,6 +44,8 @@ function renderHeader() {
 renderSidebar();
 renderHeader();
 
+/* login and signup functions */
+
 function resetPasswordIconIfEmpty() {
   let toggleIcon = document.getElementById('password-toggle-icon');
   if (password.value === "") {
@@ -81,5 +75,8 @@ function toggleShowPassword() {
     toggleIcon.alt = "hide password";
   }
 }
+
+/* login and signup functions END */
+
 
 
