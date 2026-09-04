@@ -1,11 +1,10 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* 1. Body linksbündig ausrichten */
+
 body {
     background-color: var(--white-color, #ffffff);
     display: flex;
@@ -20,274 +19,224 @@ body {
     align-items: center;
     justify-content: center;
 }
-.main-layout {
-  display: flex;
-  min-height: 100dvh;
-  position: relative;
+
+.task-icons {
+    width: 70px;
+    height: 70px;
+    border: 2px solid var(--white-color);
+    border-radius: 50%;
+}
+.task-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--white-color);
+}
+.date-text {
+    font-size: 33px;
+    font-weight: bold;
+    color: var(--white-color);
 }
 
-.content-wrapper {
-    max-width: 1440px;
-    margin: 0 auto;
-    width: 100%;
+.sub-text {
+    font-size: 23px;
+    font-weight: normal;
+    color: var(--white-color);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    line-height: 1.2;
 }
- 
 
+.main-layout {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1440px;
+    width: 100%;
+
+    @media (max-width: 1550px) {
+        .main-layout {
+            .padding-main {
+                padding: 0 var(--padding-left-right);
+                margin: 0;
+            }
+        }
+    }
     .summary-container {
-      max-width: 912px;
-      min-height: 591px;
-      width: 100%;
-      height: auto;
-      padding: 40px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .greeting {
-        max-width: 745px;
-        min-height: 77px;
         width: 100%;
         height: auto;
-        margin-bottom: 40px;
-        line-height: 1.2;
         display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 10px 0;
-        flex-wrap: wrap;
-
-        .greeting-text {
-          width: auto;
-          height: auto;
-          font-size: 48px;
-          font-weight: 400;
-          color: var(--greeting-text-color);
-        }
-
-        .username {
-          width: auto;
-          height: auto;
-          font-size: 64px;
-          font-weight: 700;
-          color: var(--primary-color);
-        }
-      }
-
-      &.guest-container {
-        width: 100%;
-
-        .greeting {
-          width: 100%;
-          justify-content: center;
-          text-align: center;
-
-          .greeting-text {
-            width: auto;
-            text-align: center;
-          }
-
-          .username {
-            display: none;
-          }
-        }
-      }
-    }
-
-    .summary-row {
-      max-width: 912px;
-      min-height: 191px;
-      width: 100%;
-      height: auto;
-      display: flex;
-      gap: 24px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-
-      &:first-of-type {
-        align-items: center;
-      }
-
-      &:last-of-type {
-        max-width: 912px;
-        min-height: 219px;
-        width: 100%;
-        height: auto;
-      }
-
-      .card-content-top {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 20px;
-      }
-      .card {
-        background-color: var(--white-color);
-        border-radius: 20px;
-        padding: 24px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        cursor: pointer;
-        line-height: 1.2;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+        gap: 50px;
+        margin-top: 80px;
 
-        &:hover {
-          transform: scale(1.03);
-          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        .greeting-container {
+            max-width: 745px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-wrap: nowrap;
+
+            .greeting-text {
+                color: var(--greeting-text-color);
+                font-size: 48px;
+                font-weight: normal;
+            }
+            .username {
+                color: var(--primary-color);
+                font-size: 64px;
+                font-weight: bold;
+            }
         }
 
-        img {
-          width: 50px;
-          height: 50px;
-        }
+        .summary-card-container {
+            max-width: 912px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: stretch;
 
-        .card-number {
-          font-size: 48px;
-          font-weight: 700;
-          display: block;
+            .summary-cards-left {
+                display: flex;
+                flex-direction: column;
+                gap: 23px;
+                width: 672px;
 
-          &.dark {
-            color: var(--black-color);
-          }
-        }
+                .blue-head-column {
+                    width: 100%;
+                    min-height: 191px;
+                    background-color: var(--primary-color);
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    border-radius: 28px;
+                    /* padding: 28px 48px; */
 
-        .card-label {
-          font-size: 23px;
-          font-weight: 400;
-          color: var(--white-color);
-          text-align: center;
+                    .urgent-task {
+                        max-width: 140px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 20px;
+                        margin-left: 50px;
 
-          &.dark {
-            color: var(--black-color);
-          }
+                        .icon-and-number {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                        }
+                    }
+                    .divider {
+                        width: 3px;
+                        height: 145px;
+                        background-color: var(--white-color);
+                    }
+                }
 
-          &.blue-text {
-            color: var(--primary-color);
-            font-weight: 600;
-          }
-        }
-      }
-      .card-blue-large {
-        background-color: var(--primary-color);
-        color: var(--white-color);
-        max-width: 672px;
-        min-height: 191px;
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex: 1;
-        justify-content: space-between;
-        padding: 30px 40px;
-        align-items: center;
+                .other-tasks {
+                    display: flex;
+                    width: 100%;
+                    gap: 30px;
 
+                    .tasks-to-do,
+                    .task-in-progress,
+                    .task-feedback {
+                        width: 204px;
+                        min-height: 191px;
+                        background-color: var(--white-color);
+                        border-radius: 28px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+                        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
 
-        .card-left {
-          width: 100%;
-          height: auto;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          align-items: center;
-          gap: 24px;
-        }
+                        .sub-text {
+                            color: #000;
+                            justify-content: center;
+                        }
+                        .task-number {
+                            color: #000;
+                        }
+                    
 
-        .card-divider {
-          width: 2px;
-          height: 97%;
-          background-color: var(--white-color);
-        }
+                        .icon-and-number {
+                            display: flex;
+                            align-items: center;
+                            gap: 15px;
+                        }
+                    }
 
-        .card-right {
-          max-width: 274px;
-          min-height: 81px;
-          width: 100%;
-          height: auto;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 4px;
+                    .tasks-to-do {
+                        background-color: var(
+                            --secondary-color
+                        ); 
+                    }
+                }
+            }
 
-          .card-date {
-            font-size: 33px;
-            font-weight: 700;
-          }
+            .summary-cards-right {
+                display: flex;
+                flex-direction: column;
+                gap: 23px;
+                /* padding: 28px 48px; */
 
-          .card-subtext {
-            font-size: 23px;
-            color: var(--white-color);
-          }
-        }
-      }
+                .task-in-board {
+                    width: 208px;
+                    height: 191px;
+                    background-color: var(--white-color);
+                    border-radius: 28px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 15px;
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
 
-      .card-top-right {
-        max-width: 208px;
-        min-height: 191px;
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        text-align: center;
-      }
+                    .sub-text {
+                        color: #000;
+                        text-align: center;
+                    }
+                    .task-number {
+                        color: #000;
+                    }
+                    
+                    .icon-and-number {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                    }
+                }
 
-      .card-white,
-      .card-light-blue {
-        max-width: 204px;
-        min-height: 219px;
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 54px 16px;
-        gap: 10px;
-        text-align: center;
-      }
+                .tasks-done {
+                    width: 204px;
+                    height: 191px;
+                    background-color: var(--white-color);
+                    border-radius: 28px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 15px;
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+                    align-self: flex-start;
 
-      .card-light-blue {
-        background-color: var(--secondary-color);
-        flex-direction: column;
-        text-align: center;
-        border: 1px solid #b0e0e6;
-      }
-    }
-  
-
-@media (max-width: 768px) {
-    body {
-        height: auto;
-        overflow: auto;
-    }
-
-    .main-layout {
-        flex-direction: column !important;
-        height: auto !important;
-        max-height: unset !important;
-        overflow-y: auto !important;
-        max-width: 100% !important;
-    }
-
-    .content-wrapper {
-        order: 1 !important;
-
-        .summary-container {
-            padding: 30px 20px;
-
-            .help-header {
-                .help-title {
-                    font-size: 42px;
+                    .sub-text {
+                        color: #000;
+                        text-align: center;
+                    }
+                    .task-number {
+                        color: #000;
+                    }
+                   
+                    .icon-and-number {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                    }
                 }
             }
         }
