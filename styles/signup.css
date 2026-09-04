@@ -61,6 +61,11 @@
     cursor: pointer;
 }
 
+.arrow-back-btn:hover{
+    background-color: var(--arrow-back-btn-hover-color);
+    border-radius: 50%;
+}
+
 .sign-up-input-container-wrapper {
     display: flex;
     flex-direction: column;
