@@ -82,6 +82,12 @@ body {
                 font-size: 48px;
                 font-weight: normal;
             }
+            .greeting-text-guest{
+                color: var(--greeting-text-color);
+                font-size: 48px;
+                font-weight: bold;
+
+            }
             .username {
                 color: var(--primary-color);
                 font-size: 64px;
