@@ -4,7 +4,6 @@
 
 .sidebar {
   height: calc(100dvh - 93px);
-  position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
