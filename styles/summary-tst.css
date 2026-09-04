@@ -49,10 +49,9 @@ body {
     min-height: 100dvh;
     position: relative;
     max-width: 1440px;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     gap: 80px;
-    margin-left: 60px;
-
+    padding-left: 60px ;
     .summary-container {
         max-width: 912px;
         width: 100%;
