@@ -9,18 +9,21 @@
       href="../assets/icons/logo-blue.svg"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="../styles/summary.css" />
-    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/header.css" />
-    <script src="../script.js" defer></script>
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/summary.css" />
     <script src="../scripts/template.js" defer></script>
+    <script src="../script.js" defer></script>
     <script src="../scripts/summary.js" defer></script>
   </head>
 
   <body>
-    <div class="main-layout">
+    <header class="header" id="header"></header>
+    <main class="main-layout">
       <aside id="sidebar" class="sidebar"></aside>
-
       <div class="content-wrapper">
         <div class="summary-container">
           <div class="greeting">
@@ -100,6 +103,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>
