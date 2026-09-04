@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     background-color: var(--white-color, #ffffff);
     display: flex;
@@ -46,22 +47,27 @@ body {
 
 .main-layout {
     display: flex;
-    min-height: 100dvh;
-    position: relative;
+    margin: 0 auto;
     max-width: 1440px;
-    /* align-items: flex-start; */
-    gap: 80px;
-    padding-left: 60px ;
+    width: 100%;
+
+    @media (max-width: 1550px) {
+        .main-layout {
+            .padding-main {
+                padding: 0 var(--padding-left-right);
+                margin: 0;
+            }
+        }
+    }
     .summary-container {
-        max-width: 912px;
         width: 100%;
-        /* min-height: 591px; */
         height: auto;
         display: flex;
         flex-direction: column;
-        margin-top: 80px;
         align-items: center;
+        justify-content: center;
         gap: 50px;
+        margin-top: 80px;
 
         .greeting-container {
             max-width: 745px;
@@ -155,9 +161,7 @@ body {
                         .task-number {
                             color: #000;
                         }
-                        .task-icons {
-                            border-color: #000;
-                        }
+                    
 
                         .icon-and-number {
                             display: flex;
@@ -169,12 +173,11 @@ body {
                     .tasks-to-do {
                         background-color: var(
                             --secondary-color
-                        ); /* Hellblauer Hintergrund für To-do */
+                        ); 
                     }
                 }
             }
 
-            /* Rechte Hauptspalte */
             .summary-cards-right {
                 display: flex;
                 flex-direction: column;
@@ -200,9 +203,7 @@ body {
                     .task-number {
                         color: #000;
                     }
-                    .task-icons {
-                        border-color: #000;
-                    }
+                    
                     .icon-and-number {
                         display: flex;
                         align-items: center;
@@ -230,9 +231,7 @@ body {
                     .task-number {
                         color: #000;
                     }
-                    .task-icons {
-                        border-color: #000;
-                    }
+                   
                     .icon-and-number {
                         display: flex;
                         align-items: center;
