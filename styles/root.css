@@ -29,7 +29,7 @@
     --badge-dialog-background-color: #D1D1D1;
     
     /* shadows and other visual elements */
-    --login-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --login-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
     --addTaskBoxShadow: 0 0 4px rgba(0, 0, 0, 0.32);
     --task-card-box-shadow: 0 0 5px rgba(0, 0, 0, 0.14);
