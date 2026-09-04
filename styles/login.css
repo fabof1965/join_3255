@@ -39,7 +39,7 @@
   align-items: center;
   width: 100%;
   flex: 1;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 .login-section {
@@ -48,9 +48,8 @@
   flex-direction: column;
   justify-content: space-around;
   box-shadow: var(--login-box-shadow);
-  width: 652px;
-  height: 448px;
-  padding: 0 48px;
+  width: 60%;
+  padding: 48px;
   margin-top: 16px;
   background-color: var(--white-color);
   border-radius: 16px;
@@ -61,6 +60,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }
 
 .heading-container {
@@ -85,8 +85,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 422px;
-  height: 152px;
+  padding: 32px 0 40px 0;
 }
 
 .input-wrapper {
@@ -94,7 +93,8 @@
   align-items: center;
   border-bottom: var(--login-input-border-bottom);
   justify-content: center;
-  margin-bottom: 8px;
+  width: 75%;
+  padding: 8px 16px;
 }
 
 .input-wrapper:nth-child(2) {
@@ -102,9 +102,8 @@
 }
 
 .input-field {
-  width: 350px;
+  width: 100%;
   border: none;
-  padding-right: 32px;
   box-sizing: border-box;
   font-size: 19px;
   outline: none;
@@ -125,12 +124,11 @@
 
 .submit-btn-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 32px;
 }
 
 .guest-login-btn {
-  width: 135px;
-  height: 48px;
   color: var(--guest-login-button-text-color);
   border: var(--guest-login-button-border);
   border-radius: 8px;

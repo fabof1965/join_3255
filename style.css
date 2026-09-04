@@ -17,12 +17,12 @@ body {
 }
 
 .btn {
+  padding: 8px 16px;
   outline: none;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   background: none;
-  font-family: 'Open Sans', sans-serif;
 }
 
 .btn:hover {
@@ -42,8 +42,6 @@ body {
 }
 
 .auth-btn {
-  width: 135px;
-  height: 48px;
   background-color: var(--primary-color);
   color: white;
   border-radius: 8px;
