@@ -18,10 +18,10 @@ const testContacts = [
     },
     {
         "id": 2,
-        "first-name": "Anna",
+        "first-name": "Bernd",
         "last-name": "Schmidt",
         "phone": "+49 123 456789",
-        "email": "anna.schmidt@example.com"
+        "email": "bernd.schmidt@example.com"
     },
     {
         "id": 3,
@@ -55,9 +55,37 @@ function positionDialog(potition) {
     
 }
 
+function setDialogElementText(elementID, text) {
+    document.getElementById(elementID).innerHTML = text;
+}
+
+function setDialogHeadline(text) {
+    setDialogElementText("dialog-headline", text);
+}
+
+function setDialogSubheading(text) {
+    setDialogElementText("dialog-subheading", text);
+}
+
+function setCancelButtonText(text) {
+    setDialogElementText("cancel-btn-text", text);
+}
+
+function setAcceptButtonText(text) {
+    setDialogElementText("accept-btn-text", text);
+}
+
+function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, cancelButtonText, acceptButtonText) {
+    setDialogHeadline(dialogHeadlineText);
+    setDialogSubheading(dialogSubheadingText);
+
+    setCancelButtonText(cancelButtonText);
+    setAcceptButtonText(acceptButtonText);
+}
+
 function addNewContact() {
-    document.getElementById("dialog-headline").innerHTML = addContactValues.title;
-    document.getElementById("dialog-subheading").innerHTML = addContactValues.subtitle;
+    setDynamicDialogElements(addContactValues.title, addContactValues.subtitle, "Cancel", "Create contact");
+
     openContactDialog();
 
     //this function adds a new contact to the backend contact list
@@ -65,7 +93,8 @@ function addNewContact() {
 }
 
 function editExistingContact() {
-    document.getElementById("dialog-headline").innerHTML = existingContactValues.title;
+    setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
+
     openContactDialog();
 }
 

@@ -173,12 +173,11 @@
 
 /* dialog */
 dialog[open] {
-    height: 100dvh;
+    /* height: 100dvh; */
     border-radius: 0 32px 32px 0;
     display: flex;
     flex-direction: column; 
-    width: 25%;
-    padding: 0;
+    width: 500px;
     border: none;
 }
 
@@ -200,7 +199,7 @@ dialog[open] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 16px 0 48px 0;
+    margin: 1rem 0 2rem 0;
     color: var(--white-color);
 }
 
@@ -230,7 +229,7 @@ dialog[open] {
 }
 
 .logo-header {
-    margin-top: 32px;
+    /* margin-top: 2rem; */
     width: 40px;
 }
 
@@ -238,7 +237,7 @@ dialog[open] {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3rem auto 3rem auto;
+    margin: 3rem auto 1rem auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: 50%;
     width: 80px;
@@ -258,13 +257,17 @@ dialog[open] {
     display: flex;
     align-items: center;
     gap: 32px;
-    width: 100%;
+    width: 85%;
     border-bottom: 2px solid var(--search-bar-outline-color);
 }
 
 input {
     width: 100%;
     border: none;
+}
+
+.input-label-img {
+    padding: 8px;
 }
 
 .btn-container {
