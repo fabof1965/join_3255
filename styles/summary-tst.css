@@ -56,12 +56,11 @@ body {
     .summary-container {
         max-width: 912px;
         width: 100%;
-        min-height: 591px;
+        /* min-height: 591px; */
         height: auto;
         display: flex;
         flex-direction: column;
         margin-top: 80px;
-        margin-left: 100px;
         align-items: center;
         gap: 50px;
 
@@ -108,7 +107,7 @@ body {
                     justify-content: space-around;
                     align-items: center;
                     border-radius: 28px;
-                    padding: 28px 48px;
+                    /* padding: 28px 48px; */
 
                     .urgent-task {
                         max-width: 140px;
@@ -181,6 +180,8 @@ body {
                 display: flex;
                 flex-direction: column;
                 gap: 23px;
+                /* padding: 28px 48px; */
+
                 .task-in-board {
                     width: 208px;
                     height: 191px;
