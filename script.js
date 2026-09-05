@@ -46,48 +46,55 @@ renderHeader();
 
 /* login and signup functions */
 
-let passwordInput = document.getElementById('password');
-if (passwordInput) {
-  passwordInput.addEventListener('input', resetPasswordIconIfEmpty);
-} if (passwordInput) {
-  passwordInput.addEventListener('focus', toggleShowPassword);
+let passwordInputFields = [
+  {
+    input: document.getElementById('password'),
+    icon: document.getElementById('password-toggle-icon'),
+  },
+  {
+    input: document.getElementById("confirm-password"),
+    icon: document.getElementById('confirm-password-toggle-icon'),
+  },
+];
+
+function initPasswordEventListener() {
+  passwordInputFields.forEach((field) => {
+    if (!field.input || !field.icon) return;
+    field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
+    field.input.addEventListener('focus', () => handlePasswordFocus(field));
+    field.icon.addEventListener('click', () => toggleShowPassword(field));
+  });
+
 }
 
-function resetPasswordIconIfEmpty() {
-  let toggleIcon = document.getElementById('password-toggle-icon');
-  if (password.value === "") {
-    password.type = "password";
-    toggleIcon.src = "../assets/icons/lock.svg";
-    toggleIcon.alt = "lock-img";
+function handlePasswordFocus(field) {
+  if (field.input.type === "password") {
+    field.icon.src = "../assets/icons/visibility_off.svg";
+    field.icon.alt = "hide password";
   }
 }
 
-function toggleShowPassword() {
-  let toggleIcon = document.getElementById('password-toggle-icon');
-  if (password.type === "password") {
-    password.type = "text";
-    toggleIcon.src = '../assets/icons/visibility.svg';
-    toggleIcon.alt = "show password";
+function handleEmptyPasswordInput(field) {
+  if (field.input.value === "") {
+    field.icon.src = "../assets/icons/lock.svg";
+    field.icon.alt = "lock-img";
+  }
+}
+
+function toggleShowPassword(field) {
+  if (field.input.type === "password") {
+    field.input.type = "text";
+    field.icon.src = '../assets/icons/visibility.svg';
+    field.icon.alt = "show password";
   } else {
-    password.type = "password";
-    toggleIcon.src = "../assets/icons/visibility_off.svg";
-    toggleIcon.alt = "hide password";
+    field.input.type = "password";
+    field.icon.src = "../assets/icons/visibility_off.svg";
+    field.icon.alt = "hide password";
   }
 }
 
-// function showEyeIconOnFocus() {
-//   let toggleIcon = document.getElementById('password-toggle-icon');
-//   if (password.value === ""){
-//     return
-//   } 
-//   if (condition) {
-    
-//   }
-// }
+initPasswordEventListener();
 
 /* login and signup functions END */
-
-
-// Wenn ich das Inputfeld fokusiere möchte ich dass das showpassword gezeigt wird und wenn es nicht mehr fokussiert ist, soll das lock svg wieder zu sehen sein
 
 
