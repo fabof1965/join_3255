@@ -121,12 +121,12 @@
 }
 
 .privacy-policity-link::before {
+    display: block;
     content: attr(data-text);
     font-weight: 600;
     height: 0;
     visibility: hidden;
     overflow: hidden;
-    display: block;
 }
 
 .privacy-policity-link {
@@ -158,18 +158,19 @@
     gap: 20px;
 }
 
-.legal-link-sign-up::before {
-    content: attr(data-text);
-    font-weight: 700;
-    height: 0;
-    visibility: hidden;
-    display: block;
-}
-
 .legal-link-sign-up {
     display: inline-block;
     color: var(--white-color);
     text-decoration: none;
+}
+
+.legal-link-sign-up::before {
+    display: block;
+    content: attr(data-text);
+    font-weight: 700;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
 }
 
 .legal-link-sign-up:hover {
