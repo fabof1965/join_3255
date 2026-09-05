@@ -9,16 +9,11 @@
   justify-content: space-between;
   width: 100%;
   text-align: center;
-  padding-top: 40px;
+  margin-top: 40px;
   padding-right: 40px;
   padding-left: 40px;
   font-size: 23px;
 }
-
-/* .content-wrapper-login {
-  max-width: 1440px;
-  margin: auto;
-} */
 
 .sign-up-container {
   display: flex;
@@ -42,22 +37,23 @@
   margin-top: 180px;
 }
 
-.form-wrapper{
+.form-wrapper {
   display: flex;
-  width: 50%;
+  max-width: 652px;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   box-shadow: var(--login-box-shadow);
   border-radius: 30px;
-  padding: 56px 0px;
+  padding: 48px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
-  margin-top: 16px;
+  width: 100%;
+  margin: 16px 0;
   color: var(--black-color);
 }
 
@@ -83,18 +79,20 @@
   flex-direction: column;
   justify-content: center;
   padding: 32px 0;
-  width: 75%;
+  width: 100%;
+  max-width: 350px;
 }
 
-.input-wrapper {
+.login-input-wrapper {
   display: flex;
   align-items: center;
   border-bottom: var(--login-input-border-bottom);
   justify-content: center;
   padding: 8px 16px;
+
 }
 
-.input-wrapper:nth-child(2) {
+.login-input-wrapper:nth-child(2) {
   margin-top: 30px;
 }
 
@@ -155,11 +153,11 @@
   text-decoration: none;
 }
 
-.lock-img{
+.lock-img {
   cursor: pointer;
 }
 
-.checkbox{
+.checkbox {
   cursor: pointer;
 }
 
@@ -200,6 +198,7 @@
   from {
     background-color: var(--primary-color);
   }
+
   to {
     background-color: transparent;
   }
@@ -223,18 +222,18 @@
   0% {
     top: calc(50% - 60px);
     left: calc(50% - 60px);
-    transform: translate(calc(50% - 60px), calc(50% - 60px) scale(2));
+    transform: scale(2);
   }
 
   20% {
     top: calc(50% - 80px);
     left: calc(50% - 80px);
-    transform: translate(calc(50% - 80px), calc(50% - 80px)) scale(1.5);
+    transform: scale(1.5);
   }
 
   100% {
-    top: -15px;
-    left: max(40px, calc((100% - 1440px) / 2 + 40px));
-    transform: translate(0, 0) scale(0.5);
+    top: 40px;
+    left: max(0px, calc((100% - 1440px) / 2));
+    transform: scale(1);
   }
 }

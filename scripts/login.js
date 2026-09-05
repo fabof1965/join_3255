@@ -34,7 +34,7 @@ async function userLogin(event) {
         console.log("user gefunden");
         window.location.href = './pages/summary.html';
     } else {
-        email.setCustomValidity("User nicht gefunden");
-        email.reportValidity();
+        password.setCustomValidity("Check your email and password. Please try again");
+        password.reportValidity();
     }
 }

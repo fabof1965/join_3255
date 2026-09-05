@@ -1,8 +1,6 @@
 .sign-up-header {
-    padding-top: 40px;
+    margin-top: 40px;
     width: 100%;
-    max-width: 1440px;
-    margin: auto;
 }
 
 .sign-up-body {
@@ -16,16 +14,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     flex: 1;
-    margin-top: 24px;
+    margin-top: 112px;
 }
 
 .sign-up-form {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 48px 88px;
+    max-width: 600px;
+    width: 100%;
+    padding: 48px;
     background-color: var(--white-color);
     border-radius: 16px;
 }
@@ -37,11 +36,11 @@
 }
 
 .sign-up-heading-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .sign-up-heading {
@@ -50,18 +49,19 @@
 }
 
 .headline-underline {
-  width: 100%;
-  border: var(--headline-underline-border);
+    width: 100%;
+    max-width: 150px;
+    border: var(--headline-underline-border);
 }
 
-.arrow-back-btn{
+.arrow-back-btn {
     outline: none;
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.arrow-back-btn:hover{
+.arrow-back-btn:hover {
     background-color: var(--arrow-back-btn-hover-color);
     border-radius: 50%;
 }
@@ -69,7 +69,8 @@
 .sign-up-input-container-wrapper {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    max-width: 350px;
+    width: 100%;
     gap: 10px;
     padding: 32px 0 32px 0;
 }
@@ -95,15 +96,16 @@
 }
 
 .input-field {
-  border: none;
-  outline: none;
-  padding-right: 32px;
-  font-size: 19px;
-  font-family: 'Open Sans', sans-serif;
+    border: none;
+    outline: none;
+    padding-right: 32px;
+    font-size: 19px;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
 }
 
-.lock-img{
-  cursor: pointer;
+.lock-img {
+    cursor: pointer;
 }
 
 .checkbox-container {
@@ -114,7 +116,7 @@
     gap: 8px;
 }
 
-.checkbox{
+.checkbox {
     cursor: pointer;
 }
 
@@ -133,7 +135,7 @@
     text-decoration: none;
 }
 
-.privacy-policity-link:hover{
+.privacy-policity-link:hover {
     font-weight: 600;
 }
 
@@ -152,8 +154,8 @@
 }
 
 .legal-wrapper {
-  display: flex;
-  gap: 20px;
+    display: flex;
+    gap: 20px;
 }
 
 .legal-link-sign-up::before {
@@ -170,6 +172,6 @@
     text-decoration: none;
 }
 
-.legal-link-sign-up:hover{
+.legal-link-sign-up:hover {
     font-weight: bold;
 }
