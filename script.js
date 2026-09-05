@@ -46,6 +46,13 @@ renderHeader();
 
 /* login and signup functions */
 
+let passwordInput = document.getElementById('password');
+if (passwordInput) {
+  passwordInput.addEventListener('input', resetPasswordIconIfEmpty);
+} if (passwordInput) {
+  passwordInput.addEventListener('focus', toggleShowPassword);
+}
+
 function resetPasswordIconIfEmpty() {
   let toggleIcon = document.getElementById('password-toggle-icon');
   if (password.value === "") {
@@ -55,16 +62,8 @@ function resetPasswordIconIfEmpty() {
   }
 }
 
-let passwordInput = document.getElementById('password');
-if (passwordInput) {
-  passwordInput.addEventListener('input', resetPasswordIconIfEmpty);
-}
-
 function toggleShowPassword() {
   let toggleIcon = document.getElementById('password-toggle-icon');
-  if (password.value === "") {
-    return;
-  }
   if (password.type === "password") {
     password.type = "text";
     toggleIcon.src = '../assets/icons/visibility.svg';
@@ -76,7 +75,19 @@ function toggleShowPassword() {
   }
 }
 
+// function showEyeIconOnFocus() {
+//   let toggleIcon = document.getElementById('password-toggle-icon');
+//   if (password.value === ""){
+//     return
+//   } 
+//   if (condition) {
+    
+//   }
+// }
+
 /* login and signup functions END */
 
+
+// Wenn ich das Inputfeld fokusiere möchte ich dass das showpassword gezeigt wird und wenn es nicht mehr fokussiert ist, soll das lock svg wieder zu sehen sein
 
 
