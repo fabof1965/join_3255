@@ -18,14 +18,14 @@
     align-items: center;
     width: 100%;
     flex: 1;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
 .sign-up-form {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 40px 80px;
+    padding: 48px 88px;
     background-color: var(--white-color);
     border-radius: 16px;
 }
@@ -90,11 +90,9 @@
 }
 
 .input-field {
-  width: 350px;
   border: none;
   outline: none;
   padding-right: 32px;
-  box-sizing: border-box;
   font-size: 19px;
   font-family: 'Open Sans', sans-serif;
 }
