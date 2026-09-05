@@ -2,7 +2,6 @@ let newTaskStatus = "toDo";
 let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 
-
 /**
  * Opens the Add Task dialog for a board column.
  * @param {string} status - Initial board column status.

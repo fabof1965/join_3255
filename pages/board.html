@@ -1,100 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join Board</title>
-    <link
-      rel="shortcut icon"
-      href="../assets/icons/logo-blue.svg"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/root.css" />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/sidebar.css" />
-    <link rel="stylesheet" href="../styles/board.css" />
-    <link rel="stylesheet" href="../styles/add-task.css" />
-    <script src="../scripts/template.js" defer></script>
-    <script src="../script.js" defer></script>
-    <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/board.js" defer></script>
-    <script src="../scripts/add-task.js" defer></script>
-    <script src="../scripts/board-overlay.js" defer></script>
-  </head>
-  <body>
-    <header id="header"></header>
-    <div class="main-layout">
-      <aside id="sidebar" class="sidebar"></aside>
 
-      <main class="board-container">
-        <div class="board-toolbar">
-          <div class="board-search">
-            <input id="task-search" type="text" placeholder="Find Task" />
-            <button
-              type="button"
-              class="search-button"
-              aria-label="Search Tasks"
-            >
-              <img src="../assets/icons/search.svg" alt="" width="32" height="32" />
-            </button>
-          </div>
-          <button type="button" class="add-task-button" data-add-task-status="toDo">Add Task +</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Board</title>
+  <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/root.css" />
+  <link rel="stylesheet" href="../styles/header.css" />
+  <link rel="stylesheet" href="../styles/sidebar.css" />
+  <link rel="stylesheet" href="../styles/board.css" />
+  <link rel="stylesheet" href="../styles/add-task.css" />
+  <script src="../scripts/template.js" defer></script>
+  <script src="../script.js" defer></script>
+  <script src="../scripts/firebase.js" defer></script>
+  <script src="../scripts/board.js" defer></script>
+  <script src="../scripts/add-task.js" defer></script>
+  <script src="../scripts/board-overlay.js" defer></script>
+</head>
+
+<body class="board-body" onload="init()">
+  <header id="header"></header>
+  <div class="main-layout">
+
+    <aside id="sidebar" class="sidebar"></aside>
+    <main class="board-container">
+
+      <div class="board-toolbar">
+        <div class="board-search">
+          <input id="task-search" type="text" placeholder="Find Task" />
+          <button type="button" class="search-button" aria-label="Search Tasks">
+            <img src="../assets/icons/search.svg" alt="" width="32" height="32" />
+          </button>
         </div>
-        <p id="search-no-results" class="search-no-results" hidden>
-          No tasks found
-        </p>
-        <div class="board-columns">
-          <section class="board-column">
-            <header class="column-header">
-              <h2>To do</h2>
-              <button type="button" data-add-task-status="toDo">+</button>
-            </header>
-            <div
-              class="task-list"
-              data-status="toDo"
-              data-empty-text="No tasks To do"
-            ></div>
-          </section>
-          <section class="board-column">
-            <header class="column-header">
-              <h2>In progress</h2>
-              <button type="button" data-add-task-status="inProgress">+</button>
-            </header>
-            <div
-              class="task-list"
-              data-status="inProgress"
-              data-empty-text="No tasks in progress"
-            ></div>
-          </section>
-          <section class="board-column">
-            <header class="column-header">
-              <h2>Await feedback</h2>
-              <button type="button" data-add-task-status="awaitFeedback">+</button>
-            </header>
-            <div
-              class="task-list"
-              data-status="awaitFeedback"
-              data-empty-text="No tasks awaiting feedback"
-            ></div>
-          </section>
-          <section class="board-column">
-            <header class="column-header">
-              <h2>Done</h2>
-              <button type="button" data-add-task-status="done">+</button>
-            </header>
-            <div
-              class="task-list"
-              data-status="done"
-              data-empty-text="No tasks done"
-            ></div>
-          </section>
-        </div>
-      </main>
-    </div>
+        <button type="button" class="add-task-button" data-add-task-status="toDo">Add Task +</button>
+      </div>
+      <p id="search-no-results" class="search-no-results" hidden>
+        No tasks found
+      </p>
+      <div class="board-columns">
+        <section class="board-column">
+          <header class="column-header">
+            <h2>To do</h2>
+            <button type="button" data-add-task-status="toDo">+</button>
+          </header>
+          <div class="task-list" data-status="toDo" data-empty-text="No tasks To do"></div>
+        </section>
+        <section class="board-column">
+          <header class="column-header">
+            <h2>In progress</h2>
+            <button type="button" data-add-task-status="inProgress">+</button>
+          </header>
+          <div class="task-list" data-status="inProgress" data-empty-text="No tasks in progress"></div>
+        </section>
+        <section class="board-column">
+          <header class="column-header">
+            <h2>Await feedback</h2>
+            <button type="button" data-add-task-status="awaitFeedback">+</button>
+          </header>
+          <div class="task-list" data-status="awaitFeedback" data-empty-text="No tasks awaiting feedback"></div>
+        </section>
+        <section class="board-column">
+          <header class="column-header">
+            <h2>Done</h2>
+            <button type="button" data-add-task-status="done">+</button>
+          </header>
+          <div class="task-list" data-status="done" data-empty-text="No tasks done"></div>
+        </section>
+      </div>
+    </main>
+  </div>
 
-    <div id="task-overlay" class="task-overlay-backdrop" hidden></div>
-    <div id="add-task-overlay" class="add-task-backdrop" hidden></div>
+  <div id="task-overlay" class="task-overlay-backdrop" hidden></div>
+  <div id="add-task-overlay" class="add-task-backdrop" hidden></div>
 
-  </body>
+</body>
+
 </html>

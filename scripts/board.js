@@ -46,6 +46,15 @@ const exampleTasks = [
 
 let draggedTaskId = "";
 
+function init() {
+  renderBoard(exampleTasks);
+  initializeTaskSearch();
+  initializeTaskDropZones();
+}
+
+function goToHelpPage() {
+  window.location.href = "../pages/help.html"
+}
 
 /**
  * Replaces every placeholder in an HTML template.
@@ -378,8 +387,3 @@ function initializeTaskDropZones() {
     taskList.addEventListener("drop", dropTask);
   });
 }
-
-
-renderBoard(exampleTasks);
-initializeTaskSearch();
-initializeTaskDropZones();

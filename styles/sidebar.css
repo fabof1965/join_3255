@@ -1,15 +1,26 @@
-.main-layout > #sidebar {
+.main-layout>#sidebar {
   flex-shrink: 0;
 }
 
 .sidebar {
-  height: 100dvh;
+  display: flex;
+  box-shadow: var(--sidebar-box-shadow);
+  padding: 20px 0 20px 0;
+  justify-content: space-between;
+}
+
+.sidebar-navigation {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  box-shadow: var(--sidebar-box-shadow);
-  padding: 66px 0 66px 0;
+  padding: 0 16px;
+  gap: 16px;
+}
+
+.sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar a {
@@ -17,14 +28,6 @@
   color: var(--menu-color);
   text-align: left;
   display: block;
-}
-
-.sidebar-navigation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 16px;
-    gap: 16px;
 }
 
 .sidebar-navigation a {
@@ -43,13 +46,9 @@
 
 .sidebar a.active,
 .sidebar a.active:hover {
-  background-color: var(--active-menu-color);
-  color: var(--white-color);
+  background-color: var(--secondary-color);
+  color: var(--menu-color);
   font-weight: 700;
-}
-
-.sidebar-navigation a.active img {
-  filter: brightness(0) invert(1);
 }
 
 .sidebar-navigation a img {

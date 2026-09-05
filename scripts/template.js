@@ -1,5 +1,6 @@
 const sidebarTemplate = `
     <nav class="sidebar-navigation">
+    <div class="sidebar-wrapper">
       <a href="./summary.html">
         <img src="../assets/icons/summary.svg" alt="" />
         <span>Summary</span>
@@ -16,11 +17,13 @@ const sidebarTemplate = `
         <img src="../assets/icons/contacts.svg" alt="" />
         <span>Contacts</span>
       </a>
-    </nav>
+    </div>
     <div class="sidebar-footer">
       <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
       <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
     </div>
+    
+    </nav>
   `;
 
 const headerTemplate = `
@@ -33,7 +36,7 @@ const headerTemplate = `
       <div class="header-right">
         <span>Kanban Project Management Tool</span>
         <button class="header-icon-button" type="button" aria-label="Open help">
-          <img class="help-icon" src="../assets/icons/help.svg" alt="" />
+          <img onclick="goToHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
         </button>
         <button class="header-icon-button" type="button" aria-label="Open user profile">
           <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
