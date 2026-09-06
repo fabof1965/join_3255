@@ -8,6 +8,9 @@ let checkbox = document.getElementById('checkbox');
 
 initEventListeners();
 
+/**
+ * Register all event listeners used on the login/signup form
+ */
 function initEventListeners() {
   checkbox.addEventListener("change", acceptPrivacyPolicity);
   password.addEventListener("input", comparePassword);
@@ -15,6 +18,9 @@ function initEventListeners() {
   email.addEventListener("input", () => email.setCustomValidity(""));
 }
 
+/**
+ * Navigate back to the login page.
+ */
 function backtoLogin() {
   window.location.href = "../index.html";
 }

@@ -20,11 +20,9 @@ password.addEventListener("input", () => {
 })
 
 /**
- * Validates the entered credentials and opens the summary page.
- * @param {SubmitEvent} event - Login form submission event.
- * @returns {void}
+ * Handle the login form submission.
+ * @param {Event} event - Login form submission event.
  */
-
 async function userLogin(event) {
     event.preventDefault();
     let response = await getData('users');
