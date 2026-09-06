@@ -45,13 +45,14 @@
     </header>
 
     <main class="login-main content-wrapper">
+
         <div class="form-wrapper">
             <div class="heading-container">
                 <h2 class="login-heading">Log in</h2>
                 <hr class="headline-underline" />
             </div>
-            <form onsubmit="userLogin(event)" id="login-form" class="login-form">
 
+            <form onsubmit="userLogin(event)" id="login-form" class="login-form">
                 <div class="login-area">
                     <div class="login-input-wrapper">
                         <label for="email" class="visually-hidden">Email</label>
@@ -64,13 +65,14 @@
                         <img id="password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon" />
                     </div>
                 </div>
-            </form>
 
-            <div class="submit-btn-container">
-                <button class="auth-btn btn">Log in</button>
-                <button onclick="logInGuestUser()" class="guest-login-btn btn">Guest log in</button>
-            </div>
+                <div class="submit-btn-container">
+                    <button class="auth-btn btn">Log in</button>
+                    <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">Guest log in</button>
+                </div>
+            </form>
         </div>
+
     </main>
 
     <footer class="login-footer">

@@ -24,6 +24,7 @@ password.addEventListener("input", () => {
  * @param {Event} event - Login form submission event.
  */
 async function userLogin(event) {
+    console.log("submit ausgelöst");
     event.preventDefault();
     let response = await getData('users');
     let users = response ? Object.values(response) : [];
