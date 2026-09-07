@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.d_flex {
+  display: flex;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
 }

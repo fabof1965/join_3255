@@ -85,7 +85,7 @@
 }
 
 .headline-underline {
-  width: 150px;
+  width: var(--full);
   border: var(--headline-underline-border);
 }
 
@@ -96,6 +96,21 @@
   padding: 32px 0;
   width: calc(var(--full) * 0.75);
   gap: 32px;
+}
+
+#checkbox-container {
+  display: none;
+  width: var(--full);
+  margin-bottom: 32px;
+  justify-content: center;
+  gap: 8px;
+}
+
+#signup-btn-container {
+  display: none;
+  width: var(--full);
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
 .submit-btn-container {
@@ -155,9 +170,14 @@
   width: var(--logo-width);
 }
 
-.logo-animation-white path {
-  fill: var(--white-color);
+.logo-path {
+  fill: var(--logo-color);
   animation: logo-color-change var(--logo-color-change-duration) ease-in forwards;
+}
+
+.logo-path.reverse {
+  fill: var(--primary-color);
+  animation: logo-color-change var(--logo-color-change-duration) reverse forwards;
 }
 
 @keyframes logo-color-change {
