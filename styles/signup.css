@@ -32,7 +32,6 @@
     background-color: var(--white-color);
     border-radius: 16px;
     width: 50%;
-    max-width: 750px;
 }
 
 .form-header {

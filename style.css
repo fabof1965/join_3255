@@ -8,6 +8,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+form {
+  max-width: var(--form-max-width);
+}
+
 .content-wrapper {
   max-width: 1440px;
   margin: 0 auto;
