@@ -3,13 +3,10 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* min-height: 100dvh; */
 }
 
 .main-layout {
     display: flex;
-    position: relative;
-    min-height: 100dvh;
 }
 
 .content-wrapper2 {

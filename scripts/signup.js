@@ -8,6 +8,9 @@ let checkbox = document.getElementById('checkbox');
 
 initEventListeners();
 
+/**
+ * Register all event listeners used on the login/signup form
+ */
 function initEventListeners() {
   checkbox.addEventListener("change", acceptPrivacyPolicity);
   password.addEventListener("input", comparePassword);
@@ -15,6 +18,9 @@ function initEventListeners() {
   email.addEventListener("input", () => email.setCustomValidity(""));
 }
 
+/**
+ * Navigate back to the login page.
+ */
 function backtoLogin() {
   window.location.href = "../index.html";
 }
@@ -60,8 +66,6 @@ async function checkIfEmailExists(inputMail) {
   return response ? Object.values(response).some(user => user.email === inputMail) : false;
 }
 
-
-// pricavy policity have to checked before sending the form
 // wenn ich in das passwort input field klicke soll das Augen Symbol erscheinen
 // weiterleitung zur index.html
 // wenn ich einfach privacy policity checke und ein passwort eingebe kann ich das form absenden

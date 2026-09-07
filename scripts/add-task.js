@@ -2,7 +2,6 @@ let newTaskStatus = "toDo";
 let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 
-
 /**
  * Opens the Add Task dialog for a board column.
  * @param {string} status - Initial board column status.
@@ -159,11 +158,14 @@ function createTaskFromForm(form) {
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
  */
-function submitNewTask(event) {
+async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  exampleTasks.push(createTaskFromForm(form));
+  let task = createTaskFromForm(form);
+  let response = await postData("tasks", task);
+  task.id = response.name;
+  exampleTasks.push(task);
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);
 }
