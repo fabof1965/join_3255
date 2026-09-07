@@ -44,4 +44,6 @@
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
     --padding-left-right: clamp(16px, calc(4.571px + 3.571vw), 56px);
     --input-wrapper-padding: 8px 16px;
+    --logo-width: 120px;
+    --logo-half-width: calc(var(--logo-width) / 2);
 }

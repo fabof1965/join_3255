@@ -2,6 +2,17 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  animation: bg-change 600ms ease-in forwards;
+}
+
+@keyframes bg-change {
+  0% {
+    background-color: var(--primary-color);
+  }
+
+  100% {
+    background-color: var(--white-color);
+  }
 }
 
 .login-header {
@@ -9,9 +20,8 @@
   justify-content: space-between;
   width: 100%;
   text-align: center;
-  margin-top: 40px;
-  padding-right: 40px;
-  padding-left: 40px;
+  /* margin-top: 40px; */
+  padding: 32px;
   font-size: 23px;
 }
 
@@ -39,13 +49,15 @@
 
 .form-wrapper {
   display: flex;
-  max-width: 652px;
   width: 100%;
+  max-width: 675px;
   flex-direction: column;
   align-items: center;
   box-shadow: var(--login-box-shadow);
   border-radius: 30px;
   padding: 48px;
+  opacity: 0;
+  animation: fade-in 600ms ease-in 800ms forwards;
 }
 
 .login-form {
@@ -56,6 +68,17 @@
   margin: 16px 0;
   color: var(--black-color);
 }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 
 .heading-container {
   display: flex;
@@ -134,49 +157,24 @@
 }
 
 .logo-animation {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background-color: var(--primary-color);
-  animation: logo-animation-background 600ms ease-in-out 600ms forwards;
-  pointer-events: none;
+  position: absolute;
+  top: calc(50% - var(--logo-half-width));
+  left: calc(50% - var(--logo-half-width));
+  animation: white-logo 300ms ease-in 600ms forwards;
 }
 
 .logo-animation-white {
-  position: relative;
   width: 120px;
-  top: calc(50% - 60px);
-  left: calc(50% - 60px);
-  transform: scale(2);
-  animation: white-logo 600ms ease-in-out 600ms forwards;
+  /* animation: white-logo 600ms ease-in-out 600ms forwards; */
 }
 
 .logo-animation-white path {
   fill: var(--white-color);
-  animation: colorChange 600ms ease-in-out 600ms forwards;
-}
-
-@keyframes logo-animation-background {
-  from {
-    background-color: var(--primary-color);
-  }
-
-  to {
-    background-color: transparent;
-  }
+  animation: colorChange 300ms ease-in 600ms forwards;
 }
 
 @keyframes colorChange {
   0% {
-    fill: var(--white-color);
-  }
-
-  20% {
     fill: var(--white-color);
   }
 
@@ -187,20 +185,12 @@
 
 @keyframes white-logo {
   0% {
-    top: calc(50% - 60px);
-    left: calc(50% - 60px);
     transform: scale(2);
   }
 
-  20% {
-    top: calc(50% - 80px);
-    left: calc(50% - 80px);
-    transform: scale(1.5);
-  }
-
   100% {
-    top: 40px;
+    top: 12px;
     left: max(0px, calc((100% - 1440px) / 2));
-    transform: scale(1);
+    transform: scale(0.5);
   }
 }
