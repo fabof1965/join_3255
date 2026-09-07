@@ -50,12 +50,12 @@
             </header>
             <div class="sign-up-input-container-wrapper">
                 <div class="input-wrapper">
-                    <input class="input-field" type="name" id="name" placeholder="Name" required>
+                    <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
                     <img src="../assets/icons/person.svg" alt="person logo">
                 </div>
 
                 <div class="input-wrapper">
-                    <input class="input-field" type="email" id="email" placeholder="Email">
+                    <input class="input-field" type="email" id="email" placeholder="Email" required>
                     <img src="../assets/icons/mail.svg" alt="mail logo">
                 </div>
 
@@ -73,8 +73,8 @@
 
             <div class="checkbox-container">
                 <input class="checkbox" type="checkbox" id="checkbox">
-                <span class="policity-span">I accept the <a class="privacy-policity-link" data-text="Privacy policity"
-                        href="../pages/privacy_policy.html">Privacy policity</a></span>
+                <span>I accept the <a class="privacy-policy-link" data-text="Privacy Policy"
+                        href="../pages/privacy_policy.html">Privacy Policy</a></span>
             </div>
 
             <div class="sign-up-button-container">
@@ -90,10 +90,12 @@
 
         </div>
     </footer>
-<!-- 
-    <dialog style="display: flex;">
-        hallo
-    </dialog> -->
+
+    <dialog id="dialog" class="sign-up-dialog">
+        <div class="dialog-content-wrapper">
+            <h2>Signed up successfully</h2>
+        </div>
+    </dialog>
 
 </body>
 
