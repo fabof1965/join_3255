@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  animation: bg-change 600ms ease-in forwards;
+  animation: bg-change var(--bg-change-duration) ease-in forwards;
 }
 
 @keyframes bg-change {
@@ -53,11 +53,10 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 16px 0;
-  border-radius: 30px;
+  border-radius: var(--form-border-radius);
   padding: 48px;
   opacity: 0;
-  animation: fade-in 600ms ease-in 600ms forwards;
+  animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
 }
@@ -148,19 +147,20 @@
   position: absolute;
   top: calc(50% - var(--logo-half-width));
   left: calc(50% - var(--logo-half-width));
-  animation: white-logo 600ms ease-in 300ms forwards;
+  transform: scale(2);
+  animation: white-logo var(--logo-animation-duration) ease-in var(--logo-animation-delay) forwards;
 }
 
 .logo-animation-white {
-  width: 120px;
+  width: var(--logo-width);
 }
 
 .logo-animation-white path {
   fill: var(--white-color);
-  animation: colorChange 600ms ease-in 300ms forwards;
+  animation: logo-color-change var(--logo-color-change-duration) ease-in forwards;
 }
 
-@keyframes colorChange {
+@keyframes logo-color-change {
   0% {
     fill: var(--white-color);
   }
@@ -176,8 +176,8 @@
   }
 
   100% {
-    top: 0;
+    top: 12px;
     left: var(--logo-position-left);
-    transform: scale(0.5);
+    transform: scale(0.75);
   }
 }

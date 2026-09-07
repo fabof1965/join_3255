@@ -14,7 +14,7 @@
 }
 
 .logo {
-    width: var(--logo-half-width);
+    width: calc(var(--logo-width) * 0.75);
 }
 
 .sign-up-main {
@@ -30,7 +30,7 @@
     align-items: center;
     flex-direction: column;
     background-color: var(--white-color);
-    border-radius: 16px;
+    border-radius: var(--form-border-radius);
     width: 50%;
 }
 
