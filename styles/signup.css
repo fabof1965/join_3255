@@ -114,7 +114,7 @@
     cursor: pointer;
 }
 
-.privacy-policity-link::before {
+.privacy-policy-link::before {
     display: block;
     content: attr(data-text);
     font-weight: 600;
@@ -123,13 +123,13 @@
     overflow: hidden;
 }
 
-.privacy-policity-link {
+.privacy-policy-link {
     display: inline-block;
     color: var(--primary-color);
     text-decoration: none;
 }
 
-.privacy-policity-link:hover {
+.privacy-policy-link:hover {
     font-weight: 600;
 }
 
@@ -161,4 +161,16 @@
 
 .legal-link-sign-up:hover{
     text-decoration: underline;
+}
+
+.sign-up-dialog[open]{
+    display: flex;
+    margin: auto;
+    border-radius: 16px;
+    position: fixed;
+    bottom: 35%;
+    padding: 30px;
+    border: none;
+    background-color: var( --active-menu-color);
+    color: var(--white-color);
 }
