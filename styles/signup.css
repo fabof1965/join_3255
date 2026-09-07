@@ -86,7 +86,7 @@
     border-bottom: 2px solid var(--search-bar-outline-color);
     justify-content: space-between;
     padding: 8px 16px;
-    width: 100%;
+    width: var(--full);
 }
 
 .input-field {
