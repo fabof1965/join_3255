@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  animation: bg-change 750ms ease-in forwards;
+  animation: bg-change 600ms ease-in forwards;
 }
 
 @keyframes bg-change {
@@ -57,7 +57,7 @@
   border-radius: 30px;
   padding: 48px;
   opacity: 0;
-  animation: fade-in 600ms ease-in 800ms forwards;
+  animation: fade-in 600ms ease-in 600ms forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
 }
@@ -148,7 +148,7 @@
   position: absolute;
   top: calc(50% - var(--logo-half-width));
   left: calc(50% - var(--logo-half-width));
-  animation: white-logo 300ms ease-in 600ms forwards;
+  animation: white-logo 600ms ease-in 300ms forwards;
 }
 
 .logo-animation-white {
@@ -157,7 +157,7 @@
 
 .logo-animation-white path {
   fill: var(--white-color);
-  animation: colorChange 300ms ease-in 300ms forwards;
+  animation: colorChange 600ms ease-in 300ms forwards;
 }
 
 @keyframes colorChange {
