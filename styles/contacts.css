@@ -2,7 +2,7 @@
     display: flex;
     margin: 0 auto;
     max-width: 1440px;
-    width: 100%;
+    width: var(--full);
 }
 
 @media(max-width: 1550px) {
@@ -31,10 +31,6 @@
     background-color: var(--primary-color);
     color: var(--white-color);
 }
-
-/* .btn-new-contact:hover {
-    box-shadow: var(--login-box-shadow);
-} */
 
 #contacts {
     display: flex;
@@ -77,7 +73,7 @@
     width: 48px;
     height: 48px;
     padding: 12px;
-    border-radius: 50%;
+    border-radius: var(--border-radius-circular);
     background-color: var(--user-story-color);
 }
 
@@ -103,7 +99,7 @@
     width: 80px;
     height: 80px;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: var(--border-radius-circular);
     background-color: var(--user-story-color);
 }
 
@@ -184,7 +180,7 @@ dialog[open] {
 #dialog-header {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: var(--full);
     background-color: var(--primary-color);
     align-items: center;
 }
@@ -218,7 +214,7 @@ dialog[open] {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: var(--border-radius-circular);
     background-color: transparent;
     border: none;
     margin-left: auto;
@@ -239,7 +235,7 @@ dialog[open] {
     align-items: center;
     margin: 3rem auto 1rem auto;
     background-color: var(--badge-dialog-background-color);
-    border-radius: 50%;
+    border-radius: var(--border-radius-circular);
     width: 80px;
     height: 80px;
 }
@@ -250,7 +246,7 @@ dialog[open] {
     align-items: center;
     gap: 32px;
     padding: 0 40px;
-    width: 100%;
+    width: var(--full);
 }
 
 .input-wrapper {
@@ -262,7 +258,7 @@ dialog[open] {
 }
 
 input {
-    width: 100%;
+    width: var(--full);
     border: none;
 }
 
@@ -275,7 +271,7 @@ input {
     justify-content: center;
     align-items: center;
     gap: 16px;
-    width: 100%;
+    width: var(--full);
     margin-top: 32px;
     padding-bottom: 32px;
 }

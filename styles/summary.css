@@ -22,7 +22,7 @@ body {
 /* 2. Hauptlayout haftet fest am linken Rand (kein zentrieren durch auto) */
 .main-layout {
   display: flex;
-  width: 100%;
+  width: var(--full);
   min-height: 100vh;
   height: 100dvh;
 
@@ -32,7 +32,7 @@ body {
     .summary-container {
       max-width: 912px;
       min-height: 591px;
-      width: 100%;
+      width: var(--full);
       height: auto;
       padding: 40px;
       margin: 0 auto;
@@ -43,7 +43,7 @@ body {
       .greeting {
         max-width: 745px;
         min-height: 77px;
-        width: 100%;
+        width: var(--full);
         height: auto;
         margin-bottom: 40px;
         line-height: 1.2;
@@ -71,10 +71,10 @@ body {
       }
 
       &.guest-container {
-        width: 100%;
+        width: var(--full);
 
         .greeting {
-          width: 100%;
+          width: var(--full);
           justify-content: center;
           text-align: center;
 
@@ -93,7 +93,7 @@ body {
     .summary-row {
       max-width: 912px;
       min-height: 191px;
-      width: 100%;
+      width: var(--full);
       height: auto;
       display: flex;
       gap: 24px;
@@ -107,7 +107,7 @@ body {
       &:last-of-type {
         max-width: 912px;
         min-height: 219px;
-        width: 100%;
+        width: var(--full);
         height: auto;
       }
 
@@ -172,7 +172,7 @@ body {
         color: var(--white-color);
         max-width: 672px;
         min-height: 191px;
-        width: 100%;
+        width: var(--full);
         height: auto;
         display: flex;
         flex: 1;
@@ -189,7 +189,7 @@ body {
         .card-left {
           max-width: 140px;
           min-height: 113px;
-          width: 100%;
+          width: var(--full);
           height: auto;
           display: flex;
           justify-content: center;
@@ -207,7 +207,7 @@ body {
         .card-right {
           max-width: 274px;
           min-height: 81px;
-          width: 100%;
+          width: var(--full);
           height: auto;
           display: flex;
           flex-direction: column;
@@ -229,7 +229,7 @@ body {
       .card-top-right {
         max-width: 208px;
         min-height: 191px;
-        width: 100%;
+        width: var(--full);
         height: auto;
         display: flex;
         flex: 1;
@@ -243,7 +243,7 @@ body {
       .card-light-blue {
         max-width: 204px;
         min-height: 219px;
-        width: 100%;
+        width: var(--full);
         height: auto;
         display: flex;
         flex: 1;
@@ -267,7 +267,7 @@ body {
 
 /* 3. Content-Bereich anpassen und Scrollbalken verstecken */
 .content-wrapper {
-    width: 100%;
+    width: var(--full);
     height: 100%;
     background-color: var(--white-color, #ffffff);
     flex-grow: 1;
@@ -282,7 +282,7 @@ body {
     }
 
     .summary-container {
-        width: 100%;
+        width: var(--full);
         max-width: 1100px;
         margin: 0 auto;
         padding: 40px 60px;
@@ -294,7 +294,7 @@ body {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            width: var(--full);
             margin-bottom: 24px;
 
             .help-title {
@@ -326,7 +326,7 @@ body {
         .help-intro {
             font-size: 16px;
             line-height: 1.5;
-            width: 100%;
+            width: var(--full);
             margin-bottom: 24px;
             color: var(--black-color, #000);
 
@@ -337,7 +337,7 @@ body {
         }
 
         .help-section {
-            width: 100%;
+            width: var(--full);
             display: flex;
             flex-direction: column;
             gap: 16px;

@@ -12,7 +12,7 @@
 }
 
 .legal-content {
-  width: 100%;
+  width: var(--full);
   max-width: 1032px;
 }
 

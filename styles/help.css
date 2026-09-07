@@ -12,14 +12,14 @@ body {
 .content-wrapper2 {
     max-width: 1440px;
     margin: 0 auto;
-    width: 100%;
+    width: var(--full);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .summary-container {
-    width: 100%;
+    width: var(--full);
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 60px;
@@ -31,7 +31,7 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
+        width: var(--full);
         margin-bottom: 20px;
 
         .help-title {
@@ -62,13 +62,13 @@ body {
     .help-intro {
         font-size: 16px;
         line-height: 1.5;
-        width: 100%;
+        width: var(--full);
         margin-bottom: 24px;
         color: var(--black-color);
     }
 
     .help-section {
-        width: 100%;
+        width: var(--full);
         display: flex;
         flex-direction: column;
         gap: 16px;

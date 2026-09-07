@@ -45,10 +45,19 @@
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
     --padding-left-right: clamp(16px, calc(4.571px + 3.571vw), 56px);
     --input-wrapper-padding: 8px 16px;
-    --logo-width: 140px;
+    --logo-width: 130px;
     --logo-half-width: calc(var(--logo-width) / 2);
     --logo-position-left: max(0px, calc((100% - 1440px) / 2));
     --form-max-width: 675px;
+    --full: 100%;
+    --border-radius-circular: 50%;
+
+    /*page-header*/
+    --page-header-help-icon-width: 32px;
+    --page-header-help-icon-height: var(--page-header-help-icon-width);
+    
+    --profile-icon-width: 56px;
+    --profile-icon-height: var(--profile-icon-width);
 
     /*animation-timings*/
     --bg-change-duration: 300ms;

@@ -21,7 +21,7 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: var(--full);
   max-width: 1440px;
 }
 
@@ -47,7 +47,7 @@ form {
 }
 
 .input-field {
-  width: 100%;
+  width: var(--full);
   border: none;
   box-sizing: border-box;
   font-size: 19px;

@@ -45,7 +45,7 @@
 }
 
 .add-task-close img {
-  width: 100%;
+  width: var(--full);
   height: 100%;
 }
 
@@ -78,7 +78,7 @@
 .add-task-field input,
 .add-task-field select,
 .add-task-field textarea {
-  width: 100%;
+  width: var(--full);
   padding: 12px 16px;
   border: none;
   border-bottom: 1px solid var(--search-bar-outline-color);

@@ -32,13 +32,13 @@
 }
 
 .help-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: var(--page-header-help-icon-width);
+  height: var(--page-header-help-icon-height);
+  border-radius: var(--border-radius-circular);
 }
 
 .profile-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+  width: var(--profile-icon-width);
+  height: var(--profile-icon-height);
+  border-radius: var(--border-radius-circular);
 }
