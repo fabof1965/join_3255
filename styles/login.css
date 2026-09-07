@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  animation: bg-change 600ms ease-in forwards;
+  animation: bg-change 750ms ease-in forwards;
 }
 
 @keyframes bg-change {
@@ -20,7 +20,6 @@
   justify-content: space-between;
   width: 100%;
   text-align: center;
-  /* margin-top: 40px; */
   padding: 32px;
   font-size: 23px;
 }
@@ -143,14 +142,9 @@
   text-decoration: none;
 }
 
-.lock-img {
+.lock-img, .checkbox {
   cursor: pointer;
 }
-
-.checkbox {
-  cursor: pointer;
-}
-
 
 .legal-link-login:hover {
   color: var(--primary-color);
@@ -165,12 +159,11 @@
 
 .logo-animation-white {
   width: 120px;
-  /* animation: white-logo 600ms ease-in-out 600ms forwards; */
 }
 
 .logo-animation-white path {
   fill: var(--white-color);
-  animation: colorChange 300ms ease-in 600ms forwards;
+  animation: colorChange 300ms ease-in 300ms forwards;
 }
 
 @keyframes colorChange {
@@ -189,8 +182,8 @@
   }
 
   100% {
-    top: 12px;
-    left: max(0px, calc((100% - 1440px) / 2));
+    top: 0;
+    left: var(--logo-position-left);
     transform: scale(0.5);
   }
 }

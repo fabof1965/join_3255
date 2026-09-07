@@ -46,4 +46,5 @@
     --input-wrapper-padding: 8px 16px;
     --logo-width: 120px;
     --logo-half-width: calc(var(--logo-width) / 2);
+    --logo-position-left: max(0px, calc((100% - 1440px) / 2));
 }
