@@ -34,6 +34,22 @@ body {
   box-shadow: var(--button-box-shadow);
 }
 
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: var(--login-input-border-bottom);
+  justify-content: center;
+  padding: var(--input-wrapper-padding);
+}
+
+.input-field {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  font-size: 19px;
+  outline: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

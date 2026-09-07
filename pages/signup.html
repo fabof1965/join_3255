@@ -40,31 +40,33 @@
     <main class="sign-up-main">
 
         <form id="signUpForm" class="sign-up-form">
-            <div class="sign-up-header-wrapper">
-                <div>
-                    <button onclick="backtoLogin()" type="button" id="arrow-back" class="arrow-back-btn"><img
+            <header class="form-header">
+                <button onclick="backtoLogin()" type="button" id="arrow-back" class="arrow-back-btn"><img
                             src="../assets/icons/arrow-left-line.png" alt="arrow-left"></button>
-                </div>
                 <div class="sign-up-heading-container">
                     <h1 class="sign-up-heading">Sign up</h1>
                     <hr class="headline-underline" />
                 </div>
-            </div>
+            </header>
             <div class="sign-up-input-container-wrapper">
-                <div class="sign-up-input-container"><input class="input-field" type="name" id="name" placeholder="Name"
-                        required><img src="../assets/icons/person.svg" alt="person logo"></div>
-
-                <div class="sign-up-input-container"><input class="input-field" type="email" id="email"
-                        placeholder="Email"><img src="../assets/icons/mail.svg" alt="mail logo"></div>
-
-                <div class="sign-up-input-container"><input class="input-field" type="password" id="password" required
-                        placeholder="Password">
-                    <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img"
-                        src="../assets/icons/lock.svg" alt="lock-img">
+                <div class="input-wrapper">
+                    <input class="input-field" type="name" id="name" placeholder="Name" required>
+                    <img src="../assets/icons/person.svg" alt="person logo">
                 </div>
 
-                <div class="sign-up-input-container"><input class="input-field" type="password" id="confirm-password"
-                        required placeholder="Confirm Password"><img src="../assets/icons/lock.svg" alt="lock logo">
+                <div class="input-wrapper">
+                    <input class="input-field" type="email" id="email" placeholder="Email">
+                    <img src="../assets/icons/mail.svg" alt="mail logo">
+                </div>
+
+                <div class="input-wrapper">
+                    <input class="input-field" type="password" id="password" required placeholder="Password">
+                    <img id="password-toggle-icon" onclick="toggleShowPassword()" class="lock-img" src="../assets/icons/lock.svg" alt="lock-img">
+                </div>
+
+                <div class="input-wrapper">
+                    <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
+                    <img src="../assets/icons/lock.svg" alt="lock logo">
                 </div>
             </div>
 

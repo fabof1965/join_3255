@@ -25,15 +25,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 48px 88px;
     background-color: var(--white-color);
     border-radius: 16px;
+    width: 50%;
 }
 
-.sign-up-header-wrapper {
+.form-header {
     display: flex;
     align-items: center;
     width: 100%;
+    padding: 32px;
 }
 
 .sign-up-heading-container {
@@ -69,29 +70,18 @@
 .sign-up-input-container-wrapper {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    gap: 10px;
-    padding: 32px 0 32px 0;
+    width: 100%;
+    gap: 32px;
+    padding: 32px 90px;
 }
 
 .sign-up-input-container {
     display: flex;
     align-items: center;
     border-bottom: 2px solid var(--search-bar-outline-color);
-    justify-content: center;
+    justify-content: space-between;
     padding: 8px 16px;
-}
-
-.sign-up-input-container:nth-child(2) {
-    margin-top: 30px;
-}
-
-.sign-up-input-container:nth-child(3) {
-    margin-top: 30px;
-}
-
-.sign-up-input-container:nth-child(4) {
-    margin-top: 30px;
+    width: 100%;
 }
 
 .input-field {
@@ -141,6 +131,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    margin-bottom: 32px;
 }
 
 .sign-up-footer {
@@ -171,5 +162,5 @@
 }
 
 .legal-link-sign-up:hover{
-    font-weight: bold;
+    text-decoration: underline;
 }
