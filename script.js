@@ -69,6 +69,10 @@ function handlePasswordFocus(field) {
   if (field.input.type === "password") {
     field.icon.src = "../assets/icons/visibility_off.svg";
     field.icon.alt = "hide password";
+  } else {
+    field.input.type = "text";
+    field.icon.src = '../assets/icons/visibility.svg';
+    field.icon.alt = "show password";
   }
 }
 
