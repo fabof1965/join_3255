@@ -27,7 +27,7 @@ const sidebarTemplate = `
   `;
 
 const headerTemplate = `
-    <div class="content-wrapper2 header">
+    <div class="header">
       <div class="header-left">
         <button class="header-icon-button" type="button" aria-label="Header Logo">
           <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
