@@ -79,12 +79,3 @@ function closeDialog() {
   let dialog = document.getElementById('dialog');
   dialog.close();
 }
-
-// function openDialog() {
-//   let dialog = document.getElementById('dialog');
-//   dialog.showModal();
-// }
-
-// wenn ich in das passwort input field klicke soll das Augen Symbol erscheinen
-// weiterleitung zur index.html
-// wenn ich einfach privacy policity checke und ein passwort eingebe kann ich das form absenden
