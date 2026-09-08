@@ -78,7 +78,7 @@ const taskOverlayTemplate = `
     <header class="task-overlay-header">
       <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
       <button class="task-overlay-close" type="button" aria-label="Close task details">
-        <img src="../assets/icons/close-task-overlay.svg" alt="" />
+        <img src="../assets/icons/close-task-overlay.svg" alt="close task" />
       </button>
     </header>
     <h2 id="task-overlay-title">{{title}}</h2>
@@ -94,9 +94,9 @@ const taskOverlayTemplate = `
       <div class="task-overlay-subtasks">{{subtasks}}</div>
     </section>
     <footer class="task-overlay-actions">
-      <button class="task-overlay-delete" type="button"><img src="../assets/icons/delete-task.png" alt="" />Delete</button>
+      <button class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="delete task" />Delete</button>
       <span></span>
-      <button type="button"><img src="../assets/icons/edit-task.png" alt="" />Edit</button>
+      <button type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
     </footer>
   </article>
 `;

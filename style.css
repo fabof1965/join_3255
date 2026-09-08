@@ -12,6 +12,10 @@ form {
   max-width: var(--form-max-width);
 }
 
+button{
+  cursor: pointer;
+}
+
 .content-wrapper {
   max-width: 1440px;
   margin: 0 auto;
@@ -30,7 +34,6 @@ form {
   outline: none;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
   background: none;
 }
 
