@@ -1,7 +1,6 @@
 .login-body {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
   animation: bg-change var(--bg-change-duration) ease-in forwards;
 }
 
@@ -17,17 +16,11 @@
 
 .login-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: var(--full);
   text-align: center;
-  padding: 32px;
+  padding: var(--padding-top-bottom) var(--padding-left-right);
   font-size: 23px;
-}
-
-.sign-up-container {
-  display: flex;
-  width: var(--full);
-  justify-content: flex-end;
 }
 
 .sign-up-wrapper {
@@ -42,11 +35,10 @@
   flex-direction: column;
   align-items: center;
   width: var(--full);
-  flex: 1;
+  /* flex: 1; */
   justify-content: center;
+  height: 100dvh;
 }
-
-
 
 .login-form {
   display: flex;
@@ -54,8 +46,7 @@
   align-items: center;
   width: calc(var(--full) / 2);
   border-radius: var(--form-border-radius);
-  /* padding: 48px; */
-  opacity: 0;
+  opacity: var(--zero);
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
@@ -63,7 +54,7 @@
 
 @keyframes fade-in {
   0% {
-    opacity: 0;
+    opacity: var(--zero);
   }
 
   100% {
@@ -139,10 +130,12 @@
 }
 
 .submit-btn-container {
+  display: flex;
   justify-content: center;
   gap: 32px;
   margin-top: 32px;
   padding: 0 32px 32px 32px;
+  width: var(--full);
 }
 
 .guest-login-btn {

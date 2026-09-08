@@ -52,6 +52,7 @@
     --form-max-width: 675px;
     --full: 100%;
     --border-radius-circular: 50%;
+    --zero: 0;
 
     /*page-header*/
     --page-header-help-icon-width: 32px;
