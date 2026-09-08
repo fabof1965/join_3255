@@ -19,7 +19,7 @@ signUp.addEventListener("click", () => {
 
 function addSignupContent() {
     setPageBackgroundColor("#1268FF");
-    setLogoColor("white");
+    setLogoStyles("white", "none");
     setSignupFormContent();
 
     console.log("Signup Content is loaded");
@@ -31,32 +31,72 @@ function setPageBackgroundColor(color) {
     documentBody.style.backgroundColor = color;
 }
 
-function setLogoColor(color) {
+function setLogoStyles(color, animationStyles) {
     document.querySelectorAll(".logo-path").forEach(path => {
-        path.setAttribute("fill", color);
+        setAnimationStyle(path, animationStyles);
+        setLogoColor(path, color);
     });
-}   
+}
+
+function setLogoColor(path, color) {
+    path.style.fill = color;
+}
+
+function setAnimationStyle(element, animationStyle) {
+    element.style.animation = animationStyle;
+}
+
+function backToLogin() {
+    //signup wrapper content wird eingeblendet
+    const signupWrapper = document.getElementById("signup-wrapper");
+
+    setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
+    setPageBackgroundColor("white");
+    setHeadlineText("Log in");
+
+    const formInputContainer = document.getElementById("formInputContainer");
+    formInputContainer.innerHTML = getInputFieldsForLogin();
+
+    //show submit buttons and hide signup button and signup-wrapper
+    document.getElementById("signup-btn-container").style.display = "none";
+    document.getElementById("btn-show-login").style.display = "none";
+    document.getElementById("checkbox-container").style.display = "none";
+    document.getElementById("submit-btn-container").style.display = "flex";
+    signupWrapper.style.display = "flex";
+
+}
 
 function setSignupFormContent() {
     setLoginFormBackgroundColor("white");
-
     setHeadlineText("Sign up");
 
     const formInputContainer = document.getElementById("formInputContainer");
+    const signupWrapper = document.getElementById("signup-wrapper");
     formInputContainer.innerHTML = getInputFieldsForSignup();
 
-    setCheckboxVisibility("flex");
-    document.getElementById("submit-btn-container").style.display = "none";
     document.getElementById("signup-btn-container").style.display = "flex";
+    document.getElementById("btn-show-login").style.display = "flex";
+    document.getElementById("checkbox-container").style.display = "flex";
+    document.getElementById("submit-btn-container").style.display = "none";
+    signupWrapper.style.display = "none";
 }
 
 function setLoginFormBackgroundColor(color) {
     document.getElementById("login-form").style.backgroundColor = color;
 }
 
-function setCheckboxVisibility(visibility) {
-    const checkboxContainer = document.getElementById("checkbox-container");
-    checkboxContainer.style.display = visibility;
+function getInputFieldsForLogin() {
+    return `<div class="input-wrapper">
+                <label for="email" class="visually-hidden">Email</label>
+                <input id="email" class="input-field" type="email" placeholder="Email" required />
+                <img src="./assets/icons/mail.svg" alt="mail icon" />
+            </div>
+            <div class="input-wrapper">
+                <label for="password" class="visually-hidden">Passwort</label>
+                <input id="password" class="input-field" type="password" placeholder="Passwort" required />
+                <img onclick="toggleShowPassword()" id="password-toggle-icon" class="lock-img"
+                    src="./assets/icons/lock.svg" alt="lock icon" />
+            </div>`;
 }
 
 function getInputFieldsForSignup() {

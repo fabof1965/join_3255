@@ -45,10 +45,17 @@
 
     <main class="login-main content-wrapper">
         <form onsubmit="userLogin(event)" id="login-form" class="login-form">
-            <div class="heading-container">
-                <h2 id="heading" class="login-heading">Log in</h2>
-                <hr class="headline-underline" />
-            </div>
+            <header class="form-header">
+                <button id="btn-show-login" onclick="backToLogin()" type="button" id="arrow-back" class="arrow-back-btn">
+                    <img src="../assets/icons/arrow-left-line.png" alt="arrow-left">
+                </button>
+                <div class="heading-wrapper">
+                    <div class="heading-container">
+                        <h2 id="heading" class="login-heading">Log in</h2>
+                        <hr class="headline-underline" />
+                    </div>
+                </div>
+            </header>
 
             <div id="formInputContainer" class="login-area">
                 <div class="input-wrapper">
@@ -64,17 +71,17 @@
                 </div>
             </div>
 
-            <div id="checkbox-container" class="checkbox-container">
+            <div id="checkbox-container">
                 <input class="checkbox" type="checkbox" id="checkbox">
                 <span>I accept the <a class="privacy-policy-link" data-text="Privacy Policy"
                         href="../pages/privacy_policy.html">Privacy Policy</a></span>
             </div>
 
-            <div id="signup-btn-container" class="sign-up-button-container">
+            <div id="signup-btn-container" class="sign-up-button-container hide">
                 <button onclick="registerUser(event)" type="submit" class="btn auth-btn">Sign up</button>
             </div>
 
-            <div id="submit-btn-container" class="submit-btn-container">
+            <div id="submit-btn-container" class="submit-btn-container show">
                 <button class="auth-btn btn">Log in</button>
                 <button onclick="logInGuestUser()" class="guest-login-btn btn">Guest log in</button>
             </div>

@@ -52,9 +52,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: var(--full);
+  width: calc(var(--full) / 2);
   border-radius: var(--form-border-radius);
-  padding: 48px;
+  /* padding: 48px; */
   opacity: 0;
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
@@ -71,6 +71,31 @@
   }
 }
 
+.form-header {
+  display: flex;
+  align-items: center;
+  width: var(--full);
+  padding: 32px;
+}
+
+.arrow-back-btn {
+  display: none;
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.arrow-back-btn:hover {
+  background-color: var(--arrow-back-btn-hover-color);
+  border-radius: var(--border-radius-circular);
+}
+
+.heading-wrapper {
+  display: flex;
+  justify-content: center;
+  width: var(--full);
+}
 
 .heading-container {
   display: flex;
@@ -114,10 +139,10 @@
 }
 
 .submit-btn-container {
-  display: flex;
   justify-content: center;
   gap: 32px;
   margin-top: 32px;
+  padding: 0 32px 32px 32px;
 }
 
 .guest-login-btn {
