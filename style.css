@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+.show {
+  display: flex;
+}
+
+.hide {
+  display: none;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
 }
