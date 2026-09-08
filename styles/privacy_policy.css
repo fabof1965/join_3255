@@ -1,3 +1,11 @@
+.main-layout{
+  display: flex;
+}
+
+body{
+  margin: 0;
+}
+
 .legal-page {
   min-height: 100dvh;
   background-color: var(--white-color);

@@ -6,6 +6,12 @@
   justify-content: center;
 }
 
+.header{
+  display: flex;
+  justify-content: space-between;
+  width: var(--full);
+}
+
 .header-left img {
   height: 56px;
 }
