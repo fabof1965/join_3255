@@ -1,4 +1,13 @@
-@import "./privacy_policy.css";
+.main-container {
+  flex: 1;
+  min-width: 0;
+  padding: 0 64px;
+  padding-top: 72px;
+}
+
+.main-layout {
+    display: flex;
+}
 
 .legal-notice-page .legal-notice-link {
   width: 112px;
