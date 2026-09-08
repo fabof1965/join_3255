@@ -17,10 +17,16 @@
 .login-header {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   width: var(--full);
   text-align: center;
   padding: var(--padding-top-bottom) var(--padding-left-right);
   font-size: 23px;
+}
+
+.spacing {
+  height: 23px;
+  width: 5px;
 }
 
 .sign-up-wrapper {
