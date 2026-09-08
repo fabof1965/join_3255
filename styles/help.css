@@ -3,6 +3,7 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin: 0;
 }
 
 .main-layout {
@@ -10,7 +11,7 @@ body {
 }
 
 .content-wrapper2 {
-    max-width: 1440px;
+    /* max-width: 1440px; */
     margin: 0 auto;
     width: var(--full);
     display: flex;

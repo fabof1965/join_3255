@@ -52,10 +52,6 @@ function init() {
   initializeTaskDropZones();
 }
 
-function goToHelpPage() {
-  window.location.href = "../pages/help.html"
-}
-
 /**
  * Replaces every placeholder in an HTML template.
  * @param {string} template - HTML containing named placeholders.

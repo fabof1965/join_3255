@@ -100,3 +100,6 @@ initPasswordEventListener();
 /* login and signup functions END */
 
 
+function toHelpPage() {
+  window.location.href = "../pages/help.html"
+}

@@ -25,8 +25,6 @@ button{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: var(--full);
-  max-width: 1440px;
 }
 
 .btn {
