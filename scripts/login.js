@@ -10,19 +10,10 @@ function logInGuestUser() {
     window.location.href = './pages/summary_guest.html';
 }
 
-let signUp = document.getElementById('sign-up-btn');
-signUp.addEventListener("click", () => {
-    // window.location.href = "./pages/signup.html"
-    document.getElementById("signup-wrapper").style.display = "none";
-    addSignupContent();
-});
-
 function addSignupContent() {
     setPageBackgroundColor("#1268FF");
     setLogoStyles("white", "none");
     setSignupFormContent();
-
-    console.log("Signup Content is loaded");
 }
 
 function setPageBackgroundColor(color) {
@@ -76,14 +67,8 @@ function backToLogin() {
     const formInputContainer = document.getElementById("formInputContainer");
     formInputContainer.innerHTML = getInputFieldsForLogin();
 
-    //show submit buttons and hide signup button and signup-wrapper
-    // document.getElementById("signup-btn-container").style.display = "none";
-    // document.getElementById("btn-show-login").style.display = "none";
-    // document.getElementById("checkbox-container").style.display = "none";
     setDisplayForSignupElements();
     setDisplayForLoginElements();
-    // document.getElementById("submit-btn-container").style.display = "flex";
-    // document.getElementById("signup-wrapper").style.display = "flex";
 }
 
 function setSignupFormContent() {
