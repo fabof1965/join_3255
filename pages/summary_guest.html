@@ -1,90 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join-Summary</title>
-  <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
-  <link rel="stylesheet" href="../styles/summary.css" />
-  <link rel="stylesheet" href="../styles/sidebar.css" />
-  <script src="../scripts/template.js" defer></script>
-  <script src="../script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>summary</title>
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/summary.css" />
+    <script src="../scripts/template.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/summary.js" defer></script>
 </head>
-
 <body>
-  <div class="main-layout">
+<header class="header" id="header"></header>
+<main class="main-layout">
     <aside id="sidebar" class="sidebar"></aside>
-    <div class="content-wrapper">
-      <div class="summary-container guest-container">
-        <div class="greeting">
-          <span class="greeting-text">Good morning</span>
+    <section class="summary-container">
+        <div class="greeting-container">
+            <h1 class="greeting-text-guest">Good Morning</h1>
         </div>
 
-        <div class="summary-row">
-          <div class="card card-blue-large">
-            <div class="card-left">
-              <div class="card-content-top">
-                <img src="../assets/icons/tasks_urgent.png" alt="Urgent Icon" />
-                <span class="card-number">1</span>
-              </div>
-              <span class="card-label">Tasks Urgent</span>
+        <section class="summary-card-container">
+            <!-- Linke Spalte (Blaue Box + 3 kleine Karten) -->
+            <div class="summary-cards-left">
+                <div class="blue-head-column">
+                    <div class="urgent-task">
+                        <div class="icon-and-number">
+                            <img class="task-icons" src="../assets/icons/tasks_urgent.png" alt="task icon">
+                            <span class="task-number">1</span>
+                        </div>
+                        <span class="sub-text">Tasks Urgent</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="date">
+                        <span id="date" class="date-text">October 16, 2022</span>
+                        <span class="sub-text">Upcoming Deadline</span>
+                    </div>
+                </div>
+
+                <div class="other-tasks">
+                    <div class="tasks-to-do">
+                        <div class="icon-and-number">
+                            <img class="task-icons" src="../assets/icons/task_to_do.png" alt="task icon">
+                            <span class="task-number">1</span>
+                        </div>
+                        <span class="sub-text">Tasks <br> To-do</span>
+                    </div> 
+
+                    <div class="task-in-progress">
+                        <div class="icon-and-number">
+                            <img class="task-icons" src="../assets/icons/task_in_progress1X.png" alt="task icon">
+                            <span class="task-number">2</span>
+                        </div>
+                        <span class="sub-text">Task in <br> Progress</span>
+                    </div> 
+
+                    <div class="task-feedback">
+                        <div class="icon-and-number">
+                            <img class="task-icons" src="../assets/icons/awaiting_feedback.png" alt="task icon">
+                            <span class="task-number">2</span>
+                        </div>
+                        <span class="sub-text">Awaiting <br> Feedback</span>
+                    </div> 
+                </div>
             </div>
 
-            <div class="card-divider"></div>
+            <!-- Rechte Spalte (Task in Board + Tasks Done) -->
+            <div class="summary-cards-right">
+                <div class="task-in-board">
+                    <div class="icon-and-number">
+                        <img class="task-icons" src="../assets/icons/task_in_board.png" alt="task icon">
+                        <span class="task-number">5</span>
+                    </div>
+                    <span class="sub-text">Tasks in <br> Board</span>
+                </div>
 
-            <div class="card-right">
-              <span class="card-date">October 16, 2022</span>
-              <span class="card-subtext">Upcoming Deadline</span>
+                <div class="tasks-done">
+                    <div class="icon-and-number">
+                        <img class="task-icons" src="../assets/icons/task_done.png" alt="task icon">
+                        <span class="task-number">1</span>
+                    </div>
+                    <span class="sub-text">Tasks <br>Done</span>
+                </div>
             </div>
-          </div>
-
-          <div class="card card-top-right">
-            <div class="card-content-top">
-              <img src="../assets/icons/task_in_board.png" alt="Board Icon" />
-              <span class="card-number dark">5</span>
-            </div>
-            <span class="card-label blue-text">Task in Board</span>
-          </div>
-        </div>
-
-        <div class="summary-row">
-          <div class="card card-light-blue">
-            <div class="card-content-top">
-              <img src="../assets/icons/task_to_do.png" alt="To-do Icon" />
-              <span class="card-number dark">1</span>
-            </div>
-            <span class="card-label blue-text">Tasks To-do</span>
-          </div>
-
-          <div class="card card-white">
-            <div class="card-content-top">
-              <img src="../assets/icons/task_in_progress1X.png" alt="Progress Icon" />
-              <span class="card-number dark">2</span>
-            </div>
-            <span class="card-label blue-text">Task in Progress</span>
-          </div>
-
-          <div class="card card-white">
-            <div class="card-content-top">
-              <img src="../assets/icons/awaiting_feedback.png" alt="Feedback Icon" />
-              <span class="card-number dark">2</span>
-            </div>
-            <span class="card-label blue-text">Awaiting Feedback</span>
-          </div>
-
-          <div class="card card-white">
-            <div class="card-content-top">
-              <img src="../assets/icons/task_done.png" alt="Done Icon" />
-              <span class="card-number dark">1</span>
-            </div>
-            <span class="card-label blue-text">Tasks Done</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+        </section>
+    </section>
+</main>    
 </body>
-
 </html>
