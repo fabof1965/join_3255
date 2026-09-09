@@ -32,7 +32,7 @@ const testContacts = [
     }
 ];
 
-function renderContacts() {
+function renderContacts() { // die hier brauche ich
     const contactContainer = document.getElementById("contacts");
     const contactData = getContactsData();
 
@@ -83,12 +83,11 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
     setAcceptButtonText(acceptButtonText);
 }
 
-function addNewContact() {
+function addNewContact() { // und diese hier
     setDynamicDialogElements(addContactValues.title, addContactValues.subtitle, "Cancel", "Create contact");
 
     openContactDialog();
 
-    //this function adds a new contact to the backend contact list
     console.log("New contact added.");
 }
 
