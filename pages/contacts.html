@@ -15,6 +15,7 @@
 
     <script src="../scripts/template.js" defer></script>
     <script src="../script.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/contacts.js" defer></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
     <main class="contacts-main">
         <aside id="sidebar" class="sidebar"></aside>
          <section class="contacts-section">
-            <button class="btn-new-contact btn" onclick="addNewContact()">
+            <button class="btn-new-contact btn" onclick="openAddContactDialog()">
                 Add new contact
                 <img src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
@@ -32,7 +33,7 @@
                 <div class="letter">
                     A
                 </div>
-                
+
                 <div class="seperator"></div>
 
                 <div class="contact-card">
@@ -117,7 +118,7 @@
                 </svg>
             </div>
 
-            <form>
+            <form id="contact-form" onsubmit="addNewContact(event)">
                 <div class="data-input-area">
                     <div class="input-wrapper">
                         <label for="name" class="visually-hidden">Name</label>
@@ -137,7 +138,7 @@
                 </div>
 
                 <div class="btn-container">
-                    <button class="cancel-btn btn" onclick="closeContactDialog()" class="btn">
+                    <button type="button" class="cancel-btn btn" onclick="closeContactDialog()" class="btn">
                         <span id="cancel-btn-text">
                         </span>
                         <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

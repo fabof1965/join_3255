@@ -36,7 +36,7 @@ function renderContacts() { // die hier brauche ich
     const contactContainer = document.getElementById("contacts");
     const contactData = getContactsData();
 
-    for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
+    for (let indexContact = 0; indexContact < contactData.length; indexContact++) {
 
     }
 }
@@ -44,7 +44,7 @@ function renderContacts() { // die hier brauche ich
 function getContactsData() {
     const contactData = "";
 
-    return contactData; 
+    return contactData;
 }
 
 function makeElementFromLetter(letter) {
@@ -52,7 +52,7 @@ function makeElementFromLetter(letter) {
 }
 
 function positionDialog(potition) {
-    
+
 }
 
 function setDialogElementText(elementID, text) {
@@ -83,12 +83,45 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
     setAcceptButtonText(acceptButtonText);
 }
 
-function addNewContact() { // und diese hier
+function openContactDialog() {
+    openContactDialog();
+}
+
+/**
+ * Opens the contact dialog in "add" mode with an empty form.
+ * @returns {void}
+ */
+function openAddContactDialog() {
     setDynamicDialogElements(addContactValues.title, addContactValues.subtitle, "Cancel", "Create contact");
 
+    document.getElementById('contact-form').reset();
     openContactDialog();
+}
 
-    console.log("New contact added.");
+/**
+ * Reads the values of the contact form.
+ * @returns {Object} Contact data without id.
+ */
+function getContactFormfromForm() {
+    return {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+    };
+}
+
+async function addNewContact(event) { // und diese hier
+    event.preventDefault();
+    let form = document.getElementById('contact-form');
+    let contact = getContactFormfromForm();
+    let response = await postData('contacts', contact);
+    testContacts.push({id: response.name, ...contact});
+
+    form.reset();
+    closeContactDialog();
+    renderContacts();
+
+    // console.log("New contact added.");
 }
 
 function editExistingContact() {
