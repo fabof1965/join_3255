@@ -1,8 +1,15 @@
-.main-layout>#sidebar {
-  flex-shrink: 0;
+#sidebar {
+  display: flex;
+  box-shadow: var(--sidebar-box-shadow);
+  justify-content: center;
 }
 
-.sidebar {
+.sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-navigation{
   height: calc(100dvh - 93px);
   display: flex;
   flex-direction: column;
@@ -10,11 +17,7 @@
   justify-content: space-between;
   padding: 0 16px;
   gap: 16px;
-}
-
-.sidebar-wrapper {
-  display: flex;
-  flex-direction: column;
+  padding: var(--padding-top-bottom) 0 var(--padding-top-bottom) 0;
 }
 
 .sidebar a {

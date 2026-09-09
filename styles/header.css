@@ -1,11 +1,11 @@
-.header {
+#header {
   display: flex;
   justify-content: space-between;
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   max-width: none;
 }
