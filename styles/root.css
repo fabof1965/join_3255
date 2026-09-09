@@ -46,8 +46,9 @@
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
     --padding-left-right: clamp(16px, calc(4.571px + 3.571vw), 56px);
     --input-wrapper-padding: 8px 16px;
-    --logo-width: 130px;
+    --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
+    /* --logo-half-width: calc(var(--logo-width) / 2); */
     --logo-position-left: max(0px, calc((100% - 1440px) / 2));
     --form-max-width: 675px;
     --full: 100%;
