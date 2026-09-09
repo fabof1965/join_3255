@@ -226,3 +226,33 @@
     transform: scale(0.75);
   }
 }
+
+.sign-up-dialog[open] {
+    padding: 30px;
+    margin: auto;
+    border-radius: 16px;
+    bottom: 25%;
+    position: fixed;
+    border: none;
+    outline: none;
+    background-color: var(--active-menu-color);
+    color: var(--white-color);
+    animation: slide-in-from-bottom 300ms ease-out;
+}
+
+dialog::backdrop {
+    background-color: rgba(245, 241, 241, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+@keyframes slide-in-from-bottom  {
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%) ;
+        opacity: 1;
+    }
+}
