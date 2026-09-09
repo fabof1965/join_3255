@@ -183,7 +183,6 @@
 }
 
 .logo-animation {
-  border: 2px solid red;
   position: absolute;
   top: calc(50% - var(--logo-half-width));
   left: calc(50% - var(--logo-half-width));
