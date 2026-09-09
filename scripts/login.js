@@ -226,7 +226,7 @@ function setHeadlineText(text) {
 }
 
 password.addEventListener("input", () => {
-    password.setCustomValidity("");
+    passwordLogin.setCustomValidity("");
 })
 
 /**
@@ -243,7 +243,7 @@ async function userLogin(event) {
         console.log("user gefunden");
         window.location.href = './pages/summary.html';
     } else {
-        password.setCustomValidity("Check your email and password. Please try again");
-        password.reportValidity();
+        passwordLogin.setCustomValidity("Check your email and password. Please try again");
+        passwordLogin.reportValidity();
     }
 }
