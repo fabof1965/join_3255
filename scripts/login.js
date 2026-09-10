@@ -1,18 +1,26 @@
-let emailLogin = document.getElementById('email');
-let passwordLogin = document.getElementById('password');
+const allUsers = [];
 
-let allUsers = [];
+function getSignupElements(elementString = "") {
+    const SIGN_UP_ELEMENTS = {
+        "emailSignup": document.getElementById('email-signup'),
+        "passwordSignup": document.getElementById('password-signup'),
+        "confirmPasswordSignup": document.getElementById('confirm-password-signup'),
+        "checkboxSignup": document.getElementById('checkbox'),
+        "name": document.getElementById('name'),
+        "form": document.getElementById('login-form'),
+    }
+
+    const returnValue = elementString === "" ? SIGN_UP_ELEMENTS : SIGN_UP_ELEMENTS[elementString];
+
+    return returnValue;
+}
+
 
 function initEventListeners() {
-    let emailSignup = document.getElementById('email-signup');
-    let passwordSignup = document.getElementById('password-signup');
-    let confirmPasswordSignup = document.getElementById('confirm-password-signup');
-    let checkboxSignup = document.getElementById('checkbox');
-    
-    checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
-    passwordSignup.addEventListener("input", comparePassword);
-    confirmPasswordSignup.addEventListener("input", comparePassword);
-    emailSignup.addEventListener("input", () => emailSignup.setCustomValidity(""));
+    getSignupElements("emailSignup").addEventListener("input", () => emailSignup.setCustomValidity(""));
+    getSignupElements("passwordSignup").addEventListener("input", comparePassword);
+    getSignupElements("confirmPasswordSignup").addEventListener("input", comparePassword);
+    getSignupElements("checkboxSignup").addEventListener("change", acceptPrivacyPolicy);
 }
 
 async function registerUser(event) {
@@ -234,16 +242,18 @@ password.addEventListener("input", () => {
  * @param {Event} event - Login form submission event.
  */
 async function userLogin(event) {
+    const EMAIL_LOGIN = document.getElementById('email');
+    const PASSWORD_LOGIN = document.getElementById('password');
     console.log("submit ausgelöst");
     event.preventDefault();
     let response = await getData('users');
     let users = response ? Object.values(response) : [];
-    let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
+    let user = users.find(user => user.email === EMAIL_LOGIN.value && user.password === PASSWORD_LOGIN.value);
     if (user) {
         console.log("user gefunden");
         window.location.href = './pages/summary.html';
     } else {
-        passwordLogin.setCustomValidity("Check your email and password. Please try again");
-        passwordLogin.reportValidity();
+        PASSWORD_LOGIN.setCustomValidity("Check your email and password. Please try again");
+        PASSWORD_LOGIN.reportValidity();
     }
 }
