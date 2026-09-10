@@ -1,37 +1,87 @@
-const allUsers = [];
+let emailLogin = document.getElementById('email');
+let passwordLogin = document.getElementById('password');
 
-function getSignupElements(elementString = "") {
-    const SIGN_UP_ELEMENTS = {
-        "emailSignup": document.getElementById('email-signup'),
-        "passwordSignup": document.getElementById('password-signup'),
-        "confirmPasswordSignup": document.getElementById('confirm-password-signup'),
-        "checkboxSignup": document.getElementById('checkbox'),
-        "name": document.getElementById('name'),
-        "form": document.getElementById('login-form'),
-    }
-
-    const returnValue = elementString === "" ? SIGN_UP_ELEMENTS : SIGN_UP_ELEMENTS[elementString];
-
-    return returnValue;
-}
-
+let allUsers = [];
 
 function initEventListeners() {
-    getSignupElements("emailSignup").addEventListener("input", () => getSignupElements("emailSignup").setCustomValidity(""));
-    getSignupElements("passwordSignup").addEventListener("input", comparePassword);
-    getSignupElements("confirmPasswordSignup").addEventListener("input", comparePassword);
-    getSignupElements("checkboxSignup").addEventListener("change", acceptPrivacyPolicy);
+    let emailSignup = document.getElementById('email-signup');
+    let passwordSignup = document.getElementById('password-signup');
+    let confirmPasswordSignup = document.getElementById('confirm-password-signup');
+    let checkboxSignup = document.getElementById('checkbox');
+    
+    checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
+    passwordSignup.addEventListener("input", comparePassword);
+    confirmPasswordSignup.addEventListener("input", comparePassword);
+    emailSignup.addEventListener("input", () => emailSignup.setCustomValidity(""));
+}
+
+function initPasswordEventListener() {
+    passwordInputFields().forEach((field) => {
+        if (!field.input || !field.icon) return;
+        field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
+        field.input.addEventListener('focus', () => handlePasswordFocus(field));
+        field.icon.addEventListener('click', () => toggleShowPassword(field));
+    });
+}
+
+initPasswordEventListener();
+
+function passwordInputFields() {
+    return [
+        {
+            input: document.getElementById('login-password'),
+            icon: document.getElementById('login-password-toggle-icon'),
+        },
+        {
+            input: document.getElementById('sign-up-password'),
+            icon: document.getElementById('sign-up-password-toggle-icon'),
+        },
+        {
+            input: document.getElementById("confirm-password"),
+            icon: document.getElementById('confirm-password-toggle-icon'),
+        },
+    ];
+}
+
+function handlePasswordFocus(field) {
+    if (field.input.type === "password") {
+        field.icon.src = "../assets/icons/visibility_off.svg";
+        field.icon.alt = "hide password";
+    } else {
+        field.input.type = "text";
+        field.icon.src = '../assets/icons/visibility.svg';
+        field.icon.alt = "show password";
+    }
+}
+
+function handleEmptyPasswordInput(field) {
+    if (field.input.value === "") {
+        field.icon.src = "../assets/icons/lock.svg";
+        field.icon.alt = "lock-img";
+    }
+}
+
+function toggleShowPassword(field) {
+    if (field.input.type === "password") {
+        field.input.type = "text";
+        field.icon.src = '../assets/icons/visibility.svg';
+        field.icon.alt = "show password";
+    } else {
+        field.input.type = "password";
+        field.icon.src = "../assets/icons/visibility_off.svg";
+        field.icon.alt = "hide password";
+    }
 }
 
 async function registerUser(event) {
     let signUpForm = document.getElementById('login-form');
     let emailSignup = document.getElementById('email-signup');
-    let passwordSignup = document.getElementById('password-signup');
+    let passwordSignup = document.getElementById('sign-up-password');
     let name = document.getElementById('name');
-
+    event.preventDefault();
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
-    event.preventDefault();
+    
     if (await checkIfEmailExists(emailSignup.value)) {
         emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
         emailSignup.reportValidity();
@@ -46,8 +96,8 @@ async function registerUser(event) {
 }
 
 function comparePassword() {
-    let passwordSignup = document.getElementById('password-signup');
-    let confirmPasswordSignup = document.getElementById('confirm-password-signup');
+    let passwordSignup = document.getElementById('sign-up-password');
+    let confirmPasswordSignup = document.getElementById('confirm-password');
 
     if (passwordSignup.value !== confirmPasswordSignup.value) {
         confirmPasswordSignup.setCustomValidity("Passwords do not match");
@@ -72,23 +122,44 @@ function acceptPrivacyPolicy() {
 async function checkIfEmailExists(inputMail) {
     let emailSignup = document.getElementById('email-signup');
     let response = await getData('users', { email: emailSignup.value });
-    
+
     return response ? Object.values(response).some(user => user.email === inputMail) : false;
 }
 
 function signUpSuccessPopUp() {
-  let dialog = document.getElementById('dialog');
-  dialog.showModal();
-  setTimeout(() => {
-    closeDialog();
-  }, 1500);
+    let dialog = document.getElementById('dialog');
+    dialog.showModal();
+    setTimeout(() => {
+        closeDialog();
+    }, 1500);
 }
 
 function closeDialog() {
-  let dialog = document.getElementById('dialog');
-  dialog.close();
+    let dialog = document.getElementById('dialog');
+    dialog.close();
 }
 
+/**
+ * Handle the login form submission.
+ * @param {Event} event - Login form submission event.
+ */
+async function userLogin(event) {
+    console.log("submit ausgelöst");
+    event.preventDefault();
+    let emailLogin = document.getElementById('email');
+    let passwordLogin = document.getElementById('login-password');
+    let response = await getData('users');
+    let users = response ? Object.values(response) : [];
+    let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
+    if (user) {
+        console.log("user gefunden");
+        window.location.href = './pages/summary.html';
+    } else {
+        passwordLogin.setCustomValidity("Check your email and password. Please try again");
+        passwordLogin.reportValidity();
+        passwordLogin.addEventListener("input", () => passwordLogin.setCustomValidity(""));
+    }
+}
 
 function logInGuestUser() {
     const GUEST_USER = {
@@ -108,7 +179,8 @@ function addSignupContent() {
     setPageBackgroundColor("#1268FF");
     setLogoStyles("white", "none");
     setSignupFormContent();
-    initEventListeners();
+    initSignUpEventListeners();
+    initPasswordEventListener();
 }
 
 function setPageBackgroundColor(color) {
@@ -147,7 +219,7 @@ function setDisplayForSignupElements(display = "none") {
     const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
     const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
     const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
-    
+
     setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
     setElementVisibility(SHOW_LOGIN_BUTTON, display);
     setElementVisibility(CHECKBOX_CONTAINER, display);
@@ -172,6 +244,14 @@ function backToLogin() {
 
     setDisplayForSignupElements();
     setDisplayForLoginElements();
+
+    resetCheckboxValidity();
+    initPasswordEventListener();
+}
+
+function resetCheckboxValidity() {
+    let CHECKBOX = document.getElementById("checkbox");
+    CHECKBOX.setCustomValidity("");
 }
 
 function setSignupFormContent() {
@@ -184,7 +264,7 @@ function setSignupFormContent() {
     setDisplayForSignupElements("flex");
     setDisplayForLoginElements("none");
 
-    setOnSubmitAttribute("");
+    setOnSubmitAttribute("registerUser(event)");
 }
 
 function setLoginFormBackgroundColor(color) {
@@ -198,9 +278,9 @@ function getInputFieldsForLogin() {
                 <img src="./assets/icons/mail.svg" alt="mail icon" />
             </div>
             <div class="input-wrapper">
-                <label for="password" class="visually-hidden">Passwort</label>
-                <input id="password" class="input-field" type="password" placeholder="Passwort" required />
-                <img onclick="toggleShowPassword()" id="password-toggle-icon" class="lock-img"
+                <label for="login-password" class="visually-hidden">Passwort</label>
+                <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
+                <img id="login-password-toggle-icon" class="lock-img"
                     src="./assets/icons/lock.svg" alt="lock icon" />
             </div>`;
 }
@@ -216,13 +296,13 @@ function getInputFieldsForSignup() {
                 <img src="../assets/icons/mail.svg" alt="mail logo">
             </div>
 
-            <div class="input-wrapper"><input class="input-field" type="password" id="password-signup" required
+            <div class="input-wrapper"><input class="input-field" type="password" id="sign-up-password" required
                     placeholder="Password">
-                <img id="password-toggle-icon" class="lock-img" src="../assets/icons/lock.svg" alt="lock-img">
+                <img id="sign-up-password-toggle-icon" class="lock-img" src="../assets/icons/lock.svg" alt="lock-img">
             </div>
 
             <div class="input-wrapper">
-                <input class="input-field" type="password" id="confirm-password-signup" required placeholder="Confirm Password">
+                <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
                 <img id="confirm-password-toggle-icon" class="lock-img"
                     src="../assets/icons/lock.svg" alt="lock logo">
             </div>`;
@@ -242,18 +322,16 @@ password.addEventListener("input", () => {
  * @param {Event} event - Login form submission event.
  */
 async function userLogin(event) {
-    const EMAIL_LOGIN = document.getElementById('email');
-    const PASSWORD_LOGIN = document.getElementById('password');
     console.log("submit ausgelöst");
     event.preventDefault();
     let response = await getData('users');
     let users = response ? Object.values(response) : [];
-    let user = users.find(user => user.email === EMAIL_LOGIN.value && user.password === PASSWORD_LOGIN.value);
+    let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
         window.location.href = './pages/summary.html';
     } else {
-        PASSWORD_LOGIN.setCustomValidity("Check your email and password. Please try again");
-        PASSWORD_LOGIN.reportValidity();
+        passwordLogin.setCustomValidity("Check your email and password. Please try again");
+        passwordLogin.reportValidity();
     }
 }

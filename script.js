@@ -43,63 +43,6 @@ function renderHeader() {
 renderSidebar();
 renderHeader();
 
-/* login and signup functions */
-
-let passwordInputFields = [
-  {
-    input: document.getElementById('password'),
-    icon: document.getElementById('password-toggle-icon'),
-  },
-  {
-    input: document.getElementById("confirm-password"),
-    icon: document.getElementById('confirm-password-toggle-icon'),
-  },
-];
-
-function initPasswordEventListener() {
-  passwordInputFields.forEach((field) => {
-    if (!field.input || !field.icon) return;
-    field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
-    field.input.addEventListener('focus', () => handlePasswordFocus(field));
-    field.icon.addEventListener('click', () => toggleShowPassword(field));
-  });
-}
-
-function handlePasswordFocus(field) {
-  if (field.input.type === "password") {
-    field.icon.src = "../assets/icons/visibility_off.svg";
-    field.icon.alt = "hide password";
-  } else {
-    field.input.type = "text";
-    field.icon.src = '../assets/icons/visibility.svg';
-    field.icon.alt = "show password";
-  }
-}
-
-function handleEmptyPasswordInput(field) {
-  if (field.input.value === "") {
-    field.icon.src = "../assets/icons/lock.svg";
-    field.icon.alt = "lock-img";
-  }
-}
-
-function toggleShowPassword(field) {
-  if (field.input.type === "password") {
-    field.input.type = "text";
-    field.icon.src = '../assets/icons/visibility.svg';
-    field.icon.alt = "show password";
-  } else {
-    field.input.type = "password";
-    field.icon.src = "../assets/icons/visibility_off.svg";
-    field.icon.alt = "hide password";
-  }
-}
-
-initPasswordEventListener();
-
-/* login and signup functions END */
-
-
 function toHelpPage() {
   window.location.href = "../pages/help.html"
 }
