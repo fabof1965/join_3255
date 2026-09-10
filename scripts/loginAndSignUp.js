@@ -243,7 +243,6 @@ function backToLogin() {
     setDisplayForLoginElements();
 
     resetCheckboxValidity();
-    initLoginEventListeners();
     initPasswordEventListener();
 }
 
