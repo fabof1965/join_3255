@@ -17,7 +17,7 @@ function getSignupElements(elementString = "") {
 
 
 function initEventListeners() {
-    getSignupElements("emailSignup").addEventListener("input", () => emailSignup.setCustomValidity(""));
+    getSignupElements("emailSignup").addEventListener("input", () => getSignupElements("emailSignup").setCustomValidity(""));
     getSignupElements("passwordSignup").addEventListener("input", comparePassword);
     getSignupElements("confirmPasswordSignup").addEventListener("input", comparePassword);
     getSignupElements("checkboxSignup").addEventListener("change", acceptPrivacyPolicy);
