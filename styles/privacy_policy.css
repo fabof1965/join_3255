@@ -69,7 +69,7 @@ body{
 .privacy-policy-page .privacy-policy-link {
   width: 126px;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
   color: var(--white-color);
   font-weight: 700;

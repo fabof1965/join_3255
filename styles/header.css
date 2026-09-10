@@ -5,9 +5,15 @@
   padding: 16px var(--padding-left-right);
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: var(--full);
+}
+
+.content-limit {
+  display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: none;
+  max-width: var(--page-max-width);
+  width: var(--full);
 }
 
 .header-left img {

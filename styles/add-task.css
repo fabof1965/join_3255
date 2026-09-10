@@ -126,7 +126,7 @@
 .add-task-priority button {
   height: 51px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
   font-size: 19px;
@@ -163,7 +163,7 @@
   height: 60px;
   padding: 0 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
   color: var(--white-color);
   font-size: 23px;

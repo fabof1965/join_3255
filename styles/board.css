@@ -15,7 +15,7 @@
 
 .board-search {
   display: flex;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   border: 1px solid var(--search-bar-outline-color);
   width: 312px;
   height: 51px;
@@ -26,7 +26,7 @@
 .board-search input {
   border: none;
   outline: none;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   flex: 1;
 }
 
@@ -42,7 +42,7 @@
   background-color: var(--primary-color);
   color: var(--white-color);
   height: 51px;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   border: none;
   font-size: 23px;
   padding: 0 16px;
@@ -98,7 +98,7 @@
   width: var(--full);
   text-align: center;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background-color: var(--empty-task-background-color);
   color: var(--no-todo-color);
   border: 1px dashed var(--search-bar-outline-color);

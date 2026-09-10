@@ -40,7 +40,7 @@ button{
   padding: 8px 16px;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background: none;
 }
 

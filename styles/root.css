@@ -41,6 +41,7 @@
     --button-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     --headline-underline-border: 2px solid var(--primary-color);
     --form-border-radius: 30px;
+    --element-design-border-radius: 10px;
 
     /* layout and spacing */
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
@@ -48,8 +49,15 @@
     --input-wrapper-padding: 8px 16px;
     --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
-    /* --logo-half-width: calc(var(--logo-width) / 2); */
-    --logo-position-left: max(0px, calc((100% - 1440px) / 2));
+    --content-limit-margin: 0 auto;
+    --page-max-width: 1440px;
+
+    /*sidebar*/
+    --sidebar-padding: 16px 0;
+    --sidebar-navigation-padding: 8px 16px;
+    --sidebar-anchor-tag-padding: var(--sidebar-navigation-padding);
+
+    --logo-position-left: max(0px, calc((100% - var(--page-max-width)) / 2));
     --form-max-width: 675px;
     --full: 100%;
     --border-radius-circular: 50%;

@@ -3,6 +3,7 @@
     margin: 0 auto;
     max-width: 1440px;
     width: var(--full);
+    justify-content: space-between;
 }
 
 @media(max-width: 1550px) {
@@ -58,7 +59,7 @@
 
 .contact-card:hover {
     background-color: var(--secondary-color);
-    border-radius: 10px;
+    border-radius: var(--element-design-border-radius);
     cursor: pointer;
 
     .profile-badge {

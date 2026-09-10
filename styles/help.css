@@ -7,19 +7,6 @@ body {
     justify-content: flex-start;
     flex-direction: column;
 }
-/* header sticky */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-/* sidebar  sticky */
-.sidebar {
-    position: sticky;
-    top: 93px;
-    box-sizing: border-box; /*Because of height: calc(100dvh - 93px), the browser otherwise adds the padding and borders on top of the total height, causing the sidebar to become too large and breaking the sticky behavior. Therefore, box-sizing: border-box is strictly required here.*/
-    padding: 20px 0 20px 0;
-}
 
 .main-layout {
     display: flex;
