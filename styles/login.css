@@ -56,7 +56,7 @@
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  margin: var(--login-form-margin)
+  margin: var(--login-form-margin);
 }
 
 @keyframes fade-in {
