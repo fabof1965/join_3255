@@ -1,14 +1,11 @@
-let emailLogin = document.getElementById('email');
-let passwordLogin = document.getElementById('password');
-
 let allUsers = [];
 
-function initEventListeners() {
+function initSignUpEventListeners() {
     let emailSignup = document.getElementById('email-signup');
-    let passwordSignup = document.getElementById('password-signup');
-    let confirmPasswordSignup = document.getElementById('confirm-password-signup');
+    let passwordSignup = document.getElementById('sign-up-password');
+    let confirmPasswordSignup = document.getElementById('confirm-password');
     let checkboxSignup = document.getElementById('checkbox');
-    
+
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
     passwordSignup.addEventListener("input", comparePassword);
     confirmPasswordSignup.addEventListener("input", comparePassword);
@@ -313,25 +310,3 @@ function setHeadlineText(text) {
     HEADING.innerHTML = text;
 }
 
-password.addEventListener("input", () => {
-    passwordLogin.setCustomValidity("");
-})
-
-/**
- * Handle the login form submission.
- * @param {Event} event - Login form submission event.
- */
-async function userLogin(event) {
-    console.log("submit ausgelöst");
-    event.preventDefault();
-    let response = await getData('users');
-    let users = response ? Object.values(response) : [];
-    let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
-    if (user) {
-        console.log("user gefunden");
-        window.location.href = './pages/summary.html';
-    } else {
-        passwordLogin.setCustomValidity("Check your email and password. Please try again");
-        passwordLogin.reportValidity();
-    }
-}
