@@ -164,3 +164,14 @@ const addTaskTemplate = `
 `;
 
 const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
+
+const contactCardTemplate = `
+    <div class="contact-card" onclick="showContact('{{id}}')">
+      <div class="profile-badge">{{initials}}</div>
+      <div class="name-and-mail">
+        <span class="name">{{name}}</span>
+        <span class="mail">{{email}}</span>
+        <span class="phone-preview">{{phone}}</span>
+      </div>
+    </div>
+`;

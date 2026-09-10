@@ -1,3 +1,5 @@
+let allContacts = [];
+
 const addContactValues = {
     title: "Add contact",
     subtitle: "Tasks are better with a team!",
@@ -33,19 +35,29 @@ const testContacts = [
 ];
 
 function renderContacts() { // die hier brauche ich
-    const contactContainer = document.getElementById("contacts");
-    const contactData = getContactsData();
 
-    for (let indexContact = 0; indexContact < contactData.length; indexContact++) {
+
+    let contactContainer = document.getElementById("contacts");
+    contactContainer.innerHTML = "";
+    // let contactData = getContactsData();
+
+    for (let i = 0; i < allContacts.length; i++) {
+        contactContainer.innerHTML += fillTemplate(contactCardTemplate, {
+            id: contact.id,
+            initials: getInitials(contact.name),
+            name: contact.name,
+            email: contact.email,
+            phone: phone.name,
+        });
 
     }
 }
 
-function getContactsData() {
-    const contactData = "";
+// function getContactsData() {
+//     const contactData = "";
 
-    return contactData;
-}
+//     return contactData;
+// }
 
 function makeElementFromLetter(letter) {
 
@@ -115,13 +127,20 @@ async function addNewContact(event) { // und diese hier
     let form = document.getElementById('contact-form');
     let contact = getContactFormfromForm();
     let response = await postData('contacts', contact);
-    testContacts.push({id: response.name, ...contact});
+    testContacts.push({ ...contact, id: response.name });
 
     form.reset();
     closeContactDialog();
     renderContacts();
 
     // console.log("New contact added.");
+}
+
+async function deleteContact() {
+    // let id = allContacts[i].id; (muss noch geschrieben werden)
+    //allContacts.splice(i, 1);
+    // renderContacts();
+    await deleteData("contacts/" + id);
 }
 
 function editExistingContact() {
