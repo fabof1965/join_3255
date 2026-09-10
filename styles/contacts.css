@@ -1,16 +1,9 @@
 .contacts-main {
     display: flex;
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: var(--page-max-width);
     width: var(--full);
-    justify-content: space-between;
-}
-
-@media(max-width: 1550px) {
-    .contacts-main {
-        padding: 0 var(--padding-left-right);
-        margin: 0;
-    }
+    justify-content: flex-start;
 }
 
 .contacts-section {
@@ -19,7 +12,6 @@
     gap: 16px;
     padding: 56px 24px;
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
-    width: 30%;
 }
 
 .btn-new-contact {
@@ -55,16 +47,16 @@
     gap: 32px;
     padding: 8px 32px;
     font-size: 24px;
-}
-
-.contact-card:hover {
-    background-color: var(--secondary-color);
     border-radius: var(--element-design-border-radius);
-    cursor: pointer;
 
     .profile-badge {
         border: 2px solid var(--white-color);
     }
+}
+
+.contact-card:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
 }
 
 .profile-badge {
@@ -84,13 +76,28 @@
     gap: 4px;
 }
 
+.name {
+    text-wrap: nowrap;
+}
+
 .mail {
     color: var(--primary-color);
     font-size: 16px;
 }
 
-.contact-details {
-    padding: 80px 40px;
+.background-primary, .background-primary:hover {
+    background-color: var(--primary-color);
+    
+    .name, .mail {
+        color: var(--white-color);
+    }
+}
+
+.detailed-contact {
+    display: none;
+    flex-direction: column;
+    gap: 32px;
+    padding: 56px 24px;
 }
 
 .profile-badge-large {
@@ -104,11 +111,6 @@
     background-color: var(--user-story-color);
 }
 
-.detailed-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
 
 .detail-header {
     display: flex;

@@ -32,6 +32,19 @@ const testContacts = [
     }
 ];
 
+function toggleBackgroundColor(element) {
+    const contactDetailContainer = document.getElementById("contact-detail");
+    
+    element.classList.toggle("background-primary");
+    
+    if(element.classList.contains("background-primary")) {
+        contactDetailContainer.style.display = "flex";
+    }
+    else {
+        contactDetailContainer.style.display = "none";
+    }
+}
+
 function renderContacts() { // die hier brauche ich
     const contactContainer = document.getElementById("contacts");
     const contactData = getContactsData();

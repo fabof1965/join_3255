@@ -58,7 +58,7 @@
     --sidebar-anchor-tag-padding: var(--sidebar-navigation-padding);
 
     --logo-position-left: max(0px, calc((100% - var(--page-max-width)) / 2));
-    --form-max-width: 675px;
+    --form-max-width: 500px;
     --full: 100%;
     --border-radius-circular: 50%;
     --zero: 0;

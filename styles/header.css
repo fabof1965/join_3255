@@ -1,11 +1,8 @@
 #header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: var(--full);
 }
 
@@ -14,6 +11,7 @@
   justify-content: space-between;
   max-width: var(--page-max-width);
   width: var(--full);
+  margin: var(--content-limit-margin);
 }
 
 .header-left img {

@@ -24,7 +24,7 @@
         <aside id="sidebar"></aside>
          <section class="contacts-section">
             <button class="btn-new-contact btn" onclick="addNewContact()">
-                Add new contact
+                <span id="txt-add-new-contact">Add new contact</span>
                 <img src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
             <div id="contacts">
@@ -35,7 +35,7 @@
                 
                 <div class="seperator"></div>
 
-                <div class="contact-card">
+                <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
                     <div class="profile-badge">
                         AM
                     </div>
@@ -48,14 +48,14 @@
          </section>
          <section class="contact-details">
             <!-- this should be generated if clicked onto a contact -->
-             <div class="detailed-contact">
+             <div class="detailed-contact" id="contact-detail">
                 <header class="detail-header">
                     <div class="profile-badge-large large-text">
-                        AM
+                        <span class="profile-badge-text" id="initials-detail">AM</span>
                     </div>
                     <div class="name-edit-delete">
-                        <h2 class="name large-text">Anton Mayer</h2>
-                        <div class="edit-delete">
+                        <h2 class="name large-text" id="name-detail">Anton Mayer</h2>
+                        <div class="edit-delete" id="edit-delete-detail">
                             <button class="edit" onclick="editExistingContact()">
                                 <img src="../assets/icons/edit.svg" alt="Edit contact">
                                     Edit
@@ -73,11 +73,11 @@
                     </h3>
                     <section class="email">
                         <h4>E-Mail</h4>
-                        <span class="email-text">antom@gmail.com</span>
+                        <span id="mail-detail" class="email-text">antom@gmail.com</span>
                     </section>
                     <section class="phone">
                         <h4>Phone</h4>
-                        <span>+49 1111 111 11 1</span>
+                        <span id="phone-detail">+49 1111 111 11 1</span>
                     </section>
                 </main>
              </div>

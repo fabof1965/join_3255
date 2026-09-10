@@ -40,8 +40,8 @@ body {
 .main-layout {
     display: flex;
     margin: 0 auto;
-    max-width: 1440px;
-    width: 100%;
+    max-width: var(--page-max-width);
+    width: var(--full);
 
     @media (max-width: 1550px) {
         .main-layout {
@@ -52,7 +52,7 @@ body {
         }
     }
     .summary-container {
-        width: 100%;
+        width: var(--full);
         height: auto;
         display: flex;
         flex-direction: column;
@@ -63,7 +63,7 @@ body {
 
         .greeting-container {
             max-width: 745px;
-            width: 100%;
+            width: var(--full);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -89,7 +89,7 @@ body {
 
         .summary-card-container {
             max-width: 912px;
-            width: 100%;
+            width: var(--full);
             display: flex;
             flex-direction: row;
             gap: 30px;
@@ -102,7 +102,7 @@ body {
                 width: 672px;
 
                 .blue-head-column {
-                    width: 100%;
+                    width: var(--full);
                     min-height: 191px;
                     background-color: var(--primary-color);
                     display: flex;
@@ -135,7 +135,7 @@ body {
 
                 .other-tasks {
                     display: flex;
-                    width: 100%;
+                    width: var(--full);
                     gap: 30px;
 
                     .tasks-to-do,
