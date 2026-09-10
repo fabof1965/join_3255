@@ -7,6 +7,11 @@ const existingContactValues = {
     title: "Edit contact",
 };
 
+const displayAttributes = {
+    show: "flex",
+    hide: "none"
+}
+
 const testContacts = [
     {
         "id": 1,
@@ -33,16 +38,10 @@ const testContacts = [
 ];
 
 function toggleBackgroundColor(element) {
-    const contactDetailContainer = document.getElementById("contact-detail");
+    const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
     
     element.classList.toggle("background-primary");
-    
-    if(element.classList.contains("background-primary")) {
-        contactDetailContainer.style.display = "flex";
-    }
-    else {
-        contactDetailContainer.style.display = "none";
-    }
+    CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
 }
 
 function renderContacts() { // die hier brauche ich
