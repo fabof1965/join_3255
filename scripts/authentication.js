@@ -71,7 +71,7 @@ function toggleShowPassword(field) {
 }
 
 async function registerUser(event) {
-    let signUpForm = document.getElementById('login-form');
+    let signUpForm = document.getElementById('auth-form');
     let emailSignup = document.getElementById('email-signup');
     let passwordSignup = document.getElementById('sign-up-password');
     let name = document.getElementById('name');
@@ -168,7 +168,7 @@ function logInGuestUser() {
 }
 
 function setOnSubmitAttribute(attr = "userLogin(event)") {
-    document.getElementById("login-form").setAttribute("onsubmit", attr);
+    document.getElementById("auth-form").setAttribute("onsubmit", attr);
 }
 
 function addSignupContent() {
@@ -265,7 +265,7 @@ function setSignupFormContent() {
 }
 
 function setLoginFormBackgroundColor(color) {
-    document.getElementById("login-form").style.backgroundColor = color;
+    document.getElementById("auth-form").style.backgroundColor = color;
 }
 
 function getInputFieldsForLogin() {

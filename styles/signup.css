@@ -102,37 +102,6 @@
     cursor: pointer;
 }
 
-.checkbox-container {
-    display: flex;
-    width: var(--full);
-    margin-bottom: 32px;
-    justify-content: center;
-    gap: 8px;
-}
-
-.checkbox {
-    cursor: pointer;
-}
-
-.privacy-policy-link::before {
-    display: block;
-    content: attr(data-text);
-    font-weight: 600;
-    height: 0;
-    visibility: hidden;
-    overflow: hidden;
-}
-
-.privacy-policy-link {
-    display: inline-block;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.privacy-policy-link:hover {
-    font-weight: 600;
-}
-
 .sign-up-button-container {
     display: flex;
     width: var(--full);
@@ -161,34 +130,4 @@
 
 .legal-link-sign-up:hover {
     text-decoration: underline;
-}
-
-.sign-up-dialog[open] {
-    padding: 30px;
-    margin: auto;
-    border-radius: 16px;
-    bottom: 25%;
-    position: fixed;
-    border: none;
-    outline: none;
-    background-color: var(--active-menu-color);
-    color: var(--white-color);
-    animation: slide-in-from-bottom 300ms ease-out;
-}
-
-dialog::backdrop {
-    background-color: rgba(245, 241, 241, 0.5);
-    backdrop-filter: blur(2px);
-}
-
-@keyframes slide-in-from-bottom  {
-    from {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0%) ;
-        opacity: 1;
-    }
 }

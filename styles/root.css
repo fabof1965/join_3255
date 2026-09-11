@@ -70,7 +70,7 @@
     --full: 100%;
     --border-radius-circular: 50%;
     --zero: 0;
-    --login-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
+    --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
 
     /*page-header*/
     --page-header-help-icon-width: 32px;

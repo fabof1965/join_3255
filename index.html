@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="./styles/typography.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/signup.css">
 
     <script src="./scripts/firebase.js" defer></script>
     <script src="./script.js" defer></script>
-    <script src="./scripts/loginAndSignUp.js" defer></script>
+    <script src="./scripts/authentication.js" defer></script>
 </head>
 
-<body class="login-body">
+<body class="auth-body">
     <div class="logo-animation">
         <svg id="logo" class="logo-animation-white" width="120" viewBox="0 0 265 324"
             xmlns="http://www.w3.org/2000/svg">
@@ -34,16 +35,16 @@
                 fill="" />
         </svg>
     </div>
-    <header class="login-header content-wrapper">
+    <header class="auth-header content-wrapper">
         <div class="spacing"></div>
-        <div id="signup-wrapper" class="sign-up-wrapper">
+        <div id="signup-wrapper" class="auth-wrapper">
             <p>Not a join user ?</p>
             <button onclick="addSignupContent()" id="sign-up-btn" class="auth-btn btn">Sign up</button>
         </div>
     </header>
 
-    <main class="login-main content-wrapper">
-        <form onsubmit="userLogin(event)" id="login-form" class="login-form">
+    <main class="auth-main content-wrapper">
+        <form onsubmit="userLogin(event)" id="auth-form" class="auth-form">
             <header class="form-header">
                 <button onclick="backToLogin()" id="btn-show-login" type="button"
                     class="arrow-back-btn">
@@ -51,13 +52,13 @@
                 </button>
                 <div class="heading-wrapper">
                     <div class="heading-container">
-                        <h2 id="heading" class="login-heading">Log in</h2>
+                        <h2 id="heading" class="auth-heading">Log in</h2>
                         <hr class="headline-underline" />
                     </div>
                 </div>
             </header>
 
-            <div id="formInputContainer" class="login-area">
+            <div id="formInputContainer" class="auth-input-container">
                 <div class="input-wrapper">
                     <label for="email" class="visually-hidden">Email</label>
                     <input id="email" class="input-field" type="email" placeholder="Email" required />
@@ -88,14 +89,14 @@
         </form>
     </main>
 
-    <footer class="login-footer">
+    <footer class="auth-footer">
         <div class="legal-wrapper">
             <a class="legal-link-login" href="./pages/privacy_policy.html">Privacy Policy</a>
             <a class="legal-link-login" href="./pages/legal_notice.html">Legal Notice</a>
         </div>
     </footer>
 
-    <dialog id="dialog" class="sign-up-dialog">
+    <dialog id="dialog" class="auth-dialog">
         <h2>You Signed Up successfully</h2>
     </dialog>
 </body>
