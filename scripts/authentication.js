@@ -180,17 +180,17 @@ function setOnSubmitAttribute(attr = "userLogin(event)") {
 function addSignupContent() {
     setPageTitle("Sign up");
     setPageBackgroundColor("#1268FF");
-    changeLegalLinksFontColor();
-    setLogoStyles("white", "none");
+    setLegalLinkColor("var(--white-color)");
+    setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
     initSignUpEventListeners();
     initPasswordEventListener();
 }
 
-function changeLegalLinksFontColor() {
+function setLegalLinkColor(color) {
     let legalLinks = document.querySelectorAll('.legal-link-login');
     legalLinks.forEach(legalLink => {
-        legalLink.style.color = "#fff";
+        legalLink.style.color = color;
     });
 }
 
@@ -247,8 +247,9 @@ function backToLogin() {
     const ANIMATION_ATTRIBUTE = "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards";
 
     setLogoStyles("#1268FF", ANIMATION_ATTRIBUTE);
-    setPageBackgroundColor("white");
+    setPageBackgroundColor("var(--white-color)");
     setHeadlineText("Log in");
+    setLegalLinkColor("var(--menu-color)")
 
     const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForLogin();
