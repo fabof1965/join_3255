@@ -55,6 +55,11 @@
     --content-limit-margin: 0 auto;
     --page-max-width: 1440px;
 
+    /*contact-details*/
+    --resp-font-size: clamp(23px, calc(16.143px + 2.143vw), 47px);
+    --large-profile-badge-dimensions: clamp(40px, calc(28.571px + 3.571vw), 80px);
+
+
     /*sidebar*/
     --sidebar-padding: 16px 0;
     --sidebar-navigation-padding: 8px 16px;
