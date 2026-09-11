@@ -37,10 +37,14 @@ const testContacts = [
     }
 ];
 
-function toggleBackgroundColor(element) {
+function toggleBackgroundColor(element) {    
+    element.classList.toggle("background-primary");
+    animateContactDetailContainer();
+}
+
+function animateContactDetailContainer() {
     const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
     
-    element.classList.toggle("background-primary");
     CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
 }
 

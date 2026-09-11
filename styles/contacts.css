@@ -105,10 +105,12 @@
     right: -100%;
     transition: right 500ms ease-in;
     background-color: var(--white-color);
+    width: var(--full);
+    min-height: 100dvh;
 }
 
 .animation-right {
-    right: 28%;
+    right: 0;
 }
 
 .profile-badge-large {
@@ -125,14 +127,54 @@
 
 .detail-header {
     display: flex;
-    gap: 96px;
+    flex-direction: column;
+    gap: 16px;
     align-items: center;
+    justify-content: center;
+    width: var(--full);
+}
+
+@media(max-width: 600px) {
+    .detail-header {
+        flex-direction: column-reverse;
+    }
+}
+
+.header-content-1 {
+    display: flex;
+    gap: 30px;
+}
+
+.header-content-2 {
+    width: var(--full);
+}
+
+.contact-info-headline-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .name-edit-delete {
     display: flex;
     gap: 16px;
     flex-direction: column;
+}
+
+.arrow-btn {
+    display: none;
+    border: none;
+    background-color: white;
+    border-radius: var(--border-radius-circular);
+}
+
+@media(max-width: 600px) {
+    .arrow-btn {
+        display: flex;
+    }
+}
+
+.arrow-btn:hover {
+    background-color: var(--secondary-color);
 }
 
 .large-text {
@@ -154,6 +196,12 @@
     color: var(--black-color);
     font-size: 16px;
     cursor: pointer;
+}
+
+@media(max-width: 600px) {
+    .edit, .delete {
+        display: none;
+    }
 }
 
 .edit:hover, .delete:hover {
@@ -183,11 +231,10 @@
 
 /* dialog */
 dialog[open] {
-    /* height: 100dvh; */
     border-radius: 0 32px 32px 0;
     display: flex;
     flex-direction: column; 
-    width: 500px;
+    max-width: 700px;
     border: none;
 }
 
