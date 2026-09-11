@@ -13,8 +13,8 @@ const sidebarTemplate = `
           <img src="../assets/icons/board.svg" alt="" />
           <span>Board</span>
         </a>
-        <a href="">
-          <img src="../assets/icons/contacts.svg" alt="" />
+        <a href="../pages/contacts.html">
+          <img src="../assets/icons/contacts.svg" alt="to contacts" />
           <span>Contacts</span>
         </a>
       </section>

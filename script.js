@@ -19,7 +19,7 @@ function renderSidebar() {
  */
 function markActiveSidebarLink() {
   const currentPath = window.location.pathname;
-  const sidebarLinks = document.querySelectorAll('.sidebar a[href]:not([href=""])');
+  const sidebarLinks = document.querySelectorAll('#sidebar a[href]:not([href=""])');
 
   sidebarLinks.forEach((link) => {
     const linkPath = new URL(link.href).pathname;
