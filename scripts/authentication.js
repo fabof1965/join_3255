@@ -181,6 +181,7 @@ function addSignupContent() {
     setPageTitle("Sign up");
     setPageBackgroundColor("#1268FF");
     setLegalLinkColor("var(--white-color)");
+    setLegalLinkHoverEffect();
     setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
     initSignUpEventListeners();
@@ -188,9 +189,24 @@ function addSignupContent() {
 }
 
 function setLegalLinkColor(color) {
-    let legalLinks = document.querySelectorAll('.legal-link-login');
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
     legalLinks.forEach(legalLink => {
         legalLink.style.color = color;
+    });
+}
+
+function setLegalLinkHoverEffect() {
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.add('signup-legal-link');
+    });
+}
+
+function resetLegalLinkHoverEffect() {
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.remove('signup-legal-link');
+        legalLink.removeAttribute('style');
     });
 }
 
@@ -249,7 +265,7 @@ function backToLogin() {
     setLogoStyles("#1268FF", ANIMATION_ATTRIBUTE);
     setPageBackgroundColor("var(--white-color)");
     setHeadlineText("Log in");
-    setLegalLinkColor("var(--menu-color)")
+    resetLegalLinkHoverEffect();
 
     const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForLogin();
