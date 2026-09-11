@@ -1,4 +1,4 @@
-.login-body {
+.auth-body {
   display: flex;
   flex-direction: column;
   animation: bg-change var(--bg-change-duration) ease-in forwards;
@@ -14,7 +14,7 @@
   }
 }
 
-.login-header {
+.auth-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -29,14 +29,14 @@
   width: 5px;
 }
 
-.sign-up-wrapper {
+.auth-wrapper {
   display: flex;
   align-items: center;
   height: 48px;
   gap: 35px;
 }
 
-.login-main {
+.auth-main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +45,7 @@
   justify-content: center;
 }
 
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +55,7 @@
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  margin-top: var(--login-form-margin-top);
+  margin-top: var(--auth-form-margin-top);
 }
 
 @keyframes fade-in {
@@ -101,7 +101,7 @@
   align-items: center;
 }
 
-.login-heading {
+.auth-heading {
   text-align: center;
   font-size: 48px;
 }
@@ -111,7 +111,7 @@
   border: var(--headline-underline-border);
 }
 
-.login-area {
+.auth-input-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,13 +156,32 @@
   border-color: var(--primary-color);
 }
 
-.login-footer {
+.privacy-policy-link::before {
+    display: block;
+    content: attr(data-text);
+    font-weight: 600;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.privacy-policy-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.privacy-policy-link:hover {
+    font-weight: 600;
+}
+
+.auth-footer {
   display: flex;
   justify-content: center;
   width: var(--full);
   flex-shrink: 0;
   padding-bottom: var(--padding-top-bottom);
-  margin-top: var(--login-form-margin-top);
+  margin-top: var(--auth-form-margin-top);
 }
 
 .legal-wrapper {
@@ -175,13 +194,15 @@
   text-decoration: none;
 }
 
-.lock-img, .checkbox {
+.checkbox {
   cursor: pointer;
 }
 
 .legal-link-login:hover {
   color: var(--primary-color);
 }
+
+/** Logo Animation start **/
 
 .logo-animation {
   position: absolute;
@@ -227,7 +248,11 @@
   }
 }
 
-.sign-up-dialog[open] {
+/** Logo Animation end **/
+
+/** Dialog stylings **/
+
+.auth-dialog[open] {
     padding: 30px;
     margin: auto;
     border-radius: 16px;
