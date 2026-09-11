@@ -110,6 +110,7 @@
     transition: transform 500ms ease;
     background-color: var(--white-color);
     min-height: 100dvh;
+    width: var(--full);
 }
 
 .animation-right {
