@@ -50,27 +50,36 @@
             <!-- this should be generated if clicked onto a contact -->
              <div class="detailed-contact" id="contact-detail">
                 <header class="detail-header">
-                    <div class="profile-badge-large large-text">
-                        <span class="profile-badge-text" id="initials-detail">AM</span>
+                    <div class="header-content-1">
+                        <div class="profile-badge-large large-text">
+                            <span class="profile-badge-text" id="initials-detail">AM</span>
+                        </div>
+                        <div class="name-edit-delete">
+                            <h2 class="name large-text" id="name-detail">Anton Mayer</h2>
+                            <div class="edit-delete" id="edit-delete-detail">
+                                <button class="edit" onclick="editExistingContact()">
+                                    <img src="../assets/icons/edit.svg" alt="Edit contact">
+                                        Edit
+                                </button>
+                                <button class="delete">
+                                    <img src="../assets/icons/delete.svg" alt="Delete contact">
+                                        Delete
+                                </button>    
+                            </div>
+                        </div>
                     </div>
-                    <div class="name-edit-delete">
-                        <h2 class="name large-text" id="name-detail">Anton Mayer</h2>
-                        <div class="edit-delete" id="edit-delete-detail">
-                            <button class="edit" onclick="editExistingContact()">
-                                <img src="../assets/icons/edit.svg" alt="Edit contact">
-                                    Edit
-                            </button>
-                            <button class="delete">
-                                <img src="../assets/icons/delete.svg" alt="Delete contact">
-                                    Delete
+                    <div class="header-content-2">
+                        <div class="contact-info-headline-container">
+                            <h3 class="info-headline">
+                                <span>Contact Information</span>
+                            </h3>
+                            <button onclick="toggleBackgroundColor(document.getElementById('contact-card'))" class="arrow-btn">
+                                <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
                             </button>
                         </div>
                     </div>
                 </header>
                 <main class="contact-information">
-                    <h3 class="info-headline">
-                        Contact Information
-                    </h3>
                     <section class="email">
                         <h4>E-Mail</h4>
                         <span id="mail-detail" class="email-text">antom@gmail.com</span>
