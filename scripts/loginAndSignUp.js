@@ -285,23 +285,23 @@ function getInputFieldsForLogin() {
 function getInputFieldsForSignup() {
     return `<div class="input-wrapper">
                 <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
-                <img src="../assets/icons/person.svg" alt="person logo">
+                <img src="./assets/icons/person.svg" alt="person logo">
             </div>
 
             <div class="input-wrapper">
                 <input class="input-field" type="email" id="email-signup" placeholder="Email" required>
-                <img src="../assets/icons/mail.svg" alt="mail logo">
+                <img src="./assets/icons/mail.svg" alt="mail logo">
             </div>
 
             <div class="input-wrapper"><input class="input-field" type="password" id="sign-up-password" required
                     placeholder="Password">
-                <img id="sign-up-password-toggle-icon" class="lock-img" src="../assets/icons/lock.svg" alt="lock-img">
+                <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock-img">
             </div>
 
             <div class="input-wrapper">
                 <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
                 <img id="confirm-password-toggle-icon" class="lock-img"
-                    src="../assets/icons/lock.svg" alt="lock logo">
+                    src="./assets/icons/lock.svg" alt="lock logo">
             </div>`;
 }
 

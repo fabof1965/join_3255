@@ -1,9 +1,15 @@
 .contacts-main {
     display: flex;
-    margin: 0 auto;
+    margin: var(--content-limit-margin);
     max-width: var(--page-max-width);
     width: var(--full);
     justify-content: flex-start;
+}
+
+@media(max-width: 600px) {
+    .contacts-main {
+        flex-direction: column-reverse;
+    }
 }
 
 .contacts-section {
@@ -98,6 +104,7 @@
     position: fixed;
     right: -100%;
     transition: right 500ms ease-in;
+    background-color: var(--white-color);
 }
 
 .animation-right {
