@@ -78,7 +78,7 @@ async function registerUser(event) {
     event.preventDefault();
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
-    
+
     if (await checkIfEmailExists(emailSignup.value)) {
         emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
         emailSignup.reportValidity();
@@ -174,10 +174,18 @@ function setOnSubmitAttribute(attr = "userLogin(event)") {
 function addSignupContent() {
     setPageTitle("Sign up");
     setPageBackgroundColor("#1268FF");
+    changeLegalLinksFontColor();
     setLogoStyles("white", "none");
     setSignupFormContent();
     initSignUpEventListeners();
     initPasswordEventListener();
+}
+
+function changeLegalLinksFontColor() {
+    let legalLinks = document.querySelectorAll('.legal-link-login');
+    legalLinks.forEach(legalLink => {
+        legalLink.style.color = "#fff";
+    });
 }
 
 function setPageBackgroundColor(color) {
