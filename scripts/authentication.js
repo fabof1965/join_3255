@@ -55,6 +55,12 @@ function handleEmptyPasswordInput(field) {
     if (field.input.value === "") {
         field.icon.src = "./assets/icons/lock.svg";
         field.icon.alt = "lock-img";
+    } else if (field.input.type === "text") {
+        field.icon.src = './assets/icons/visibility.svg';
+        field.icon.alt = "show password";
+    } else if (field.input.type === "password") {
+        field.icon.src = "./assets/icons/visibility_off.svg";
+        field.icon.alt = "hide password";
     }
 }
 
@@ -78,7 +84,7 @@ async function registerUser(event) {
     event.preventDefault();
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
-    
+
     if (await checkIfEmailExists(emailSignup.value)) {
         emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
         emailSignup.reportValidity();
@@ -174,10 +180,34 @@ function setOnSubmitAttribute(attr = "userLogin(event)") {
 function addSignupContent() {
     setPageTitle("Sign up");
     setPageBackgroundColor("#1268FF");
-    setLogoStyles("white", "none");
+    setLegalLinkColor("var(--white-color)");
+    setLegalLinkHoverEffect();
+    setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
     initSignUpEventListeners();
     initPasswordEventListener();
+}
+
+function setLegalLinkColor(color) {
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.style.color = color;
+    });
+}
+
+function setLegalLinkHoverEffect() {
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.add('signup-legal-link');
+    });
+}
+
+function resetLegalLinkHoverEffect() {
+    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.remove('signup-legal-link');
+        legalLink.removeAttribute('style');
+    });
 }
 
 function setPageBackgroundColor(color) {
@@ -233,8 +263,9 @@ function backToLogin() {
     const ANIMATION_ATTRIBUTE = "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards";
 
     setLogoStyles("#1268FF", ANIMATION_ATTRIBUTE);
-    setPageBackgroundColor("white");
+    setPageBackgroundColor("var(--white-color)");
     setHeadlineText("Log in");
+    resetLegalLinkHoverEffect();
 
     const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForLogin();

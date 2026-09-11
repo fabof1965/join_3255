@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./styles/typography.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/login.css" />
-    <link rel="stylesheet" href="./styles/signup.css">
 
     <script src="./scripts/firebase.js" defer></script>
     <script src="./script.js" defer></script>
@@ -46,8 +45,7 @@
     <main class="auth-main content-wrapper">
         <form onsubmit="userLogin(event)" id="auth-form" class="auth-form">
             <header class="form-header">
-                <button onclick="backToLogin()" id="btn-show-login" type="button"
-                    class="arrow-back-btn">
+                <button onclick="backToLogin()" id="btn-show-login" type="button" class="arrow-back-btn">
                     <img src="./assets/icons/arrow-left-line.png" alt="back-to-login">
                 </button>
                 <div class="heading-wrapper">
@@ -90,10 +88,11 @@
     </main>
 
     <footer class="auth-footer">
-        <div class="legal-wrapper">
-            <a class="legal-link-login" href="./pages/privacy_policy.html">Privacy Policy</a>
-            <a class="legal-link-login" href="./pages/legal_notice.html">Legal Notice</a>
+        <div id="login-legal-links" class="legal-wrapper">
+            <a class="footer-legal-link" href="./pages/privacy_policy.html">Privacy Policy</a>
+            <a class="footer-legal-link" href="./pages/legal_notice.html">Legal Notice</a>
         </div>
+
     </footer>
 
     <dialog id="dialog" class="auth-dialog">

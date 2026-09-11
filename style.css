@@ -5,6 +5,7 @@
 }
 
 body {
+  font-family: 'Open Sans', sans-serif;
   min-height: var(--min-page-height);
 }
 
@@ -14,10 +15,6 @@ body {
 
 .hide {
   display: none;
-}
-
-body {
-  font-family: 'Open Sans', sans-serif;
 }
 
 form {
