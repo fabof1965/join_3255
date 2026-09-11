@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  min-height: var(--min-page-height);
+}
+
 .show {
   display: flex;
 }

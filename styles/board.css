@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .main-layout {
   display: flex;
 }
