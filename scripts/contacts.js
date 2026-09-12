@@ -9,6 +9,11 @@ const existingContactValues = {
     title: "Edit contact",
 };
 
+const displayAttributes = {
+    show: "flex",
+    hide: "none"
+}
+
 const testContacts = [
     {
         "id": 1,
@@ -33,6 +38,17 @@ const testContacts = [
         "email": "max.mustermann@example.com"
     }
 ];
+
+function toggleBackgroundColor(element) {    
+    element.classList.toggle("background-primary");
+    animateContactDetailContainer();
+}
+
+function animateContactDetailContainer() {
+    const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
+    
+    CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
+}
 
 function renderContacts() { // die hier brauche ich
 

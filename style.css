@@ -4,16 +4,17 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+  min-height: var(--min-page-height);
+}
+
 .show {
   display: flex;
 }
 
 .hide {
   display: none;
-}
-
-body {
-  font-family: 'Open Sans', sans-serif;
 }
 
 form {
@@ -25,7 +26,7 @@ button{
 }
 
 .content-wrapper {
-  max-width: 1440px;
+  max-width: var(--page-max-width);
   margin: 0 auto;
 }
 
@@ -33,14 +34,14 @@ button{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: var(--full);
 }
 
 .btn {
   padding: 8px 16px;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--element-design-border-radius);
   background: none;
 }
 

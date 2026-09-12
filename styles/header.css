@@ -1,10 +1,17 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--primary-color);
-  padding: 16px var(--padding-left-right);
+#header {
   display: flex;
   align-items: center;
+  background-color: var(--primary-color);
+  padding: 16px var(--padding-left-right);
+  width: var(--full);
+}
+
+.content-limit {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--page-max-width);
+  width: var(--full);
+  margin: var(--content-limit-margin);
 }
 
 .header-left img {
@@ -25,7 +32,6 @@
   border: none;
   background: transparent;
   display: inline-flex;
-  cursor: pointer;
 }
 
 .header-icon-button img {

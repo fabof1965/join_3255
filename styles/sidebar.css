@@ -1,54 +1,66 @@
-.main-layout>#sidebar {
-  flex-shrink: 0;
-}
-
-.sidebar {
+#sidebar {
   display: flex;
   box-shadow: var(--sidebar-box-shadow);
-  padding: 20px 0 20px 0;
-  justify-content: space-between;
+  justify-content: center;
+  padding: var(--sidebar-padding);
 }
 
-.sidebar-navigation {
+.sidebar-navigation{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 0 16px;
+  min-height: calc(100dvh - 93px);
+  width: var(--full);
+  padding: var(--sidebar-navigation-padding);
+}
+
+.page-links {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  width: var(--full);
 }
 
-.sidebar-wrapper {
-  display: flex;
-  flex-direction: column;
+@media(max-width: 600px) {
+  .sidebar-navigation {
+    height: 16px;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  .page-links{
+    flex-direction: row;
+    gap: 4px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+  }
 }
 
-.sidebar a {
-  text-decoration: none;
+.page-links a{
   color: var(--menu-color);
   text-align: left;
-  display: block;
-}
-
-.sidebar-navigation a {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   justify-content: flex-start;
   border-radius: 8px;
-  padding: 8px 32px 8px 8px;
-  transition: background-color 100ms ease, color 100ms ease;
+  padding: var(--sidebar-anchor-tag-padding);
+  transition: background-color 400ms ease;
+  text-decoration: none;
+  text-wrap: nowrap;
+  width: var(--full);
 }
 
-.sidebar-navigation a:hover {
-  background-color: var(--secondary-color);
+@media(max-width: 600px) {
+  .page-links a {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
-.sidebar a.active,
-.sidebar a.active:hover {
+.page-links a:hover, .page-links a.active {
   background-color: var(--secondary-color);
-  color: var(--menu-color);
-  font-weight: 700;
 }
 
 .sidebar-navigation a img {
@@ -56,17 +68,29 @@
   height: 24px;
 }
 
-.sidebar-navigation a span {
-  width: 75px;
+@media(max-width: 600px) {
+  .sidebar-navigation a img{
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .sidebar-footer {
   display: flex;
   flex-direction: column;
-  padding-left: 8px;
   width: var(--full);
-  gap: 15px;
-  align-items: flex-start;
+}
+
+@media(max-width: 600px) {
+  .sidebar-footer{
+    display: none;
+  }
+}
+
+.sidebar-footer a {
+  text-decoration: none;
+  color: var(--menu-color);
+  padding: var(--sidebar-anchor-tag-padding);
 }
 
 .sidebar-footer a:hover {

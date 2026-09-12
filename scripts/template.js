@@ -1,48 +1,47 @@
 const sidebarTemplate = `
     <nav class="sidebar-navigation">
-    <div class="sidebar-wrapper">
-      <a href="./summary.html">
-        <img src="../assets/icons/summary.svg" alt="" />
-        <span>Summary</span>
-      </a>
-      <a href="">
-        <img src="../assets/icons/add_task.svg" alt="" />
-        <span>Add Task</span>
-      </a>
-      <a href="../pages/board.html">
-        <img src="../assets/icons/board.svg" alt="" />
-        <span>Board</span>
-      </a>
-      <a href="">
-        <img src="../assets/icons/contacts.svg" alt="" />
-        <span>Contacts</span>
-      </a>
-    </div>
-    <div class="sidebar-footer">
-      <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
-      <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
-    </div>
-    
+      <section class="page-links">
+        <a href="./summary.html">
+          <img src="../assets/icons/summary.svg" alt="" />
+          <span>Summary</span>
+        </a>
+        <a href="">
+          <img src="../assets/icons/add_task.svg" alt="" />
+          <span>Add Task</span>
+        </a>
+        <a href="../pages/board.html">
+          <img src="../assets/icons/board.svg" alt="" />
+          <span>Board</span>
+        </a>
+        <a href="../pages/contacts.html">
+          <img src="../assets/icons/contacts.svg" alt="to contacts" />
+          <span>Contacts</span>
+        </a>
+      </section>
+      <footer class="sidebar-footer">
+        <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
+        <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
+      </footer>
     </nav>
   `;
 
 const headerTemplate = `
-    <div class="header">
-      <div class="header-left">
-        <button class="header-icon-button" type="button" aria-label="Header Logo">
-          <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
-        </button>
-      </div>
-      <div class="header-right">
-        <span>Kanban Project Management Tool</span>
-        <button class="header-icon-button" type="button" aria-label="Open help">
-          <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
-        </button>
-        <button class="header-icon-button" type="button" aria-label="Open user profile">
-          <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
-        </button>
-      </div>
+  <div class="content-limit">
+    <div class="header-left">
+      <button class="header-icon-button" type="button" aria-label="Header Logo">
+        <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
+      </button>
     </div>
+    <div class="header-right">
+      <span>Kanban Project Management Tool</span>
+      <button class="header-icon-button" type="button" aria-label="Open help">
+        <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
+      </button>
+      <button class="header-icon-button" type="button" aria-label="Open user profile">
+        <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
+      </button>
+    </div>
+  </div>
 `;
 
 const taskCardTemplate = `
