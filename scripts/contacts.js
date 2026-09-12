@@ -99,12 +99,26 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
     setAcceptButtonText(acceptButtonText);
 }
 
-function addNewContact() { // und diese hier
-    setDynamicDialogElements(addContactValues.title, addContactValues.subtitle, "Cancel", "Create contact");
+function getContactFormfromForm() {
+    return {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value
+    };
+}
 
-    openContactDialog();
+async function addNewContact(event) {
+    event.preventDefault();
+    let form = document.getElementById('contact-form');
+    let contact = getContactFormfromForm();
+    let response = await postData('contacts', contact);
+    testContacts.push({ ...contact, id: response.name });
 
-    console.log("New contact added.");
+    form.reset();
+    closeContactDialog();
+    renderContacts();
+
+    // console.log("New contact added.");
 }
 
 function editExistingContact() {

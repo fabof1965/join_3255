@@ -14,6 +14,7 @@
     <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
 
     <script src="../scripts/template.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js" defer></script>
 </head>
@@ -23,7 +24,7 @@
     <main class="contacts-main">
         <aside id="sidebar"></aside>
          <section class="contacts-section">
-            <button class="btn-new-contact btn" onclick="addNewContact()">
+            <button class="btn-new-contact btn" onclick="openContactDialog()">
                 <span id="txt-add-new-contact">Add new contact</span>
                 <img src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
@@ -126,7 +127,7 @@
                 </svg>
             </div>
 
-            <form>
+            <form id="contact-form" onsubmit="addNewContact(event)">
                 <div class="data-input-area">
                     <div class="input-wrapper">
                         <label for="name" class="visually-hidden">Name</label>
@@ -146,14 +147,14 @@
                 </div>
 
                 <div class="btn-container">
-                    <button class="cancel-btn btn" onclick="closeContactDialog()" class="btn">
+                    <button type="button" class="cancel-btn btn" onclick="closeContactDialog()">
                         <span id="cancel-btn-text">
                         </span>
                         <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8L24 24M24 8L8 24" stroke="#647188" fill="#647188" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </button>
-                    <button class="create-contact-btn btn">
+                    <button type="submit" class="create-contact-btn btn">
                         <span id="accept-btn-text">
                         </span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
