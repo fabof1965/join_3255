@@ -41,7 +41,6 @@
   padding: 0;
   border: none;
   background: none;
-  cursor: pointer;
 }
 
 .add-task-close img {
@@ -130,7 +129,6 @@
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
   font-size: 19px;
-  cursor: pointer;
   transition: transform 100ms ease;
 }
 
@@ -167,7 +165,6 @@
   background-color: var(--primary-color);
   color: var(--white-color);
   font-size: 23px;
-  cursor: pointer;
   transition: filter 100ms ease;
 }
 

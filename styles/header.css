@@ -32,7 +32,6 @@
   border: none;
   background: transparent;
   display: inline-flex;
-  cursor: pointer;
 }
 
 .header-icon-button img {

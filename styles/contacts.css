@@ -199,7 +199,6 @@
     background-color: transparent;
     color: var(--black-color);
     font-size: 16px;
-    cursor: pointer;
 }
 
 @media(max-width: 600px) {
@@ -272,7 +271,6 @@ dialog[open] {
 }
 
 .close-dialog-button {
-    cursor: pointer;
     margin-top: 16px;
     margin-right: 16px;
     display: flex;
