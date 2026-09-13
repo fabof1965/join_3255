@@ -21,6 +21,10 @@ form {
   max-width: var(--form-max-width);
 }
 
+input{
+  outline: none;
+}
+
 button{
   cursor: pointer;
 }

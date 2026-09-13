@@ -77,10 +77,10 @@ function toggleShowPassword(field) {
 }
 
 async function registerUser(event) {
-    let signUpForm = document.getElementById('auth-form');
-    let emailSignup = document.getElementById('email-signup');
-    let passwordSignup = document.getElementById('sign-up-password');
-    let name = document.getElementById('name');
+    const signUpForm = document.getElementById('auth-form');
+    const emailSignup = document.getElementById('email-signup');
+    const passwordSignup = document.getElementById('sign-up-password');
+    const name = document.getElementById('name');
     event.preventDefault();
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
@@ -91,7 +91,7 @@ async function registerUser(event) {
         return;
     }
     emailSignup.setCustomValidity("");
-    let response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
+    const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();
     signUpSuccessPopUp();
@@ -99,8 +99,8 @@ async function registerUser(event) {
 }
 
 function comparePassword() {
-    let passwordSignup = document.getElementById('sign-up-password');
-    let confirmPasswordSignup = document.getElementById('confirm-password');
+    const passwordSignup = document.getElementById('sign-up-password');
+    const confirmPasswordSignup = document.getElementById('confirm-password');
 
     if (passwordSignup.value !== confirmPasswordSignup.value) {
         confirmPasswordSignup.setCustomValidity("Passwords do not match");
@@ -110,7 +110,7 @@ function comparePassword() {
 }
 
 function acceptPrivacyPolicy() {
-    let checkboxSignup = document.getElementById('checkbox');
+    const checkboxSignup = document.getElementById('checkbox');
 
     if (checkboxSignup.checked) {
         checkboxSignup.setCustomValidity("");
@@ -123,14 +123,14 @@ function acceptPrivacyPolicy() {
 }
 
 async function checkIfEmailExists(inputMail) {
-    let emailSignup = document.getElementById('email-signup');
-    let response = await getData('users', { email: emailSignup.value });
+    const emailSignup = document.getElementById('email-signup');
+    const response = await getData('users', { email: emailSignup.value });
 
     return response ? Object.values(response).some(user => user.email === inputMail) : false;
 }
 
 function signUpSuccessPopUp() {
-    let dialog = document.getElementById('dialog');
+    const dialog = document.getElementById('dialog');
     dialog.showModal();
     setTimeout(() => {
         closeDialog();
@@ -138,7 +138,7 @@ function signUpSuccessPopUp() {
 }
 
 function closeDialog() {
-    let dialog = document.getElementById('dialog');
+    const dialog = document.getElementById('dialog');
     dialog.close();
 }
 
@@ -149,11 +149,11 @@ function closeDialog() {
 async function userLogin(event) {
     console.log("submit ausgelöst");
     event.preventDefault();
-    let emailLogin = document.getElementById('email');
-    let passwordLogin = document.getElementById('login-password');
-    let response = await getData('users');
-    let users = response ? Object.values(response) : [];
-    let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
+    const emailLogin = document.getElementById('email');
+    const passwordLogin = document.getElementById('login-password');
+    const response = await getData('users');
+    const users = response ? Object.values(response) : [];
+    const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
         window.location.href = './pages/summary.html';
@@ -189,21 +189,21 @@ function addSignupContent() {
 }
 
 function setLegalLinkColor(color) {
-    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
     legalLinks.forEach(legalLink => {
         legalLink.style.color = color;
     });
 }
 
 function setLegalLinkHoverEffect() {
-    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
     legalLinks.forEach(legalLink => {
         legalLink.classList.add('signup-legal-link');
     });
 }
 
 function resetLegalLinkHoverEffect() {
-    let legalLinks = document.querySelectorAll('.footer-legal-link');
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
     legalLinks.forEach(legalLink => {
         legalLink.classList.remove('signup-legal-link');
         legalLink.removeAttribute('style');
