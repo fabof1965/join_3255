@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  min-height: calc(100dvh - 93px);
+  min-height: calc(100dvh - 92.8px);
   width: var(--full);
   padding: var(--sidebar-navigation-padding);
 }
@@ -23,17 +23,22 @@
 }
 
 @media(max-width: 600px) {
+  #sidebar {
+    padding: 0;
+    box-shadow: unset;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
   .sidebar-navigation {
-    height: 16px;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 0;
+    padding: 8px var(--padding-left-right);
+    min-height: unset;
   }
 
   .page-links{
     flex-direction: row;
     gap: 4px;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -56,6 +61,7 @@
   .page-links a {
     flex-direction: column;
     justify-content: center;
+    padding: 4px;
   }
 }
 
