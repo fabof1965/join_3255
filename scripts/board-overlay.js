@@ -82,7 +82,7 @@ function openTaskOverlay(taskId) {
 
 /**
  * Deletes the currently opened task and refreshes the board.
- * @returns {void}
+ * @returns {promise}
  */
 async function deleteOpenedTask() {
   const taskIndex = exampleTasks.findIndex(({ id }) => id === openedTaskId);
