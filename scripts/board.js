@@ -366,68 +366,14 @@ function initializeTaskDropZones() {
 }
 
 /**
- * Wandelt das Tasks-Objekt aus Firebase in ein Array von Task-Objekten um.
- *
- * WARUM?
- * Firebase speichert Tasks nicht als Array, sondern als Objekt. Jeder Task liegt
- * unter einem automatisch erzeugten Key (z. B. "-P0mHebVAtL98P-m2uF_").
- * Auf ein Objekt kann man kein filter(), map() oder forEach() anwenden, auf ein
- * Array schon. Deshalb wird hier umgewandelt.
- *
- * EINGABE (so kommt es von Firebase):
- *   {
- *     "-P0mHeb...": { title: "Login bauen",  status: "todo" },
- *     "-P0mHzi...": { title: "Board stylen", status: "done" }
- *   }
- *
- * ABLAUF:
- * 1. if (!tasksObject) return [];
- *    Gibt es in Firebase noch keine Tasks, kommt null zurück. Dann wird sofort
- *    ein leeres Array zurückgegeben, sonst würde Object.entries(null) einen
- *    Fehler werfen.
- *
- * 2. Object.entries(tasksObject)
- *    Macht aus dem Objekt ein Array aus [Key, Wert]-Paaren:
- *   [
- *     ["-P0mHeb...", { title: "Login bauen",  status: "todo" }],
- *     ["-P0mHzi...", { title: "Board stylen", status: "done" }]
- *   ]
- *
- * 3. .map(...)
- *    Geht jedes Paar einzeln durch und sammelt die Rückgabewerte in einem NEUEN
- *    Array. Die gebauten Objekte bleiben Objekte, sie liegen nur im Array.
- *
- * 4. ([id, task]) => ...
- *    Array-Destructuring: Das Paar wird direkt in zwei Variablen zerlegt.
- *    id   = erstes Element  -> der Firebase-Key, z. B. "-P0mHeb..."
- *    task = zweites Element -> das Task-Objekt mit title, status usw.
- *
- * 5. ({ ...task, id })
- *    Baut ein neues Objekt:
- *    ...task -> Spread-Operator, kopiert alle Eigenschaften des Tasks hinein
- *    id      -> Kurzform für id: id, hängt den Firebase-Key als Eigenschaft an
- *    Die runden Klammern sind nötig, damit JavaScript { } als Objekt versteht
- *    und nicht als Funktionskörper.
- *
- * AUSGABE (Array von Task-Objekten):
- *   [
- *     { title: "Login bauen",  status: "todo", id: "-P0mHeb..." },
- *     { title: "Board stylen", status: "done", id: "-P0mHzi..." }
- *   ]
- *
- * Die id wird später gebraucht, um einen bestimmten Task in Firebase zu
- * bearbeiten, zu verschieben oder zu löschen (z. B. "tasks/" + task.id).
  *
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function mapTasksToArray(tasksObject) {
-  if (!tasksObject) return []; // wenn null oder leere Einträge gemacht werden, wird ein leeres Array zurück gegeben
+  if (!tasksObject) return []; 
   return Object.entries(tasksObject).map(([id, task]) => ({ ...task, id }));
 }
-
-//Die map() Methode von Array Instanzen erstellt ein neues Array, das mit den Ergebnissen einer bereitgestellten Funktion gefüllt ist, die auf jedes Element im aufrufenden Array angewendet wird.
-// task ist das object mit title, description und so weiter
 
 async function loadTasks() {
   try {
