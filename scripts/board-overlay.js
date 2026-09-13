@@ -1,20 +1,19 @@
 let openedTaskId = "";
 
-
 /**
  * Creates the assigned-user rows for a task overlay.
  * @param {Object} task - Task containing assigned users.
  * @returns {string} Assigned-user HTML.
  */
 function getOverlayUsersHtml(task) {
-  return task.assignedUsers.map((initials, index) =>
+  const users = task.assignedUsers || [];
+  return users.map((initials, index) =>
     fillTemplate(taskOverlayUserTemplate, {
       initials,
       name: task.assignedUserNames?.[index] || initials,
     }),
   ).join("");
 }
-
 
 /**
  * Creates the completed subtask rows for a task overlay.
@@ -39,24 +38,23 @@ function getOverlayPriorityIcon(priority) {
   return lowPriorityTemplate;
 }
 
-
 /**
  * Creates the complete HTML for a task overlay.
  * @param {Object} task - Task to display.
  * @returns {string} Task overlay HTML.
  */
 function getTaskOverlayHtml(task) {
+  const priority = task.priority; 
   const subtasks = getOverlaySubtasksHtml(task.subtaskTitles);
   return fillTemplate(taskOverlayTemplate, {
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.fullDescription || task.description,
-    dueDate: task.dueDate || "No date", priorityLabel: capitalize(task.priority),
-    priorityIcon: getOverlayPriorityIcon(task.priority),
+    dueDate: task.dueDate || "No date", priorityLabel: capitalize(priority || "medium"),
+    priorityIcon: getOverlayPriorityIcon(priority || "medium"),
     assignedUsers: getOverlayUsersHtml(task), subtasks,
     subtaskSectionClass: subtasks ? "" : "task-overlay-section-hidden",
   });
 }
-
 
 /**
  * Capitalizes the first letter of a text value.
@@ -66,7 +64,6 @@ function getTaskOverlayHtml(task) {
 function capitalize(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
-
 
 /**
  * Opens the detail overlay for one task.
@@ -83,19 +80,18 @@ function openTaskOverlay(taskId) {
   document.body.classList.add("overlay-open");
 }
 
-
 /**
  * Deletes the currently opened task and refreshes the board.
  * @returns {void}
  */
-function deleteOpenedTask() {
+async function deleteOpenedTask() {
   const taskIndex = exampleTasks.findIndex(({ id }) => id === openedTaskId);
   if (taskIndex < 0) return;
   exampleTasks.splice(taskIndex, 1);
+  deleteData("tasks/" + openedTaskId);
   closeTaskOverlay();
   renderSearchResults(document.getElementById("task-search").value);
 }
-
 
 /**
  * Closes the task detail overlay.
@@ -105,7 +101,6 @@ function closeTaskOverlay() {
   document.getElementById("task-overlay").hidden = true;
   document.body.classList.remove("overlay-open");
 }
-
 
 /**
  * Handles clicks on cards and overlay closing areas.
@@ -119,6 +114,5 @@ function handleTaskOverlayClick(event) {
   if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
   if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
 }
-
 
 document.addEventListener("click", handleTaskOverlayClick);
