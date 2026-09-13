@@ -88,7 +88,7 @@ async function deleteOpenedTask() {
   const taskIndex = exampleTasks.findIndex(({ id }) => id === openedTaskId);
   if (taskIndex < 0) return;
   exampleTasks.splice(taskIndex, 1);
-  deleteData("tasks/" + openedTaskId);
+  await deleteData("tasks/" + openedTaskId);
   closeTaskOverlay();
   renderSearchResults(document.getElementById("task-search").value);
 }
