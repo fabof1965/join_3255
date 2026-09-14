@@ -2,7 +2,7 @@
   display: flex;
   box-shadow: var(--sidebar-box-shadow);
   justify-content: center;
-  padding: var(--padding-top-bottom) 0;
+  padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
 .sidebar-navigation{
@@ -12,7 +12,6 @@
   justify-content: space-between;
   min-height: calc(100dvh - 2 * var(--padding-top-bottom) - 92.8px);
   width: var(--full);
-  padding: 0 var(--padding-left-right);
 }
 
 .page-links {
@@ -24,6 +23,10 @@
 
 @media(max-width: 600px) {
   #sidebar {
+    z-index: 9999;
+    background-color: var(--white-color);
+    position: sticky;
+    bottom: 0;
     padding: 0;
     box-shadow: unset;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
@@ -32,7 +35,7 @@
   .sidebar-navigation {
     align-items: flex-end;
     justify-content: flex-end;
-    /* padding: 8px var(--padding-left-right); */
+    padding: 12px var(--padding-left-right);
     min-height: unset;
   }
 
