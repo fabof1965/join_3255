@@ -89,4 +89,7 @@
     --logo-animation-delay: calc(var(--logo-animation-duration) / 2);
 
     --logo-color-change-duration: var(--bg-change-duration);
+
+    /*board*/
+    
 }

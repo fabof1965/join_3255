@@ -1,4 +1,4 @@
-.contacts-main {
+/* .main-layout {
     display: flex;
     margin: var(--content-limit-margin);
     max-width: var(--page-max-width);
@@ -7,11 +7,11 @@
 }
 
 @media(max-width: 600px) {
-    .contacts-main {
+    .main-layout {
         flex-direction: column-reverse;
         height: calc(100dvh - 92.8px);
     }
-}
+} */
 
 .contacts-section {
     display: flex;
@@ -114,7 +114,7 @@
     padding: 56px 24px;
     position: fixed;
     transform: translateX(400%);
-    transition: transform 500ms ease;
+    transition: transform 600ms ease-in-out;
     background-color: var(--white-color);
     min-height: 100dvh;
     width: var(--full);
