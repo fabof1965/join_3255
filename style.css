@@ -20,7 +20,6 @@ body {
 @media(max-width: 600px) {
     .main-layout {
         flex-direction: column-reverse;
-        height: calc(100dvh - 92.8px);
     }
 }
 

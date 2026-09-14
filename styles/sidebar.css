@@ -24,6 +24,10 @@
 
 @media(max-width: 600px) {
   #sidebar {
+    z-index: 9999;
+    background-color: var(--white-color);
+    position: sticky;
+    bottom: 0;
     padding: 0;
     box-shadow: unset;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
@@ -32,7 +36,7 @@
   .sidebar-navigation {
     align-items: flex-end;
     justify-content: flex-end;
-    /* padding: 8px var(--padding-left-right); */
+    padding: 12px var(--padding-left-right);
     min-height: unset;
   }
 

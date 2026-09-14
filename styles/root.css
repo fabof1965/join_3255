@@ -89,5 +89,9 @@
     --logo-color-change-duration: var(--bg-change-duration);
 
     /*board*/
-    
+    --board-search-padding: var(--page-link-padding);
+    --search-button-padding: clamp(12px, calc(10.857px + 0.357vw), 16px);
+    --search-button-image-dimensions: clamp(24px, calc(19.429px + 1.429vw), 40px);
+    --search-bar-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
+    --add-task-button-padding: var(--board-search-padding);
 }
