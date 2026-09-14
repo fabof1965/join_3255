@@ -2,7 +2,7 @@
   display: flex;
   box-shadow: var(--sidebar-box-shadow);
   justify-content: center;
-  padding: var(--sidebar-padding);
+  padding: var(--padding-top-bottom) 0;
 }
 
 .sidebar-navigation{
@@ -10,9 +10,9 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  min-height: calc(100dvh - 92.8px);
+  min-height: calc(100dvh - 2 * var(--padding-top-bottom) - 92.8px);
   width: var(--full);
-  padding: var(--sidebar-navigation-padding);
+  padding: 0 var(--padding-left-right);
 }
 
 .page-links {
@@ -32,7 +32,7 @@
   .sidebar-navigation {
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 8px var(--padding-left-right);
+    /* padding: 8px var(--padding-left-right); */
     min-height: unset;
   }
 
@@ -50,7 +50,7 @@
   gap: 8px;
   justify-content: flex-start;
   border-radius: 8px;
-  padding: var(--sidebar-anchor-tag-padding);
+  padding: var(--page-link-padding);
   transition: background-color 400ms ease;
   text-decoration: none;
   text-wrap: nowrap;
@@ -96,7 +96,7 @@
 .sidebar-footer a {
   text-decoration: none;
   color: var(--menu-color);
-  padding: var(--sidebar-anchor-tag-padding);
+  padding: var(--page-link-padding);
 }
 
 .sidebar-footer a:hover {

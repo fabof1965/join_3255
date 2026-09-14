@@ -47,8 +47,9 @@
     --min-page-height: 100dvh;
 
     /* layout and spacing */
-    --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px);
-    --padding-left-right: clamp(16px, calc(4.571px + 3.571vw), 56px);
+    --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px) ;
+    --padding-left-right: clamp(4px, calc(-10.857px + 4.643vw), 56px);
+    --padding: clamp(16px, calc(11.429px + 1.429vw), 32px) clamp(4px, calc(-10.857px + 4.643vw), 56px);
     --input-wrapper-padding: 8px 16px;
     --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
@@ -58,12 +59,6 @@
     /*contact-details*/
     --resp-font-size: clamp(23px, calc(16.143px + 2.143vw), 47px);
     --large-profile-badge-dimensions: clamp(40px, calc(28.571px + 3.571vw), 80px);
-
-
-    /*sidebar*/
-    --sidebar-padding: 16px 0;
-    --sidebar-navigation-padding: 8px 16px;
-    --sidebar-anchor-tag-padding: var(--sidebar-navigation-padding);
 
     --logo-position-left: max(0px, calc((100% - var(--page-max-width)) / 2));
     --form-max-width: 500px;
@@ -78,6 +73,9 @@
     
     --profile-icon-width: 56px;
     --profile-icon-height: var(--profile-icon-width);
+
+    /*sidebar*/
+    --page-link-padding: clamp(4px, calc(2.857px + 0.357vw), 8px) clamp(12px, calc(10.857px + 0.357vw), 16px);
 
     /*animation-timings*/
     --bg-change-duration: 300ms;
