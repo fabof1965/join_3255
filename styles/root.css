@@ -94,4 +94,8 @@
     --search-button-image-dimensions: clamp(24px, calc(19.429px + 1.429vw), 40px);
     --search-bar-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
     --add-task-button-padding: var(--board-search-padding);
+
+    /*summary*/
+    --summary-text-large: clamp(32px, calc(27.429px + 1.429vw), 48px);
+    --summary-container-gap: clamp(16px, calc(11.429px + 1.429vw), 32px);
 }

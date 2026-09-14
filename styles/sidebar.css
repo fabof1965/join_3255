@@ -2,7 +2,7 @@
   display: flex;
   box-shadow: var(--sidebar-box-shadow);
   justify-content: center;
-  padding: var(--padding-top-bottom) 0;
+  padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
 .sidebar-navigation{
@@ -12,7 +12,6 @@
   justify-content: space-between;
   min-height: calc(100dvh - 2 * var(--padding-top-bottom) - 92.8px);
   width: var(--full);
-  padding: 0 var(--padding-left-right);
 }
 
 .page-links {
