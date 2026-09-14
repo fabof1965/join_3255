@@ -1,4 +1,4 @@
-const exampleTasks = [
+let exampleTasks = [
   {
     id: "task-1",
     category: "User Story",
@@ -46,7 +46,8 @@ const exampleTasks = [
 
 let draggedTaskId = "";
 
-function init() {
+async function init() {
+  await loadTasks();
   renderBoard(exampleTasks);
   initializeTaskSearch();
   initializeTaskDropZones();
@@ -65,7 +66,6 @@ function fillTemplate(template, values) {
   );
 }
 
-
 /**
  * Creates the CSS class belonging to a task category.
  * @param {string} category - Visible category name.
@@ -77,18 +77,17 @@ function getCategoryClass(category) {
     : "task-category-user-story";
 }
 
-
 /**
  * Creates the HTML for the assigned user badges.
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
 function getAssignedUsersHtml(assignedUsers) {
+  if (!assignedUsers) return "";
   return assignedUsers
     .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
     .join("");
 }
-
 
 /**
  * Creates the HTML for a task's subtask progress.
@@ -105,7 +104,6 @@ function getSubtaskProgressHtml(subtasks) {
   });
 }
 
-
 /**
  * Returns the symbol belonging to a task priority.
  * @param {string} priority - Task priority.
@@ -116,13 +114,13 @@ function getPrioritySymbol(priority) {
   return priority === "medium" ? "=" : "↓";
 }
 
-
 /**
  * Creates the HTML for one task card.
  * @param {Object} task - Task data displayed on the card.
  * @returns {string} Task card HTML.
  */
 function getTaskCardHtml(task) {
+  if (!task) return "";
   return fillTemplate(taskCardTemplate, {
     id: task.id,
     categoryClass: getCategoryClass(task.category), category: task.category,
@@ -132,7 +130,6 @@ function getTaskCardHtml(task) {
     priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
   });
 }
-
 
 /**
  * Renders one task in its matching board column.
@@ -145,7 +142,6 @@ function renderTask(task) {
   if (!taskList) return;
   taskList.innerHTML += getTaskCardHtml(task);
 }
-
 
 /**
  * Renders every task and updates empty board columns.
@@ -161,7 +157,6 @@ function renderBoard(tasks) {
   initializeDraggableCards();
 }
 
-
 /**
  * Adds a message to every board column without tasks.
  * @param {NodeListOf<HTMLElement>} taskLists - Board column containers.
@@ -176,7 +171,6 @@ function renderEmptyTaskLists(taskLists) {
   });
 }
 
-
 /**
  * Finds tasks whose title or description contains the search term.
  * @param {string} searchTerm - Text entered in the search field.
@@ -185,10 +179,9 @@ function renderEmptyTaskLists(taskLists) {
 function filterTasks(searchTerm) {
   const normalizedTerm = searchTerm.trim().toLowerCase();
   return exampleTasks.filter((task) =>
-    `${task.title} ${task.description}`.toLowerCase().includes(normalizedTerm),
+    `${task.title} ${task.description ?? ""}`.toLowerCase().includes(normalizedTerm),
   );
 }
-
 
 /**
  * Shows or hides the message for a search without matches.
@@ -202,7 +195,6 @@ function toggleNoResultsMessage(shouldShow) {
   boardColumns.hidden = shouldShow;
 }
 
-
 /**
  * Renders tasks matching the current search input.
  * @param {InputEvent} event - Search field input event.
@@ -212,7 +204,6 @@ function searchTasks(event) {
   const searchTerm = event.target.value;
   renderSearchResults(searchTerm);
 }
-
 
 /**
  * Updates the board and message for a search term.
@@ -225,7 +216,6 @@ function renderSearchResults(searchTerm) {
   toggleNoResultsMessage(searchTerm.trim() !== "" && !filteredTasks.length);
 }
 
-
 /**
  * Activates the live board search.
  * @returns {void}
@@ -234,7 +224,6 @@ function initializeTaskSearch() {
   const searchInput = document.getElementById("task-search");
   searchInput.addEventListener("input", searchTasks);
 }
-
 
 /**
  * Stores the ID of the card that starts being dragged.
@@ -247,7 +236,6 @@ function startDragging(event) {
   event.currentTarget.classList.add("task-card-dragging");
 }
 
-
 /**
  * Removes the visual dragging state from a card.
  * @param {DragEvent} event - Card drag event.
@@ -257,7 +245,6 @@ function stopDragging(event) {
   event.currentTarget.classList.remove("task-card-dragging");
   clearDropPosition();
 }
-
 
 /**
  * Allows a task to be dropped into a board column.
@@ -269,7 +256,6 @@ function allowTaskDrop(event) {
   event.currentTarget.classList.add("task-list-dragover");
   showDropPosition(event.currentTarget, event.clientY);
 }
-
 
 /**
  * Finds the first card below the current pointer position.
@@ -285,7 +271,6 @@ function getDropTarget(taskList, pointerY) {
   });
 }
 
-
 /**
  * Displays the calculated insertion position in a drop zone.
  * @param {HTMLElement} taskList - Current drop zone.
@@ -298,7 +283,6 @@ function showDropPosition(taskList, pointerY) {
   taskList.classList.toggle("task-list-drop-end", !target);
   target?.classList.add("task-card-drop-before");
 }
-
 
 /**
  * Removes all visible insertion indicators.
@@ -316,7 +300,6 @@ function clearDropPosition() {
   );
 }
 
-
 /**
  * Removes the visual drop target state from a column.
  * @param {DragEvent} event - Column drag event.
@@ -327,7 +310,6 @@ function leaveTaskDropZone(event) {
   event.currentTarget.classList.remove("task-list-dragover");
   clearDropPosition();
 }
-
 
 /**
  * Moves a task before another task or to the category end.
@@ -344,21 +326,21 @@ function moveTaskToPosition(task, status, targetId) {
   exampleTasks.splice(insertAt, 0, task);
 }
 
-
 /**
  * Moves the dragged task into the selected board column.
  * @param {DragEvent} event - Column drop event.
  * @returns {void}
  */
-function dropTask(event) {
+async function dropTask(event) {
   event.preventDefault();
   const task = exampleTasks.find(({ id }) => id === draggedTaskId);
-  const target = getDropTarget(event.currentTarget, event.clientY);
-  if (task) moveTaskToPosition(task, event.currentTarget.dataset.status, target?.dataset.taskId);
   leaveTaskDropZone(event);
+  if (!task) return;
+  const target = getDropTarget(event.currentTarget, event.clientY);
+  moveTaskToPosition(task, event.currentTarget.dataset.status, target?.dataset.taskId);
   renderSearchResults(document.getElementById("task-search").value);
+  await patchData(`tasks/${task.id}`, { status: task.status });
 }
-
 
 /**
  * Adds drag events to all rendered task cards.
@@ -371,7 +353,6 @@ function initializeDraggableCards() {
   });
 }
 
-
 /**
  * Adds drop events to every board column.
  * @returns {void}
@@ -383,3 +364,24 @@ function initializeTaskDropZones() {
     taskList.addEventListener("drop", dropTask);
   });
 }
+
+/**
+ *
+ * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
+ * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
+ */
+function mapTasksToArray(tasksObject) {
+  if (!tasksObject) return []; 
+  return Object.entries(tasksObject).map(([id, task]) => ({ ...task, id }));
+}
+
+async function loadTasks() {
+  try {
+    const taskData = await getData("tasks");
+    exampleTasks = mapTasksToArray(taskData);
+  } catch (error) {
+    console.error("Fehler beim laden der Tasks", error);
+    exampleTasks = [];
+  }
+}
+

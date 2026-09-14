@@ -131,7 +131,6 @@ function getSelectedUserNames(select) {
   return Array.from(select.selectedOptions, ({ textContent }) => textContent);
 }
 
-
 /**
  * Creates a task object from the form fields.
  * @param {HTMLFormElement} form - Add Task form.
@@ -140,7 +139,7 @@ function getSelectedUserNames(select) {
 function createTaskFromForm(form) {
   const data = new FormData(form);
   return {
-    id: `task-${Date.now()}`, title: escapeTaskText(data.get("title").trim()),
+    title: escapeTaskText(data.get("title").trim()),
     description: escapeTaskText(data.get("description").trim()),
     dueDate: data.get("dueDate"),
     category: data.get("category"), status: newTaskStatus,
@@ -152,7 +151,6 @@ function createTaskFromForm(form) {
   };
 }
 
-
 /**
  * Saves a new task locally and refreshes the board.
  * @param {SubmitEvent} event - Add Task form submit event.
@@ -162,14 +160,14 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  let task = createTaskFromForm(form);
-  let response = await postData("tasks", task);
-  task.id = response.name;
+  const task = createTaskFromForm(form);
+  const { name: firebaseId } = await postData("tasks", task);
+  task.id = firebaseId;
+  console.log("Neuer Task angelegt:", task);
   exampleTasks.push(task);
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);
 }
-
 
 /**
  * Handles all Add Task dialog clicks.

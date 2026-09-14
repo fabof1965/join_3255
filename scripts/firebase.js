@@ -52,6 +52,5 @@ async function deleteData(path = "") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "DELETE",
     });
-    console.log(path)
     return responseToJson = await response.json();
 }
