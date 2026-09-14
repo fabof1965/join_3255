@@ -1,0 +1,130 @@
+body {
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.help-main{
+    display: flex;
+    position: relative;
+    max-width: var(--page-max-width);
+    margin: var(--content-limit-margin);
+}
+
+.summary-container {
+    width: var(--full);
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .help-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: var(--full);
+
+        .help-title {
+            font-size: 61px;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            border-radius: var(--border-radius-circular);
+
+            &:hover {
+                transform: scale(1.1);
+                background-color: var(--secondary-color);
+            }
+
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+
+    .help-intro {
+        font-size: 16px;
+        line-height: 1.5;
+        width: var(--full);
+        color: var(--black-color);
+    }
+
+    .help-section {
+        width: var(--full);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        h2 {
+            font-size: 33px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--black-color);
+            margin: 0;
+        }
+
+        .help-step-intro {
+            margin-bottom: 4px;
+        }
+
+        .help-step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+
+            .step-number {
+                font-size: 33px;
+                font-weight: 700;
+                line-height: 1.2;
+                color: var(--primary-color);
+                min-width: 25px;
+            }
+
+            .step-content-box {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                h3 {
+                    font-size: 19px;
+                    font-weight: 700;
+                    color: var(--primary-color);
+                    margin: 0;
+                }
+
+                p {
+                    font-size: 16px;
+                    line-height: 1.4;
+                    color: var(--black-color);
+                    margin: 0;
+                }
+            }
+        }
+        .enjoy-it {
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+    }
+
+    .highlight {
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+}

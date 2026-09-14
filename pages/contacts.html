@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../styles/help.css">
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
+
+    <script src="../scripts/template.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+</head>
+<body>
+    <header id="header"></header>
+
+    <main class="main-layout">
+        <aside id="sidebar"></aside>
+         <section class="contacts-section">
+            <button class="btn-new-contact btn" onclick="openContactDialog()">
+                <span id="txt-add-new-contact">Add new contact</span>
+                <img src="../assets/icons/new_contact.svg" alt="new contact">
+            </button>
+            <div id="contacts">
+                <!-- content should be generated and not be written by hand -->
+                <div class="letter">
+                    A
+                </div>
+                
+                <div class="seperator"></div>
+
+                <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
+                    <div class="profile-badge">
+                        AM
+                    </div>
+                    <div class="name-and-mail">
+                        <span class="name">Anton Mayer</span>
+                        <span class="mail">antom@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+         </section>
+         <section class="contact-details">
+            <!-- this should be generated if clicked onto a contact -->
+             <div class="detailed-contact" id="contact-detail">
+                <header class="detail-header">
+                    <div class="header-content-1">
+                        <div class="profile-badge-large large-text">
+                            <span class="profile-badge-text" id="initials-detail">AM</span>
+                        </div>
+                        <div class="name-edit-delete">
+                            <h2 class="name large-text" id="name-detail">Anton Mayer</h2>
+                            <div class="edit-delete" id="edit-delete-detail">
+                                <button class="edit" onclick="editExistingContact()">
+                                    <img src="../assets/icons/edit.svg" alt="Edit contact">
+                                        Edit
+                                </button>
+                                <button class="delete">
+                                    <img src="../assets/icons/delete.svg" alt="Delete contact">
+                                        Delete
+                                </button>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-content-2">
+                        <div class="contact-info-headline-container">
+                            <h3 class="info-headline">
+                                <span>Contact Information</span>
+                            </h3>
+                            <button onclick="toggleBackgroundColor(document.getElementById('contact-card'))" class="arrow-btn">
+                                <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <main class="contact-information">
+                    <section class="email">
+                        <h4>E-Mail</h4>
+                        <span id="mail-detail" class="email-text">antom@gmail.com</span>
+                    </section>
+                    <section class="phone">
+                        <h4>Phone</h4>
+                        <span id="phone-detail">+49 1111 111 11 1</span>
+                    </section>
+                </main>
+             </div>
+         </section>
+        </main>
+
+    <footer>
+
+    </footer>
+
+    <dialog id="contact-dialog">
+        <header id="dialog-header">
+            <button class="close-dialog-button" onclick="closeContactDialog()">
+                <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="dialog-header-content">
+                <img class="logo-header" src="../assets/icons/logo-white.svg" alt="Join Logo white">
+                <div class="dialog-hedaline-wrapper">
+                    <h2 id="dialog-headline">
+                    </h2>
+                    <p id="dialog-subheading">
+                    </p>
+                </div>
+            </div>
+        </header>
+        <main id="dialogMain">
+            <div class="badge-image-container">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="mask0_78771_3630" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                    <rect width="24" height="24" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_78771_3630)">
+                    <path d="M12 12C10.9 12 9.95833 11.6083 9.175 10.825C8.39167 10.0417 8 9.1 8 8C8 6.9 8.39167 5.95833 9.175 5.175C9.95833 4.39167 10.9 4 12 4C13.1 4 14.0417 4.39167 14.825 5.175C15.6083 5.95833 16 6.9 16 8C16 9.1 15.6083 10.0417 14.825 10.825C14.0417 11.6083 13.1 12 12 12ZM18 20H6C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V17.2C4 16.6333 4.14583 16.1125 4.4375 15.6375C4.72917 15.1625 5.11667 14.8 5.6 14.55C6.63333 14.0333 7.68333 13.6458 8.75 13.3875C9.81667 13.1292 10.9 13 12 13C13.1 13 14.1833 13.1292 15.25 13.3875C16.3167 13.6458 17.3667 14.0333 18.4 14.55C18.8833 14.8 19.2708 15.1625 19.5625 15.6375C19.8542 16.1125 20 16.6333 20 17.2V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20ZM6 18H18V17.2C18 17.0167 17.9542 16.85 17.8625 16.7C17.7708 16.55 17.65 16.4333 17.5 16.35C16.6 15.9 15.6917 15.5625 14.775 15.3375C13.8583 15.1125 12.9333 15 12 15C11.0667 15 10.1417 15.1125 9.225 15.3375C8.30833 15.5625 7.4 15.9 6.5 16.35C6.35 16.4333 6.22917 16.55 6.1375 16.7C6.04583 16.85 6 17.0167 6 17.2V18ZM12 10C12.55 10 13.0208 9.80417 13.4125 9.4125C13.8042 9.02083 14 8.55 14 8C14 7.45 13.8042 6.97917 13.4125 6.5875C13.0208 6.19583 12.55 6 12 6C11.45 6 10.9792 6.19583 10.5875 6.5875C10.1958 6.97917 10 7.45 10 8C10 8.55 10.1958 9.02083 10.5875 9.4125C10.9792 9.80417 11.45 10 12 10Z" fill="white"/>
+                    </g>
+                </svg>
+            </div>
+
+            <form id="contact-form" onsubmit="addNewContact(event)">
+                <div class="data-input-area">
+                    <div class="input-wrapper">
+                        <label for="name" class="visually-hidden">Name</label>
+                        <input id="name" class="input-field" type="text" placeholder="Name" required />
+                        <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="email" class="visually-hidden">Email</label>
+                        <input id="email" class="input-field" type="email" placeholder="Email" required />
+                        <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="phone" class="visually-hidden">Phone</label>
+                        <input id="phone" class="input-field" type="tel" placeholder="Phone" required />
+                        <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="cancel-btn btn" onclick="closeContactDialog()">
+                        <span id="cancel-btn-text">
+                        </span>
+                        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 8L24 24M24 8L8 24" stroke="#647188" fill="#647188" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button type="submit" class="create-contact-btn btn">
+                        <span id="accept-btn-text">
+                        </span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_79063_3308" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                            <rect width="24" height="24" fill="#D9D9D9"/>
+                            </mask>
+                            <g mask="url(#mask0_79063_3308)">
+                            <path d="M9.55002 15.15L18.025 6.675C18.225 6.475 18.4625 6.375 18.7375 6.375C19.0125 6.375 19.25 6.475 19.45 6.675C19.65 6.875 19.75 7.1125 19.75 7.3875C19.75 7.6625 19.65 7.9 19.45 8.1L10.25 17.3C10.05 17.5 9.81669 17.6 9.55002 17.6C9.28336 17.6 9.05002 17.5 8.85002 17.3L4.55002 13C4.35002 12.8 4.25419 12.5625 4.26252 12.2875C4.27086 12.0125 4.37502 11.775 4.57502 11.575C4.77502 11.375 5.01252 11.275 5.28752 11.275C5.56252 11.275 5.80002 11.375 6.00002 11.575L9.55002 15.15Z" fill="white"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </main>
+        <footer id="dialogFooter">
+
+        </footer>
+    </dialog>
+
+</body>
+</html>

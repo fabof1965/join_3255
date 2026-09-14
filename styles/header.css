@@ -1,0 +1,51 @@
+#header {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 16px var(--padding-left-right);
+  width: var(--full);
+}
+
+.content-limit {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--page-max-width);
+  width: var(--full);
+  margin: var(--content-limit-margin);
+}
+
+.header-left img {
+  height: 56px;
+}
+
+.header-right {
+  color: var(--white-color);
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.header-icon-button {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+}
+
+.header-icon-button img {
+  display: block;
+}
+
+.help-icon {
+  width: var(--page-header-help-icon-width);
+  height: var(--page-header-help-icon-height);
+  border-radius: var(--border-radius-circular);
+}
+
+.profile-icon {
+  width: var(--profile-icon-width);
+  height: var(--profile-icon-height);
+  border-radius: var(--border-radius-circular);
+}
