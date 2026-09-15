@@ -6,7 +6,21 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  min-height: var(--min-page-height);
+  height: var(--min-page-height);
+}
+
+.main-layout {
+    display: flex;
+    margin: var(--content-limit-margin);
+    max-width: var(--page-max-width);
+    width: var(--full);
+    justify-content: flex-start;
+}
+
+@media(max-width: 600px) {
+    .main-layout {
+        flex-direction: column-reverse;
+    }
 }
 
 .show {
@@ -47,6 +61,7 @@ button{
   border: none;
   border-radius: var(--element-design-border-radius);
   background: none;
+  text-wrap: nowrap;
 }
 
 .btn:hover {

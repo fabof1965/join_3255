@@ -3,57 +3,89 @@
 }
 
 .board-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   flex: 1;
-  min-width: 0;
-  padding: 0 64px;
-  padding-top: 72px;
+  padding: var(--padding);
+}
+
+.board-toolbar-wrapper {
+  display: flex; 
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.board-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width:var(--full);
+}
+
+@media(max-width: 650px) {
+  .board-toolbar {
+    margin-top: 32px;
+  }
 }
 
 .board-search {
   display: flex;
   border-radius: var(--element-design-border-radius);
   border: 1px solid var(--search-bar-outline-color);
-  width: 312px;
-  height: 51px;
-  padding: 16px;
   align-items: center;
+  padding: var(--board-search-padding);
 }
 
 .board-search input {
+  font-size: var(--search-bar-font-size) - 8px;
+  display: flex;
   border: none;
   outline: none;
-  border-radius: var(--element-design-border-radius);
   flex: 1;
 }
 
 .search-button {
-  height: 32px;
-  width: 32px;
-  padding: 0;
+  display: flex;
   border: none;
   background: none;
+  padding-left: var(--search-button-padding);
+  border-left: 2px solid var(--search-bar-outline-color);
+}
+
+.search-image {
+  width: var(--search-button-image-dimensions); 
+  height: var(--search-button-image-dimensions);
+}
+
+@media(max-width: 650px) {
+  .board-search {
+    width: var(--full);
+  }
 }
 
 .add-task-button {
+  display: flex;
   background-color: var(--primary-color);
   color: var(--white-color);
-  height: 51px;
   border-radius: var(--element-design-border-radius);
   border: none;
-  font-size: 23px;
-  padding: 0 16px;
+  font-size: var(--search-button-image-dimensions);
+  padding: var(--add-task-button-padding);
+  text-wrap: nowrap;
 }
 
-.board-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 48px;
+@media(max-width: 650px) {
+  .add-task-button {
+    display: none;
+  }
 }
 
 .board-columns {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
 }
 
@@ -62,7 +94,7 @@
 }
 
 .search-no-results {
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   color: var(--search-bar-outline-color);
   font-size: 16px;
 }

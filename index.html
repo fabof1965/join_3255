@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/login.css" />
 
+    <script src="./scripts/template.js" defer></script>
     <script src="./scripts/firebase.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./scripts/authentication.js" defer></script>
@@ -34,58 +35,61 @@
                 fill="" />
         </svg>
     </div>
-    <header class="auth-header content-wrapper">
-        <div class="spacing"></div>
-        <div id="signup-wrapper" class="auth-wrapper">
-            <p>Not a join user ?</p>
-            <button onclick="addSignupContent()" id="sign-up-btn" class="auth-btn btn">Sign up</button>
-        </div>
-    </header>
+    <div class="direction-container">
 
-    <main class="auth-main content-wrapper">
-        <form onsubmit="userLogin(event)" id="auth-form" class="auth-form">
-            <header class="form-header">
-                <button onclick="backToLogin()" id="btn-show-login" type="button" class="arrow-back-btn">
-                    <img src="./assets/icons/arrow-left-line.png" alt="back-to-login">
-                </button>
-                <div class="heading-wrapper">
-                    <div class="heading-container">
-                        <h2 id="heading" class="auth-heading">Log in</h2>
-                        <hr class="headline-underline" />
+        <header class="auth-header content-wrapper">
+            <div class="spacing"></div>
+            <div id="signup-wrapper" class="auth-wrapper">
+                <p>Not a join user ?</p>
+                <button onclick="addSignupContent()" id="sign-up-btn" class="auth-btn btn">Sign up</button>
+            </div>
+        </header>
+
+        <main class="auth-main content-wrapper">
+            <form onsubmit="userLogin(event)" id="auth-form" class="auth-form">
+                <header class="form-header">
+                    <button onclick="backToLogin()" id="btn-show-login" type="button" class="arrow-back-btn">
+                        <img src="./assets/icons/arrow-left-line.png" alt="back-to-login">
+                    </button>
+                    <div class="heading-wrapper">
+                        <div class="heading-container">
+                            <h2 id="heading" class="auth-heading">Log in</h2>
+                            <hr class="headline-underline" />
+                        </div>
+                    </div>
+                </header>
+
+                <div id="formInputContainer" class="auth-input-container">
+                    <div class="input-wrapper">
+                        <label for="email" class="visually-hidden">Email</label>
+                        <input id="email" class="input-field" type="email" placeholder="Email" required />
+                        <img src="./assets/icons/mail.svg" alt="mail icon" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="login-password" class="visually-hidden">Passwort</label>
+                        <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
+                        <img id="login-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg"
+                            alt="lock icon" />
                     </div>
                 </div>
-            </header>
 
-            <div id="formInputContainer" class="auth-input-container">
-                <div class="input-wrapper">
-                    <label for="email" class="visually-hidden">Email</label>
-                    <input id="email" class="input-field" type="email" placeholder="Email" required />
-                    <img src="./assets/icons/mail.svg" alt="mail icon" />
+                <div id="checkbox-container">
+                    <input class="checkbox" type="checkbox" id="checkbox">
+                    <span>I accept the <a class="privacy-policy-link" data-text="Privacy Policy"
+                            href="./pages/privacy_policy.html">Privacy Policy</a></span>
                 </div>
-                <div class="input-wrapper">
-                    <label for="login-password" class="visually-hidden">Passwort</label>
-                    <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
-                    <img id="login-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg"
-                        alt="lock icon" />
+
+                <div id="signup-btn-container" class="sign-up-button-container">
+                    <button type="submit" class="btn auth-btn">Sign up</button>
                 </div>
-            </div>
 
-            <div id="checkbox-container">
-                <input class="checkbox" type="checkbox" id="checkbox">
-                <span>I accept the <a class="privacy-policy-link" data-text="Privacy Policy"
-                        href="./pages/privacy_policy.html">Privacy Policy</a></span>
-            </div>
-
-            <div id="signup-btn-container" class="sign-up-button-container">
-                <button type="submit" class="btn auth-btn">Sign up</button>
-            </div>
-
-            <div id="submit-btn-container" class="submit-btn-container">
-                <button class="auth-btn btn">Log in</button>
-                <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">Guest log in</button>
-            </div>
-        </form>
-    </main>
+                <div id="submit-btn-container" class="submit-btn-container">
+                    <button class="auth-btn btn">Log in</button>
+                    <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">Guest log in</button>
+                </div>
+            </form>
+        </main>
+    </div>
 
     <footer class="auth-footer">
         <div id="login-legal-links" class="legal-wrapper">

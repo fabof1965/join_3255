@@ -2,17 +2,25 @@
   display: flex;
   box-shadow: var(--sidebar-box-shadow);
   justify-content: center;
-  padding: var(--sidebar-padding);
+  padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
+.svg-fill {
+  fill: var(--menu-color);
+}
+
+@media(min-width: 1440px) {
+  #sidebar {
+    padding-left: 0;
+  }
+}
 .sidebar-navigation{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  min-height: calc(100dvh - 92.8px);
+  min-height: calc(100dvh - 2 * var(--padding-top-bottom) - 92.8px);
   width: var(--full);
-  padding: var(--sidebar-navigation-padding);
 }
 
 .page-links {
@@ -24,6 +32,10 @@
 
 @media(max-width: 600px) {
   #sidebar {
+    z-index: 9999;
+    background-color: var(--white-color);
+    position: sticky;
+    bottom: 0;
     padding: 0;
     box-shadow: unset;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
@@ -32,7 +44,7 @@
   .sidebar-navigation {
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 8px var(--padding-left-right);
+    padding: 12px var(--padding-left-right);
     min-height: unset;
   }
 
@@ -50,11 +62,15 @@
   gap: 8px;
   justify-content: flex-start;
   border-radius: 8px;
-  padding: var(--sidebar-anchor-tag-padding);
+  padding: var(--page-link-padding);
   transition: background-color 400ms ease;
   text-decoration: none;
   text-wrap: nowrap;
   width: var(--full);
+}
+
+.page-links a:hover, .page-links a.active {
+  background-color: var(--secondary-color);
 }
 
 @media(max-width: 600px) {
@@ -63,15 +79,15 @@
     justify-content: center;
     padding: 4px;
   }
-}
 
-.page-links a:hover, .page-links a.active {
-  background-color: var(--secondary-color);
-}
+  .page-links a:hover, .page-links a.active {
+    background-color: unset;
+    color: var(--primary-color);
 
-.sidebar-navigation a img {
-  width: 24px;
-  height: 24px;
+    .svg-fill {
+      fill: var(--primary-color);
+    }
+  }
 }
 
 @media(max-width: 600px) {
@@ -96,7 +112,7 @@
 .sidebar-footer a {
   text-decoration: none;
   color: var(--menu-color);
-  padding: var(--sidebar-anchor-tag-padding);
+  padding: var(--page-link-padding);
 }
 
 .sidebar-footer a:hover {
