@@ -54,7 +54,7 @@
   height: var(--search-button-image-dimensions);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 650px) {
   .board-search {
     width: var(--full);
   }
@@ -68,9 +68,10 @@
   border: none;
   font-size: var(--search-button-image-dimensions);
   padding: var(--add-task-button-padding);
+  text-wrap: nowrap;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 650px) {
   .add-task-button {
     display: none;
   }

@@ -5,6 +5,10 @@
   padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
+.svg-fill {
+  fill: var(--menu-color);
+}
+
 @media(min-width: 1440px) {
   #sidebar {
     padding-left: 0;
@@ -65,21 +69,25 @@
   width: var(--full);
 }
 
+.page-links a:hover, .page-links a.active {
+  background-color: var(--secondary-color);
+}
+
 @media(max-width: 600px) {
   .page-links a {
     flex-direction: column;
     justify-content: center;
     padding: 4px;
   }
-}
 
-.page-links a:hover, .page-links a.active {
-  background-color: var(--secondary-color);
-}
+  .page-links a:hover, .page-links a.active {
+    background-color: unset;
+    color: var(--primary-color);
 
-.sidebar-navigation a img {
-  width: 24px;
-  height: 24px;
+    .svg-fill {
+      fill: var(--primary-color);
+    }
+  }
 }
 
 @media(max-width: 600px) {
