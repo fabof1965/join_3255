@@ -156,6 +156,7 @@ async function userLogin(event) {
     let user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
+        localStorage.setItem("email", emailLogin.value);
         window.location.href = './pages/summary.html';
     } else {
         passwordLogin.setCustomValidity("Check your email and password. Please try again");
