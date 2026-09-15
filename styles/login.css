@@ -49,6 +49,10 @@
 }
 
 .auth-btn {
+  font-size: var(--login-form-button-font-size);
+}
+
+#signup-button {
   font-size: var(--login-header-font-size);
 }
 
@@ -67,6 +71,12 @@
   flex: 1;
   justify-content: center;
   padding: var(--padding);
+}
+
+@media(max-width: 600px) {
+  .auth-main {
+    justify-content: flex-end;
+  }
 }
 
 .auth-form {
@@ -177,7 +187,7 @@
   color: var(--guest-login-button-text-color);
   border: var(--guest-login-button-border);
   border-radius: 8px;
-  font-size: 18px;
+  font-size: var(--login-form-button-font-size);
 }
 
 .guest-login-btn:hover {

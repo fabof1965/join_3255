@@ -75,7 +75,7 @@
     --page-link-padding: clamp(4px, calc(2.857px + 0.357vw), 8px) clamp(12px, calc(10.857px + 0.357vw), 16px);
 
     /*animation-timings*/
-    --bg-change-duration: 300ms;
+    --bg-change-duration: 500ms;
 
     --fade-in-duration: var(--bg-change-duration);
     --fade-in-delay: calc(var(--bg-change-duration) * 1.05);
@@ -101,5 +101,5 @@
     --login-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
     --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
-    
+    --login-form-button-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
 }
