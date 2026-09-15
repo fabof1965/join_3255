@@ -39,13 +39,22 @@
 
 @media(max-width: 600px) {
   .auth-header {
+    margin: var(--auth-input-gap);
     justify-content: center;
+    padding: 0;
   }
 }
 
 .spacing {
   height: var(--login-header-font-size);
   width: 5px;
+}
+
+@media(max-width: 600px) {
+  .spacing {
+    height: 0;
+    width: 0;
+  }
 }
 
 .auth-btn {
@@ -73,7 +82,7 @@
   padding: var(--padding);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 700px) {
   .auth-main {
     justify-content: flex-end;
   }
@@ -89,7 +98,7 @@
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  min-height: 429px;
+  gap: var(--auth-input-gap);
 }
 
 @keyframes fade-in {
@@ -102,7 +111,7 @@
   }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 700px) {
   .auth-form {
     width: var(--full);
   }
@@ -112,7 +121,7 @@
   display: flex;
   align-items: center;
   width: var(--full);
-  padding: 32px;
+  padding: var(--login-padding);
 }
 
 .arrow-back-btn {
@@ -154,15 +163,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 32px 0;
   width: calc(var(--full) * 0.75);
-  gap: 32px;
+  gap: var(--auth-input-gap);
+  margin-bottom: var(--auth-input-gap);
+}
+
+@media(max-width: 700px) {
+  .auth-input-container {
+    width: calc(var(--full) * 0.9);
+  }
 }
 
 #checkbox-container {
   display: none;
   width: var(--full);
-  margin-bottom: 32px;
+  margin-bottom: var(--auth-input-gap);
   justify-content: center;
   gap: 8px;
 }
@@ -171,7 +186,7 @@
   display: none;
   width: var(--full);
   justify-content: center;
-  margin-bottom: 32px;
+  padding: var(--login-padding);
 }
 
 .submit-btn-container {
@@ -179,8 +194,18 @@
   justify-content: center;
   gap: 32px;
   margin-top: 32px;
-  padding: 0 32px 32px 32px;
+  padding: var(--login-padding);
+  padding-top: 0;
   width: var(--full);
+}
+
+@media(max-width: 700px) {
+  .submit-btn-container {
+    flex-direction: column;
+    gap: var(--auth-input-gap);
+    width: calc(var(--full) * 0.7);
+    margin-top: 0;
+  }
 }
 
 .guest-login-btn {

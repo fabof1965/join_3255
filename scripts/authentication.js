@@ -186,6 +186,11 @@ function addSignupContent() {
     setSignupFormContent();
     initSignUpEventListeners();
     initPasswordEventListener();
+    setAuthenticationHeaderMargin("0");
+}
+
+function setAuthenticationHeaderMargin(marginAttribute) {
+    document.querySelector(".auth-header").style.margin = marginAttribute;
 }
 
 function setLegalLinkColor(color) {
@@ -257,6 +262,7 @@ function setPageTitle(title) {
 }
 
 function backToLogin() {
+    setAuthenticationHeaderMargin("var(--auth-input-gap)");
     setPageTitle("Join Log in");
     setOnSubmitAttribute();
 
