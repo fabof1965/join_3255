@@ -191,12 +191,14 @@ function getInputFieldsForLogin() {
                 <input id="email" class="input-field" type="email" placeholder="Email" required />
                 <img src="./assets/icons/mail.svg" alt="mail icon" />
             </div>
-            <div class="input-wrapper">
+            <div class="input-wrapper" id="error-msg-border-bottom">
                 <label for="login-password" class="visually-hidden">Passwort</label>
                 <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
                 <img id="login-password-toggle-icon" class="lock-img"
                     src="./assets/icons/lock.svg" alt="lock icon" />
-            </div>`;
+                
+            </div>
+            <span id="error-msg" class="error-msg hide">Check your email and password. Please try again.</span>`;
 }
 
 function getInputFieldsForSignup() {
@@ -209,7 +211,7 @@ function getInputFieldsForSignup() {
                 <input class="input-field" type="email" id="email-signup" placeholder="Email" required>
                 <img src="./assets/icons/mail.svg" alt="mail logo">
             </div>
-
+            <span>user already exists</span>
             <div class="input-wrapper"><input class="input-field" type="password" id="sign-up-password" required
                     placeholder="Password">
                 <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock-img">

@@ -156,7 +156,6 @@
   justify-content: center;
   padding: 32px 0;
   width: calc(var(--full) * 0.75);
-  gap: 32px;
 }
 
 #checkbox-container {
@@ -327,4 +326,16 @@ dialog::backdrop {
         transform: translateY(0%) ;
         opacity: 1;
     }
+}
+
+/* error-msg */
+
+.error-msg{
+  color: var(--red-color);
+  width: var(--full);
+  /* overflow: hidden; */
+}
+
+.error-message-border-bottom{
+  border-bottom: var(--error-message-border-bottom);
 }

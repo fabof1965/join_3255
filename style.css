@@ -76,6 +76,18 @@ button{
   padding: var(--input-wrapper-padding);
 }
 
+.input-wrapper:nth-child(2){
+  margin-top: 32px;
+}
+
+.input-wrapper:nth-child(3){
+  margin-top: 32px;
+}
+
+.input-wrapper:nth-child(5){
+  margin-top: 32px;
+}
+
 .input-field {
   width: var(--full);
   border: none;

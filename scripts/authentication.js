@@ -149,6 +149,7 @@ function closeDialog() {
 async function userLogin(event) {
     console.log("submit ausgelöst");
     event.preventDefault();
+    const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
     const passwordLogin = document.getElementById('login-password');
     const response = await getData('users');
@@ -156,20 +157,30 @@ async function userLogin(event) {
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
+        signUpForm.reset();
         window.location.href = './pages/summary.html';
     } else {
-        passwordLogin.setCustomValidity("Check your email and password. Please try again");
-        passwordLogin.reportValidity();
-        passwordLogin.addEventListener("input", () => passwordLogin.setCustomValidity(""));
+        wrongLogin();
+        // passwordLogin.reportValidity();
+        // passwordLogin.addEventListener("input", () => passwordLogin.setCustomValidity(""));
     }
 }
 
+function wrongLogin() {
+    const borderBottom = document.getElementById('error-msg-border-bottom');
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.classList.remove('hide');
+    borderBottom.classList.add('error-message-border-bottom');
+}
+
 function logInGuestUser() {
+    const signUpForm = document.getElementById('auth-form');
     const GUEST_USER = {
         email: "guestuser@mail.de",
         password: "guestpassword"
     };
     sessionStorage.setItem(JSON.stringify, GUEST_USER);
+    signUpForm.reset();
     window.location.href = './pages/summary_guest.html';
 }
 
