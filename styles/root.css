@@ -102,4 +102,5 @@
     --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
     --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
     --login-form-button-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
+    --error-message-border-bottom: 2px solid var(--red-color);
 }
