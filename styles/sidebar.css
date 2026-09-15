@@ -5,6 +5,11 @@
   padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
+@media(min-width: 1440px) {
+  #sidebar {
+    padding-left: 0;
+  }
+}
 .sidebar-navigation{
   display: flex;
   flex-direction: column;

@@ -31,8 +31,6 @@
     --logo-color: var(--primary-color);
     
     /* shadows and other visual elements */
-    --login-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
     --addTaskBoxShadow: 0 0 4px rgba(0, 0, 0, 0.32);
     --task-card-box-shadow: 0 0 5px rgba(0, 0, 0, 0.14);
     --user-badge-border: 2px solid var(--white-color);
@@ -65,7 +63,6 @@
     --full: 100%;
     --border-radius-circular: 50%;
     --zero: 0;
-    --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
 
     /*page-header*/
     --page-header-help-icon-width: 32px;
@@ -98,4 +95,11 @@
     /*summary*/
     --summary-text-large: clamp(32px, calc(27.429px + 1.429vw), 48px);
     --summary-container-gap: clamp(16px, calc(11.429px + 1.429vw), 32px);
+
+    /*login*/
+    --login-header-font-size: clamp(20px, calc(16.571px + 1.071vw), 32px);
+    --login-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
+    --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
+    
 }

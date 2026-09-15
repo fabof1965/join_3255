@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  min-height: var(--min-page-height);
+  height: var(--min-page-height);
 }
 
 .main-layout {
@@ -57,6 +57,7 @@ button{
   border: none;
   border-radius: var(--element-design-border-radius);
   background: none;
+  text-wrap: nowrap;
 }
 
 .btn:hover {
