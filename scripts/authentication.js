@@ -1,10 +1,10 @@
 let allUsers = [];
 
 function initSignUpEventListeners() {
-    let emailSignup = document.getElementById('email-signup');
-    let passwordSignup = document.getElementById('sign-up-password');
-    let confirmPasswordSignup = document.getElementById('confirm-password');
-    let checkboxSignup = document.getElementById('checkbox');
+    const emailSignup = document.getElementById('email-signup');
+    const passwordSignup = document.getElementById('sign-up-password');
+    const confirmPasswordSignup = document.getElementById('confirm-password');
+    const checkboxSignup = document.getElementById('checkbox');
 
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
     passwordSignup.addEventListener("input", comparePassword);
