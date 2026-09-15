@@ -25,6 +25,12 @@
   width:var(--full);
 }
 
+@media(max-width: 650px) {
+  .board-toolbar {
+    margin-top: 32px;
+  }
+}
+
 .board-search {
   display: flex;
   border-radius: var(--element-design-border-radius);
