@@ -106,4 +106,5 @@
     --auth-input-gap: clamp(16px, calc(11.429px + 1.429vw), 32px);
     --auth-input-container-width-desktop: calc(var(--full) * 0.75);
     --auth-container-width-mobile: calc(var(--full) * 0.9);
+    --error-message-border-bottom: 2px solid var(--red-color);
 }

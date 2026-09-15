@@ -7,6 +7,7 @@ let newTaskSubtasks = [];
  * @param {string} status - Initial board column status.
  * @returns {void}
  */
+
 function openAddTask(status) {
   const overlay = document.getElementById("add-task-overlay");
   newTaskStatus = status;
@@ -18,7 +19,6 @@ function openAddTask(status) {
   overlay.querySelector("input[name='title']").focus();
 }
 
-
 /**
  * Closes and clears the Add Task dialog.
  * @returns {void}
@@ -29,7 +29,6 @@ function closeAddTask() {
   overlay.innerHTML = "";
   document.body.classList.remove("overlay-open");
 }
-
 
 /**
  * Selects one priority button.
@@ -43,7 +42,6 @@ function selectTaskPriority(button) {
   selectedTaskPriority = button.dataset.priority;
 }
 
-
 /**
  * Renders all entered subtasks below the input.
  * @returns {void}
@@ -54,7 +52,6 @@ function renderNewSubtasks() {
     fillTemplate(addTaskSubtaskTemplate, { title }),
   ).join("");
 }
-
 
 /**
  * Adds a subtask without submitting the main form.
@@ -69,7 +66,6 @@ function addSubtaskOnEnter(event) {
   renderNewSubtasks();
 }
 
-
 /**
  * Escapes text before inserting it into an HTML template.
  * @param {string} value - User-entered text.
@@ -80,7 +76,6 @@ function escapeTaskText(value) {
   element.textContent = value;
   return element.innerHTML;
 }
-
 
 /**
  * Displays an error below a required field.
@@ -95,12 +90,12 @@ function showTaskFieldError(form, name, isInvalid) {
   return isInvalid;
 }
 
-
 /**
  * Checks all required Add Task fields.
  * @param {HTMLFormElement} form - Add Task form.
  * @returns {boolean} Whether the form is valid.
  */
+
 function isAddTaskFormValid(form) {
   const titleInvalid = !form.elements.title.value.trim();
   const dateInvalid = !form.elements.dueDate.value;
@@ -111,7 +106,6 @@ function isAddTaskFormValid(form) {
   return !titleInvalid && !dateInvalid && !categoryInvalid;
 }
 
-
 /**
  * Returns the selected contact initials.
  * @param {HTMLSelectElement} select - Assigned contacts field.
@@ -120,7 +114,6 @@ function isAddTaskFormValid(form) {
 function getSelectedUsers(select) {
   return Array.from(select.selectedOptions, ({ value }) => value);
 }
-
 
 /**
  * Returns the names of all selected contacts.
@@ -182,7 +175,6 @@ function handleAddTaskClick(event) {
   if (event.target.matches("[data-priority]")) selectTaskPriority(event.target);
 }
 
-
 /**
  * Handles form and subtask events inside the Add Task dialog.
  * @param {Event} event - Bubbling form event.
@@ -192,7 +184,6 @@ function handleAddTaskFormEvent(event) {
   if (event.type === "submit" && event.target.id === "add-task-form") submitNewTask(event);
   if (event.type === "keydown" && event.target.name === "subtask") addSubtaskOnEnter(event);
 }
-
 
 document.addEventListener("click", handleAddTaskClick);
 document.addEventListener("submit", handleAddTaskFormEvent);
