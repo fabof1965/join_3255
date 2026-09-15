@@ -97,10 +97,6 @@
     width: var(--full);
 }
 
-.lock-img {
-    cursor: pointer;
-}
-
 .sign-up-button-container {
     display: flex;
     width: var(--full);
