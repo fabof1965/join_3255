@@ -132,6 +132,7 @@
 .add-task-form {
   gap: 24px;
   width: var(--full);
+  max-width: unset;
 }
 
 .add-task-field {

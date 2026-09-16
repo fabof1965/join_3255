@@ -4,11 +4,13 @@
     gap: 16px;
     padding: var(--padding);
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
+    height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
+    overflow-y: scroll;
 }
 
 @media(max-width: 600px) {
     .main-layout {
-        min-height: calc(100dvh - 92.8px);
+        height: calc(100dvh - 92.8px);
     }
 
     .contacts-section {

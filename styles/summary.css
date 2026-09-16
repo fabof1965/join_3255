@@ -5,7 +5,7 @@
     align-items: center;
     width: var(--full);
     padding: var(--padding);
-    margin: auto;
+    /* margin: auto; */
 }
 
 .greeting-container {
@@ -23,6 +23,12 @@
     font-weight: normal;
 }
 
+@media(max-width: 780px) {
+    .greeting-container {
+        display: none;
+    }
+}
+
 .greeting-text-guest{
     color: var(--greeting-text-color);
     font-size: var(--summary-text-large);
@@ -38,14 +44,14 @@
 
 .summary-card-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, var(--summary-grid-width));
+    grid-template-rows: repeat(2, var(--summary-grid-width));
     gap: var(--summary-container-gap);
 }
 
 @media(max-width: 1000px) {
     .summary-card-container {
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(4, var(--summary-grid-width));
     }
 }
 
