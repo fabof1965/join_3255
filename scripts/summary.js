@@ -37,8 +37,10 @@ function UpdateSummaryNumbers() {
   let countFeedback = exampleTasks.filter(duty => duty.status === "awaitFeedback" ).length;
   let countDone = exampleTasks.filter(duty => duty.status === "done" ).length;
   let countBoard = exampleTasks.length;
-  let countUrgent = exampleTasks.filter(duty => duty.priority === "urgent").length;
+  let urgentTasks = exampleTasks.filter(duty => duty.priority === "urgent");
+  let countUrgent = urgentTasks.length;
   displaySummaryNumbers(countToDo, countInProgress, countFeedback, countDone, countBoard, countUrgent);  
+  updateUpcomingDeadline(urgentTasks);
 }
 
 function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent ){
@@ -48,6 +50,32 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
   document.getElementById("summary-done").innerText = done;
   document.getElementById("summary-board").innerText = board;
   document.getElementById("summary-urgent").innerText = urgent;
+}
+
+function updateUpcomingDeadline(urgentTasks) {
+  const dateEl = document.getElementById("date");
+  if (!dateEl) return;
+
+  const tasksWithDate = urgentTasks.filter(duty => duty.dueDate);
+
+  if (tasksWithDate.length === 0) {
+    dateEl.innerText = "No deadline";
+    return;
+  }
+
+  tasksWithDate.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  const closestDateStr = tasksWithDate[0].dueDate;
+  dateEl.innerText = formatDate(closestDateStr);
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  if (isNaN(date)) return dateString;
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
 }
 
 async function loadUserName() {
