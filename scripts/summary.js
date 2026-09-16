@@ -49,38 +49,52 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
   document.getElementById("summary-urgent").innerText = urgent;
 }
 
-/**
- * Loads the user's name from localStorage or sessionStorage.
- */
+// async function loadUserName() {
+//   let userNameElement = document.getElementById("username");
+//   if (!userNameElement) return;
+
+//     try {
+//       // 1. Firebase Daten prüfen (Wir holen alle User aus Firebase)
+//       let response = await getData("users");
+//       let allUsers = response ? Object.values(response) : [];
+
+//       // 2. Gespeicherte E-Mail prüfen
+//       let savedEmail = localStorage.getItem("email") || sessionStorage.getItem("email");
+//       let savedName = localStorage.getItem("name");
+
+//       // Firebase email-suche
+//       let currentUser = null;
+//       if (savedEmail) {
+//         currentUser = allUsers.find(function(userItem) {
+//          return userItem.email === savedEmail;
+//         });
+//       }
+
+//       // 3. Wenn es ein Gast ist ODER kein User gefunden wurde, lass das Feld leer ("")
+//       if (currentUser && currentUser.name && savedName !== "Guest") {
+//         userNameElement.innerText = ", " + currentUser.name; currentUser.name;
+//       } else {
+//         userNameElement.innerText = ""; 
+//       }
+
+//     } catch (error) {
+//       console.error("Fehler beim Laden des Benutzernamens:", error);
+//       userNameElement.innerText = "";
+//   }
+// }
+
 async function loadUserName() {
-  let userNameElement = document.getElementById("username");
-  if (!userNameElement) return;
+  let nameEl = document.getElementById("username");
+  let commaEl = document.getElementById("comma");
+  if (!nameEl) return;
 
-    try {
-      // 1. Firebase Daten prüfen( Wir holen alle User aus Firebase (genau wie bei den Tasks)
-      let response = await getData("users");
-      let allUsers = response ? Object.values(response) : [];
+  let res = await getData("users");
+  let users = res ? Object.values(res) : [];
+  let email = localStorage.getItem("email") || sessionStorage.getItem("email");
+  let user = users.find(u => u.email === email);
+  let isGuest = localStorage.getItem("name") === "Guest";
 
-      // 2. Gespeicherte E-Mail prüfen(Wir suchen, ob im Browser irgendwo eine E-Mail gespeichert wurde)
-      let savedEmail = localStorage.getItem("email") || sessionStorage.getItem("email");
-
-      //Firebase email-suche von firebase geladene liste(allUser)
-      let currentUser = null;
-      if (savedEmail) {
-        currentUser = allUsers.find(function(userItem) {
-         return userItem.email === savedEmail;
-        });
-      }
-      // 3. Wenn kein User über E-Mail gefunden wird, nehmen wir als Fallback den ersten User aus Firebase (oder "Guest")
-      if (currentUser && currentUser.name) {
-        userNameElement.innerText = currentUser.name;
-      }else {
-        userNameElement.innerText = "Guest";
-      }
-
-    }catch (error) {
-      console.error("Fehler beim Laden des Benutzernamens:", error);
-      userNameElement.innerText = "Guest";
-  }
+  let isValidUser = user && user.name && !isGuest;
+  nameEl.innerText = isValidUser ? user.name : "";
+  if (commaEl) commaEl.style.display = isValidUser ? "inline" : "none";
 }
-

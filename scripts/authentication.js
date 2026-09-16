@@ -174,7 +174,7 @@ function logInGuestUser() {
     // Optional: Falls du die E-Mail auch brauchst
     localStorage.setItem("email", "guest@mail.de"); 
 
-    window.location.href = './pages/summary_guest.html';
+    window.location.href = './pages/summary.html';
 }
 
 function setOnSubmitAttribute(attr = "userLogin(event)") {
