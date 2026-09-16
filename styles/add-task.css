@@ -4,7 +4,7 @@
   width: var(--full);
 }
 
-@media(max-width: 930px) {
+@media(max-width: 1170px) {
   .main-content {
     flex-direction: column;
   }
@@ -30,7 +30,7 @@
   padding: var(--padding);
 }
 
-@media(max-width: 930px) {
+@media(max-width: 1170px) {
   .buttons {
     justify-content: center;
   }
@@ -131,17 +131,18 @@
 
 .add-task-form {
   gap: 24px;
+  width: var(--full);
 }
 
 .add-task-field {
   gap: 8px;
   color: var(--menu-color);
-  font-size: 19px;
+  font-size: var(--login-header-font-size);
 }
 
 .add-task-field strong,
 .add-task-priority legend {
-  font-size: 19px;
+  font-size: var(--login-header-font-size);
   font-weight: 700;
 }
 
@@ -203,7 +204,7 @@
   align-items: center;
   gap: 16px;
   padding: var(--add-task-button-padding);
-  font-size: var(--login-form-button-font-size);
+  font-size: var(--login-header-font-size);
   border-radius: var(--element-design-border-radius);
   border: none;
   background-color: var(--white-color);
