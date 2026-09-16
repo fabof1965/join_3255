@@ -40,9 +40,37 @@ function renderHeader() {
   headerContainer.innerHTML = headerTemplate;
 }
 
-renderSidebar();
-renderHeader();
+document.addEventListener("DOMContentLoaded", function () {
+    renderSidebar();
+    renderHeader();
+    initHeaderProfile(); 
+});
 
 function toHelpPage() {
   window.location.href = "../pages/help.html"
+}
+
+// Universal-Funktion für das Header-Badge (läuft auf jeder Seite und fügt split wie --> Saeed Ghorbani--> SG)
+function initHeaderProfile() {
+    let profileBadgeElement = document.getElementById("profile-badge");
+    if (!profileBadgeElement) return;
+
+    // Hole den Namen direkt aus dem Storage (wurde beim Login gespeichert)
+    let userName = localStorage.getItem("name") || sessionStorage.getItem("name");
+
+    if (userName) {
+        profileBadgeElement.innerText = getInitials(userName);
+    } else {
+        profileBadgeElement.innerText = "G";
+    }
+}
+
+// Hilfsfunktion zur dynamischen Initialen-Berechnung (z.B. "Saeed Ghorbani" -> "SG")
+function getInitials(name) {
+    if (!name) return "G";
+    let parts = name.trim().split(" ");
+    if (parts.length >= 2) {
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return parts[0].substring(0, 2).toUpperCase();
 }

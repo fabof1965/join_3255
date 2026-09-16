@@ -3,6 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+.header-profile-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--white-color);
+    color: var(--primary-color); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700; 
+    
+    /* Der doppelte Rand wie in F2: */
+    border: 3px solid var(--primary-color); /* Äußerer dunkler/blauer Rand (passe die Farbe an deinen Header an) */
+    box-shadow: 0 0 0 3px #ffffff; /* Simuliert den inneren weißen Kreis-Abstand, falls nötig, oder passe es an */
+    box-sizing: border-box;
+    cursor: pointer;
+}
 
 body {
   font-family: 'Open Sans', sans-serif;

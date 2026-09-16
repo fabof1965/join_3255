@@ -74,7 +74,7 @@ async function loadUserName() {
       // 3. Wenn kein User über E-Mail gefunden wird, nehmen wir als Fallback den ersten User aus Firebase (oder "Guest")
       if (currentUser && currentUser.name) {
         userNameElement.innerText = currentUser.name;
-        } else {
+      }else {
         userNameElement.innerText = "Guest";
       }
 
@@ -83,3 +83,4 @@ async function loadUserName() {
       userNameElement.innerText = "Guest";
   }
 }
+

@@ -1,19 +1,19 @@
 const sidebarTemplate = `
     <nav class="sidebar-navigation">
       <section class="page-links">
-        <a href="./pages/summary.html">
+        <a href="./summary.html">
           <img src="../assets/icons/summary.svg" alt="" />
           <span>Summary</span>
         </a>
-        <a href="./pages/add-task.html">
+        <a href="">
           <img src="../assets/icons/add_task.svg" alt="" />
           <span>Add Task</span>
         </a>
-        <a href="../pages/board.html">
+        <a href="./board.html">
           <img src="../assets/icons/board.svg" alt="" />
           <span>Board</span>
         </a>
-        <a href="../pages/contacts.html">
+        <a href="./contacts.html">
           <img src="../assets/icons/contacts.svg" alt="to contacts" />
           <span>Contacts</span>
         </a>
@@ -38,7 +38,7 @@ const headerTemplate = `
         <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
       </button>
       <button class="header-icon-button" type="button" aria-label="Open user profile">
-        <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
+       <span id="profile-badge" class="header-profile-badge"></span>      
       </button>
     </div>
   </div>
