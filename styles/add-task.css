@@ -4,6 +4,12 @@
   width: var(--full);
 }
 
+@media(max-width: 930px) {
+  .main-content {
+    flex-direction: column;
+  }
+}
+
 .content {
   padding: var(--padding);
   height: calc(100dvh - 2 * var(--padding-top-bottom) - 42.8px);
@@ -22,6 +28,12 @@
   align-items: center;
   gap: 32px;
   padding: var(--padding);
+}
+
+@media(max-width: 930px) {
+  .buttons {
+    justify-content: center;
+  }
 }
 
 .btn-clear, .btn-create-task {
