@@ -166,12 +166,14 @@ async function userLogin(event) {
     }
 }
 
+
 function logInGuestUser() {
-    const GUEST_USER = {
-        email: "guestuser@mail.de",
-        password: "guestpassword"
-    };
-    sessionStorage.setItem(JSON.stringify, GUEST_USER);
+    // Speichere "Guest" im localStorage, damit jede Seite sofort weiß, dass ein Gast eingeloggt ist
+    localStorage.setItem("name", "Guest");
+    
+    // Optional: Falls du die E-Mail auch brauchst
+    localStorage.setItem("email", "guest@mail.de"); 
+
     window.location.href = './pages/summary_guest.html';
 }
 
