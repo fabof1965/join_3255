@@ -211,7 +211,6 @@
 .guest-login-btn {
   color: var(--guest-login-button-text-color);
   border: var(--guest-login-button-border);
-  border-radius: 8px;
   font-size: var(--login-form-button-font-size);
 }
 

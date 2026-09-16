@@ -13,7 +13,7 @@ function openAddTask(status) {
   newTaskStatus = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
-  overlay.innerHTML = addTaskTemplate;
+  overlay.innerHTML = addTaskDialogTemplate;
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
   overlay.querySelector("input[name='title']").focus();
@@ -188,3 +188,13 @@ function handleAddTaskFormEvent(event) {
 document.addEventListener("click", handleAddTaskClick);
 document.addEventListener("submit", handleAddTaskFormEvent);
 document.addEventListener("keydown", handleAddTaskFormEvent);
+
+function init() {
+  loadAddTaskContent();
+}
+
+function loadAddTaskContent() {
+  const CONTAINER_ADD_TASK = document.getElementById("addTaskContent");
+
+  CONTAINER_ADD_TASK.innerHTML = addTaskContentTemplate;
+}

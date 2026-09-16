@@ -141,7 +141,7 @@ const mediumPriorityTemplate = `<span class="priority-symbol-medium">=</span>`;
 
 const lowPriorityTemplate = `<span class="priority-symbol-low">↓</span>`;
 
-const addTaskTemplate = `
+const addTaskDialogTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
     <header class="add-task-header">
       <h2 id="add-task-title">Add Task</h2>
@@ -183,6 +183,39 @@ const addTaskTemplate = `
   </section>
 `;
 
+const addTaskContentTemplate = 
+  `<form id="add-task-form" class="add-task-form" novalidate>
+      <label class="add-task-field add-task-title-field">
+        <span class="visually-hidden">Title</span>
+        <input name="title" type="text" placeholder="Enter a title" />
+        <small data-error="title"></small>
+      </label>
+      <label class="add-task-field"><strong>Description <span>(optional)</span></strong>
+        <textarea name="description" placeholder="Enter a Description"></textarea>
+      </label>
+      <label class="add-task-field"><strong>Due date</strong>
+        <input name="dueDate" type="date" />
+        <small data-error="dueDate"></small>
+      </label>
+      <fieldset class="add-task-priority"><legend>Priority</legend>
+        <button type="button" data-priority="urgent">Urgent</button>
+        <button class="selected" type="button" data-priority="medium">Medium</button>
+        <button type="button" data-priority="low">Low</button>
+      </fieldset>
+      <label class="add-task-field"><strong>Assigned to <span>(optional)</span></strong>
+        <select name="assignedUsers" multiple>
+          <option value="SG">Saeed Ghorbani</option><option value="JB">Jan-Simon Boecker</option><option value="CE">Cem Eren Ölmez</option><option value="FG">Fabian Gerdes</option>
+        </select>
+      </label>
+      <label class="add-task-field"><strong>Category</strong>
+        <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
+        <small data-error="category"></small>
+      </label>
+      <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
+        <input name="subtask" type="text" placeholder="Add new subtask" />
+      </label>
+    </form>`
+  ;
 const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
 
 function getInputFieldsForLogin() {
