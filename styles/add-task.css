@@ -198,17 +198,16 @@
 }
 
 .add-task-priority button {
-  height: 51px;
-  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: var(--add-task-button-padding);
+  font-size: var(--login-form-button-font-size);
   border-radius: var(--element-design-border-radius);
+  border: none;
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
-  font-size: 19px;
-  transition: transform 100ms ease;
-}
-
-.add-task-priority button:hover {
-  transform: scale(1.02);
 }
 
 .add-task-priority [data-priority="urgent"].selected {

@@ -48,6 +48,7 @@
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px) ;
     --padding-left-right: clamp(4px, calc(-10.857px + 4.643vw), 56px);
     --padding: clamp(16px, calc(11.429px + 1.429vw), 32px) clamp(4px, calc(-10.857px + 4.643vw), 56px);
+    --button-padding: var(--page-link-padding);
     --input-wrapper-padding: 8px 16px;
     --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
@@ -107,4 +108,6 @@
     --auth-input-container-width-desktop: calc(var(--full) * 0.75);
     --auth-container-width-mobile: calc(var(--full) * 0.9);
     --error-message-border-bottom: 2px solid var(--red-color);
+
+    /*add task*/
 }
