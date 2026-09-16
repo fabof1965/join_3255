@@ -19,6 +19,7 @@ body {
 .task-in-board,
 .tasks-done {
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .task-icons {
@@ -118,8 +119,15 @@ body {
                     justify-content: space-around;
                     align-items: center;
                     border-radius: 28px;
-                    /* padding: 28px 48px; */
-
+                    &:hover {
+                        transform: translateY(
+                            4px
+                        ); 
+                        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+                        filter: brightness(0.95);
+                        background-color: #1322f0;
+                    }
+                    
                     .urgent-task {
                         max-width: 140px;
                         display: flex;
@@ -159,6 +167,13 @@ body {
                         justify-content: center;
                         gap: 15px;
                         box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+                        &:hover {
+                            background-color: var(--secondary-color);
+                            color: #ffffff;
+                            transform: scale(1.03);
+                            transform: translateY(4px);
+                            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+                        }
 
                         .sub-text {
                             color: #000;
@@ -173,10 +188,6 @@ body {
                             align-items: center;
                             gap: 15px;
                         }
-                    }
-
-                    .tasks-to-do {
-                        background-color: var(--secondary-color);
                     }
                 }
             }
@@ -198,6 +209,13 @@ body {
                     justify-content: center;
                     gap: 15px;
                     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+                    &:hover {
+                        background-color: var(--secondary-color);
+                        color: #ffffff;
+                        transform: scale(1.03);
+                        transform: translateY(4px);
+                        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+                    }
 
                     .sub-text {
                         color: #000;
@@ -226,6 +244,13 @@ body {
                     gap: 15px;
                     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
                     align-self: flex-start;
+                    &:hover {
+                        background-color: var(--secondary-color);
+                        color: #ffffff;
+                        transform: scale(1.03);
+                        transform: translateY(4px);
+                        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+                    }
 
                     .sub-text {
                         color: #000;
