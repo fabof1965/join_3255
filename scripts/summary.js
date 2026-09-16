@@ -49,52 +49,27 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
   document.getElementById("summary-urgent").innerText = urgent;
 }
 
-// async function loadUserName() {
-//   let userNameElement = document.getElementById("username");
-//   if (!userNameElement) return;
-
-//     try {
-//       // 1. Firebase Daten prüfen (Wir holen alle User aus Firebase)
-//       let response = await getData("users");
-//       let allUsers = response ? Object.values(response) : [];
-
-//       // 2. Gespeicherte E-Mail prüfen
-//       let savedEmail = localStorage.getItem("email") || sessionStorage.getItem("email");
-//       let savedName = localStorage.getItem("name");
-
-//       // Firebase email-suche
-//       let currentUser = null;
-//       if (savedEmail) {
-//         currentUser = allUsers.find(function(userItem) {
-//          return userItem.email === savedEmail;
-//         });
-//       }
-
-//       // 3. Wenn es ein Gast ist ODER kein User gefunden wurde, lass das Feld leer ("")
-//       if (currentUser && currentUser.name && savedName !== "Guest") {
-//         userNameElement.innerText = ", " + currentUser.name; currentUser.name;
-//       } else {
-//         userNameElement.innerText = ""; 
-//       }
-
-//     } catch (error) {
-//       console.error("Fehler beim Laden des Benutzernamens:", error);
-//       userNameElement.innerText = "";
-//   }
-// }
-
 async function loadUserName() {
-  let nameEl = document.getElementById("username");
-  let commaEl = document.getElementById("comma");
-  if (!nameEl) return;
-
   let res = await getData("users");
   let users = res ? Object.values(res) : [];
   let email = localStorage.getItem("email") || sessionStorage.getItem("email");
   let user = users.find(u => u.email === email);
   let isGuest = localStorage.getItem("name") === "Guest";
 
-  let isValidUser = user && user.name && !isGuest;
-  nameEl.innerText = isValidUser ? user.name : "";
-  if (commaEl) commaEl.style.display = isValidUser ? "inline" : "none";
+  updateGreetingUI(user, isGuest);
+}
+
+function updateGreetingUI(user, isGuest) {
+  let nameEl = document.getElementById("username");
+  let commaEl = document.getElementById("comma");
+  if (!nameEl) return;
+
+  let valid = user && user.name && !isGuest;
+  if (valid) {
+    let p = user.name.trim().split(" ");
+    nameEl.innerText = user.name.length > 13 ? `${p[0][0]} ${p[p.length - 1]}` : user.name;
+  } else {
+    nameEl.innerText = "";
+  }
+  if (commaEl) commaEl.style.display = valid ? "inline" : "none";
 }
