@@ -1,11 +1,11 @@
 const sidebarTemplate = `
     <nav class="sidebar-navigation">
       <section class="page-links">
-        <a href="./summary.html">
+        <a href="./pages/summary.html">
           <img src="../assets/icons/summary.svg" alt="" />
           <span>Summary</span>
         </a>
-        <a href="">
+        <a href="./pages/add-task.html">
           <img src="../assets/icons/add_task.svg" alt="" />
           <span>Add Task</span>
         </a>
