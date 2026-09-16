@@ -12,6 +12,7 @@ async function initSummary() {
   await loadTasksForSummary();
   UpdateSummaryNumbers();
   await loadUserName();
+  initCardClicks();
 }
 
 async function loadTasksForSummary() {
@@ -72,4 +73,25 @@ function updateGreetingUI(user, isGuest) {
     nameEl.innerText = "";
   }
   if (commaEl) commaEl.style.display = valid ? "inline" : "none";
+}
+// 1. Die Funktion, die den Klick auf die Karten steuert
+function initCardClicks() {
+  const selectors = [
+    ".blue-head-column",
+    ".urgent-task",
+    ".tasks-to-do",
+    ".task-in-progress",
+    ".task-feedback",
+    ".task-in-board",
+    ".tasks-done"
+  ];
+
+  selectors.forEach(selector => {
+    const card = document.querySelector(selector);
+    if (card) {
+      card.addEventListener("click", () => {
+        window.location.href = "board.html";
+      });
+    }
+  });
 }

@@ -4,12 +4,21 @@
     box-sizing: border-box;
 }
 
-
 body {
     background-color: var(--white-color, #ffffff);
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.blue-head-column,
+.urgent-task,
+.tasks-to-do,
+.task-in-progress,
+.task-feedback,
+.task-in-board,
+.tasks-done {
+    cursor: pointer;
 }
 
 .task-icons {
@@ -74,11 +83,10 @@ body {
                 font-size: 48px;
                 font-weight: normal;
             }
-            .greeting-text-guest{
+            .greeting-text-guest {
                 color: var(--greeting-text-color);
                 font-size: 48px;
                 font-weight: bold;
-
             }
             .username {
                 color: var(--primary-color);
@@ -159,7 +167,6 @@ body {
                         .task-number {
                             color: #000;
                         }
-                    
 
                         .icon-and-number {
                             display: flex;
@@ -169,9 +176,7 @@ body {
                     }
 
                     .tasks-to-do {
-                        background-color: var(
-                            --secondary-color
-                        ); 
+                        background-color: var(--secondary-color);
                     }
                 }
             }
@@ -201,7 +206,7 @@ body {
                     .task-number {
                         color: #000;
                     }
-                    
+
                     .icon-and-number {
                         display: flex;
                         align-items: center;
@@ -229,7 +234,7 @@ body {
                     .task-number {
                         color: #000;
                     }
-                   
+
                     .icon-and-number {
                         display: flex;
                         align-items: center;
