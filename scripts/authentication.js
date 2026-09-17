@@ -1,15 +1,9 @@
 let allUsers = [];
 
 function initSignUpEventListeners() {
-    const emailSignup = document.getElementById('email-signup');
-    const passwordSignup = document.getElementById('sign-up-password');
-    const confirmPasswordSignup = document.getElementById('confirm-password');
     const checkboxSignup = document.getElementById('checkbox');
-
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
-    passwordSignup.addEventListener("input", comparePassword);
-    confirmPasswordSignup.addEventListener("input", comparePassword);
-    emailSignup.addEventListener("input", () => emailSignup.setCustomValidity(""));
+   
 }
 
 function initPasswordEventListener() {
@@ -82,19 +76,18 @@ async function registerUser(event) {
     const emailSignup = document.getElementById('email-signup');
     const passwordSignup = document.getElementById('sign-up-password');
     const name = document.getElementById('name');
-    const invalidEmail = document.getElementById('invalid-msg');
+    const invalidEmail = document.getElementById('invalid-email-msg');
     event.preventDefault();
+    
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
 
     if (await checkIfEmailExists(emailSignup.value)) {
         borderBottom.classList.add('error-message-border-bottom');
         invalidEmail.classList.remove('hide');
-        // emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
-        // emailSignup.reportValidity();
         return;
     }
-    emailSignup.setCustomValidity("");
+    if (!comparePassword()) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();
@@ -105,14 +98,21 @@ async function registerUser(event) {
 function comparePassword() {
     const passwordSignup = document.getElementById('sign-up-password');
     const confirmPasswordSignup = document.getElementById('confirm-password');
+    const borderBottom = document.getElementById('confirm-password-border-bottom');
+    const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
 
-    if (passwordSignup.value !== confirmPasswordSignup.value) {
-        confirmPasswordSignup.classList.remove('hide');
-        // confirmPasswordSignup.setCustomValidity("Passwords do not match");
-    } else {
-        // confirmPasswordSignup.setCustomValidity("");
+    if (passwordSignup.value === confirmPasswordSignup.value) {
+        invalidPassword.classList.add('hide');
+        return true;
+    } else{
+        invalidPassword.classList.remove('hide');
+        borderBottom.classList.add('error-message-border-bottom');
+        return false;
     }
+
 }
+
+
 
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
@@ -175,7 +175,9 @@ function wrongLogin() {
     const borderBottom = document.querySelectorAll('.input-wrapper');
     const errorMsg = document.getElementById('error-msg');
     errorMsg.classList.remove('hide');
-    borderBottom.classList.add('error-message-border-bottom');
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.add('error-message-border-bottom');
+    });
 }
 
 function logInGuestUser() {
