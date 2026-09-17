@@ -78,16 +78,20 @@ function toggleShowPassword(field) {
 
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
+    const borderBottom = document.getElementById('invalid-email-border-bottom');
     const emailSignup = document.getElementById('email-signup');
     const passwordSignup = document.getElementById('sign-up-password');
     const name = document.getElementById('name');
+    const invalidEmail = document.getElementById('invalid-msg');
     event.preventDefault();
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
 
     if (await checkIfEmailExists(emailSignup.value)) {
-        emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
-        emailSignup.reportValidity();
+        borderBottom.classList.add('error-message-border-bottom');
+        invalidEmail.classList.remove('hide');
+        // emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
+        // emailSignup.reportValidity();
         return;
     }
     emailSignup.setCustomValidity("");
@@ -103,9 +107,10 @@ function comparePassword() {
     const confirmPasswordSignup = document.getElementById('confirm-password');
 
     if (passwordSignup.value !== confirmPasswordSignup.value) {
-        confirmPasswordSignup.setCustomValidity("Passwords do not match");
+        confirmPasswordSignup.classList.remove('hide');
+        // confirmPasswordSignup.setCustomValidity("Passwords do not match");
     } else {
-        confirmPasswordSignup.setCustomValidity("");
+        // confirmPasswordSignup.setCustomValidity("");
     }
 }
 
@@ -167,7 +172,7 @@ async function userLogin(event) {
 }
 
 function wrongLogin() {
-    const borderBottom = document.getElementById('error-msg-border-bottom');
+    const borderBottom = document.querySelectorAll('.input-wrapper');
     const errorMsg = document.getElementById('error-msg');
     errorMsg.classList.remove('hide');
     borderBottom.classList.add('error-message-border-bottom');
