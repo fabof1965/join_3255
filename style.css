@@ -15,9 +15,8 @@
     font-size: 24px;
     font-weight: 700; 
     
-    /* Der doppelte Rand wie in F2: */
-    border: 3px solid var(--primary-color); /* Äußerer dunkler/blauer Rand (passe die Farbe an deinen Header an) */
-    box-shadow: 0 0 0 3px #ffffff; /* Simuliert den inneren weißen Kreis-Abstand, falls nötig, oder passe es an */
+    border: 3px solid var(--primary-color); 
+    box-shadow: 0 0 0 3px var(--white-color); 
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -112,7 +111,7 @@ button{
 
 .auth-btn {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--white-color);
   border-radius: 8px;
   font-size: 18px;
   font-family: 'Open Sans', sans-serif;
