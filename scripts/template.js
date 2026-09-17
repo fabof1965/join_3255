@@ -37,9 +37,10 @@ const headerTemplate = `
       <button class="header-icon-button" type="button" aria-label="Open help">
         <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
       </button>
-      <button class="header-icon-button" type="button" aria-label="Open user profile">
-       <span id="profile-badge" class="header-profile-badge"></span>      
-      </button>
+      <label for="imageUpload" id="profile-badge" class="header-profile-badge" title="Change Profile Picture">
+        <span>+</span>
+      </label>
+      <input type="file" id="imageUpload" accept="image/*" style="display: none;">
     </div>
   </div>
 `;

@@ -120,14 +120,12 @@ body {
                     align-items: center;
                     border-radius: 28px;
                     &:hover {
-                        transform: translateY(
-                            4px
-                        ); 
+                        transform: translateY(4px);
                         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
                         filter: brightness(0.95);
                         background-color: var(--primary-color);
                     }
-                    
+
                     .urgent-task {
                         max-width: 140px;
                         display: flex;

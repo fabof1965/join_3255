@@ -27,6 +27,7 @@
     --no-todo-color: var(--search-bar-outline-color);
     --greeting-text-color:#2A3647;
     --addTaskBackdrop-color: rgba(0, 0, 0, 0.3);
+    --addTaskBackdrop-color_2: rgba(0, 0, 0, 0.2);
     --badge-dialog-background-color: #D1D1D1;
     --logo-color: var(--primary-color);
     

@@ -51,7 +51,7 @@
   justify-content: flex-start;
   border-radius: 8px;
   padding: var(--page-link-padding);
-  transition: background-color 400ms ease;
+  transition: all 0.2s ease-in-out;
   text-decoration: none;
   text-wrap: nowrap;
   width: var(--full);
@@ -67,6 +67,8 @@
 
 .page-links a:hover, .page-links a.active {
   background-color: var(--secondary-color);
+  transform: translateY(4px);
+  box-shadow: 0px 2px 4px var(--addTaskBackdrop-color, var(--addTaskBackdrop-color_2));
 }
 
 .sidebar-navigation a img {
@@ -85,6 +87,7 @@
   display: flex;
   flex-direction: column;
   width: var(--full);
+  gap: 8px;
 }
 
 @media(max-width: 600px) {
@@ -97,8 +100,17 @@
   text-decoration: none;
   color: var(--menu-color);
   padding: var(--page-link-padding);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition: background-color 400ms ease, color 400ms ease;
+  width:var(--full);
 }
 
 .sidebar-footer a:hover {
+  background-color: var(--secondary-color);
   color: var(--primary-color);
+  transform: translateY(4px);
+  box-shadow: 0px 2px 4px var(--addTaskBackdrop-color, var(--addTaskBackdrop-color_2));
 }
