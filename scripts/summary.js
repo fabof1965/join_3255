@@ -127,7 +127,7 @@ function initCardClicks() {
 
 
 function updateGreetingText() {
-    const greetingEl = document.getElementById("greeting"); // Passe die ID an dein HTML an (z.B. das Element für "Good Morning")
+    const greetingEl = document.getElementById("greeting"); 
     if (!greetingEl) return;
     
     greetingEl.innerText = getDynamicGreeting();
