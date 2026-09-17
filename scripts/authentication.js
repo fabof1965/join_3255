@@ -3,7 +3,7 @@ let allUsers = [];
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
-   
+
 }
 
 function initPasswordEventListener() {
@@ -16,6 +16,7 @@ function initPasswordEventListener() {
 }
 
 initPasswordEventListener();
+initLoginEventListeners();
 
 function passwordInputFields() {
     return [
@@ -78,7 +79,7 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     const invalidEmail = document.getElementById('invalid-email-msg');
     event.preventDefault();
-    
+
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
 
@@ -104,15 +105,12 @@ function comparePassword() {
     if (passwordSignup.value === confirmPasswordSignup.value) {
         invalidPassword.classList.add('hide');
         return true;
-    } else{
+    } else {
         invalidPassword.classList.remove('hide');
         borderBottom.classList.add('error-message-border-bottom');
         return false;
     }
-
 }
-
-
 
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
@@ -154,6 +152,7 @@ function closeDialog() {
 async function userLogin(event) {
     console.log("submit ausgelöst");
     event.preventDefault();
+    // resetLogin();
     const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
     const passwordLogin = document.getElementById('login-password');
@@ -165,13 +164,28 @@ async function userLogin(event) {
         signUpForm.reset();
         window.location.href = './pages/summary.html';
     } else {
-        wrongLogin();
-        // passwordLogin.reportValidity();
-        // passwordLogin.addEventListener("input", () => passwordLogin.setCustomValidity(""));
+        showErrorMessageForLogin();
     }
 }
 
-function wrongLogin() {
+function initLoginEventListeners() {
+    const inputFields = [
+        document.getElementById('email'),
+        document.getElementById('login-password')
+    ]
+    inputFields.forEach(fields => {
+        fields.addEventListener('input', hideLoginErrorBorder)
+    });
+}
+
+function hideLoginErrorBorder() {
+    const inputwrappers = document.querySelectorAll('.input-wrapper');
+    inputwrappers.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+}
+
+function showErrorMessageForLogin() {
     const borderBottom = document.querySelectorAll('.input-wrapper');
     const errorMsg = document.getElementById('error-msg');
     errorMsg.classList.remove('hide');
@@ -293,6 +307,7 @@ function backToLogin() {
 
     resetCheckboxValidity();
     initPasswordEventListener();
+    initLoginEventListeners();
 }
 
 function setminHeightAnimationOnForm() {
