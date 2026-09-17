@@ -164,6 +164,7 @@
   flex-direction: column;
   justify-content: center;
   width: calc(var(--full) * 0.75);
+<<<<<<< HEAD
   gap: var(--auth-input-gap);
   margin-bottom: var(--auth-input-gap);
 }
@@ -172,6 +173,8 @@
   .auth-input-container {
     width: calc(var(--full) * 0.9);
   }
+=======
+>>>>>>> error-msg
 }
 
 #checkbox-container {
@@ -351,4 +354,16 @@ dialog::backdrop {
         transform: translateY(0%) ;
         opacity: 1;
     }
+}
+
+/* error-msg */
+
+.error-msg{
+  color: var(--red-color);
+  width: var(--full);
+  /* padding-left: 16px; */
+}
+
+.error-message-border-bottom{
+  border-bottom: var(--error-message-border-bottom);
 }

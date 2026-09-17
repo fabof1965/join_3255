@@ -1,15 +1,8 @@
 let allUsers = [];
 
 function initSignUpEventListeners() {
-    const emailSignup = document.getElementById('email-signup');
-    const passwordSignup = document.getElementById('sign-up-password');
-    const confirmPasswordSignup = document.getElementById('confirm-password');
     const checkboxSignup = document.getElementById('checkbox');
-
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
-    passwordSignup.addEventListener("input", comparePassword);
-    confirmPasswordSignup.addEventListener("input", comparePassword);
-    emailSignup.addEventListener("input", () => emailSignup.setCustomValidity(""));
 }
 
 function initPasswordEventListener() {
@@ -22,6 +15,7 @@ function initPasswordEventListener() {
 }
 
 initPasswordEventListener();
+initLoginEventListeners();
 
 function passwordInputFields() {
     return [
@@ -78,19 +72,22 @@ function toggleShowPassword(field) {
 
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
+    const borderBottom = document.getElementById('invalid-email-border-bottom');
     const emailSignup = document.getElementById('email-signup');
     const passwordSignup = document.getElementById('sign-up-password');
     const name = document.getElementById('name');
+    const invalidEmail = document.getElementById('invalid-email-msg');
     event.preventDefault();
+
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
 
     if (await checkIfEmailExists(emailSignup.value)) {
-        emailSignup.setCustomValidity("Diese E-Mail-Adresse ist bereits registriert");
-        emailSignup.reportValidity();
+        borderBottom.classList.add('error-message-border-bottom');
+        invalidEmail.classList.remove('hide');
         return;
     }
-    emailSignup.setCustomValidity("");
+    if (!comparePassword()) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();
@@ -101,11 +98,16 @@ async function registerUser(event) {
 function comparePassword() {
     const passwordSignup = document.getElementById('sign-up-password');
     const confirmPasswordSignup = document.getElementById('confirm-password');
+    const borderBottom = document.getElementById('confirm-password-border-bottom');
+    const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
 
-    if (passwordSignup.value !== confirmPasswordSignup.value) {
-        confirmPasswordSignup.setCustomValidity("Passwords do not match");
+    if (passwordSignup.value === confirmPasswordSignup.value) {
+        invalidPassword.classList.add('hide');
+        return true;
     } else {
-        confirmPasswordSignup.setCustomValidity("");
+        invalidPassword.classList.remove('hide');
+        borderBottom.classList.add('error-message-border-bottom');
+        return false;
     }
 }
 
@@ -149,6 +151,7 @@ function closeDialog() {
 async function userLogin(event) {
     console.log("submit ausgelöst");
     event.preventDefault();
+    const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
     const passwordLogin = document.getElementById('login-password');
     const response = await getData('users');
@@ -156,20 +159,58 @@ async function userLogin(event) {
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
+        resetLogin();
+        signUpForm.reset();
         window.location.href = './pages/summary.html';
     } else {
-        passwordLogin.setCustomValidity("Check your email and password. Please try again");
-        passwordLogin.reportValidity();
-        passwordLogin.addEventListener("input", () => passwordLogin.setCustomValidity(""));
+        showErrorMessageForLogin();
     }
 }
 
+function initLoginEventListeners() {
+    const inputFields = [
+        document.getElementById('email'),
+        document.getElementById('login-password')
+    ]
+    inputFields.forEach(fields => {
+        fields.addEventListener('input', hideLoginErrorBorder)
+    });
+}
+
+function hideLoginErrorBorder() {
+    const inputwrappers = document.querySelectorAll('.input-wrapper');
+    inputwrappers.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+}
+
+function showErrorMessageForLogin() {
+    const borderBottom = document.querySelectorAll('.input-wrapper');
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.classList.remove('hide');
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.add('error-message-border-bottom');
+    });
+}
+
+function resetLogin() {
+    const borderBottom = document.querySelectorAll('.input-wrapper');
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.classList.add('hide');
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+}
+
 function logInGuestUser() {
+    const signUpForm = document.getElementById('auth-form');
     const GUEST_USER = {
         email: "guestuser@mail.de",
         password: "guestpassword"
     };
     sessionStorage.setItem(JSON.stringify, GUEST_USER);
+    resetLogin();
+    signUpForm.reset();
     window.location.href = './pages/summary_guest.html';
 }
 
@@ -281,6 +322,7 @@ function backToLogin() {
 
     resetCheckboxValidity();
     initPasswordEventListener();
+    initLoginEventListeners();
 }
 
 function setminHeightAnimationOnForm() {

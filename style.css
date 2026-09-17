@@ -10,17 +10,17 @@ body {
 }
 
 .main-layout {
-    display: flex;
-    margin: var(--content-limit-margin);
-    max-width: var(--page-max-width);
-    width: var(--full);
-    justify-content: flex-start;
+  display: flex;
+  margin: var(--content-limit-margin);
+  max-width: var(--page-max-width);
+  width: var(--full);
+  justify-content: flex-start;
 }
 
 @media(max-width: 600px) {
-    .main-layout {
-        flex-direction: column-reverse;
-    }
+  .main-layout {
+    flex-direction: column-reverse;
+  }
 }
 
 .show {
@@ -35,11 +35,11 @@ form {
   max-width: var(--form-max-width);
 }
 
-input{
+input {
   outline: none;
 }
 
-button{
+button {
   cursor: pointer;
 }
 
@@ -74,6 +74,22 @@ button{
   border-bottom: var(--login-input-border-bottom);
   justify-content: center;
   padding: var(--input-wrapper-padding);
+}
+
+.input-wrapper:nth-child(2) {
+  margin-top: 32px;
+}
+
+.input-wrapper:nth-child(3) {
+  margin-top: 32px;
+}
+
+.input-wrapper:nth-child(4) {
+  margin-top: 32px;
+}
+
+.input-wrapper:nth-child(5) {
+  margin-top: 32px;
 }
 
 .input-field {
