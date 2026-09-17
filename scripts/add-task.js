@@ -189,7 +189,7 @@ document.addEventListener("click", handleAddTaskClick);
 document.addEventListener("submit", handleAddTaskFormEvent);
 document.addEventListener("keydown", handleAddTaskFormEvent);
 
-function init() {
+function initTaskContent() {
   loadAddTaskContent();
 }
 

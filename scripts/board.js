@@ -46,7 +46,7 @@ let exampleTasks = [
 
 let draggedTaskId = "";
 
-async function init() {
+async function initBoardContent() {
   await loadTasks();
   renderBoard(exampleTasks);
   initializeTaskSearch();
