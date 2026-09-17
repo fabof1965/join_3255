@@ -13,6 +13,7 @@ async function initSummary() {
   UpdateSummaryNumbers();
   await loadUserName();
   initCardClicks();
+  updateGreetingText();
 }
 
 async function loadTasksForSummary() {
@@ -122,4 +123,25 @@ function initCardClicks() {
       });
     }
   });
+}
+
+
+function updateGreetingText() {
+    const greetingEl = document.getElementById("greeting"); // Passe die ID an dein HTML an (z.B. das Element für "Good Morning")
+    if (!greetingEl) return;
+    
+    greetingEl.innerText = getDynamicGreeting();
+}
+
+function getDynamicGreeting() {
+    const now = new Date();     
+    const hour = now.getHours(); 
+    
+    if (hour >= 5 && hour < 12) {
+        return "Good Morning";
+    } else if (hour >= 12 && hour < 17) {
+        return "Good Afternoon";
+    } else {
+        return "Good Evening";
+    }
 }
