@@ -152,7 +152,6 @@ function closeDialog() {
 async function userLogin(event) {
     console.log("submit ausgelöst");
     event.preventDefault();
-    // resetLogin();
     const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
     const passwordLogin = document.getElementById('login-password');
@@ -161,6 +160,7 @@ async function userLogin(event) {
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
+        resetLogin();
         signUpForm.reset();
         window.location.href = './pages/summary.html';
     } else {
@@ -194,6 +194,15 @@ function showErrorMessageForLogin() {
     });
 }
 
+function resetLogin() {
+    const borderBottom = document.querySelectorAll('.input-wrapper');
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.classList.add('hide');
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+}
+
 function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
     const GUEST_USER = {
@@ -201,6 +210,7 @@ function logInGuestUser() {
         password: "guestpassword"
     };
     sessionStorage.setItem(JSON.stringify, GUEST_USER);
+    resetLogin();
     signUpForm.reset();
     window.location.href = './pages/summary_guest.html';
 }
