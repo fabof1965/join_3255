@@ -3,7 +3,6 @@ let allUsers = [];
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
-
 }
 
 function initPasswordEventListener() {
