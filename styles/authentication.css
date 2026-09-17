@@ -164,7 +164,6 @@
   flex-direction: column;
   justify-content: center;
   width: calc(var(--full) * 0.75);
-<<<<<<< HEAD
   gap: var(--auth-input-gap);
   margin-bottom: var(--auth-input-gap);
 }
@@ -173,8 +172,6 @@
   .auth-input-container {
     width: calc(var(--full) * 0.9);
   }
-=======
->>>>>>> error-msg
 }
 
 #checkbox-container {
