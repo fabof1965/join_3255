@@ -10,7 +10,6 @@
 }
 
 .legal-notice-page .legal-notice-link {
-  width: 112px;
   padding: 8px;
   border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
