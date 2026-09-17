@@ -358,7 +358,7 @@ dialog::backdrop {
 .error-msg{
   color: var(--red-color);
   width: var(--full);
-  /* padding-left: 16px; */
+  padding-left: 16px;
 }
 
 .error-message-border-bottom{

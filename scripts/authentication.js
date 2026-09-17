@@ -72,21 +72,14 @@ function toggleShowPassword(field) {
 
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
-    const borderBottom = document.getElementById('invalid-email-border-bottom');
     const emailSignup = document.getElementById('email-signup');
     const passwordSignup = document.getElementById('sign-up-password');
     const name = document.getElementById('name');
-    const invalidEmail = document.getElementById('invalid-email-msg');
     event.preventDefault();
 
     if (!signUpForm.reportValidity()) return;
     if (!acceptPrivacyPolicy()) return;
-
-    if (await checkIfEmailExists(emailSignup.value)) {
-        borderBottom.classList.add('error-message-border-bottom');
-        invalidEmail.classList.remove('hide');
-        return;
-    }
+    if (await checkIfEmailExists(emailSignup.value)) return;
     if (!comparePassword()) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
@@ -125,10 +118,19 @@ function acceptPrivacyPolicy() {
 }
 
 async function checkIfEmailExists(inputMail) {
-    const emailSignup = document.getElementById('email-signup');
-    const response = await getData('users', { email: emailSignup.value });
+    const borderBottom = document.getElementById('invalid-email-border-bottom');
+    const invalidEmail = document.getElementById('invalid-email-msg');
+    const response = await getData('users');
+    const emailExists = response ? Object.values(response).some(user => user.email === inputMail) : false;
 
-    return response ? Object.values(response).some(user => user.email === inputMail) : false;
+    if (emailExists) {
+        borderBottom.classList.add('error-message-border-bottom');
+        invalidEmail.classList.remove('hide');
+    } else {
+        borderBottom.classList.remove('error-message-border-bottom');
+        invalidEmail.classList.add('hide');
+    }
+    return emailExists;
 }
 
 function signUpSuccessPopUp() {
