@@ -58,7 +58,11 @@
 }
 
 .auth-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
   font-size: var(--login-form-button-font-size);
+  font-family: 'Open Sans', sans-serif;
 }
 
 #signup-button {
@@ -172,6 +176,30 @@
   .auth-input-container {
     width: calc(var(--full) * 0.9);
   }
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-content-container {
+  display: flex;
+  justify-content: space-between;
+  width: var(--full);
+  border-bottom: var(--login-input-border-bottom);
+  padding: var(--input-wrapper-padding);
+}
+
+.input-field {
+  width: var(--full);
+  border: none;
+  box-sizing: border-box;
+  font-size: 19px;
+  outline: none;
 }
 
 #checkbox-container {
