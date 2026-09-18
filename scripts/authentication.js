@@ -213,7 +213,7 @@ function logInGuestUser() {
     sessionStorage.setItem(JSON.stringify, GUEST_USER);
     resetLogin();
     signUpForm.reset();
-    window.location.href = './pages/summary_guest.html';
+    window.location.href = './pages/summary.html';
 }
 
 function setOnSubmitAttribute(attr = "userLogin(event)") {
