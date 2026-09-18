@@ -1,50 +1,37 @@
-.main-container {
-  flex: 1;
-  min-width: 0;
-  padding: 0 64px;
-  padding-top: 72px;
-}
-
-.main-layout {
-    display: flex;
-}
-
-.legal-notice-page .legal-notice-link {
-  width: 112px;
-  padding: 8px;
-  border-radius: var(--element-design-border-radius);
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  font-weight: 700;
-}
-
-.imprint-section {
-  gap: 16px !important;
-}
-
-.imprint-section h2 {
+h2, h3 {
   color: var(--primary-color);
 }
 
-.legal-notice-page .legal-sections {
-  gap: 24px;
+.legal-notice-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--summary-container-gap);
+  padding: var(--padding);
+  width: var(--full);
 }
 
-.legal-notice-page .legal-sections h3 {
-  font-size: 19px;
+.legal-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--summary-container-gap);
 }
 
-.legal-notice-page .legal-sections p + p {
-  margin-top: 8px;
+.legal-title-row h1 {
+  font-size: var(--legal-notice-headline-font-size);
 }
 
-.legal-notice-page .legal-sections p span,
-.legal-notice-page .legal-sections a {
-  color: var(--primary-color);
+.legal-back-button {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--back-btn-image-dimensions);
+  height: var(--back-btn-image-dimensions);
 }
 
-@media (max-width: 768px) {
-  .imprint-section h2 {
-    font-size: 23px;
-  }
+.legal-back-button:hover {
+  background-color: var(--secondary-color);
+  box-shadow: unset;
 }
+

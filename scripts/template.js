@@ -46,6 +46,21 @@ const sidebarTemplate = `
     </nav>
   `;
 
+function getMobileNavigtion() {
+  return `
+      <nav class="mobile-navigation" aria-label="Main navigation">
+        <div class="log-in">
+          <img src="../assets/icons/login.svg" alt="log-in-icon">
+          <p>Log in</p>
+        </div>
+        <div class="page-links">
+          <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
+          <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
+        </div>
+      </nav>
+      `;
+}
+
 const headerTemplate = `
   <div class="content-limit">
     <div class="header-left">

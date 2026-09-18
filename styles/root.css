@@ -111,4 +111,9 @@
     --error-message-border-bottom: 2px solid var(--red-color);
 
     /*add task*/
+
+    /*legal-notice and privacy-policy*/
+    --legal-notice-headline-font-size: clamp(32px, calc(29.714px + 0.714vw), 40px);
+    --legal-notice-subheading-font-size: clamp(20px, calc(16.571px + 1.071vw), 32px);
+    --back-btn-image-dimensions: clamp(28px, calc(24.571px + 1.071vw), 40px);
 }

@@ -115,6 +115,6 @@
   padding: var(--page-link-padding);
 }
 
-.sidebar-footer a:hover {
+.sidebar-footer a:hover, .sidebar-footer a.active {
   color: var(--primary-color);
 }
