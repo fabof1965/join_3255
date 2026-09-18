@@ -305,7 +305,7 @@ function setPageTitle(title) {
 }
 
 function backToLogin() {
-    setAuthenticationHeaderMargin("var(--auth-input-gap)");
+    setAuthenticationHeaderMargin("");
     setPageTitle("Join Log in");
     setOnSubmitAttribute();
 
