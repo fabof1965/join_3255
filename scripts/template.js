@@ -37,10 +37,14 @@ const headerTemplate = `
       <button class="header-icon-button" type="button" aria-label="Open help">
         <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
       </button>
-      <label for="imageUpload" id="profile-badge" class="header-profile-badge" title="Change Profile Picture">
-        <span>+</span>
-      </label>
-      <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+      
+      <div class="profile-container">
+        <label for="imageUpload" id="profile-badge" class="header-profile-badge" title="Change Profile Picture">
+        </label>
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        <button id="remove-profile-btn" onclick="removeProfileImage()" title="Remove Photo" style="display: none; position: absolute; top: -5px; right: -5px; border-radius: 50%; background: #ff5252; color: white; border: none; width: 20px; height: 20px; font-size: 12px; font-weight: bold; cursor: pointer; align-items: center; justify-content: center; z-index: 10;">×</button>
+      </div>
+
     </div>
   </div>
 `;
