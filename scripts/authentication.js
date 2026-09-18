@@ -78,14 +78,30 @@ async function registerUser(event) {
     event.preventDefault();
 
     if (!signUpForm.reportValidity()) return;
-    if (!acceptPrivacyPolicy()) return;
     if (await checkIfEmailExists(emailSignup.value)) return;
     if (!comparePassword()) return;
+    if (!acceptPrivacyPolicy()) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();
     signUpSuccessPopUp();
     backToLogin();
+}
+
+async function checkIfEmailExists(inputMail) {
+    const borderBottom = document.getElementById('invalid-email-border-bottom');
+    const invalidEmail = document.getElementById('invalid-email-msg');
+    const response = await getData('users');
+    const emailExists = response ? Object.values(response).some(user => user.email === inputMail) : false;
+
+    if (emailExists) {
+        borderBottom.classList.add('error-message-border-bottom');
+        invalidEmail.classList.remove('visibility-hidden');
+    } else {
+        borderBottom.classList.remove('error-message-border-bottom');
+        invalidEmail.classList.add('visibility-hidden');
+    }
+    return emailExists;
 }
 
 function comparePassword() {
@@ -95,10 +111,10 @@ function comparePassword() {
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
 
     if (passwordSignup.value === confirmPasswordSignup.value) {
-        invalidPassword.classList.add('hide');
+        invalidPassword.classList.add('visibility-hidden');
         return true;
     } else {
-        invalidPassword.classList.remove('hide');
+        invalidPassword.classList.remove('visibility-hidden');
         borderBottom.classList.add('error-message-border-bottom');
         return false;
     }
@@ -115,22 +131,6 @@ function acceptPrivacyPolicy() {
         checkboxSignup.reportValidity();
         return false;
     }
-}
-
-async function checkIfEmailExists(inputMail) {
-    const borderBottom = document.getElementById('invalid-email-border-bottom');
-    const invalidEmail = document.getElementById('invalid-email-msg');
-    const response = await getData('users');
-    const emailExists = response ? Object.values(response).some(user => user.email === inputMail) : false;
-
-    if (emailExists) {
-        borderBottom.classList.add('error-message-border-bottom');
-        invalidEmail.classList.remove('hide');
-    } else {
-        borderBottom.classList.remove('error-message-border-bottom');
-        invalidEmail.classList.add('hide');
-    }
-    return emailExists;
 }
 
 function signUpSuccessPopUp() {
@@ -180,25 +180,25 @@ function initLoginEventListeners() {
 }
 
 function hideLoginErrorBorder() {
-    const inputwrappers = document.querySelectorAll('.input-wrapper');
+    const inputwrappers = document.querySelectorAll('.input-content-container');
     inputwrappers.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
     });
 }
 
 function showErrorMessageForLogin() {
-    const borderBottom = document.querySelectorAll('.input-wrapper');
+    const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('error-msg');
-    errorMsg.classList.remove('hide');
+    errorMsg.classList.remove('visibility-hidden');
     borderBottom.forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
 }
 
 function resetLogin() {
-    const borderBottom = document.querySelectorAll('.input-wrapper');
+    const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('error-msg');
-    errorMsg.classList.add('hide');
+    errorMsg.classList.add('visibility-hidden');
     borderBottom.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
     });

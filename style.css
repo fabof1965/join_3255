@@ -71,25 +71,9 @@ button {
 .input-wrapper {
   display: flex;
   align-items: center;
-  border-bottom: var(--login-input-border-bottom);
+
+  flex-direction: column;
   justify-content: center;
-  padding: var(--input-wrapper-padding);
-}
-
-.input-wrapper:nth-child(2) {
-  margin-top: 32px;
-}
-
-.input-wrapper:nth-child(3) {
-  margin-top: 32px;
-}
-
-.input-wrapper:nth-child(4) {
-  margin-top: 32px;
-}
-
-.input-wrapper:nth-child(5) {
-  margin-top: 32px;
 }
 
 .input-field {
@@ -110,6 +94,14 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.input-content-container {
+  display: flex;
+  justify-content: space-between;
+  width: var(--full);
+  border-bottom: var(--login-input-border-bottom);
+  padding: var(--input-wrapper-padding);
 }
 
 .auth-btn {

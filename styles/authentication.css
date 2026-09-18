@@ -355,12 +355,18 @@ dialog::backdrop {
 
 /* error-msg */
 
+.visibility-hidden{
+  visibility: hidden; 
+}
+
 .error-msg{
   color: var(--red-color);
   width: var(--full);
   padding-left: 16px;
+  height: 1rem;
 }
 
 .error-message-border-bottom{
   border-bottom: var(--error-message-border-bottom);
 }
+

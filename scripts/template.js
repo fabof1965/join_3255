@@ -270,40 +270,55 @@ const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
 
 function getInputFieldsForLogin() {
     return `<div class="input-wrapper">
-                <label for="email" class="visually-hidden">Email</label>
-                <input id="email" class="input-field" type="email" placeholder="Email" required />
-                <img src="./assets/icons/mail.svg" alt="mail icon" />
+                <div class="input-content-container">
+                  <label for="email" class="visually-hidden">Email</label>
+                  <input id="email" class="input-field" type="email" placeholder="Email" required />
+                  <img src="./assets/icons/mail.svg" alt="mail icon" />
+                </div>
             </div>
-            <div class="input-wrapper" id="error-msg-border-bottom">
-                <label for="login-password" class="visually-hidden">Passwort</label>
-                <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
-                <img id="login-password-toggle-icon" class="lock-img"
-                    src="./assets/icons/lock.svg" alt="lock icon" />
-                
+            <div class="input-wrapper">
+                <div class="input-content-container" id="error-msg-border-bottom">
+                  <label for="login-password" class="visually-hidden">Passwort</label>
+                  <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
+                  <img id="login-password-toggle-icon" class="lock-img"
+                      src="./assets/icons/lock.svg" alt="lock icon" />
+                </div>
+            <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try again.</span>
             </div>
-            <span id="error-msg" class="error-msg hide">Check your email and password. Please try again.</span>`;
+            `;
 }
 
 function getInputFieldsForSignup() {
     return `<div class="input-wrapper">
+              <div class="input-content-container">  
                 <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
                 <img src="./assets/icons/person.svg" alt="person logo">
+              </div>
+              <span class="error-msg visibility-hidden"></span>
             </div>
 
-            <div class="input-wrapper" id="invalid-email-border-bottom">
-                <input class="input-field" type="email" id="email-signup" placeholder="Email" required>
-                <img src="./assets/icons/mail.svg" alt="mail logo">
+            <div class="input-wrapper">
+                <div class="input-content-container" id="invalid-email-border-bottom">
+                  <input class="input-field" type="email" id="email-signup" placeholder="Email" required>
+                  <img src="./assets/icons/mail.svg" alt="mail logo">
+                </div>
+                <span id="invalid-email-msg" class="error-msg visibility-hidden">user already exists</span>
             </div>
-            <span id="invalid-email-msg" class="error-msg hide">user already exists</span>
-            <div class="input-wrapper"><input class="input-field" type="password" id="sign-up-password" required
-                    placeholder="Password">
+
+            <div class="input-wrapper">
+              <div class="input-content-container">
+                <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
                 <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock-img">
+              </div>
+              <span class="error-msg visibility-hidden"></span>
             </div>
 
-            <div class="input-wrapper" id="confirm-password-border-bottom">
-                <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
-                <img id="confirm-password-toggle-icon" class="lock-img"
-                    src="./assets/icons/lock.svg" alt="lock logo">
+            <div class="input-wrapper" >
+                <div class="input-content-container" id="confirm-password-border-bottom">
+                  <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
+                  <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock logo">
+                </div>
+                <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
             </div>
-            <span id="invalid-pw-confirm-msg" class="error-msg hide">passwords do not match</span>`;
+            `;
 }
