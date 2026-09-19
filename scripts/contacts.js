@@ -99,8 +99,8 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
 function getContactFormfromForm() {
     return {
         name: document.getElementById("name").value,
-        email: document.getElementById("email").value
-        // phone: document.getElementById("phone").value
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value
     };
 }
 
@@ -146,8 +146,6 @@ function editExistingContact() {
     // hier muss noch die Edit eigentschaften eingefügt werden
     openContactDialog();
 }
-
-
 
 function showContact() {
 
