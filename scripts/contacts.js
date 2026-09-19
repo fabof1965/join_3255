@@ -60,10 +60,6 @@ function getContactsData() {
     return contactData;
 }
 
-function makeElementFromLetter(letter) {
-
-}
-
 function positionDialog(potition) {
     // hier wird der Dialog positioniert
 }
@@ -120,16 +116,16 @@ async function renderContacts() { // die hier brauche ich
     const contactContainer = document.getElementById("contacts");
     contactContainer.innerHTML = "";
     sortContactsByName(allContacts);
+    let previousLetter = "";
     for (let i = 0; i < allContacts.length; i++) {
+        let currentLetter = allContacts[i].name.charAt(0).toUpperCase();
+
+        if (currentLetter !== previousLetter) {
+            contactContainer.innerHTML += getFirstLetterTemplate(currentLetter);
+            previousLetter = currentLetter; // hier wird der Buchstabe gespeichert
+        }
         contactContainer.innerHTML += getContactTemplate(i);
-        
     }
-
-    console.log(allContacts);
-
-    // const contactData = getContactsData();
-    // for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
-    // }
 }
 
 function sortContactsByName(contacts) {

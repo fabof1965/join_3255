@@ -340,15 +340,19 @@ function getInputFieldsForSignup() {
 
 function getContactTemplate(i) {
   return `
-                <div id="letter" class="letter">${allContacts[i].name.charAt(0).toUpperCase()}</div>
-                <div class="seperator"></div>
-
-                <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
-                    <div class="profile-badge">${renderProfileBadges(allContacts[i].name)}</div>
-                    <div class="name-and-mail">
-                        <span class="name">${allContacts[i].name}</span>
-                        <span class="mail">${allContacts[i].email}</span>
-                    </div>
-                </div>
+      <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(this)">
+        <div class="profile-badge">${renderProfileBadges(allContacts[i].name).toUpperCase()}</div>
+        <div class="name-and-mail">
+          <span class="name">${allContacts[i].name}</span>
+          <span class="mail">${allContacts[i].email}</span>
+        </div>
+      </div>
   `;
+}
+
+function getFirstLetterTemplate(firstLetter) {
+  return `
+      <div class="letter">${firstLetter}</div>
+      <div class="seperator"></div>
+    `;
 }
