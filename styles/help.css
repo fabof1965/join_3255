@@ -1,23 +1,9 @@
-body {
-    background-color: var(--white-color);
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-}
-
-.help-main{
-    display: flex;
-    position: relative;
-    max-width: var(--page-max-width);
-    margin: var(--content-limit-margin);
-}
-
-.summary-container {
+.help-content {
     width: var(--full);
-    padding: 40px 60px;
+    padding: var(--padding);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--summary-container-gap);
 
     .help-header {
         display: flex;
@@ -26,7 +12,7 @@ body {
         width: var(--full);
 
         .help-title {
-            font-size: 61px;
+            font-size: var(--legal-notice-headline-font-size);
             font-weight: 700;
             line-height: 1;
             margin: 0;
@@ -45,8 +31,8 @@ body {
             }
 
             img {
-                width: 32px;
-                height: 32px;
+                width: var(--back-btn-image-dimensions);
+                height: var(--back-btn-image-dimensions);
             }
         }
     }
@@ -65,7 +51,7 @@ body {
         gap: 16px;
 
         h2 {
-            font-size: 33px;
+            font-size: var(--legal-notice-subheading-font-size);
             font-weight: 700;
             line-height: 1.2;
             color: var(--primary-color);
@@ -89,7 +75,7 @@ body {
             gap: 20px;
 
             .step-number {
-                font-size: 33px;
+                font-size: var(--legal-notice-subheading-font-size);
                 font-weight: 700;
                 line-height: 1.2;
                 color: var(--primary-color);
