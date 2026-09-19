@@ -102,10 +102,10 @@ function getContactFormfromForm() {
 
 async function addNewContact(event) {
     event.preventDefault();
-    let form = document.getElementById('contact-form');
-    let contact = getContactFormfromForm();
-    await postData('contacts', contact);
-
+    const form = document.getElementById('contact-form');
+    const contact = getContactFormfromForm();
+    const {name: firebaseId} = await postData('contacts', contact);
+    contact.id = firebaseId;
     form.reset();
     closeContactDialog();
     renderContacts();
