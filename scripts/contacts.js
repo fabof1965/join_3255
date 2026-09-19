@@ -43,21 +43,21 @@ const testContacts = [
     }
 ];
 
-function toggleBackgroundColor(element) {
+function toggleBackgroundColor(element, i) {
     element.classList.toggle("background-primary");
-    animateContactDetailContainer();
+    animateContactDetailContainer(i);
 }
 
-function animateContactDetailContainer() {
+function animateContactDetailContainer(i) {
+    getContactsData(i);
+}
+
+const contactData = [];
+
+function getContactsData(i) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
-
     CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
-}
-
-function getContactsData() {
-    const contactData = "";
-
-    return contactData;
+    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(i);
 }
 
 function positionDialog(potition) {
@@ -104,7 +104,7 @@ async function addNewContact(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
-    const {name: firebaseId} = await postData('contacts', contact);
+    const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
     form.reset();
     closeContactDialog();
@@ -129,10 +129,10 @@ async function renderContacts() { // die hier brauche ich
 }
 
 function sortContactsByName(contacts) {
-    contacts.sort(function(a, b){
+    contacts.sort(function (a, b) {
 
         let nameA = a.name.toLowerCase();
-        let nameB = b.name.toLowerCase(); 
+        let nameB = b.name.toLowerCase();
 
         if (nameA < nameB) {
             return -1;
@@ -162,6 +162,16 @@ function editExistingContact() {
     // hier muss noch die Edit eigentschaften eingefügt werden
     openContactDialog();
 }
+
+// async function deleteContact() {
+//     const contactDialog = getDialog();
+//     const contactIndex = allContacts.findIndex(({id}) => id === openContactId);
+//     if (contactIndex < 0) return;
+//     allContacts.splice(contactIndex, 1);
+//     await deleteData("contacts/" + openContactId);
+//     contactDialog.close();
+//     renderContacts();
+// }
 
 function showContact() {
 
