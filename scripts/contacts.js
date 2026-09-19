@@ -1,3 +1,9 @@
+const allContacts = [];
+
+function initContacts() {
+    renderContacts();
+}
+
 const addContactValues = {
     title: "Add contact",
     subtitle: "Tasks are better with a team!",
@@ -37,30 +43,39 @@ const testContacts = [
     }
 ];
 
-function toggleBackgroundColor(element) {    
+function toggleBackgroundColor(element) {
     element.classList.toggle("background-primary");
     animateContactDetailContainer();
 }
 
 function animateContactDetailContainer() {
     const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
-    
+
     CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
 }
 
 function renderContacts() { // die hier brauche ich
     const contactContainer = document.getElementById("contacts");
-    const contactData = getContactsData();
+    contactContainer.innerHTML = "";
 
-    for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
-
+    for (let i = 0; i < testContacts.length; i++) {
+        contactContainer.innerHTML += getContactTemplate(i, testContacts[i]);
     }
+
+    // const contactData = getContactsData();
+
+
+
+
+    // for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
+
+    // }
 }
 
 function getContactsData() {
     const contactData = "";
 
-    return contactData; 
+    return contactData;
 }
 
 function makeElementFromLetter(letter) {
@@ -68,7 +83,7 @@ function makeElementFromLetter(letter) {
 }
 
 function positionDialog(potition) {
-    
+
 }
 
 function setDialogElementText(elementID, text) {

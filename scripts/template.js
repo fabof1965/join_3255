@@ -337,3 +337,21 @@ function getInputFieldsForSignup() {
             </div>
             `;
 }
+
+function getContactTemplate(i) {
+  return `
+                <div class="seperator"></div>
+
+                <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
+                    <div class="profile-badge">
+                        AM
+                    </div>
+                    <div class="name-and-mail">
+                        <span class="name">${testContacts[i]["first-name"]} ${testContacts[i]["last-name"]}</span>
+                        <span class="mail">${testContacts[i].email}</span>
+                    </div>
+                </div>
+  
+  
+  `;
+}
