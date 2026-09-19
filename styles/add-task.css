@@ -14,11 +14,34 @@
 
 .content {
   padding: var(--padding);
-  /* height: calc(100dvh - 2 * var(--padding-top-bottom) - 60.8px);
-  overflow-y: scroll; */
+  height: calc(100dvh - 2 * var(--padding-top-bottom) - 60px);
+  overflow-y: scroll;
+}
+
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: var(--full);
+  max-width: unset;
+}
+
+input, select, textarea {
+  font-size: var(--add-task-input-font-size);
+  border: none;
+  border-bottom: 1px solid var(--search-bar-outline-color);
+  width: var(--full);
+  padding: var(--board-search-padding);
+}
+
+.add-task-title-field input {
+  font-size: var(--summary-text-large);
 }
 
 .buttons {
+  position: fixed;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -28,6 +51,9 @@
 
 @media(max-width: 1170px) {
   .buttons {
+    position: unset;
+    right: unset;
+    bottom: unset;
     justify-content: center;
   }
 }
@@ -119,22 +145,10 @@
   height: 100%;
 }
 
-.add-task-form,
 .add-task-field {
   display: flex;
   flex-direction: column;
-}
-
-.add-task-form {
-  gap: 24px;
-  width: var(--full);
-  max-width: unset;
-}
-
-.add-task-field {
-  gap: 8px;
   color: var(--menu-color);
-  font-size: var(--add-task-input-font-size);
 }
 
 .add-task-field strong,
@@ -147,7 +161,7 @@
   font-weight: 400;
 }
 
-.add-task-field input,
+/* .add-task-field input,
 .add-task-field select,
 .add-task-field textarea {
   width: var(--full);
@@ -158,11 +172,7 @@
   background-color: var(--white-color);
   color: var(--black-color);
   font: inherit;
-}
-
-.add-task-title-field input {
-  font-size: var(--summary-text-large);
-}
+} */
 
 .add-task-field textarea {
   min-height: 103px;
@@ -186,7 +196,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  padding: 0;
   border: none;
 }
 
@@ -201,7 +210,7 @@
   align-items: center;
   gap: 16px;
   padding: var(--add-task-button-padding);
-  font-size: var(--login-header-font-size);
+  font-size: var(--add-task-input-font-size);
   border-radius: var(--element-design-border-radius);
   border: none;
   background-color: var(--white-color);
