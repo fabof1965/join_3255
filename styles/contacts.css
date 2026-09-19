@@ -63,12 +63,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
     height: 48px;
-    padding: 12px;
+    width: 48px;
     border-radius: var(--border-radius-circular);
     background-color: var(--user-story-color);
     border: 2px solid var(--white-color);
+    font-size: 16px !important;
+    color: var(--white-color);
 }
 
 .name-and-mail {

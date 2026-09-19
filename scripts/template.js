@@ -223,7 +223,7 @@ const addTaskDialogTemplate = `
   </section>
 `;
 
-const addTaskContentTemplate = 
+const addTaskContentTemplate =
   `<form id="add-task-form" class="add-task-form" novalidate>
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
@@ -284,7 +284,7 @@ const addTaskContentTemplate =
 const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
 
 function getInputFieldsForLogin() {
-    return `<div class="input-wrapper">
+  return `<div class="input-wrapper">
                 <div class="input-content-container">
                   <label for="email" class="visually-hidden">Email</label>
                   <input id="email" class="input-field" type="email" placeholder="Email" required />
@@ -304,7 +304,7 @@ function getInputFieldsForLogin() {
 }
 
 function getInputFieldsForSignup() {
-    return `<div class="input-wrapper">
+  return `<div class="input-wrapper">
               <div class="input-content-container">  
                 <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
                 <img src="./assets/icons/person.svg" alt="person logo">
@@ -340,18 +340,15 @@ function getInputFieldsForSignup() {
 
 function getContactTemplate(i) {
   return `
+                <div id="letter" class="letter">${allContacts[i].name.charAt(0)}</div>
                 <div class="seperator"></div>
 
                 <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
-                    <div class="profile-badge">
-                        AM
-                    </div>
+                    <div class="profile-badge">${renderProfileBadges(allContacts[i].name)}</div>
                     <div class="name-and-mail">
-                        <span class="name">${testContacts[i]["first-name"]} ${testContacts[i]["last-name"]}</span>
-                        <span class="mail">${testContacts[i].email}</span>
+                        <span class="name">${allContacts[i].name}</span>
+                        <span class="mail">${allContacts[i].email}</span>
                     </div>
                 </div>
-  
-  
   `;
 }

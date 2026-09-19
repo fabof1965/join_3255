@@ -1,4 +1,4 @@
-const allContacts = [];
+let allContacts = [];
 
 function initContacts() {
     renderContacts();
@@ -54,24 +54,6 @@ function animateContactDetailContainer() {
     CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
 }
 
-function renderContacts() { // die hier brauche ich
-    const contactContainer = document.getElementById("contacts");
-    contactContainer.innerHTML = "";
-
-    for (let i = 0; i < testContacts.length; i++) {
-        contactContainer.innerHTML += getContactTemplate(i, testContacts[i]);
-    }
-
-    // const contactData = getContactsData();
-
-
-
-
-    // for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
-
-    // }
-}
-
 function getContactsData() {
     const contactData = "";
 
@@ -83,7 +65,7 @@ function makeElementFromLetter(letter) {
 }
 
 function positionDialog(potition) {
-
+    // hier wird der Dialog positioniert
 }
 
 function setDialogElementText(elementID, text) {
@@ -117,8 +99,8 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
 function getContactFormfromForm() {
     return {
         name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value
+        email: document.getElementById("email").value
+        // phone: document.getElementById("phone").value
     };
 }
 
@@ -126,25 +108,46 @@ async function addNewContact(event) {
     event.preventDefault();
     let form = document.getElementById('contact-form');
     let contact = getContactFormfromForm();
-    let response = await postData('contacts', contact);
-    testContacts.push({ ...contact, id: response.name });
+    await postData('contacts', contact);
 
     form.reset();
     closeContactDialog();
     renderContacts();
+}
 
-    // console.log("New contact added.");
+async function renderContacts() { // die hier brauche ich
+    allContacts = await loadContacts();
+    const contactContainer = document.getElementById("contacts");
+    contactContainer.innerHTML = "";
+
+    for (let i = 0; i < allContacts.length; i++) {
+        contactContainer.innerHTML += getContactTemplate(i);
+    }
+    // const contactData = getContactsData();
+    // for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
+    // }
+}
+
+async function loadContacts() {
+    const response = await getData('contacts');
+    if (!response) return [];
+    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+}
+
+function renderProfileBadges(name) {
+    const namePart = name.split(" ");
+    const firstLetter = namePart.shift().charAt(0);
+    const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0) : "";
+    return (firstLetter + lastLetter);
 }
 
 function editExistingContact() {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
-
+    // hier muss noch die Edit eigentschaften eingefügt werden
     openContactDialog();
 }
 
-function loadContact() {
 
-}
 
 function showContact() {
 
