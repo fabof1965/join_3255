@@ -92,6 +92,7 @@
     --search-button-image-dimensions: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --search-bar-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
     --add-task-button-padding: var(--board-search-padding);
+    --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
 
     /*summary*/
     --summary-text-large: clamp(32px, calc(27.429px + 1.429vw), 48px);
