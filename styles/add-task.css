@@ -7,13 +7,15 @@
 @media(max-width: 1170px) {
   .main-content {
     flex-direction: column;
+    height: calc(100dvh - 2 * var(--padding-top-bottom) - 60px);
+    overflow-y: scroll;
   }
 }
 
 .content {
   padding: var(--padding);
-  height: calc(100dvh - 2 * var(--padding-top-bottom) - 60.8px);
-  overflow-y: scroll;
+  /* height: calc(100dvh - 2 * var(--padding-top-bottom) - 60.8px);
+  overflow-y: scroll; */
 }
 
 .buttons {
@@ -132,12 +134,12 @@
 .add-task-field {
   gap: 8px;
   color: var(--menu-color);
-  font-size: var(--login-header-font-size);
+  font-size: var(--add-task-input-font-size);
 }
 
 .add-task-field strong,
 .add-task-priority legend {
-  font-size: var(--login-header-font-size);
+  font-size: var(--add-task-subheading-font-size);
   font-weight: 700;
 }
 
@@ -159,7 +161,7 @@
 }
 
 .add-task-title-field input {
-  font-size: 32px;
+  font-size: var(--summary-text-large);
 }
 
 .add-task-field textarea {

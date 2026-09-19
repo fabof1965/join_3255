@@ -109,7 +109,7 @@
 }
 
 .column-header h2 {
-  font-size: 23px;
+  font-size: var(--board-column-header-font-size);
   color: var(--menu-color);
 }
 
@@ -367,7 +367,7 @@
 
 .task-overlay h2 {
   color: var(--black-color);
-  font-size: 61px;
+  font-size: var(--board-column-header-font-size);
   line-height: 1.2;
 }
 
@@ -375,7 +375,7 @@
 .task-overlay-row,
 .task-overlay-user {
   color: var(--black-color);
-  font-size: 19px;
+  font-size: var(--add-task-subheading-font-size);
 }
 
 .task-overlay-row {
@@ -385,7 +385,7 @@
 .task-overlay-row strong,
 .task-overlay-section h3 {
   color: var(--menu-color);
-  font-size: 21px;
+  font-size: var(--add-task-subheading-font-size);
 }
 
 .task-overlay-priority {
