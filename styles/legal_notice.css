@@ -10,6 +10,12 @@ h2, h3 {
   width: var(--full);
 }
 
+.back-btn-container {
+  display: flex;
+  width: var(--full);
+  justify-content: flex-end;
+}
+
 .legal-title-row {
   display: flex;
   justify-content: space-between;
@@ -19,6 +25,7 @@ h2, h3 {
 
 .legal-title-row h1 {
   font-size: var(--legal-notice-headline-font-size);
+  text-wrap: var(--noTextWrap);
 }
 
 .legal-back-button {

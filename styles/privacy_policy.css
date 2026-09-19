@@ -1,5 +1,6 @@
 h2 {
   color: var(--primary-color);
+  font-size: var(--legal-notice-subheading-font-size);
 }
 
 .privacy-policy-content {
@@ -9,30 +10,28 @@ h2 {
   padding: var(--padding);
 }
 
+.back-btn-container {
+  display: flex;
+  width: var(--full);
+  justify-content: flex-end;
+}
+
 .privacy-policy-title-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--summary-container-gap);
 }
 
 .privacy-policy-title-row h1 {
   font-size: var(--legal-notice-headline-font-size);
+  text-wrap: var(--noTextWrap);
 }
 
 .privacy-policy-back-button {
   border-radius: 50%;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: var(--back-btn-image-dimensions);
   height: var(--back-btn-image-dimensions);
-}
-
-@media(max-width: 600px) {
-  .privacy-policy-back-button {
-    display: flex;
-  }
 }
 
 .privacy-policy-back-button:hover {
