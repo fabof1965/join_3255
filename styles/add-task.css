@@ -12,14 +12,8 @@
 
 .content {
   padding: var(--padding);
-  height: calc(100dvh - 2 * var(--padding-top-bottom) - 42.8px);
+  height: calc(100dvh - 2 * var(--padding-top-bottom) - 60.8px);
   overflow-y: scroll;
-}
-
-@media(max-width: 600px) {
-  .content {
-    height: calc(100dvh - 2 * var(--padding-top-bottom) - 132.8px);
-  }
 }
 
 .buttons {
