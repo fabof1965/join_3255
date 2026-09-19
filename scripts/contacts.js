@@ -119,13 +119,33 @@ async function renderContacts() { // die hier brauche ich
     allContacts = await loadContacts();
     const contactContainer = document.getElementById("contacts");
     contactContainer.innerHTML = "";
-
+    sortContactsByName(allContacts);
     for (let i = 0; i < allContacts.length; i++) {
         contactContainer.innerHTML += getContactTemplate(i);
+        
     }
+
+    console.log(allContacts);
+
     // const contactData = getContactsData();
     // for(let indexContact = 0; indexContact < contactData.length; indexContact++) {
     // }
+}
+
+function sortContactsByName(contacts) {
+    contacts.sort(function(a, b){
+
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase(); 
+
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    })
 }
 
 async function loadContacts() {

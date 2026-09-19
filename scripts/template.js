@@ -340,7 +340,7 @@ function getInputFieldsForSignup() {
 
 function getContactTemplate(i) {
   return `
-                <div id="letter" class="letter">${allContacts[i].name.charAt(0)}</div>
+                <div id="letter" class="letter">${allContacts[i].name.charAt(0).toUpperCase()}</div>
                 <div class="seperator"></div>
 
                 <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
