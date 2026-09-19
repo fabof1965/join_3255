@@ -18,11 +18,12 @@
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js" defer></script>
 </head>
-<body>
+<body onload="initContacts()">
     <header id="header"></header>
 
     <main class="main-layout">
-        <aside id="sidebar"></aside>
+        <!-- sidebar kann hardgecodet bleiben -->
+        <aside id="sidebar"></aside> 
          <section class="contacts-section">
             <button class="btn-new-contact btn" onclick="openContactDialog()">
                 <span id="txt-add-new-contact">Add new contact</span>
@@ -30,20 +31,8 @@
             </button>
             <div id="contacts">
                 <!-- content should be generated and not be written by hand -->
-                <div class="letter">
+                <div id="letter" class="letter">
                     A
-                </div>
-                
-                <div class="seperator"></div>
-
-                <div class="contact-card" id="contact-card" onclick="toggleBackgroundColor(document.getElementById('contact-card'))">
-                    <div class="profile-badge">
-                        AM
-                    </div>
-                    <div class="name-and-mail">
-                        <span class="name">Anton Mayer</span>
-                        <span class="mail">antom@gmail.com</span>
-                    </div>
                 </div>
             </div>
          </section>
@@ -74,7 +63,7 @@
                             <h3 class="info-headline">
                                 <span>Contact Information</span>
                             </h3>
-                            <button onclick="toggleBackgroundColor(document.getElementById('contact-card'))" class="arrow-btn">
+                            <button onclick="toggleBackgroundColor(document.getElementById(`contact-card${i}`))" class="arrow-btn">
                                 <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
                             </button>
                         </div>
