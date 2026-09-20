@@ -7,8 +7,7 @@
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
     overflow-y: scroll;
 }
-
-@media(max-width: 600px) {
+@media(max-width: 950px) {
     .main-layout {
         height: calc(100dvh - 92.8px);
     }
@@ -103,9 +102,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 56px 24px;
+    padding: var(--padding);
     position: fixed;
-    transform: translateX(400%);
+    transform: translateX(100%);
     transition: transform 600ms ease-in-out;
     background-color: var(--white-color);
     min-height: 100dvh;
@@ -113,7 +112,7 @@
 }
 
 .animation-right {
-    transform: translateX(10px);
+    transform: translateX(0);
 }
 
 .profile-badge-large {
@@ -137,7 +136,7 @@
     width: var(--full);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
     .detail-header {
         flex-direction: column-reverse;
     }
@@ -166,11 +165,11 @@
 .arrow-btn {
     display: none;
     border: none;
-    background-color: white;
+    background-color: var(--white-color);
     border-radius: var(--border-radius-circular);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
     .arrow-btn {
         display: flex;
     }
@@ -200,7 +199,7 @@
     font-size: 16px;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
     .edit, .delete {
         display: none;
     }

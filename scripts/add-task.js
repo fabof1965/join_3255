@@ -1,6 +1,7 @@
 let newTaskStatus = "toDo";
 let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
+let editingTaskId = "";
 
 /**
  * Opens the Add Task dialog for a board column.
@@ -10,12 +11,84 @@ let newTaskSubtasks = [];
 
 function openAddTask(status) {
   const overlay = document.getElementById("add-task-overlay");
+  editingTaskId = "";
   newTaskStatus = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
+  overlay.querySelector("input[name='title']").focus();
+}
+
+/**
+ * Converts escaped task text back to readable form for form fields.
+ * @param {string} value - Stored task text.
+ * @returns {string} Plain text value.
+ */
+function decodeTaskText(value = "") {
+  const element = document.createElement("textarea");
+  element.innerHTML = value;
+  return element.value;
+}
+
+/**
+ * Selects the saved priority inside the task form.
+ * @param {HTMLFormElement} form - Add/Edit Task form.
+ * @param {string} priority - Priority value.
+ * @returns {void}
+ */
+function setTaskFormPriority(form, priority = "medium") {
+  selectedTaskPriority = priority;
+  form.querySelectorAll("[data-priority]").forEach((button) =>
+    button.classList.toggle("selected", button.dataset.priority === priority),
+  );
+}
+
+/**
+ * Selects assigned users in the task form.
+ * @param {HTMLSelectElement} select - Assigned users select.
+ * @param {string[]} users - User initials to select.
+ * @returns {void}
+ */
+function setTaskFormUsers(select, users = []) {
+  Array.from(select.options).forEach((option) => {
+    option.selected = users.includes(option.value);
+  });
+}
+
+/**
+ * Fills the task form with existing task data.
+ * @param {HTMLFormElement} form - Add/Edit Task form.
+ * @param {Object} task - Existing task.
+ * @returns {void}
+ */
+function fillTaskForm(form, task) {
+  form.elements.title.value = decodeTaskText(task.title);
+  form.elements.description.value = decodeTaskText(task.fullDescription || task.description);
+  form.elements.dueDate.value = task.dueDate || "";
+  form.elements.category.value = task.category || "";
+  setTaskFormPriority(form, task.priority);
+  setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
+  newTaskSubtasks = [...(task.subtaskTitles || [])];
+  renderNewSubtasks();
+}
+
+/**
+ * Opens the task form in edit mode.
+ * @param {Object} task - Task to edit.
+ * @returns {void}
+ */
+function openEditTask(task) {
+  const overlay = document.getElementById("add-task-overlay");
+  editingTaskId = task.id;
+  newTaskStatus = task.status;
+  overlay.innerHTML = addTaskDialogTemplate;
+  overlay.hidden = false;
+  document.body.classList.add("overlay-open");
+  overlay.querySelector("#add-task-title").textContent = "Edit Task";
+  overlay.querySelector(".create-task-button").textContent = "Save Task";
+  fillTaskForm(overlay.querySelector("#add-task-form"), task);
   overlay.querySelector("input[name='title']").focus();
 }
 
@@ -27,6 +100,7 @@ function closeAddTask() {
   const overlay = document.getElementById("add-task-overlay");
   overlay.hidden = true;
   overlay.innerHTML = "";
+  editingTaskId = "";
   document.body.classList.remove("overlay-open");
 }
 
@@ -145,6 +219,39 @@ function createTaskFromForm(form) {
 }
 
 /**
+ * Updates an existing task from the form fields.
+ * @param {HTMLFormElement} form - Edit Task form.
+ * @returns {Promise<void>}
+ */
+async function submitEditedTask(form) {
+  const taskIndex = exampleTasks.findIndex(({ id }) => id === editingTaskId);
+  if (taskIndex < 0) return;
+  const currentTask = exampleTasks[taskIndex];
+  const updatedTask = {
+    ...currentTask,
+    ...createTaskFromForm(form),
+    id: editingTaskId,
+    status: currentTask.status,
+  };
+  updatedTask.fullDescription = updatedTask.description;
+  exampleTasks[taskIndex] = updatedTask;
+  await patchData(`tasks/${editingTaskId}`, {
+    title: updatedTask.title,
+    description: updatedTask.description,
+    fullDescription: updatedTask.description,
+    dueDate: updatedTask.dueDate,
+    category: updatedTask.category,
+    priority: updatedTask.priority,
+    assignedUsers: updatedTask.assignedUsers,
+    assignedUserNames: updatedTask.assignedUserNames,
+    subtasks: updatedTask.subtasks,
+    subtaskTitles: updatedTask.subtaskTitles,
+  });
+  closeAddTask();
+  renderSearchResults(document.getElementById("task-search").value);
+}
+
+/**
  * Saves a new task locally and refreshes the board.
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
@@ -153,6 +260,10 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
+  if (editingTaskId) {
+    await submitEditedTask(form);
+    return;
+  }
   const task = createTaskFromForm(form);
   const { name: firebaseId } = await postData("tasks", task);
   task.id = firebaseId;
@@ -172,7 +283,8 @@ function handleAddTaskClick(event) {
   if (opener) openAddTask(opener.dataset.addTaskStatus);
   if (event.target.closest(".add-task-close")) closeAddTask();
   if (event.target.id === "add-task-overlay") closeAddTask();
-  if (event.target.matches("[data-priority]")) selectTaskPriority(event.target);
+  const priorityButton = event.target.closest("[data-priority]");
+  if (priorityButton) selectTaskPriority(priorityButton);
 }
 
 /**
