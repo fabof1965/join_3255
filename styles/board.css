@@ -7,9 +7,8 @@
   flex-direction: column;
   gap: 16px;
   padding: var(--padding);
-  height: calc(100dvh - 92.5px);
+  height: calc(100dvh - 92.8px);
   overflow-y: scroll;
-  scrollbar-color: var(--primary-color) transparent;
 }
 
 .board-toolbar-wrapper {
@@ -144,7 +143,7 @@
   transition: background-color 100ms ease;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .task-list {
     flex-direction: row;
     overflow-x: scroll;
@@ -180,7 +179,7 @@
   flex: 0 0 var(--task-card-dimensions);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .task-card {
     aspect-ratio: 1;
   }
@@ -225,6 +224,7 @@
   word-break: break-word;
   overflow: hidden;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }

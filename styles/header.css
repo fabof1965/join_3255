@@ -25,6 +25,12 @@
   gap: 8px;
 }
 
+@media(max-width: 950px) {
+  .header-right span {
+    display: none;
+  }
+}
+
 .header-icon-button {
   width: auto;
   height: auto;

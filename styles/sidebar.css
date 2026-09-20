@@ -30,7 +30,7 @@
   width: var(--full);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   #sidebar {
     z-index: 9999;
     background-color: var(--white-color);
@@ -73,7 +73,7 @@
   background-color: var(--secondary-color);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .page-links a {
     flex-direction: column;
     justify-content: center;
@@ -90,7 +90,7 @@
   }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .sidebar-navigation a img{
     width: 24px;
     height: 24px;
@@ -103,7 +103,7 @@
   width: var(--full);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .sidebar-footer{
     display: none;
   }
