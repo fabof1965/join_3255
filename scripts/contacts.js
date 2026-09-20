@@ -43,13 +43,13 @@ const testContacts = [
     }
 ];
 
+function animateContactDetailContainer(i) {
+    getContactsData(i);
+}
+
 function toggleBackgroundColor(element, i) {
     element.classList.toggle("background-primary");
     animateContactDetailContainer(i);
-}
-
-function animateContactDetailContainer(i) {
-    getContactsData(i);
 }
 
 const contactData = [];
