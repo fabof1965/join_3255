@@ -223,19 +223,43 @@ input, select, textarea {
   box-shadow: var(--addTaskBoxShadow);
 }
 
+.urgent-svg {
+  fill: var(--red-color);
+}
+
 .add-task-priority [data-priority="urgent"].selected {
   background-color: var(--red-color);
   color: var(--white-color);
+
+  .urgent-svg {
+    fill: var(--white-color);
+  }
+}
+
+.medium-svg {
+  fill: var(--medium-task-color);
 }
 
 .add-task-priority [data-priority="medium"].selected {
   background-color: var(--medium-task-color);
   color: var(--white-color);
+
+  .medium-svg {
+    fill: var(--white-color);
+  }
+}
+
+.low-svg {
+  fill: var(--low-task-color);
 }
 
 .add-task-priority [data-priority="low"].selected {
   background-color: var(--low-task-color);
-  color: var(--black-color);
+  color: var(--white-color);
+
+  .low-svg {
+    fill: var(--white-color);
+  }
 }
 
 .add-task-subtasks {
