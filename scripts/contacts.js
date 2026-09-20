@@ -1,5 +1,23 @@
 let allContacts = [];
 
+const colorContacts = [
+    "#FF7A00",
+    "#9327FF",
+    "#FF745E",
+    "#FFC701",
+    "#FFE62B",
+    "#FF5EB3",
+    "#00BEE8",
+    "#FFA35E",
+    "#0038FF",
+    "#FF4646",
+    "#6E52FF",
+    "#1FD7C1",
+    "#FC71FF",
+    "#C3FF2B",
+    "#FFBB2B",
+];
+
 function initContacts() {
     renderContacts();
 }
@@ -18,31 +36,6 @@ const displayAttributes = {
     hide: "none"
 }
 
-const testContacts = [
-    {
-        "id": 1,
-        "first-name": "Anton",
-        "last-name": "Mayer",
-        "phone": "+49 1111 111 11 1",
-        "email": "antom@gmail.com",
-
-    },
-    {
-        "id": 2,
-        "first-name": "Bernd",
-        "last-name": "Schmidt",
-        "phone": "+49 123 456789",
-        "email": "bernd.schmidt@example.com"
-    },
-    {
-        "id": 3,
-        "first-name": "Max",
-        "last-name": "Mustermann",
-        "phone": "+49 987 654321",
-        "email": "max.mustermann@example.com"
-    }
-];
-
 function animateContactDetailContainer(i) {
     getContactsData(i);
 }
@@ -58,6 +51,7 @@ function getContactsData(i) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
     CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(i);
+    setBadgeBackgroundColor();
 }
 
 function positionDialog(potition) {
@@ -94,9 +88,9 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
 
 function getContactFormfromForm() {
     return {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim()
     };
 }
 
@@ -104,6 +98,7 @@ async function addNewContact(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
+    if (!contact.name || !contact.email || !contact.phone) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
     form.reset();
@@ -126,6 +121,7 @@ async function renderContacts() { // die hier brauche ich
         }
         contactContainer.innerHTML += getContactTemplate(i);
     }
+    setBadgeBackgroundColor();
 }
 
 function sortContactsByName(contacts) {
@@ -150,23 +146,43 @@ async function loadContacts() {
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
-function renderProfileBadges(name) {
-    const namePart = name.split(" ");
+function renderProfileBadges(initials) {
+    const namePart = initials.split(" ");
     const firstLetter = namePart.shift().charAt(0);
     const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0) : "";
     return (firstLetter + lastLetter);
 }
 
+function getBadgeColor(initials) {
+    let charSum = 0;
+    for (let i = 0; i < initials.length; i++) {
+        charSum += initials.charCodeAt(i);
+    }
+
+    return colorContacts[charSum % colorContacts.length];
+}
+
+function setBadgeBackgroundColor() {
+    const badges = document.querySelectorAll('.profile-badge, .profile-badge-large');
+    badges.forEach(badge => {
+        badge.style.backgroundColor = getBadgeColor(badge.textContent.trim());
+    });
+}
+
 function editExistingContact() {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     // hier muss noch die Edit eigentschaften eingefügt werden
+    // TODO: Badge mit Initialen statt Personen-Icon anzeigen, danach
+    // setBadgeBackgroundColor() aufrufen (sonst bleibt es farblos).
     openContactDialog();
 }
 
 async function deleteContact(i) {
+    let contactDetails = document.getElementById('contact-detail');
     const contact = allContacts[i];
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
+    contactDetails.innerHTML = "";
     renderContacts();
 }
 
