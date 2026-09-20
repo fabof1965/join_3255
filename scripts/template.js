@@ -131,7 +131,7 @@ const taskOverlayTemplate = `
     <footer class="task-overlay-actions">
       <button class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="delete task" />Delete</button>
       <span></span>
-      <button type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
+      <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
     </footer>
   </article>
 `;

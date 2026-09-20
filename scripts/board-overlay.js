@@ -94,6 +94,17 @@ async function deleteOpenedTask() {
 }
 
 /**
+ * Opens the form for the currently displayed task.
+ * @returns {void}
+ */
+function editOpenedTask() {
+  const task = exampleTasks.find(({ id }) => id === openedTaskId);
+  if (!task) return;
+  closeTaskOverlay();
+  openEditTask(task);
+}
+
+/**
  * Closes the task detail overlay.
  * @returns {void}
  */
@@ -112,6 +123,7 @@ function handleTaskOverlayClick(event) {
   const backdrop = event.target.id === "task-overlay";
   if (card) openTaskOverlay(card.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
+  if (event.target.closest(".task-overlay-edit")) editOpenedTask();
   if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
 }
 
