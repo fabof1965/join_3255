@@ -375,7 +375,7 @@ function getContactInformationTemplate(i) {
                                 <button class="edit" onclick="editExistingContact()">
                                     <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
                                 </button>
-                                <button class="delete">
+                                <button onclick="deleteContact(${i})" class="delete">
                                     <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
                                 </button>    
                             </div>

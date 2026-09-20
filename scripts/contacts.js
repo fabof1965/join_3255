@@ -163,15 +163,13 @@ function editExistingContact() {
     openContactDialog();
 }
 
-// async function deleteContact() {
-//     const contactDialog = getDialog();
-//     const contactIndex = allContacts.findIndex(({id}) => id === openContactId);
-//     if (contactIndex < 0) return;
-//     allContacts.splice(contactIndex, 1);
-//     await deleteData("contacts/" + openContactId);
-//     contactDialog.close();
-//     renderContacts();
-// }
+async function deleteContact(i) {
+    const contact = allContacts[i];
+    if (!contact) return;
+    await deleteData('contacts/' + contact.id);
+    renderContacts();
+}
+
 
 function showContact() {
 
