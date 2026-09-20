@@ -21,7 +21,7 @@
   justify-content: flex-end;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .direction-container {
     flex-direction: column-reverse;
   }
@@ -37,7 +37,7 @@
   font-size: var(--login-header-font-size);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .auth-header {
     margin: var(--auth-input-gap);
     justify-content: center;
@@ -50,7 +50,7 @@
   width: 5px;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .spacing {
     height: 0;
     width: 0;

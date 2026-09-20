@@ -7,7 +7,8 @@
   flex-direction: column;
   gap: 16px;
   padding: var(--padding);
-  scrollbar-color: var(--primary-color) transparent;
+  height: calc(100dvh - 92.8px);
+  overflow-y: scroll;
 }
 
 .board-toolbar-wrapper {
@@ -142,7 +143,7 @@
   transition: background-color 100ms ease;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .task-list {
     flex-direction: row;
     overflow-x: scroll;
@@ -178,7 +179,7 @@
   flex: 0 0 var(--task-card-dimensions);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .task-card {
     aspect-ratio: 1;
   }

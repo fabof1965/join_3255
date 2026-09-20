@@ -16,7 +16,7 @@ body {
   justify-content: flex-start;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 950px) {
   .main-layout {
     flex-direction: column-reverse;
   }
