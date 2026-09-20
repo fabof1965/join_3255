@@ -224,9 +224,15 @@
     gap: 8px;
 }
 
+.phone-detail{
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
 .email-text{
     font-size: 16px;
     color: var(--primary-color);
+    text-decoration: none;
 }
 
 /* dialog */

@@ -395,11 +395,11 @@ function getContactInformationTemplate(i) {
       <div class="contact-information">
         <section class="email">
           <h4>E-Mail</h4>
-          <span id="mail-detail" class="email-text">${allContacts[i].email}</span>
+          <a id="mail-detail" class="email-text" href="mailto:${allContacts[i].email}">${allContacts[i].email}</a>
         </section>
         <section class="phone">
           <h4>Phone</h4>
-          <span id="phone-detail">${allContacts[i].phone}</span>
+          <a class="phone-detail" id="phone-detail" href="tel:${allContacts[i].phone}">${allContacts[i].phone}</a>
         </section>
       </div>
   `;

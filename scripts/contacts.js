@@ -99,6 +99,7 @@ async function addNewContact(event) {
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
     if (!contact.name || !contact.email || !contact.phone) return;
+    if (await checkIfContactExists(contact)) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
     form.reset();
@@ -144,6 +145,16 @@ async function loadContacts() {
     const response = await getData('contacts');
     if (!response) return [];
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+}
+
+async function checkIfContactExists(newContact) {
+    const response = await getData('contacts');
+    return response
+        ? Object.values(response).some(contact =>
+            contact.email === newContact.email ||
+            contact.name === newContact.name ||
+            contact.phone === newContact.phone)
+        : false;
 }
 
 function renderProfileBadges(initials) {
