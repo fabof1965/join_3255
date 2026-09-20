@@ -93,7 +93,6 @@
     --search-bar-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
     --add-task-button-padding: var(--board-search-padding);
     --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
-    --add-task-subheading-font-size: clamp(20px, calc(17.714px + 0.714vw), 28px);
     --board-column-header-font-size: clamp(24px, calc(22.857px + 0.357vw), 28px);
 
     /*summary*/
@@ -114,8 +113,12 @@
     --error-message-border-bottom: 2px solid var(--red-color);
 
     /*add task*/
-    --add-task-input-font-size: clamp(18px, calc(16.857px + 0.357vw), 22px);
-    --add-task-subheading-font-size: clamp(20px, calc(17.714px + 0.714vw), 28px);
+    --add-task-input-font-size: clamp(18px, calc(17.429px + 0.179vw), 20px);
+    --add-task-subheading-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
+    --add-task-form-gap: clamp(8px, calc(5.714px + 0.714vw), 16px);
+    --add-task-title-input-font-size: clamp(24px, calc(21.714px + 0.714vw), 32px);
+    --add-task-label-gap: clamp(4px, calc(2.857px + 0.357vw), 8px);
+    --priority-button-padding: clamp(8px, calc(5.714px + 0.714vw), 16px) clamp(4px, calc(2.857px + 0.357vw), 8px);
 
     /*legal-notice and privacy-policy*/
     --legal-notice-headline-font-size: clamp(40px, calc(35.429px + 1.429vw), 56px);

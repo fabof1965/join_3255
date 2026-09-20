@@ -6,7 +6,6 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  height: var(--min-page-height);
 }
 
 .main-layout {

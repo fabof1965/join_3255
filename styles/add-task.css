@@ -4,24 +4,36 @@
   width: var(--full);
 }
 
+.content {
+  padding: var(--padding);
+  height: calc(100dvh - 92.8px);
+  overflow-y: scroll;
+}
+
 @media(max-width: 1170px) {
   .main-content {
     flex-direction: column;
-    height: calc(100dvh - 2 * var(--padding-top-bottom) - 60px);
+    height: calc(100dvh - 92.8px);
     overflow-y: scroll;
+  }
+
+  .content {
+    height: unset;
+    overflow-y: unset;
   }
 }
 
-.content {
-  padding: var(--padding);
-  height: calc(100dvh - 2 * var(--padding-top-bottom) - 60px);
-  overflow-y: scroll;
+@media(max-width: 600px) {
+  .main-content {
+    height: unset;
+    overflow-y: unset;
+  }
 }
 
 .add-task-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--add-task-form-gap);
   width: var(--full);
   max-width: unset;
 }
@@ -35,7 +47,7 @@ input, select, textarea {
 }
 
 .add-task-title-field input {
-  font-size: var(--summary-text-large);
+  font-size: var(--add-task-title-input-font-size);
 }
 
 .buttons {
@@ -149,6 +161,7 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   color: var(--menu-color);
+  gap: var(--add-task-label-gap);
 }
 
 .add-task-field strong,
@@ -160,19 +173,6 @@ input, select, textarea {
 .add-task-field strong span {
   font-weight: 400;
 }
-
-/* .add-task-field input,
-.add-task-field select,
-.add-task-field textarea {
-  width: var(--full);
-  padding: 12px 16px;
-  border: none;
-  border-bottom: 1px solid var(--search-bar-outline-color);
-  outline: none;
-  background-color: var(--white-color);
-  color: var(--black-color);
-  font: inherit;
-} */
 
 .add-task-field textarea {
   min-height: 103px;
@@ -193,10 +193,16 @@ input, select, textarea {
 }
 
 .add-task-priority {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--add-task-label-gap);
   border: none;
+}
+
+.priority-buttons {
+  display: flex;
+  width: var(--full);
+  gap: var(--add-task-label-gap);
 }
 
 .add-task-priority legend {
@@ -209,7 +215,7 @@ input, select, textarea {
   justify-content: center;
   align-items: center;
   gap: 16px;
-  padding: var(--add-task-button-padding);
+  padding: var(--priority-button-padding);
   font-size: var(--add-task-input-font-size);
   border-radius: var(--element-design-border-radius);
   border: none;
@@ -270,13 +276,5 @@ input, select, textarea {
 
   .add-task-header h2 {
     font-size: 40px;
-  }
-
-  .add-task-priority {
-    gap: 8px;
-  }
-
-  .add-task-priority button {
-    font-size: 16px;
   }
 }
