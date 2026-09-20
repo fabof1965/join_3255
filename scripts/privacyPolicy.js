@@ -11,4 +11,4 @@ function leavePrivacyPolicy() {
 }
 
 
-document.querySelector(".legal-back-button").addEventListener("click", leavePrivacyPolicy);
+document.querySelector(".privacy-policy-back-button").addEventListener("click", leavePrivacyPolicy);

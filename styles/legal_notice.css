@@ -8,6 +8,14 @@ h2, h3 {
   gap: var(--summary-container-gap);
   padding: var(--padding);
   width: var(--full);
+  height: calc(100dvh - 2 * var(--padding-top-bottom) - 67.8px);
+  overflow-y: scroll;
+}
+
+.back-btn-container {
+  display: flex;
+  width: var(--full);
+  justify-content: flex-end;
 }
 
 .legal-title-row {
@@ -19,6 +27,7 @@ h2, h3 {
 
 .legal-title-row h1 {
   font-size: var(--legal-notice-headline-font-size);
+  text-wrap: var(--noTextWrap);
 }
 
 .legal-back-button {

@@ -92,11 +92,14 @@
     --search-button-image-dimensions: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --search-bar-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
     --add-task-button-padding: var(--board-search-padding);
+    --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
+    --add-task-subheading-font-size: clamp(20px, calc(17.714px + 0.714vw), 28px);
+    --board-column-header-font-size: clamp(24px, calc(22.857px + 0.357vw), 28px);
 
     /*summary*/
     --summary-text-large: clamp(32px, calc(27.429px + 1.429vw), 48px);
     --summary-container-gap: clamp(16px, calc(11.429px + 1.429vw), 32px);
-    --summary-grid-width: clamp(70px, calc(44.286px + 8.036vw), 1fr);
+    --summary-grid-width: 1fr;
 
     /*login*/
     --login-header-font-size: clamp(20px, calc(16.571px + 1.071vw), 32px);
@@ -111,9 +114,12 @@
     --error-message-border-bottom: 2px solid var(--red-color);
 
     /*add task*/
+    --add-task-input-font-size: clamp(18px, calc(16.857px + 0.357vw), 22px);
+    --add-task-subheading-font-size: clamp(20px, calc(17.714px + 0.714vw), 28px);
 
     /*legal-notice and privacy-policy*/
-    --legal-notice-headline-font-size: clamp(32px, calc(29.714px + 0.714vw), 40px);
+    --legal-notice-headline-font-size: clamp(40px, calc(35.429px + 1.429vw), 56px);
     --legal-notice-subheading-font-size: clamp(20px, calc(16.571px + 1.071vw), 32px);
     --back-btn-image-dimensions: clamp(28px, calc(24.571px + 1.071vw), 40px);
+    --noTextWrap: nowrap;
 }
