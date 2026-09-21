@@ -179,7 +179,7 @@
 }
 
 .large-text {
-    font-size: var(--resp-font-size);
+    font-size: var(--large-font-size);
 }
 
 .edit-delete {
