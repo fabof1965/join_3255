@@ -52,7 +52,7 @@
 
 @media(max-width: 1000px) {
     .summary-card-container {
-        grid-template-rows: repeat(4, 125px);
+        grid-template-rows: repeat(4, 115px);
         width: var(--full);
     }
 }
