@@ -19,7 +19,7 @@
 
 .greeting-text {
     color: var(--greeting-text-color);
-    font-size: var(--summary-text-large);
+    font-size: var(--large-font-size);
     font-weight: normal;
 }
 
@@ -31,13 +31,13 @@
 
 .greeting-text-guest{
     color: var(--greeting-text-color);
-    font-size: var(--summary-text-large);
+    font-size: var(--large-font-size);
     font-weight: bold;
 }
 
 .username {
     color: var(--primary-color);
-    font-size: var(--summary-text-large);
+    font-size: var(--large-font-size);
     font-weight: bold;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .task-number {
-    font-size: var(--summary-text-large);
+    font-size: var(--large-font-size);
     font-weight: bold;
     color: var(--white-color);
 }
@@ -91,7 +91,7 @@
 }
 
 .date-text {
-    font-size: calc(var(--summary-text-large) - 12px);
+    font-size: calc(var(--large-font-size));
     font-weight: bold;
     color: var(--white-color);
 }

@@ -44,7 +44,7 @@ button {
 
 .content-wrapper {
   max-width: var(--page-max-width);
-  margin: 0 auto;
+  margin: var(--content-limit-margin);
 }
 
 .header {
