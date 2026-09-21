@@ -11,6 +11,12 @@
   overflow-y: scroll;
 }
 
+@media(max-width: 950px) {
+  .board-container {
+    height: calc(100dvh - 179.7px);
+  }
+}
+
 .board-toolbar-wrapper {
   display: flex; 
   flex-direction: column;
@@ -26,7 +32,7 @@
   width:var(--full);
 }
 
-@media(max-width: 650px) {
+@media(max-width: 950px) {
   .board-toolbar {
     margin-top: 32px;
   }
@@ -52,7 +58,7 @@
   display: flex;
   border: none;
   background: none;
-  padding-left: var(--search-button-padding);
+  padding-left: var(--search-button-padding-left);
   border-left: 2px solid var(--search-bar-outline-color);
 }
 
