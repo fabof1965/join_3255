@@ -39,7 +39,7 @@
 }
 
 input, select, textarea {
-  font-size: var(--add-task-input-font-size);
+  font-size: var(--small-font-size);
   border: none;
   border-bottom: 1px solid var(--search-bar-outline-color);
   width: var(--full);
@@ -166,7 +166,7 @@ input, select, textarea {
 
 .add-task-field strong,
 .add-task-priority legend {
-  font-size: var(--add-task-subheading-font-size);
+  font-size: var(--small-font-size);
   font-weight: 700;
 }
 
@@ -175,7 +175,8 @@ input, select, textarea {
 }
 
 .add-task-field textarea {
-  min-height: 103px;
+  field-sizing: content;
+  max-height: 200px;
   resize: vertical;
   border: 1px solid var(--search-bar-outline-color);
   border-radius: 0 10px 10px;
@@ -216,7 +217,7 @@ input, select, textarea {
   align-items: center;
   gap: 16px;
   padding: var(--priority-button-padding);
-  font-size: var(--add-task-input-font-size);
+  font-size: var(--small-font-size);
   border-radius: var(--element-design-border-radius);
   border: none;
   background-color: var(--white-color);
