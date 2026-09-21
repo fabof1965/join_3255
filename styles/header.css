@@ -6,6 +6,13 @@
   width: var(--full);
 }
 
+@media(max-width: 950px) {
+  #header {
+    position: sticky;
+    top: 0;
+  }
+}
+
 .content-limit {
   display: flex;
   justify-content: space-between;
