@@ -1,3 +1,7 @@
+.main-layout {
+  height: unset;
+}
+
 .main-content {
   display: flex;
   justify-content: space-between;
