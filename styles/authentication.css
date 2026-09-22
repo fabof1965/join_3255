@@ -205,6 +205,8 @@
 
 #checkbox-container {
   display: none;
+  flex-direction: column;
+  align-items: center;
   width: var(--full);
   margin-bottom: var(--auth-input-gap);
   justify-content: center;
@@ -393,6 +395,10 @@ dialog::backdrop {
   width: var(--full);
   padding-left: 16px;
   height: 1rem;
+}
+
+#privacy-policy-error-msg{
+  text-align: center;
 }
 
 .error-message-border-bottom{
