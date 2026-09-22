@@ -4,6 +4,7 @@
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   width: var(--full);
+  z-index: 10;
 }
 
 @media(max-width: 950px) {

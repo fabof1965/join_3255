@@ -1,19 +1,13 @@
 .main-layout {
   display: flex;
+  height: unset;
 }
 
 .board-container {
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
-  height: calc(100dvh - 92.8px);
-  overflow-y: scroll;
-}
-
-@media(max-width: 950px) {
-  .board-container {
-    height: calc(100dvh - 179.7px);
-  }
+  position: relative;
 }
 
 .board-toolbar-wrapper {
@@ -23,7 +17,7 @@
   margin-bottom: var(--margin-bottom-medium);;
   padding: var(--padding);
   position: sticky;
-  top: 0;
+  top: 93px;
   z-index: 10;
   background-color: var(--white-color);
 }
@@ -149,6 +143,8 @@
   flex-direction: column;
   gap: var(--gap-small);
   flex-wrap: var(--noTextWrap);
+  overflow: auto;
+  height: 50dvh;
   transition: background-color 100ms ease;
 }
 
