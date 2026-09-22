@@ -81,7 +81,7 @@ async function registerUser(event) {
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
     const emailExists = await checkIfEmailExists(emailSignup.value);
-    if (emailExists || !passwordOk || !privacyOk) return; 
+    if (emailExists || !passwordOk || !privacyOk) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();

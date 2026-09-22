@@ -363,7 +363,7 @@ function getFirstLetterTemplate(firstLetter) {
 }
 
 function getContactInformationTemplate(i) {
-  return`
+  return `
       <header class="detail-header">
         <div class="header-content-1">
           <div class="profile-badge-large large-text">
