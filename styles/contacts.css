@@ -213,14 +213,23 @@
     gap: var(--gap-large);;
 }
 
+.phone-detail{
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
 .info-headline {
-    font-size: var(--medium-font-size);
+  font-size: var(--medium-font-size);
 }
 
 .email, .phone {
     display: flex;
     flex-direction: column;
     gap: var(--gap-small);
+}
+
+.phone{
+    text-decoration: none;
 }
 
 .email-text{
