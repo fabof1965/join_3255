@@ -223,11 +223,6 @@
     gap: var(--gap-small);
 }
 
-.phone-detail{
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
 .email-text{
     font-size: var(--small-font-size);;
     color: var(--primary-color);
