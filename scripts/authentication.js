@@ -77,7 +77,7 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
-    if (!signUpForm.reportValidity()) return;
+    // if (!signUpForm.reportValidity()) return;
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
     const emailExists = await checkIfEmailExists(emailSignup.value);
@@ -113,6 +113,7 @@ function comparePassword() {
 
     if (passwordSignup.value === confirmPasswordSignup.value) {
         invalidPassword.classList.add('visibility-hidden');
+        borderBottom.classList.remove('error-message-border-bottom');
         return true;
     } else {
         invalidPassword.classList.remove('visibility-hidden');
@@ -123,15 +124,20 @@ function comparePassword() {
 
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
+    const errorMsg = document.getElementById('privacy-policy-error-msg');
 
     if (checkboxSignup.checked) {
-        checkboxSignup.setCustomValidity("");
+        errorMsg.classList.add('visibility-hidden');
         return true;
     } else {
-        checkboxSignup.setCustomValidity("Please accept the privacy policy");
-        checkboxSignup.reportValidity();
+        errorMsg.classList.remove('visibility-hidden');
         return false;
     }
+}
+
+function resetpricavyPolicityCheckbox() {
+    const errorMsg = document.getElementById('privacy-policy-error-msg');
+    errorMsg.classList.add('visibility-hidden');
 }
 
 function signUpSuccessPopUp() {
@@ -324,6 +330,7 @@ function backToLogin() {
     setDisplayForLoginElements();
 
     resetCheckboxValidity();
+    resetpricavyPolicityCheckbox();
     initPasswordEventListener();
     initLoginEventListeners();
 }
