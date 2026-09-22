@@ -20,7 +20,7 @@
   display: flex; 
   flex-direction: column;
   gap: var(--gap-medium);
-  margin-bottom: 32px;
+  margin-bottom: var(--margin-bottom-medium);;
   padding: var(--padding);
   position: sticky;
   top: 0;
@@ -38,7 +38,7 @@
 
 @media(max-width: 950px) {
   .board-toolbar {
-    margin-top: 32px;
+    margin-top: var(--margin-bottom-medium);
   }
 }
 
@@ -51,7 +51,7 @@
 }
 
 .board-search input {
-  font-size: var(--search-bar-font-size) - 8px;
+  font-size: var(--search-bar-font-size);
   display: flex;
   border: none;
   outline: none;
@@ -107,7 +107,7 @@
 
 .search-no-results {
   color: var(--search-bar-outline-color);
-  font-size: 16px;
+  font-size: var(--small-font-size);
 }
 
 .column-header {
@@ -115,7 +115,7 @@
   align-items: center;
   justify-content: space-between;
   width: var(--full);
-  margin-bottom: 16px;
+  margin-bottom: calc(var(--margin-bottom-medium) / 2);
 }
 
 .column-header h2 {
@@ -124,19 +124,19 @@
 }
 
 .column-header button {
-  height: 24px;
-  width: 24px;
-  border-radius: 8px;
+  height: calc(var(--back-btn-image-dimensions) * 0.75);
+  width: calc(var(--back-btn-image-dimensions) * 0.75);
+  border-radius: var(--element-design-border-radius);
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   background: none;
-  font-size: 16px;
+  font-size: var(--small-font-size);
 }
 
 .empty-task-list {
   width: var(--full);
   text-align: center;
-  padding: 8px;
+  padding: var(--padding-small);
   border-radius: var(--element-design-border-radius);
   background-color: var(--empty-task-background-color);
   color: var(--no-todo-color);
@@ -155,7 +155,7 @@
 @media(max-width: 950px) {
   .task-list {
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     align-items: unset;
     scrollbar-color: var(--primary-color) transparent;
   }
@@ -182,7 +182,7 @@
   flex-direction: column;
   gap: var(--gap-medium);
   background-color: var(--white-color);
-  border-radius: 24px;
+  border-radius: var(--element-design-border-radius);
   box-shadow: var(--task-card-box-shadow);
   cursor: grab;
   flex: 0 0 var(--task-card-dimensions);
@@ -201,9 +201,9 @@
 
 .task-category {
   width: fit-content;
-  padding: 4px 16px;
+  padding: var(--padding-small);
   color: var(--white-color);
-  border-radius: 8px;
+  border-radius: var(--element-design-border-radius);
 }
 
 .task-category-user-story {
@@ -251,13 +251,13 @@
   height: 8px;
   /* overflow: hidden; */
   background-color: var(--progress-track-background-color);
-  border-radius: 8px;
+  border-radius: var(--element-design-border-radius);;
 }
 
 .progress-fill {
   height: var(--full);
   background-color: var(--primary-color);
-  border-radius: 8px;
+  border-radius: var(--element-design-border-radius);;
 }
 
 .subtask-progress span {
@@ -292,10 +292,6 @@
 
 .user-badge:nth-child(3) {
   background-color: var(--third-user-badge-background-color);
-}
-
-.user-badge+.user-badge {
-  margin-left: -8px;
 }
 
 .task-priority {

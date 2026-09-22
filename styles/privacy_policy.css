@@ -28,7 +28,7 @@ h2 {
 }
 
 .privacy-policy-back-button {
-  border-radius: 50%;
+  border-radius: var(--border-radius-circular);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +51,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--gap-small);;
 }
 
 .page-links {

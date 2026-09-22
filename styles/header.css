@@ -29,7 +29,7 @@
   color: var(--white-color);
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: var(--gap-small);;
 }
 
 @media(max-width: 950px) {

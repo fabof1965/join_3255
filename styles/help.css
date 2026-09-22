@@ -38,7 +38,7 @@
     }
 
     .help-intro {
-        font-size: 16px;
+        font-size: var(--small-font-size);;
         line-height: 1.5;
         width: var(--full);
         color: var(--black-color);
@@ -48,7 +48,7 @@
         width: var(--full);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: var(--gap-medium);;
 
         h2 {
             font-size: var(--legal-notice-subheading-font-size);
@@ -59,7 +59,7 @@
         }
 
         p {
-            font-size: 16px;
+            font-size: var(--small-font-size);;
             line-height: 1.5;
             color: var(--black-color);
             margin: 0;
@@ -72,7 +72,7 @@
         .help-step-row {
             display: flex;
             align-items: flex-start;
-            gap: 20px;
+            gap: var(--gap-large);
 
             .step-number {
                 font-size: var(--legal-notice-subheading-font-size);
@@ -88,14 +88,14 @@
                 gap: 4px;
 
                 h3 {
-                    font-size: 19px;
+                    font-size: var(--medium-font-size);
                     font-weight: 700;
                     color: var(--primary-color);
                     margin: 0;
                 }
 
                 p {
-                    font-size: 16px;
+                    font-size: var(--small-font-size);;
                     line-height: 1.4;
                     color: var(--black-color);
                     margin: 0;
@@ -103,7 +103,7 @@
             }
         }
         .enjoy-it {
-            font-size: 30px;
+            font-size: var(--large-font-size);
             font-weight: bold;
             color: var(--primary-color);
         }

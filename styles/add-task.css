@@ -61,7 +61,7 @@ input, select, textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 32px;
+  gap: var(--gap-large);;
   padding: var(--padding);
 }
 
@@ -77,7 +77,7 @@ input, select, textarea {
 .btn-clear, .btn-create-task {
   display: flex;
   align-self: flex-end;
-  gap: 8px;
+  gap: var(--gap-small);;
   align-items: center;
   font-size: var(--login-form-button-font-size);
 }

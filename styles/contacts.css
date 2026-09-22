@@ -1,7 +1,7 @@
 .contacts-section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-medium);
     padding: var(--padding);
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
@@ -19,9 +19,7 @@
 
 .btn-new-contact {
     display: flex;
-    gap: 16px;
-    font-size: 23px;
-    padding: 16px 32px;
+    gap: var(--gap-medium);
     align-items: center;
     justify-content: center;
     background-color: var(--primary-color);
@@ -47,9 +45,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 32px;
-    padding: 8px 32px;
-    font-size: 24px;
+    gap: var(--gap-large);
+    padding: var(--padding-medium);
+    font-size: var(--medium-font-size);
     border-radius: var(--element-design-border-radius);
 }
 
@@ -62,9 +60,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
-    height: 48px;
-    padding: 12px;
+    width: var(--small-user-badge-width);
+    height: var(--small-user-badge-width);
+    padding: var(--padding-small);
     border-radius: var(--border-radius-circular);
     background-color: var(--user-story-color);
     border: 2px solid var(--white-color);
@@ -82,7 +80,7 @@
 
 .mail {
     color: var(--primary-color);
-    font-size: 16px;
+    font-size: var(--small-font-size);;
 }
 
 .background-primary, .background-primary:hover {
@@ -100,7 +98,7 @@
 .detailed-contact {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--gap-large);
     padding: var(--padding);
     position: fixed;
     transform: translateX(100%);
@@ -120,7 +118,7 @@
     align-items: center;
     width: var(--large-profile-badge-dimensions);
     height: var(--large-profile-badge-dimensions);
-    padding: 8px;
+    padding: var(--padding-small);
     border-radius: var(--border-radius-circular);
     background-color: var(--user-story-color);
 }
@@ -129,7 +127,7 @@
 .detail-header {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-medium);;
     align-items: flex-start;
     justify-content: center;
     width: var(--full);
@@ -143,7 +141,7 @@
 
 .header-content-1 {
     display: flex;
-    gap: 30px;
+    gap: var(--gap-large);
 }
 
 .header-content-2 {
@@ -157,7 +155,7 @@
 
 .name-edit-delete {
     display: flex;
-    gap: 16px;
+    gap: var(--gap-medium);
     flex-direction: column;
 }
 
@@ -184,18 +182,18 @@
 
 .edit-delete {
     display: flex;
-    gap: 32px;
+    gap: var(--gap-large);;
     align-items: center;
 }
 
 .edit, .delete {
     display: flex;
-    gap: 4px;
+    gap: var(--gap-small);
     align-items: center;
     border: none;
     background-color: transparent;
     color: var(--black-color);
-    font-size: 16px;
+    font-size: var(--small-font-size);;
 }
 
 @media(max-width: 950px) {
@@ -211,21 +209,21 @@
 .contact-information {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--gap-large);;
 }
 
 .info-headline {
-    font-size: 23px;
+    font-size: var(--medium-font-size);
 }
 
 .email, .phone {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--gap-small);
 }
 
 .email-text{
-    font-size: 16px;
+    font-size: var(--small-font-size);;
     color: var(--primary-color);
 }
 
@@ -260,23 +258,23 @@ dialog[open] {
 }
 
 #dialog-headline {
-    font-size: 48px;
+    font-size: var(--large-font-size);
 }
 
 #dialog-subheading {
-    font-size: 24px;
+    font-size: var(--medium-font-size);
 }
 
 .close-dialog-button {
-    margin-top: 16px;
-    margin-right: 16px;
+    margin-top: calc(var(--margin-bottom-medium)  /2);
+    margin-right: calc(var(--margin-bottom-medium)  /2);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: var(--border-radius-circular);
     background-color: transparent;
-    border: none;
     margin-left: auto;
+    border: none;
 }
 
 .close-dialog-button:hover {
@@ -285,7 +283,7 @@ dialog[open] {
 
 .logo-header {
     /* margin-top: 2rem; */
-    width: 40px;
+    width: var(--small-user-badge-width);
 }
 
 .badge-image-container {
@@ -295,24 +293,28 @@ dialog[open] {
     margin: 3rem auto 1rem auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
-    width: 80px;
-    height: 80px;
+    width: var(--large-profile-badge-dimensions);
+    height: var(--large-profile-badge-dimensions);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .data-input-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
-    padding: 0 40px;
-    width: var(--full);
+    gap: var(--gap-large);
+    width: calc(var(--full) * 0.75);
 }
 
 .input-wrapper {
     display: flex;
     align-items: center;
-    gap: 32px;
-    width: 85%;
+    gap: var(--gap-large);
     border-bottom: 2px solid var(--search-bar-outline-color);
 }
 
@@ -322,28 +324,27 @@ input {
 }
 
 .input-label-img {
-    padding: 8px;
+    padding: var(--padding-small);
 }
 
 .btn-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: var(--gap-medium);;
     width: var(--full);
-    margin-top: 32px;
-    padding-bottom: 32px;
+    margin-top: var(--margin-medium);
+    padding-bottom: var(--padding-medium);
 }
 
 .cancel-btn, .create-contact-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 8px;
+    gap: var(--gap-small);;
+    border-radius: var(--element-design-border-radius);
     color: var(--guest-login-button-text-color);
-    font-size: 16px;
+    font-size: var(--small-font-size);
     border: var(--guest-login-button-border);
 }
 

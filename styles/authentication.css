@@ -61,7 +61,7 @@
 .auth-btn {
   background-color: var(--primary-color);
   color: white;
-  border-radius: 8px;
+  border-radius: var(--element-design-border-radius);;
   font-size: var(--login-form-button-font-size);
   font-family: 'Open Sans', sans-serif;
 }
@@ -208,7 +208,7 @@
   width: var(--full);
   margin-bottom: var(--auth-input-gap);
   justify-content: center;
-  gap: 8px;
+  gap: var(--gap-small);;
 }
 
 #signup-btn-container {
@@ -221,7 +221,7 @@
 .submit-btn-container {
   display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: var(--gap-large);;
   margin-top: 32px;
   padding: var(--login-padding);
   padding-top: 0;

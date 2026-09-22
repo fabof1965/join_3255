@@ -62,6 +62,7 @@ button {
   border-radius: var(--element-design-border-radius);
   background: none;
   text-wrap: nowrap;
+  font-size: var(--medium-font-size);
 }
 
 .btn:hover {
