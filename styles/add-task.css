@@ -149,16 +149,15 @@ input, select, textarea {
 }
 
 .add-task-close {
-  width: 32px;
-  height: 32px;
-  padding: 0;
+  width: var(--back-btn-image-dimensions);
+  height: var(--back-btn-image-dimensions);
   border: none;
   background: none;
 }
 
 .add-task-close img {
   width: var(--full);
-  height: 100%;
+  height: var(--full);
 }
 
 .add-task-field {
@@ -191,16 +190,15 @@ input, select, textarea {
 }
 
 .add-task-field small {
-  min-height: 19px;
   color: var(--red-color);
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: var(--small-font-size);
 }
 
 .add-task-priority {
   display: flex;
   flex-direction: column;
-  gap: var(--add-task-label-gap);
+  gap: var(--gap-large);
   border: none;
 }
 
@@ -219,13 +217,14 @@ input, select, textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: var(--gap-small);
   padding: var(--priority-button-padding);
   font-size: var(--small-font-size);
   border-radius: var(--element-design-border-radius);
   border: none;
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
+  flex: 1;
 }
 
 .urgent-svg {
@@ -269,7 +268,7 @@ input, select, textarea {
 
 .add-task-subtasks {
   margin: -16px 0 0;
-  padding-left: 32px;
+  padding-left: var(--padding-medium);
 }
 
 .create-task-button {
@@ -291,19 +290,4 @@ input, select, textarea {
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-}
-
-@media (max-width: 560px) {
-  .add-task-dialog {
-    padding: 24px 16px;
-    border-radius: 20px;
-  }
-
-  .add-task-header {
-    margin-bottom: 32px;
-  }
-
-  .add-task-header h2 {
-    font-size: 40px;
-  }
 }

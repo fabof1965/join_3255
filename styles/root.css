@@ -75,7 +75,8 @@
     /*back and close image dimensions*/
     --back-btn-image-dimensions: clamp(28px, calc(24.571px + 1.071vw), 40px);
     
-    /*contact-details*/
+    /*contacts and user badge*/
+    --small-user-badge-width: clamp(24px, calc(20.571px + 0.952vw), 32px);
     --large-profile-badge-dimensions: clamp(40px, calc(28.571px + 3.571vw), 80px);
 
     --logo-position-left: max(0px, calc((100% - var(--page-max-width)) / 2));
@@ -131,7 +132,7 @@
     /*add task*/
     --add-task-input-font-size: var(--small-font-size);
     --add-task-subheading-font-size: var(--medium-font-size);
-    --add-task-form-gap: var(--gap-small);
+    --add-task-form-gap: var(--gap-medium);
     --add-task-title-input-font-size: var(--large-font-size);
     --add-task-label-gap: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --priority-button-padding: clamp(8px, calc(5.714px + 0.714vw), 16px) clamp(4px, calc(2.857px + 0.357vw), 8px);
