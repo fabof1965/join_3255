@@ -81,7 +81,7 @@ async function registerUser(event) {
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
     const emailExists = await checkIfEmailExists(emailSignup.value);
-    if (emailExists || !passwordOk || !privacyOk) return; 
+    if (emailExists || !passwordOk || !privacyOk) return;
     const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
     allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
     signUpForm.reset();
@@ -133,6 +133,11 @@ function acceptPrivacyPolicy() {
         errorMsg.classList.remove('visibility-hidden');
         return false;
     }
+}
+
+function resetpricavyPolicityCheckbox() {
+    const errorMsg = document.getElementById('privacy-policy-error-msg');
+    errorMsg.classList.add('visibility-hidden');
 }
 
 function signUpSuccessPopUp() {
@@ -325,6 +330,7 @@ function backToLogin() {
     setDisplayForLoginElements();
 
     resetCheckboxValidity();
+    resetpricavyPolicityCheckbox();
     initPasswordEventListener();
     initLoginEventListeners();
 }
