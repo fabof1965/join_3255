@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     text-wrap: nowrap;
-    margin-bottom: 24px;
+    margin-bottom: var(--margin-bottom-medium);
 }
 
 .greeting-text {
@@ -47,21 +47,24 @@
     grid-template-columns: repeat(4, var(--summary-grid-width));
     grid-template-rows: repeat(2, var(--summary-grid-width));
     gap: var(--summary-container-gap);
+    width: fit-content;
 }
 
 @media(max-width: 1000px) {
     .summary-card-container {
-        grid-template-rows: repeat(4, var(--summary-grid-width));
+        grid-template-rows: repeat(4, 115px);
+        width: var(--full);
     }
 }
 
 .blue-head-column {
     display: flex;
     align-items: center;
-    gap: 32px;
+    justify-content: center;
+    gap: var(--gap-medium);
+    padding: var(--padding-small);
     grid-area: 1 / 1 / 2 / 4;
     background-color: var(--primary-color);
-    padding: 16px 32px;
     border-radius: var(--form-border-radius);
 }
 
@@ -74,7 +77,12 @@
 .icon-and-number {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--gap-small);
+}
+
+img.task-icons {
+    width: var(--task-icon-dimensions);
+    height: var(--task-icon-dimensions);
 }
 
 .task-number {
@@ -84,21 +92,21 @@
 }
 
 .sub-text {
-    font-size: 18px;
+    font-size: var(--small-font-size);
     color: var(--white-color);
     display: flex;
     line-height: 1.2;
 }
 
 .date-text {
-    font-size: calc(var(--large-font-size));
+    font-size: var(--medium-font-size);
     font-weight: bold;
     color: var(--white-color);
 }
 
 .divider {
     width: 3px;
-    height: 145px;
+    height: var(--full);
     background-color: var(--white-color);
 }
 
@@ -109,7 +117,8 @@
     align-items: center;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3); 
     border-radius: var(--form-border-radius);
-    gap: 16px;
+    gap: var(--gap-medium);
+    padding: var(--padding-small);
 
     .sub-text {
         color: var(--primary-color);

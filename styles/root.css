@@ -49,10 +49,15 @@
     --padding-top-bottom: clamp(16px, calc(11.429px + 1.429vw), 32px) ;
     --padding-left-right: clamp(4px, calc(-10.857px + 4.643vw), 56px);
     --padding: clamp(16px, calc(11.429px + 1.429vw), 32px) clamp(4px, calc(-10.857px + 4.643vw), 56px);
-    --padding-small: clamp(16px, calc(13.714px + 0.714vw), 24px) clamp(32px, calc(29.714px + 0.714vw), 40px);
+    --padding-medium: clamp(16px, calc(13.714px + 0.714vw), 24px) clamp(32px, calc(29.714px + 0.714vw), 40px);
+    --padding-small: clamp(8px, calc(5.714px + 0.714vw), 16px);
     --button-padding: var(--page-link-padding);
     --input-wrapper-padding: 8px 16px;
 
+    /*margin*/
+    --margin-bottom-medium: clamp(24px, calc(21.714px + 0.714vw), 32px);
+    --margin-medium: var(--margin-bottom-medium);
+    
     /*width and max-width*/
     --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
@@ -63,17 +68,19 @@
 
     /*font-size*/
     --large-font-size: clamp(23px, calc(16.143px + 2.143vw), 47px);
-    --medium-font-size: clamp(24px, calc(22.857px + 0.357vw), 28px);
+    --medium-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
     --small-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
 
     /*gap*/
-    --gap-small: clamp(8px, calc(5.714px + 0.714vw), 16px);
-    --gap-medium: clamp(16px, calc(11.429px + 1.429vw), 32px);
+    --gap-small: clamp(4px, calc(2.857px + 0.357vw), 8px);
+    --gap-medium: clamp(8px, calc(5.714px + 0.714vw), 16px);
+    --gap-large: clamp(16px, calc(11.429px + 1.429vw), 32px);
     
     /*back and close image dimensions*/
     --back-btn-image-dimensions: clamp(28px, calc(24.571px + 1.071vw), 40px);
     
-    /*contact-details*/
+    /*contacts and user badge*/
+    --small-user-badge-width: clamp(40px, calc(37.714px + 0.714vw), 48px);
     --large-profile-badge-dimensions: clamp(40px, calc(28.571px + 3.571vw), 80px);
 
     --logo-position-left: max(0px, calc((100% - var(--page-max-width)) / 2));
@@ -129,10 +136,11 @@
     /*add task*/
     --add-task-input-font-size: var(--small-font-size);
     --add-task-subheading-font-size: var(--medium-font-size);
-    --add-task-form-gap: var(--gap-small);
+    --add-task-form-gap: var(--gap-medium);
     --add-task-title-input-font-size: var(--large-font-size);
     --add-task-label-gap: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --priority-button-padding: clamp(8px, calc(5.714px + 0.714vw), 16px) clamp(4px, calc(2.857px + 0.357vw), 8px);
+    --task-icon-dimensions: clamp(60px, calc(55.429px + 1.429vw), 76px);
 
     /*legal-notice and privacy-policy*/
     --legal-notice-headline-font-size: var(--large-font-size);

@@ -4,6 +4,14 @@
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   width: var(--full);
+  z-index: 10;
+}
+
+@media(max-width: 950px) {
+  #header {
+    position: sticky;
+    top: 0;
+  }
 }
 
 .content-limit {
@@ -22,7 +30,7 @@
   color: var(--white-color);
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: var(--gap-small);;
 }
 
 @media(max-width: 950px) {
