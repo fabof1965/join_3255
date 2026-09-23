@@ -23,7 +23,7 @@
 }
 
 .header-left img {
-  height: 56px;
+  height: var(--small-user-badge-width);
 }
 
 .header-right {
