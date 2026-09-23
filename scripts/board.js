@@ -1,55 +1,99 @@
-const exampleTasks = [
+const defaultTasks = [
   {
-    id: "task-1",
-    category: "User Story",
+    id: "task-1", category: "User Story",
     title: "Kochwelt Page & Recipe Recommender",
     description: "Build start page with recipe recommendation...",
-    status: "inProgress",
-    assignedUsers: ["CE", "JB"],
-    priority: "low",
+    status: "inProgress", assignedUsers: ["CE", "JB"], priority: "low",
     subtasks: { completed: 1, total: 2 },
   },
   {
-    id: "task-2",
-    category: "Technical Task",
+    id: "task-2", category: "Technical Task",
     title: "HTML Base Template Creation",
     description: "Create reusable HTML base templates...",
-    status: "awaitFeedback",
-    assignedUsers: ["CE"],
-    priority: "low",
+    status: "awaitFeedback", assignedUsers: ["CE"], priority: "low",
     subtasks: { completed: 2, total: 3 },
   },
   {
-    id: "task-3",
-    category: "Technical Task",
+    id: "task-3", category: "Technical Task",
     title: "CSS Architecture Planning",
     description: "Define CSS naming conventions and structure...",
     fullDescription: "Define CSS naming conventions and structure.",
-    status: "done",
-    assignedUsers: ["SG", "JB"],
+    status: "done", assignedUsers: ["SG", "JB"], priority: "urgent",
     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
-    priority: "urgent",
-    dueDate: "02/09/2023",
-    subtasks: { completed: 2, total: 2 },
+    dueDate: "02/09/2023", subtasks: { completed: 2, total: 2 },
     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
   },
   {
-    id: "task-4",
-    category: "User Story",
+    id: "task-4", category: "User Story",
     title: "Daily Kochwelt Recipe",
     description: "Implement daily recipe and portion calculator....",
-    status: "awaitFeedback",
-    assignedUsers: ["CE", "JB", "FG"],
-    priority: "medium",
+    status: "awaitFeedback", assignedUsers: ["CE", "JB", "FG"], priority: "medium",
   },
 ];
+const defaultBoardTasks = defaultTasks.filter(({ status }) => status !== "toDo");
+const exampleTasks = structuredClone(defaultBoardTasks);
 
 let draggedTaskId = "";
 
-function init() {
-  renderBoard(exampleTasks);
+/** Loads saved tasks before enabling board interactions. */
+async function init() {
+  setBoardLoading(true);
+  try {
+    const response = await fetch(BASE_URL + "tasks.json");
+    if (!response.ok) throw new Error("Task loading failed");
+    const tasks = await response.json();
+    const combined = new Map(structuredClone(defaultBoardTasks).map((task) => [task.id, task]));
+    Object.entries(tasks || {}).map(normalizeBoardTask).forEach((task) => combined.set(task.id, task));
+    exampleTasks.splice(0, exampleTasks.length, ...combined.values());
+    renderSearchResults(document.getElementById("task-search").value);
+  } catch {
+    renderBoard(exampleTasks);
+    showBoardLoadMessage("Tasks could not be loaded. Please reload the page.");
+  }
+  setBoardLoading(false);
   initializeTaskSearch();
   initializeTaskDropZones();
+}
+
+
+/** Normalizes optional Firebase arrays and uses the database key as the ID.
+ * @param {Array} entry - Firebase key and task data.
+ * @returns {Object} Task compatible with board rendering.
+ */
+function normalizeBoardTask([id, task]) {
+  return {
+    ...task, id,
+    assignedUsers: Array.isArray(task.assignedUsers) ? task.assignedUsers : [],
+    assignedUserNames: Array.isArray(task.assignedUserNames) ? task.assignedUserNames : [],
+    subtaskTitles: Array.isArray(task.subtaskTitles) ? task.subtaskTitles : [],
+  };
+}
+
+
+/** Locks task creation and search until loading completes.
+ * @param {boolean} loading - Whether tasks are loading.
+ */
+function setBoardLoading(loading) {
+  document.querySelectorAll("[data-add-task-status], #task-search").forEach((control) => {
+    control.disabled = loading;
+  });
+  if (loading) {
+    renderBoard(exampleTasks);
+    showBoardLoadMessage("Loading tasks...");
+  }
+}
+
+
+/** Displays loading or failure feedback in the board columns.
+ * @param {string} text - Message to display.
+ */
+function showBoardLoadMessage(text) {
+  document.querySelectorAll(".task-list").forEach((list) => {
+    const message = document.createElement("p");
+    message.className = "empty-task-list";
+    message.textContent = text;
+    list.append(message);
+  });
 }
 
 /**

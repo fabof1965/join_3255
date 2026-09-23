@@ -5,7 +5,7 @@ const sidebarTemplate = `
           <img src="../assets/icons/summary.svg" alt="" />
           <span>Summary</span>
         </a>
-        <a href="">
+        <a href="./add_task.html">
           <img src="../assets/icons/add_task.svg" alt="" />
           <span>Add Task</span>
         </a>

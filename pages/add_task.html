@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join | Add Task</title>
+    <link rel="icon" href="../assets/icons/logo-blue.svg" />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/addTaskPage.css" />
+    <script src="../scripts/template.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/addTaskPage.js" defer></script>
+  </head>
+  <body class="add-task-page">
+    <header id="header"></header>
+    <div class="task-page-layout">
+      <aside id="sidebar"></aside>
+      <main class="task-page-main">
+        <h1 class="visually-hidden">Add Task</h1>
+        <form id="task-page-form" novalidate>
+          <div class="task-fields">
+            <div class="task-field task-title">
+              <label class="visually-hidden" for="task-title">Title</label>
+              <input id="task-title" name="title" placeholder="Enter a title" aria-describedby="title-error" required />
+              <small id="title-error">This field is required</small>
+            </div>
+            <div class="task-field task-description">
+              <label for="task-description">Description <span>(optional)</span></label>
+              <textarea id="task-description" name="description" placeholder="Enter a Description"></textarea>
+            </div>
+            <div class="task-field">
+              <label for="task-date">Due date</label>
+              <input id="task-date" name="dueDate" type="date" required aria-describedby="dueDate-error" />
+              <small id="dueDate-error">This field is required</small>
+            </div>
+            <fieldset class="task-priorities">
+              <legend>Priority</legend>
+              <div class="priority-options">
+                <button type="button" data-priority="urgent" aria-pressed="false">Urgent<img src="../assets/icons/addTaskUrgent.svg" alt="" /></button>
+                <button type="button" data-priority="medium" aria-pressed="true">Medium<img src="../assets/icons/addTaskMedium.svg" alt="" /></button>
+                <button type="button" data-priority="low" aria-pressed="false">Low<img src="../assets/icons/addTaskLow.svg" alt="" /></button>
+              </div>
+            </fieldset>
+            <div class="task-field task-assignees">
+              <label id="assignees-label">Assigned to <span>(optional)</span></label>
+              <button id="assignee-toggle" class="task-select" type="button" aria-expanded="false" aria-controls="contact-options" aria-labelledby="assignees-label assignee-caption">
+                <span id="assignee-caption">Select contacts to assign</span><img src="../assets/icons/addTaskDropdown.svg" alt="" />
+              </button>
+              <div id="contact-options" class="contact-options" hidden>
+                <label class="visually-hidden" for="contact-search">Search contacts</label>
+                <input id="contact-search" type="search" placeholder="Search contacts" autocomplete="off" />
+                <div id="contact-list" aria-live="polite"></div>
+              </div>
+              <div id="selected-contacts" class="selected-contacts" aria-live="polite"></div>
+            </div>
+            <div class="task-field">
+              <label for="task-category">Category</label>
+              <select id="task-category" name="category" required aria-describedby="category-error">
+                <option value="">Select task category</option>
+                <option>User Story</option>
+                <option>Technical Task</option>
+              </select>
+              <small id="category-error" hidden></small>
+            </div>
+            <div class="task-field">
+              <label for="task-subtask">Subtasks <span>(optional)</span></label>
+              <div class="subtask-input">
+                <input id="task-subtask" placeholder="Add new subtask" />
+                <button id="add-subtask" type="button" title="Add subtask" aria-label="Add subtask"><img src="../assets/icons/addTaskCheck.svg" alt="" /></button>
+              </div>
+              <ul id="subtask-list"></ul>
+            </div>
+          </div>
+          <footer class="task-actions">
+            <p id="task-feedback" role="status"></p>
+            <button class="task-clear" type="reset">Clear<img src="../assets/icons/addTaskClear.svg" alt="" /></button>
+            <button class="task-create" type="submit">Create Task<img src="../assets/icons/addTaskCheck.svg" alt="" /></button>
+          </footer>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

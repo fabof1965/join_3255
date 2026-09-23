@@ -1,10 +1,17 @@
 .main-layout {
+  --sidebar-header-height: 88px;
   display: flex;
+  width: 100%;
+  max-width: var(--page-max-width);
+  min-width: 0;
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .board-container {
   flex: 1;
   min-width: 0;
+  overflow-x: hidden;
   padding: 0 64px;
   padding-top: 72px;
 }
