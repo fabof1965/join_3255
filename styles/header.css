@@ -34,7 +34,7 @@
 }
 
 @media(max-width: 950px) {
-  .header-right span {
+  .kanban {
     display: none;
   }
 }
