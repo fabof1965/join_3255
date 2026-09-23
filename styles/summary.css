@@ -1,3 +1,12 @@
+.blue-head-column,
+.tasks-to-do,
+.task-in-progress,
+.task-feedback,
+.task-in-board,
+.tasks-done {
+    cursor: pointer;
+}
+
 .summary-container {
     display: flex;
     flex-direction: column;
@@ -23,13 +32,19 @@
     font-weight: normal;
 }
 
-@media(max-width: 780px) {
+.username {
+    color: var(--primary-color);
+    font-size: var(--large-font-size);
+    font-weight: bold;
+}
+
+@media (max-width: 780px) {
     .greeting-container {
         display: none;
     }
 }
 
-.greeting-text-guest{
+.greeting-text-guest {
     color: var(--greeting-text-color);
     font-size: var(--large-font-size);
     font-weight: bold;
@@ -41,7 +56,6 @@
     font-weight: bold;
 }
 
-
 .summary-card-container {
     display: grid;
     grid-template-columns: repeat(4, var(--summary-grid-width));
@@ -50,7 +64,7 @@
     width: fit-content;
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .summary-card-container {
         grid-template-rows: repeat(4, 115px);
         width: var(--full);
@@ -65,10 +79,27 @@
     padding: var(--padding-small);
     grid-area: 1 / 1 / 2 / 4;
     background-color: var(--primary-color);
-    border-radius: var(--form-border-radius);
+    border-radius: var(--summary-card-border-radius);
+    cursor: pointer;
+    transition: var(--hover-transition);
+    &:hover {
+        transform: scale(var(--hover-scale));
+        background-color: var(--white-color);
+        box-shadow: var(--summary-card-box-shadow);
+        border-top-left-radius: 0;
+
+        .task-number, .sub-text, .date-text, .divider, .task-icons{
+            transform: scale(var(--hover-scale));
+            color: var(--primary-color);
+        }
+
+        .divider {
+            background-color: var(--primary-color);
+        }
+    }
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .blue-head-column {
         grid-area: 1 / 1 / 2 / 5;
     }
@@ -80,9 +111,11 @@
     gap: var(--gap-small);
 }
 
-img.task-icons {
-    width: var(--task-icon-dimensions);
-    height: var(--task-icon-dimensions);
+.task-icons {
+    background-color: var(--white-color);
+    width: var(--task-image-dimensions);
+    height: var(--task-image-dimensions);
+    border-radius: var(--border-radius-circular);
 }
 
 .task-number {
@@ -110,13 +143,17 @@ img.task-icons {
     background-color: var(--white-color);
 }
 
-.tasks-to-do, .task-in-progress, .task-feedback, .task-in-board, .tasks-done {
+.tasks-to-do,
+.task-in-progress,
+.task-feedback,
+.task-in-board,
+.tasks-done {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3); 
-    border-radius: var(--form-border-radius);
+    box-shadow: var(--summary-card-box-shadow);
+    border-radius: var(--summary-card-border-radius);
     gap: var(--gap-medium);
     padding: var(--padding-small);
 
@@ -129,12 +166,38 @@ img.task-icons {
     }
 }
 
+.task-in-progress:hover,
+.task-feedback:hover,
+.task-in-board:hover,
+.tasks-done:hover {
+    transition: var(--hover-transition);
+    background-color: var(--primary-color);
+    border-top-left-radius: 0;
+    transform: scale(var(--hover-scale));
+
+    .task-number, .sub-text, .task-icons{
+        transform: scale(var(--hover-scale));
+        color: var(--white-color);
+    }
+}
+
 .tasks-to-do {
-    background-color: var(--secondary-color); 
+    background-color: var(--secondary-color);
     grid-area: 2 / 1 / 2 / 2;
 }
 
-@media(max-width: 1000px) {
+.tasks-to-do:hover {
+    background-color: var(--white-color);
+    transform: scale(var(--hover-scale));
+    border-top-left-radius: 0;
+
+    .task-number {
+        color: var(--primary-color);
+    }
+
+}
+
+@media (max-width: 1000px) {
     .tasks-to-do {
         flex-direction: row;
         justify-content: center;
@@ -146,7 +209,7 @@ img.task-icons {
     grid-area: 2 / 2 / 2 / 3;
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .task-in-progress {
         grid-area: 3 / 3 / 3 / 5;
     }
@@ -156,7 +219,7 @@ img.task-icons {
     grid-area: 2 / 3 / 2 / 4;
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .task-feedback {
         grid-area: 4 / 3 / 4 / 5;
     }
@@ -166,18 +229,18 @@ img.task-icons {
     grid-area: 1 / 4 / 2 / 4;
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .task-in-board {
         grid-area: 4 / 1 / 3 / 3;
     }
 }
 
 .tasks-done {
-   grid-area: 2 / 4 / 2 / 5;
+    grid-area: 2 / 4 / 2 / 5;
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
     .tasks-done {
         grid-area: 5 / 1 / 4 / 3;
-    } 
-}  
+    }
+}

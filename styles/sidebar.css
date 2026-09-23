@@ -1,7 +1,7 @@
 #sidebar {
   display: flex;
+  flex-direction: column;
   box-shadow: var(--sidebar-box-shadow);
-  justify-content: center;
   padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
@@ -9,11 +9,6 @@
   fill: var(--menu-color);
 }
 
-@media(min-width: 1440px) {
-  #sidebar {
-    padding-left: 0;
-  }
-}
 .sidebar-navigation{
   display: flex;
   flex-direction: column;

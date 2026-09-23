@@ -1,5 +1,8 @@
 .help-content {
-    width: var(--full);
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
     padding: var(--padding);
     display: flex;
     flex-direction: column;
@@ -16,6 +19,7 @@
             font-weight: 700;
             line-height: 1;
             margin: 0;
+            padding-bottom: 40px;
         }
 
         .back-btn {
@@ -24,6 +28,7 @@
             justify-content: center;
             transition: transform 0.2s ease;
             border-radius: var(--border-radius-circular);
+            cursor: pointer;
 
             &:hover {
                 transform: scale(1.1);
@@ -38,7 +43,7 @@
     }
 
     .help-intro {
-        font-size: var(--small-font-size);;
+        font-size: var(--small-font-size);
         line-height: 1.5;
         width: var(--full);
         color: var(--black-color);
@@ -48,7 +53,7 @@
         width: var(--full);
         display: flex;
         flex-direction: column;
-        gap: var(--gap-medium);;
+        gap: var(--gap-medium);
 
         h2 {
             font-size: var(--legal-notice-subheading-font-size);
@@ -59,7 +64,7 @@
         }
 
         p {
-            font-size: var(--small-font-size);;
+            font-size: var(--small-font-size);
             line-height: 1.5;
             color: var(--black-color);
             margin: 0;
@@ -95,7 +100,7 @@
                 }
 
                 p {
-                    font-size: var(--small-font-size);;
+                    font-size: var(--small-font-size);
                     line-height: 1.4;
                     color: var(--black-color);
                     margin: 0;
