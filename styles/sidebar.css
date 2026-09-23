@@ -118,3 +118,19 @@
 .sidebar-footer a:hover, .sidebar-footer a.active {
   color: var(--primary-color);
 }
+#sidebar a, 
+.sidebar-link, 
+.sidebar nav a {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#sidebar a:hover, 
+.sidebar-link:hover, 
+.sidebar nav a:hover {
+    background-color: var(--secondary-color);
+    color: var(--black-color);
+    transform: translateY(4px);
+    box-shadow: 0px 2px 4px var(--primary-color);
+    border-radius: 12px; /* Falls deine Sidebar-Einträge abgerundete Ecken beim Hover bekommen sollen */
+}

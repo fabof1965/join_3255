@@ -1,3 +1,13 @@
+.blue-head-column,
+.tasks-to-do, 
+.task-in-progress, 
+.task-feedback, 
+.task-in-board, 
+.tasks-done {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
 .summary-container {
     display: flex;
     flex-direction: column;
@@ -66,6 +76,13 @@
     grid-area: 1 / 1 / 2 / 4;
     background-color: var(--primary-color);
     border-radius: var(--form-border-radius);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        transform: translateY(4px);
+        box-shadow: 0px 2px 4px var(--primary-color);
+        filter: brightness(0.85); 
+    }
 }
 
 @media(max-width: 1000px) {
@@ -119,6 +136,12 @@ img.task-icons {
     border-radius: var(--form-border-radius);
     gap: var(--gap-medium);
     padding: var(--padding-small);
+    &:hover {
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+        transform: translateY(4px);
+        box-shadow: 0px 2px 4px var(--primary-color);
+    }
 
     .sub-text {
         color: var(--primary-color);
