@@ -9,11 +9,6 @@
   fill: var(--menu-color);
 }
 
-@media(min-width: 1440px) {
-  #sidebar {
-    padding-left: 0;
-  }
-}
 .sidebar-navigation{
   display: flex;
   flex-direction: column;
@@ -118,4 +113,3 @@
 .sidebar-footer a:hover, .sidebar-footer a.active {
   color: var(--primary-color);
 }
- 
