@@ -244,3 +244,9 @@
         grid-area: 5 / 1 / 4 / 3;
     }
 }
+
+#comma {
+    color: var(--greeting-text-color);
+    font-size: var(--large-font-size);
+    font-weight: normal;
+}
