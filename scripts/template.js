@@ -74,7 +74,7 @@ const headerTemplate = `
         <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
       </button>
       <button class="header-icon-button" type="button" aria-label="Open user profile">
-        <img class="profile-icon" src="../assets/icons/user_profile.svg" alt="" />
+        <span id="profile-badge" class="profile-badge">SM</span>
       </button>
     </div>
   </div>

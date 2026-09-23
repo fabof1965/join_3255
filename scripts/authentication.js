@@ -168,6 +168,10 @@ async function userLogin(event) {
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         console.log("user gefunden");
+        // Speichere Name und E-Mail im localStorage, damit der Header die Initialen anzeigen kann
+        localStorage.setItem('name', user.name);
+        localStorage.setItem('email', user.email);
+        
         resetLogin();
         signUpForm.reset();
         window.location.href = './pages/summary.html';
