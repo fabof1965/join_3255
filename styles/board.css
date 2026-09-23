@@ -16,10 +16,7 @@
   gap: var(--gap-medium);
   margin-bottom: var(--margin-bottom-medium);;
   padding: var(--padding);
-  position: sticky;
-  top: 93px;
   z-index: 10;
-  background-color: var(--white-color);
 }
 
 .board-toolbar {
@@ -31,6 +28,11 @@
 }
 
 @media(max-width: 950px) {
+  .board-toolbar-wrapper {
+    position: sticky;
+    top: 90.8px;
+    background-color: var(--white-color);
+  }
   .board-toolbar {
     margin-top: var(--margin-bottom-medium);
   }
