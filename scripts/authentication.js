@@ -153,6 +153,7 @@ function closeDialog() {
     dialog.close();
 }
 
+
 /**
  * Handle the login form submission.
  * @param {Event} event - Login form submission event.
@@ -165,11 +166,20 @@ async function userLogin(event) {
     const passwordLogin = document.getElementById('login-password');
     const response = await getData('users');
     const users = response ? Object.values(response) : [];
-    const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
+    const user = users.find(u => u.email === emailLogin.value && u.password === passwordLogin.value);
+    
     if (user) {
-        console.log("user gefunden");
-        // Speichere Name und E-Mail im localStorage, damit der Header die Initialen anzeigen kann
-        localStorage.setItem('name', user.name);
+        console.log("user gefunden", user);
+        
+        const userName = user.name || user.username || user.fullName;
+        
+        if (userName) {
+            localStorage.setItem('name', userName);
+        } else {
+            const fallbackName = user.email.split('@')[0];
+            localStorage.setItem('name', fallbackName);
+        }
+        
         localStorage.setItem('email', user.email);
         
         resetLogin();
@@ -217,11 +227,10 @@ function resetLogin() {
 
 function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
-    const GUEST_USER = {
-        email: "guestuser@mail.de",
-        password: "guestpassword"
-    };
-    sessionStorage.setItem(JSON.stringify, GUEST_USER);
+    
+    localStorage.setItem('name', 'Guest');
+    localStorage.removeItem('email'); 
+    
     resetLogin();
     signUpForm.reset();
     window.location.href = './pages/summary.html';

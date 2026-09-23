@@ -103,7 +103,7 @@ function updateGreetingUI(user, isGuest) {
   }
   if (commaEl) commaEl.style.display = valid ? "inline" : "none";
 }
-// 1. Die Funktion, die den Klick auf die Karten steuert
+
 function initCardClicks() {
   const selectors = [
     ".blue-head-column",
