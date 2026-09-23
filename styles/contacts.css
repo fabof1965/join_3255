@@ -244,6 +244,7 @@ dialog[open] {
     display: flex;
     flex-direction: column; 
     border: none;
+    height: 100vh;
 }
 
 #dialog-header {
@@ -325,8 +326,7 @@ form {
 .input-wrapper {
     display: flex;
     align-items: center;
-    gap: var(--gap-large);
-    border-bottom: 2px solid var(--search-bar-outline-color);
+    flex-direction: column;
 }
 
 input {
@@ -369,3 +369,9 @@ input {
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
 }
+
+.add-contact-content{
+    display: flex;
+    border-bottom: 2px solid var(--search-bar-outline-color);
+    padding: 0;
+}   

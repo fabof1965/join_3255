@@ -214,6 +214,9 @@ function openContactDialog() {
 
 function closeContactDialog() {
     const contactDialog = document.getElementById("contact-dialog");
+    const contactForm = document.getElementById('contact-form');
 
+    
     contactDialog.close();
+    contactForm.reset();
 }

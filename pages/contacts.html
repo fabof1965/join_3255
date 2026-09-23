@@ -82,23 +82,29 @@
             <form id="contact-form" onsubmit="addNewContact(event)">
                 <div class="data-input-area">
                     <div class="input-wrapper">
-                        <label for="name" class="visually-hidden">Name</label>
-                        <input id="name" class="input-field" type="text" placeholder="Name" required />
-                        <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
-                    </div>
-                    <div>
+                        <div class="add-contact-content">
+                            <label for="name" class="visually-hidden">Name</label>
+                            <input id="name" class="input-field" type="text" placeholder="Name" required />
+                            <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
+                        </div>
                         <span>hallo</span>
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="email" class="visually-hidden">Email</label>
-                        <input id="email" class="input-field" type="email" placeholder="Email" required />
-                        <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
+                        <div class="add-contact-content">
+                            <label for="email" class="visually-hidden">Email</label>
+                            <input id="email" class="input-field" type="email" placeholder="Email" required />
+                            <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
+                        </div>
+                        <span class="error-msg visibility-hidden">this email exists, please use another.</span>
                     </div>
                     <div class="input-wrapper">
-                        <label for="phone" class="visually-hidden">Phone</label>
-                        <input id="phone" class="input-field" type="tel" placeholder="Phone" required />
-                        <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
+                        <div class="add-contact-content">
+                            <label for="phone" class="visually-hidden">Phone</label>
+                            <input id="phone" class="input-field" type="tel" placeholder="Phone" required />
+                            <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
+                        </div>
+                        <span>Please enter a valid number</span>
                     </div>
                 </div>
 
