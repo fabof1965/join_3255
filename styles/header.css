@@ -33,12 +33,6 @@
   gap: var(--gap-small);;
 }
 
-@media(max-width: 950px) {
-  .kanban {
-    display: none;
-  }
-}
-
 .header-icon-button {
   width: auto;
   height: auto;
