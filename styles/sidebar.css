@@ -1,5 +1,6 @@
 #sidebar {
   display: flex;
+  flex-direction: column;
   box-shadow: var(--sidebar-box-shadow);
   justify-content: center;
   padding: var(--padding-top-bottom) var(--padding-left-right);
