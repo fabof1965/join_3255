@@ -52,7 +52,7 @@
   border-radius: var(--border-radius-circular);
 }
 
-.profile-badge {
+#profile-badge {
   display: flex;
   justify-content: center;
   align-items: center;
