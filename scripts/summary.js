@@ -90,18 +90,22 @@ async function loadUserName() {
 }
 
 function updateGreetingUI(user, isGuest) {
-  let nameEl = document.getElementById("username");
-  let commaEl = document.getElementById("comma");
-  if (!nameEl) return;
+    let nameEl = document.getElementById("username");
+    let commaEl = document.getElementById("comma");
+    if (!nameEl) return;
 
-  let valid = user && user.name && !isGuest;
-  if (valid) {
-    let p = user.name.trim().split(" ");
-    nameEl.innerText = user.name.length > 13 ? `${p[0][0]} ${p[p.length - 1]}` : user.name;
-  } else {
-    nameEl.innerText = "";
-  }
-  if (commaEl) commaEl.style.display = valid ? "inline" : "none";
+    // Prüfen, ob ein echter User vorhanden ist und es KEIN Gast ist
+    let isRealUser = user && user.name && !isGuest;
+    let guestNameInStorage = localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
+
+    if (isRealUser && !guestNameInStorage) {
+        let p = user.name.trim().split(" ");
+        nameEl.innerText = user.name.length > 13 ? `${p[0][0]} ${p[p.length - 1]}` : user.name;
+        if (commaEl) commaEl.style.display = "inline"; // Komma anzeigen bei echtem User
+    } else {
+        nameEl.innerText = "";
+        if (commaEl) commaEl.style.display = "none"; 
+    }
 }
 
 function initCardClicks() {
