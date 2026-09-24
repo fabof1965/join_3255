@@ -63,6 +63,7 @@ button {
   background: none;
   text-wrap: nowrap;
   font-size: var(--medium-font-size);
+  transition: var(--element-transition);
 }
 
 .btn:hover {

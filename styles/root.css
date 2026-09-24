@@ -41,6 +41,11 @@
     --form-border-radius: 30px;
     --element-design-border-radius: 10px;
 
+    /*transition over all pages for animated elements except
+    starting animation*/
+    --element-transition-timing: 200ms;
+    --element-transition: all var(--element-transition-timing) ease;
+
     /*minimal page height*/
     --min-page-height: 100dvh;
     --page-content-height: calc(var(--min-page-height) - var(--header-height));
@@ -127,7 +132,6 @@
     --task-image-dimensions: clamp(40px, calc(35.429px + 1.429vw), 56px);
     --hover-scale: 1.05;
     --task-icon-border: 2px solid var(--white-color);
-    --hover-transition: all 0.2s ease-in-out;
 
     /*login*/
     --login-header-font-size: var(--medium-font-size);
