@@ -69,7 +69,7 @@ const headerTemplate = `
       </button>
     </div>
     <div class="header-right">
-      <span class="kanban">Kanban Project Management Tool</span>
+      <span class="kanban-text">Kanban Project Management Tool</span>
       <button class="header-icon-button" type="button" aria-label="Open help">
         <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
       </button>

@@ -43,6 +43,7 @@
 
     /*minimal page height*/
     --min-page-height: 100dvh;
+    --page-content-height: calc(var(--min-page-height) - var(--header-height));
 
     /* layout and spacing throughout all pages*/
     /*padding*/
@@ -90,7 +91,8 @@
     /*page-header*/
     --page-header-help-icon-width: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --page-header-help-icon-height: var(--page-header-help-icon-width);
-    
+    --header-height: 90.8px;
+
     --profile-icon-width: clamp(48px, calc(45.714px + 0.714vw), 56px);
     --profile-icon-height: var(--profile-icon-width);
 

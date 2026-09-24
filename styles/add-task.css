@@ -10,14 +10,14 @@
 
 .content {
   padding: var(--padding);
-  height: calc(100dvh - 92.8px);
+  height: var(--page-content-height);
   overflow-y: scroll;
 }
 
 @media(max-width: 1190px) {
   .main-content {
     flex-direction: column;
-    height: calc(100dvh - 92.8px);
+    height: var(--page-content-height);
     overflow-y: scroll;
   }
 
