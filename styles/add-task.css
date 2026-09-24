@@ -14,7 +14,7 @@
   overflow-y: scroll;
 }
 
-@media(max-width: 1170px) {
+@media(max-width: 1190px) {
   .main-content {
     flex-direction: column;
     height: calc(100dvh - 92.8px);
@@ -61,12 +61,15 @@ input, select, textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--gap-large);;
+  gap: var(--gap-small);
   padding: var(--padding);
+  padding-left: 0;
 }
 
-@media(max-width: 1170px) {
+@media(max-width: 1190px) {
   .buttons {
+    padding-left: var(--padding-left-right);
+    padding-top: 0;
     position: unset;
     right: unset;
     bottom: unset;
