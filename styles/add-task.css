@@ -1,6 +1,4 @@
-.main-layout {
-  height: unset;
-}
+
 
 .main-content {
   display: flex;
@@ -10,14 +8,14 @@
 
 .content {
   padding: var(--padding);
-  height: calc(100dvh - 92.8px);
+  height: var(--page-content-height);
   overflow-y: scroll;
 }
 
-@media(max-width: 1170px) {
+@media(max-width: 1190px) {
   .main-content {
     flex-direction: column;
-    height: calc(100dvh - 92.8px);
+    height: var(--page-content-height);
     overflow-y: scroll;
   }
 
@@ -61,12 +59,15 @@ input, select, textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--gap-large);;
+  gap: var(--gap-small);
   padding: var(--padding);
+  padding-left: 0;
 }
 
-@media(max-width: 1170px) {
+@media(max-width: 1190px) {
   .buttons {
+    padding-left: var(--padding-left-right);
+    padding-top: 0;
     position: unset;
     right: unset;
     bottom: unset;
@@ -144,7 +145,7 @@ input, select, textarea {
 }
 
 .add-task-header h2 {
-  font-size: 48px;
+  font-size: var(--large-font-size);
   line-height: 1.2;
 }
 
@@ -277,11 +278,6 @@ input, select, textarea {
   border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
   color: var(--white-color);
-  transition: filter 100ms ease;
-}
-
-.create-task-button:hover {
-  filter: brightness(1.1);
 }
 
 .visually-hidden {

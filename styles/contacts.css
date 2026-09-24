@@ -9,7 +9,7 @@
 }
 @media(max-width: 950px) {
     .main-layout {
-        height: calc(100dvh - 92.8px);
+        height: var(--page-content-height);
     }
 
     .contacts-section {

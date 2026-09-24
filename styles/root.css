@@ -41,8 +41,14 @@
     --form-border-radius: 30px;
     --element-design-border-radius: 10px;
 
+    /*transition over all pages for animated elements except
+    starting animation*/
+    --element-transition-timing: 200ms;
+    --element-transition: all var(--element-transition-timing) ease;
+
     /*minimal page height*/
     --min-page-height: 100dvh;
+    --page-content-height: calc(var(--min-page-height) - var(--header-height));
 
     /* layout and spacing throughout all pages*/
     /*padding*/
@@ -90,7 +96,8 @@
     /*page-header*/
     --page-header-help-icon-width: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --page-header-help-icon-height: var(--page-header-help-icon-width);
-    
+    --header-height: 90.8px;
+
     --profile-icon-width: clamp(48px, calc(45.714px + 0.714vw), 56px);
     --profile-icon-height: var(--profile-icon-width);
 
@@ -116,6 +123,7 @@
     --add-task-button-padding: var(--board-search-padding);
     --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
     --board-column-header-font-size: var(--medium-font-size);
+    --board-column-mobile-width: calc(var(--full) * 0.53);
 
     /*summary*/
     --summary-container-gap: var(--gap-medium);
@@ -125,7 +133,6 @@
     --task-image-dimensions: clamp(40px, calc(35.429px + 1.429vw), 56px);
     --hover-scale: 1.05;
     --task-icon-border: 2px solid var(--white-color);
-    --hover-transition: all 0.2s ease-in-out;
 
     /*login*/
     --login-header-font-size: var(--medium-font-size);
