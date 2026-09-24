@@ -155,9 +155,6 @@
 @media(max-width: 950px) {
   .board-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: calc(var(--gap-small) + 
-              var(--gap-medium) + 
-              var(--gap-large));
   }
 
   .board-column {
