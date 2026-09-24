@@ -218,7 +218,7 @@ const addTaskDialogTemplate = `
         <input name="subtask" type="text" placeholder="Add new subtask" />
       </label>
       <ul class="add-task-subtasks"></ul>
-      <button class="create-task-button" type="submit">Create Task</button>
+      <button class="create-task-button btn" type="submit">Create Task</button>
     </form>
   </section>
 `;

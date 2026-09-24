@@ -1,6 +1,4 @@
-.main-layout {
-  height: unset;
-}
+
 
 .main-content {
   display: flex;
@@ -147,7 +145,7 @@ input, select, textarea {
 }
 
 .add-task-header h2 {
-  font-size: 48px;
+  font-size: var(--large-font-size);
   line-height: 1.2;
 }
 
@@ -280,11 +278,6 @@ input, select, textarea {
   border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
   color: var(--white-color);
-  transition: filter 100ms ease;
-}
-
-.create-task-button:hover {
-  filter: brightness(1.1);
 }
 
 .visually-hidden {
