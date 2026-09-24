@@ -5,6 +5,12 @@
   padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
+@media(min-width: 1440px) {
+  #sidebar {
+    padding-left: 0;
+  }
+}
+
 .svg-fill {
   fill: var(--menu-color);
 }

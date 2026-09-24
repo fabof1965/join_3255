@@ -123,7 +123,6 @@
     --add-task-button-padding: var(--board-search-padding);
     --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
     --board-column-header-font-size: var(--medium-font-size);
-    --board-column-mobile-width: calc(var(--full) * 0.53);
 
     /*summary*/
     --summary-container-gap: var(--gap-medium);
