@@ -46,6 +46,7 @@
   .page-links{
     flex-direction: row;
     gap: var(--gap-small);
+    justify-content: space-between;
   }
 }
 
@@ -72,7 +73,7 @@
   .page-links a {
     flex-direction: column;
     justify-content: center;
-    padding: var(--padding-small);
+    padding: var(--padding-small) 0;
   }
 
   .page-links a:hover, .page-links a.active {
@@ -108,6 +109,7 @@
   text-decoration: none;
   color: var(--menu-color);
   padding: var(--page-link-padding);
+  text-wrap: nowrap;
 }
 
 .sidebar-footer a:hover, .sidebar-footer a.active {
