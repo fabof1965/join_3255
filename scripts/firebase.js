@@ -49,8 +49,13 @@ async function patchData(path = "", data = {}) {
 }
 
 async function deleteData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "DELETE",
-    });
-    return responseToJson = await response.json();
+    try {
+        let response = await fetch(BASE_URL + path + ".json", {
+            method: "DELETE",
+        });
+        return responseToJson = await response.json();
+    } catch (error) {
+        console.error('Fehler beim löschen der Daten', error);
+    }
+
 }
