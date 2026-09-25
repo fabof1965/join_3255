@@ -43,7 +43,7 @@
 
     /*transition over all pages for animated elements except
     starting animation*/
-    --element-transition-timing: 200ms;
+    --element-transition-timing: 400ms;
     --element-transition: all var(--element-transition-timing) ease;
 
     /*minimal page height*/
