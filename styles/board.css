@@ -24,6 +24,10 @@
 }
 
 @media(max-width: 950px) {
+  .main-layout {
+    height: 100%;
+  }
+  
   .board-toolbar-wrapper {
     position: sticky;
     top: var(--header-height);
