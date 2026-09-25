@@ -151,16 +151,6 @@ async function loadContacts() {
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
-// async function checkIfContactExists(newContact) {
-//     const response = await getData('contacts');
-//     return response
-//         ? Object.values(response).some(contact =>
-//             contact.email === newContact.email ||
-//             contact.name === newContact.name ||
-//             contact.phone === newContact.phone)
-//         : false;
-// }
-
 async function checkIfContactNameExists(inputName, ownId = null) {
     const errorMsg = document.getElementById('name-err-msg');
     const border = document.getElementById('wrong-name-border');
@@ -235,13 +225,21 @@ function setBadgeBackgroundColor() {
 function editExistingContact(i) {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     const badgeContainer = document.querySelector('.badge-image-container');
+    // render der initials
     const initials = renderProfileBadges(allContacts[i].name).toUpperCase();
+    // hier die das badgetemplate laden
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
+    // die richtige Klasse hinzufügen
     badgeContainer.classList.add('profile-badge-large');
-    badgeContainer.style.backgroundColor = getBadgeColor(initials);
+    // richtige backgroundcolor hinzufügen
+    setBadgeBackgroundColor();
+    // richtigen editIndex festlegen
     editIndex = i;
+    // das contact form laden was man bearbeiten will
     fillContactForm(allContacts[i]);
+    //dialog öffen
     openContactDialog(i);
+
 }
 
 function fillContactForm(contact) {
@@ -251,24 +249,6 @@ function fillContactForm(contact) {
 }
 
 async function saveEditedContact() {
-    // 
-    // Kontakt festlegen: Du brauchst die ID des Kontakts, der gerade bearbeitet wird, also des ausgewählten Kontakts. Die Werte kommen aus den Inputfeldern des Dialogs.
-    // ID in einer Konstante speichern: Das passt. Die ID brauchst du für die URL, zum Beispiel .../contacts/${id}.json.
-    // Validieren: Bei ungültigen Werten brichst du mit return ab. Der Dialog bleibt dann offen und die Fehlermeldungen werden angezeigt.
-    // 
-    // Fetch mit PATCH:
-    // Verwende PATCH statt PUT, denn PATCH ändert nur die mitgeschickten Felder und PUT ersetzt den ganzen Eintrag.
-    // Der Body ist JSON.stringify({ name, email, phone }).
-    // Setze await davor und prüfe response.ok. Nur bei Erfolg geht es weiter.
-    // 
-    // Dialog schließen + Formularfelder leeren: closeContactDialog() erledigt das komplett.
-    //   - editIndex = null -> Dialog steht wieder im Add-Modus
-    //   - contactDialog.close() -> Dialog zu
-    //   - resetContactForm() -> rote Ränder und Fehlermeldungen weg
-    //   - contactForm.reset() -> Inputfelder leer (vorher mit den alten Werten befüllt)
-    // Detailansicht (contact-detail) leeren oder mit den neuen Daten neu rendern.
-    // Kontakte neu rendern: Am einfachsten holst du die Daten erneut von Firebase und renderst die Liste neu. Danach ist auch die Liste sortiert und gruppiert, falls sich der Name geändert hat.
-    // 
     const contact = getContactFormfromForm();
     const ownId = allContacts[editIndex].id;
     const nameExists = await checkIfContactNameExists(contact.name, ownId);
@@ -280,25 +260,6 @@ async function saveEditedContact() {
     closeContactDialog();
     document.getElementById('contact-detail').innerHTML = "";
     renderContacts();
-
-
-
-
-
-
-
-
-    // const contact = getContactFormfromForm();
-    // const ownId = allContacts[editIndex].id;
-    // const nameExists = await checkIfContactNameExists(contact.name, ownId);
-    // const emailExists = await checkIfEmailExists(contact.email, ownId);
-    // const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId);
-
-    // if (nameExists || emailExists || phoneExists) return;
-    // await patchData('contacts/' + ownId, contact);
-    // closeContactDialog();
-    // document.getElementById('contact-detail').innerHTML = "";
-    // renderContacts();
 }
 
 async function submitContactForm(event) {
@@ -321,6 +282,8 @@ async function deleteContact(i) {
 }
 
 function showContact() {
+
+
 
 }
 
