@@ -372,7 +372,7 @@ function getContactInformationTemplate(i) {
           <div class="name-edit-delete">
             <h2 class="name large-text" id="name-detail">${allContacts[i].name}</h2>
             <div class="edit-delete" id="edit-delete-detail">
-              <button class="edit" onclick="editExistingContact()">
+              <button class="edit" onclick="editExistingContact(${i})">
                 <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
               </button>
               <button onclick="deleteContact(${i})" class="delete">
@@ -402,5 +402,11 @@ function getContactInformationTemplate(i) {
           <a class="phone-detail" id="phone-detail" href="tel:${allContacts[i].phone}">${allContacts[i].phone}</a>
         </section>
       </div>
+  `;
+}
+
+function getEditContactTemplate(i) {
+  return`
+  
   `;
 }

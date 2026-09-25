@@ -45,7 +45,7 @@
 
     </footer>
 
-    <dialog id="contact-dialog">
+    <dialog class="contact-dialog" id="contact-dialog">
         <header id="dialog-header">
             <button class="close-dialog-button" onclick="closeContactDialog()">
                 <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -78,32 +78,32 @@
                 </svg>
             </div>
 
-            <form id="contact-form" onsubmit="addNewContact(event)">
+            <form class="contact-form" id="contact-form" onsubmit="addNewContact(event)">
                 <div class="data-input-area">
                     <div class="input-wrapper">
-                        <div class="add-contact-content">
+                        <div id="wrong-name-border" class="add-contact-content">
                             <label for="name" class="visually-hidden">Name</label>
                             <input id="name" class="input-field" type="text" placeholder="Name" required />
                             <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
                         </div>
-                        <span class="error-msg visibility-hidden">That number already exists</span>
+                        <span id="name-err-msg" class="error-msg visibility-hidden">This Name already exists</span>
                     </div>
 
                     <div class="input-wrapper">
-                        <div class="add-contact-content">
+                        <div id="wrong-email-border" class="add-contact-content">
                             <label for="email" class="visually-hidden">Email</label>
                             <input id="email" class="input-field" type="email" placeholder="Email" required />
                             <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
                         </div>
-                        <span class="error-msg visibility-hidden">That email already exists</span>
+                        <span id="email-err-msg" class="error-msg visibility-hidden">That email already exists</span>
                     </div>
                     <div class="input-wrapper">
-                        <div class="add-contact-content">
+                        <div id="wrong-phone-border" class="add-contact-content">
                             <label for="phone" class="visually-hidden">Phone</label>
                             <input id="phone" class="input-field" type="tel" placeholder="Phone" required />
                             <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
                         </div>
-                        <span class="error-msg visibility-hidden">Please choose a different number.</span>
+                        <span id="phone-err-msg" class="error-msg visibility-hidden">Please choose a different number.</span>
                     </div>
                 </div>
 

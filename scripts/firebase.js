@@ -57,5 +57,4 @@ async function deleteData(path = "") {
     } catch (error) {
         console.error('Fehler beim löschen der Daten', error);
     }
-
 }

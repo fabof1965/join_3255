@@ -7,6 +7,7 @@
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
     overflow-y: scroll;
 }
+
 @media(max-width: 950px) {
     .main-layout {
         height: var(--page-content-height);
@@ -81,13 +82,16 @@
 
 .mail {
     color: var(--primary-color);
-    font-size: var(--small-font-size);;
+    font-size: var(--small-font-size);
+    ;
 }
 
-.background-primary, .background-primary:hover {
+.background-primary,
+.background-primary:hover {
     background-color: var(--primary-color);
-    
-    .name, .mail {
+
+    .name,
+    .mail {
         color: var(--white-color);
     }
 }
@@ -128,7 +132,8 @@
 .detail-header {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-medium);;
+    gap: var(--gap-medium);
+    ;
     align-items: flex-start;
     justify-content: center;
     width: var(--full);
@@ -183,68 +188,80 @@
 
 .edit-delete {
     display: flex;
-    gap: var(--gap-large);;
+    gap: var(--gap-large);
+    ;
     align-items: center;
 }
 
-.edit, .delete {
+.edit,
+.delete {
     display: flex;
     gap: var(--gap-small);
     align-items: center;
     border: none;
     background-color: transparent;
     color: var(--black-color);
-    font-size: var(--small-font-size);;
+    font-size: var(--small-font-size);
+    ;
 }
 
 @media(max-width: 950px) {
-    .edit, .delete {
+
+    .edit,
+    .delete {
         display: none;
     }
 }
 
-.edit:hover, .delete:hover {
+.edit:hover,
+.delete:hover {
     color: var(--primary-color);
 }
 
 .contact-information {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-large);;
+    gap: var(--gap-large);
 }
 
-.phone-detail{
+.phone-detail {
     text-decoration: none;
     color: var(--primary-color);
 }
 
 .info-headline {
-  font-size: var(--medium-font-size);
+    font-size: var(--medium-font-size);
 }
 
-.email, .phone {
+.email,
+.phone {
     display: flex;
     flex-direction: column;
     gap: var(--gap-small);
 }
 
-.phone{
+.phone {
     text-decoration: none;
 }
 
-.email-text{
-    font-size: var(--small-font-size);;
+.email-text {
+    font-size: var(--small-font-size);
     color: var(--primary-color);
     text-decoration: none;
 }
 
 /* dialog */
-dialog[open] {
+.contact-dialog[open] {
     border-radius: 0 32px 32px 0;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     border: none;
-    height: 100vh;
+    height: 100dvh;
+    width: 50%;
+}
+
+.contact-dialog::backdrop{
+    background-color: rgba(228, 221, 221, 0.5);
 }
 
 #dialog-header {
@@ -278,8 +295,8 @@ dialog[open] {
 }
 
 .close-dialog-button {
-    margin-top: calc(var(--margin-bottom-medium)  /2);
-    margin-right: calc(var(--margin-bottom-medium)  /2);
+    margin-top: calc(var(--margin-bottom-medium) /2);
+    margin-right: calc(var(--margin-bottom-medium) /2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -309,10 +326,11 @@ dialog[open] {
     height: var(--large-profile-badge-dimensions);
 }
 
-form {
+.contact-form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: none;
 }
 
 .data-input-area {
@@ -342,17 +360,20 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--gap-medium);;
+    gap: var(--gap-medium);
+    ;
     width: var(--full);
     margin-top: var(--margin-medium);
     padding-bottom: var(--padding-medium);
 }
 
-.cancel-btn, .create-contact-btn {
+.cancel-btn,
+.create-contact-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--gap-small);;
+    gap: var(--gap-small);
+    ;
     border-radius: var(--element-design-border-radius);
     color: var(--guest-login-button-text-color);
     font-size: var(--small-font-size);
@@ -370,8 +391,25 @@ input {
     border: 2px solid var(--primary-color);
 }
 
-.add-contact-content{
+.add-contact-content {
     display: flex;
     border-bottom: 2px solid var(--search-bar-outline-color);
     padding: 0;
-}   
+}
+
+/* error-msg */
+
+.visibility-hidden{
+  visibility: hidden; 
+}
+
+.error-msg{
+  color: var(--red-color);
+  width: var(--full);
+  padding-left: 16px;
+  height: 1rem;
+}
+
+.add-contact-content.error-message-border-bottom {
+    border-bottom: var(--error-message-border-bottom);
+}

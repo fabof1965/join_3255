@@ -98,8 +98,11 @@ async function addNewContact(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
-    if (!contact.name || !contact.email || !contact.phone) return;
-    if (await checkIfContactExists(contact)) return;
+    const nameOk = await checkIfContactNameExists(contact.name);
+    const emailOk = await checkIfEmailExists(contact.email);
+    const phoneOk = await checkIfPhoneNumberExists(contact.phone);
+    
+    if (nameOk || emailOk || phoneOk) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
     form.reset();
@@ -147,14 +150,62 @@ async function loadContacts() {
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
-async function checkIfContactExists(newContact) {
+// async function checkIfContactExists(newContact) {
+//     const response = await getData('contacts');
+//     return response
+//         ? Object.values(response).some(contact =>
+//             contact.email === newContact.email ||
+//             contact.name === newContact.name ||
+//             contact.phone === newContact.phone)
+//         : false;
+// }
+
+async function checkIfContactNameExists(inputName) {
+    const errorMsg = document.getElementById('name-err-msg');
+    const border = document.getElementById('wrong-name-border');
     const response = await getData('contacts');
-    return response
-        ? Object.values(response).some(contact =>
-            contact.email === newContact.email ||
-            contact.name === newContact.name ||
-            contact.phone === newContact.phone)
-        : false;
+    const nameExists = response ? Object.values(response).some(contact => contact.name === inputName) : false;
+
+    if (nameExists) {
+        errorMsg.classList.remove('visibility-hidden');
+        border.classList.add('error-message-border-bottom');
+    } else {
+        errorMsg.classList.add('visibility-hidden');
+        border.classList.remove('error-message-border-bottom');
+    }
+    return nameExists;
+}
+
+async function checkIfEmailExists(inputMail) {
+    const errorMsg = document.getElementById('email-err-msg');
+    const border = document.getElementById('wrong-email-border');
+    const response = await getData('contacts');
+    const emailExists = response ? Object.values(response).some(contact => contact.email === inputMail) : false;
+
+    if (emailExists) {
+        errorMsg.classList.remove('visibility-hidden');
+        border.classList.add('error-message-border-bottom');
+    } else {
+        errorMsg.classList.add('visibility-hidden');
+        border.classList.remove('error-message-border-bottom');
+    }
+    return emailExists;
+}
+
+async function checkIfPhoneNumberExists(inputPhone) {
+    const errorMsg = document.getElementById('phone-err-msg');
+    const border = document.getElementById('wrong-phone-border');
+    const response = await getData('contacts');
+    const phoneExists = response ? Object.values(response).some(contact => contact.phone === inputPhone) : false;
+
+    if (phoneExists) {
+        errorMsg.classList.remove('visibility-hidden');
+        border.classList.add('error-message-border-bottom');
+    } else {
+        errorMsg.classList.add('visibility-hidden');
+        border.classList.remove('error-message-border-bottom');
+    }
+    return phoneExists;
 }
 
 function renderProfileBadges(initials) {
@@ -180,12 +231,16 @@ function setBadgeBackgroundColor() {
     });
 }
 
-function editExistingContact() {
+function editExistingContact(i) {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
-    // hier muss noch die Edit eigentschaften eingefügt werden
-    // TODO: Badge mit Initialen statt Personen-Icon anzeigen, danach
-    // setBadgeBackgroundColor() aufrufen (sonst bleibt es farblos).
-    openContactDialog();
+    const badgeContainer = document.querySelector('.badge-image-container');
+    const initials = renderProfileBadges(allContacts[i].name).toUpperCase();
+    badgeContainer.innerHTML = `<span id="badge-text" class="profile-badge-text">${initials}</span>`;
+    badgeContainer.classList.add('profile-badge-large');
+    badgeContainer.style.backgroundColor = getBadgeColor(initials);
+    const badgeTextFontSize = document.getElementById('badge-text');
+    badgeTextFontSize.style.fontSize = "var(--large-font-size)";
+    openContactDialog(i);
 }
 
 async function deleteContact(i) {
@@ -212,11 +267,18 @@ function openContactDialog() {
     contactDialog.showModal();
 }
 
+function resetContactForm() {
+    const border = document.getElementById('wrong-name-border');
+    const nameErrMsg = document.getElementById('name-err-msg');
+    nameErrMsg.classList.add('visibility-hidden');
+    border.classList.remove('error-message-border-bottom');
+}
+
 function closeContactDialog() {
     const contactDialog = document.getElementById("contact-dialog");
     const contactForm = document.getElementById('contact-form');
 
-    
     contactDialog.close();
+    resetContactForm();
     contactForm.reset();
 }
