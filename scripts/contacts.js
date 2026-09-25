@@ -96,6 +96,7 @@ function getContactFormfromForm() {
 }
 
 async function addNewContact(event) {
+    console.log("addNewContact läuft");
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
@@ -225,21 +226,13 @@ function setBadgeBackgroundColor() {
 function editExistingContact(i) {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     const badgeContainer = document.querySelector('.badge-image-container');
-    // render der initials
     const initials = renderProfileBadges(allContacts[i].name).toUpperCase();
-    // hier die das badgetemplate laden
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
-    // die richtige Klasse hinzufügen
     badgeContainer.classList.add('profile-badge-large');
-    // richtige backgroundcolor hinzufügen
     setBadgeBackgroundColor();
-    // richtigen editIndex festlegen
     editIndex = i;
-    // das contact form laden was man bearbeiten will
     fillContactForm(allContacts[i]);
-    //dialog öffen
     openContactDialog(i);
-
 }
 
 function fillContactForm(contact) {
@@ -265,6 +258,7 @@ async function saveEditedContact() {
 async function submitContactForm(event) {
     event.preventDefault();
     if (editIndex === null) {
+
         await addNewContact(event);
     } else {
         await saveEditedContact();
@@ -285,14 +279,25 @@ function getDialog() {
     return document.getElementById("contact-dialog");
 }
 
-function openContactDialog(i = null) {
+function resetBadge() {
+    const badge = document.querySelector('.badge-image-container');
+    badge.style = "";
+    badge.classList.remove('profile-badge-large');
+    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
+}
 
+function openContactDialog(i = null) {
     if (i === null) {
+        resetBadge();
+        document.getElementById('contact-form').reset();
         setDynamicDialogElements(addContactValues.title, "Tasks are better with a team!", "Cancel", "Create contact");
+        const badge = document.querySelector('.badge-image-container');
+        badge.style = "";
+        badge.classList.remove('profile-badge-large');
+        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
     } else {
         setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     }
-
     getDialog().showModal();
 }
 
@@ -311,8 +316,14 @@ function closeContactDialog() {
     const contactDialog = document.getElementById("contact-dialog");
     const contactForm = document.getElementById('contact-form');
 
-    editIndex = null;
     contactDialog.close();
+    resetBadge();
     resetContactForm();
     contactForm.reset();
 }
+
+getDialog().addEventListener("close", () => {
+    editIndex = null;
+    resetContactForm();
+    document.getElementById('contact-form');
+})
