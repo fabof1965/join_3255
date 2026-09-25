@@ -6,6 +6,7 @@
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
     overflow-y: scroll;
+    position: relative;
 }
 @media(max-width: 950px) {
     .main-layout {
@@ -26,6 +27,26 @@
     color: var(--white-color);
 }
 
+@media(max-width: 500px) {
+    .btn-new-contact {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        bottom: var(--medium-font-size);
+        right: var(--medium-font-size);
+        z-index: 10;
+    }
+
+    .btn-new-contact > span {
+        display: none;
+    }
+
+    .btn-new-contact > img {
+        width: var(--back-btn-image-dimensions);
+        height: var(--back-btn-image-dimensions);
+    }
+}
+
 #contacts {
     display: flex;
     flex-direction: column;
@@ -39,6 +60,8 @@
 .seperator {
     border-bottom: 2px solid var(--contact-seperator-color);
     margin: 8px 0 8px 0;
+    width: calc(var(--full) * 0.95);
+    align-self: center;
 }
 
 .contact-card {
@@ -164,6 +187,8 @@
     border: none;
     background-color: var(--white-color);
     border-radius: var(--border-radius-circular);
+    width: var(--back-btn-image-dimensions);
+    height: var(--back-btn-image-dimensions);
 }
 
 @media(max-width: 950px) {
