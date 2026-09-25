@@ -268,10 +268,14 @@ function openContactDialog() {
 }
 
 function resetContactForm() {
-    const border = document.getElementById('wrong-name-border');
-    const nameErrMsg = document.getElementById('name-err-msg');
-    nameErrMsg.classList.add('visibility-hidden');
-    border.classList.remove('error-message-border-bottom');
+    const border = document.querySelectorAll('.add-contact-content');
+    border.forEach(borderColor =>{
+        borderColor.classList.remove('error-message-border-bottom');
+    })
+    const errMsg = document.querySelectorAll('.error-msg');
+    errMsg.forEach(errorMessage =>{
+        errorMessage.classList.add('visibility-hidden');
+    })
 }
 
 function closeContactDialog() {
