@@ -281,31 +281,30 @@ async function deleteContact(i) {
     renderContacts();
 }
 
-function showContact() {
-
-
-
-}
-
 function getDialog() {
     return document.getElementById("contact-dialog");
 }
 
-function openContactDialog() {
-    const contactDialog = getDialog();
+function openContactDialog(i = null) {
 
-    contactDialog.showModal();
+    if (i === null) {
+        setDynamicDialogElements(addContactValues.title, "Tasks are better with a team!", "Cancel", "Create contact");
+    } else {
+        setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
+    }
+
+    getDialog().showModal();
 }
 
 function resetContactForm() {
     const border = document.querySelectorAll('.add-contact-content');
     border.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
-    })
+    });
     const errMsg = document.querySelectorAll('.error-msg');
     errMsg.forEach(errorMessage => {
         errorMessage.classList.add('visibility-hidden');
-    })
+    });
 }
 
 function closeContactDialog() {
