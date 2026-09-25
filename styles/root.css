@@ -57,6 +57,7 @@
     --padding: clamp(16px, calc(11.429px + 1.429vw), 32px) clamp(4px, calc(-10.857px + 4.643vw), 56px);
     --padding-medium: clamp(16px, calc(13.714px + 0.714vw), 24px) clamp(32px, calc(29.714px + 0.714vw), 40px);
     --padding-small: clamp(8px, calc(5.714px + 0.714vw), 16px);
+    --padding-very-small: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --button-padding: var(--page-link-padding);
     --input-wrapper-padding: 8px 16px;
 

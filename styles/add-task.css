@@ -55,7 +55,7 @@ input, select, textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--gap-small);
+  gap: var(--gap-between-buttons);
   padding: var(--padding);
   padding-left: 0;
 }
