@@ -31,7 +31,7 @@ h2, h3 {
 }
 
 .legal-back-button {
-  border-radius: 50%;
+  border-radius: var(--border-radius-circular);
   display: flex;
   align-items: center;
   justify-content: center;
