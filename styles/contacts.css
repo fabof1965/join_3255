@@ -331,7 +331,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--gap-medium);;
+    gap: var(--gap-between-buttons);
     width: var(--full);
     margin-top: var(--margin-medium);
     padding-bottom: var(--padding-medium);
