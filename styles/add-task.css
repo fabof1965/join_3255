@@ -1,5 +1,3 @@
-
-
 .main-content {
   display: flex;
   justify-content: space-between;
@@ -18,17 +16,15 @@
     height: var(--page-content-height);
     overflow-y: scroll;
   }
-
-  .content {
-    height: unset;
-    overflow-y: unset;
-  }
 }
 
 @media(max-width: 950px) {
-  .main-content {
-    height: unset;
+  .content {
     overflow-y: unset;
+  }
+
+  .main-content {
+    overflow-y: scroll;
   }
 }
 
@@ -59,7 +55,7 @@ input, select, textarea {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--gap-small);
+  gap: var(--gap-between-buttons);
   padding: var(--padding);
   padding-left: 0;
 }
@@ -286,4 +282,191 @@ input, select, textarea {
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+
+.task-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.task-overlay-backdrop[hidden] {
+  display: none;
+}
+
+.task-overlay {
+  width: min(528px, 100%);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
+  background-color: var(--white-color);
+  border-radius: 30px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+}
+
+.task-overlay-header,
+.task-overlay-row,
+.task-overlay-user,
+.task-overlay-subtask,
+.task-overlay-actions {
+  display: flex;
+  align-items: center;
+}
+
+.task-overlay-header {
+  justify-content: space-between;
+}
+
+
+.task-overlay-category {
+  padding: 4px 24px;
+  color: var(--white-color);
+  border-radius: 8px;
+  font-size: 23px;
+}
+
+.task-overlay-close img,
+.task-overlay-actions img {
+  width: 24px;
+  height: 24px;
+}
+
+.task-overlay h2 {
+  color: var(--black-color);
+  font-size: var(--board-column-header-font-size);
+  line-height: 1.2;
+}
+
+.task-overlay-description,
+.task-overlay-row,
+.task-overlay-user {
+  color: var(--black-color);
+  font-size: var(--add-task-subheading-font-size);
+}
+
+.task-overlay-row {
+  gap: 25px;
+}
+
+.task-overlay-row strong,
+.task-overlay-section h3 {
+  color: var(--menu-color);
+  font-size: var(--add-task-subheading-font-size);
+}
+
+.task-overlay-priority {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-overlay-priority img {
+  width: 17px;
+  height: 12px;
+}
+
+.task-overlay-section,
+.task-overlay-users,
+.task-overlay-subtasks {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-overlay-section {
+  gap: 8px;
+}
+
+.task-overlay-users,
+.task-overlay-subtasks {
+  gap: 4px;
+}
+
+.task-overlay-user {
+  gap: 16px;
+  padding: 7px 16px;
+}
+
+
+.task-overlay-user-badge {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-color);
+  background-color: var(--user-badge-background-color);
+  border-radius: var(--border-radius-circular);
+}
+
+.task-overlay-user:nth-child(2) .task-overlay-user-badge {
+  background-color: var(--second-user-badge-background-color);
+}
+
+.task-overlay-subtask {
+  gap: 16px;
+  height: 32px;
+  padding: 6px 16px;
+}
+
+.task-overlay-subtask img {
+  width: 24px;
+  height: 24px;
+}
+
+.task-overlay-section-hidden {
+  display: none;
+}
+
+.task-overlay-actions {
+  align-self: flex-end;
+  gap: 8px;
+}
+
+.task-overlay-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  color: var(--greeting-text-color);
+  background: none;
+  font-size: 16px;
+}
+
+.task-overlay-section-hidden {
+  display: none;
+}
+
+.task-overlay-actions {
+  align-self: flex-end;
+  gap: 8px;
+}
+
+.task-overlay-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  color: var(--greeting-text-color);
+  background: none;
+  font-size: 16px;
+}
+
+.task-overlay-actions>span {
+  width: 1px;
+  height: 24px;
+  background-color: var(--search-bar-outline-color);
+}
+
+.overlay-open {
+  overflow: hidden;
 }

@@ -317,7 +317,13 @@ function setDisplayForSignupElements(display = "none") {
 
     setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
     setElementVisibility(SHOW_LOGIN_BUTTON, display);
+    styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
     setElementVisibility(CHECKBOX_CONTAINER, display);
+}
+
+function styleElementDimensions(element, dimensions) {
+    element.style.width = dimensions;
+    element.style.height = dimensions;
 }
 
 function setPageTitle(title) {

@@ -223,7 +223,7 @@
 .submit-btn-container {
   display: flex;
   justify-content: center;
-  gap: var(--gap-large);;
+  gap: var(--gap-between-buttons);
   margin-top: 32px;
   padding: var(--login-padding);
   padding-top: 0;
@@ -234,7 +234,7 @@
   .submit-btn-container {
     flex-direction: column;
     gap: var(--auth-input-gap);
-    width: calc(var(--full) * 0.7);
+    width: calc(var(--full) * 0.4);
     margin-top: 0;
   }
 }
@@ -275,7 +275,6 @@
   width: var(--full);
   flex-shrink: 0;
   padding: var(--padding);
-  /* margin-top: var(--auth-form-margin-top); */
 }
 
 .legal-wrapper {
