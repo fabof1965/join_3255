@@ -405,8 +405,8 @@ function getContactInformationTemplate(i) {
   `;
 }
 
-function getEditContactTemplate(i) {
-  return`
-  
+function getEditBadgeTemplate(initials) {
+  return `
+    <span id="badge-text" class="profile-badge-text" style="font-size: var(--large-font-size)">${initials}</span>
   `;
 }

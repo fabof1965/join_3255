@@ -1,4 +1,5 @@
 let allContacts = [];
+let editIndex = null;
 
 const colorContacts = [
     "#FF7A00",
@@ -98,11 +99,11 @@ async function addNewContact(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
-    const nameOk = await checkIfContactNameExists(contact.name);
-    const emailOk = await checkIfEmailExists(contact.email);
-    const phoneOk = await checkIfPhoneNumberExists(contact.phone);
-    
-    if (nameOk || emailOk || phoneOk) return;
+    const nameExists = await checkIfContactNameExists(contact.name);
+    const emailExists = await checkIfEmailExists(contact.email);
+    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
+
+    if (nameExists || emailExists || phoneExists) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
     form.reset();
@@ -160,11 +161,11 @@ async function loadContacts() {
 //         : false;
 // }
 
-async function checkIfContactNameExists(inputName) {
+async function checkIfContactNameExists(inputName, ownId = null) {
     const errorMsg = document.getElementById('name-err-msg');
     const border = document.getElementById('wrong-name-border');
     const response = await getData('contacts');
-    const nameExists = response ? Object.values(response).some(contact => contact.name === inputName) : false;
+    const nameExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.name === inputName) : false;
 
     if (nameExists) {
         errorMsg.classList.remove('visibility-hidden');
@@ -176,11 +177,11 @@ async function checkIfContactNameExists(inputName) {
     return nameExists;
 }
 
-async function checkIfEmailExists(inputMail) {
+async function checkIfEmailExists(inputMail, ownId = null) {
     const errorMsg = document.getElementById('email-err-msg');
     const border = document.getElementById('wrong-email-border');
     const response = await getData('contacts');
-    const emailExists = response ? Object.values(response).some(contact => contact.email === inputMail) : false;
+    const emailExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.email === inputMail) : false;
 
     if (emailExists) {
         errorMsg.classList.remove('visibility-hidden');
@@ -192,11 +193,11 @@ async function checkIfEmailExists(inputMail) {
     return emailExists;
 }
 
-async function checkIfPhoneNumberExists(inputPhone) {
+async function checkIfPhoneNumberExists(inputPhone, ownId = null) {
     const errorMsg = document.getElementById('phone-err-msg');
     const border = document.getElementById('wrong-phone-border');
     const response = await getData('contacts');
-    const phoneExists = response ? Object.values(response).some(contact => contact.phone === inputPhone) : false;
+    const phoneExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.phone === inputPhone) : false;
 
     if (phoneExists) {
         errorMsg.classList.remove('visibility-hidden');
@@ -235,12 +236,78 @@ function editExistingContact(i) {
     setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     const badgeContainer = document.querySelector('.badge-image-container');
     const initials = renderProfileBadges(allContacts[i].name).toUpperCase();
-    badgeContainer.innerHTML = `<span id="badge-text" class="profile-badge-text">${initials}</span>`;
+    badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     badgeContainer.style.backgroundColor = getBadgeColor(initials);
-    const badgeTextFontSize = document.getElementById('badge-text');
-    badgeTextFontSize.style.fontSize = "var(--large-font-size)";
+    editIndex = i;
+    fillContactForm(allContacts[i]);
     openContactDialog(i);
+}
+
+function fillContactForm(contact) {
+    document.getElementById('name').value = contact.name;
+    document.getElementById('email').value = contact.email;
+    document.getElementById('phone').value = contact.phone;
+}
+
+async function saveEditedContact() {
+    // 
+    // Kontakt festlegen: Du brauchst die ID des Kontakts, der gerade bearbeitet wird, also des ausgewählten Kontakts. Die Werte kommen aus den Inputfeldern des Dialogs.
+    // ID in einer Konstante speichern: Das passt. Die ID brauchst du für die URL, zum Beispiel .../contacts/${id}.json.
+    // Validieren: Bei ungültigen Werten brichst du mit return ab. Der Dialog bleibt dann offen und die Fehlermeldungen werden angezeigt.
+    // 
+    // Fetch mit PATCH:
+    // Verwende PATCH statt PUT, denn PATCH ändert nur die mitgeschickten Felder und PUT ersetzt den ganzen Eintrag.
+    // Der Body ist JSON.stringify({ name, email, phone }).
+    // Setze await davor und prüfe response.ok. Nur bei Erfolg geht es weiter.
+    // 
+    // Dialog schließen + Formularfelder leeren: closeContactDialog() erledigt das komplett.
+    //   - editIndex = null -> Dialog steht wieder im Add-Modus
+    //   - contactDialog.close() -> Dialog zu
+    //   - resetContactForm() -> rote Ränder und Fehlermeldungen weg
+    //   - contactForm.reset() -> Inputfelder leer (vorher mit den alten Werten befüllt)
+    // Detailansicht (contact-detail) leeren oder mit den neuen Daten neu rendern.
+    // Kontakte neu rendern: Am einfachsten holst du die Daten erneut von Firebase und renderst die Liste neu. Danach ist auch die Liste sortiert und gruppiert, falls sich der Name geändert hat.
+    // 
+    const contact = getContactFormfromForm();
+    const ownId = allContacts[editIndex].id;
+    const nameExists = await checkIfContactNameExists(contact.name, ownId);
+    const emailExists = await checkIfEmailExists(contact.email, ownId);
+    const phoneNumberExists = await checkIfPhoneNumberExists(contact.phone, ownId);
+
+    if (nameExists || emailExists || phoneNumberExists) return;
+    await patchData('contacts/' + ownId, contact);
+    closeContactDialog();
+    document.getElementById('contact-detail').innerHTML = "";
+    renderContacts();
+
+
+
+
+
+
+
+
+    // const contact = getContactFormfromForm();
+    // const ownId = allContacts[editIndex].id;
+    // const nameExists = await checkIfContactNameExists(contact.name, ownId);
+    // const emailExists = await checkIfEmailExists(contact.email, ownId);
+    // const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId);
+
+    // if (nameExists || emailExists || phoneExists) return;
+    // await patchData('contacts/' + ownId, contact);
+    // closeContactDialog();
+    // document.getElementById('contact-detail').innerHTML = "";
+    // renderContacts();
+}
+
+async function submitContactForm(event) {
+    event.preventDefault();
+    if (editIndex === null) {
+        await addNewContact(event);
+    } else {
+        await saveEditedContact();
+    }
 }
 
 async function deleteContact(i) {
@@ -249,9 +316,9 @@ async function deleteContact(i) {
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
     contactDetails.innerHTML = "";
+    closeContactDialog();
     renderContacts();
 }
-
 
 function showContact() {
 
@@ -269,11 +336,11 @@ function openContactDialog() {
 
 function resetContactForm() {
     const border = document.querySelectorAll('.add-contact-content');
-    border.forEach(borderColor =>{
+    border.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
     })
     const errMsg = document.querySelectorAll('.error-msg');
-    errMsg.forEach(errorMessage =>{
+    errMsg.forEach(errorMessage => {
         errorMessage.classList.add('visibility-hidden');
     })
 }
@@ -282,6 +349,7 @@ function closeContactDialog() {
     const contactDialog = document.getElementById("contact-dialog");
     const contactForm = document.getElementById('contact-form');
 
+    editIndex = null;
     contactDialog.close();
     resetContactForm();
     contactForm.reset();

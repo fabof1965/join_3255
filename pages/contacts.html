@@ -78,7 +78,7 @@
                 </svg>
             </div>
 
-            <form class="contact-form" id="contact-form" onsubmit="addNewContact(event)">
+            <form class="contact-form" id="contact-form" onsubmit="submitContactForm(event)">
                 <div class="data-input-area">
                     <div class="input-wrapper">
                         <div id="wrong-name-border" class="add-contact-content">
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="btn-container">
-                    <button type="button" class="cancel-btn btn" onclick="closeContactDialog()">
+                    <button type="button" class="cancel-btn btn" onclick="deleteContact(editIndex)">
                         <span id="cancel-btn-text">
                         </span>
                         <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -117,8 +117,7 @@
                         </svg>
                     </button>
                     <button type="submit" class="create-contact-btn btn">
-                        <span id="accept-btn-text">
-                        </span>
+                        <span id="accept-btn-text"></span>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_79063_3308" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
                                 width="24" height="24">
