@@ -30,11 +30,11 @@
 
 @media(max-width: 500px) {
     .btn-new-contact {
-        position: absolute;
+        position: fixed;
         width: 50px;
         height: 50px;
-        bottom: var(--medium-font-size);
-        right: var(--medium-font-size);
+        bottom: 16dvh;
+        right: 8dvw;
         z-index: 10;
     }
 
@@ -106,7 +106,8 @@
 .mail {
     color: var(--primary-color);
     font-size: var(--small-font-size);
-    ;
+    overflow-wrap: anywhere;
+    hyphens: auto;
 }
 
 .background-primary,
@@ -278,10 +279,13 @@
     border-radius: 0 32px 32px 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     border: none;
     height: 100dvh;
-    width: 25%;
+    width: 100%;
+    max-width: 500px;
     outline: none;
+    transition: right 300ms ease-in;
 }
 
 .contact-dialog::backdrop{
@@ -311,11 +315,11 @@
 }
 
 #dialog-headline {
-    font-size: var(--large-font-size);
+    font-size: var(--medium-font-size);
 }
 
 #dialog-subheading {
-    font-size: var(--medium-font-size);
+    font-size: var(--small-font-size);
 }
 
 .close-dialog-button {
@@ -340,11 +344,18 @@
     width: var(--small-user-badge-width);
 }
 
+#dialog-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-top: var(--margin-medium);
+}
+
 .badge-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3rem auto 1rem auto;
+    margin: 0 auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
     width: var(--large-profile-badge-dimensions);
@@ -356,13 +367,15 @@
     flex-direction: column;
     align-items: center;
     max-width: none;
+    flex: 1;
 }
 
 .data-input-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--gap-large);
+    flex: 1;
+    justify-content: space-evenly;
     width: calc(var(--full) * 0.75);
 }
 
@@ -387,8 +400,7 @@ input {
     align-items: center;
     gap: var(--gap-between-buttons);
     width: var(--full);
-    margin-top: var(--margin-medium);
-    padding-bottom: var(--padding-medium);
+    margin: var(--margin-medium) 0;
 }
 
 .cancel-btn,
@@ -397,7 +409,6 @@ input {
     justify-content: center;
     align-items: center;
     gap: var(--gap-small);
-    ;
     border-radius: var(--element-design-border-radius);
     color: var(--guest-login-button-text-color);
     font-size: var(--small-font-size);
