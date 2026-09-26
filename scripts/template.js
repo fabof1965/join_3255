@@ -104,7 +104,7 @@ const subtaskProgressTemplate = `
     </div>
 `;
 
-const userBadgeTemplate = `<span class="user-badge">{{initials}}</span>`;
+const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
 
 const emptyTaskListTemplate = `<p class="empty-task-list">{{text}}</p>`;
 

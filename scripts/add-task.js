@@ -9,13 +9,14 @@ let editingTaskId = "";
  * @returns {void}
  */
 
-function openAddTask(status) {
+async function openAddTask(status) {
   const overlay = document.getElementById("add-task-overlay");
   editingTaskId = "";
   newTaskStatus = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
+  await renderAssignedContacts();
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
   overlay.querySelector("input[name='title']").focus();
@@ -79,11 +80,12 @@ function fillTaskForm(form, task) {
  * @param {Object} task - Task to edit.
  * @returns {void}
  */
-function openEditTask(task) {
+async function openEditTask(task) {
   const overlay = document.getElementById("add-task-overlay");
   editingTaskId = task.id;
   newTaskStatus = task.status;
   overlay.innerHTML = addTaskDialogTemplate;
+  await renderAssignedContacts();
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
   overlay.querySelector("#add-task-title").textContent = "Edit Task";
@@ -301,12 +303,14 @@ document.addEventListener("click", handleAddTaskClick);
 document.addEventListener("submit", handleAddTaskFormEvent);
 document.addEventListener("keydown", handleAddTaskFormEvent);
 
-function initTaskContent() {
-  loadAddTaskContent();
+async function initTaskContent() {
+  await loadAddTaskContent();
 }
 
-function loadAddTaskContent() {
+async function loadAddTaskContent() {
   const CONTAINER_ADD_TASK = document.getElementById("addTaskContent");
 
   CONTAINER_ADD_TASK.innerHTML = addTaskContentTemplate;
+  await renderAssignedContacts();
+
 }
