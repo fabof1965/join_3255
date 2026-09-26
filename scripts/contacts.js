@@ -1,4 +1,4 @@
-const DETAIL_TRANSITION_MS = 600; 
+const DETAIL_TRANSITION_MS = 600;
 
 let detailTimeout = null;
 let allContacts = [];
@@ -24,6 +24,7 @@ const colorContacts = [
 
 function initContacts() {
     renderContacts();
+    initPhoneFilter();
 }
 
 const addContactValues = {
@@ -99,9 +100,9 @@ function removeDetailUnderlay() {
 }
 
 function showContactDetail(container, i) {
-    container.innerHTML = getContactInformationTemplate(i); 
-    container.classList.add('animation-right'); 
-    setBadgeBackgroundColor(); 
+    container.innerHTML = getContactInformationTemplate(i);
+    container.classList.add('animation-right');
+    setBadgeBackgroundColor();
 }
 
 function positionDialog(potition) {
@@ -152,7 +153,6 @@ async function addNewContact(event) {
     const nameExists = await checkIfContactNameExists(contact.name);
     const emailExists = await checkIfEmailExists(contact.email);
     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-
     if (nameExists || emailExists || phoneExists) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
@@ -239,6 +239,7 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null) {
     const response = await getData('contacts');
     const phoneExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.phone === inputPhone) : false;
 
+    errorMsg.textContent = 'Please choose a different number.';
     if (phoneExists) {
         errorMsg.classList.remove('visibility-hidden');
         border.classList.add('error-message-border-bottom');
@@ -247,6 +248,22 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null) {
         border.classList.remove('error-message-border-bottom');
     }
     return phoneExists;
+}
+
+function initPhoneFilter() {
+    const phoneInput = document.getElementById('phone');
+    const errorMsg = document.getElementById('phone-err-msg');
+    const border = document.getElementById('wrong-phone-border');
+
+    phoneInput.addEventListener('input', () => {
+        const cleaned = phoneInput.value.replace(/[^0-9]/g, "");
+        const hadInvalidChars = cleaned !== phoneInput.value;
+        phoneInput.value = cleaned;
+
+        errorMsg.textContent = "Only digits are allowed";
+        errorMsg.classList.toggle('visibility-hidden', !hadInvalidChars);
+        border.classList.toggle('error-message-border-bottom', hadInvalidChars);
+    });
 }
 
 function renderProfileBadges(initials) {
