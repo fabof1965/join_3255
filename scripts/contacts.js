@@ -78,7 +78,6 @@ function getContactsData(i) {
     }
 }
 
-// NEU: neue Karte gleitet über die alte
 function slideOverCurrentDetail(container, i) {
     removeDetailUnderlay();
     const underlay = container.cloneNode(true);
