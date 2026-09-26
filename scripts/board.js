@@ -373,4 +373,3 @@ async function loadTasks() {
     exampleTasks = [];
   }
 }
-
