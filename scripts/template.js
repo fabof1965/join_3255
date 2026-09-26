@@ -386,7 +386,7 @@ function getContactInformationTemplate(i) {
             <h3 class="info-headline">
               <span>Contact Information</span>
             </h3>
-            <button onclick="toggleBackgroundColor(document.getElementById(contact-card${i}))" class="arrow-btn">
+            <button onclick="toggleBackgroundColor(document.getElementById('contact-card${i}'), ${i})" class="arrow-btn">
               <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
             </button>
           </div>

@@ -130,7 +130,7 @@
     padding: var(--padding);
     position: fixed;
     transform: translateX(100%);
-    transition: transform 600ms ease-in-out;
+    transition: transform 500ms ease-in-out;
     background-color: var(--white-color);
     min-height: 100dvh;
     width: var(--full);
@@ -151,12 +151,10 @@
     color: var(--white-color);
 }
 
-
 .detail-header {
     display: flex;
     flex-direction: column;
     gap: var(--gap-medium);
-    ;
     align-items: flex-start;
     justify-content: center;
     width: var(--full);
@@ -227,7 +225,7 @@
     background-color: transparent;
     color: var(--black-color);
     font-size: var(--small-font-size);
-    ;
+    outline: none;
 }
 
 @media(max-width: 950px) {
@@ -283,6 +281,7 @@
     border: none;
     height: 100dvh;
     width: 25%;
+    outline: none;
 }
 
 .contact-dialog::backdrop{
@@ -329,6 +328,7 @@
     background-color: transparent;
     margin-left: auto;
     border: none;
+    outline: none;
 }
 
 .close-dialog-button:hover {

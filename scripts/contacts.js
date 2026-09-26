@@ -1,3 +1,6 @@
+const DETAIL_TRANSITION_MS = 600; 
+
+let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
 
@@ -42,17 +45,64 @@ function animateContactDetailContainer(i) {
 }
 
 function toggleBackgroundColor(element, i) {
-    element.classList.toggle("background-primary");
+    const wasActive = element.classList.contains('background-primary');
+    clearActiveContacts();
+    if (wasActive) {
+        hideContactDetail();
+        return;
+    }
+    element.classList.add('background-primary');
     animateContactDetailContainer(i);
 }
 
-const contactData = [];
+function clearActiveContacts() {
+    const activeContacts = document.querySelectorAll('.background-primary');
+    activeContacts.forEach(active => {
+        active.classList.remove('background-primary');
+    });
+}
+
+function hideContactDetail() {
+    removeDetailUnderlay();
+    const detail = document.getElementById('contact-detail');
+    detail.classList.remove('animation-right');
+    detail.innerHTML = "";
+}
 
 function getContactsData(i) {
-    const CONTACT_DETAIL_CONTAINER = document.getElementById("contact-detail");
-    CONTACT_DETAIL_CONTAINER.classList.toggle("animation-right");
-    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(i);
-    setBadgeBackgroundColor();
+    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
+    if (CONTACT_DETAIL_CONTAINER.classList.contains('animation-right')) {
+        slideOverCurrentDetail(CONTACT_DETAIL_CONTAINER, i);
+    } else {
+        showContactDetail(CONTACT_DETAIL_CONTAINER, i);
+    }
+}
+
+// NEU: neue Karte gleitet über die alte
+function slideOverCurrentDetail(container, i) {
+    removeDetailUnderlay();
+    const underlay = container.cloneNode(true);
+    underlay.removeAttribute('id');
+    underlay.classList.add('detail-underlay');
+    underlay.style.transition = "none";
+    container.before(underlay);
+    container.style.transition = "none";
+    container.classList.remove('animation-right');
+    container.offsetWidth;
+    container.style.transition = "";
+    showContactDetail(container, i);
+    detailTimeout = setTimeout(removeDetailUnderlay, DETAIL_TRANSITION_MS);
+}
+
+function removeDetailUnderlay() {
+    clearTimeout(detailTimeout);
+    document.querySelectorAll(".detail-underlay").forEach(underlay => underlay.remove());
+}
+
+function showContactDetail(container, i) {
+    container.innerHTML = getContactInformationTemplate(i); 
+    container.classList.add('animation-right'); 
+    setBadgeBackgroundColor(); 
 }
 
 function positionDialog(potition) {
