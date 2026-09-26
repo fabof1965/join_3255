@@ -371,7 +371,7 @@ function initializeTaskDropZones() {
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function mapTasksToArray(tasksObject) {
-  if (!tasksObject) return []; 
+  if (!tasksObject) return [];
   return Object.entries(tasksObject).map(([id, task]) => ({ ...task, id }));
 }
 

@@ -206,9 +206,7 @@ const addTaskDialogTemplate = `
         </button>
       </fieldset>
       <label class="add-task-field"><strong>Assigned to <span>(optional)</span></strong>
-        <select name="assignedUsers" multiple>
-          <option value="SG">Saeed Ghorbani</option><option value="JB">Jan-Simon Boecker</option><option value="CE">Cem Eren Ölmez</option><option value="FG">Fabian Gerdes</option>
-        </select>
+        <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
         <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
@@ -273,9 +271,7 @@ const addTaskContentTemplate =
         </div>
       </fieldset>
       <label class="add-task-field"><strong>Assigned to <span>(optional)</span></strong>
-        <select name="assignedUsers" multiple>
-          <option value="SG">Saeed Ghorbani</option><option value="JB">Jan-Simon Boecker</option><option value="CE">Cem Eren Ölmez</option><option value="FG">Fabian Gerdes</option>
-        </select>
+        <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
         <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
@@ -287,6 +283,8 @@ const addTaskContentTemplate =
     </form>`
   ;
 const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
+
+const assignedContactOptionTemplate = `<option value="{{initials}}">{{name}}</option>`;
 
 function getInputFieldsForLogin() {
   return `<div class="input-wrapper">
