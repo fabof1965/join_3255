@@ -282,7 +282,7 @@
     flex-direction: column;
     border: none;
     height: 100dvh;
-    width: 50%;
+    width: 25%;
 }
 
 .contact-dialog::backdrop{
