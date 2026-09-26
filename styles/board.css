@@ -328,3 +328,13 @@
     font-size: 16px !important;
     color: var(--white-color);
 }
+
+.close-btn{
+  background: none;
+  outline: none;
+  border: none;
+}
+
+/* .close-icon{
+  color: ;
+} */
