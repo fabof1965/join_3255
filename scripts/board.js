@@ -54,19 +54,6 @@ async function initBoardContent() {
 }
 
 /**
- * Replaces every placeholder in an HTML template.
- * @param {string} template - HTML containing named placeholders.
- * @param {Object.<string, string|number>} values - Values for the placeholders.
- * @returns {string} Completed HTML.
- */
-function fillTemplate(template, values) {
-  return Object.entries(values).reduce(
-    (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
-    template,
-  );
-}
-
-/**
  * Creates the CSS class belonging to a task category.
  * @param {string} category - Visible category name.
  * @returns {string} Category CSS class.
@@ -88,6 +75,7 @@ function getAssignedUsersHtml(assignedUsers) {
     .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
     .join("");
 }
+
 
 /**
  * Creates the HTML for a task's subtask progress.
@@ -155,6 +143,7 @@ function renderBoard(tasks) {
   tasks.forEach(renderTask);
   renderEmptyTaskLists(taskLists);
   initializeDraggableCards();
+  setBadgeBackgroundColor();
 }
 
 /**
@@ -384,4 +373,3 @@ async function loadTasks() {
     exampleTasks = [];
   }
 }
-

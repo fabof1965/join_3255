@@ -4,29 +4,6 @@ let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
 
-const colorContacts = [
-    "#FF7A00",
-    "#9327FF",
-    "#FF745E",
-    "#FFC701",
-    "#FFE62B",
-    "#FF5EB3",
-    "#00BEE8",
-    "#FFA35E",
-    "#0038FF",
-    "#FF4646",
-    "#6E52FF",
-    "#1FD7C1",
-    "#FC71FF",
-    "#C3FF2B",
-    "#FFBB2B",
-];
-
-function initContacts() {
-    renderContacts();
-    initPhoneFilter();
-}
-
 const addContactValues = {
     title: "Add contact",
     subtitle: "Tasks are better with a team!",
@@ -39,6 +16,51 @@ const existingContactValues = {
 const displayAttributes = {
     show: "flex",
     hide: "none"
+}
+
+function initContacts() {
+    renderContacts();
+    initPhoneFilter();
+}
+
+function initPhoneFilter() {
+    const phoneInput = document.getElementById('phone');
+    const errorMsg = document.getElementById('phone-err-msg');
+    const border = document.getElementById('wrong-phone-border');
+
+    phoneInput.addEventListener('input', () => {
+        const cleaned = phoneInput.value.replace(/[^0-9]/g, "");
+        const hadInvalidChars = cleaned !== phoneInput.value;
+        phoneInput.value = cleaned;
+
+        errorMsg.textContent = "Only digits are allowed";
+        errorMsg.classList.toggle('visibility-hidden', !hadInvalidChars);
+        border.classList.toggle('error-message-border-bottom', hadInvalidChars);
+    });
+}
+
+async function renderContacts() {
+    allContacts = await loadContacts();
+    const contactContainer = document.getElementById("contacts");
+    contactContainer.innerHTML = "";
+    sortContactsByName(allContacts);
+    let previousLetter = "";
+    for (let i = 0; i < allContacts.length; i++) {
+        let currentLetter = allContacts[i].name.charAt(0).toUpperCase();
+
+        if (currentLetter !== previousLetter) {
+            contactContainer.innerHTML += getFirstLetterTemplate(currentLetter);
+            previousLetter = currentLetter;
+        }
+        contactContainer.innerHTML += getContactTemplate(i);
+    }
+    setBadgeBackgroundColor();
+}
+
+async function loadContacts() {
+    const response = await getData('contacts');
+    if (!response) return [];
+    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
 function animateContactDetailContainer(i) {
@@ -137,6 +159,53 @@ function setDynamicDialogElements(dialogHeadlineText, dialogSubheadingText, canc
     setAcceptButtonText(acceptButtonText);
 }
 
+function getDialog() {
+    return document.getElementById("contact-dialog");
+}
+
+function resetBadge() {
+    const badge = document.querySelector('.badge-image-container');
+    badge.style = "";
+    badge.classList.remove('profile-badge-large');
+    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
+}
+
+function openContactDialog(i = null) {
+    if (i === null) {
+        resetBadge();
+        document.getElementById('contact-form').reset();
+        setDynamicDialogElements(addContactValues.title, "Tasks are better with a team!", "Cancel", "Create contact");
+        const badge = document.querySelector('.badge-image-container');
+        badge.style = "";
+        badge.classList.remove('profile-badge-large');
+        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
+    } else {
+        setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
+    }
+    getDialog().showModal();
+}
+
+function resetContactForm() {
+    const border = document.querySelectorAll('.add-contact-content');
+    border.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+    const errMsg = document.querySelectorAll('.error-msg');
+    errMsg.forEach(errorMessage => {
+        errorMessage.classList.add('visibility-hidden');
+    });
+}
+
+function closeContactDialog() {
+    const contactDialog = document.getElementById("contact-dialog");
+    const contactForm = document.getElementById('contact-form');
+
+    contactDialog.close();
+    resetBadge();
+    resetContactForm();
+    contactForm.reset();
+}
+
 function getContactFormfromForm() {
     return {
         name: document.getElementById("name").value.trim(),
@@ -145,60 +214,10 @@ function getContactFormfromForm() {
     };
 }
 
-async function addNewContact(event) {
-    console.log("addNewContact läuft");
-    event.preventDefault();
-    const form = document.getElementById('contact-form');
-    const contact = getContactFormfromForm();
-    const nameExists = await checkIfContactNameExists(contact.name);
-    const emailExists = await checkIfEmailExists(contact.email);
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-    if (nameExists || emailExists || phoneExists) return;
-    const { name: firebaseId } = await postData('contacts', contact);
-    contact.id = firebaseId;
-    form.reset();
-    closeContactDialog();
-    renderContacts();
-}
-
-async function renderContacts() { // die hier brauche ich
-    allContacts = await loadContacts();
-    const contactContainer = document.getElementById("contacts");
-    contactContainer.innerHTML = "";
-    sortContactsByName(allContacts);
-    let previousLetter = "";
-    for (let i = 0; i < allContacts.length; i++) {
-        let currentLetter = allContacts[i].name.charAt(0).toUpperCase();
-
-        if (currentLetter !== previousLetter) {
-            contactContainer.innerHTML += getFirstLetterTemplate(currentLetter);
-            previousLetter = currentLetter; // hier wird der Buchstabe gespeichert
-        }
-        contactContainer.innerHTML += getContactTemplate(i);
-    }
-    setBadgeBackgroundColor();
-}
-
-function sortContactsByName(contacts) {
-    contacts.sort(function (a, b) {
-
-        let nameA = a.name.toLowerCase();
-        let nameB = b.name.toLowerCase();
-
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    })
-}
-
-async function loadContacts() {
-    const response = await getData('contacts');
-    if (!response) return [];
-    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+function fillContactForm(contact) {
+    document.getElementById('name').value = contact.name;
+    document.getElementById('email').value = contact.email;
+    document.getElementById('phone').value = contact.phone;
 }
 
 async function checkIfContactNameExists(inputName, ownId = null) {
@@ -250,43 +269,30 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null) {
     return phoneExists;
 }
 
-function initPhoneFilter() {
-    const phoneInput = document.getElementById('phone');
-    const errorMsg = document.getElementById('phone-err-msg');
-    const border = document.getElementById('wrong-phone-border');
+async function submitContactForm(event) {
+    event.preventDefault();
+    if (editIndex === null) {
 
-    phoneInput.addEventListener('input', () => {
-        const cleaned = phoneInput.value.replace(/[^0-9]/g, "");
-        const hadInvalidChars = cleaned !== phoneInput.value;
-        phoneInput.value = cleaned;
-
-        errorMsg.textContent = "Only digits are allowed";
-        errorMsg.classList.toggle('visibility-hidden', !hadInvalidChars);
-        border.classList.toggle('error-message-border-bottom', hadInvalidChars);
-    });
-}
-
-function renderProfileBadges(initials) {
-    const namePart = initials.split(" ");
-    const firstLetter = namePart.shift().charAt(0);
-    const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0) : "";
-    return (firstLetter + lastLetter);
-}
-
-function getBadgeColor(initials) {
-    let charSum = 0;
-    for (let i = 0; i < initials.length; i++) {
-        charSum += initials.charCodeAt(i);
+        await addNewContact(event);
+    } else {
+        await saveEditedContact();
     }
-
-    return colorContacts[charSum % colorContacts.length];
 }
 
-function setBadgeBackgroundColor() {
-    const badges = document.querySelectorAll('.profile-badge, .profile-badge-large');
-    badges.forEach(badge => {
-        badge.style.backgroundColor = getBadgeColor(badge.textContent.trim());
-    });
+async function addNewContact(event) {
+    console.log("addNewContact läuft");
+    event.preventDefault();
+    const form = document.getElementById('contact-form');
+    const contact = getContactFormfromForm();
+    const nameExists = await checkIfContactNameExists(contact.name);
+    const emailExists = await checkIfEmailExists(contact.email);
+    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
+    if (nameExists || emailExists || phoneExists) return;
+    const { name: firebaseId } = await postData('contacts', contact);
+    contact.id = firebaseId;
+    form.reset();
+    closeContactDialog();
+    renderContacts();
 }
 
 function editExistingContact(i) {
@@ -299,12 +305,6 @@ function editExistingContact(i) {
     editIndex = i;
     fillContactForm(allContacts[i]);
     openContactDialog(i);
-}
-
-function fillContactForm(contact) {
-    document.getElementById('name').value = contact.name;
-    document.getElementById('email').value = contact.email;
-    document.getElementById('phone').value = contact.phone;
 }
 
 async function saveEditedContact() {
@@ -321,16 +321,6 @@ async function saveEditedContact() {
     renderContacts();
 }
 
-async function submitContactForm(event) {
-    event.preventDefault();
-    if (editIndex === null) {
-
-        await addNewContact(event);
-    } else {
-        await saveEditedContact();
-    }
-}
-
 async function deleteContact(i) {
     let contactDetails = document.getElementById('contact-detail');
     const contact = allContacts[i];
@@ -339,53 +329,6 @@ async function deleteContact(i) {
     contactDetails.innerHTML = "";
     closeContactDialog();
     renderContacts();
-}
-
-function getDialog() {
-    return document.getElementById("contact-dialog");
-}
-
-function resetBadge() {
-    const badge = document.querySelector('.badge-image-container');
-    badge.style = "";
-    badge.classList.remove('profile-badge-large');
-    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-}
-
-function openContactDialog(i = null) {
-    if (i === null) {
-        resetBadge();
-        document.getElementById('contact-form').reset();
-        setDynamicDialogElements(addContactValues.title, "Tasks are better with a team!", "Cancel", "Create contact");
-        const badge = document.querySelector('.badge-image-container');
-        badge.style = "";
-        badge.classList.remove('profile-badge-large');
-        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-    } else {
-        setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
-    }
-    getDialog().showModal();
-}
-
-function resetContactForm() {
-    const border = document.querySelectorAll('.add-contact-content');
-    border.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
-    const errMsg = document.querySelectorAll('.error-msg');
-    errMsg.forEach(errorMessage => {
-        errorMessage.classList.add('visibility-hidden');
-    });
-}
-
-function closeContactDialog() {
-    const contactDialog = document.getElementById("contact-dialog");
-    const contactForm = document.getElementById('contact-form');
-
-    contactDialog.close();
-    resetBadge();
-    resetContactForm();
-    contactForm.reset();
 }
 
 getDialog().addEventListener("close", () => {

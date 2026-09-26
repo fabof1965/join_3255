@@ -104,16 +104,16 @@ const subtaskProgressTemplate = `
     </div>
 `;
 
-const userBadgeTemplate = `<span class="user-badge">{{initials}}</span>`;
+const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
 
 const emptyTaskListTemplate = `<p class="empty-task-list">{{text}}</p>`;
 
 const taskOverlayTemplate = `
-  <article class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
+  <article id="task-overlay" class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
     <header class="task-overlay-header">
       <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
-      <button class="task-overlay-close" type="button" aria-label="Close task details">
-        <img src="../assets/icons/close-task-overlay.svg" alt="close task" />
+      <button class="close-btn task-overlay-close" type="button" aria-label="Close task details">
+        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close task" />
       </button>
     </header>
     <h2 id="task-overlay-title">{{title}}</h2>
