@@ -30,6 +30,7 @@
 
 .add-task-form {
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: var(--add-task-form-gap);
   width: var(--full);
@@ -162,6 +163,7 @@ input, select, textarea {
   flex-direction: column;
   color: var(--menu-color);
   gap: var(--add-task-label-gap);
+  width: var(--full);
 }
 
 .add-task-field strong,
