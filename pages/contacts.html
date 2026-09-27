@@ -82,7 +82,7 @@
                     <div class="input-wrapper">
                         <div id="wrong-name-border" class="add-contact-content">
                             <label for="name" class="visually-hidden">Name</label>
-                            <input id="name" class="input-field" type="text" placeholder="Name" required />
+                            <input id="name" class="input-field" type="text" minlength="3" placeholder="Name" required />
                             <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
                         </div>
                         <span id="name-err-msg" class="error-msg visibility-hidden">This Name already exists</span>
@@ -91,7 +91,7 @@
                     <div class="input-wrapper">
                         <div id="wrong-email-border" class="add-contact-content">
                             <label for="email" class="visually-hidden">Email</label>
-                            <input id="email" class="input-field" type="email" placeholder="Email" required />
+                            <input id="email" class="input-field" type="email" minlength="3" placeholder="Email" required />
                             <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
                         </div>
                         <span id="email-err-msg" class="error-msg visibility-hidden">That email already exists</span>
@@ -99,7 +99,7 @@
                     <div class="input-wrapper">
                         <div id="wrong-phone-border" class="add-contact-content">
                             <label for="phone" class="visually-hidden">Phone</label>
-                            <input id="phone" class="input-field" type="tel" placeholder="Phone" required />
+                            <input id="phone" class="input-field" type="tel" minlength="5" placeholder="Phone" required />
                             <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
                         </div>
                         <span id="phone-err-msg" class="error-msg visibility-hidden">Please choose a different number.</span>
