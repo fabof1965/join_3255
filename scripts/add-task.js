@@ -16,7 +16,7 @@ async function openAddTask(status) {
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
-  await renderAssignedContacts();
+  await renderAssignedContacts(overlay);
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
   overlay.querySelector("input[name='title']").focus();
@@ -85,7 +85,7 @@ async function openEditTask(task) {
   editingTaskId = task.id;
   newTaskStatus = task.status;
   overlay.innerHTML = addTaskDialogTemplate;
-  await renderAssignedContacts();
+  await renderAssignedContacts(overlay);
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
   overlay.querySelector("#add-task-title").textContent = "Edit Task";
@@ -311,6 +311,6 @@ async function loadAddTaskContent() {
   const CONTAINER_ADD_TASK = document.getElementById("addTaskContent");
 
   CONTAINER_ADD_TASK.innerHTML = addTaskContentTemplate;
-  await renderAssignedContacts();
+  await renderAssignedContacts(CONTAINER_ADD_TASK);
 
 }

@@ -131,10 +131,10 @@ async function getAssignedContacts() {
   return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
-async function renderAssignedContacts() {
+async function renderAssignedContacts(container) {
   assignedContacts = await getAssignedContacts();
   sortContactsByName(assignedContacts);
-  const contactRef = document.getElementById('assigned-contacts');
+  const contactRef = container.querySelector('#assigned-contacts');
   contactRef.innerHTML = assignedContacts
     .map(({ name }) =>
       fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
