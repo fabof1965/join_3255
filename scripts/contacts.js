@@ -182,7 +182,15 @@ function openContactDialog(i = null) {
     } else {
         setDynamicDialogElements(existingContactValues.title, "", "Delete", "Save");
     }
-    getDialog().showModal();
+    activateDialog();
+}
+
+function activateDialog() {
+    const dialog = getDialog();
+    dialog.classList.remove('slide-in');
+    dialog.showModal();
+    dialog.offsetWidth;
+    dialog.classList.add('slide-in');
 }
 
 function resetContactForm() {
