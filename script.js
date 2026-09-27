@@ -88,8 +88,8 @@ function initHeaderProfile() {
 
 function renderProfileBadges(initials) {
     const namePart = initials.split(" ");
-    const firstLetter = namePart.shift().charAt(0);
-    const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0) : "";
+    const firstLetter = namePart.shift().charAt(0).toUpperCase();
+    const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0).toUpperCase() : "";
     return (firstLetter + lastLetter);
 }
 
