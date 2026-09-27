@@ -5,7 +5,7 @@
     padding: var(--padding);
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
-    overflow-y: scroll;
+
     position: relative;
 }
 
@@ -38,11 +38,11 @@
         z-index: 10;
     }
 
-    .btn-new-contact > span {
+    .btn-new-contact>span {
         display: none;
     }
 
-    .btn-new-contact > img {
+    .btn-new-contact>img {
         width: var(--back-btn-image-dimensions);
         height: var(--back-btn-image-dimensions);
     }
@@ -51,6 +51,7 @@
 #contacts {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .letter {
@@ -288,7 +289,7 @@
     transition: right 300ms ease-in;
 }
 
-.contact-dialog::backdrop{
+.contact-dialog::backdrop {
     background-color: rgba(228, 221, 221, 0.5);
 }
 
@@ -434,15 +435,15 @@ input {
 
 /* error-msg */
 
-.visibility-hidden{
-  visibility: hidden; 
+.visibility-hidden {
+    visibility: hidden;
 }
 
-.error-msg{
-  color: var(--red-color);
-  width: var(--full);
-  padding-left: 16px;
-  height: 1rem;
+.error-msg {
+    color: var(--red-color);
+    width: var(--full);
+    padding-left: 16px;
+    height: 1rem;
 }
 
 .add-contact-content.error-message-border-bottom {
