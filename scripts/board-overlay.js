@@ -26,7 +26,6 @@ function getOverlaySubtasksHtml(subtaskTitles = []) {
   ).join("");
 }
 
-
 /**
  * Returns the priority icon matching a task.
  * @param {string} priority - Task priority.
@@ -44,7 +43,7 @@ function getOverlayPriorityIcon(priority) {
  * @returns {string} Task overlay HTML.
  */
 function getTaskOverlayHtml(task) {
-  const priority = task.priority; 
+  const priority = task.priority;
   const subtasks = getOverlaySubtasksHtml(task.subtaskTitles);
   return fillTemplate(taskOverlayTemplate, {
     categoryClass: getCategoryClass(task.category), category: task.category,
@@ -76,6 +75,7 @@ function openTaskOverlay(taskId) {
   if (!task) return;
   openedTaskId = taskId;
   overlay.innerHTML = getTaskOverlayHtml(task);
+  setBadgeBackgroundColor();
   overlay.hidden = false;
   document.body.classList.add("overlay-open");
 }

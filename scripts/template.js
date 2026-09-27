@@ -138,7 +138,7 @@ const taskOverlayTemplate = `
 
 const taskOverlayUserTemplate = `
   <div class="task-overlay-user">
-    <span class="task-overlay-user-badge">{{initials}}</span>
+    <span class="profile-badge">{{initials}}</span>
     <span>{{name}}</span>
   </div>
 `;
