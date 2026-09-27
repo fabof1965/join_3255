@@ -98,8 +98,8 @@ function getSubtaskProgressHtml(subtasks) {
  * @returns {string} Visible priority symbol.
  */
 function getPrioritySymbol(priority) {
-  if (priority === "urgent") return "↑";
-  return priority === "medium" ? "=" : "↓";
+  if (priority === "urgent") return urgentPriorityTemplate;
+  return priority === "medium" ? mediumPriorityTemplate : lowPriorityTemplate;
 }
 
 /**

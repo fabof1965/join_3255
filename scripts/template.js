@@ -150,11 +150,11 @@ const taskOverlaySubtaskTemplate = `
   </div>
 `;
 
-const urgentPriorityTemplate = `<img src="../assets/icons/urgent-priority.png" alt="" />`;
+const urgentPriorityTemplate = `<img src="../assets/icons/urgency_high.svg" alt="" />`;
 
-const mediumPriorityTemplate = `<span class="priority-symbol-medium">=</span>`;
+const mediumPriorityTemplate = `<img src="../assets/icons/urgency_medium.svg" alt=""/>`;
 
-const lowPriorityTemplate = `<span class="priority-symbol-low">↓</span>`;
+const lowPriorityTemplate = `<img src="../assets/icons/urgency_low.svg" alt=""/>`;
 
 const addTaskDialogTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
