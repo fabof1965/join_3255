@@ -10,6 +10,8 @@ body {
 
 .main-layout {
   display: flex;
+  margin: var(--content-limit-margin);
+  max-width: var(--page-max-width);
   width: var(--full);
   justify-content: flex-start;
   height: var(--page-content-height);
