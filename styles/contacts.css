@@ -15,7 +15,7 @@
 
     .contacts-section {
         flex: 1;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 }
 
@@ -123,6 +123,7 @@
 
 .contact-details {
     position: relative;
+    width: var(--full);
 }
 
 .detailed-contact {
@@ -131,6 +132,7 @@
     gap: var(--gap-large);
     padding: var(--padding);
     position: fixed;
+    top: var(--header-height);
     transform: translateX(100%);
     transition: transform 500ms ease-in-out;
     background-color: var(--white-color);
@@ -151,6 +153,7 @@
     padding: var(--padding-small);
     border-radius: var(--border-radius-circular);
     color: var(--white-color);
+    margin: var(--content-limit-margin);
 }
 
 .detail-header {
@@ -276,8 +279,21 @@
 }
 
 /* dialog */
-.contact-dialog[open] {
+.add-contact-dialog[open] {
     border-radius: 32px 0 0 32px;
+    right: 0;
+    left: auto;
+    transform: translateX(100%);
+}
+
+.edit-contact-dialog[open] {
+    border-radius: 0 32px 32px 0;
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+dialog[open] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -288,22 +304,19 @@
     outline: none;
     position: fixed;
     top: 0;
-    right: 0;
-    left: auto;
     box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
-    transform: translateX(100%);
-    transition: transform 600ms ease-in-out;
+    transition: transform 500ms ease-in-out;
 }
 
-.contact-dialog[open].slide-in{
-    transform: translateX(0);
+dialog[open].slide-in {
+    transform: var(--slide-in);
 }
 
-.contact-dialog::backdrop {
+dialog[open]::backdrop {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#dialog-header {
+.dialog-header {
     display: flex;
     flex-direction: column;
     width: var(--full);
@@ -325,11 +338,11 @@
     color: var(--white-color);
 }
 
-#dialog-headline {
+.dialog-headline {
     font-size: var(--medium-font-size);
 }
 
-#dialog-subheading {
+.dialog-subheading {
     font-size: var(--small-font-size);
 }
 
@@ -355,7 +368,7 @@
     width: var(--small-user-badge-width);
 }
 
-#dialog-main {
+.dialog-main {
     display: flex;
     flex-direction: column;
     flex: 1;

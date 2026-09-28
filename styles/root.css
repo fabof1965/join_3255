@@ -155,6 +155,7 @@
     --add-task-label-gap: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --priority-button-padding: clamp(8px, calc(5.714px + 0.714vw), 16px) clamp(4px, calc(2.857px + 0.357vw), 8px);
     --task-icon-dimensions: clamp(60px, calc(55.429px + 1.429vw), 76px);
+    --slide-in: translateX(0);
 
     /*legal-notice and privacy-policy*/
     --legal-notice-headline-font-size: var(--large-font-size);
