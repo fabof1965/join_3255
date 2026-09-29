@@ -25,11 +25,7 @@ let assignedContacts = [];
 function renderSidebar() {
   const sidebarContainer = document.getElementById("sidebar");
 
-  if (!sidebarContainer) {
-    return;
-  }
-
-  sidebarContainer.innerHTML = sidebarTemplate;
+  sidebarContainer.innerHTML = getSidebarTemplate();
   markActiveSidebarLink();
 }
 

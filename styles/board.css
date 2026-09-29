@@ -119,6 +119,9 @@
 }
 
 .column-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: calc(var(--back-btn-image-dimensions) * 0.75);
   width: calc(var(--back-btn-image-dimensions) * 0.75);
   border-radius: var(--element-design-border-radius);
