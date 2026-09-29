@@ -6,32 +6,29 @@
     padding: var(--padding);
     display: flex;
     flex-direction: column;
-    gap: var(--summary-container-gap);
+    gap: var(--gap-medium);
 
     .help-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: var(--full);
+        margin-bottom: var(--margin-bottom-medium);
 
         .help-title {
             font-size: var(--legal-notice-headline-font-size);
             font-weight: 700;
             line-height: 1;
-            margin: 0;
-            padding-bottom: 40px;
         }
 
         .back-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s ease;
             border-radius: var(--border-radius-circular);
             cursor: pointer;
 
             &:hover {
-                transform: scale(1.1);
                 background-color: var(--secondary-color);
             }
 
