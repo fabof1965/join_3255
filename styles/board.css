@@ -8,7 +8,7 @@
 }
 
 .board-toolbar-wrapper {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   gap: var(--gap-medium);
   padding: var(--padding);
@@ -19,19 +19,20 @@
   display: flex;
   align-items: center;
   gap: var(--gap-large);
-  width:var(--full);
+  width: var(--full);
 }
 
 @media(max-width: 950px) {
   .main-layout {
     height: 100%;
   }
-  
+
   .board-toolbar-wrapper {
     position: sticky;
     top: var(--header-height);
     background-color: var(--white-color);
   }
+
   .board-toolbar {
     margin-top: var(--margin-bottom-medium);
   }
@@ -62,7 +63,7 @@
 }
 
 .search-image {
-  width: var(--search-button-image-dimensions); 
+  width: var(--search-button-image-dimensions);
   height: var(--search-button-image-dimensions);
 }
 
@@ -257,13 +258,15 @@
   width: var(--full);
   height: 8px;
   background-color: var(--progress-track-background-color);
-  border-radius: var(--element-design-border-radius);;
+  border-radius: var(--element-design-border-radius);
+  ;
 }
 
 .progress-fill {
   height: var(--full);
   background-color: var(--primary-color);
-  border-radius: var(--element-design-border-radius);;
+  border-radius: var(--element-design-border-radius);
+  ;
 }
 
 .subtask-progress span {
@@ -320,24 +323,25 @@
 }
 
 .profile-badge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--small-user-badge-width);
-    height: var(--small-user-badge-width);
-    padding: var(--padding-small);
-    border-radius: var(--border-radius-circular);
-    border: 2px solid var(--white-color);
-    font-size: 16px !important;
-    color: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--small-user-badge-width);
+  height: var(--small-user-badge-width);
+  padding: var(--padding-small);
+  border-radius: var(--border-radius-circular);
+  border: 2px solid var(--white-color);
+  font-size: 16px !important;
+  color: var(--white-color);
 }
 
-.close-btn{
+.close-btn {
   background: none;
   outline: none;
   border: none;
 }
 
-/* .close-icon{
-  color: ;
-} */
+.close-icon:hover {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius-circular);
+}
