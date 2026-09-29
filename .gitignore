@@ -6,3 +6,6 @@ SKILL.md
 TODO-fehlermeldungen.txt
 checkIfEmailExists-vorher.txt
 badge-add-edit-anleitung.txt
+node_modules/
+package-lock.json
+package.json
