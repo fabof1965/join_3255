@@ -27,7 +27,7 @@
 .page-links {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);;
+  gap: var(--gap-medium);
   width: var(--full);
 }
 

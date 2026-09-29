@@ -24,6 +24,9 @@ let assignedContacts = [];
  */
 function renderSidebar() {
   const sidebarContainer = document.getElementById("sidebar");
+  const startClass = "start";
+  
+  if(!sidebarContainer) return;
 
   sidebarContainer.innerHTML = getSidebarTemplate();
   markActiveSidebarLink();
