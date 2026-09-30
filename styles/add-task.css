@@ -418,6 +418,10 @@ input, select, textarea {
   padding: 6px 16px;
 }
 
+.subtask-checkbox{
+  width: initial;
+}
+
 .task-overlay-subtask img {
   width: 24px;
   height: 24px;

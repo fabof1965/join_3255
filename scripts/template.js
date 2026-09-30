@@ -149,7 +149,7 @@ const taskOverlayUserTemplate = `
 
 const taskOverlaySubtaskTemplate = `
   <div class="task-overlay-subtask">
-    <img src="../assets/icons/subtask-checked.png" alt="Completed" />
+    <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}}/>
     <span>{{title}}</span>
   </div>
 `;
