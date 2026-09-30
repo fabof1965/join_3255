@@ -151,14 +151,14 @@ function handleTaskOverlayClick(event) {
  * @param {Event} event - Document change event.
  * @returns {void}
  */
-// function handleSubtaskCheckboxChange(event) {
-//   if (event.target.classList.contains("subtask-checkbox")) {
-//     toggleSubtaskDone(event.target);
-//   }
-// }
+function handleSubtaskCheckboxChange(event) {
+  if (event.target.classList.contains("subtask-checkbox")) {
+    toggleSubtask(event.target);
+  }
+}
 
 document.addEventListener("click", handleTaskOverlayClick);
 document.getElementById('task-overlay').addEventListener('close', () => {
   document.body.classList.remove('overlay-open');
 })
-// document.addEventListener("change", handleSubtaskCheckboxChange);
+document.addEventListener("change", handleSubtaskCheckboxChange);

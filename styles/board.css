@@ -266,7 +266,6 @@
   height: var(--full);
   background-color: var(--primary-color);
   border-radius: var(--element-design-border-radius);
-  ;
 }
 
 .subtask-progress span {
@@ -281,6 +280,10 @@
 
 .assigned-users {
   display: flex;
+}
+
+.profile-badge:not(:first-child){
+  margin-left: -10px;
 }
 
 .user-badge {
@@ -333,6 +336,7 @@
   border: 2px solid var(--white-color);
   font-size: 16px !important;
   color: var(--white-color);
+  position: relative;
 }
 
 .close-btn {
