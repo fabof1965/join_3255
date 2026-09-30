@@ -20,11 +20,25 @@ function getOverlayUsersHtml(task) {
  * @param {string[]|undefined} subtaskTitles - Names of the subtasks.
  * @returns {string} Subtask HTML.
  */
-function getOverlaySubtasksHtml(subtaskTitles = []) {
-  return subtaskTitles.map((title) =>
-    fillTemplate(taskOverlaySubtaskTemplate, { title }),
+function getOverlaySubtasksHtml(task) {
+  const titles = task.subtaskTitles || [];
+  const done = task.subtaskDone || [];
+  return titles.map((title, index) =>
+    fillTemplate(taskOverlaySubtaskTemplate, {
+      id: index,
+      title,
+      checked: done[index] ? "checked" : "",
+    }),
   ).join("");
 }
+
+// function toggleSubtask(index) {
+//     // 1. Den Status an der jeweiligen Stelle umkehren (true wird false, false wird true)
+//     currentTask.subtaskDone[index] = !currentTask.subtaskDone[index];
+    
+//     // 2. (Optional) Speichern, z.B. in LocalStorage oder Firebase, damit es nicht verloren geht
+//     saveTasks(); 
+// }
 
 /**
  * Returns the priority icon matching a task.
@@ -44,7 +58,7 @@ function getOverlayPriorityIcon(priority) {
  */
 function getTaskOverlayHtml(task) {
   const priority = task.priority;
-  const subtasks = getOverlaySubtasksHtml(task.subtaskTitles);
+  const subtasks = getOverlaySubtasksHtml(task);
   return fillTemplate(taskOverlayTemplate, {
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.fullDescription || task.description,
@@ -76,7 +90,7 @@ function openTaskOverlay(taskId) {
   openedTaskId = taskId;
   overlay.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
-  overlay.hidden = false;
+  overlay.showModal();
   document.body.classList.add("overlay-open");
 }
 
@@ -109,7 +123,7 @@ function editOpenedTask() {
  * @returns {void}
  */
 function closeTaskOverlay() {
-  document.getElementById("task-overlay").hidden = true;
+  document.getElementById("task-overlay").close();
   document.body.classList.remove("overlay-open");
 }
 
@@ -127,4 +141,19 @@ function handleTaskOverlayClick(event) {
   if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
 }
 
+/**
+ * Handles changes on subtask checkboxes inside the overlay.
+ * @param {Event} event - Document change event.
+ * @returns {void}
+ */
+// function handleSubtaskCheckboxChange(event) {
+//   if (event.target.classList.contains("subtask-checkbox")) {
+//     toggleSubtaskDone(event.target);
+//   }
+// }
+
 document.addEventListener("click", handleTaskOverlayClick);
+document.getElementById('task-overlay').addEventListener('close', ()=>{
+  document.body.classList.remove('overlay-open');
+})
+// document.addEventListener("change", handleSubtaskCheckboxChange);

@@ -104,7 +104,7 @@ const subtaskProgressTemplate = `
       <div class="progress-track" role="progressbar" aria-valuenow="{{completed}}" aria-valuemin="0" aria-valuemax="{{total}}">
         <div class="progress-fill" style="width: {{progress}}%"></div>
       </div>
-      <span>{{completed}}/{{total}} Subtasks</span>
+      <span id="subtaskcontainer">{{completed}}/{{total}} Subtasks</span>
     </div>
 `;
 
@@ -113,7 +113,7 @@ const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
 const emptyTaskListTemplate = `<p class="empty-task-list">{{text}}</p>`;
 
 const taskOverlayTemplate = `
-  <article id="task-overlay" class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
+  <article class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
     <header class="task-overlay-header">
       <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
       <button class="close-btn task-overlay-close" type="button" aria-label="Close task details">
@@ -149,7 +149,7 @@ const taskOverlayUserTemplate = `
 
 const taskOverlaySubtaskTemplate = `
   <div class="task-overlay-subtask">
-    <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}}/>
+    <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}} onclick="toggleSubtask({{id}})" />
     <span>{{title}}</span>
   </div>
 `;

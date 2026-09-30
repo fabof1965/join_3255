@@ -17,7 +17,7 @@ async function openAddTask(status) {
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(overlay);
-  overlay.hidden = false;
+  overlay.showModal();
   document.body.classList.add("overlay-open");
   overlay.querySelector("input[name='title']").focus();
 }
@@ -86,7 +86,7 @@ async function openEditTask(task) {
   newTaskStatus = task.status;
   overlay.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(overlay);
-  overlay.hidden = false;
+  overlay.showModal();
   document.body.classList.add("overlay-open");
   overlay.querySelector("#add-task-title").textContent = "Edit Task";
   overlay.querySelector(".create-task-button").textContent = "Save Task";
@@ -100,7 +100,7 @@ async function openEditTask(task) {
  */
 function closeAddTask() {
   const overlay = document.getElementById("add-task-overlay");
-  overlay.hidden = true;
+  overlay.close();
   overlay.innerHTML = "";
   editingTaskId = "";
   document.body.classList.remove("overlay-open");
@@ -217,6 +217,7 @@ function createTaskFromForm(form) {
     assignedUserNames: getSelectedUserNames(form.elements.assignedUsers),
     subtasks: newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined,
     subtaskTitles: [...newTaskSubtasks],
+    // subtaskDone: newTaskSubtasks.map(() => false),
   };
 }
 
@@ -248,6 +249,7 @@ async function submitEditedTask(form) {
     assignedUserNames: updatedTask.assignedUserNames,
     subtasks: updatedTask.subtasks,
     subtaskTitles: updatedTask.subtaskTitles,
+    subtaskDone: updatedTask.subtaskDone,
   });
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);

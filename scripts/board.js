@@ -32,6 +32,7 @@ let exampleTasks = [
     dueDate: "02/09/2023",
     subtasks: { completed: 2, total: 2 },
     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
+    subtaskDone: [true, true],
   },
   {
     id: "task-4",
@@ -75,7 +76,6 @@ function getAssignedUsersHtml(assignedUsers) {
     .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
     .join("");
 }
-
 
 /**
  * Creates the HTML for a task's subtask progress.
@@ -129,6 +129,11 @@ function renderTask(task) {
 
   if (!taskList) return;
   taskList.innerHTML += getTaskCardHtml(task);
+}
+
+function openTask() {
+  const dialog = document.getElementById('task-overlay');
+  dialog.showModal();
 }
 
 /**
