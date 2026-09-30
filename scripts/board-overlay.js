@@ -32,13 +32,18 @@ function getOverlaySubtasksHtml(task) {
   ).join("");
 }
 
-// function toggleSubtask(index) {
-//     // 1. Den Status an der jeweiligen Stelle umkehren (true wird false, false wird true)
-//     currentTask.subtaskDone[index] = !currentTask.subtaskDone[index];
-    
-//     // 2. (Optional) Speichern, z.B. in LocalStorage oder Firebase, damit es nicht verloren geht
-//     saveTasks(); 
-// }
+/**
+ * Toggles the done state of a subtask in the opened task and updates the completed counter.
+ * @param {number} index - Index of the subtask to toggle.
+ */
+
+function toggleSubtask(index) {
+  const task = exampleTasks.find(({id})=> id === openedTaskId);
+  if (!task) return;
+  task.subtaskDone[index] = !task.subtaskDone[index];
+  task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
+  //false = offen, true = erledigt
+}
 
 /**
  * Returns the priority icon matching a task.
@@ -153,7 +158,7 @@ function handleTaskOverlayClick(event) {
 // }
 
 document.addEventListener("click", handleTaskOverlayClick);
-document.getElementById('task-overlay').addEventListener('close', ()=>{
+document.getElementById('task-overlay').addEventListener('close', () => {
   document.body.classList.remove('overlay-open');
 })
 // document.addEventListener("change", handleSubtaskCheckboxChange);

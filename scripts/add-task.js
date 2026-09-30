@@ -217,7 +217,7 @@ function createTaskFromForm(form) {
     assignedUserNames: getSelectedUserNames(form.elements.assignedUsers),
     subtasks: newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined,
     subtaskTitles: [...newTaskSubtasks],
-    // subtaskDone: newTaskSubtasks.map(() => false),
+    subtaskDone: newTaskSubtasks.map(() => false),
   };
 }
 
