@@ -125,6 +125,7 @@ textarea {
   border-radius: 30px;
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  outline: none;
 }
 
 .add-task-dialog {
@@ -300,6 +301,7 @@ textarea {
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
   margin: auto;
+  outline: none;
 }
 
 .task-overlay-backdrop[hidden] {
