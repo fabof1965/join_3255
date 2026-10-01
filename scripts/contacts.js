@@ -66,6 +66,10 @@ function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", new
     console.log("Button content is set");
 }
 
+function showPopover() {
+    document.getElementById("popover-menu").showPopover();
+}
+
 function animateContactDetailContainer(i) {
     setButtonContent();
     getContactsData(i);
