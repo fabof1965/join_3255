@@ -155,28 +155,22 @@ function fillTemplate(template, values) {
   );
 }
 
-
-/**
- * Prüft, ob ein Benutzer eingeloggt ist. Wenn nicht, wird er zur Login-Seite weitergeleitet.
- */
 function checkUserLogin() {
-    // 1. Schauen wir uns die aktuelle Adresse (URL) an
-    let currentUrl = window.location.pathname;
+    const currentUrl = window.location.pathname;
 
-    /* 2. Prüfen, ob wir gerade auf der Login-Seite (index.html) sind:
-     Ist die Seite die Login-Seite? Prüf mal: 
-     Entweder wenn sie mit index.html endet ODER wenn sie mit einem / endet – eins von beiden reicht völlig aus!
-    (A) Lokal:  Wenn man lokal testet und da steht         "index.html"   steht               --->   Treffer, ist die Login-Seite!
-    (B) Online : Wenn die Seite später online ist und da nur     "/"        steht ebenfalls:    --->   Treffer, ist auch die Login-Seite!*/
-    let isLoginPage = currentUrl.endsWith("index.html") || currentUrl.endsWith("/");
+    const isLoginPage = currentUrl.endsWith("index.html") || currentUrl.endsWith("/");
 
-    // 3. Wenn wir NICHT auf der Login-Seite sind, müssen wir prüfen, ob jemand angemeldet ist
     if (!isLoginPage) {
-        let userName = localStorage.getItem("name");
+        const userName = localStorage.getItem("name");
 
-        // 4. Wenn kein Name im Speicher steht, ist niemand eingeloggt -> Umleitung zum Login!
         if (!userName) {
             window.location.href = "../index.html"; 
+            return;
         }
+        
+        setTimeout(() => {
+            document.body.style.display = "flex";
+            document.body.style.flexDirection = "column";
+        }, 1);
     }
 }
