@@ -20,15 +20,15 @@
     <script src="../scripts/contacts.js" defer></script>
 </head>
 
-<body onload="initContacts()">
+<body style="display: none" onload="initContacts()">
     <header id="header"></header>
 
     <main class="main-layout">
         <nav id="sidebar"></nav>
          <section class="contacts-section">
-            <button class="btn-new-contact btn" onclick="openContactDialog()">
+            <button popovertarget="popover-menu" class="btn-new-contact btn" onclick="openContactDialog()">
                 <span id="txt-add-new-contact">Add new contact</span>
-                <img src="../assets/icons/new_contact.svg" alt="new contact">
+                <img class="add-new-contact-image" src="../assets/icons/new_contact.svg" alt="new contact">
             </button>
             <div id="contacts">
                 <!-- content should be generated and not be written by hand -->
@@ -40,7 +40,14 @@
             <article class="detailed-contact" id="contact-detail"></article>
         </section>
     </main>
-
+    <div id="popover-menu" popover>
+        <button class="edit">
+            <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
+        </button>
+        <button class="delete">
+            <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
+        </button> 
+    </div>
     <footer>
 
     </footer>

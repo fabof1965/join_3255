@@ -107,8 +107,7 @@
 .mail {
     color: var(--primary-color);
     font-size: var(--small-font-size);
-    overflow-wrap: anywhere;
-    hyphens: auto;
+    text-overflow: ellipsis;
 }
 
 .background-primary,

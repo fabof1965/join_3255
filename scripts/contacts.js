@@ -54,7 +54,20 @@ async function loadContacts() {
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
+function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
+    const addContactImage = document.querySelector(".add-new-contact-image");
+
+    if(addContactImage.getAttribute("src") === defaultSource) {
+        addContactImage.setAttribute("src", newSource);
+    }
+    else {
+        addContactImage.setAttribute("src", defaultSource);
+    }
+    console.log("Button content is set");
+}
+
 function animateContactDetailContainer(i) {
+    setButtonContent();
     getContactsData(i);
 }
 
@@ -80,6 +93,7 @@ function hideContactDetail() {
     removeDetailUnderlay();
     const detail = document.getElementById('contact-detail');
     detail.classList.remove('animation-right');
+    setButtonContent();
 }
 
 function getContactsData(i) {
