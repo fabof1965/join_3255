@@ -286,7 +286,21 @@ const addTaskContentTemplate =
       </label>
     </form>`
   ;
-const addTaskSubtaskTemplate = `<li>{{title}}</li>`;
+
+const addTaskSubtaskTemplate = `
+  <li class="subtask-list">
+    <div class="subtask-wrapper">
+      <span>{{title}}</span>
+      <div>
+        <button type="button" class="subtask-btn"><img src="../assets/icons/edit.svg" alt="edit icon"></button>
+        <button type="button" class="subtask-btn"><img src="../assets/icons/delete.svg" alt="delete icon"></button>
+      </div>
+    </div>
+  </li>`;
+
+const editSubtaskTemplate = `
+  <input class="subtask-edit-input" value="{{title}}" />`;
+
 
 const assignedContactOptionTemplate = `<option value="{{initials}}">{{name}}</option>`;
 

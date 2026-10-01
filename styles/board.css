@@ -272,6 +272,12 @@
   text-wrap: nowrap;
 }
 
+.subtask-btn{
+  background: none;
+  outline: none;
+  border: none;
+}
+
 .task-footer {
   display: flex;
   align-items: center;
