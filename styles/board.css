@@ -160,11 +160,15 @@
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
+  .board-column {
+    margin-bottom: calc(var(--margin-bottom-medium) * 2);
+  }
+
   .task-list {
     height: var(--full);
     width: var(--full);
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: unset;
     scrollbar-color: var(--primary-color) transparent;
   }

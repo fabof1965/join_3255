@@ -157,20 +157,16 @@ function fillTemplate(template, values) {
 
 function checkUserLogin() {
     const currentUrl = window.location.pathname;
+    const isLoginPage = currentUrl.endsWith("index.html");
+    const userName = localStorage.getItem("name");
 
-    const isLoginPage = currentUrl.endsWith("index.html") || currentUrl.endsWith("/");
-
-    if (!isLoginPage) {
-        const userName = localStorage.getItem("name");
-
-        if (!userName) {
-            window.location.href = "../index.html"; 
-            return;
-        }
-        
-        setTimeout(() => {
-            document.body.style.display = "flex";
-            document.body.style.flexDirection = "column";
-        }, 1);
+    if (!isLoginPage && !userName) {
+        window.location.href = "../index.html"; 
+        return;
     }
+
+    setTimeout(() => {
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+    }, 1);
 }

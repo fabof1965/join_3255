@@ -40,7 +40,6 @@
 
 @media(max-width: 950px) {
   .auth-header {
-    margin: var(--auth-input-gap);
     justify-content: center;
     padding: 0;
   }
