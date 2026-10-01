@@ -277,7 +277,7 @@ async function addNewContact(event) {
     contact.id = firebaseId;
     form.reset();
     closeContactDialog();
-    renderContacts();
+    await renderContacts();
 }
 
 function editExistingContact(i) {
@@ -318,11 +318,12 @@ async function saveEditedContact() {
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
     
-    renderContacts();
+    await renderContacts();
+    // hier noch dafür sorgen das der Aktuelle Kontakt nach dem bearbeiten direkt die neuen Infos anzeigt
 }
 
 function assignValuesToContact(contact) {
-    const INPUT_NAME = document.getElementById('existing-contact-phone').value;
+    const INPUT_NAME = document.getElementById('existing-contact-name').value;
     const INPUT_EMAIL = document.getElementById('existing-contact-email').value;
     const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value;
 
@@ -338,7 +339,7 @@ async function deleteContact(i) {
     await deleteData('contacts/' + contact.id);
     contactDetails.innerHTML = "";
     closeContactDialog();
-    renderContacts();
+    await renderContacts();
 }
 
 getAddContactDialog().addEventListener("close", () => {
