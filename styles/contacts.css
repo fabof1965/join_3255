@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap-medium);
-    padding: var(--padding);
+    padding: var(--padding-top-bottom) 0;
     box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
     height: calc(100dvh - 2 * var(--padding-top-bottom) - 41.3px);
     position: relative;
@@ -26,16 +26,18 @@
     justify-content: center;
     background-color: var(--primary-color);
     color: var(--white-color);
+    margin: 0 var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
 }
 
 @media(max-width: 500px) {
     .btn-new-contact {
         position: fixed;
-        width: 50px;
-        height: 50px;
+        width: calc(var(--back-btn-image-dimensions) * 1.75);
+        height: calc(var(--back-btn-image-dimensions) * 1.75);
         bottom: 16dvh;
         right: 8dvw;
         z-index: 10;
+        margin: 0;
     }
 
     .btn-new-contact>span {
@@ -52,6 +54,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    padding: 0 var(--padding-medium);
 }
 
 .letter {
@@ -62,7 +65,7 @@
 .seperator {
     border-bottom: 2px solid var(--contact-seperator-color);
     margin: 8px 0 8px 0;
-    width: calc(var(--full) * 0.95);
+    width: var(--full);
     align-self: center;
 }
 
@@ -79,6 +82,13 @@
 .contact-card:hover {
     background-color: var(--secondary-color);
     cursor: pointer;
+}
+
+@media(max-width: 400px) {
+    .contact-card {
+        gap: var(--gap-medium);
+        padding: var(--padding-small);
+    }
 }
 
 .profile-badge {
@@ -129,17 +139,16 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap-large);
-    padding: var(--padding);
+    padding: var(--padding-top-bottom) var(--padding-left-right);
     position: fixed;
     top: var(--header-height);
     transform: translateX(100%);
     transition: transform 500ms ease-in-out;
-    background-color: var(--white-color);
-    min-height: 100dvh;
     width: var(--full);
 }
 
 .animation-right {
+    transition: transform 500ms ease-in-out;
     transform: translateX(0);
 }
 
@@ -165,6 +174,11 @@
 }
 
 @media(max-width: 950px) {
+    .detailed-contact {
+        background-color: var(--white-color);
+        height: 100dvh;
+    }
+
     .detail-header {
         flex-direction: column-reverse;
     }

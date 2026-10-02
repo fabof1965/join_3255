@@ -359,13 +359,13 @@ function getInputFieldsForSignup() {
             `;
 }
 
-function getContactTemplate(i) {
+function getContactTemplate(indexContact) {
   return `
-      <div class="contact-card" id="contact-card${i}" onclick="toggleBackgroundColor(this, ${i})">
-        <div class="profile-badge">${renderProfileBadges(allContacts[i].name).toUpperCase()}</div>
+      <div class="contact-card" id="contact-card${indexContact}" onclick="toggleContactDetail(${indexContact}, this)">
+        <div class="profile-badge">${renderProfileBadges(allContacts[indexContact].name).toUpperCase()}</div>
         <div class="name-and-mail">
-          <span class="name">${allContacts[i].name}</span>
-          <span class="mail">${allContacts[i].email}</span>
+          <span class="name">${allContacts[indexContact].name}</span>
+          <span class="mail">${allContacts[indexContact].email}</span>
         </div>
       </div>
   `;
@@ -378,20 +378,22 @@ function getFirstLetterTemplate(firstLetter) {
     `;
 }
 
-function getContactInformationTemplate(i) {
+function getContactInformationTemplate(indexContact) {
+  const contact = allContacts[indexContact];
+
   return `
       <header class="detail-header">
         <div class="header-content-1">
           <div class="profile-badge-large large-text">
-            <span class="profile-badge-text" id="initials-detail">${renderProfileBadges(allContacts[i].name).toUpperCase()}</span>
+            <span class="profile-badge-text" id="initials-detail">${renderProfileBadges(contact.name).toUpperCase()}</span>
           </div>
           <div class="name-edit-delete">
-            <h2 class="name large-text" id="name-detail">${allContacts[i].name}</h2>
+            <h2 class="name large-text" id="name-detail">${contact.name}</h2>
             <div class="edit-delete" id="edit-delete-detail">
-              <button class="edit" onclick="editExistingContact(${i})">
+              <button class="edit" onclick="editExistingContact(${indexContact})">
                 <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
               </button>
-              <button onclick="deleteContact(${i})" class="delete">
+              <button onclick="deleteContact(${indexContact})" class="delete">
                 <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
               </button>    
             </div>
@@ -402,7 +404,7 @@ function getContactInformationTemplate(i) {
             <h3 class="info-headline">
               <span>Contact Information</span>
             </h3>
-            <button onclick="toggleBackgroundColor(document.getElementById('contact-card${i}'), ${i})" class="arrow-btn">
+            <button onclick="hideContactDetail()" class="arrow-btn">
               <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
             </button>
           </div>
@@ -411,11 +413,11 @@ function getContactInformationTemplate(i) {
       <div class="contact-information">
         <section class="email">
           <h4>E-Mail</h4>
-          <a id="mail-detail" class="email-text" href="mailto:${allContacts[i].email}">${allContacts[i].email}</a>
+          <a id="mail-detail" class="email-text" href="mailto:${contact.email}">${contact.email}</a>
         </section>
         <section class="phone">
           <h4>Phone</h4>
-          <a class="phone-detail" id="phone-detail" href="tel:${allContacts[i].phone}">${allContacts[i].phone}</a>
+          <a class="phone-detail" id="phone-detail" href="tel:${contact.phone}">${contact.phone}</a>
         </section>
       </div>
   `;

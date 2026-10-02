@@ -3,6 +3,8 @@ const DETAIL_TRANSITION_MS = 600;
 let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
+let previouslyOpenedCard = false;
+let contact = null;
 
 const displayAttributes = {
     show: "flex",
@@ -70,68 +72,54 @@ function showPopover() {
     document.getElementById("popover-menu").showPopover();
 }
 
-function animateContactDetailContainer(i) {
-    setButtonContent();
-    getContactsData(i);
-}
-
-function toggleBackgroundColor(element, i) {
-    const wasActive = element.classList.contains('background-primary');
-    clearActiveContacts();
-    if (wasActive) {
-        hideContactDetail();
+function toggleContactDetail(indexContact, contactCard) {
+    if(previouslyOpenedCard && contactCard === contact) {
+        contact.classList.remove("background-primary");
+        hidePreviouslyOpenedDetail(contactCard);
         return;
     }
-    element.classList.add('background-primary');
-    animateContactDetailContainer(i);
+
+    clearActiveContacts();
+    showSelectedContact(indexContact, contactCard);
+}
+
+function showSelectedContact(indexContact, contactCard) {
+    contactCard.classList.add("background-primary");
+    setTimeout(() => {
+        showContactDetail(indexContact);
+    }, 250);
+
+    previouslyOpenedCard = true;
+    contact = contactCard;
+}
+
+function hidePreviouslyOpenedDetail(contactCard) {
+    contactCard.classList.remove("background-primary");
+    previouslyOpenedCard = false;
+    hideContactDetail();
 }
 
 function clearActiveContacts() {
     const activeContacts = document.querySelectorAll('.background-primary');
-    activeContacts.forEach(active => {
-        active.classList.remove('background-primary');
+    activeContacts.forEach(contactCard => {
+        hidePreviouslyOpenedDetail(contactCard);
+        contactCard.classList.remove('background-primary');
     });
 }
 
 function hideContactDetail() {
-    removeDetailUnderlay();
     const detail = document.getElementById('contact-detail');
-    detail.classList.remove('animation-right');
-    setButtonContent();
+    if(detail) detail.classList.remove('animation-right');
 }
 
-function getContactsData(i) {
+function getContactsData(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
-    if (CONTACT_DETAIL_CONTAINER.classList.contains('animation-right')) {
-        slideOverCurrentDetail(CONTACT_DETAIL_CONTAINER, i);
-    } else {
-        showContactDetail(CONTACT_DETAIL_CONTAINER, i);
-    }
+    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
 }
 
-function slideOverCurrentDetail(container, i) {
-    removeDetailUnderlay();
-    const underlay = container.cloneNode(true);
-    underlay.removeAttribute('id');
-    underlay.classList.add('detail-underlay');
-    underlay.style.transition = "none";
-    container.before(underlay);
-    container.style.transition = "none";
-    container.classList.remove('animation-right');
-    container.offsetWidth;
-    container.style.transition = "";
-    showContactDetail(container, i);
-    detailTimeout = setTimeout(removeDetailUnderlay, DETAIL_TRANSITION_MS);
-}
-
-function removeDetailUnderlay() {
-    clearTimeout(detailTimeout);
-    document.querySelectorAll(".detail-underlay").forEach(underlay => underlay.remove());
-}
-
-function showContactDetail(container, i) {
-    container.innerHTML = getContactInformationTemplate(i);
-    container.classList.add('animation-right');
+function showContactDetail(indexContact) {
+    getContactsData(indexContact);
+    document.querySelector("#contact-detail").classList.add('animation-right');
     setBadgeBackgroundColor();
 }
 
@@ -154,9 +142,8 @@ function openContactDialog(i = null) {
         badge.style = "";
         badge.classList.remove('profile-badge-large');
         badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-    } else {
-        
     }
+
     activateDialog();
 }
 
