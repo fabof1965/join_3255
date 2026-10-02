@@ -11,6 +11,8 @@ const displayAttributes = {
     hide: "none"
 }
 
+document.getElementById("open-button").addEventListener("click", () => openContactDialog() );
+
 function initContacts() {
     renderContacts();
     initPhoneFilter();
@@ -59,7 +61,6 @@ async function loadContacts() {
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const addContactImage = document.querySelector(".add-new-contact-image");
     const isMobile = window.matchMedia("(max-width: 950px)").matches;
-
     if(addContactImage.getAttribute("src") === defaultSource && isMobile) {
         addContactImage.setAttribute("src", newSource);
     }

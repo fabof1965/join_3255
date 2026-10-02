@@ -27,6 +27,8 @@
     background-color: var(--primary-color);
     color: var(--white-color);
     margin: 0 var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
+
+    anchor-name: --popover-anchor;
 }
 
 @media(max-width: 500px) {
@@ -148,8 +150,7 @@
 }
 
 .animation-right {
-    transition: transform 500ms ease-in-out;
-    transform: translateX(0);
+    transform: translateX(var(--slide-in));
 }
 
 .profile-badge-large {
@@ -292,10 +293,33 @@
 }
 
 .popover-menu {
-    display: flex;
+    position-anchor: --popover-anchor;
+    top: anchor(top);
+    left: anchor(left);
+    padding: var(--padding-medium);
     flex-direction: column;
     border-radius: var(--element-design-border-radius) 0 0 0;
-    position-area: top;
+    border: none;
+    gap: var(--gap-small);
+    position: absolute;
+    transition: display 1s, opacity 1s;
+    transition-behavior: allow-discrete;
+    opacity: 0;
+}
+
+.popover-menu:popover-open {
+    display: none;
+}
+
+@media(max-width: 500px) {
+    .popover-menu:popover-open {
+        display: flex;
+        opacity: 1;
+        
+        @starting-style {
+            opacity: 0;
+        }
+    }
 }
 
 /* dialog */
