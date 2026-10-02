@@ -11,7 +11,20 @@ const displayAttributes = {
     hide: "none"
 }
 
-document.getElementById("open-button").addEventListener("click", () => openContactDialog() );
+const isMobile = window.matchMedia("(max-width: 950px)").matches;
+
+document.getElementById("open-button").addEventListener("click", () => {
+    document.getElementById("open-button").setAttribute("popovertarget", "popover-menu");
+    if(isMobile && !isPreviouslyOpenedCard) {
+        openContactDialog();
+        document.getElementById("open-button").setAttribute("popovertarget", "");
+        return; 
+    }
+
+    if(isMobile && isPreviouslyOpenedCard) {
+        setTimeout(() => showPopover(), 100);
+    }
+});
 
 function initContacts() {
     renderContacts();
@@ -60,7 +73,7 @@ async function loadContacts() {
 
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const addContactImage = document.querySelector(".add-new-contact-image");
-    const isMobile = window.matchMedia("(max-width: 950px)").matches;
+
     if(addContactImage.getAttribute("src") === defaultSource && isMobile) {
         addContactImage.setAttribute("src", newSource);
     }
@@ -70,7 +83,7 @@ function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", new
 }
 
 function showPopover() {
-    document.getElementById("popover-menu").showPopover();
+   document.getElementById("popover-menu").showPopover();
 }
 
 function toggleContactDetail(indexContact, contactCard) {
@@ -93,6 +106,10 @@ function showSelectedContact(indexContact, contactCard) {
 
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
+
+    if(isMobile) {
+        document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
+    }
 }
 
 function hidePreviouslyOpenedDetail(contactCard) {
@@ -115,6 +132,7 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
+    document.getElementById("popover-menu").innerHTML = "";
 }
 
 function getContactsData(indexContact) {

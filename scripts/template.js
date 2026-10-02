@@ -359,6 +359,15 @@ function getInputFieldsForSignup() {
             `;
 }
 
+function getPopoverContent(indexContact) {
+  return `<button class="edit" onclick="editExistingContact(${indexContact})">
+            <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
+          </button>
+          <button class="delete" onclick="deleteContact(${indexContact})">
+            <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
+          </button> `;
+}
+
 function getContactTemplate(indexContact) {
   return `
       <div class="contact-card" id="contact-card${indexContact}" onclick="toggleContactDetail(${indexContact}, this)">

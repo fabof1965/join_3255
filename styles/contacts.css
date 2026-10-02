@@ -20,6 +20,7 @@
 }
 
 .btn-new-contact {
+    position: relative
     display: flex;
     gap: var(--gap-medium);
     align-items: center;
@@ -293,18 +294,21 @@
 }
 
 .popover-menu {
+    position: fixed;
     position-anchor: --popover-anchor;
     top: anchor(top);
-    left: anchor(left);
-    padding: var(--padding-medium);
+    left: calc(anchor(left));
+    padding: var(--padding-small);
     flex-direction: column;
-    border-radius: var(--element-design-border-radius) 0 0 0;
+    border-radius: var(--element-design-border-radius) var(--element-design-border-radius) 0 var(--element-design-border-radius);
     border: none;
     gap: var(--gap-small);
-    position: absolute;
-    transition: display 1s, opacity 1s;
+    transition: display 300ms, transition 300ms ease-in-out;
     transition-behavior: allow-discrete;
+    background-color: var(--white-color);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
     opacity: 0;
+    transform: translateX(100%);
 }
 
 .popover-menu:popover-open {
@@ -315,9 +319,15 @@
     .popover-menu:popover-open {
         display: flex;
         opacity: 1;
+        transform: translateX(-25px);
+        transition: transform 300ms ease-in-out;
+
+        .edit, .delete {
+            display: flex;
+        }
         
         @starting-style {
-            opacity: 0;
+            transform: translateX(100%);
         }
     }
 }
