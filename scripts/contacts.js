@@ -58,14 +58,14 @@ async function loadContacts() {
 
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const addContactImage = document.querySelector(".add-new-contact-image");
+    const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
-    if(addContactImage.getAttribute("src") === defaultSource) {
+    if(addContactImage.getAttribute("src") === defaultSource && isMobile) {
         addContactImage.setAttribute("src", newSource);
     }
-    else {
+    else if(addContactImage.getAttribute("src") === newSource && isMobile) {
         addContactImage.setAttribute("src", defaultSource);
     }
-    console.log("Button content is set");
 }
 
 function showPopover() {
@@ -74,7 +74,7 @@ function showPopover() {
 
 function toggleContactDetail(indexContact, contactCard) {
     if(isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
-        contact.classList.remove("background-primary");
+        currentlyOpenedCard.classList.remove("background-primary");
         hidePreviouslyOpenedDetail(contactCard);
         return;
     }
@@ -87,6 +87,7 @@ function showSelectedContact(indexContact, contactCard) {
     contactCard.classList.add("background-primary");
     setTimeout(() => {
         showContactDetail(indexContact);
+        setButtonContent();
     }, 250);
 
     isPreviouslyOpenedCard = true;
@@ -95,7 +96,6 @@ function showSelectedContact(indexContact, contactCard) {
 
 function hidePreviouslyOpenedDetail(contactCard) {
     contactCard.classList.remove("background-primary");
-    isPreviouslyOpenedCard = false;
     hideContactDetail();
 }
 
@@ -110,7 +110,10 @@ function clearActiveContacts() {
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
     if(detail) detail.classList.remove('animation-right');
-    contact.classList.remove("background-primary");
+    currentlyOpenedCard.classList.remove("background-primary");
+    isPreviouslyOpenedCard = false;
+    currentlyOpenedCard = null;
+    setButtonContent();
 }
 
 function getContactsData(indexContact) {

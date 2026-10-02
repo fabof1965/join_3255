@@ -291,6 +291,13 @@
     text-decoration: none;
 }
 
+.popover-menu {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--element-design-border-radius) 0 0 0;
+    position-area: top;
+}
+
 /* dialog */
 .add-contact-dialog[open] {
     border-radius: 32px 0 0 32px;
