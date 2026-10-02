@@ -158,9 +158,11 @@ function fillTemplate(template, values) {
 function checkUserLogin() {
     const currentUrl = window.location.pathname;
     const isLoginPage = currentUrl.endsWith("index.html");
+    const isAllowedPages = currentUrl.endsWith("privacy_policy_start.html") || 
+                           currentUrl.endsWith("legal_notice_start.html");
     const userName = localStorage.getItem("name");
 
-    if (!isLoginPage && !userName) {
+    if (!isLoginPage && !isAllowedPages && !userName) {
         window.location.href = "../index.html"; 
         return;
     }
