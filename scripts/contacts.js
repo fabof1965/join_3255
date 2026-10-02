@@ -110,6 +110,7 @@ function clearActiveContacts() {
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
     if(detail) detail.classList.remove('animation-right');
+    contact.classList.remove("background-primary");
 }
 
 function getContactsData(indexContact) {
