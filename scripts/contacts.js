@@ -3,8 +3,8 @@ const DETAIL_TRANSITION_MS = 600;
 let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
-let previouslyOpenedCard = false;
-let contact = null;
+let isPreviouslyOpenedCard = false;
+let currentlyOpenedCard = null;
 
 const displayAttributes = {
     show: "flex",
@@ -73,7 +73,7 @@ function showPopover() {
 }
 
 function toggleContactDetail(indexContact, contactCard) {
-    if(previouslyOpenedCard && contactCard === contact) {
+    if(isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
         contact.classList.remove("background-primary");
         hidePreviouslyOpenedDetail(contactCard);
         return;
@@ -89,13 +89,13 @@ function showSelectedContact(indexContact, contactCard) {
         showContactDetail(indexContact);
     }, 250);
 
-    previouslyOpenedCard = true;
-    contact = contactCard;
+    isPreviouslyOpenedCard = true;
+    currentlyOpenedCard = contactCard;
 }
 
 function hidePreviouslyOpenedDetail(contactCard) {
     contactCard.classList.remove("background-primary");
-    previouslyOpenedCard = false;
+    isPreviouslyOpenedCard = false;
     hideContactDetail();
 }
 
