@@ -124,8 +124,8 @@ function selectTaskPriority(button) {
  */
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
-  list.innerHTML = newTaskSubtasks.map((title) =>
-    fillTemplate(addTaskSubtaskTemplate, { title }),
+  list.innerHTML = newTaskSubtasks.map((title, index) =>
+    fillTemplate(addTaskSubtaskTemplate, { title, index }),
   ).join("");
 }
 
@@ -139,6 +139,18 @@ function addSubtaskOnEnter(event) {
   event.preventDefault();
   newTaskSubtasks.push(escapeTaskText(event.target.value.trim()));
   event.target.value = "";
+  renderNewSubtasks();
+}
+
+/**
+ * Removes the subtask belonging to the clicked delete button and re-renders the list.
+ * @param {HTMLElement} button - Clicked delete button inside a subtask item.
+ * @returns {void}
+ */
+async function deleteSubtask(button) {
+  const index = Number(button.closest(".subtask-list").dataset.index);
+  newTaskSubtasks.splice(index, 1);
+  await deleteData("subtasks/"+ index);
   renderNewSubtasks();
 }
 
@@ -289,6 +301,8 @@ function handleAddTaskClick(event) {
   if (event.target.id === "add-task-overlay") closeAddTask();
   const priorityButton = event.target.closest("[data-priority]");
   if (priorityButton) selectTaskPriority(priorityButton);
+  const deleteButton = event.target.closest('[data-action="delete"]');
+  if (deleteButton) deleteSubtask(deleteButton); // Wenn auf einen Löschbutton geklickt wurde führe dies aus
 }
 
 /**

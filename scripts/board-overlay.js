@@ -123,6 +123,10 @@ function editOpenedTask() {
   openEditTask(task);
 }
 
+// function editSubtask() {
+//   const subtask = 
+// }
+
 /**
  * Closes the task detail overlay.
  * @returns {void}
