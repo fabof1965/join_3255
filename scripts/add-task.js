@@ -148,9 +148,9 @@ function addSubtaskOnEnter(event) {
  * @returns {void}
  */
 async function deleteSubtask(button) {
-  const index = Number(button.closest(".subtask-list").dataset.index);
+  const index = Number(button.closest('.subtask-list').dataset.index);
   newTaskSubtasks.splice(index, 1);
-  await deleteData("subtasks/"+ index);
+  await deleteData('subtasks', index);
   renderNewSubtasks();
 }
 
@@ -302,7 +302,7 @@ function handleAddTaskClick(event) {
   const priorityButton = event.target.closest("[data-priority]");
   if (priorityButton) selectTaskPriority(priorityButton);
   const deleteButton = event.target.closest('[data-action="delete"]');
-  if (deleteButton) deleteSubtask(deleteButton); // Wenn auf einen Löschbutton geklickt wurde führe dies aus
+  if (deleteButton) deleteSubtask(deleteButton);
 }
 
 /**
@@ -328,5 +328,4 @@ async function loadAddTaskContent() {
 
   CONTAINER_ADD_TASK.innerHTML = addTaskContentTemplate;
   await renderAssignedContacts(CONTAINER_ADD_TASK);
-
 }
