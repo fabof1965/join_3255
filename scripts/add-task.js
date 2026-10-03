@@ -150,7 +150,7 @@ function addSubtaskOnEnter(event) {
 async function deleteSubtask(button) {
   const index = Number(button.closest('.subtask-list').dataset.index);
   newTaskSubtasks.splice(index, 1);
-  await deleteData('subtasks', index);
+  await deleteData('subtasks' + index);
   renderNewSubtasks();
 }
 
