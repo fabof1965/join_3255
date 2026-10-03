@@ -155,6 +155,34 @@ async function deleteSubtask(button) {
 }
 
 /**
+ * Replaces the title of the clicked subtask with an input field; Enter saves the change.
+ * @param {HTMLElement} button - Clicked edit button inside a subtask item.
+ * @returns {void}
+ */
+function editSubtask(button) {
+  const item = button.closest('.subtask-list');
+  const index = Number(item.dataset.index);
+  const span = item.querySelector('span');
+  span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
+  const input = document.querySelector('.subtask-edit-input');
+  input.focus();
+}
+
+/**
+ * Saves the edited subtask title when Enter is pressed in the edit input.
+ * @param {KeyboardEvent} event - Keydown event of the subtask edit input.
+ * @returns {void}
+ */
+function saveSubtaskOnEnter(event) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  const index = Number(event.target.closest('.subtask-list').dataset.index);
+  const value = event.target.value.trim();
+  if (value) newTaskSubtasks[index] = escapeTaskText(value);
+  renderNewSubtasks();
+}
+
+/**
  * Escapes text before inserting it into an HTML template.
  * @param {string} value - User-entered text.
  * @returns {string} Safe text for HTML output.
@@ -303,6 +331,8 @@ function handleAddTaskClick(event) {
   if (priorityButton) selectTaskPriority(priorityButton);
   const deleteButton = event.target.closest('[data-action="delete"]');
   if (deleteButton) deleteSubtask(deleteButton);
+  const editButton = event.target.closest('[data-action="edit"]');
+  if (editButton) editSubtask(editButton);
 }
 
 /**
@@ -313,6 +343,7 @@ function handleAddTaskClick(event) {
 function handleAddTaskFormEvent(event) {
   if (event.type === "submit" && event.target.id === "add-task-form") submitNewTask(event);
   if (event.type === "keydown" && event.target.name === "subtask") addSubtaskOnEnter(event);
+  if (event.type === "keydown" && event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
 }
 
 document.addEventListener("click", handleAddTaskClick);

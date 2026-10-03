@@ -217,7 +217,7 @@ const addTaskDialogTemplate = `
         <small data-error="category"></small>
       </label>
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
-        <input name="subtask" type="text" placeholder="Add new subtask" />
+        <input class="subtask-input-field" name="subtask" type="text" placeholder="Add new subtask" />
       </label>
       <ul class="add-task-subtasks"></ul>
       <button class="create-task-button btn" type="submit">Create Task</button>
@@ -299,8 +299,7 @@ const addTaskSubtaskTemplate = `
   </li>`;
 
 const editSubtaskTemplate = `
-  <input class="subtask-edit-input" value="{{title}}" />`;
-
+  <input class="subtask-edit-input" name="subtask-edit" value="{{title}}" />`;
 
 const assignedContactOptionTemplate = `<option value="{{initials}}">{{name}}</option>`;
 
