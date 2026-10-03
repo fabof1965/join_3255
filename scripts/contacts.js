@@ -329,7 +329,7 @@ async function saveEditedContact() {
     closeEditContactDialog();
     
     await renderContacts();
-    // hier noch dafür sorgen das der Aktuelle Kontakt nach dem bearbeiten direkt die neuen Infos anzeigt
+    showContactDetail(editIndex);
 }
 
 function assignValuesToContact(contact) {
