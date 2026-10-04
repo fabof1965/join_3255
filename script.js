@@ -43,11 +43,64 @@ function renderHeader() {
 document.addEventListener("DOMContentLoaded", function () {
     renderSidebar();
     renderHeader();
-    initHeaderProfile(); 
+    initHeaderProfile();
+    initHeaderMenu();
 });
 
 function toHelpPage() {
     window.location.href = "../pages/help.html";
+}
+
+/**
+ * Initializes the help button behavior for the shared header.
+ * @returns {void}
+ */
+function initHeaderMenu() {
+    const helpButton = document.getElementById("help-button");
+    const logoutButton = document.getElementById("logout-button");
+
+    if (!helpButton) return;
+    helpButton.addEventListener("click", handleHelpButtonClick);
+    logoutButton.addEventListener("click", logoutUser);
+    document.addEventListener("click", closeHeaderMenuOnOutsideClick);
+}
+
+/**
+ * Opens the header menu on the help page or navigates to help otherwise.
+ * @returns {void}
+ */
+function handleHelpButtonClick() {
+    const headerMenu = document.getElementById("header-menu");
+
+    if (window.location.pathname.endsWith("/help.html")) {
+        headerMenu.classList.toggle("is-visible");
+        return;
+    }
+    toHelpPage();
+}
+
+/**
+ * Logs the current user out and returns to the login page.
+ * @returns {void}
+ */
+function logoutUser() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "../index.html";
+}
+
+/**
+ * Closes the header menu when the user clicks outside the header.
+ * @param {MouseEvent} event - The document click event.
+ * @returns {void}
+ */
+function closeHeaderMenuOnOutsideClick(event) {
+    const headerMenu = document.getElementById("header-menu");
+    const helpButton = document.getElementById("help-button");
+
+    if (!headerMenu.contains(event.target) && !helpButton.contains(event.target)) {
+        headerMenu.classList.remove("is-visible");
+    }
 }
 
 /**

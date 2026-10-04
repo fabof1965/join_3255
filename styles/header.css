@@ -52,6 +52,42 @@
   border-radius: var(--border-radius-circular);
 }
 
+.header-menu {
+  display: none;
+  position: absolute;
+  top: 80px;
+  right: max(var(--padding-left-right), calc((100vw - var(--page-max-width)) / 2));
+  flex-direction: column;
+  min-width: 102px;
+  padding: 8px 0;
+  background-color: var(--white-color);
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--button-box-shadow);
+  z-index: 20;
+}
+
+.header-menu.is-visible {
+  display: flex;
+}
+
+.header-menu a,
+.header-menu button {
+  padding: 7px 16px;
+  border: none;
+  background: transparent;
+  color: var(--menu-color);
+  font: inherit;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-menu a:hover,
+.header-menu button:hover {
+  background-color: var(--menu-hover-color);
+}
+
 #profile-badge {
   display: flex;
   justify-content: center;

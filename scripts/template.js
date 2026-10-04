@@ -70,9 +70,14 @@ const headerTemplate = `
     </div>
     <div class="header-right">
       <span class="kanban">Kanban Project Management Tool</span>
-      <button class="header-icon-button" type="button" aria-label="Open help">
-        <img onclick="toHelpPage()" class="help-icon" src="../assets/icons/help.svg" alt="to help page" />
+      <button id="help-button" class="header-icon-button" type="button" aria-label="Open help">
+        <img class="help-icon" src="../assets/icons/help.svg" alt="Open help" />
       </button>
+      <nav id="header-menu" class="header-menu">
+        <a href="../pages/legal_notice.html">Legal Notice</a>
+        <a href="../pages/privacy_policy.html">Privacy Policy</a>
+        <button id="logout-button" type="button">Log out</button>
+      </nav>
       <button class="header-icon-button" type="button" aria-label="Open user profile">
         <span id="profile-badge">SM</span>
       </button>
