@@ -32,6 +32,12 @@
     font-weight: normal;
 }
 
+#comma {
+    color: var(--greeting-text-color);
+    font-size: var(--large-font-size);
+    font-weight: normal;
+}
+
 .username {
     color: var(--primary-color);
     font-size: var(--large-font-size);
@@ -60,7 +66,7 @@
     display: grid;
     grid-template-columns: repeat(4, var(--summary-grid-width));
     grid-template-rows: repeat(2, var(--summary-grid-width));
-    gap: var(--summary-container-gap);
+    gap: var(--gap-medium);
     width: fit-content;
 }
 
@@ -81,9 +87,36 @@
     background-color: var(--primary-color);
     border-radius: var(--summary-card-border-radius);
     cursor: pointer;
-    transition: var(--hover-transition);
-    &:hover {
+    transition: var(--element-transition);
+    
+}
+
+.blue-head-column:hover {
+    transition: var(--element-transition);
+    transform: scale(var(--hover-scale));
+    background-color: var(--white-color);
+    box-shadow: var(--summary-card-box-shadow);
+    border-top-left-radius: 0;
+
+    .task-number, .sub-text, .date-text, .divider, .task-icons{
         transform: scale(var(--hover-scale));
+        color: var(--primary-color);
+    }
+
+    .divider {
+        background-color: var(--primary-color);
+    }
+}
+
+@media (max-width: 1000px) {
+    .blue-head-column {
+        grid-area: 1 / 1 / 2 / 5;
+    }
+}
+
+@media(max-width: 600px) {
+    .blue-head-column:hover {
+        transform: unset;
         background-color: var(--white-color);
         box-shadow: var(--summary-card-box-shadow);
         border-top-left-radius: 0;
@@ -96,12 +129,6 @@
         .divider {
             background-color: var(--primary-color);
         }
-    }
-}
-
-@media (max-width: 1000px) {
-    .blue-head-column {
-        grid-area: 1 / 1 / 2 / 5;
     }
 }
 
@@ -156,6 +183,7 @@
     border-radius: var(--summary-card-border-radius);
     gap: var(--gap-medium);
     padding: var(--padding-small);
+    transition: var(--element-transition);
 
     .sub-text {
         color: var(--primary-color);
@@ -170,7 +198,7 @@
 .task-feedback:hover,
 .task-in-board:hover,
 .tasks-done:hover {
-    transition: var(--hover-transition);
+    transition: var(--element-transition);
     background-color: var(--primary-color);
     border-top-left-radius: 0;
     transform: scale(var(--hover-scale));
@@ -187,6 +215,7 @@
 }
 
 .tasks-to-do:hover {
+    transition: var(--element-transition);
     background-color: var(--white-color);
     transform: scale(var(--hover-scale));
     border-top-left-radius: 0;
@@ -202,6 +231,18 @@
         flex-direction: row;
         justify-content: center;
         grid-area: 2 / 1 / 2 / 5;
+    }
+}
+
+@media(max-width: 600px) {
+    .tasks-to-do:hover {
+        background-color: var(--white-color);
+        transform: unset;
+        border-top-left-radius: 0;
+
+        .task-number {
+            color: var(--primary-color);
+        }
     }
 }
 

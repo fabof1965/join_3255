@@ -1,8 +1,3 @@
-.main-layout {
-  display: flex;
-  height: unset;
-}
-
 .board-container {
   display: flex;
   flex-direction: column;
@@ -13,10 +8,9 @@
 }
 
 .board-toolbar-wrapper {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   gap: var(--gap-medium);
-  margin-bottom: var(--margin-bottom-medium);
   padding: var(--padding);
   z-index: 10;
 }
@@ -24,17 +18,21 @@
 .board-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--gap-large);
-  width:var(--full);
+  width: var(--full);
 }
 
 @media(max-width: 950px) {
+  .main-layout {
+    height: 100%;
+  }
+
   .board-toolbar-wrapper {
     position: sticky;
-    top: 90.8px;
+    top: var(--header-height);
     background-color: var(--white-color);
   }
+
   .board-toolbar {
     margin-top: var(--margin-bottom-medium);
   }
@@ -65,7 +63,7 @@
 }
 
 .search-image {
-  width: var(--search-button-image-dimensions); 
+  width: var(--search-button-image-dimensions);
   height: var(--search-button-image-dimensions);
 }
 
@@ -95,7 +93,7 @@
 .board-columns {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--gap-large);
+  gap: var(--gap-medium);
   padding: var(--padding);
 }
 
@@ -122,6 +120,9 @@
 }
 
 .column-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: calc(var(--back-btn-image-dimensions) * 0.75);
   width: calc(var(--back-btn-image-dimensions) * 0.75);
   border-radius: var(--element-design-border-radius);
@@ -145,30 +146,31 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: var(--gap-small);
+  gap: var(--gap-medium);
   flex-wrap: var(--noTextWrap);
-  overflow: auto;
-  height: 52dvh;
-  min-height: 220px;
+  overflow-y: scroll;
+  max-height: calc(var(--task-card-dimensions) * 2.75 + var(--gap-medium));
   transition: background-color 100ms ease;
+  border-radius: var(--element-design-border-radius);
+  padding: var(--gap-small);
 }
 
 @media(max-width: 950px) {
   .board-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .board-column {
+    margin-bottom: calc(var(--margin-bottom-medium) * 2);
   }
 
   .task-list {
+    height: var(--full);
+    width: var(--full);
     flex-direction: row;
     overflow-x: auto;
-    align-items: unset;
+    overflow-y: unset;
     scrollbar-color: var(--primary-color) transparent;
-  }
-}
-
-@media(max-width: 650px) {
-  .board-columns {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -192,7 +194,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-medium);
-  background-color: var(--white-color);
   border-radius: calc(var(--element-design-border-radius) * 1.5);
   box-shadow: var(--task-card-box-shadow);
   cursor: grab;
@@ -212,7 +213,7 @@
 
 .task-category {
   width: fit-content;
-  padding: var(--padding-small);
+  padding: var(--padding-very-small);
   color: var(--white-color);
   border-radius: var(--element-design-border-radius);
 }
@@ -260,19 +261,25 @@
 .progress-track {
   width: var(--full);
   height: 8px;
-  /* overflow: hidden; */
   background-color: var(--progress-track-background-color);
-  border-radius: var(--element-design-border-radius);;
+  border-radius: var(--element-design-border-radius);
+  ;
 }
 
 .progress-fill {
   height: var(--full);
   background-color: var(--primary-color);
-  border-radius: var(--element-design-border-radius);;
+  border-radius: var(--element-design-border-radius);
 }
 
 .subtask-progress span {
   text-wrap: nowrap;
+}
+
+.subtask-btn{
+  background: none;
+  outline: none;
+  border: none;
 }
 
 .task-footer {
@@ -283,6 +290,10 @@
 
 .assigned-users {
   display: flex;
+}
+
+.profile-badge:not(:first-child){
+  margin-left: -10px;
 }
 
 .user-badge {
@@ -322,4 +333,29 @@
 
 .task-priority-urgent {
   color: var(--red-color);
+}
+
+.profile-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--small-user-badge-width);
+  height: var(--small-user-badge-width);
+  padding: var(--padding-small);
+  border-radius: var(--border-radius-circular);
+  border: 2px solid var(--white-color);
+  font-size: 16px !important;
+  color: var(--white-color);
+  position: relative;
+}
+
+.close-btn {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.close-icon:hover {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius-circular);
 }

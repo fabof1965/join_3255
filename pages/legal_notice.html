@@ -19,19 +19,17 @@
   <script src="../scripts/legalNotice.js" defer></script>
 </head>
 
-<body class="legal-page legal-notice-page">
+<body style="display: none" class="legal-page legal-notice-page">
   <header id="header"></header>
   <main class="main-layout">
-    <aside id="sidebar"></aside>
+    <nav id="sidebar" data-id="legal-notice-sidebar" class="start"></nav>
     <section class="legal-notice-content">
-      <div class="back-btn-container">
-          <button class="legal-back-button btn" type="button" aria-label="Go back">
-            <img src="../assets/icons/arrow-left-line.png" alt="" />
-          </button>
-        </div>
-      <div class="legal-title-row">
+      <header class="legal-notice-header">
         <h1>Legal Notice</h1>
-      </div>
+        <button class="legal-back-button btn" type="button" aria-label="Go back">
+          <img src="../assets/icons/arrow-left-line.png" alt="" />
+        </button>
+      </header>
       <section class="imprint-section">
         <h2>Imprint</h2>
         <p>Saeed Ghorbani<br />Jan-Simon Boecker<br />Cem Eren Ölmez<br />Fabian Gerdes</p>

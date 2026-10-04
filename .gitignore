@@ -5,3 +5,11 @@ JOIN 3255/
 SKILL.md
 TODO-fehlermeldungen.txt
 checkIfEmailExists-vorher.txt
+badge-add-edit-anleitung.txt
+node_modules/
+package-lock.json
+package.json
+waytogo-subtask-checkbox.txt
+waytogo-subtask-edit.txt
+waytogo-edit-contact.txt
+waytogo-testen-fragen.txt

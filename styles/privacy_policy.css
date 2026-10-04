@@ -6,7 +6,7 @@ h2 {
 .privacy-policy-content {
   display: flex;
   flex-direction: column;
-  gap: var(--summary-container-gap);
+  gap: var(--gap-medium);
   padding: var(--padding);
   height: calc(100dvh - 2 * var(--padding-top-bottom) - 67.8px);
   overflow-y: scroll;
@@ -18,8 +18,12 @@ h2 {
   justify-content: flex-end;
 }
 
-.privacy-policy-title-row {
+.privacy-policy-header {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--full);
+  margin-bottom: var(--margin-bottom-medium);
 }
 
 .privacy-policy-title-row h1 {

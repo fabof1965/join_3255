@@ -1,15 +1,34 @@
+const colorContacts = [
+    "#FF7A00",
+    "#9327FF",
+    "#FF745E",
+    "#FFC701",
+    "#FFE62B",
+    "#FF5EB3",
+    "#00BEE8",
+    "#FFA35E",
+    "#0038FF",
+    "#FF4646",
+    "#6E52FF",
+    "#1FD7C1",
+    "#FC71FF",
+    "#C3FF2B",
+    "#FFBB2B",
+];
+
+let assignedContacts = [];
+
 /**
  * Renders the shared sidebar template when its container exists.
  * @returns {void}
  */
 function renderSidebar() {
   const sidebarContainer = document.getElementById("sidebar");
+  const startClass = "start";
+  
+  if(!sidebarContainer) return;
 
-  if (!sidebarContainer) {
-    return;
-  }
-
-  sidebarContainer.innerHTML = sidebarTemplate;
+  sidebarContainer.innerHTML = getSidebarTemplate();
   markActiveSidebarLink();
 }
 
@@ -41,6 +60,7 @@ function renderHeader() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    checkUserLogin()
     renderSidebar();
     renderHeader();
     initHeaderProfile();
@@ -115,15 +135,93 @@ function initHeaderProfile() {
     if (!userName || userName === "Guest") {
         profileBadgeElement.innerText = "G";
     } else {
-        profileBadgeElement.innerText = getInitials(userName);
+        profileBadgeElement.innerText = renderProfileBadges(userName);
     }
 }
 
-function getInitials(name) {
-    let parts = name.trim().split(" ");
+function renderProfileBadges(initials) {
+    const namePart = initials.split(" ");
+    const firstLetter = namePart.shift().charAt(0).toUpperCase();
+    const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0).toUpperCase() : "";
+    return (firstLetter + lastLetter);
+}
 
-    if (parts.length >= 2) {
-        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+function getBadgeColor(initials) {
+    let charSum = 0;
+    for (let i = 0; i < initials.length; i++) {
+        charSum += initials.charCodeAt(i);
     }
-    return parts[0].substring(0, 2).toUpperCase();
+
+    return colorContacts[charSum % colorContacts.length];
+}
+
+function setBadgeBackgroundColor() {
+    const badges = document.querySelectorAll('.profile-badge, .profile-badge-large');
+    badges.forEach(badge => {
+        badge.style.backgroundColor = getBadgeColor(badge.textContent.trim());
+    });
+}
+
+function sortContactsByName(contacts) {
+    contacts.sort(function (a, b) {
+
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    })
+}
+
+async function getAssignedContacts() {
+  const response = await getData('contacts');
+  if (!response) return [];
+  return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+}
+
+async function renderAssignedContacts(container) {
+  assignedContacts = await getAssignedContacts();
+  sortContactsByName(assignedContacts);
+  const contactRef = container.querySelector('#assigned-contacts');
+  contactRef.innerHTML = assignedContacts
+    .map(({ name }) =>
+      fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
+    )
+    .join("");
+}
+
+/**
+ * Replaces every placeholder in an HTML template.
+ * @param {string} template - HTML containing named placeholders.
+ * @param {Object.<string, string|number>} values - Values for the placeholders.
+ * @returns {string} Completed HTML.
+ */
+function fillTemplate(template, values) {
+  return Object.entries(values).reduce(
+    (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
+    template,
+  );
+}
+
+function checkUserLogin() {
+    const currentUrl = window.location.pathname;
+    const isLoginPage = currentUrl.endsWith("index.html");
+    const isAllowedPages = currentUrl.endsWith("privacy_policy_start.html") || 
+                           currentUrl.endsWith("legal_notice_start.html");
+    const userName = localStorage.getItem("name");
+
+    if (!isLoginPage && !isAllowedPages && !userName) {
+        window.location.href = "../index.html"; 
+        return;
+    }
+
+    setTimeout(() => {
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+    }, 1);
 }

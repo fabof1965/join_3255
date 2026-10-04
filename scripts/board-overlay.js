@@ -20,12 +20,30 @@ function getOverlayUsersHtml(task) {
  * @param {string[]|undefined} subtaskTitles - Names of the subtasks.
  * @returns {string} Subtask HTML.
  */
-function getOverlaySubtasksHtml(subtaskTitles = []) {
-  return subtaskTitles.map((title) =>
-    fillTemplate(taskOverlaySubtaskTemplate, { title }),
+function getOverlaySubtasksHtml(task) {
+  const titles = task.subtaskTitles || [];
+  const done = task.subtaskDone || [];
+  return titles.map((title, index) =>
+    fillTemplate(taskOverlaySubtaskTemplate, {
+      id: index,
+      title,
+      checked: done[index] ? "checked" : "",
+    }),
   ).join("");
 }
 
+/**
+ * Toggles the done state of a subtask in the opened task and updates the completed counter.
+ * @param {number} index - Index of the subtask to toggle.
+ */
+
+function toggleSubtask(index) {
+  const task = exampleTasks.find(({id})=> id === openedTaskId);
+  if (!task) return;
+  task.subtaskDone[index] = !task.subtaskDone[index];
+  task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
+  //false = offen, true = erledigt
+}
 
 /**
  * Returns the priority icon matching a task.
@@ -44,8 +62,8 @@ function getOverlayPriorityIcon(priority) {
  * @returns {string} Task overlay HTML.
  */
 function getTaskOverlayHtml(task) {
-  const priority = task.priority; 
-  const subtasks = getOverlaySubtasksHtml(task.subtaskTitles);
+  const priority = task.priority;
+  const subtasks = getOverlaySubtasksHtml(task);
   return fillTemplate(taskOverlayTemplate, {
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.fullDescription || task.description,
@@ -76,7 +94,8 @@ function openTaskOverlay(taskId) {
   if (!task) return;
   openedTaskId = taskId;
   overlay.innerHTML = getTaskOverlayHtml(task);
-  overlay.hidden = false;
+  setBadgeBackgroundColor();
+  overlay.showModal();
   document.body.classList.add("overlay-open");
 }
 
@@ -109,7 +128,7 @@ function editOpenedTask() {
  * @returns {void}
  */
 function closeTaskOverlay() {
-  document.getElementById("task-overlay").hidden = true;
+  document.getElementById("task-overlay").close();
   document.body.classList.remove("overlay-open");
 }
 
@@ -127,4 +146,19 @@ function handleTaskOverlayClick(event) {
   if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
 }
 
+/**
+ * Handles changes on subtask checkboxes inside the overlay.
+ * @param {Event} event - Document change event.
+ * @returns {void}
+ */
+function handleSubtaskCheckboxChange(event) {
+  if (event.target.classList.contains("subtask-checkbox")) {
+    toggleSubtask(event.target);
+  }
+}
+
 document.addEventListener("click", handleTaskOverlayClick);
+document.getElementById('task-overlay').addEventListener('close', () => {
+  document.body.classList.remove('overlay-open');
+})
+document.addEventListener("change", handleSubtaskCheckboxChange);

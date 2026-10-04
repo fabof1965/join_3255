@@ -41,8 +41,14 @@
     --form-border-radius: 30px;
     --element-design-border-radius: 10px;
 
+    /*transition over all pages for animated elements except
+    starting animation*/
+    --element-transition-timing: 400ms;
+    --element-transition: all var(--element-transition-timing) ease;
+
     /*minimal page height*/
     --min-page-height: 100dvh;
+    --page-content-height: calc(var(--min-page-height) - var(--header-height));
 
     /* layout and spacing throughout all pages*/
     /*padding*/
@@ -51,6 +57,7 @@
     --padding: clamp(16px, calc(11.429px + 1.429vw), 32px) clamp(4px, calc(-10.857px + 4.643vw), 56px);
     --padding-medium: clamp(16px, calc(13.714px + 0.714vw), 24px) clamp(32px, calc(29.714px + 0.714vw), 40px);
     --padding-small: clamp(8px, calc(5.714px + 0.714vw), 16px);
+    --padding-very-small: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --button-padding: var(--page-link-padding);
     --input-wrapper-padding: 8px 16px;
 
@@ -75,6 +82,7 @@
     --gap-small: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --gap-medium: clamp(8px, calc(5.714px + 0.714vw), 16px);
     --gap-large: clamp(16px, calc(11.429px + 1.429vw), 32px);
+    --gap-between-buttons: var(--gap-medium);
     
     /*back and close image dimensions*/
     --back-btn-image-dimensions: clamp(28px, calc(24.571px + 1.071vw), 40px);
@@ -90,7 +98,8 @@
     /*page-header*/
     --page-header-help-icon-width: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --page-header-help-icon-height: var(--page-header-help-icon-width);
-    
+    --header-height: 90.8px;
+
     --profile-icon-width: clamp(48px, calc(45.714px + 0.714vw), 56px);
     --profile-icon-height: var(--profile-icon-width);
 
@@ -125,7 +134,6 @@
     --task-image-dimensions: clamp(40px, calc(35.429px + 1.429vw), 56px);
     --hover-scale: 1.05;
     --task-icon-border: 2px solid var(--white-color);
-    --hover-transition: all 0.2s ease-in-out;
 
     /*login*/
     --login-header-font-size: var(--medium-font-size);
@@ -147,6 +155,7 @@
     --add-task-label-gap: clamp(4px, calc(2.857px + 0.357vw), 8px);
     --priority-button-padding: clamp(8px, calc(5.714px + 0.714vw), 16px) clamp(4px, calc(2.857px + 0.357vw), 8px);
     --task-icon-dimensions: clamp(60px, calc(55.429px + 1.429vw), 76px);
+    --slide-in: translateX(0);
 
     /*legal-notice and privacy-policy*/
     --legal-notice-headline-font-size: var(--large-font-size);

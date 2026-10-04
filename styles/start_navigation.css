@@ -1,0 +1,102 @@
+#sidebar-first {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--sidebar-box-shadow);
+    padding: var(--padding-top-bottom) var(--padding-left-right);
+}
+
+@media(min-width: 1440px) {
+    #sidebar-first {
+        padding-left: 0;
+    }
+}
+
+.svg-fill {
+  fill: var(--menu-color);
+}
+
+.sidebar-navigation-before-login {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height));
+     width: var(--full);
+}
+
+.page-links-before-login a {
+    color: var(--menu-color);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);;
+    justify-content: flex-start;
+    border-radius: var(--element-design-border-radius);;
+    padding: var(--page-link-padding);
+    transition: background-color 400ms ease;
+    text-decoration: none;
+    text-wrap: nowrap;
+    width: var(--full);
+}
+
+.page-links-before-login a:hover {
+  background-color: var(--secondary-color);
+}
+
+@media(max-width: 950px) {
+    #sidebar-first {
+        z-index: 9999;
+        background-color: var(--white-color);
+        position: sticky;
+        bottom: 0;
+        padding: 0;
+        box-shadow: unset;
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-navigation-before-login {
+        flex-direction: row;
+        height: unset;
+        padding: 12px var(--padding-left-right);
+        align-items: center;
+    }
+
+    .page-links-before-login a {
+        flex-direction: column;
+        padding: var(--padding-small) 0;
+    }
+
+    .page-links-before-login a:hover {
+        background-color: unset;
+        color: var(--primary-color);
+        width: unset;
+
+        .svg-fill {
+            fill: var(--primary-color);
+        }
+    }
+}
+
+.sidebar-footer-before-login {
+    display: flex;
+    flex-direction: column;
+    width: var(--full);
+}
+
+.sidebar-footer-before-login a {
+    color: var(--menu-color);
+    text-decoration: none;
+    padding: var(--page-link-padding);
+    text-wrap: nowrap;
+}
+
+.sidebar-footer-before-login a:hover, .sidebar-footer-before-login a.active {
+  color: var(--primary-color);
+}
+
+@media(max-width: 950px) {
+    .sidebar-footer-before-login {
+        flex-direction: row;
+        width: unset;
+    }
+}

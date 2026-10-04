@@ -32,6 +32,7 @@ let exampleTasks = [
     dueDate: "02/09/2023",
     subtasks: { completed: 2, total: 2 },
     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
+    subtaskDone: [true, true],
   },
   {
     id: "task-4",
@@ -51,19 +52,6 @@ async function initBoardContent() {
   renderBoard(exampleTasks);
   initializeTaskSearch();
   initializeTaskDropZones();
-}
-
-/**
- * Replaces every placeholder in an HTML template.
- * @param {string} template - HTML containing named placeholders.
- * @param {Object.<string, string|number>} values - Values for the placeholders.
- * @returns {string} Completed HTML.
- */
-function fillTemplate(template, values) {
-  return Object.entries(values).reduce(
-    (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
-    template,
-  );
 }
 
 /**
@@ -110,8 +98,8 @@ function getSubtaskProgressHtml(subtasks) {
  * @returns {string} Visible priority symbol.
  */
 function getPrioritySymbol(priority) {
-  if (priority === "urgent") return "↑";
-  return priority === "medium" ? "=" : "↓";
+  if (priority === "urgent") return urgentPriorityTemplate;
+  return priority === "medium" ? mediumPriorityTemplate : lowPriorityTemplate;
 }
 
 /**
@@ -143,6 +131,11 @@ function renderTask(task) {
   taskList.innerHTML += getTaskCardHtml(task);
 }
 
+function openTask() {
+  const dialog = document.getElementById('task-overlay');
+  dialog.showModal();
+}
+
 /**
  * Renders every task and updates empty board columns.
  * @param {Object[]} tasks - Tasks to render.
@@ -155,6 +148,7 @@ function renderBoard(tasks) {
   tasks.forEach(renderTask);
   renderEmptyTaskLists(taskLists);
   initializeDraggableCards();
+  setBadgeBackgroundColor();
 }
 
 /**
@@ -371,7 +365,7 @@ function initializeTaskDropZones() {
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function mapTasksToArray(tasksObject) {
-  if (!tasksObject) return []; 
+  if (!tasksObject) return [];
   return Object.entries(tasksObject).map(([id, task]) => ({ ...task, id }));
 }
 
@@ -384,4 +378,3 @@ async function loadTasks() {
     exampleTasks = [];
   }
 }
-

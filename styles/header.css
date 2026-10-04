@@ -14,6 +14,12 @@
   }
 }
 
+@media(max-width: 450px) {
+  .kanban-text {
+    display: none;
+  }
+}
+
 .content-limit {
   display: flex;
   justify-content: space-between;
@@ -34,8 +40,6 @@
 }
 
 .header-icon-button {
-  width: auto;
-  height: auto;
   padding: 0;
   border: none;
   background: transparent;
@@ -96,8 +100,8 @@
   color: var(--primary-color, #1268FF);
   font-size: var(--medium-font-size);
   font-weight: bold;
-  border-radius: 50%;
-  border: 3px solid var(--primary-color, #1268FF);
+  border-radius: var(--border-radius-circular);;
+  border: 2px solid var(--primary-color, #1268FF);
   outline: 3px solid #ffffff;
   user-select: none;
   cursor: pointer;

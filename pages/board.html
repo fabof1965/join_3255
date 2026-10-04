@@ -21,10 +21,10 @@
   <script src="../scripts/board-overlay.js" defer></script>
 </head>
 
-<body onload="initBoardContent()">
+<body style="display: none" onload="initBoardContent()">
   <header id="header"></header>
   <main class="main-layout">
-    <aside id="sidebar"></aside>
+    <nav id="sidebar"></nav>
     <section class="board-container">
       <div class="board-toolbar-wrapper">
         <div class="board-toolbar">
@@ -34,7 +34,7 @@
               <img class="search-image" src="../assets/icons/search.svg" alt=""/>
             </button>
           </div>
-          <button type="button" class="add-task-button" data-add-task-status="toDo">Add Task +</button>
+          <button type="button" class="add-task-button btn" data-add-task-status="toDo">Add Task +</button>
         </div>
         <p id="search-no-results" class="search-no-results" hidden>
           No tasks found
@@ -45,28 +45,27 @@
         <section class="board-column">
           <header class="column-header">
             <h2>To do</h2>
-            <button type="button" data-add-task-status="toDo">+</button>
+            <button type="button" data-add-task-status="toDo" aria-label="add to-do task">+</button>
           </header>
           <div class="task-list" data-status="toDo" data-empty-text="No tasks To do"></div>
         </section>
         <section class="board-column">
           <header class="column-header">
             <h2>In progress</h2>
-            <button type="button" data-add-task-status="inProgress">+</button>
+            <button type="button" data-add-task-status="inProgress" aria-label="add in progress task">+</button>
           </header>
           <div class="task-list" data-status="inProgress" data-empty-text="No tasks in progress"></div>
         </section>
         <section class="board-column">
           <header class="column-header">
             <h2>Await feedback</h2>
-            <button type="button" data-add-task-status="awaitFeedback">+</button>
+            <button type="button" data-add-task-status="awaitFeedback" aria-label="add await feedback task">+</button>
           </header>
           <div class="task-list" data-status="awaitFeedback" data-empty-text="No tasks awaiting feedback"></div>
         </section>
         <section class="board-column">
           <header class="column-header">
             <h2>Done</h2>
-            <button type="button" data-add-task-status="done">+</button>
           </header>
           <div class="task-list" data-status="done" data-empty-text="No tasks done"></div>
         </section>
@@ -74,8 +73,8 @@
     </section>
   </main>
 
-  <div id="task-overlay" class="task-overlay-backdrop" hidden></div>
-  <div id="add-task-overlay" class="add-task-backdrop" hidden></div>
+  <dialog id="task-overlay" class="task-overlay-backdrop"></dialog>
+  <dialog id="add-task-overlay" class="add-task-backdrop"></dialog>
 
 </body>
 
