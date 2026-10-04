@@ -1,5 +1,5 @@
 #!/bin/sh
-git pull
+git pull --no-rebase origin main
 git add .
 git commit -m "$*"
-git push
+git push origin main
