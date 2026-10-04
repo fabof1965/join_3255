@@ -78,10 +78,12 @@ function toHelpPage() {
 function initHeaderMenu() {
     const helpButton = document.getElementById("help-button");
     const logoutButton = document.getElementById("logout-button");
+    const userName = localStorage.getItem("name") || sessionStorage.getItem("name");
 
     if (!helpButton) return;
+    // if (userName === "Guest") logoutButton.remove();
     helpButton.addEventListener("click", handleHelpButtonClick);
-    logoutButton.addEventListener("click", logoutUser);
+    if (logoutButton) logoutButton.addEventListener("click", logoutUser);
     document.addEventListener("click", closeHeaderMenuOnOutsideClick);
 }
 
