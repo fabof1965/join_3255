@@ -77,12 +77,14 @@ function toHelpPage() {
  */
 function initHeaderMenu() {
     const helpButton = document.getElementById("help-button");
+    const profileButton = document.getElementById("profile-button");
     const logoutButton = document.getElementById("logout-button");
     const userName = localStorage.getItem("name") || sessionStorage.getItem("name");
 
     if (!helpButton) return;
     // if (userName === "Guest") logoutButton.remove();
     helpButton.addEventListener("click", handleHelpButtonClick);
+    profileButton.addEventListener("click", toggleHeaderMenu);
     if (logoutButton) logoutButton.addEventListener("click", logoutUser);
     document.addEventListener("click", closeHeaderMenuOnOutsideClick);
 }
@@ -95,10 +97,19 @@ function handleHelpButtonClick() {
     const headerMenu = document.getElementById("header-menu");
 
     if (window.location.pathname.endsWith("/help.html")) {
-        headerMenu.classList.toggle("is-visible");
+        toggleHeaderMenu();
         return;
     }
     toHelpPage();
+}
+
+/**
+ * Toggles the visibility of the shared header menu.
+ * @returns {void}
+ */
+function toggleHeaderMenu() {
+    const headerMenu = document.getElementById("header-menu");
+    headerMenu.classList.toggle("is-visible");
 }
 
 /**
@@ -119,8 +130,11 @@ function logoutUser() {
 function closeHeaderMenuOnOutsideClick(event) {
     const headerMenu = document.getElementById("header-menu");
     const helpButton = document.getElementById("help-button");
+    const profileButton = document.getElementById("profile-button");
 
-    if (!headerMenu.contains(event.target) && !helpButton.contains(event.target)) {
+    if (!headerMenu.contains(event.target) &&
+        !helpButton.contains(event.target) &&
+        !profileButton.contains(event.target)) {
         headerMenu.classList.remove("is-visible");
     }
 }

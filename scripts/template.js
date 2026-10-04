@@ -82,7 +82,7 @@ const headerTemplate = `
         <a href="../pages/privacy_policy.html">Privacy Policy</a>
         <button id="logout-button" type="button">Log out</button>
       </nav>
-      <button class="header-icon-button" type="button" aria-label="Open user profile">
+      <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile">
         <span id="profile-badge">SM</span>
       </button>
     </div>
