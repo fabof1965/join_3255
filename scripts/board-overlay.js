@@ -151,6 +151,19 @@ function handleTaskOverlayClick(event) {
 }
 
 /**
+ * Opens a task card when activated with the keyboard.
+ * @param {KeyboardEvent} event - The keyboard event.
+ * @returns {void}
+ */
+function handleTaskCardKeydown(event) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const card = event.target.closest(".task-card");
+  if (!card) return;
+  event.preventDefault();
+  openTaskOverlay(card.dataset.taskId);
+}
+
+/**
  * Handles changes on subtask checkboxes inside the overlay.
  * @param {Event} event - Document change event.
  * @returns {void}
@@ -163,6 +176,7 @@ function handleSubtaskCheckboxChange(event) {
 }
 
 document.addEventListener("click", handleTaskOverlayClick);
+document.addEventListener("keydown", handleTaskCardKeydown);
 document.getElementById('task-overlay').addEventListener('close', () => {
   document.body.classList.remove('overlay-open');
 })

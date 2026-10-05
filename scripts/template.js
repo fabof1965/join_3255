@@ -89,7 +89,7 @@ const headerTemplate = `
 `;
 
 const taskCardTemplate = `
-    <article class="task-card" draggable="true" data-task-id="{{id}}">
+    <article class="task-card" role="button" tabindex="0" aria-label="Open task {{title}}" draggable="true" data-task-id="{{id}}">
       <span class="task-category {{categoryClass}}">{{category}}</span>
       <div class="task-content">
         <h3>{{title}}</h3>
