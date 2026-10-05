@@ -68,21 +68,19 @@ function navigationBeforeLogin() {
 const headerTemplate = `
   <div class="content-limit">
     <div class="header-left">
-      <button class="header-icon-button" type="button" aria-label="Header Logo">
         <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
-      </button>
     </div>
     <div class="header-right">
       <span class="kanban-text">Kanban Project Management Tool</span>
       <button id="help-button" class="header-icon-button" type="button" aria-label="Open help">
         <img class="help-icon" src="../assets/icons/help.svg" alt="Open help" />
       </button>
-      <nav id="header-menu" class="header-menu">
+      <nav id="header-menu" class="header-menu" popover>
         <a href="../pages/legal_notice.html">Legal Notice</a>
         <a href="../pages/privacy_policy.html">Privacy Policy</a>
         <button id="logout-button" type="button">Log out</button>
       </nav>
-      <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile">
+      <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
         <span id="profile-badge">SM</span>
       </button>
     </div>

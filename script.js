@@ -123,23 +123,6 @@ function logoutUser() {
 }
 
 /**
- * Closes the header menu when the user clicks outside the header.
- * @param {MouseEvent} event - The document click event.
- * @returns {void}
- */
-function closeHeaderMenuOnOutsideClick(event) {
-    const headerMenu = document.getElementById("header-menu");
-    const helpButton = document.getElementById("help-button");
-    const profileButton = document.getElementById("profile-button");
-
-    if (!headerMenu.contains(event.target) &&
-        !helpButton.contains(event.target) &&
-        !profileButton.contains(event.target)) {
-        headerMenu.classList.remove("is-visible");
-    }
-}
-
-/**
  * Universal function for the header badge (splits names like Saeed Ghorbani -> SG).
  */
 function initHeaderProfile() {
