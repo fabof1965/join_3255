@@ -58,6 +58,12 @@
   border-radius: var(--border-radius-circular);
 }
 
+@media(max-width: 500px) {
+  .help-icon {
+    display: none;
+  }
+}
+
 .header-menu {
   position: fixed;
   position-anchor: --header-anchor;
@@ -72,20 +78,32 @@
   border: none;
   box-shadow: var(--button-box-shadow);
   margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: display 300ms allow-discrete, 
+              opacity 300ms ease-in-out 100ms, 
+              overlay 300ms allow-discrete,
+              transform 300ms ease-in-out;
 }
 
 .header-menu:popover-open {
   display: flex;
+  opacity: 1;
+  transform: translateY(0);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
 }
 
 .header-menu a,
 .header-menu button {
-  padding: 7px 16px;
+  padding: 8px 16px;
   border: none;
   background: transparent;
   color: var(--menu-color);
   font: inherit;
-  font-size: 14px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -94,6 +112,16 @@
 .header-menu a:hover,
 .header-menu button:hover {
   background-color: var(--menu-hover-color);
+}
+
+.help {
+  display: none;
+}
+
+@media(max-width: 500px) {
+  .help {
+    display: block;
+  }
 }
 
 #profile-badge {
