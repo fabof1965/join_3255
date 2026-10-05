@@ -86,12 +86,6 @@
   padding: var(--padding);
 }
 
-@media(max-width: 700px) {
-  .auth-main {
-    justify-content: flex-end;
-  }
-}
-
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -103,6 +97,16 @@
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
   gap: var(--auth-input-gap);
+}
+
+@media(max-width: 700px) {
+  .auth-main {
+    justify-content: center;
+  }
+
+  .auth-form {
+    margin-top: var(--margin-medium);
+  }
 }
 
 @keyframes fade-in {
