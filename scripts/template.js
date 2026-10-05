@@ -319,8 +319,10 @@ function getInputFieldsForLogin() {
                 <div class="input-content-container" id="error-msg-border-bottom">
                   <label for="login-password" class="visually-hidden">Passwort</label>
                   <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
-                  <img id="login-password-toggle-icon" class="lock-img"
-                      src="./assets/icons/lock.svg" alt="lock icon" />
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <img id="login-password-toggle-icon" class="lock-img"
+                        src="./assets/icons/lock.svg" alt="" />
+                  </button>
                 </div>
             <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try again.</span>
             </div>
@@ -347,7 +349,9 @@ function getInputFieldsForSignup() {
             <div class="input-wrapper">
               <div class="input-content-container">
                 <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
-                <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock-img">
+                <button type="button" class="password-toggle" aria-label="Show password">
+                  <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                </button>
               </div>
               <span class="error-msg visibility-hidden"></span>
             </div>
@@ -355,7 +359,9 @@ function getInputFieldsForSignup() {
             <div class="input-wrapper" >
                 <div class="input-content-container" id="confirm-password-border-bottom">
                   <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
-                  <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock logo">
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                  </button>
                 </div>
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
             </div>

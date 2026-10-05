@@ -291,7 +291,19 @@
 }
 
 .lock-img {
+    pointer-events: none;
+}
+
+.password-toggle {
+    border: 0;
+    padding: 0;
+    background: transparent;
     cursor: pointer;
+}
+
+.password-toggle:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 .checkbox {
@@ -406,4 +418,3 @@ dialog::backdrop {
 .error-message-border-bottom{
   border-bottom: var(--error-message-border-bottom);
 }
-

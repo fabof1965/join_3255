@@ -7,10 +7,10 @@ function initSignUpEventListeners() {
 
 function initPasswordEventListener() {
     passwordInputFields().forEach((field) => {
-        if (!field.input || !field.icon) return;
+        if (!field.input || !field.icon || !field.toggle) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
         field.input.addEventListener('focus', () => handlePasswordFocus(field));
-        field.icon.addEventListener('click', () => toggleShowPassword(field));
+        field.toggle.addEventListener('click', () => toggleShowPassword(field));
     });
 }
 
@@ -22,14 +22,17 @@ function passwordInputFields() {
         {
             input: document.getElementById('login-password'),
             icon: document.getElementById('login-password-toggle-icon'),
+            toggle: document.querySelector('.password-toggle'),
         },
         {
             input: document.getElementById('sign-up-password'),
             icon: document.getElementById('sign-up-password-toggle-icon'),
+            toggle: document.querySelectorAll('.password-toggle')[1],
         },
         {
             input: document.getElementById("confirm-password"),
             icon: document.getElementById('confirm-password-toggle-icon'),
+            toggle: document.querySelectorAll('.password-toggle')[2],
         },
     ];
 }
@@ -38,10 +41,12 @@ function handlePasswordFocus(field) {
     if (field.input.type === "password") {
         field.icon.src = "./assets/icons/visibility_off.svg";
         field.icon.alt = "hide password";
+        field.toggle.setAttribute("aria-label", "Hide password");
     } else {
         field.input.type = "text";
         field.icon.src = './assets/icons/visibility.svg';
         field.icon.alt = "show password";
+        field.toggle.setAttribute("aria-label", "Show password");
     }
 }
 
@@ -49,12 +54,15 @@ function handleEmptyPasswordInput(field) {
     if (field.input.value === "") {
         field.icon.src = "./assets/icons/lock.svg";
         field.icon.alt = "lock-img";
+        field.toggle.setAttribute("aria-label", "Show password");
     } else if (field.input.type === "text") {
         field.icon.src = './assets/icons/visibility.svg';
         field.icon.alt = "show password";
+        field.toggle.setAttribute("aria-label", "Show password");
     } else if (field.input.type === "password") {
         field.icon.src = "./assets/icons/visibility_off.svg";
         field.icon.alt = "hide password";
+        field.toggle.setAttribute("aria-label", "Hide password");
     }
 }
 
@@ -63,10 +71,12 @@ function toggleShowPassword(field) {
         field.input.type = "text";
         field.icon.src = './assets/icons/visibility.svg';
         field.icon.alt = "show password";
+        field.toggle.setAttribute("aria-label", "Show password");
     } else {
         field.input.type = "password";
         field.icon.src = "./assets/icons/visibility_off.svg";
         field.icon.alt = "hide password";
+        field.toggle.setAttribute("aria-label", "Hide password");
     }
 }
 
