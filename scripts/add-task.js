@@ -17,9 +17,8 @@ async function openAddTask(status) {
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(overlay);
-  overlay.showModal();
+  openAccessibleDialog(overlay, "input[name='title']");
   document.body.classList.add("overlay-open");
-  overlay.querySelector("input[name='title']").focus();
 }
 
 /**
@@ -86,12 +85,11 @@ async function openEditTask(task) {
   newTaskStatus = task.status;
   overlay.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(overlay);
-  overlay.showModal();
+  openAccessibleDialog(overlay, "input[name='title']");
   document.body.classList.add("overlay-open");
   overlay.querySelector("#add-task-title").textContent = "Edit Task";
   overlay.querySelector(".create-task-button").textContent = "Save Task";
   fillTaskForm(overlay.querySelector("#add-task-form"), task);
-  overlay.querySelector("input[name='title']").focus();
 }
 
 /**
@@ -100,7 +98,7 @@ async function openEditTask(task) {
  */
 function closeAddTask() {
   const overlay = document.getElementById("add-task-overlay");
-  overlay.close();
+  closeAccessibleDialog(overlay);
   overlay.innerHTML = "";
   editingTaskId = "";
   document.body.classList.remove("overlay-open");
@@ -310,7 +308,6 @@ async function submitNewTask(event) {
   if (!response) return;
   const firebaseId = response.name;
   task.id = firebaseId;
-  console.log("Neuer Task angelegt:", task);
   exampleTasks.push(task);
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);

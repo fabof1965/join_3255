@@ -75,7 +75,7 @@ const headerTemplate = `
       <button id="help-button" class="header-icon-button" type="button" aria-label="Open help">
         <img class="help-icon" src="../assets/icons/help.svg" alt="Open help" />
       </button>
-      <nav id="header-menu" class="header-menu" popover>
+      <nav id="header-menu" class="header-menu" popover="manual">
         <a class="help" href="../pages/help.html">Help</a>
         <a href="../pages/legal_notice.html">Legal Notice</a>
         <a href="../pages/privacy_policy.html">Privacy Policy</a>
@@ -89,7 +89,7 @@ const headerTemplate = `
 `;
 
 const taskCardTemplate = `
-    <article class="task-card" draggable="true" data-task-id="{{id}}">
+    <article class="task-card" role="button" tabindex="0" aria-label="Open task {{title}}" draggable="true" data-task-id="{{id}}">
       <span class="task-category {{categoryClass}}">{{category}}</span>
       <div class="task-content">
         <h3>{{title}}</h3>
@@ -319,8 +319,10 @@ function getInputFieldsForLogin() {
                 <div class="input-content-container" id="error-msg-border-bottom">
                   <label for="login-password" class="visually-hidden">Passwort</label>
                   <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
-                  <img id="login-password-toggle-icon" class="lock-img"
-                      src="./assets/icons/lock.svg" alt="lock icon" />
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <img id="login-password-toggle-icon" class="lock-img"
+                        src="./assets/icons/lock.svg" alt="" />
+                  </button>
                 </div>
             <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try again.</span>
             </div>
@@ -347,7 +349,9 @@ function getInputFieldsForSignup() {
             <div class="input-wrapper">
               <div class="input-content-container">
                 <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
-                <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock-img">
+                <button type="button" class="password-toggle" aria-label="Show password">
+                  <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                </button>
               </div>
               <span class="error-msg visibility-hidden"></span>
             </div>
@@ -355,7 +359,9 @@ function getInputFieldsForSignup() {
             <div class="input-wrapper" >
                 <div class="input-content-container" id="confirm-password-border-bottom">
                   <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password">
-                  <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock logo">
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                  </button>
                 </div>
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
             </div>

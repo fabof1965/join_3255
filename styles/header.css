@@ -97,6 +97,12 @@
   }
 }
 
+.header-menu.is-visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .header-menu a,
 .header-menu button {
   padding: 8px 16px;

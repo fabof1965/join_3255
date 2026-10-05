@@ -17,6 +17,40 @@ const colorContacts = [
 ];
 
 let assignedContacts = [];
+const dialogFocusTargets = new WeakMap();
+const dialogCancelHandlers = new WeakMap();
+
+/**
+ * Opens a dialog and moves focus to its first useful control.
+ * @param {HTMLDialogElement} dialog - Dialog to open.
+ * @param {string} focusSelector - Selector for the initial focus target.
+ * @returns {void}
+ */
+function openAccessibleDialog(dialog, focusSelector) {
+  dialogFocusTargets.set(dialog, document.activeElement);
+  const cancelHandler = (event) => {
+    event.preventDefault();
+    closeAccessibleDialog(dialog);
+  };
+  dialogCancelHandlers.set(dialog, cancelHandler);
+  dialog.addEventListener("cancel", cancelHandler);
+  dialog.showModal();
+  dialog.querySelector(focusSelector)?.focus();
+}
+
+/**
+ * Closes a dialog and restores focus to the element that opened it.
+ * @param {HTMLDialogElement} dialog - Dialog to close.
+ * @returns {void}
+ */
+function closeAccessibleDialog(dialog) {
+  if (!dialog.open) return;
+  dialog.close();
+  dialog.removeEventListener("cancel", dialogCancelHandlers.get(dialog));
+  dialogFocusTargets.get(dialog)?.focus();
+  dialogFocusTargets.delete(dialog);
+  dialogCancelHandlers.delete(dialog);
+}
 
 /**
  * Renders the shared sidebar template when its container exists.
@@ -64,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSidebar();
     renderHeader();
     initHeaderProfile();
+    initHeaderInteractions();
 });
 
 function toHelpPage() {
@@ -91,7 +126,46 @@ function handleHelpButtonClick() {
  */
 function toggleHeaderMenu() {
     const headerMenu = document.getElementById("header-menu");
-    headerMenu.classList.toggle("is-visible");
+    if (!headerMenu) return;
+    if (typeof headerMenu.togglePopover !== "function") {
+        headerMenu.classList.toggle("is-visible");
+        return;
+    }
+    headerMenu.togglePopover();
+}
+
+/**
+ * Connects the shared header controls after the header is rendered.
+ * @returns {void}
+ */
+function initHeaderInteractions() {
+    const helpButton = document.getElementById("help-button");
+    const logoutButton = document.getElementById("logout-button");
+    if (helpButton) helpButton.addEventListener("click", handleHelpButtonClick);
+    if (logoutButton) logoutButton.addEventListener("click", logoutUser);
+    document.addEventListener("click", closeHeaderMenuOnOutsideClick);
+}
+
+/**
+ * Closes the shared header menu when the user clicks outside it.
+ * @param {MouseEvent} event - Document click event.
+ * @returns {void}
+ */
+function closeHeaderMenuOnOutsideClick(event) {
+    const headerMenu = document.getElementById("header-menu");
+    const profileButton = document.getElementById("profile-button");
+    const helpButton = document.getElementById("help-button");
+    if (
+        !headerMenu ||
+        headerMenu.contains(event.target) ||
+        profileButton?.contains(event.target) ||
+        helpButton?.contains(event.target)
+    ) return;
+    if (typeof headerMenu.hidePopover === "function" && headerMenu.matches(":popover-open")) {
+        headerMenu.hidePopover();
+        return;
+    }
+    headerMenu.classList.remove("is-visible");
 }
 
 /**
