@@ -42,7 +42,6 @@ async function toggleSubtask(index) {
   if (!task) return;
   task.subtaskDone[index] = !task.subtaskDone[index];
   task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
-  //false = offen, true = erledigt
   await patchData(`tasks/${openedTaskId}`, {
     subtaskDone: task.subtaskDone,
     subtasks: task.subtasks,
