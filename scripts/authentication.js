@@ -158,7 +158,6 @@ function closeDialog() {
  * @param {Event} event - Login form submission event.
  */
 async function userLogin(event) {
-    console.log("submit ausgelöst");
     event.preventDefault();
     const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
@@ -168,7 +167,6 @@ async function userLogin(event) {
     const user = users.find(u => u.email === emailLogin.value && u.password === passwordLogin.value);
     
     if (user) {
-        console.log("user gefunden", user);
         
         const userName = user.name || user.username || user.fullName;
         

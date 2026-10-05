@@ -310,7 +310,6 @@ async function submitNewTask(event) {
   if (!response) return;
   const firebaseId = response.name;
   task.id = firebaseId;
-  console.log("Neuer Task angelegt:", task);
   exampleTasks.push(task);
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);

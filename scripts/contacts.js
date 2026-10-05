@@ -287,7 +287,6 @@ async function submitContactForm(event) {
 }
 
 async function addNewContact(event) {
-    console.log("addNewContact läuft");
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
