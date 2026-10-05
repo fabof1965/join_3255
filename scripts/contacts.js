@@ -327,6 +327,20 @@ function closeEditContactDialog() {
     }, 500);
 }
 
+/**
+ * Closes an open contact dialog with the Escape key.
+ * @param {KeyboardEvent} event - The keyboard event.
+ */
+function handleContactDialogKeydown(event) {
+    if (event.key !== "Escape") return;
+    const addDialog = getAddContactDialog();
+    const editDialog = document.getElementById("edit-contact-dialog");
+    if (addDialog.open) closeContactDialog();
+    if (editDialog.open) closeEditContactDialog();
+}
+
+document.addEventListener("keydown", handleContactDialogKeydown);
+
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = allContacts[editIndex].id;
