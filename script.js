@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSidebar();
     renderHeader();
     initHeaderProfile();
+    initHeaderInteractions();
 });
 
 function toHelpPage() {
@@ -125,7 +126,46 @@ function handleHelpButtonClick() {
  */
 function toggleHeaderMenu() {
     const headerMenu = document.getElementById("header-menu");
-    headerMenu.classList.toggle("is-visible");
+    if (!headerMenu) return;
+    if (typeof headerMenu.togglePopover !== "function") {
+        headerMenu.classList.toggle("is-visible");
+        return;
+    }
+    headerMenu.togglePopover();
+}
+
+/**
+ * Connects the shared header controls after the header is rendered.
+ * @returns {void}
+ */
+function initHeaderInteractions() {
+    const helpButton = document.getElementById("help-button");
+    const logoutButton = document.getElementById("logout-button");
+    if (helpButton) helpButton.addEventListener("click", handleHelpButtonClick);
+    if (logoutButton) logoutButton.addEventListener("click", logoutUser);
+    document.addEventListener("click", closeHeaderMenuOnOutsideClick);
+}
+
+/**
+ * Closes the shared header menu when the user clicks outside it.
+ * @param {MouseEvent} event - Document click event.
+ * @returns {void}
+ */
+function closeHeaderMenuOnOutsideClick(event) {
+    const headerMenu = document.getElementById("header-menu");
+    const profileButton = document.getElementById("profile-button");
+    const helpButton = document.getElementById("help-button");
+    if (
+        !headerMenu ||
+        headerMenu.contains(event.target) ||
+        profileButton?.contains(event.target) ||
+        helpButton?.contains(event.target)
+    ) return;
+    if (typeof headerMenu.hidePopover === "function" && headerMenu.matches(":popover-open")) {
+        headerMenu.hidePopover();
+        return;
+    }
+    headerMenu.classList.remove("is-visible");
 }
 
 /**
