@@ -373,7 +373,7 @@ function getPopoverContent(indexContact) {
 
 function getContactTemplate(indexContact) {
   return `
-      <div class="contact-card" id="contact-card${indexContact}" onclick="toggleContactDetail(${indexContact}, this)">
+      <div class="contact-card" id="contact-card${indexContact}" role="button" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}" onclick="toggleContactDetail(${indexContact}, this)" onkeydown="handleContactCardKeydown(event, ${indexContact}, this)">
         <div class="profile-badge">${renderProfileBadges(allContacts[indexContact].name).toUpperCase()}</div>
         <div class="name-and-mail">
           <span class="name">${allContacts[indexContact].name}</span>

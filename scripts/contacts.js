@@ -97,6 +97,18 @@ function toggleContactDetail(indexContact, contactCard) {
     showSelectedContact(indexContact, contactCard);
 }
 
+/**
+ * Opens a contact card when activated with the keyboard.
+ * @param {KeyboardEvent} event - The keyboard event.
+ * @param {number} indexContact - The contact index.
+ * @param {HTMLElement} contactCard - The activated contact card.
+ */
+function handleContactCardKeydown(event, indexContact, contactCard) {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    toggleContactDetail(indexContact, contactCard);
+}
+
 function showSelectedContact(indexContact, contactCard) {
     contactCard.classList.add("background-primary");
     setTimeout(() => {
