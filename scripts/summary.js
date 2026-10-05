@@ -2,7 +2,7 @@
  * Stores all tasks loaded from Firebase for the summary page.
  * @type {Array<Object>}
  */
-let exampleTasks = [];
+let allTasks = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     initSummary();
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function initSummary() {
   await loadTasksForSummary();
-  UpdateSummaryNumbers();
+  updateSummaryNumbers();
   await loadUserName();
   initCardClicks();
   updateGreetingText();
@@ -20,27 +20,23 @@ async function loadTasksForSummary() {
   try {
      const taskData = await getData("tasks");
     if (taskData) {
-      exampleTasks = taskData ? Object.values(taskData) : [];
+      allTasks = taskData ? Object.values(taskData) : [];
     }
   } catch (error) {
     console.error("Fehler beim Laden der Tasks:", error);
-    exampleTasks = [];
+    allTasks = [];
   }
 }
 
-function UpdateSummaryNumbers() {
-  let countToDo = exampleTasks.filter(function (duty) {
-    return duty.status === "toDo" || duty.status === "todo";
-  }).length;
-  // const count = (condition) => exampleTasks.filter(condition).length;
-  // let countToDo = exampleTasks.filter(duty => duty.status === "toDo" || duty.status === "todo").length;
-  let countInProgress = exampleTasks.filter(duty => duty.status === "inProgress").length;
-  let countFeedback = exampleTasks.filter(duty => duty.status === "awaitFeedback" ).length;
-  let countDone = exampleTasks.filter(duty => duty.status === "done" ).length;
-  let countBoard = exampleTasks.length;
-  let urgentTasks = exampleTasks.filter(duty => duty.priority === "urgent");
-  let countUrgent = urgentTasks.length;
-  displaySummaryNumbers(countToDo, countInProgress, countFeedback, countDone, countBoard, countUrgent);  
+function updateSummaryNumbers() {
+  const totalTasksToDo = allTasks.filter(task => task.status === "toDo").length;
+  const totalTasksInProgress = allTasks.filter(task => task.status === "inProgress").length;
+  const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback" ).length;
+  const totalTasksDone = allTasks.filter(task => task.status === "done" ).length;
+  const urgentTasks = allTasks.filter(task => task.priority === "urgent");
+  const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
+  const countUrgent = urgentTasks.length;
+  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, countUrgent);  
   updateUpcomingDeadline(urgentTasks);
 }
 
@@ -55,10 +51,7 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
 
 function updateUpcomingDeadline(urgentTasks) {
   const dateEl = document.getElementById("date");
-  if (!dateEl) return;
-
   const tasksWithDate = urgentTasks.filter(duty => duty.dueDate);
-
   if (tasksWithDate.length === 0) {
     dateEl.innerText = "No deadline";
     return;

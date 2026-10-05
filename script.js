@@ -64,30 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSidebar();
     renderHeader();
     initHeaderProfile();
-    initHeaderMenu();
 });
 
 function toHelpPage() {
     window.location.href = "../pages/help.html";
 }
 
-/**
- * Initializes the help button behavior for the shared header.
- * @returns {void}
- */
-function initHeaderMenu() {
-    const helpButton = document.getElementById("help-button");
-    const profileButton = document.getElementById("profile-button");
-    const logoutButton = document.getElementById("logout-button");
-    const userName = localStorage.getItem("name") || sessionStorage.getItem("name");
-
-    if (!helpButton) return;
-    // if (userName === "Guest") logoutButton.remove();
-    helpButton.addEventListener("click", handleHelpButtonClick);
-    profileButton.addEventListener("click", toggleHeaderMenu);
-    if (logoutButton) logoutButton.addEventListener("click", logoutUser);
-    // document.addEventListener("click", closeHeaderMenuOnOutsideClick);
-}
 
 /**
  * Opens the header menu on the help page or navigates to help otherwise.
