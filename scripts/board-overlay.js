@@ -37,12 +37,17 @@ function getOverlaySubtasksHtml(task) {
  * @param {number} index - Index of the subtask to toggle.
  */
 
-function toggleSubtask(index) {
-  const task = exampleTasks.find(({id})=> id === openedTaskId);
+async function toggleSubtask(index) {
+  const task = exampleTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
   task.subtaskDone[index] = !task.subtaskDone[index];
   task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
   //false = offen, true = erledigt
+  await patchData(`tasks/${openedTaskId}`, {
+    subtaskDone: task.subtaskDone,
+    subtasks: task.subtasks,
+  });
+  renderSearchResults(document.getElementById("task-search").value);
 }
 
 /**
@@ -153,7 +158,8 @@ function handleTaskOverlayClick(event) {
  */
 function handleSubtaskCheckboxChange(event) {
   if (event.target.classList.contains("subtask-checkbox")) {
-    toggleSubtask(event.target);
+    const index = Number(event.target.id.replace("subtask-", ""));
+    toggleSubtask(index);
   }
 }
 

@@ -86,7 +86,7 @@ function initHeaderMenu() {
     helpButton.addEventListener("click", handleHelpButtonClick);
     profileButton.addEventListener("click", toggleHeaderMenu);
     if (logoutButton) logoutButton.addEventListener("click", logoutUser);
-    document.addEventListener("click", closeHeaderMenuOnOutsideClick);
+    // document.addEventListener("click", closeHeaderMenuOnOutsideClick);
 }
 
 /**

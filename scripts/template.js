@@ -151,7 +151,7 @@ const taskOverlayUserTemplate = `
 `;
 
 const taskOverlaySubtaskTemplate = `
-  <div class="task-overlay-subtask">
+  <div class="task-overlay-subtask" data-subtask-index="{{index}}">
     <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}} />
     <span>{{title}}</span>
   </div>
