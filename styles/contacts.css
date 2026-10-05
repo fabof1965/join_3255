@@ -309,16 +309,16 @@
     background-color: var(--white-color);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
     transform: translateX(100%);
+    
+    .edit, .delete {
+        display: flex;
+    }
 }
 
 @media(max-width: 500px) {
     #popover-menu:popover-open {
         display: flex;
         transform: translateX(-25px);
-
-        .edit, .delete {
-            display: flex;
-        }
         
         @starting-style {
             transform: translateX(100%);
