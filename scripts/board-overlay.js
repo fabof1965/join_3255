@@ -1,4 +1,5 @@
 let openedTaskId = "";
+let previoslyFocusedTask = null;
 
 /**
  * Creates the assigned-user rows for a task overlay.
@@ -96,10 +97,12 @@ function openTaskOverlay(taskId) {
   const overlay = document.getElementById("task-overlay");
   const task = exampleTasks.find(({ id }) => id === taskId);
   if (!task) return;
+  previoslyFocusedTask = document.activeElement;
   openedTaskId = taskId;
   overlay.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
   overlay.showModal();
+  overlay.querySelector(".task-overlay-close")?.focus();
   document.body.classList.add("overlay-open");
 }
 
@@ -134,6 +137,8 @@ function editOpenedTask() {
 function closeTaskOverlay() {
   document.getElementById("task-overlay").close();
   document.body.classList.remove("overlay-open");
+  previoslyFocusedTask?.focus();
+  previoslyFocusedTask = null;
 }
 
 /**
