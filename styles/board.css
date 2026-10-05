@@ -5,6 +5,12 @@
   position: relative;
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.main-layout {
+  overflow: hidden;
 }
 
 .board-toolbar-wrapper {
@@ -95,6 +101,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap-medium);
   padding: var(--padding);
+  min-height: 0;
 }
 
 .board-columns[hidden] {
