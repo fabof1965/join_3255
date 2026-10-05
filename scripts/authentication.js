@@ -151,7 +151,7 @@ function resetpricavyPolicityCheckbox() {
 
 function signUpSuccessPopUp() {
     const dialog = document.getElementById('dialog');
-    dialog.showModal();
+    openAccessibleDialog(dialog, "h2");
     setTimeout(() => {
         closeDialog();
     }, 1500);
@@ -159,7 +159,7 @@ function signUpSuccessPopUp() {
 
 function closeDialog() {
     const dialog = document.getElementById('dialog');
-    dialog.close();
+    closeAccessibleDialog(dialog);
 }
 
 

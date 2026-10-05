@@ -184,7 +184,7 @@ function openContactDialog(i = null) {
 
 function activateDialog() {
     const dialog = getAddContactDialog();
-    dialog.showModal();
+    openAccessibleDialog(dialog, ".input-field");
     dialog.classList.add('slide-in');
 }
 
@@ -205,7 +205,7 @@ function closeContactDialog() {
    
     contactDialog.classList.remove("slide-in");
     setTimeout(() => {
-        contactDialog.close();
+        closeAccessibleDialog(contactDialog);
     }, 500);
     
     resetBadge();
@@ -314,7 +314,7 @@ function openExistingContactDialog(i) {
     setBadgeBackgroundColor();
     editIndex = i;
     fillContactForm(allContacts[i]);
-    editContactDialog.showModal();
+    openAccessibleDialog(editContactDialog, ".input-field");
     editContactDialog.classList.add("slide-in");
 }
 
@@ -322,23 +322,9 @@ function closeEditContactDialog() {
     const editContactDialog = document.getElementById("edit-contact-dialog");
     editContactDialog.classList.remove("slide-in");
     setTimeout(() => {
-        editContactDialog.close();
+        closeAccessibleDialog(editContactDialog);
     }, 500);
 }
-
-/**
- * Closes an open contact dialog with the Escape key.
- * @param {KeyboardEvent} event - The keyboard event.
- */
-function handleContactDialogKeydown(event) {
-    if (event.key !== "Escape") return;
-    const addDialog = getAddContactDialog();
-    const editDialog = document.getElementById("edit-contact-dialog");
-    if (addDialog.open) closeContactDialog();
-    if (editDialog.open) closeEditContactDialog();
-}
-
-document.addEventListener("keydown", handleContactDialogKeydown);
 
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
