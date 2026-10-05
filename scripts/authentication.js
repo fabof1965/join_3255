@@ -77,7 +77,6 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
-    // if (!signUpForm.reportValidity()) return;
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
     const emailExists = await checkIfEmailExists(emailSignup.value);

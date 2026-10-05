@@ -6,8 +6,12 @@ const BASE_URL = "https://join-3255-default-rtdb.europe-west1.firebasedatabase.a
  * @returns {Promise<*>} Retrieved Firebase data.
  */
 async function getData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json");
-    return data = await response.json();
+    try {
+        let response = await fetch(BASE_URL + path + ".json");
+        return data = await response.json();
+    } catch (error) {
+        console.error("Fehler beim Laden der Daten");
+    }
 }
 
 /**
@@ -25,7 +29,7 @@ async function postData(path = "", data = {}) {
         });
         return responseToJson = await response.json();
     } catch (error) {
-        console.error('Fehler beim Hochladen der Post-Daten', error);
+        console.error('Fehler beim Hochladen der Daten', error);
     }
 }
 
@@ -44,7 +48,7 @@ async function patchData(path = "", data = {}) {
         });
         return responseToJson = await response.json();
     } catch (error) {
-        console.error('Fehler beim Hochladen der Patchdaten', error);
+        console.error('Fehler beim aktualisieren der Daten', error);
     }
 }
 
