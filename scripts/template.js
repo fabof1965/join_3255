@@ -76,6 +76,7 @@ const headerTemplate = `
         <img class="help-icon" src="../assets/icons/help.svg" alt="Open help" />
       </button>
       <nav id="header-menu" class="header-menu" popover>
+        <a class="help" href="../pages/help.html">Help</a>
         <a href="../pages/legal_notice.html">Legal Notice</a>
         <a href="../pages/privacy_policy.html">Privacy Policy</a>
         <button id="logout-button" type="button">Log out</button>
