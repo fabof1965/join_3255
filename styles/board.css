@@ -29,6 +29,7 @@
 
   .board-container {
     height: var(--full);
+    padding-top: 32px;
   }
 
   .board-toolbar-wrapper {
@@ -172,6 +173,7 @@
 
   .board-column {
     margin-bottom: calc(var(--margin-bottom-medium) * 2);
+    padding-top: 32px;
   }
 
   .task-list {
