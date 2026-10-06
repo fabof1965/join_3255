@@ -30,12 +30,12 @@
 
 @media(max-width: 950px) {
   .main-layout {
-    height: 100%;
+    height: calc(100dvh - var(--header-height));
   }
 
   .board-toolbar-wrapper {
     position: sticky;
-    top: var(--header-height);
+    top: 0;
     background-color: var(--white-color);
   }
 
@@ -165,6 +165,7 @@
 @media(max-width: 950px) {
   .board-columns {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+    overflow-y: scroll;
   }
 
   .board-column {
