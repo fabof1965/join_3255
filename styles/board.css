@@ -33,7 +33,9 @@
 
   .board-toolbar-wrapper {
     position: sticky;
-    top: 0;
+    top: var(--header-height);
+    padding-top: 0;
+    margin-bottom: 48px;
     background-color: var(--white-color);
   }
 
