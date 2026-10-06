@@ -29,6 +29,7 @@
 
   .board-container {
     height: var(--full);
+    padding-top: 32px;
   }
 
   .board-toolbar-wrapper {
