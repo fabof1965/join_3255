@@ -28,7 +28,7 @@
   }
 
   .board-container {
-    height: unset;
+    height: var(--full);
   }
 
   .board-toolbar-wrapper {
