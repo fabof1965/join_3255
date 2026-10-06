@@ -160,6 +160,7 @@
   transition: background-color 100ms ease;
   border-radius: var(--element-design-border-radius);
   padding: var(--gap-small);
+  height: 100vh;
 }
 
 @media(max-width: 950px) {
