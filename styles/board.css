@@ -172,6 +172,7 @@
 
   .board-column {
     margin-bottom: calc(var(--margin-bottom-medium) * 2);
+    padding-top: 32px;
   }
 
   .task-list {
