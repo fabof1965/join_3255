@@ -4,7 +4,9 @@
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   width: var(--full);
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 
   anchor-name: --header-anchor;
 }
