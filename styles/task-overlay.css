@@ -31,9 +31,9 @@
   padding: 24px;
 }
 
-@media(max-width: 450px){ /*hier für meinen Test*/
-  .task-overlay{
-    gap: 16px; 
+@media(max-width: 815px){
+  .add-task-backdrop[open]{
+    width: fit-content;
   }
 }
 
