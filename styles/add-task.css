@@ -275,8 +275,8 @@ textarea {
 .add-task-subtasks {
   padding-left: var(--padding-medium);
   width: var(--full);
-  max-height: 120px;
-  overflow-y: auto;
+  max-height: 120px; /* zum testen*/
+  overflow-y: auto; /* zum testen*/
 }
 
 .subtask-wrapper {
