@@ -115,6 +115,7 @@ textarea {
 
 .add-task-backdrop[open] {
   width: min(518px, 100%);
+  max-height: calc(100vh - 8px);
   position: fixed;
   inset: 0;
   z-index: 30;
@@ -139,6 +140,16 @@ textarea {
   background-color: var(--white-color);
   border-radius: 30px;
   box-shadow: var(--addTaskBoxShadow);
+  min-width: 0;
+  /*mobile-test*/
+  min-height: 0;
+  /*mobile-test*/
+  width: var(--full);
+  /*mobile-test*/
+  overflow-x: hidden;
+  /*mobile-test*/
+  overflow-y: auto;
+  /*mobile-test*/
 }
 
 .add-task-header {
@@ -275,14 +286,17 @@ textarea {
 .add-task-subtasks {
   padding-left: var(--padding-medium);
   width: var(--full);
-  max-height: 120px; /* zum testen*/
-  overflow-y: auto; /* zum testen*/
+  max-height: 80px;
+  /* zum testen*/
+  overflow-y: auto;
+  /* zum testen*/
 }
 
-@media(max-width: 450px){
+@media(max-width: 450px) {
   .add-task-subtasks {
-  max-height: 52px; /* zum testen*/
-}
+    max-height: 52px;
+    /* zum testen*/
+  }
 }
 
 .subtask-wrapper {
