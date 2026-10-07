@@ -31,9 +31,15 @@
   padding: 24px;
 }
 
-@media(max-width: 815px){
+@media(max-width: 815px){ /*nur zu testzwecken*/
   .add-task-backdrop[open]{
     width: fit-content;
+  }
+}
+
+@media(max-width: 450px){ /*nur zu testzwecken*/
+  .add-task-header{
+    margin-bottom: 16px;
   }
 }
 
