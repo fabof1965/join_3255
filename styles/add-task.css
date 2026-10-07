@@ -139,16 +139,11 @@ textarea {
   background-color: var(--white-color);
   border-radius: 30px;
   box-shadow: var(--addTaskBoxShadow);
-  min-width: 0;
-  /*mobile-test*/
-  min-height: 0;
-  /*mobile-test*/
-  width: var(--full);
-  /*mobile-test*/
-  overflow-x: hidden;
-  /*mobile-test*/
-  overflow-y: auto;
-  /*mobile-test*/
+  min-width: 0; /*mobile-test*/
+  min-height: 0; /*mobile-test*/
+  width: var(--full); /*mobile-test*/
+  overflow-x: hidden; /*mobile-test*/
+  overflow-y: auto; /*mobile-test*/
 }
 
 .add-task-header {
