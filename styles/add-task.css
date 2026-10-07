@@ -281,7 +281,7 @@ textarea {
 
 @media(max-width: 450px){
   .add-task-subtasks {
-  max-height: 48px; /* zum testen*/
+  max-height: 52px; /* zum testen*/
 }
 }
 
