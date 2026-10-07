@@ -32,7 +32,7 @@
         top: 50%;
         opacity: 1;
         transform: translateY(-50%);
-        animation: slide-up-fade-out 1s ease forwards;
+        animation: slide-up-fade-out 1s ease 2s forwards;
     }
 }
 
@@ -98,7 +98,7 @@
         position: fixed;
         padding: 0 var(--padding-left-right);
         top: -100%;
-        animation: slide-up-fade-in 1s ease forwards;
+        animation: slide-up-fade-in 1s ease 2s forwards;
     }
 }
 
