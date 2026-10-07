@@ -41,10 +41,6 @@
   .add-task-header{
     margin-bottom: 16px;
   }
-
-  .add-task-dialog{ /*nur zu testzwecken*/
-    padding: 32px 40px;
-  }
 }
 
 .task-overlay-header,
