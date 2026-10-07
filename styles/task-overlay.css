@@ -26,10 +26,15 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  /* background-color: var(--white-color); */
+  gap: 24px; 
   border-radius: 30px;
   padding: 24px;
+}
+
+@media(max-width: 450px){ /*hier für meinen Test*/
+  .task-overlay{
+    gap: 16px; 
+  }
 }
 
 .task-overlay-header,
@@ -193,4 +198,4 @@
 
 .overlay-open {
   overflow: hidden;
-
+}
