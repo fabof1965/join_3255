@@ -3,6 +3,9 @@
   flex-direction: column;
   box-shadow: var(--sidebar-box-shadow);
   padding: var(--padding-top-bottom) var(--padding-left-right);
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100dvh - var(--header-height));
 }
 
 @media(min-width: 1440px) {
@@ -37,6 +40,8 @@
     background-color: var(--white-color);
     position: sticky;
     bottom: 0;
+    top: unset;
+    height: unset;
     padding: 0;
     box-shadow: unset;
     border-top: 2px solid rgba(0, 0, 0, 0.1);

@@ -6,11 +6,13 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .main-layout {
-  overflow: hidden;
+  height: auto;
+  min-height: var(--page-content-height);
+  overflow: visible;
 }
 
 .board-toolbar-wrapper {
@@ -30,12 +32,19 @@
 
 @media(max-width: 950px) {
   .main-layout {
-    height: 100%;
+    height: auto;
+  }
+
+  .board-container {
+    height: var(--full);
+    padding-top: 32px;
   }
 
   .board-toolbar-wrapper {
     position: sticky;
     top: var(--header-height);
+    padding-top: 0;
+    margin-bottom: 48px;
     background-color: var(--white-color);
   }
 
@@ -102,6 +111,7 @@
   gap: var(--gap-medium);
   padding: var(--padding);
   min-height: 0;
+  overflow: auto;
 }
 
 .board-columns[hidden] {
@@ -166,10 +176,12 @@
 @media(max-width: 950px) {
   .board-columns {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+    overflow-y: scroll;
   }
 
   .board-column {
     margin-bottom: calc(var(--margin-bottom-medium) * 2);
+    padding-top: 32px;
   }
 
   .task-list {

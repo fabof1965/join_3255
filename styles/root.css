@@ -76,7 +76,7 @@
     /*font-size*/
     --large-font-size: clamp(23px, calc(16.143px + 2.143vw), 47px);
     --medium-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
-    --small-font-size: clamp(16px, calc(14.857px + 0.357vw), 20px);
+    --small-font-size: clamp(16px, calc(15.429px + 0.179vw), 18px);
 
     /*gap*/
     --gap-small: clamp(4px, calc(2.857px + 0.357vw), 8px);
