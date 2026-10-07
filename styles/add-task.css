@@ -135,7 +135,6 @@ textarea {
 
 .add-task-dialog {
   max-height: calc(100vh - 8px);
-  overflow-y: auto;
   padding: 24px 40px;
   background-color: var(--white-color);
   border-radius: 30px;
