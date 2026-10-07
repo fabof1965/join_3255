@@ -279,6 +279,12 @@ textarea {
   overflow-y: auto; /* zum testen*/
 }
 
+@media(max-width: 450px){
+  .add-task-subtasks {
+  max-height: 48px; /* zum testen*/
+}
+}
+
 .subtask-wrapper {
   display: flex;
   justify-content: space-between;
