@@ -273,17 +273,18 @@ textarea {
 }
 
 .add-task-subtasks {
-  /* margin: -16px 0 0; */
   padding-left: var(--padding-medium);
   width: var(--full);
+  max-height: 120px;
+  overflow-y: auto;
 }
 
-.subtask-wrapper{
+.subtask-wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.subtask-list:hover{
+.subtask-list:hover {
   background-color: var(--secondary-color);
 }
 
