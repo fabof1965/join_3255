@@ -358,6 +358,6 @@ async function loadAddTaskContent() {
 }
 
 function resetForm() {
-  let form = document.getElementById('add-task-form');
+  const form = document.getElementById('add-task-form');
   form.reset();
 }
