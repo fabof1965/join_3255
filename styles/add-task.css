@@ -9,6 +9,7 @@
   max-width: unset;
   flex: 1;
   padding-right: unset;
+  overflow-y: auto;
 }
 
 @media(max-width: 1540px) {
