@@ -356,3 +356,8 @@ async function loadAddTaskContent() {
   CONTAINER_ADD_TASK.innerHTML += addTaskContentTemplate;
   await renderAssignedContacts(CONTAINER_ADD_TASK);
 }
+
+function resetForm() {
+  let form = document.getElementById('add-task-form');
+  form.reset();
+}

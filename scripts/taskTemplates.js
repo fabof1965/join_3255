@@ -201,7 +201,7 @@ const addTaskContentTemplate =
       </label>
     </section>
     <section class="form-buttons">
-      <button type="button" class="btn-clear btn">
+      <button onclick="resetForm()" type="button" class="btn-clear btn">
           <span>
               Clear
           </span>
