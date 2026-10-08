@@ -351,8 +351,8 @@ async function initTaskContent() {
 }
 
 async function loadAddTaskContent() {
-  const CONTAINER_ADD_TASK = document.getElementById("addTaskContent");
+  const CONTAINER_ADD_TASK = document.querySelector(".main-layout");
 
-  CONTAINER_ADD_TASK.innerHTML = addTaskContentTemplate;
+  CONTAINER_ADD_TASK.innerHTML += addTaskContentTemplate;
   await renderAssignedContacts(CONTAINER_ADD_TASK);
 }

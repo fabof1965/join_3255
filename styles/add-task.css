@@ -1,41 +1,38 @@
-.main-content {
-  display: flex;
-  justify-content: space-between;
-  width: var(--full);
-}
-
-.content {
-  padding: var(--padding);
-  height: var(--page-content-height);
-  overflow-y: scroll;
-}
-
-@media(max-width: 1190px) {
-  .main-content {
-    flex-direction: column;
-    height: var(--page-content-height);
-    overflow-y: scroll;
-  }
-}
-
-@media(max-width: 950px) {
-  .content {
-    overflow-y: unset;
-  }
-
-  .main-content {
-    overflow-y: scroll;
-  }
-}
-
 .add-task-form {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: var(--add-task-form-gap);
+  flex-direction: row;
+  gap: var(--gap-large);
+  padding: var(--padding);
+  justify-content: space-between;
   width: var(--full);
   max-width: unset;
+  flex: 1;
 }
+
+@media(max-width: 950px) {
+  .add-task-form {
+    padding: var(--padding-small) var(--padding-left-right);
+  }
+}
+
+@media(max-width: 600px) {
+  .add-task-form {
+    justify-content: space-around;
+    flex-direction: column;
+    padding: var(--padding-small);
+  }
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  width: var(--full);
+  max-width: var(--form-max-width);
+  justify-content: center;
+  gap: var(--gap-small);
+}
+
 
 input,
 select,
@@ -51,26 +48,17 @@ textarea {
   font-size: var(--add-task-title-input-font-size);
 }
 
-.buttons {
-  position: fixed;
-  right: 0;
-  bottom: 0;
+.form-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  margin-top: auto;
   gap: var(--gap-between-buttons);
-  padding: var(--padding);
-  padding-left: 0;
 }
 
-@media(max-width: 1190px) {
-  .buttons {
-    padding-left: var(--padding-left-right);
-    padding-top: 0;
-    position: unset;
-    right: unset;
-    bottom: unset;
-    justify-content: center;
+@media(max-width: 600px) {
+  .form-buttons {
+    margin-top: unset;
   }
 }
 

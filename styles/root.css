@@ -74,7 +74,7 @@
     --form-max-width: 500px;
 
     /*font-size*/
-    --large-font-size: clamp(23px, calc(16.143px + 2.143vw), 47px);
+    --large-font-size: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --medium-font-size: clamp(20px, calc(18.857px + 0.357vw), 24px);
     --small-font-size: clamp(16px, calc(15.429px + 0.179vw), 18px);
 
