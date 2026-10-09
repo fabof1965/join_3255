@@ -89,19 +89,14 @@
     width: fit-content;
 }
 
-@media (max-width: 1000px) {
-    .summary-card-container {
-        grid-template-rows: repeat(4, 104px);
-        width: var(--full);
-    }
-}
-
 @media(max-width: 950px) {
     .summary-card-container {
         position: fixed;
         padding: 0 var(--padding-left-right);
         top: -100%;
         animation: slide-up-fade-in 1s ease 2s forwards;
+        grid-template-rows: var(--grid-rows-mobile);
+
     }
 }
 
@@ -112,7 +107,7 @@
     }
 
     100% {
-        top: 17%;
+        top: 15%;
         opacity: 1;
     }
 }
@@ -148,7 +143,7 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .blue-head-column {
         grid-area: 1 / 1 / 2 / 5;
     }
@@ -266,7 +261,7 @@
 
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .tasks-to-do {
         flex-direction: row;
         justify-content: center;
@@ -290,7 +285,7 @@
     grid-area: 2 / 2 / 2 / 3;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .task-in-progress {
         grid-area: 3 / 3 / 3 / 5;
     }
@@ -300,7 +295,7 @@
     grid-area: 2 / 3 / 2 / 4;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .task-feedback {
         grid-area: 4 / 3 / 4 / 5;
     }
@@ -310,7 +305,7 @@
     grid-area: 1 / 4 / 2 / 4;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .task-in-board {
         grid-area: 4 / 1 / 3 / 3;
     }
@@ -320,7 +315,7 @@
     grid-area: 2 / 4 / 2 / 5;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
     .tasks-done {
         grid-area: 5 / 1 / 4 / 3;
     }

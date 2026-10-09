@@ -134,6 +134,7 @@
     --task-image-dimensions: clamp(40px, calc(35.429px + 1.429vw), 56px);
     --hover-scale: 1.05;
     --task-icon-border: 2px solid var(--white-color);
+    --grid-rows-mobile: repeat(4, calc((100dvh - var(--header-height) - 180px) / 4));
 
     /*login*/
     --login-header-font-size: var(--medium-font-size);
