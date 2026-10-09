@@ -8,13 +8,10 @@
     position: relative;
 }
 @media(max-width: 950px) {
-    .main-layout {
-        height: var(--page-content-height);
-    }
-
     .contacts-section {
         flex: 1;
         overflow-y: auto;
+        padding: 0;
     }
 }
 .btn-new-contact {
@@ -30,7 +27,7 @@
     anchor-name: --popover-anchor;
 }
 
-@media(max-width: 500px) {
+@media(max-width: 950px) {
     .btn-new-contact {
         position: fixed;
         width: calc(var(--back-btn-image-dimensions) * 1.75);
@@ -294,7 +291,7 @@
 #popover-menu {
     position: fixed;
     position-anchor: --popover-anchor;
-    top: anchor(top);
+    top: calc(anchor(top) - 10px);
     left: calc(anchor(left));
     padding: var(--padding-small);
     flex-direction: column;
@@ -313,7 +310,7 @@
     }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 950px) {
     #popover-menu:popover-open {
         display: flex;
         transform: translateX(-25px);

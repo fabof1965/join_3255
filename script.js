@@ -30,7 +30,11 @@ function openAccessibleDialog(dialog, focusSelector) {
   dialogFocusTargets.set(dialog, document.activeElement);
   const cancelHandler = (event) => {
     event.preventDefault();
-    closeAccessibleDialog(dialog);
+    dialog.classList.remove("slide-in");
+    setTimeout(() => {
+        closeAccessibleDialog(dialog);
+    }, 400);
+
   };
   dialogCancelHandlers.set(dialog, cancelHandler);
   dialog.addEventListener("cancel", cancelHandler);

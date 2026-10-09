@@ -84,7 +84,6 @@ dialog[open]::backdrop {
 }
 
 .logo-header {
-    /* margin-top: 2rem; */
     width: var(--small-user-badge-width);
 }
 
@@ -95,7 +94,7 @@ dialog[open]::backdrop {
     margin-top: var(--margin-medium);
 }
 
-.badge-image-container {
+.badge-image-container, .edit-badge-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,6 +103,17 @@ dialog[open]::backdrop {
     border-radius: var(--border-radius-circular);
     width: var(--large-profile-badge-dimensions);
     height: var(--large-profile-badge-dimensions);
+}
+
+@media(max-width: 950px) {
+    .badge-image-container, .edit-badge-image-container {
+        position: fixed;
+        left: 50%;
+        top: 26dvh;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+    }
 }
 
 .contact-form {
@@ -120,22 +130,19 @@ dialog[open]::backdrop {
     align-items: center;
     flex: 1;
     justify-content: space-evenly;
-    width: calc(var(--full) * 0.75);
+    width: calc(var(--full) * 0.9);
 }
 
 .input-wrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: var(--full);
 }
 
 input {
     width: var(--full);
     border: none;
-}
-
-.input-label-img {
-    padding: var(--padding-small);
 }
 
 .btn-container {
@@ -173,7 +180,8 @@ input {
 .add-contact-content {
     display: flex;
     border-bottom: 2px solid var(--search-bar-outline-color);
-    padding: 0;
+    width: var(--full);
+    padding: var(--input-wrapper-padding);
 }
 
 /* error-msg */

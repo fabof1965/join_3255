@@ -107,7 +107,7 @@
     --page-link-padding: clamp(4px, calc(2.857px + 0.357vw), 8px) clamp(12px, calc(10.857px + 0.357vw), 16px);
 
     /*animation-timings*/
-    --bg-change-duration: 500ms;
+    --bg-change-duration: 900ms;
 
     --fade-in-duration: var(--bg-change-duration);
     --fade-in-delay: calc(var(--bg-change-duration) * 1.05);
