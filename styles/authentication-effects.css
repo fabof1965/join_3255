@@ -5,7 +5,7 @@
   top: calc(50% - var(--logo-half-width));
   left: calc(50% - var(--logo-half-width));
   transform: scale(2);
-  animation: white-logo var(--logo-animation-duration) ease-in var(--logo-animation-delay) forwards;
+  animation: rise-logo-top-left var(--logo-animation-duration) ease-in var(--logo-animation-delay) forwards;
 }
 .logo-animation-white {
   width: var(--logo-width);
@@ -31,7 +31,7 @@
   }
 }
 
-@keyframes white-logo {
+@keyframes rise-logo-top-left {
   0% {
     transform: scale(2);
   }

@@ -84,7 +84,6 @@ dialog[open]::backdrop {
 }
 
 .logo-header {
-    /* margin-top: 2rem; */
     width: var(--small-user-badge-width);
 }
 
@@ -120,7 +119,7 @@ dialog[open]::backdrop {
     align-items: center;
     flex: 1;
     justify-content: space-evenly;
-    width: calc(var(--full) * 0.75);
+    width: var(--full);
 }
 
 .input-wrapper {
@@ -132,10 +131,6 @@ dialog[open]::backdrop {
 input {
     width: var(--full);
     border: none;
-}
-
-.input-label-img {
-    padding: var(--padding-small);
 }
 
 .btn-container {

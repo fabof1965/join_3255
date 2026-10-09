@@ -11,7 +11,7 @@ const displayAttributes = {
     hide: "none"
 }
 
-const isMobile = window.matchMedia("(max-width: 500px)").matches;
+const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
 document.getElementById("open-button").addEventListener("click", () => {
     document.getElementById("open-button").setAttribute("popovertarget", "popover-menu");
