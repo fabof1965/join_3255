@@ -14,16 +14,17 @@ const displayAttributes = {
 const isMobile = window.matchMedia("(max-width: 500px)").matches;
 
 document.getElementById("open-button").addEventListener("click", () => {
+    if (!isMobile) {
+        openContactDialog();
+        return;
+    }
     document.getElementById("open-button").setAttribute("popovertarget", "popover-menu");
-    if(isMobile && !isPreviouslyOpenedCard) {
+    if (!isPreviouslyOpenedCard) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
-        return; 
+        return;
     }
-
-    if(isMobile && isPreviouslyOpenedCard) {
-        setTimeout(() => showPopover(), 100);
-    }
+    setTimeout(() => showPopover(), 100);
 });
 
 function initContacts() {
@@ -74,20 +75,20 @@ async function loadContacts() {
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const addContactImage = document.querySelector(".add-new-contact-image");
 
-    if(addContactImage.getAttribute("src") === defaultSource && isMobile) {
+    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
         addContactImage.setAttribute("src", newSource);
     }
-    else if(addContactImage.getAttribute("src") === newSource && isMobile) {
+    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
         addContactImage.setAttribute("src", defaultSource);
     }
 }
 
 function showPopover() {
-   document.getElementById("popover-menu").showPopover();
+    document.getElementById("popover-menu").showPopover();
 }
 
 function toggleContactDetail(indexContact, contactCard) {
-    if(isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
+    if (isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
         currentlyOpenedCard.classList.remove("background-primary");
         hidePreviouslyOpenedDetail(contactCard);
         return;
@@ -119,7 +120,7 @@ function showSelectedContact(indexContact, contactCard) {
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
 
-    if(isMobile) {
+    if (isMobile) {
         document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
     }
 }
@@ -139,7 +140,7 @@ function clearActiveContacts() {
 
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
-    if(detail) detail.classList.remove('animation-right');
+    if (detail) detail.classList.remove('animation-right');
     currentlyOpenedCard.classList.remove("background-primary");
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
@@ -202,12 +203,12 @@ function resetContactForm() {
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
     const contactForm = document.getElementById('contact-form');
-   
+
     contactDialog.classList.remove("slide-in");
     setTimeout(() => {
         closeAccessibleDialog(contactDialog);
     }, 500);
-    
+
     resetBadge();
     resetContactForm();
     contactForm.reset();
@@ -338,7 +339,7 @@ async function saveEditedContact() {
     allContacts[editIndex] = contact;
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
-    
+
     await renderContacts();
     showContactDetail(editIndex);
 }
