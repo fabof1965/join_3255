@@ -361,6 +361,7 @@ async function deleteContact(i) {
     closeContactDialog();
     closeEditContactDialog();
     await renderContacts();
+    location.reload();
 }
 
 getAddContactDialog().addEventListener("close", () => {
