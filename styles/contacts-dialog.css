@@ -166,6 +166,12 @@ input {
     border: var(--guest-login-button-border);
 }
 
+@media(max-width:500px){
+    .cancel-btn{
+        display: none;
+    }
+}
+
 .create-contact-btn {
     background-color: var(--primary-color);
     color: var(--white-color);
