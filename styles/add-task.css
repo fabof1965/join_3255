@@ -21,6 +21,7 @@
     justify-content: space-around;
     flex-direction: column;
     padding: var(--padding-small);
+    overflow: auto;
   }
 }
 
@@ -196,7 +197,7 @@ textarea {
 
 .add-task-priority {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--gap-large);
   border: none;
 }
