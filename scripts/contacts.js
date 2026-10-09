@@ -14,15 +14,17 @@ const displayAttributes = {
 const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
 document.getElementById("open-button").addEventListener("click", () => {
-    document.getElementById("open-button").setAttribute("popovertarget", "popover-menu");
-    if(isMobile && !isPreviouslyOpenedCard) {
+  if( (isMobile && !isPreviouslyOpenedCard) || !isMobile) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return; 
     }
 
     if(isMobile && isPreviouslyOpenedCard) {
+        document.getElementById("open-button").setAttribute("popovertarget", "popover-menu");
         setTimeout(() => showPopover(), 100);
+    
+        return;
     }
 });
 
@@ -301,19 +303,19 @@ async function addNewContact(event) {
     await renderContacts();
 }
 
-function editExistingContact(i) {
-    openExistingContactDialog(i);
+function editExistingContact(indexContact) {
+    openExistingContactDialog(indexContact);
 }
 
-function openExistingContactDialog(i) {
+function openExistingContactDialog(indexContact) {
     const editContactDialog = document.getElementById("edit-contact-dialog");
-    const badgeContainer = document.querySelector('.badge-container');
-    const initials = renderProfileBadges(allContacts[i].name).toUpperCase();
+    const badgeContainer = document.querySelector('.edit-badge-image-container');
+    const initials = renderProfileBadges(allContacts[indexContact].name).toUpperCase();
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     setBadgeBackgroundColor();
-    editIndex = i;
-    fillContactForm(allContacts[i]);
+    editIndex = indexContact;
+    fillContactForm(allContacts[indexContact]);
     openAccessibleDialog(editContactDialog, ".input-field");
     editContactDialog.classList.add("slide-in");
 }
