@@ -1,6 +1,9 @@
 const taskCardTemplate = `
     <article class="task-card" role="button" tabindex="0" aria-label="Open task {{title}}" draggable="true" data-task-id="{{id}}">
-      <span class="task-category {{categoryClass}}">{{category}}</span>
+      <div class="task-card-header">
+        <span class="task-category {{categoryClass}}">{{category}}</span>
+        <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+      </div>
       <div class="task-content">
         <h3>{{title}}</h3>
         <p>{{description}}</p>

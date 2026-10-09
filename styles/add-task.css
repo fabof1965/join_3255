@@ -1,10 +1,10 @@
 .add-task-form {
   display: flex;
   align-items: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   gap: var(--gap-large);
   padding: var(--padding);
-  justify-content: space-between;
+  justify-content: flex-start;
   width: var(--full);
   max-width: unset;
   flex: 1;

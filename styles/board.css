@@ -210,12 +210,14 @@
 
 .task-card {
   width: var(--full);
-  padding: var(--padding-small);
+  min-height: 250px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);
-  border-radius: calc(var(--element-design-border-radius) * 1.5);
+  gap: 16px;
+  border-radius: 20px;
   box-shadow: var(--task-card-box-shadow);
+  background-color: var(--white-color);
   cursor: grab;
   flex: 0 0 var(--task-card-dimensions);
 }
@@ -233,17 +235,32 @@
 
 .task-category {
   width: fit-content;
-  padding: var(--padding-very-small);
+  padding: 5px 16px;
   color: var(--white-color);
-  border-radius: var(--element-design-border-radius);
+  border-radius: 8px;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+}
+
+.task-card-drag-icon {
+  color: var(--greeting-text-color);
+  font-size: 22px;
+  line-height: 1;
 }
 
 .task-category-user-story {
-  background-color: var(--user-story-color);
+  background-color: #651fff;
 }
 
 .task-category-technical {
-  background-color: var(--technical-task-color);
+  background-color: #00cdbd;
 }
 
 .task-content {
@@ -254,14 +271,16 @@
 }
 
 .task-content h3 {
-  color: var(--primary-color);
-  font-size: var(--small-font-size);
+  color: var(--black-color);
+  font-size: 16px;
   font-weight: 700;
+  line-height: 1.2;
 }
 
 .task-content p {
-  color: var(--search-bar-outline-color);
-  font-size: var(--small-font-size);
+  color: #9b9b9b;
+  font-size: 16px;
+  line-height: 1.45;
   word-break: break-word;
   overflow: hidden;
   display: -webkit-box;
@@ -275,7 +294,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-small);
-  font-size: var(--small-font-size);
+  font-size: 14px;
 }
 
 .progress-track {
@@ -288,7 +307,7 @@
 
 .progress-fill {
   height: var(--full);
-  background-color: var(--primary-color);
+  background-color: #6347ff;
   border-radius: var(--element-design-border-radius);
 }
 
@@ -337,7 +356,8 @@
 }
 
 .task-priority {
-  width: var(--full);
+  width: auto;
+  min-width: 24px;
   text-align: end;
   font-size: var(--medium-font-size);
   font-weight: 700;
