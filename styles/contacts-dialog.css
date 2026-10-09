@@ -94,7 +94,8 @@ dialog[open]::backdrop {
     margin-top: var(--margin-medium);
 }
 
-.badge-image-container, .edit-badge-image-container {
+.badge-image-container,
+.edit-badge-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,7 +107,9 @@ dialog[open]::backdrop {
 }
 
 @media(max-width: 950px) {
-    .badge-image-container, .edit-badge-image-container {
+
+    .badge-image-container,
+    .edit-badge-image-container {
         position: fixed;
         left: 50%;
         top: 26dvh;
@@ -166,9 +169,29 @@ input {
     border: var(--guest-login-button-border);
 }
 
-@media(max-width:500px){
-    .cancel-btn{
+.trash-btn {
+    display: none;
+}
+
+@media(max-width:500px) {
+    .cancel-btn {
         display: none;
+    }
+
+    .trash-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--gap-small);
+        border-radius: var(--element-design-border-radius);
+        color: var(--guest-login-button-text-color);
+        font-size: var(--small-font-size);
+        border: var(--guest-login-button-border);
+    }
+
+    .trash-btn:hover {
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
     }
 }
 

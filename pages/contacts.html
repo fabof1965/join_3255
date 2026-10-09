@@ -27,7 +27,7 @@
 
     <main class="main-layout">
         <nav id="sidebar"></nav>
-         <section class="contacts-section">
+        <section class="contacts-section">
             <button id="open-button" class="btn-new-contact btn">
                 <span id="txt-add-new-contact">Add new contact</span>
                 <img class="add-new-contact-image" src="../assets/icons/new_contact.svg" alt="new contact">
@@ -43,7 +43,7 @@
         </section>
     </main>
     <div class="popover-menu" id="popover-menu" popover>
-         
+
     </div>
     <footer>
 
@@ -51,9 +51,12 @@
 
     <dialog class="add-contact-dialog" id="add-contact-dialog">
         <header class="dialog-header">
-            <button type="button" class="close-dialog-button" aria-label="Close add contact dialog" onclick="closeContactDialog()">
-                <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2" stroke-linecap="round"/>
+            <button type="button" class="close-dialog-button" aria-label="Close add contact dialog"
+                onclick="closeContactDialog()">
+                <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)"
+                    viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2"
+                        stroke-linecap="round" />
                 </svg>
             </button>
             <div class="dialog-header-content">
@@ -88,7 +91,8 @@
                     <div class="input-wrapper">
                         <div id="wrong-name-border" class="add-contact-content">
                             <label for="name" class="visually-hidden">Name</label>
-                            <input id="name" class="input-field" type="text" minlength="3" placeholder="Name" required />
+                            <input id="name" class="input-field" type="text" minlength="3" placeholder="Name"
+                                required />
                             <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
                         </div>
                         <span id="name-err-msg" class="error-msg visibility-hidden">This Name already exists</span>
@@ -97,7 +101,8 @@
                     <div class="input-wrapper">
                         <div id="wrong-email-border" class="add-contact-content">
                             <label for="email" class="visually-hidden">Email</label>
-                            <input id="email" class="input-field" type="email" minlength="3" placeholder="Email" required />
+                            <input id="email" class="input-field" type="email" minlength="3" placeholder="Email"
+                                required />
                             <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
                         </div>
                         <span id="email-err-msg" class="error-msg visibility-hidden">That email already exists</span>
@@ -105,10 +110,12 @@
                     <div class="input-wrapper">
                         <div id="wrong-phone-border" class="add-contact-content">
                             <label for="phone" class="visually-hidden">Phone</label>
-                            <input id="phone" class="input-field" type="tel" minlength="5" placeholder="Phone" required />
+                            <input id="phone" class="input-field" type="tel" minlength="5" placeholder="Phone"
+                                required />
                             <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
                         </div>
-                        <span id="phone-err-msg" class="error-msg visibility-hidden">Please choose a different number.</span>
+                        <span id="phone-err-msg" class="error-msg visibility-hidden">Please choose a different
+                            number.</span>
                     </div>
                 </div>
 
@@ -145,9 +152,12 @@
 
     <dialog class="edit-contact-dialog" id="edit-contact-dialog">
         <header class="dialog-header">
-            <button type="button" class="close-dialog-button" aria-label="Close edit contact dialog" onclick="closeEditContactDialog()">
-                <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2" stroke-linecap="round"/>
+            <button type="button" class="close-dialog-button" aria-label="Close edit contact dialog"
+                onclick="closeEditContactDialog()">
+                <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)"
+                    viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2"
+                        stroke-linecap="round" />
                 </svg>
             </button>
             <div class="dialog-header-content">
@@ -161,7 +171,7 @@
         </header>
         <main class="dialog-main">
             <div class="edit-badge-image-container profile-badge">
-                
+
             </div>
 
             <form class="contact-form" id="edit-contact-form" onsubmit="submitContactForm(event)">
@@ -169,27 +179,33 @@
                     <div class="input-wrapper">
                         <div id="existing-contact-wrong-name-border" class="add-contact-content">
                             <label for="existing-contact-name" class="visually-hidden">Name</label>
-                            <input id="existing-contact-name" class="input-field" type="text" minlength="3" placeholder="Name" required />
+                            <input id="existing-contact-name" class="input-field" type="text" minlength="3"
+                                placeholder="Name" required />
                             <img class="input-label-img" src="../assets/icons/person.svg" alt="person icon" />
                         </div>
-                        <span id="existing-contact-name-err-msg" class="error-msg visibility-hidden">This Name already exists</span>
+                        <span id="existing-contact-name-err-msg" class="error-msg visibility-hidden">This Name already
+                            exists</span>
                     </div>
 
                     <div class="input-wrapper">
                         <div id="existing-contact-wrong-email-border" class="add-contact-content">
                             <label for="existing-contact-email" class="visually-hidden">Email</label>
-                            <input id="existing-contact-email" class="input-field" type="email" minlength="3" placeholder="Email" required />
+                            <input id="existing-contact-email" class="input-field" type="email" minlength="3"
+                                placeholder="Email" required />
                             <img class="input-label-img" src="../assets/icons/mail.svg" alt="mail icon" />
                         </div>
-                        <span id="existing-contact-email-err-msg" class="error-msg visibility-hidden">That email already exists</span>
+                        <span id="existing-contact-email-err-msg" class="error-msg visibility-hidden">That email already
+                            exists</span>
                     </div>
                     <div class="input-wrapper">
                         <div id="existing-contact-wrong-phone-border" class="add-contact-content">
                             <label for="existing-contact-phone" class="visually-hidden">Phone</label>
-                            <input id="existing-contact-phone" class="input-field" type="tel" minlength="5" placeholder="Phone" required />
+                            <input id="existing-contact-phone" class="input-field" type="tel" minlength="5"
+                                placeholder="Phone" required />
                             <img class="input-label-img" src="../assets/icons/phone.svg" alt="phone icon" />
                         </div>
-                        <span id="existing-contact-phone-err-msg" class="error-msg visibility-hidden">Please choose a different number.</span>
+                        <span id="existing-contact-phone-err-msg" class="error-msg visibility-hidden">Please choose a
+                            different number.</span>
                     </div>
                 </div>
 
@@ -197,6 +213,15 @@
                     <button type="button" class="cancel-btn btn" onclick="closeEditContactDialog()">
                         <span>
                             Cancel
+                        </span>
+                        <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 8L24 24M24 8L8 24" stroke="#647188" fill="#647188" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                    <button type="button" class="trash-btn btn">
+                        <span>
+                            Delete
                         </span>
                         <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8L24 24M24 8L8 24" stroke="#647188" fill="#647188" stroke-width="2"
