@@ -359,6 +359,7 @@ async function deleteContact(i) {
     await deleteData('contacts/' + contact.id);
     contactDetails.innerHTML = "";
     closeContactDialog();
+    closeEditContactDialog();
     await renderContacts();
 }
 
