@@ -91,9 +91,8 @@
 
 @media (max-width: 1000px) {
     .summary-card-container {
-        grid-template-rows: repeat(4, 104px);
-        width: var(--full);
-    }
+        grid-template-rows: var(--grid-rows-mobile);
+     }
 }
 
 @media(max-width: 950px) {
@@ -112,7 +111,7 @@
     }
 
     100% {
-        top: 17%;
+        top: 15%;
         opacity: 1;
     }
 }
