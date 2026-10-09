@@ -1,6 +1,6 @@
 .add-task-form {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
   gap: var(--gap-large);
   padding: var(--padding);
@@ -8,19 +8,23 @@
   width: var(--full);
   max-width: unset;
   flex: 1;
+  padding-right: unset;
+  overflow-y: auto;
 }
 
-@media(max-width: 950px) {
+@media(max-width: 1540px) {
   .add-task-form {
-    padding: var(--padding-small) var(--padding-left-right);
+    padding: var(--padding);
   }
 }
 
 @media(max-width: 600px) {
   .add-task-form {
+    align-items: center;
     justify-content: space-around;
     flex-direction: column;
     padding: var(--padding-small);
+    overflow-y: auto;
     overflow: auto;
   }
 }
@@ -30,8 +34,16 @@
   flex-direction: column;
   width: var(--full);
   max-width: var(--form-max-width);
-  justify-content: center;
+  justify-content: space-between;
   gap: var(--gap-small);
+  height: var(--full);
+  overflow-y: auto;
+}
+
+@media(max-width: 950px) {
+  .form-content {
+    justify-content: space-around;
+  }
 }
 
 
@@ -199,6 +211,7 @@ textarea {
   display: flex;
   flex-direction: row;
   gap: var(--gap-large);
+  width: var(--full);
   border: none;
 }
 
