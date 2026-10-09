@@ -245,18 +245,21 @@ function getSelectedUserNames(select) {
  */
 function createTaskFromForm(form) {
   const data = new FormData(form);
+  return buildTaskData(data, form.elements.assignedUsers);
+}
+
+function buildTaskData(data, assignedUsers) {
   return {
-    title: escapeTaskText(data.get("title").trim()),
-    description: escapeTaskText(data.get("description").trim()),
-    dueDate: data.get("dueDate"),
-    category: data.get("category"), status: newTaskStatus,
-    priority: selectedTaskPriority,
-    assignedUsers: getSelectedUsers(form.elements.assignedUsers),
-    assignedUserNames: getSelectedUserNames(form.elements.assignedUsers),
-    subtasks: newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined,
-    subtaskTitles: [...newTaskSubtasks],
-    subtaskDone: newTaskSubtasks.map(() => false),
+    title: escapeTaskText(data.get("title").trim()), description: escapeTaskText(data.get("description").trim()),
+    dueDate: data.get("dueDate"), category: data.get("category"), status: newTaskStatus,
+    priority: selectedTaskPriority, assignedUsers: getSelectedUsers(assignedUsers),
+    assignedUserNames: getSelectedUserNames(assignedUsers), subtasks: getSubtaskProgress(),
+    subtaskTitles: [...newTaskSubtasks], subtaskDone: newTaskSubtasks.map(() => false),
   };
+}
+
+function getSubtaskProgress() {
+  return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
 }
 
 /**
@@ -267,30 +270,24 @@ function createTaskFromForm(form) {
 async function submitEditedTask(form) {
   const taskIndex = exampleTasks.findIndex(({ id }) => id === editingTaskId);
   if (taskIndex < 0) return;
-  const currentTask = exampleTasks[taskIndex];
-  const updatedTask = {
-    ...currentTask,
-    ...createTaskFromForm(form),
-    id: editingTaskId,
-    status: currentTask.status,
-  };
-  updatedTask.fullDescription = updatedTask.description;
+  const updatedTask = updateTaskFromForm(exampleTasks[taskIndex], form);
   exampleTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, {
-    title: updatedTask.title,
-    description: updatedTask.description,
-    fullDescription: updatedTask.description,
-    dueDate: updatedTask.dueDate,
-    category: updatedTask.category,
-    priority: updatedTask.priority,
-    assignedUsers: updatedTask.assignedUsers,
-    assignedUserNames: updatedTask.assignedUserNames,
-    subtasks: updatedTask.subtasks,
-    subtaskTitles: updatedTask.subtaskTitles,
-    subtaskDone: updatedTask.subtaskDone,
-  });
+  await patchData(`tasks/${editingTaskId}`, getTaskPatch(updatedTask));
   closeAddTask();
   renderSearchResults(document.getElementById("task-search").value);
+}
+
+function updateTaskFromForm(currentTask, form) {
+  const taskData = createTaskFromForm(form);
+  return { ...currentTask, ...taskData, id: editingTaskId, status: currentTask.status,
+    fullDescription: taskData.description };
+}
+
+function getTaskPatch(task) {
+  const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
+    subtasks, subtaskTitles, subtaskDone } = task;
+  return { title, description, fullDescription: description, dueDate, category, priority,
+    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
 }
 
 /**

@@ -35,15 +35,16 @@ function initPhoneFilter() {
     const errorMsg = document.getElementById('phone-err-msg');
     const border = document.getElementById('wrong-phone-border');
 
-    phoneInput.addEventListener('input', () => {
-        const cleaned = phoneInput.value.replace(/[^0-9]/g, "");
-        const hadInvalidChars = cleaned !== phoneInput.value;
-        phoneInput.value = cleaned;
+    phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput, errorMsg, border));
+}
 
-        errorMsg.textContent = "Only digits are allowed";
-        errorMsg.classList.toggle('visibility-hidden', !hadInvalidChars);
-        border.classList.toggle('error-message-border-bottom', hadInvalidChars);
-    });
+function validatePhoneInput(input, errorMsg, border) {
+    const cleaned = input.value.replace(/[^0-9]/g, "");
+    const invalid = cleaned !== input.value;
+    input.value = cleaned;
+    errorMsg.textContent = "Only digits are allowed";
+    errorMsg.classList.toggle('visibility-hidden', !invalid);
+    border.classList.toggle('error-message-border-bottom', invalid);
 }
 
 async function renderContacts() {
@@ -51,17 +52,18 @@ async function renderContacts() {
     const contactContainer = document.getElementById("contacts");
     contactContainer.innerHTML = "";
     sortContactsByName(allContacts);
-    let previousLetter = "";
-    for (let i = 0; i < allContacts.length; i++) {
-        let currentLetter = allContacts[i].name.charAt(0).toUpperCase();
-
-        if (currentLetter !== previousLetter) {
-            contactContainer.innerHTML += getFirstLetterTemplate(currentLetter);
-            previousLetter = currentLetter;
-        }
-        contactContainer.innerHTML += getContactTemplate(i);
-    }
+    contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
+}
+
+function getContactsHtml() {
+    let previousLetter = "";
+    return allContacts.map((contact, index) => {
+        const letter = contact.name.charAt(0).toUpperCase();
+        const heading = letter === previousLetter ? "" : getFirstLetterTemplate(letter);
+        previousLetter = letter;
+        return heading + getContactTemplate(index);
+    }).join("");
 }
 
 async function loadContacts() {
@@ -227,51 +229,28 @@ function fillContactForm(contact) {
 }
 
 async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
-    const errorMsg = document.getElementById(errorID);
-    const border = document.getElementById(borderID);
-    const response = await getData('contacts');
-    const nameExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.name === inputName) : false;
-
-    if (nameExists) {
-        errorMsg.classList.remove('visibility-hidden');
-        border.classList.add('error-message-border-bottom');
-    } else {
-        errorMsg.classList.add('visibility-hidden');
-        border.classList.remove('error-message-border-bottom');
-    }
-    return nameExists;
+    return checkContactFieldExists('name', inputName, ownId, errorID, borderID);
 }
 
 async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
-    const errorMsg = document.getElementById(errorID);
-    const border = document.getElementById(borderID);
-    const response = await getData('contacts');
-    const emailExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.email === inputMail) : false;
+    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID);
+}
 
-    if (emailExists) {
-        errorMsg.classList.remove('visibility-hidden');
-        border.classList.add('error-message-border-bottom');
-    } else {
-        errorMsg.classList.add('visibility-hidden');
-        border.classList.remove('error-message-border-bottom');
-    }
-    return emailExists;
+async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
+    const response = await getData('contacts');
+    const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
+    updateContactFieldError(errorID, borderID, exists);
+    return exists;
+}
+
+function updateContactFieldError(errorID, borderID, exists) {
+    document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
+    document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
 }
 
 async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    const errorMsg = document.getElementById(errorID);
-    const border = document.getElementById(borderID);
-    const response = await getData('contacts');
-    const phoneExists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact.phone === inputPhone) : false;
-
-    errorMsg.textContent = 'Please choose a different number.';
-    if (phoneExists) {
-        errorMsg.classList.remove('visibility-hidden');
-        border.classList.add('error-message-border-bottom');
-    } else {
-        errorMsg.classList.add('visibility-hidden');
-        border.classList.remove('error-message-border-bottom');
-    }
+    const phoneExists = await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID);
+    document.getElementById(errorID).textContent = 'Please choose a different number.';
     return phoneExists;
 }
 
@@ -328,16 +307,22 @@ function closeEditContactDialog() {
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = allContacts[editIndex].id;
-    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
-    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
-    const phoneNumberExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
-
-    if (nameExists || emailExists || phoneNumberExists) return;
+    if (await contactHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     allContacts[editIndex] = contact;
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
+    await refreshEditedContact();
+}
 
+async function contactHasValidationErrors(contact, ownId) {
+    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
+    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
+    const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
+    return nameExists || emailExists || phoneExists;
+}
+
+async function refreshEditedContact() {
     await renderContacts();
     showContactDetail(editIndex);
 }

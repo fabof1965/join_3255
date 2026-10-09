@@ -128,6 +128,7 @@ textarea {
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
   outline: none;
+  overflow: hidden;
 }
 
 .add-task-backdrop::backdrop {
@@ -135,6 +136,8 @@ textarea {
 }
 
 .add-task-dialog {
+  display: flex;
+  flex-direction: column;
   max-height: calc(100vh - 8px);
   padding: 24px 40px;
   background-color: var(--white-color);
@@ -144,7 +147,7 @@ textarea {
   min-height: 0; /*mobile-test*/
   width: var(--full); /*mobile-test*/
   overflow-x: hidden; /*mobile-test*/
-  overflow-y: auto; /*mobile-test*/
+  overflow: hidden;
 }
 
 .add-task-header {

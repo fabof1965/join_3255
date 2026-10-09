@@ -18,23 +18,14 @@ initPasswordEventListener();
 initLoginEventListeners();
 
 function passwordInputFields() {
-    return [
-        {
-            input: document.getElementById('login-password'),
-            icon: document.getElementById('login-password-toggle-icon'),
-            toggle: document.querySelector('.password-toggle'),
-        },
-        {
-            input: document.getElementById('sign-up-password'),
-            icon: document.getElementById('sign-up-password-toggle-icon'),
-            toggle: document.querySelectorAll('.password-toggle')[1],
-        },
-        {
-            input: document.getElementById("confirm-password"),
-            icon: document.getElementById('confirm-password-toggle-icon'),
-            toggle: document.querySelectorAll('.password-toggle')[2],
-        },
-    ];
+    const toggles = document.querySelectorAll('.password-toggle');
+    return [createPasswordField('login-password', 'login-password-toggle-icon', toggles[0]),
+        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
+        createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
+}
+
+function createPasswordField(inputId, iconId, toggle) {
+    return { input: document.getElementById(inputId), icon: document.getElementById(iconId), toggle };
 }
 
 function handlePasswordFocus(field) {
@@ -51,19 +42,14 @@ function handlePasswordFocus(field) {
 }
 
 function handleEmptyPasswordInput(field) {
-    if (field.input.value === "") {
-        field.icon.src = "./assets/icons/lock.svg";
-        field.icon.alt = "lock-img";
-        field.toggle.setAttribute("aria-label", "Show password");
-    } else if (field.input.type === "text") {
-        field.icon.src = './assets/icons/visibility.svg';
-        field.icon.alt = "show password";
-        field.toggle.setAttribute("aria-label", "Show password");
-    } else if (field.input.type === "password") {
-        field.icon.src = "./assets/icons/visibility_off.svg";
-        field.icon.alt = "hide password";
-        field.toggle.setAttribute("aria-label", "Hide password");
-    }
+    if (field.input.value === "") return setPasswordIcon(field, "./assets/icons/lock.svg", "lock-img", "Show password");
+    const visible = field.input.type === "text";
+    setPasswordIcon(field, visible ? './assets/icons/visibility.svg' : "./assets/icons/visibility_off.svg",
+        visible ? "show password" : "hide password", visible ? "Show password" : "Hide password");
+}
+
+function setPasswordIcon(field, source, alt, label) {
+    field.icon.src = source; field.icon.alt = alt; field.toggle.setAttribute("aria-label", label);
 }
 
 function toggleShowPassword(field) {
@@ -87,31 +73,35 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
+    if (!await isRegistrationValid(emailSignup.value)) return;
+    await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
+}
+
+async function isRegistrationValid(email) {
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
-    const emailExists = await checkIfEmailExists(emailSignup.value);
-    if (emailExists || !passwordOk || !privacyOk) return;
-    const response = await postData('users', { name: name.value, email: emailSignup.value, password: passwordSignup.value });
-    allUsers.push({ id: response.name, name: name.value, email: emailSignup.value, password: passwordSignup.value });
-    signUpForm.reset();
-    signUpSuccessPopUp();
-    backToLogin();
+    const emailExists = await checkIfEmailExists(email);
+    return passwordOk && privacyOk && !emailExists;
+}
+
+async function saveNewUser(name, email, password) {
+    const response = await postData('users', { name, email, password });
+    allUsers.push({ id: response.name, name, email, password });
 }
 
 async function checkIfEmailExists(inputMail) {
-    const borderBottom = document.getElementById('invalid-email-border-bottom');
-    const invalidEmail = document.getElementById('invalid-email-msg');
     const response = await getData('users');
     const emailExists = response ? Object.values(response).some(user => user.email === inputMail) : false;
-
-    if (emailExists) {
-        borderBottom.classList.add('error-message-border-bottom');
-        invalidEmail.classList.remove('visibility-hidden');
-    } else {
-        borderBottom.classList.remove('error-message-border-bottom');
-        invalidEmail.classList.add('visibility-hidden');
-    }
+    setEmailExistsFeedback(emailExists);
     return emailExists;
+}
+
+function setEmailExistsFeedback(emailExists) {
+    const border = document.getElementById('invalid-email-border-bottom');
+    const message = document.getElementById('invalid-email-msg');
+    border.classList.toggle('error-message-border-bottom', emailExists);
+    message.classList.toggle('visibility-hidden', !emailExists);
 }
 
 function comparePassword() {
@@ -120,15 +110,10 @@ function comparePassword() {
     const borderBottom = document.getElementById('confirm-password-border-bottom');
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
 
-    if (passwordSignup.value === confirmPasswordSignup.value) {
-        invalidPassword.classList.add('visibility-hidden');
-        borderBottom.classList.remove('error-message-border-bottom');
-        return true;
-    } else {
-        invalidPassword.classList.remove('visibility-hidden');
-        borderBottom.classList.add('error-message-border-bottom');
-        return false;
-    }
+    const matches = passwordSignup.value === confirmPasswordSignup.value;
+    invalidPassword.classList.toggle('visibility-hidden', matches);
+    borderBottom.classList.toggle('error-message-border-bottom', !matches);
+    return matches;
 }
 
 function acceptPrivacyPolicy() {
@@ -169,32 +154,22 @@ function closeDialog() {
  */
 async function userLogin(event) {
     event.preventDefault();
-    const signUpForm = document.getElementById('auth-form');
     const emailLogin = document.getElementById('email');
     const passwordLogin = document.getElementById('login-password');
+    const user = await findUser(emailLogin.value, passwordLogin.value);
+    if (!user) return showErrorMessageForLogin();
+    storeLoggedInUser(user); resetLogin(); document.getElementById('auth-form').reset();
+    window.location.href = './pages/summary.html';
+}
+
+async function findUser(email, password) {
     const response = await getData('users');
-    const users = response ? Object.values(response) : [];
-    const user = users.find(u => u.email === emailLogin.value && u.password === passwordLogin.value);
-    
-    if (user) {
-        
-        const userName = user.name || user.username || user.fullName;
-        
-        if (userName) {
-            localStorage.setItem('name', userName);
-        } else {
-            const fallbackName = user.email.split('@')[0];
-            localStorage.setItem('name', fallbackName);
-        }
-        
-        localStorage.setItem('email', user.email);
-        
-        resetLogin();
-        signUpForm.reset();
-        window.location.href = './pages/summary.html';
-    } else {
-        showErrorMessageForLogin();
-    }
+    return (response ? Object.values(response) : []).find(user => user.email === email && user.password === password);
+}
+
+function storeLoggedInUser(user) {
+    const userName = user.name || user.username || user.fullName || user.email.split('@')[0];
+    localStorage.setItem('name', userName); localStorage.setItem('email', user.email);
 }
 
 function initLoginEventListeners() {
@@ -338,27 +313,26 @@ function setPageTitle(title) {
 }
 
 function backToLogin() {
-    setAuthenticationHeaderMargin("");
-    setPageTitle("Join Log in");
-    setOnSubmitAttribute();
-
-    const ANIMATION_ATTRIBUTE = "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards";
-
-    setLogoStyles("#1268FF", ANIMATION_ATTRIBUTE);
-    setPageBackgroundColor("var(--white-color)");
-    setHeadlineText("Log in");
-    resetLegalLinkHoverEffect();
-
-    const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
-    FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForLogin();
-
-    setDisplayForSignupElements();
-    setDisplayForLoginElements();
-
-    resetCheckboxValidity();
-    resetpricavyPolicityCheckbox();
+    resetLoginPageStyle();
+    renderLoginForm();
+    resetLoginFormState();
     initPasswordEventListener();
     initLoginEventListeners();
+}
+
+function resetLoginPageStyle() {
+    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
+    setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
+    setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
+}
+
+function renderLoginForm() {
+    document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
+    setDisplayForSignupElements(); setDisplayForLoginElements();
+}
+
+function resetLoginFormState() {
+    resetCheckboxValidity(); resetpricavyPolicityCheckbox();
 }
 
 function setminHeightAnimationOnForm() {

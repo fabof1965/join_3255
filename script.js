@@ -28,18 +28,19 @@ const dialogCancelHandlers = new WeakMap();
  */
 function openAccessibleDialog(dialog, focusSelector) {
   dialogFocusTargets.set(dialog, document.activeElement);
-  const cancelHandler = (event) => {
-    event.preventDefault();
-    dialog.classList.remove("slide-in");
-    setTimeout(() => {
-        closeAccessibleDialog(dialog);
-    }, 400);
-
-  };
+  const cancelHandler = createDialogCancelHandler(dialog);
   dialogCancelHandlers.set(dialog, cancelHandler);
   dialog.addEventListener("cancel", cancelHandler);
   dialog.showModal();
   dialog.querySelector(focusSelector)?.focus();
+}
+
+function createDialogCancelHandler(dialog) {
+  return (event) => {
+    event.preventDefault();
+    dialog.classList.remove("slide-in");
+    setTimeout(() => closeAccessibleDialog(dialog), 400);
+  };
 }
 
 /**
@@ -165,6 +166,10 @@ function closeHeaderMenuOnOutsideClick(event) {
         profileButton?.contains(event.target) ||
         helpButton?.contains(event.target)
     ) return;
+    closeHeaderMenu(headerMenu);
+}
+
+function closeHeaderMenu(headerMenu) {
     if (typeof headerMenu.hidePopover === "function" && headerMenu.matches(":popover-open")) {
         headerMenu.hidePopover();
         return;
@@ -222,19 +227,11 @@ function setBadgeBackgroundColor() {
 }
 
 function sortContactsByName(contacts) {
-    contacts.sort(function (a, b) {
+    contacts.sort(compareContactNames);
+}
 
-        let nameA = a.name.toLowerCase();
-        let nameB = b.name.toLowerCase();
-
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    })
+function compareContactNames(a, b) {
+    return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 }
 
 async function getAssignedContacts() {
@@ -269,18 +266,19 @@ function fillTemplate(template, values) {
 
 function checkUserLogin() {
     const currentUrl = window.location.pathname;
-    const isLoginPage = currentUrl.endsWith("index.html");
-    const isAllowedPages = currentUrl.endsWith("privacy_policy_start.html") || 
-                           currentUrl.endsWith("legal_notice_start.html");
-    const userName = localStorage.getItem("name");
+    if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();
+    showPageAfterLogin();
+}
 
-    if (!isLoginPage && !isAllowedPages && !userName) {
-        window.location.href = "../index.html"; 
-        return;
-    }
+function shouldRedirectToLogin(url) {
+    const publicPage = url.endsWith("index.html") || url.endsWith("privacy_policy_start.html") || url.endsWith("legal_notice_start.html");
+    return !publicPage && !localStorage.getItem("name");
+}
 
-    setTimeout(() => {
-        document.body.style.display = "flex";
-        document.body.style.flexDirection = "column";
-    }, 1);
+function redirectToLogin() {
+    window.location.href = "../index.html";
+}
+
+function showPageAfterLogin() {
+    setTimeout(() => { document.body.style.display = "flex"; document.body.style.flexDirection = "column"; }, 1);
 }

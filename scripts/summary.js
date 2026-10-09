@@ -86,19 +86,18 @@ function updateGreetingUI(user, isGuest) {
     let nameEl = document.getElementById("username");
     let commaEl = document.getElementById("comma");
     if (!nameEl) return;
+    const showName = user?.name && !isGuest && !isGuestStored();
+    nameEl.innerText = showName ? formatUserName(user.name) : "";
+    if (commaEl) commaEl.style.display = showName ? "inline" : "none";
+}
 
-    // Prüfen, ob ein echter User vorhanden ist und es KEIN Gast ist
-    let isRealUser = user && user.name && !isGuest;
-    let guestNameInStorage = localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
+function isGuestStored() {
+    return localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
+}
 
-    if (isRealUser && !guestNameInStorage) {
-        let p = user.name.trim().split(" ");
-        nameEl.innerText = user.name.length > 13 ? `${p[0][0]} ${p[p.length - 1]}` : user.name;
-        if (commaEl) commaEl.style.display = "inline"; // Komma anzeigen bei echtem User
-    } else {
-        nameEl.innerText = "";
-        if (commaEl) commaEl.style.display = "none"; 
-    }
+function formatUserName(name) {
+    const parts = name.trim().split(" ");
+    return name.length > 13 ? `${parts[0][0]} ${parts[parts.length - 1]}` : name;
 }
 
 function initCardClicks() {
@@ -112,14 +111,12 @@ function initCardClicks() {
     ".tasks-done"
   ];
 
-  selectors.forEach(selector => {
-    const card = document.querySelector(selector);
-    if (card) {
-      card.addEventListener("click", () => {
-        window.location.href = "board.html";
-      });
-    }
-  });
+  selectors.forEach(addBoardNavigation);
+}
+
+function addBoardNavigation(selector) {
+  const card = document.querySelector(selector);
+  if (card) card.addEventListener("click", () => window.location.href = "board.html");
 }
 
 

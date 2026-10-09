@@ -256,11 +256,11 @@
 }
 
 .task-category-user-story {
-  background-color: #651fff;
+  background-color: var(--user-story-color);
 }
 
 .task-category-technical {
-  background-color: #00cdbd;
+  background-color: var(--technical-task-color);
 }
 
 .task-content {
