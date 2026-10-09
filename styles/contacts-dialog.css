@@ -83,6 +83,11 @@ dialog[open]::backdrop {
     background-color: var(--close-btn-hover-color);
 }
 
+.close-dialog-button:focus-visible {
+    border: 2px solid var(--white-color);
+    background-color: var(--close-btn-hover-color);
+}
+
 .logo-header {
     width: var(--small-user-badge-width);
 }
@@ -201,10 +206,21 @@ input {
     border: none;
 }
 
-.cancel-btn:hover {
+.cancel-svg {
+    fill: var(--menu-color);
+    stroke: var(--menu-color);
+}
+
+.cancel-btn:hover, .cancel-btn:focus-visible {
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
+
+    .cancel-svg {
+        fill: var(--primary-color);
+        stroke: var(--primary-color);
+    }
 }
+
 
 .add-contact-content {
     display: flex;
