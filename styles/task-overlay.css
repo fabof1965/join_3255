@@ -1,5 +1,5 @@
 .task-overlay-backdrop[open] {
-  width: min(528px, 100%);
+  width: min(528px, calc(100% - 32px));
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -22,25 +22,14 @@
 }
 
 .task-overlay {
-  width: min(528px, 100%);
+  width: 100%;
+  max-height: min(760px, calc(100vh - 32px));
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px; 
+  gap: 24px;
   border-radius: 30px;
   padding: 24px;
-}
-
-@media(max-width: 815px){ /*nur zu testzwecken*/
-  .add-task-backdrop[open]{
-    width: fit-content;
-  }
-}
-
-@media(max-width: 450px){ /*nur zu testzwecken*/
-  .add-task-header{
-    margin-bottom: 16px;
-  }
 }
 
 .task-overlay-header,
@@ -58,10 +47,10 @@
 
 
 .task-overlay-category {
-  padding: 4px 24px;
+  padding: 4px 16px;
   color: var(--white-color);
   border-radius: 8px;
-  font-size: 23px;
+  font-size: 16px;
 }
 
 .task-overlay-close img,
@@ -72,15 +61,17 @@
 
 .task-overlay h2 {
   color: var(--black-color);
-  font-size: var(--board-column-header-font-size);
+  font-size: 36px;
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .task-overlay-description,
 .task-overlay-row,
 .task-overlay-user {
   color: var(--black-color);
-  font-size: var(--add-task-subheading-font-size);
+  font-size: 16px;
+  overflow-wrap: anywhere;
 }
 
 .task-overlay-row {
@@ -90,7 +81,7 @@
 .task-overlay-row strong,
 .task-overlay-section h3 {
   color: var(--menu-color);
-  font-size: var(--add-task-subheading-font-size);
+  font-size: 16px;
 }
 
 .task-overlay-priority {
@@ -174,26 +165,13 @@
   color: var(--greeting-text-color);
   background: none;
   font-size: 16px;
+  cursor: pointer;
+  transition: color 100ms ease;
 }
 
-.task-overlay-section-hidden {
-  display: none;
-}
-
-.task-overlay-actions {
-  align-self: flex-end;
-  gap: 8px;
-}
-
-.task-overlay-actions button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  border: none;
-  color: var(--greeting-text-color);
-  background: none;
-  font-size: 16px;
+.task-overlay-actions button:hover,
+.task-overlay-actions button:focus-visible {
+  color: var(--primary-color);
 }
 
 .task-overlay-actions>span {
@@ -204,4 +182,24 @@
 
 .overlay-open {
   overflow: hidden;
+}
+
+@media (max-width: 450px) {
+  .task-overlay-backdrop[open] {
+    width: calc(100% - 16px);
+  }
+
+  .task-overlay {
+    gap: 20px;
+    padding: 20px 16px;
+  }
+
+  .task-overlay h2 {
+    font-size: 28px;
+  }
+
+  .task-overlay-actions {
+    align-self: stretch;
+    justify-content: flex-end;
+  }
 }
