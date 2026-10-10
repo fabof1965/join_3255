@@ -83,7 +83,7 @@ const addTaskDialogTemplate = `
       <h2 id="add-task-title">Add Task</h2>
       <button class="add-task-close close-icon" type="button" aria-label="Close add task"><img src="../assets/icons/close-task-overlay.svg" alt="" /></button>
     </header>
-    <form id="add-task-form" class="add-task-form" novalidate>
+    <form id="add-task-form" class="add-task-form-dialog" novalidate>
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
         <input name="title" type="text" placeholder="Enter a title" />
