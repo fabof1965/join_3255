@@ -50,24 +50,23 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
 }
 
 function updateUpcomingDeadline(urgentTasks) {
-  const tasksWithDate = urgentTasks.filter(duty => duty.dueDate);
+  const urgentTaskDates = urgentTasks.filter(duty => duty.dueDate);
   
-  tasksWithDate.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-  const closestDateStr = tasksWithDate[0].dueDate;
+  urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  const closestDateStr = urgentTaskDates[0].dueDate;
 
-  deadlineOutput(closestDateStr, tasksWithDate);
+  deadlineOutput(closestDateStr, urgentTaskDates);
 }
 
-function deadlineOutput(closestDateStr, tasksWithDate) {
+function deadlineOutput(closestDateStr, urgentTaskDates) {
   const dateEl = document.getElementById("date");
   const deadlineInfo = document.getElementById("deadline-info");
   const today = new Date();
   const closestDate = new Date(closestDateStr);
   dateEl.innerText = formatDate(closestDateStr);
 
-  if (tasksWithDate.length === 0) {
-    dateEl.innerText = "";
-    deadlineInfo.innerText = "No deadline";
+  if (urgentTaskDates.length === 0) {
+    dateEl.innerText = "No deadline";
     return;
   }
 
