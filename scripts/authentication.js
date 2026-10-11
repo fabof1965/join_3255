@@ -1,4 +1,6 @@
-let allUsers = [];
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import { ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+import { auth, db } from "./firebaseInit.js";
 
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
@@ -20,8 +22,8 @@ initLoginEventListeners();
 function passwordInputFields() {
     const toggles = document.querySelectorAll('.password-toggle');
     return [createPasswordField('login-password', 'login-password-toggle-icon', toggles[0]),
-        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
-        createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
+    createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
+    createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
 }
 
 function createPasswordField(inputId, iconId, toggle) {
@@ -73,28 +75,32 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
-    if (!await isRegistrationValid(emailSignup.value)) return;
-    await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    if (!(await isRegistrationValid())) return;
+    const userData = await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    if (!userData) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
 
-async function isRegistrationValid(email) {
+async function isRegistrationValid() {
     const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
-    const emailExists = await checkIfEmailExists(email);
-    return passwordOk && privacyOk && !emailExists;
+    return passwordOk && privacyOk;
 }
 
 async function saveNewUser(name, email, password) {
-    const response = await postData('users', { name, email, password });
-    allUsers.push({ id: response.name, name, email, password });
-}
-
-async function checkIfEmailExists(inputMail) {
-    const response = await getData('users');
-    const emailExists = response ? Object.values(response).some(user => user.email === inputMail) : false;
-    setEmailExistsFeedback(emailExists);
-    return emailExists;
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await set(ref(db, 'users/' + user.uid), {
+            name, email, createdAt: serverTimestamp()
+        });
+        setEmailExistsFeedback(false); // entfernt die Fehlermeldung
+        return true;
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") setEmailExistsFeedback(true);
+        else console.error("Fehler beim speichern eines neuen Benutzers", error);
+        return false;
+    }
 }
 
 function setEmailExistsFeedback(emailExists) {
@@ -154,17 +160,21 @@ function closeDialog() {
  */
 async function userLogin(event) {
     event.preventDefault();
-    const emailLogin = document.getElementById('email');
-    const passwordLogin = document.getElementById('login-password');
-    const user = await findUser(emailLogin.value, passwordLogin.value);
-    if (!user) return showErrorMessageForLogin();
-    storeLoggedInUser(user); resetLogin(); document.getElementById('auth-form').reset();
+    const email = document.getElementById('email');
+    const password = document.getElementById('login-password');
+    let userCredential;
+    try {
+        userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+    } catch (error) {
+        return showErrorMessageForLogin();
+    }
+    let userData = {};
+    const snapshot = await get(ref(db, 'users/' + userCredential.user.uid));
+    if (snapshot.exists()) {
+        userData = snapshot.val();
+    }
+    storeLoggedInUser({ name: userData.name, email: userCredential.user.email }); resetLogin(); document.getElementById('auth-form').reset();
     window.location.href = './pages/summary.html';
-}
-
-async function findUser(email, password) {
-    const response = await getData('users');
-    return (response ? Object.values(response) : []).find(user => user.email === email && user.password === password);
 }
 
 function storeLoggedInUser(user) {
@@ -209,10 +219,10 @@ function resetLogin() {
 
 function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
-    
+
     localStorage.setItem('name', 'Guest');
-    localStorage.removeItem('email'); 
-    
+    localStorage.removeItem('email');
+
     resetLogin();
     signUpForm.reset();
     window.location.href = './pages/summary.html';
@@ -365,3 +375,5 @@ function setHeadlineText(text) {
     const HEADING = document.getElementById("heading");
     HEADING.innerHTML = text;
 }
+
+Object.assign(window, { setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
