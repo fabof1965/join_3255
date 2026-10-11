@@ -50,16 +50,29 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
 }
 
 function updateUpcomingDeadline(urgentTasks) {
+  const urgentTaskDates = urgentTasks.filter(duty => duty.dueDate);
+  
+  urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  const closestDateStr = urgentTaskDates[0].dueDate;
+
+  deadlineOutput(closestDateStr, urgentTaskDates);
+}
+
+function deadlineOutput(closestDateStr, urgentTaskDates) {
   const dateEl = document.getElementById("date");
-  const tasksWithDate = urgentTasks.filter(duty => duty.dueDate);
-  if (tasksWithDate.length === 0) {
+  const deadlineInfo = document.getElementById("deadline-info");
+  const today = new Date();
+  const closestDate = new Date(closestDateStr);
+  dateEl.innerText = formatDate(closestDateStr);
+
+  if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
   }
 
-  tasksWithDate.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-  const closestDateStr = tasksWithDate[0].dueDate;
-  dateEl.innerText = formatDate(closestDateStr);
+  if(closestDate < today) {
+    deadlineInfo.innerText = "Missed deadline";
+  }
 }
 
 function formatDate(dateString) {
