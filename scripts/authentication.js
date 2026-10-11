@@ -1,5 +1,11 @@
 let allUsers = [];
 
+// hier muss der auth link rein
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+// hier muss die Database hin. Referenz ziehen, Daten schreiben, Zeitstempel setzen
+import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+import { auth, db } from "./firebaseCdn";
+
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
@@ -20,8 +26,8 @@ initLoginEventListeners();
 function passwordInputFields() {
     const toggles = document.querySelectorAll('.password-toggle');
     return [createPasswordField('login-password', 'login-password-toggle-icon', toggles[0]),
-        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
-        createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
+    createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
+    createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
 }
 
 function createPasswordField(inputId, iconId, toggle) {
@@ -73,8 +79,9 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
-    if (!await isRegistrationValid(emailSignup.value)) return;
-    await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    if (!isRegistrationValid()) return;
+    const created = await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    if (!created) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
 
@@ -86,8 +93,22 @@ async function isRegistrationValid(email) {
 }
 
 async function saveNewUser(name, email, password) {
-    const response = await postData('users', { name, email, password });
-    allUsers.push({ id: response.name, name, email, password });
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await set(ref(db, 'users/' + user.uid), { name, email, created_at: serverTimestamp() });
+        // was muss hier noch passieren ?
+        setEmailExistsFeedback(false);
+        return true;
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+            
+        }
+    }
+
+    // const response = await postData('users', { name, email, password });
+    // allUsers.push({ id: response.name, name, email, password });
 }
 
 async function checkIfEmailExists(inputMail) {
@@ -209,10 +230,10 @@ function resetLogin() {
 
 function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
-    
+
     localStorage.setItem('name', 'Guest');
-    localStorage.removeItem('email'); 
-    
+    localStorage.removeItem('email');
+
     resetLogin();
     signUpForm.reset();
     window.location.href = './pages/summary.html';
@@ -365,3 +386,5 @@ function setHeadlineText(text) {
     const HEADING = document.getElementById("heading");
     HEADING.innerHTML = text;
 }
+
+Object.assign(window, { setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser })
