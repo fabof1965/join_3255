@@ -1,10 +1,6 @@
-let allUsers = [];
-
-// hier muss der auth link rein
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
-// hier muss die Database hin. Referenz ziehen, Daten schreiben, Zeitstempel setzen
 import { ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
-import { auth, db } from "./firebaseCdn.js";
+import { auth, db } from "./firebaseInit.js";
 
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
@@ -380,4 +376,4 @@ function setHeadlineText(text) {
     HEADING.innerHTML = text;
 }
 
-Object.assign(window, { setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser });
+Object.assign(window, { setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });

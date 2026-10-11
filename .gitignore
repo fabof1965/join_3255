@@ -1,13 +1,10 @@
 .vscode
-logo-animation-fix.txt
 JOIN 3255/
 .claude/
 SKILL.md
-TODO-fehlermeldungen.txt
-checkIfEmailExists-vorher.txt
 node_modules/
 package-lock.json
 package.json
 waytogo-testen-fragen.txt
-
+firebase-notizen.txt
 
