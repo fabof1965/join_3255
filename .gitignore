@@ -13,3 +13,9 @@ waytogo-subtask-checkbox.txt
 waytogo-subtask-edit.txt
 waytogo-edit-contact.txt
 waytogo-testen-fragen.txt
+
+# Local Firebase credentials (never commit real values)
+.env
+.env.*
+!.env.example
+scripts/firebase-config.local.js
