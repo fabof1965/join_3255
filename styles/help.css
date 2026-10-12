@@ -108,6 +108,7 @@
             font-size: var(--large-font-size);
             font-weight: bold;
             color: var(--primary-color);
+            padding-bottom: var(--page-link-padding-top-bottom);
         }
     }
 

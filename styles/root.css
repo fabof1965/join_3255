@@ -104,7 +104,9 @@
     --profile-icon-height: var(--profile-icon-width);
 
     /*sidebar*/
-    --page-link-padding: clamp(4px, calc(2.857px + 0.357vw), 8px) clamp(12px, calc(10.857px + 0.357vw), 16px);
+    --page-link-padding-top-bottom: clamp(4px, calc(2.857px + 0.357vw), 8px);
+    --page-link-padding-left-right: clamp(12px, calc(10.857px + 0.357vw), 16px);
+    --page-link-padding: var(--page-link-padding-top-bottom) var(--page-link-padding-left-right);
 
     /*animation-timings*/
     --bg-change-duration: 900ms;

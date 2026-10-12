@@ -8,7 +8,6 @@ h2, h3 {
   gap: var(--gap-medium);
   padding: var(--padding);
   width: var(--full);
-  height: calc(100dvh - 2 * var(--padding-top-bottom) - 67.8px);
   overflow-y: scroll;
 }
 
@@ -42,5 +41,9 @@ h2, h3 {
 .legal-back-button:hover {
   background-color: var(--secondary-color);
   box-shadow: unset;
+}
+
+.indemnity {
+  padding-bottom: var(--page-link-padding-top-bottom);
 }
 
