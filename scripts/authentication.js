@@ -200,7 +200,7 @@ function initLoginEventListeners() {
         document.getElementById('login-password')
     ]
     inputFields.forEach(fields => {
-        fields.addEventListener('input', hideInputErrorMessage)
+        fields.addEventListener('input', resetLogin)
     });
 }
 
