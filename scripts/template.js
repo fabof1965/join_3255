@@ -78,7 +78,7 @@ const headerTemplate = `
         <a class="help" href="../pages/help.html">Help</a>
         <a href="../pages/legal_notice.html">Legal Notice</a>
         <a href="../pages/privacy_policy.html">Privacy Policy</a>
-        <button id="logout-button" type="button">Log out</button>
+        <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
       </nav>
       <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
         <span id="profile-badge">SM</span>
