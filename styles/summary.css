@@ -74,16 +74,11 @@
     color: var(--primary-color);
     font-size: var(--large-font-size);
     font-weight: bold;
+    text-align: center;
 }
 
 .greeting-text-guest {
     color: var(--greeting-text-color);
-    font-size: var(--large-font-size);
-    font-weight: bold;
-}
-
-.username {
-    color: var(--primary-color);
     font-size: var(--large-font-size);
     font-weight: bold;
 }
