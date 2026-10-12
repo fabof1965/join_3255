@@ -7,6 +7,7 @@
   transform: scale(2);
   animation: rise-logo-top-left var(--logo-animation-duration) ease-in var(--logo-animation-delay) forwards;
 }
+
 .logo-animation-white {
   width: var(--logo-width);
 }
@@ -48,52 +49,59 @@
 /** Dialog stylings **/
 
 .auth-dialog[open] {
-    padding: 30px;
-    margin: auto;
-    border-radius: 16px;
-    bottom: 25%;
-    position: fixed;
-    border: none;
-    outline: none;
-    background-color: var(--active-menu-color);
-    color: var(--white-color);
-    animation: slide-in-from-bottom 300ms ease-out;
+  padding: 30px;
+  margin: auto;
+  border-radius: 16px;
+  bottom: 25%;
+  position: fixed;
+  border: none;
+  outline: none;
+  background-color: var(--active-menu-color);
+  color: var(--white-color);
+  animation: slide-in-from-bottom 300ms ease-out;
 }
 
 dialog::backdrop {
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(2px);
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
 }
 
-@keyframes slide-in-from-bottom  {
-    from {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateY(0%) ;
-        opacity: 1;
-    }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }
 
 /* error-msg */
 
-.visibility-hidden{
-  visibility: hidden; 
+.visibility-hidden {
+  visibility: hidden;
 }
 
-.error-msg{
+.error-msg {
   color: var(--red-color);
   width: var(--full);
   padding-left: 16px;
   height: 1rem;
 }
 
-#privacy-policy-error-msg{
+.privacy-policy-error-msg {
+  color: var(--red-color);
+  width: var(--full);
+  padding-left: 16px;
+  height: 1rem;
+}
+
+#privacy-policy-error-msg {
   text-align: center;
 }
 
-.error-message-border-bottom{
+.error-message-border-bottom {
   border-bottom: var(--error-message-border-bottom);
 }
