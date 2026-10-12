@@ -63,7 +63,6 @@ function closeAccessibleDialog(dialog) {
  */
 function renderSidebar() {
     const sidebarContainer = document.getElementById("sidebar");
-    const startClass = "start";
 
     if (!sidebarContainer) return;
 
@@ -137,44 +136,6 @@ function toggleHeaderMenu() {
         return;
     }
     headerMenu.togglePopover();
-}
-
-/**
- * Connects the shared header controls after the header is rendered.
- * @returns {void}
- */
-function initHeaderInteractions() {
-    const helpButton = document.getElementById("help-button");
-    const logoutButton = document.getElementById("logout-button");
-    if (helpButton) helpButton.addEventListener("click", handleHelpButtonClick);
-    if (logoutButton) logoutButton.addEventListener("click", logoutUser);
-    document.addEventListener("click", closeHeaderMenuOnOutsideClick);
-}
-
-/**
- * Closes the shared header menu when the user clicks outside it.
- * @param {MouseEvent} event - Document click event.
- * @returns {void}
- */
-function closeHeaderMenuOnOutsideClick(event) {
-    const headerMenu = document.getElementById("header-menu");
-    const profileButton = document.getElementById("profile-button");
-    const helpButton = document.getElementById("help-button");
-    if (
-        !headerMenu ||
-        headerMenu.contains(event.target) ||
-        profileButton?.contains(event.target) ||
-        helpButton?.contains(event.target)
-    ) return;
-    closeHeaderMenu(headerMenu);
-}
-
-function closeHeaderMenu(headerMenu) {
-    if (typeof headerMenu.hidePopover === "function" && headerMenu.matches(":popover-open")) {
-        headerMenu.hidePopover();
-        return;
-    }
-    headerMenu.classList.remove("is-visible");
 }
 
 /**
@@ -259,7 +220,7 @@ async function renderAssignedContacts(container) {
  */
 function fillTemplate(template, values) {
     return Object.entries(values).reduce(
-        (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
+        (html, [key, value]) => html.replaceAll(`${key}`, value),
         template,
     );
 }
