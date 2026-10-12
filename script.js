@@ -1,19 +1,19 @@
 const colorContacts = [
-    "#FF7A00",
-    "#9327FF",
-    "#FF745E",
-    "#FFC701",
-    "#FFE62B",
-    "#FF5EB3",
-    "#00BEE8",
-    "#FFA35E",
-    "#0038FF",
-    "#FF4646",
-    "#6E52FF",
-    "#1FD7C1",
-    "#FC71FF",
-    "#C3FF2B",
-    "#FFBB2B",
+    "#E65100", // Orange
+    "#8E24AA", // Violett
+    "#D32F2F", // Rot
+    "#B8860B", // Dunkles Gold
+    "#0288D1", // Hellblau
+    "#2E7D32", // Grün
+    "#1A237E", // Dunkelblau
+    "#00796B", // Petrol
+    "#5D4037", // Braun
+    "#455A64", // Blaugrau
+    "#C2185B", // Pink
+    "#558B2F", // Olivgrün
+    "#A0522D", // Siena (rötliches Braun)
+    "#00838F", // Cyan-Türkis
+    "#6A1B9A", // Dunkellila
 ];
 
 let assignedContacts = [];
@@ -27,20 +27,20 @@ const dialogCancelHandlers = new WeakMap();
  * @returns {void}
  */
 function openAccessibleDialog(dialog, focusSelector) {
-  dialogFocusTargets.set(dialog, document.activeElement);
-  const cancelHandler = createDialogCancelHandler(dialog);
-  dialogCancelHandlers.set(dialog, cancelHandler);
-  dialog.addEventListener("cancel", cancelHandler);
-  dialog.showModal();
-  dialog.querySelector(focusSelector)?.focus();
+    dialogFocusTargets.set(dialog, document.activeElement);
+    const cancelHandler = createDialogCancelHandler(dialog);
+    dialogCancelHandlers.set(dialog, cancelHandler);
+    dialog.addEventListener("cancel", cancelHandler);
+    dialog.showModal();
+    dialog.querySelector(focusSelector)?.focus();
 }
 
 function createDialogCancelHandler(dialog) {
-  return (event) => {
-    event.preventDefault();
-    dialog.classList.remove("slide-in");
-    setTimeout(() => closeAccessibleDialog(dialog), 400);
-  };
+    return (event) => {
+        event.preventDefault();
+        dialog.classList.remove("slide-in");
+        setTimeout(() => closeAccessibleDialog(dialog), 400);
+    };
 }
 
 /**
@@ -49,12 +49,12 @@ function createDialogCancelHandler(dialog) {
  * @returns {void}
  */
 function closeAccessibleDialog(dialog) {
-  if (!dialog.open) return;
-  dialog.close();
-  dialog.removeEventListener("cancel", dialogCancelHandlers.get(dialog));
-  dialogFocusTargets.get(dialog)?.focus();
-  dialogFocusTargets.delete(dialog);
-  dialogCancelHandlers.delete(dialog);
+    if (!dialog.open) return;
+    dialog.close();
+    dialog.removeEventListener("cancel", dialogCancelHandlers.get(dialog));
+    dialogFocusTargets.get(dialog)?.focus();
+    dialogFocusTargets.delete(dialog);
+    dialogCancelHandlers.delete(dialog);
 }
 
 /**
@@ -62,13 +62,13 @@ function closeAccessibleDialog(dialog) {
  * @returns {void}
  */
 function renderSidebar() {
-  const sidebarContainer = document.getElementById("sidebar");
-  const startClass = "start";
-  
-  if(!sidebarContainer) return;
+    const sidebarContainer = document.getElementById("sidebar");
+    const startClass = "start";
 
-  sidebarContainer.innerHTML = getSidebarTemplate();
-  markActiveSidebarLink();
+    if (!sidebarContainer) return;
+
+    sidebarContainer.innerHTML = getSidebarTemplate();
+    markActiveSidebarLink();
 }
 
 /**
@@ -76,13 +76,13 @@ function renderSidebar() {
  * @returns {void}
  */
 function markActiveSidebarLink() {
-  const currentPath = window.location.pathname;
-  const sidebarLinks = document.querySelectorAll('#sidebar a[href]:not([href=""])');
+    const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll('#sidebar a[href]:not([href=""])');
 
-  sidebarLinks.forEach((link) => {
-    const linkPath = new URL(link.href).pathname;
-    link.classList.toggle("active", linkPath === currentPath);
-  });
+    sidebarLinks.forEach((link) => {
+        const linkPath = new URL(link.href).pathname;
+        link.classList.toggle("active", linkPath === currentPath);
+    });
 }
 
 /**
@@ -90,12 +90,12 @@ function markActiveSidebarLink() {
  * @returns {void}
  */
 function renderHeader() {
-  const headerContainer = document.getElementById("header");
+    const headerContainer = document.getElementById("header");
 
-  if (!headerContainer) {
-    return;
-  }
-  headerContainer.innerHTML = headerTemplate;
+    if (!headerContainer) {
+        return;
+    }
+    headerContainer.innerHTML = headerTemplate;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -235,20 +235,20 @@ function compareContactNames(a, b) {
 }
 
 async function getAssignedContacts() {
-  const response = await getData('contacts');
-  if (!response) return [];
-  return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+    const response = await getData('contacts');
+    if (!response) return [];
+    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
 async function renderAssignedContacts(container) {
-  assignedContacts = await getAssignedContacts();
-  sortContactsByName(assignedContacts);
-  const contactRef = container.querySelector('#assigned-contacts');
-  contactRef.innerHTML = assignedContacts
-    .map(({ name }) =>
-      fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
-    )
-    .join("");
+    assignedContacts = await getAssignedContacts();
+    sortContactsByName(assignedContacts);
+    const contactRef = container.querySelector('#assigned-contacts');
+    contactRef.innerHTML = assignedContacts
+        .map(({ name }) =>
+            fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
+        )
+        .join("");
 }
 
 /**
@@ -258,10 +258,10 @@ async function renderAssignedContacts(container) {
  * @returns {string} Completed HTML.
  */
 function fillTemplate(template, values) {
-  return Object.entries(values).reduce(
-    (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
-    template,
-  );
+    return Object.entries(values).reduce(
+        (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
+        template,
+    );
 }
 
 function checkUserLogin() {
