@@ -25,12 +25,19 @@
     margin-bottom: var(--margin-bottom-medium);
 }
 
+.greeting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(max-width: 950px) {
     .summary-container {
         height: var(--full);
     }
 
     .greeting-container {
+        flex-direction: column;
         position: fixed;
         top: 50%;
         opacity: 1;
@@ -54,7 +61,7 @@
 .greeting-text {
     color: var(--greeting-text-color);
     font-size: var(--large-font-size);
-    font-weight: normal;
+    font-weight: bold;
 }
 
 #comma {
@@ -165,6 +172,14 @@
             background-color: var(--primary-color);
         }
     }
+}
+
+.urgent-task {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-medium);
 }
 
 .icon-and-number {

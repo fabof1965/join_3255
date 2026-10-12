@@ -1,42 +1,42 @@
-/**
- * Stores all tasks loaded from Firebase for the summary page.
- * @type {Array<Object>}
- */
-let allTasks = [];
-
 document.addEventListener("DOMContentLoaded", function () {
     initSummary();
 });
 
 async function initSummary() {
-  await loadTasksForSummary();
-  updateSummaryNumbers();
+  await updateSummaryNumbers();
   await loadUserName();
   initCardClicks();
   updateGreetingText();
 }
 
-async function loadTasksForSummary() {
+async function loadAllTaskData() {
   try {
      const taskData = await getData("tasks");
     if (taskData) {
-      allTasks = taskData ? Object.values(taskData) : [];
+      const allTasks = taskData ? Object.values(taskData) : [];
+
+      return allTasks;
     }
   } catch (error) {
     console.error("Fehler beim Laden der Tasks:", error);
-    allTasks = [];
+    
+    return [];
   }
 }
 
-function updateSummaryNumbers() {
+async function updateSummaryNumbers() {
+  const allTasks = await loadAllTaskData();
+
   const totalTasksToDo = allTasks.filter(task => task.status === "toDo").length;
   const totalTasksInProgress = allTasks.filter(task => task.status === "inProgress").length;
   const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback" ).length;
   const totalTasksDone = allTasks.filter(task => task.status === "done" ).length;
   const urgentTasks = allTasks.filter(task => task.priority === "urgent");
+
   const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
-  const countUrgent = urgentTasks.length;
-  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, countUrgent);  
+  const totalTasksUrgent = urgentTasks.length;
+
+  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, totalTasksUrgent);  
   updateUpcomingDeadline(urgentTasks);
 }
 
@@ -77,7 +77,9 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
+
   if (isNaN(date)) return dateString;
+  
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -86,18 +88,18 @@ function formatDate(dateString) {
 }
 
 async function loadUserName() {
-  let res = await getData("users");
-  let users = res ? Object.values(res) : [];
-  let email = localStorage.getItem("email") || sessionStorage.getItem("email");
-  let user = users.find(u => u.email === email);
-  let isGuest = localStorage.getItem("name") === "Guest";
+  const res = await getData("users");
+  const users = res ? Object.values(res) : [];
+  const email = localStorage.getItem("email") || sessionStorage.getItem("email");
+  const user = users.find(u => u.email === email);
+  const isGuest = localStorage.getItem("name") === "Guest";
 
   updateGreetingUI(user, isGuest);
 }
 
 function updateGreetingUI(user, isGuest) {
-    let nameEl = document.getElementById("username");
-    let commaEl = document.getElementById("comma");
+    const nameEl = document.getElementById("username");
+    const commaEl = document.getElementById("comma");
     if (!nameEl) return;
     const showName = user?.name && !isGuest && !isGuestStored();
     nameEl.innerText = showName ? formatUserName(user.name) : "";
@@ -134,9 +136,10 @@ function addBoardNavigation(selector) {
 
 
 function updateGreetingText() {
-    const greetingEl = document.getElementById("greeting"); 
+    const greetingEl = document.getElementById("greeting");
+    const nameEl = document.getElementById("username");
     if (!greetingEl) return;
-    
+    if(nameEl.innerText !== "") greetingEl.style.fontWeight = "unset";
     greetingEl.innerText = getDynamicGreeting();
 }
 
