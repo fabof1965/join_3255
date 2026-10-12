@@ -2,9 +2,25 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'http
 import { ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
 
+function initAuth() {
+    initPasswordEventListener();
+    initLoginEventListeners();
+}
+
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
+}
+
+function initEventListenersForRegistrationForm() {
+    const inputFields = [
+        document.getElementById('email-signup'),
+        document.getElementById('sign-up-password'),
+        document.getElementById('confirm-password')
+    ];
+    inputFields.forEach(field => {
+        field.addEventListener('input', hideInputErrorMessage);
+    });
 }
 
 function initPasswordEventListener() {
@@ -15,9 +31,6 @@ function initPasswordEventListener() {
         field.toggle.addEventListener('click', () => toggleShowPassword(field));
     });
 }
-
-initPasswordEventListener();
-initLoginEventListeners();
 
 function passwordInputFields() {
     const toggles = document.querySelectorAll('.password-toggle');
@@ -75,8 +88,8 @@ async function registerUser(event) {
     const name = document.getElementById('name');
     event.preventDefault();
 
-    if (!(await isRegistrationValid())) return;
     const userData = await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
+    if (!(await isRegistrationValid())) return;
     if (!userData) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
@@ -153,7 +166,6 @@ function closeDialog() {
     closeAccessibleDialog(dialog);
 }
 
-
 /**
  * Handle the login form submission.
  * @param {Event} event - Login form submission event.
@@ -188,14 +200,7 @@ function initLoginEventListeners() {
         document.getElementById('login-password')
     ]
     inputFields.forEach(fields => {
-        fields.addEventListener('input', hideLoginErrorBorder)
-    });
-}
-
-function hideLoginErrorBorder() {
-    const inputwrappers = document.querySelectorAll('.input-content-container');
-    inputwrappers.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
+        fields.addEventListener('input', resetLogin)
     });
 }
 
@@ -206,6 +211,13 @@ function showErrorMessageForLogin() {
     borderBottom.forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
+}
+
+function hideInputErrorMessage(event) {
+    const wrapper = event.currentTarget.closest('.input-wrapper');
+    wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
+    const errMsg = wrapper.querySelector('.error-msg');
+    if (errMsg) errMsg.classList.add('visibility-hidden');
 }
 
 function resetLogin() {
@@ -240,6 +252,7 @@ function addSignupContent() {
     setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
     initSignUpEventListeners();
+    initEventListenersForRegistrationForm();
     initPasswordEventListener();
     setAuthenticationHeaderMargin("0");
 }
@@ -376,4 +389,4 @@ function setHeadlineText(text) {
     HEADING.innerHTML = text;
 }
 
-Object.assign(window, { setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
+Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });

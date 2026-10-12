@@ -122,7 +122,7 @@ function getInputFieldsForSignup() {
                   <input class="input-field" type="email" id="email-signup" placeholder="Email" required>
                   <img src="./assets/icons/mail.svg" alt="mail logo">
                 </div>
-                <span id="invalid-email-msg" class="error-msg visibility-hidden">user already exists</span>
+                <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
             </div>
 
             <div class="input-wrapper">
