@@ -86,7 +86,7 @@
   box-shadow: var(--button-box-shadow);
   margin: 0;
   opacity: 0;
-  transform: translateY(-16px);
+  transform: translateY(48px);
   transition: display 300ms allow-discrete,
     opacity 300ms ease-in-out 100ms,
     overlay 300ms allow-discrete,
