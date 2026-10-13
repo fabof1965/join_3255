@@ -353,4 +353,4 @@ getAddContactDialog().addEventListener("close", () => {
     editIndex = null;
     resetContactForm();
     document.getElementById('contact-form');
-})
+});
