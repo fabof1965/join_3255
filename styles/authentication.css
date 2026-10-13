@@ -134,7 +134,7 @@
 
 .arrow-back-btn {
   display: none;
-  outline: none;
+  
   background: none;
   border: none;
 }
@@ -203,7 +203,7 @@
   border: none;
   box-sizing: border-box;
   font-size: 19px;
-  outline: none;
+  
 }
 
 #checkbox-container {

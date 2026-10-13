@@ -3,27 +3,6 @@ let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 let editingTaskId = "";
 
-if (typeof openAccessibleDialog !== "function") {
-  window.openAccessibleDialog = function (dialog, focusSelector) {
-    if (!dialog) return;
-    if (!dialog.open) dialog.showModal();
-    dialog.querySelector(focusSelector)?.focus();
-  };
-}
-
-if (typeof closeAccessibleDialog !== "function") {
-  window.closeAccessibleDialog = function (dialog) {
-    if (!dialog || !dialog.open) return;
-    dialog.close();
-  };
-}
-
-/**
- * Opens the Add Task dialog for a board column.
- * @param {string} status - Initial board column status.
- * @returns {void}
- */
-
 async function openAddTask(status) {
   const overlay = document.getElementById("add-task-overlay");
   editingTaskId = "";

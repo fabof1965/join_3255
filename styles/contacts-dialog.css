@@ -21,7 +21,7 @@ dialog[open] {
     height: 100dvh;
     width: 100%;
     max-width: 500px;
-    outline: none;
+    
     position: fixed;
     top: 0;
     box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
@@ -76,7 +76,7 @@ dialog[open]::backdrop {
     background-color: transparent;
     margin-left: auto;
     border: none;
-    outline: none;
+    
 }
 
 .close-dialog-button:hover {
