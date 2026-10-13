@@ -35,10 +35,6 @@ form {
   max-width: var(--form-max-width);
 }
 
-input {
-  
-}
-
 button {
   cursor: pointer;
 }
