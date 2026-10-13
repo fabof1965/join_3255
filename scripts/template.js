@@ -71,9 +71,9 @@ const headerTemplate = `
     </div>
     <div class="header-right">
       <span class="kanban-text">Kanban Project Management Tool</span>
-      <button id="help-button" class="header-icon-button-help" type="button" aria-label="Open help">
+      <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
         <img class="help-icon" src="../assets/icons/help.svg" alt="Open help" />
-      </button>
+      </a>
       <nav id="header-menu" class="header-menu" popover>
         <a class="help" href="../pages/help.html">Help</a>
         <a href="../pages/legal_notice.html">Legal Notice</a>
