@@ -51,7 +51,12 @@
   justify-content: space-between;
   gap: var(--gap-small);
   height: var(--full);
-  overflow-y: auto;
+  height: var(--min-page-height)
+}
+
+.subtask-btn{
+  background: none;
+  border: none;
 }
 
 @media(max-width: 950px) {
