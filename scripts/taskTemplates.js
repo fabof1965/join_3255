@@ -218,6 +218,7 @@ const addTaskContentTemplate =
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
         <input name="subtask" type="text" placeholder="Add new subtask" />
       </label>
+      <ul class="add-task-subtasks"></ul>
     </section>
     <section class="form-buttons">
       <button onclick="resetForm()" type="button" class="btn-clear btn">

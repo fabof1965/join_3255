@@ -3,6 +3,21 @@ let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 let editingTaskId = "";
 
+if (typeof openAccessibleDialog !== "function") {
+  window.openAccessibleDialog = function (dialog, focusSelector) {
+    if (!dialog) return;
+    if (!dialog.open) dialog.showModal();
+    dialog.querySelector(focusSelector)?.focus();
+  };
+}
+
+if (typeof closeAccessibleDialog !== "function") {
+  window.closeAccessibleDialog = function (dialog) {
+    if (!dialog || !dialog.open) return;
+    dialog.close();
+  };
+}
+
 /**
  * Opens the Add Task dialog for a board column.
  * @param {string} status - Initial board column status.
@@ -98,6 +113,7 @@ async function openEditTask(task) {
  */
 function closeAddTask() {
   const overlay = document.getElementById("add-task-overlay");
+  if (!overlay) return;
   closeAccessibleDialog(overlay);
   overlay.innerHTML = "";
   editingTaskId = "";
@@ -122,9 +138,24 @@ function selectTaskPriority(button) {
  */
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
+  if (!list) return;
   list.innerHTML = newTaskSubtasks.map((title, index) =>
     fillTemplate(addTaskSubtaskTemplate, { title, index }),
   ).join("");
+}
+
+/**
+ * Adds a subtask value to the current form state.
+ * @param {HTMLInputElement} input - Subtask input field.
+ * @returns {boolean} Whether a subtask was added.
+ */
+function addSubtaskFromInput(input) {
+  const value = input.value.trim();
+  if (!value) return false;
+  newTaskSubtasks.push(escapeTaskText(value));
+  input.value = "";
+  renderNewSubtasks();
+  return true;
 }
 
 /**
@@ -133,11 +164,9 @@ function renderNewSubtasks() {
  * @returns {void}
  */
 function addSubtaskOnEnter(event) {
-  if (event.key !== "Enter" || !event.target.value.trim()) return;
+  if (event.key !== "Enter") return;
   event.preventDefault();
-  newTaskSubtasks.push(escapeTaskText(event.target.value.trim()));
-  event.target.value = "";
-  renderNewSubtasks();
+  addSubtaskFromInput(event.target);
 }
 
 /**
@@ -244,8 +273,18 @@ function getSelectedUserNames(select) {
  * @returns {Object} New board task.
  */
 function createTaskFromForm(form) {
+  addPendingSubtask(form);
   const data = new FormData(form);
   return buildTaskData(data, form.elements.assignedUsers);
+}
+
+/**
+ * Includes a subtask that is still typed into the input when the form is submitted.
+ * @param {HTMLFormElement} form - Add Task form.
+ * @returns {void}
+ */
+function addPendingSubtask(form) {
+  if (form.elements.subtask) addSubtaskFromInput(form.elements.subtask);
 }
 
 function buildTaskData(data, assignedUsers) {
@@ -305,9 +344,26 @@ async function submitNewTask(event) {
   if (!response) return;
   const firebaseId = response.name;
   task.id = firebaseId;
-  exampleTasks.push(task);
-  closeAddTask();
-  renderSearchResults(document.getElementById("task-search").value);
+  finishTaskSubmission(form, task);
+}
+
+/**
+ * Cleans up the matching Add Task surface after a task was created.
+ * @param {HTMLFormElement} form - Submitted Add Task form.
+ * @param {Object} task - Created task with Firebase id.
+ * @returns {void}
+ */
+function finishTaskSubmission(form, task) {
+  if (typeof exampleTasks !== "undefined") exampleTasks.push(task);
+  if (document.getElementById("add-task-overlay")) {
+    closeAddTask();
+    if (typeof renderSearchResults === "function") {
+      const searchInput = document.getElementById("task-search");
+      renderSearchResults(searchInput ? searchInput.value : "");
+    }
+    return;
+  }
+  resetForm(form);
 }
 
 /**
@@ -354,7 +410,11 @@ async function loadAddTaskContent() {
   await renderAssignedContacts(CONTAINER_ADD_TASK);
 }
 
-function resetForm() {
-  const form = document.getElementById('add-task-form');
+function resetForm(form = document.getElementById('add-task-form')) {
+  if (!form) return;
   form.reset();
+  newTaskSubtasks = [];
+  selectedTaskPriority = "medium";
+  setTaskFormPriority(form, selectedTaskPriority);
+  renderNewSubtasks();
 }

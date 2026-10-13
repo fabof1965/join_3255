@@ -183,6 +183,28 @@ function fillTemplate(template, values) {
     );
 }
 
+/**
+ * Opens a dialog and focuses the requested element.
+ * @param {HTMLDialogElement} dialog - Dialog element to open.
+ * @param {string} focusSelector - Selector for the first focused element.
+ * @returns {void}
+ */
+function openAccessibleDialog(dialog, focusSelector) {
+    if (!dialog) return;
+    if (!dialog.open) dialog.showModal();
+    dialog.querySelector(focusSelector)?.focus();
+}
+
+/**
+ * Closes a dialog when it is currently open.
+ * @param {HTMLDialogElement} dialog - Dialog element to close.
+ * @returns {void}
+ */
+function closeAccessibleDialog(dialog) {
+    if (!dialog || !dialog.open) return;
+    dialog.close();
+}
+
 function checkUserLogin() {
     const currentUrl = window.location.pathname;
     if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();
