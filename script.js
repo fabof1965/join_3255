@@ -16,47 +16,6 @@ const colorContacts = [
     "#6A1B9A", // Dunkellila
 ];
 
-let assignedContacts = [];
-const dialogFocusTargets = new WeakMap();
-const dialogCancelHandlers = new WeakMap();
-
-/**
- * Opens a dialog and moves focus to its first useful control.
- * @param {HTMLDialogElement} dialog - Dialog to open.
- * @param {string} focusSelector - Selector for the initial focus target.
- * @returns {void}
- */
-function openAccessibleDialog(dialog, focusSelector) {
-    dialogFocusTargets.set(dialog, document.activeElement);
-    const cancelHandler = createDialogCancelHandler(dialog);
-    dialogCancelHandlers.set(dialog, cancelHandler);
-    dialog.addEventListener("cancel", cancelHandler);
-    dialog.showModal();
-    dialog.querySelector(focusSelector)?.focus();
-}
-
-function createDialogCancelHandler(dialog) {
-    return (event) => {
-        event.preventDefault();
-        dialog.classList.remove("slide-in");
-        setTimeout(() => closeAccessibleDialog(dialog), 400);
-    };
-}
-
-/**
- * Closes a dialog and restores focus to the element that opened it.
- * @param {HTMLDialogElement} dialog - Dialog to close.
- * @returns {void}
- */
-function closeAccessibleDialog(dialog) {
-    if (!dialog.open) return;
-    dialog.close();
-    dialog.removeEventListener("cancel", dialogCancelHandlers.get(dialog));
-    dialogFocusTargets.get(dialog)?.focus();
-    dialogFocusTargets.delete(dialog);
-    dialogCancelHandlers.delete(dialog);
-}
-
 /**
  * Renders the shared sidebar template when its container exists.
  * @returns {void}
@@ -102,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSidebar();
     renderHeader();
     initHeaderProfile();
-    initHeaderInteractions();
 });
 
 function toHelpPage() {
@@ -202,7 +160,7 @@ async function getAssignedContacts() {
 }
 
 async function renderAssignedContacts(container) {
-    assignedContacts = await getAssignedContacts();
+    const assignedContacts = await getAssignedContacts();
     sortContactsByName(assignedContacts);
     const contactRef = container.querySelector('#assigned-contacts');
     contactRef.innerHTML = assignedContacts
@@ -220,7 +178,7 @@ async function renderAssignedContacts(container) {
  */
 function fillTemplate(template, values) {
     return Object.entries(values).reduce(
-        (html, [key, value]) => html.replaceAll(`${key}`, value),
+        (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
         template,
     );
 }
