@@ -240,7 +240,7 @@
     background-color: transparent;
     color: var(--black-color);
     font-size: var(--small-font-size);
-    outline: none;
+    
 }
 
 @media(max-width: 950px) {
