@@ -65,7 +65,6 @@
   }
 }
 
-
 input,
 select,
 textarea {
@@ -312,7 +311,7 @@ textarea {
 
 @media(max-width: 450px) {
   .add-task-subtasks {
-    max-height: 52px;
+    max-height: 100px;
     /* zum testen*/
   }
 }
