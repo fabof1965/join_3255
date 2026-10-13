@@ -7,8 +7,6 @@
   position: sticky;
   top: 0;
   z-index: 20;
-
-  anchor-name: --header-anchor;
 }
 
 @media(max-width: 950px) {
@@ -17,8 +15,6 @@
     top: 0;
   }
 }
-
-@media(max-width: 450px) {}
 
 .content-limit {
   display: flex;
@@ -45,6 +41,8 @@
   border: none;
   background: transparent;
   display: inline-flex;
+
+  anchor-name: --profile-badge-anchor;
 }
 
 .header-icon-button-help {
@@ -75,12 +73,11 @@
 }
 
 .header-menu {
+  position-anchor: --profile-badge-anchor;
+  
   position: fixed;
-  position-anchor: --header-anchor;
-  top: anchor(bottom);
   width: fit-content;
-  right: anchor(right);
-  inset: var(--header-height) 0 0 auto;
+  inset: var(--header-height) anchor(right) 0 auto;
   flex-direction: column;
   padding: 8px 0;
   background-color: var(--white-color);
@@ -89,7 +86,7 @@
   box-shadow: var(--button-box-shadow);
   margin: 0;
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(-16px);
   transition: display 300ms allow-discrete,
     opacity 300ms ease-in-out 100ms,
     overlay 300ms allow-discrete,
@@ -97,13 +94,15 @@
 }
 
 .header-menu:popover-open {
+  position-anchor: --profile-badge-anchor;
+  inset: var(--header-height) anchor(right) 0 auto;
   display: flex;
   opacity: 1;
   transform: translateY(0);
 
   @starting-style {
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translateY(16px);
   }
 }
 
