@@ -107,7 +107,7 @@ async function saveNewUser(name, email, password) {
         await set(ref(db, 'users/' + user.uid), {
             name, email, createdAt: serverTimestamp()
         });
-        setEmailExistsFeedback(false); // entfernt die Fehlermeldung
+        setEmailExistsFeedback(false);
         return true;
     } catch (error) {
         if (error.code === "auth/email-already-in-use") setEmailExistsFeedback(true);
