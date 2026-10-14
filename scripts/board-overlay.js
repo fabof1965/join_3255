@@ -38,7 +38,7 @@ function getOverlaySubtasksHtml(task) {
  */
 
 async function toggleSubtask(index) {
-  const task = exampleTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
   task.subtaskDone[index] = !task.subtaskDone[index];
   task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
@@ -93,13 +93,13 @@ function capitalize(value) {
  * @returns {void}
  */
 function openTaskOverlay(taskId) {
-  const overlay = document.getElementById("task-overlay");
-  const task = exampleTasks.find(({ id }) => id === taskId);
+  const taskCardDialog = document.getElementById("task-card-dialog");
+  const task = allTasks.find(({ id }) => id === taskId);
   if (!task) return;
   openedTaskId = taskId;
-  overlay.innerHTML = getTaskOverlayHtml(task);
+  taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
-  openAccessibleDialog(overlay, ".task-overlay-close");
+  openAccessibleDialog(taskCardDialog, ".task-overlay-close");
   document.body.classList.add("overlay-open");
 }
 
@@ -108,9 +108,9 @@ function openTaskOverlay(taskId) {
  * @returns {promise}
  */
 async function deleteOpenedTask() {
-  const taskIndex = exampleTasks.findIndex(({ id }) => id === openedTaskId);
+  const taskIndex = allTasks.findIndex(({ id }) => id === openedTaskId);
   if (taskIndex < 0) return;
-  exampleTasks.splice(taskIndex, 1);
+  allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
   closeTaskOverlay();
   renderSearchResults(document.getElementById("task-search").value);
@@ -121,10 +121,10 @@ async function deleteOpenedTask() {
  * @returns {void}
  */
 function editOpenedTask() {
-  const task = exampleTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
   closeTaskOverlay();
-  openEditTask(task);
+  openAddTaskDialogInEditMode(task);
 }
 
 /**
@@ -144,7 +144,7 @@ function closeTaskOverlay() {
  */
 function handleTaskOverlayClick(event) {
   const card = event.target.closest(".task-card");
-  const backdrop = event.target.id === "task-overlay";
+  const backdrop = event.target.id === "task-card-dialog";
   if (card) openTaskOverlay(card.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
   if (event.target.closest(".task-overlay-edit")) editOpenedTask();
@@ -178,7 +178,7 @@ function handleSubtaskCheckboxChange(event) {
 
 document.addEventListener("click", handleTaskOverlayClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
-document.getElementById('task-overlay').addEventListener('close', () => {
+document.getElementById('task-card-dialog').addEventListener('close', () => {
   document.body.classList.remove('overlay-open');
 })
 document.addEventListener("change", handleSubtaskCheckboxChange);
