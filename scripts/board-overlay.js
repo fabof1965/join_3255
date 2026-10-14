@@ -92,7 +92,7 @@ function capitalize(value) {
  * @param {string} taskId - ID of the selected task.
  * @returns {void}
  */
-function openTaskOverlay(taskId) {
+function openTaskCardDialog(taskId) {
   const taskCardDialog = document.getElementById("task-card-dialog");
   const task = allTasks.find(({ id }) => id === taskId);
   if (!task) return;
@@ -112,7 +112,7 @@ async function deleteOpenedTask() {
   if (taskIndex < 0) return;
   allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
-  closeTaskOverlay();
+  closeTaskCardDialog();
   renderSearchResults(document.getElementById("task-search").value);
 }
 
@@ -123,7 +123,7 @@ async function deleteOpenedTask() {
 function editOpenedTask() {
   const task = allTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
-  closeTaskOverlay();
+  closeTaskCardDialog();
   openAddTaskDialogInEditMode(task);
 }
 
@@ -131,8 +131,8 @@ function editOpenedTask() {
  * Closes the task detail overlay.
  * @returns {void}
  */
-function closeTaskOverlay() {
-  const overlay = document.getElementById("task-overlay");
+function closeTaskCardDialog() {
+  const overlay = document.getElementById("task-card-dialog");
   closeAccessibleDialog(overlay);
   document.body.classList.remove("overlay-open");
 }
@@ -144,11 +144,11 @@ function closeTaskOverlay() {
  */
 function handleTaskOverlayClick(event) {
   const card = event.target.closest(".task-card");
-  const backdrop = event.target.id === "task-card-dialog";
-  if (card) openTaskOverlay(card.dataset.taskId);
+
+  if (card) openTaskCardDialog(card.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
   if (event.target.closest(".task-overlay-edit")) editOpenedTask();
-  if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
+  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }
 
 /**
@@ -161,7 +161,7 @@ function handleTaskCardKeydown(event) {
   const card = event.target.closest(".task-card");
   if (!card) return;
   event.preventDefault();
-  openTaskOverlay(card.dataset.taskId);
+  openTaskCardDialog(card.dataset.taskId);
 }
 
 /**
@@ -178,7 +178,4 @@ function handleSubtaskCheckboxChange(event) {
 
 document.addEventListener("click", handleTaskOverlayClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
-document.getElementById('task-card-dialog').addEventListener('close', () => {
-  document.body.classList.remove('overlay-open');
-})
 document.addEventListener("change", handleSubtaskCheckboxChange);
