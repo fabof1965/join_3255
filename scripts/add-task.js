@@ -3,7 +3,7 @@ let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 let editingTaskId = "";
 
-async function openAddTask(status) {
+async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = "";
   newTaskStatus = status;
@@ -11,8 +11,9 @@ async function openAddTask(status) {
   newTaskSubtasks = [];
   addTaskDialog.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(addTaskDialog);
-  openAccessibleDialog(addTaskDialog, "input[name='title']");
-  document.body.classList.add("overlay-open");
+  addTaskDialog.showModal();
+  // openAccessibleDialog(addTaskDialog, "input[name='title']");
+  // document.body.classList.add("overlay-open");
 }
 
 /**
@@ -96,7 +97,7 @@ function closeAddTaskDialog() {
   closeAccessibleDialog(addTaskDialog);
   addTaskDialog.innerHTML = "";
   editingTaskId = "";
-  document.body.classList.remove("overlay-open");
+  addTaskDialog.close();
 }
 
 /**
@@ -352,9 +353,8 @@ function finishTaskSubmission(form, task) {
  */
 function handleAddTaskClick(event) {
   const opener = event.target.closest("[data-add-task-status]");
-  if (opener) openAddTask(opener.dataset.addTaskStatus);
-  if (event.target.closest(".add-task-close")) closeAddTaskDialog();
-  if (event.target.id === "add-task-dialog") closeAddTaskDialog();
+  if (opener) openAddTaskDialog(opener.dataset.addTaskStatus);
+  if (event.target.closest(".close-btn")) closeAddTaskDialog();
   const priorityButton = event.target.closest("[data-priority]");
   if (priorityButton) selectTaskPriority(priorityButton);
   const deleteButton = event.target.closest('[data-action="delete"]');

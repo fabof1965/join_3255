@@ -389,12 +389,14 @@
 }
 
 .close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
-  
   border: none;
 }
 
-.close-icon:hover {
+.close-btn:hover, .close-btn:focus {
   background-color: var(--secondary-color);
   border-radius: var(--border-radius-circular);
 }

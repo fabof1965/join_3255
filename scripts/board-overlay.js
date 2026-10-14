@@ -142,13 +142,13 @@ function closeTaskCardDialog() {
  * @param {MouseEvent} event - Document click event.
  * @returns {void}
  */
-function handleTaskOverlayClick(event) {
+function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
 
   if (card) openTaskCardDialog(card.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
   if (event.target.closest(".task-overlay-edit")) editOpenedTask();
-  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
+  if (event.target.closest(".close-btn")) closeTaskCardDialog();
 }
 
 /**
@@ -157,9 +157,9 @@ function handleTaskOverlayClick(event) {
  * @returns {void}
  */
 function handleTaskCardKeydown(event) {
-  if (event.key !== "Enter" && event.key !== " ") return;
   const card = event.target.closest(".task-card");
-  if (!card) return;
+  if (!card || (event.key !== "Enter" && event.key !== " ")) return;
+  
   event.preventDefault();
   openTaskCardDialog(card.dataset.taskId);
 }
@@ -176,6 +176,6 @@ function handleSubtaskCheckboxChange(event) {
   }
 }
 
-document.addEventListener("click", handleTaskOverlayClick);
+document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);

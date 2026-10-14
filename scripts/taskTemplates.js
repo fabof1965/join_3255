@@ -97,7 +97,9 @@ const addTaskDialogTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
     <header class="add-task-header">
       <h2 id="add-task-title">Add Task</h2>
-      <button class="add-task-close close-icon" type="button" aria-label="Close add task"><img src="../assets/icons/close-task-overlay.svg" alt="" /></button>
+      <button class="close-btn" type="button" aria-label="Close add task">
+        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close add-task-dialog" />
+      </button>
     </header>
     <form id="add-task-form" class="add-task-form-dialog" novalidate>
       <label class="add-task-field add-task-title-field">

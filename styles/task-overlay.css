@@ -55,8 +55,8 @@
 
 .task-overlay-close img,
 .task-overlay-actions img {
-  width: 24px;
-  height: 24px;
+  width: var(--back-btn-image-dimensions);
+  height: var(--back-btn-image-dimensions);
 }
 
 .task-overlay h2 {
