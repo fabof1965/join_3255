@@ -1,31 +1,6 @@
 let newTaskStatus = "toDo";
 let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
-let editingTaskId = "";
-
-async function openAddTaskDialog(status) {
-  const addTaskDialog = document.getElementById("add-task-dialog");
-  editingTaskId = "";
-  newTaskStatus = status;
-  selectedTaskPriority = "medium";
-  newTaskSubtasks = [];
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
-  await renderAssignedContacts(addTaskDialog);
-  addTaskDialog.showModal();
-  // openAccessibleDialog(addTaskDialog, "input[name='title']");
-  // document.body.classList.add("overlay-open");
-}
-
-/**
- * Converts escaped task text back to readable form for form fields.
- * @param {string} value - Stored task text.
- * @returns {string} Plain text value.
- */
-function decodeTaskText(value = "") {
-  const element = document.createElement("textarea");
-  element.innerHTML = value;
-  return element.value;
-}
 
 /**
  * Selects the saved priority inside the task form.
@@ -50,54 +25,6 @@ function setTaskFormUsers(select, users = []) {
   Array.from(select.options).forEach((option) => {
     option.selected = users.includes(option.value);
   });
-}
-
-/**
- * Fills the task form with existing task data.
- * @param {HTMLFormElement} form - Add/Edit Task form.
- * @param {Object} task - Existing task.
- * @returns {void}
- */
-function fillTaskForm(form, task) {
-  form.elements.title.value = decodeTaskText(task.title);
-  form.elements.description.value = decodeTaskText(task.fullDescription || task.description);
-  form.elements.dueDate.value = task.dueDate || "";
-  form.elements.category.value = task.category || "";
-  setTaskFormPriority(form, task.priority);
-  setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
-  newTaskSubtasks = [...(task.subtaskTitles || [])];
-  renderNewSubtasks();
-}
-
-/**
- * Opens the task form in edit mode.
- * @param {Object} task - Task to edit.
- * @returns {void}
- */
-async function openAddTaskDialogInEditMode(task) {
-  const addTaskDialog = document.getElementById("add-task-dialog");
-  editingTaskId = task.id;
-  newTaskStatus = task.status;
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
-  await renderAssignedContacts(addTaskDialog);
-  openAccessibleDialog(addTaskDialog, "input[name='title']");
-  document.body.classList.add("overlay-open");
-  addTaskDialog.querySelector("#add-task-title").textContent = "Edit Task";
-  addTaskDialog.querySelector(".create-task-button").textContent = "Save Task";
-  fillTaskForm(addTaskDialog.querySelector("#add-task-form"), task);
-}
-
-/**
- * Closes and clears the Add Task dialog.
- * @returns {void}
- */
-function closeAddTaskDialog() {
-  const addTaskDialog = document.getElementById("add-task-dialog");
-  if (!addTaskDialog) return;
-  closeAccessibleDialog(addTaskDialog);
-  addTaskDialog.innerHTML = "";
-  editingTaskId = "";
-  addTaskDialog.close();
 }
 
 /**
@@ -270,10 +197,15 @@ function addPendingSubtask(form) {
 function buildTaskData(data, assignedUsers) {
   return {
     title: escapeTaskText(data.get("title").trim()), description: escapeTaskText(data.get("description").trim()),
-    dueDate: data.get("dueDate"), category: data.get("category"), status: newTaskStatus,
-    priority: selectedTaskPriority, assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers), subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks], subtaskDone: newTaskSubtasks.map(() => false),
+    dueDate: data.get("dueDate"), 
+    category: data.get("category"), 
+    status: newTaskStatus,
+    priority: selectedTaskPriority, 
+    assignedUsers: getSelectedUsers(assignedUsers),
+    assignedUserNames: getSelectedUserNames(assignedUsers), 
+    subtasks: getSubtaskProgress(),
+    subtaskTitles: [...newTaskSubtasks], 
+    subtaskDone: newTaskSubtasks.map(() => false),
   };
 }
 
@@ -281,25 +213,15 @@ function getSubtaskProgress() {
   return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
 }
 
-/**
- * Updates an existing task from the form fields.
- * @param {HTMLFormElement} form - Edit Task form.
- * @returns {Promise<void>}
- */
-async function submitEditedTask(form) {
-  const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
-  if (taskIndex < 0) return;
-  const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
-  allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, getTaskPatch(updatedTask));
-  closeAddTaskDialog();
-  renderSearchResults(document.getElementById("task-search").value);
-}
-
 function updateTaskFromForm(currentTask, form) {
   const taskData = createTaskFromForm(form);
-  return { ...currentTask, ...taskData, id: editingTaskId, status: currentTask.status,
-    fullDescription: taskData.description };
+  return { 
+            ...currentTask,
+            ...taskData, 
+            id: editingTaskId, 
+            status: currentTask.status,
+            fullDescription: taskData.description 
+          };
 }
 
 function getTaskPatch(task) {
@@ -318,7 +240,7 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  if (editingTaskId) { await submitEditedTask(form); return; }
+  // if (editingTaskId) { await submitEditedTask(form); return; }
   const task = createTaskFromForm(form);
   const response = await postData("tasks", task);
   if (!response) return;
@@ -335,14 +257,7 @@ async function submitNewTask(event) {
  */
 function finishTaskSubmission(form, task) {
   if (typeof allTasks !== "undefined") allTasks.push(task);
-  if (document.getElementById("add-task-dialog")) {
-    closeAddTaskDialog();
-    if (typeof renderSearchResults === "function") {
-      const searchInput = document.getElementById("task-search");
-      renderSearchResults(searchInput ? searchInput.value : "");
-    }
-    return;
-  }
+
   resetForm(form);
 }
 
@@ -351,7 +266,7 @@ function finishTaskSubmission(form, task) {
  * @param {MouseEvent} event - Document click event.
  * @returns {void}
  */
-function handleAddTaskClick(event) {
+function handleClickOnAddTaskDialog(event) {
   const opener = event.target.closest("[data-add-task-status]");
   if (opener) openAddTaskDialog(opener.dataset.addTaskStatus);
   if (event.target.closest(".close-btn")) closeAddTaskDialog();
@@ -374,7 +289,7 @@ function handleAddTaskFormEvent(event) {
   if (event.type === "keydown" && event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
 }
 
-document.addEventListener("click", handleAddTaskClick);
+document.addEventListener("click", handleClickOnAddTaskDialog);
 document.addEventListener("submit", handleAddTaskFormEvent);
 document.addEventListener("keydown", handleAddTaskFormEvent);
 
@@ -390,7 +305,6 @@ async function loadAddTaskContent() {
 }
 
 function resetForm(form = document.getElementById('add-task-form')) {
-  if (!form) return;
   form.reset();
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
