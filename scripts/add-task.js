@@ -240,7 +240,7 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  // if (editingTaskId) { await submitEditedTask(form); return; }
+  if (editingTaskId) { await submitEditedTask(form); return; }
   const task = createTaskFromForm(form);
   const response = await postData("tasks", task);
   if (!response) return;
