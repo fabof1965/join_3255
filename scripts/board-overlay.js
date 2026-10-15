@@ -174,7 +174,7 @@ function openTaskCardDialog(taskId) {
   openedTaskId = taskId;
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
-  openAccessibleDialog(taskCardDialog, ".task-overlay-close");
+  taskCardDialog.showModal();
   document.body.classList.add("overlay-open");
 }
 
@@ -208,8 +208,7 @@ function editTaskCard() {
  */
 function closeTaskCardDialog() {
   const overlay = document.getElementById("task-card-dialog");
-  closeAccessibleDialog(overlay);
-  document.body.classList.remove("overlay-open");
+  overlay.close();
 }
 
 /**
