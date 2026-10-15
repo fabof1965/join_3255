@@ -35,10 +35,6 @@ form {
   max-width: var(--form-max-width);
 }
 
-input {
-  outline: none;
-}
-
 button {
   cursor: pointer;
 }
@@ -57,7 +53,7 @@ button {
 
 .btn {
   padding: var(--button-padding);
-  outline: none;
+  
   border: none;
   border-radius: var(--element-design-border-radius);
   background: none;
@@ -85,4 +81,3 @@ button {
 a{
   text-decoration: none;
 }
-

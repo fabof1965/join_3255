@@ -7,20 +7,12 @@
   position: sticky;
   top: 0;
   z-index: 20;
-
-  anchor-name: --header-anchor;
 }
 
 @media(max-width: 950px) {
   #header {
     position: sticky;
     top: 0;
-  }
-}
-
-@media(max-width: 450px) {
-  .kanban-text {
-    display: none;
   }
 }
 
@@ -40,10 +32,20 @@
   color: var(--white-color);
   align-items: center;
   display: flex;
-  gap: var(--gap-small);;
+  gap: var(--gap-small);
+  ;
 }
 
 .header-icon-button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+
+  anchor-name: --profile-badge-anchor;
+}
+
+.header-icon-button-help {
   padding: 0;
   border: none;
   background: transparent;
@@ -61,18 +63,21 @@
 }
 
 @media(max-width: 500px) {
-  .help-icon {
+  .kanban-text {
+    display: none;
+  }
+
+  .header-icon-button-help {
     display: none;
   }
 }
 
 .header-menu {
+  position-anchor: --profile-badge-anchor;
+  
   position: fixed;
-  position-anchor: --header-anchor;
-  top: anchor(bottom);
   width: fit-content;
-  right: anchor(right);
-  inset: var(--header-height) 0 0 auto;
+  inset: var(--header-height) anchor(right) 0 auto;
   flex-direction: column;
   padding: 8px 0;
   background-color: var(--white-color);
@@ -81,21 +86,23 @@
   box-shadow: var(--button-box-shadow);
   margin: 0;
   opacity: 0;
-  transform: translateY(16px);
-  transition: display 300ms allow-discrete, 
-              opacity 300ms ease-in-out 100ms, 
-              overlay 300ms allow-discrete,
-              transform 300ms ease-in-out;
+  transform: translateY(48px);
+  transition: display 300ms allow-discrete,
+    opacity 300ms ease-in-out 100ms,
+    overlay 300ms allow-discrete,
+    transform 300ms ease-in-out;
 }
 
 .header-menu:popover-open {
+  position-anchor: --profile-badge-anchor;
+  inset: var(--header-height) anchor(right) 0 auto;
   display: flex;
   opacity: 1;
   transform: translateY(0);
 
   @starting-style {
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translateY(16px);
   }
 }
 
@@ -140,7 +147,8 @@
   color: var(--primary-color, #1268FF);
   font-size: var(--medium-font-size);
   font-weight: bold;
-  border-radius: var(--border-radius-circular);;
+  border-radius: var(--border-radius-circular);
+  ;
   border: 2px solid var(--primary-color, #1268FF);
   outline: 3px solid #ffffff;
   user-select: none;

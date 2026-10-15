@@ -55,7 +55,7 @@
   bottom: 25%;
   position: fixed;
   border: none;
-  outline: none;
+  
   background-color: var(--active-menu-color);
   color: var(--white-color);
   animation: slide-in-from-bottom 300ms ease-out;

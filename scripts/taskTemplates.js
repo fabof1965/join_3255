@@ -97,7 +97,9 @@ const addTaskDialogTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
     <header class="add-task-header">
       <h2 id="add-task-title">Add Task</h2>
-      <button class="add-task-close close-icon" type="button" aria-label="Close add task"><img src="../assets/icons/close-task-overlay.svg" alt="" /></button>
+      <button class="close-btn" type="button" aria-label="Close add task">
+        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close add-task-dialog" />
+      </button>
     </header>
     <form id="add-task-form" class="add-task-form-dialog" novalidate>
       <label class="add-task-field add-task-title-field">
@@ -153,7 +155,7 @@ const addTaskDialogTemplate = `
         <input class="subtask-input-field" name="subtask" type="text" placeholder="Add new subtask" />
       </label>
       <ul class="add-task-subtasks"></ul>
-      <button class="create-task-button btn" type="submit">Create Task</button>
+      <button class="create-task-button btn" id="btn-create-task" type="submit">Create Task</button>
     </form>
   </section>
 `;

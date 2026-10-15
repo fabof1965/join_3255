@@ -1,4 +1,180 @@
-let openedTaskId = "";
+let editingTaskId = "";
+let newTaskCategory = "toDo";
+let selectedTaskPriority = "medium";
+let newTaskSubtasks = [];
+const dialogModes = {
+  addTaskMode: "add-task",
+  editTaskMode: "edit-task",
+}
+const taskCategoryButtons = [
+  {
+    taskCategory: "toDo",
+    button: document.getElementById("btn-to-do"),
+  },
+  {
+    taskCategory: "inProgress",
+    button: document.getElementById("btn-in-progress"),
+  },
+  {
+    taskCategory: "awaitFeedback",
+    button: document.getElementById("btn-await-feedback"),
+  },
+];
+
+document.addEventListener("click", handleTaskCardClick);
+document.addEventListener("keydown", handleTaskCardKeydown);
+document.addEventListener("change", handleSubtaskCheckboxChange);
+
+document.addEventListener("submit", (event) => {
+  const form = event.target;
+
+  if(form.classList.contains(dialogModes.addTaskMode)) {
+    submitNewTask(event);
+    return;
+  }
+
+  if(form.classList.contains(dialogModes.editTaskMode)) {
+    event.preventDefault();
+    submitEditedTask(form);
+    return;
+  }
+})
+document.addEventListener("click", (event) => {
+  handleClickOnAddTaskDialog(event);
+});
+
+document.getElementById("btn-add-task").addEventListener("click", () => {
+  openAddTaskDialog("toDo");
+});
+
+addClickEventListenersToTaskCategoryButtons();
+
+function addClickEventListenersToTaskCategoryButtons() {
+  taskCategoryButtons.forEach((item) => {
+    item.button.addEventListener("click", () => {
+      openAddTaskDialog(item.taskCategory);
+    });
+  });
+}
+
+function closeAddTaskDialogOnCloseButtonClick() {
+  document.querySelector(".close-btn").addEventListener("click", () => {
+    closeAddTaskDialog();
+  });
+}
+
+function selectTaskPriorityOnPriorityButtonClick(event) {
+  const priorityButton = event.target.closest("[data-priority]");
+  if (priorityButton) selectTaskPriority(priorityButton);
+}
+
+function deleteSubtaskOnDeleteButtonClick(event) {
+  const deleteButton = event.target.closest('[data-action="delete"]');
+  if (deleteButton) deleteSubtask(deleteButton);
+}
+
+function editSubtaskOnEditButtonClick(event) {
+  const editButton = event.target.closest('[data-action="edit"]');
+  if (editButton) editSubtask(editButton);
+}
+
+/**
+ * Handles all Add Task dialog clicks.
+ * @param {MouseEvent} event - Document click event.
+ * @returns {void}
+ */
+function handleClickOnAddTaskDialog(event) {
+  closeAddTaskDialogOnCloseButtonClick();
+  selectTaskPriorityOnPriorityButtonClick(event);
+  deleteSubtaskOnDeleteButtonClick(event);
+  editSubtaskOnEditButtonClick(event);
+}
+
+function getTaskForm() {
+  return document.querySelector("#add-task-form");
+}
+
+
+async function openAddTaskDialog(status) {
+  const addTaskDialog = document.getElementById("add-task-dialog");
+  editingTaskId = "";
+  newTaskCategory = status;
+  selectedTaskPriority = "medium";
+  newTaskSubtasks = [];
+  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  getTaskForm().classList.add(dialogModes.addTaskMode);
+  await renderAssignedContacts(addTaskDialog);
+  
+
+  setTaskFormPriority(getTaskForm(), selectedTaskPriority);
+  addTaskDialog.showModal();
+}
+
+
+
+/**
+ * Fills the task form with existing task data.
+ * @param {HTMLFormElement} form - Add/Edit Task form.
+ * @param {Object} task - Existing task.
+ * @returns {void}
+ */
+function fillTaskForm(form, task) {
+  form.elements.title.value = task.title;
+  form.elements.description.value = (task.fullDescription || task.description);
+  form.elements.dueDate.value = task.dueDate || "";
+  form.elements.category.value = task.category || "";
+  setTaskFormPriority(form, task.priority);
+  setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
+  newTaskSubtasks = [...(task.subtaskTitles || [])];
+  renderNewSubtasks();
+}
+
+/**
+ * Opens the task form in edit mode.
+ * @param {Object} task - Task to edit.
+ * @returns {void}
+ */
+async function openAddTaskDialogInEditMode(task) {
+  const addTaskDialog = document.getElementById("add-task-dialog");
+  editingTaskId = task.id;
+  newTaskCategory = task.status;
+  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  getTaskForm().classList.add(dialogModes.editTaskMode);
+  await renderAssignedContacts(addTaskDialog);
+  addTaskDialog.querySelector("#add-task-title").textContent = "Edit Task";
+  addTaskDialog.querySelector(".create-task-button").textContent = "Save Task";
+  fillTaskForm(addTaskDialog.querySelector("#add-task-form"), task);
+  
+  addTaskDialog.showModal();
+}
+
+/**
+ * Closes and clears the Add Task dialog.
+ * @returns {void}
+ */
+function closeAddTaskDialog() {
+  const addTaskDialog = document.getElementById("add-task-dialog");
+  if (!addTaskDialog) return;
+  editingTaskId = "";
+  addTaskDialog.close();
+  addTaskDialog.innerHTML = "";
+}
+
+
+/**
+ * Updates an existing task from the form fields.
+ * @param {HTMLFormElement} form - Edit Task form.
+ * @returns {Promise<void>}
+ */
+async function submitEditedTask(form) {
+  const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
+  if (taskIndex === -1) return;
+  const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
+  allTasks[taskIndex] = updatedTask;
+  await patchData(`tasks/${editingTaskId}`, getTaskPatch(updatedTask));
+  closeAddTaskDialog();
+  renderSearchResults(document.getElementById("task-search").value);
+}
 
 /**
  * Creates the assigned-user rows for a task overlay.
@@ -38,7 +214,7 @@ function getOverlaySubtasksHtml(task) {
  */
 
 async function toggleSubtask(index) {
-  const task = exampleTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
   task.subtaskDone[index] = !task.subtaskDone[index];
   task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
@@ -92,14 +268,14 @@ function capitalize(value) {
  * @param {string} taskId - ID of the selected task.
  * @returns {void}
  */
-function openTaskOverlay(taskId) {
-  const overlay = document.getElementById("task-overlay");
-  const task = exampleTasks.find(({ id }) => id === taskId);
+function openTaskCardDialog(taskId) {
+  const taskCardDialog = document.getElementById("task-card-dialog");
+  const task = allTasks.find(({ id }) => id === taskId);
   if (!task) return;
   openedTaskId = taskId;
-  overlay.innerHTML = getTaskOverlayHtml(task);
+  taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
-  openAccessibleDialog(overlay, ".task-overlay-close");
+  taskCardDialog.showModal();
   document.body.classList.add("overlay-open");
 }
 
@@ -107,12 +283,12 @@ function openTaskOverlay(taskId) {
  * Deletes the currently opened task and refreshes the board.
  * @returns {promise}
  */
-async function deleteOpenedTask() {
-  const taskIndex = exampleTasks.findIndex(({ id }) => id === openedTaskId);
-  if (taskIndex < 0) return;
-  exampleTasks.splice(taskIndex, 1);
+async function deleteTaskCard(taskCardId) {
+  const taskIndex = allTasks.findIndex(({ id }) => id === taskCardId);
+
+  allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
-  closeTaskOverlay();
+  closeTaskCardDialog();
   renderSearchResults(document.getElementById("task-search").value);
 }
 
@@ -120,21 +296,22 @@ async function deleteOpenedTask() {
  * Opens the form for the currently displayed task.
  * @returns {void}
  */
-function editOpenedTask() {
-  const task = exampleTasks.find(({ id }) => id === openedTaskId);
+function editTaskCard() {
+  const task = allTasks.find(({ id }) => id === openedTaskId);
   if (!task) return;
-  closeTaskOverlay();
-  openEditTask(task);
+  closeTaskCardDialog();
+  openAddTaskDialogInEditMode(task);
 }
 
 /**
  * Closes the task detail overlay.
  * @returns {void}
  */
-function closeTaskOverlay() {
-  const overlay = document.getElementById("task-overlay");
-  closeAccessibleDialog(overlay);
-  document.body.classList.remove("overlay-open");
+function closeTaskCardDialog() {
+  const taskCardDialog = document.getElementById("task-card-dialog");
+  taskCardDialog.innerHTML = "";
+
+  taskCardDialog.close();
 }
 
 /**
@@ -142,13 +319,15 @@ function closeTaskOverlay() {
  * @param {MouseEvent} event - Document click event.
  * @returns {void}
  */
-function handleTaskOverlayClick(event) {
+function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
-  const backdrop = event.target.id === "task-overlay";
-  if (card) openTaskOverlay(card.dataset.taskId);
-  if (event.target.closest(".task-overlay-delete")) deleteOpenedTask();
-  if (event.target.closest(".task-overlay-edit")) editOpenedTask();
-  if (backdrop || event.target.closest(".task-overlay-close")) closeTaskOverlay();
+
+  if (card) openTaskCardDialog(card.dataset.taskId);
+  document.querySelector(".task-overlay-delete").addEventListener("click", () => {
+    deleteTaskCard(card.dataset.taskId);
+  }) 
+  if (event.target.closest(".task-overlay-edit")) editTaskCard();
+  if (event.target.closest(".close-btn")) closeTaskCardDialog();
 }
 
 /**
@@ -157,11 +336,11 @@ function handleTaskOverlayClick(event) {
  * @returns {void}
  */
 function handleTaskCardKeydown(event) {
-  if (event.key !== "Enter" && event.key !== " ") return;
   const card = event.target.closest(".task-card");
-  if (!card) return;
+  if (!card || (event.key !== "Enter" && event.key !== " ")) return;
+  
   event.preventDefault();
-  openTaskOverlay(card.dataset.taskId);
+  openTaskCardDialog(card.dataset.taskId);
 }
 
 /**
@@ -175,10 +354,3 @@ function handleSubtaskCheckboxChange(event) {
     toggleSubtask(index);
   }
 }
-
-document.addEventListener("click", handleTaskOverlayClick);
-document.addEventListener("keydown", handleTaskCardKeydown);
-document.getElementById('task-overlay').addEventListener('close', () => {
-  document.body.classList.remove('overlay-open');
-})
-document.addEventListener("change", handleSubtaskCheckboxChange);

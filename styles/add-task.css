@@ -51,7 +51,12 @@
   justify-content: space-between;
   gap: var(--gap-small);
   height: var(--full);
-  overflow-y: auto;
+ 
+}
+
+.subtask-btn{
+  background: none;
+  border: none;
 }
 
 @media(max-width: 950px) {
@@ -59,7 +64,6 @@
     justify-content: space-around;
   }
 }
-
 
 input,
 select,
@@ -141,7 +145,7 @@ textarea {
   border-radius: 30px;
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
-  outline: none;
+  
   overflow: hidden;
 }
 
@@ -299,15 +303,14 @@ textarea {
 .add-task-subtasks {
   padding-left: var(--padding-medium);
   width: var(--full);
+  min-height: 50px;
   max-height: 80px;
-  /* zum testen*/
   overflow-y: auto;
-  /* zum testen*/
 }
 
 @media(max-width: 450px) {
   .add-task-subtasks {
-    max-height: 52px;
+    max-height: 80px;
     /* zum testen*/
   }
 }

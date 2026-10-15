@@ -10,7 +10,6 @@
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
   margin: auto;
-  outline: none;
   overflow: hidden;
 }
 
@@ -56,8 +55,8 @@
 
 .task-overlay-close img,
 .task-overlay-actions img {
-  width: 24px;
-  height: 24px;
+  width: var(--back-btn-image-dimensions);
+  height: var(--back-btn-image-dimensions);
 }
 
 .task-overlay h2 {

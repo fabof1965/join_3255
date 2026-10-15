@@ -6,13 +6,13 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
-  overflow: visible;
+  
 }
 
 .main-layout {
   height: auto;
   min-height: var(--page-content-height);
-  overflow: visible;
+  
 }
 
 .board-toolbar-wrapper {
@@ -65,7 +65,7 @@
   font-size: var(--search-bar-font-size);
   display: flex;
   border: none;
-  outline: none;
+  
   flex: 1;
 }
 
@@ -317,7 +317,6 @@
 
 .subtask-btn{
   background: none;
-  outline: none;
   border: none;
 }
 
@@ -390,12 +389,14 @@
 }
 
 .close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
-  outline: none;
   border: none;
 }
 
-.close-icon:hover {
+.close-btn:hover, .close-btn:focus {
   background-color: var(--secondary-color);
   border-radius: var(--border-radius-circular);
 }

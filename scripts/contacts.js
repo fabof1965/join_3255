@@ -186,7 +186,7 @@ function openContactDialog(i = null) {
 
 function activateDialog() {
     const dialog = getAddContactDialog();
-    openAccessibleDialog(dialog, ".input-field");
+    dialog.showModal();
     dialog.classList.add('slide-in');
 }
 
@@ -208,7 +208,7 @@ function closeContactDialog() {
 
     contactDialog.classList.remove("slide-in");
     setTimeout(() => {
-        closeAccessibleDialog(contactDialog);
+        closeContactDialog.close();
     }, 500);
 
     resetBadge();
@@ -296,7 +296,7 @@ function openExistingContactDialog(indexContact) {
     setBadgeBackgroundColor();
     editIndex = indexContact;
     fillContactForm(allContacts[indexContact]);
-    openAccessibleDialog(editContactDialog, ".input-field");
+    editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
 }
 
@@ -304,7 +304,7 @@ function closeEditContactDialog() {
     const editContactDialog = document.getElementById("edit-contact-dialog");
     editContactDialog.classList.remove("slide-in");
     setTimeout(() => {
-        closeAccessibleDialog(editContactDialog);
+        editContactDialog.close();
     }, 500);
 }
 
@@ -357,4 +357,4 @@ getAddContactDialog().addEventListener("close", () => {
     editIndex = null;
     resetContactForm();
     document.getElementById('contact-form');
-})
+});

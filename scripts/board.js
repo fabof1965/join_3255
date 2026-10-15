@@ -1,4 +1,4 @@
-let exampleTasks = [
+let allTasks = [
   {
     id: "task-1",
     category: "User Story",
@@ -20,7 +20,7 @@ let draggedTaskId = "";
 
 async function initBoardContent() {
   await loadTasks();
-  renderBoard(exampleTasks);
+  renderBoard(allTasks);
   initializeTaskSearch();
   initializeTaskDropZones();
 }
@@ -103,7 +103,7 @@ function renderTask(task) {
 }
 
 function openTask() {
-  const dialog = document.getElementById('task-overlay');
+  const dialog = document.getElementById('task-card-overlay');
   dialog.showModal();
 }
 
@@ -143,7 +143,7 @@ function renderEmptyTaskLists(taskLists) {
  */
 function filterTasks(searchTerm) {
   const normalizedTerm = searchTerm.trim().toLowerCase();
-  return exampleTasks.filter((task) =>
+  return allTasks.filter((task) =>
     `${task.title} ${task.description ?? ""}`.toLowerCase().includes(normalizedTerm),
   );
 }
@@ -284,11 +284,11 @@ function leaveTaskDropZone(event) {
  * @returns {void}
  */
 function moveTaskToPosition(task, status, targetId) {
-  exampleTasks.splice(exampleTasks.indexOf(task), 1);
+  allTasks.splice(allTasks.indexOf(task), 1);
   task.status = status;
-  const targetIndex = exampleTasks.findIndex(({ id }) => id === targetId);
-  const insertAt = targetIndex < 0 ? exampleTasks.length : targetIndex;
-  exampleTasks.splice(insertAt, 0, task);
+  const targetIndex = allTasks.findIndex(({ id }) => id === targetId);
+  const insertAt = targetIndex < 0 ? allTasks.length : targetIndex;
+  allTasks.splice(insertAt, 0, task);
 }
 
 /**
@@ -298,7 +298,7 @@ function moveTaskToPosition(task, status, targetId) {
  */
 async function dropTask(event) {
   event.preventDefault();
-  const task = exampleTasks.find(({ id }) => id === draggedTaskId);
+  const task = allTasks.find(({ id }) => id === draggedTaskId);
   leaveTaskDropZone(event);
   if (!task) return;
   const target = getDropTarget(event.currentTarget, event.clientY);
@@ -343,9 +343,9 @@ function mapTasksToArray(tasksObject) {
 async function loadTasks() {
   try {
     const taskData = await getData("tasks");
-    exampleTasks = mapTasksToArray(taskData);
+    allTasks = mapTasksToArray(taskData);
   } catch (error) {
     console.error("Fehler beim laden der Tasks", error);
-    exampleTasks = [];
+    allTasks = [];
   }
 }

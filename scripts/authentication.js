@@ -107,7 +107,7 @@ async function saveNewUser(name, email, password) {
         await set(ref(db, 'users/' + user.uid), {
             name, email, createdAt: serverTimestamp()
         });
-        setEmailExistsFeedback(false); // entfernt die Fehlermeldung
+        setEmailExistsFeedback(false);
         return true;
     } catch (error) {
         if (error.code === "auth/email-already-in-use") setEmailExistsFeedback(true);
@@ -162,7 +162,7 @@ function resetpricavyPolicityCheckbox() {
 
 function signUpSuccessPopUp() {
     const dialog = document.getElementById('dialog');
-    openAccessibleDialog(dialog, "h2");
+    dialog.showModal();
     setTimeout(() => {
         closeDialog();
     }, 1500);
@@ -170,7 +170,7 @@ function signUpSuccessPopUp() {
 
 function closeDialog() {
     const dialog = document.getElementById('dialog');
-    closeAccessibleDialog(dialog);
+    dialog.close();
 }
 
 /**
