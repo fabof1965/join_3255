@@ -42,7 +42,7 @@ function renderNewSubtasks() {
 function addSubtaskFromInput(input) {
   const value = input.value.trim();
   if (!value) return false;
-  newTaskSubtasks.push(escapeTaskText(value));
+  newTaskSubtasks.push(value);
   input.value = "";
   renderNewSubtasks();
   return true;
@@ -95,7 +95,7 @@ function saveSubtaskOnEnter(event) {
   event.preventDefault();
   const index = Number(event.target.closest('.subtask-list').dataset.index);
   const value = event.target.value.trim();
-  if (value) newTaskSubtasks[index] = escapeTaskText(value);
+  if (value) newTaskSubtasks[index] = value;
   renderNewSubtasks();
 }
 
@@ -174,10 +174,11 @@ function addPendingSubtask(form) {
 
 function buildTaskData(data, assignedUsers) {
   return {
-    title: escapeTaskText(data.get("title").trim()), description: escapeTaskText(data.get("description").trim()),
+    title: data.get("title").trim(), 
+    description: data.get("description").trim(),
     dueDate: data.get("dueDate"), 
     category: data.get("category"), 
-    status: newTaskStatus,
+    status: newTaskCategory,
     priority: selectedTaskPriority, 
     assignedUsers: getSelectedUsers(assignedUsers),
     assignedUserNames: getSelectedUserNames(assignedUsers), 
