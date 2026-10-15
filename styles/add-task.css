@@ -303,10 +303,9 @@ textarea {
 .add-task-subtasks {
   padding-left: var(--padding-medium);
   width: var(--full);
+  min-height: 50px;
   max-height: 80px;
-  /* zum testen*/
   overflow-y: auto;
-  /* zum testen*/
 }
 
 @media(max-width: 450px) {
