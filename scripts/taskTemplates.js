@@ -34,7 +34,7 @@ const taskOverlayTemplate = `
     <header class="task-overlay-header">
       <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
       <button class="close-btn task-overlay-close" type="button" aria-label="Close task details">
-        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close task" />
+        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="" />
       </button>
     </header>
     <h2 id="task-overlay-title">{{title}}</h2>
@@ -50,9 +50,9 @@ const taskOverlayTemplate = `
       <div class="task-overlay-subtasks">{{subtasks}}</div>
     </section>
     <footer class="task-overlay-actions">
-      <button class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="delete task" />Delete</button>
+      <button class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="" />Delete</button>
       <span></span>
-      <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
+      <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="" />Edit</button>
     </footer>
   </article>
 `;
@@ -67,7 +67,7 @@ const taskOverlayUserTemplate = `
 const taskOverlaySubtaskTemplate = `
   <div class="task-overlay-subtask" data-subtask-index="{{index}}">
     <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}} />
-    <span>{{title}}</span>
+    <label for="subtask-{{id}}">{{title}}</label>
   </div>
 `;
 
@@ -102,15 +102,15 @@ const addTaskDialogTemplate = `
     <form id="add-task-form" class="add-task-form-dialog" novalidate>
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
-        <input name="title" type="text" placeholder="Enter a title" />
-        <small data-error="title"></small>
+        <input name="title" type="text" placeholder="Enter a title" aria-describedby="dialog-title-error" />
+        <small id="dialog-title-error" data-error="title" aria-live="polite"></small>
       </label>
       <label class="add-task-field"><strong>Description <span>(optional)</span></strong>
         <textarea name="description" placeholder="Enter a Description"></textarea>
       </label>
       <label class="add-task-field"><strong>Due date</strong>
-        <input name="dueDate" type="date" />
-        <small data-error="dueDate"></small>
+        <input name="dueDate" type="date" aria-describedby="dialog-due-date-error" />
+        <small id="dialog-due-date-error" data-error="dueDate" aria-live="polite"></small>
       </label>
       <fieldset class="add-task-priority"><legend>Priority</legend>
         <button class="btn" type="button" data-priority="urgent">
@@ -146,8 +146,8 @@ const addTaskDialogTemplate = `
         <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
-        <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
-        <small data-error="category"></small>
+        <select name="category" aria-describedby="dialog-category-error"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
+        <small id="dialog-category-error" data-error="category" aria-live="polite"></small>
       </label>
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
         <input class="subtask-input-field" name="subtask" type="text" placeholder="Add new subtask" />
@@ -163,15 +163,15 @@ const addTaskContentTemplate =
     <section class="form-content">
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
-        <input name="title" type="text" placeholder="Enter a title" />
-        <small data-error="title"></small>
+        <input name="title" type="text" placeholder="Enter a title" aria-describedby="title-error" />
+        <small id="title-error" data-error="title" aria-live="polite"></small>
       </label>
       <label class="add-task-field"><strong>Description <span>(optional)</span></strong>
         <textarea name="description" placeholder="Enter a Description"></textarea>
       </label>
       <label class="add-task-field"><strong>Due date</strong>
-        <input name="dueDate" type="date" />
-        <small data-error="dueDate"></small>
+        <input name="dueDate" type="date" aria-describedby="due-date-error" />
+        <small id="due-date-error" data-error="dueDate" aria-live="polite"></small>
       </label>
       <fieldset class="add-task-priority">
         <legend>
@@ -212,8 +212,8 @@ const addTaskContentTemplate =
         <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
-        <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
-        <small data-error="category"></small>
+        <select name="category" aria-describedby="category-error"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
+        <small id="category-error" data-error="category" aria-live="polite"></small>
       </label>
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
         <input name="subtask" type="text" placeholder="Add new subtask" />
@@ -251,8 +251,8 @@ const addTaskSubtaskTemplate = `
     <div class="subtask-wrapper">
       <span>{{title}}</span>
       <div>
-        <button type="button" class="subtask-btn" data-action="edit"><img src="../assets/icons/edit.svg" alt="edit subtask"></button>
-        <button type="button" class="subtask-btn" data-action="delete"><img src="../assets/icons/delete.svg" alt="delete subtask"></button>
+        <button type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask"><img src="../assets/icons/edit.svg" alt=""></button>
+        <button type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask"><img src="../assets/icons/delete.svg" alt=""></button>
       </div>
     </div>
   </li>`;

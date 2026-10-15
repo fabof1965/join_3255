@@ -32,6 +32,7 @@ async function openAddTask(status) {
   newTaskSubtasks = [];
   overlay.innerHTML = addTaskDialogTemplate;
   await renderAssignedContacts(overlay);
+  setTaskFormPriority(overlay.querySelector("#add-task-form"), selectedTaskPriority);
   openAccessibleDialog(overlay, "input[name='title']");
   document.body.classList.add("overlay-open");
 }
@@ -55,9 +56,11 @@ function decodeTaskText(value = "") {
  */
 function setTaskFormPriority(form, priority = "medium") {
   selectedTaskPriority = priority;
-  form.querySelectorAll("[data-priority]").forEach((button) =>
-    button.classList.toggle("selected", button.dataset.priority === priority),
-  );
+  form.querySelectorAll("[data-priority]").forEach((button) => {
+    const selected = button.dataset.priority === priority;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
 }
 
 /**
@@ -126,9 +129,11 @@ function closeAddTask() {
  * @returns {void}
  */
 function selectTaskPriority(button) {
-  document.querySelectorAll("[data-priority]").forEach((item) =>
-    item.classList.toggle("selected", item === button),
-  );
+  document.querySelectorAll("[data-priority]").forEach((item) => {
+    const selected = item === button;
+    item.classList.toggle("selected", selected);
+    item.setAttribute("aria-pressed", String(selected));
+  });
   selectedTaskPriority = button.dataset.priority;
 }
 
@@ -228,8 +233,10 @@ function escapeTaskText(value) {
  * @returns {boolean} The invalid state.
  */
 function showTaskFieldError(form, name, isInvalid) {
-  form.querySelector(`[data-error="${name}"]`).textContent =
-    isInvalid ? "This field is required" : "";
+  const field = form.elements[name];
+  const error = form.querySelector(`[data-error="${name}"]`);
+  if (error) error.textContent = isInvalid ? "This field is required" : "";
+  if (field) field.setAttribute("aria-invalid", String(isInvalid));
   return isInvalid;
 }
 
@@ -408,11 +415,16 @@ async function loadAddTaskContent() {
 
   CONTAINER_ADD_TASK.innerHTML += addTaskContentTemplate;
   await renderAssignedContacts(CONTAINER_ADD_TASK);
+  setTaskFormPriority(CONTAINER_ADD_TASK.querySelector("#add-task-form"), selectedTaskPriority);
 }
 
 function resetForm(form = document.getElementById('add-task-form')) {
   if (!form) return;
   form.reset();
+  form.querySelectorAll("[data-error]").forEach((error) => { error.textContent = ""; });
+  ["title", "dueDate", "category"].forEach((name) =>
+    form.elements[name]?.setAttribute("aria-invalid", "false"),
+  );
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
   setTaskFormPriority(form, selectedTaskPriority);
