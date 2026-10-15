@@ -51,7 +51,7 @@
   justify-content: space-between;
   gap: var(--gap-small);
   height: var(--full);
-  height: var(--min-page-height)
+ 
 }
 
 .subtask-btn{
