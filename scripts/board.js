@@ -302,7 +302,7 @@ function moveTaskToPosition(task, status, targetId) {
   allTasks.splice(allTasks.indexOf(task), 1);
   task.status = status;
   const targetIndex = allTasks.findIndex(({ id }) => id === targetId);
-  const insertAt = targetIndex < 0 ? allTasks.length : targetIndex;
+  const insertAt = targetIndex === -1 ? allTasks.length : targetIndex;
   allTasks.splice(insertAt, 0, task);
 }
 
@@ -318,7 +318,9 @@ async function dropTask(event) {
   if (!task) return;
   const target = getDropTarget(event.currentTarget, event.clientY);
   moveTaskToPosition(task, event.currentTarget.dataset.status, target?.dataset.taskId);
+  emptyTaskLists();
   renderTaskCards();
+  setBadgeBackgroundColor();
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
