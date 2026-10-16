@@ -33,14 +33,23 @@ function initPasswordEventListener() {
 }
 
 function passwordInputFields() {
-    const toggles = document.querySelectorAll('.password-toggle');
-    return [createPasswordField('login-password', 'login-password-toggle-icon', toggles[0]),
-    createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
-    createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
+    return [
+        createPasswordField('login-password', 'login-password-toggle-icon'),
+        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon'),
+        createPasswordField('confirm-password', 'confirm-password-toggle-icon')
+    ];
 }
 
-function createPasswordField(inputId, iconId, toggle) {
-    return { input: document.getElementById(inputId), icon: document.getElementById(iconId), toggle };
+function createPasswordField(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    let toggle = null;
+    if (icon) {
+        toggle = icon.closest('.password-toggle');
+    } else {
+        toggle = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}]`) || null;
+    }
+    return { input: input, icon: icon, toggle: toggle }
 }
 
 function handlePasswordFocus(field) {
