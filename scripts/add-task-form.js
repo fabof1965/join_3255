@@ -26,7 +26,6 @@ function selectTaskPriority(button) {
   document.querySelectorAll("[data-priority]").forEach((item) => {
     const selected = item === button;
     item.classList.toggle("selected", selected);
-    item.setAttribute("aria-pressed", String(selected));
   });
   selectedTaskPriority = button.dataset.priority;
 }

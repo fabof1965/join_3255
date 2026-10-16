@@ -36,9 +36,9 @@ document.addEventListener("submit", (event) => {
   }
 });
 
-document.addEventListener("click", (event) => {
-  handleClickOnAddTaskDialog(event);
-});
+// document.addEventListener("click", (event) => {
+//   handleClickOnAddTaskDialog(event);
+// });
 
 document.getElementById("btn-add-task").addEventListener("click", () => {
   openAddTaskDialog("toDo");
@@ -54,38 +54,37 @@ function addClickEventListenersToTaskCategoryButtons() {
   });
 }
 
-function closeAddTaskDialogOnCloseButtonClick() {
-  document.querySelector(".close-btn").addEventListener("click", () => {
-    closeAddTaskDialog();
-  });
-}
+// function closeAddTaskDialogOnCloseButtonClick(event) {
+//   const closeButton = event.target.closest("close-btn");
+//   if(closeButton)  closeAddTaskDialog();
+// }
 
-function selectTaskPriorityOnPriorityButtonClick(event) {
-  const priorityButton = event.target.closest("[data-priority]");
-  if (priorityButton) selectTaskPriority(priorityButton);
-}
+// function selectTaskPriorityOnPriorityButtonClick(event) {
+//   const priorityButton = event.target.closest("[data-priority]");
+//   if (priorityButton) selectTaskPriority(priorityButton);
+// }
 
-function deleteSubtaskOnDeleteButtonClick(event) {
-  const deleteButton = event.target.closest('[data-action="delete"]');
-  if (deleteButton) deleteSubtask(deleteButton);
-}
+// function deleteSubtaskOnDeleteButtonClick(event) {
+//   const deleteButton = event.target.closest('[data-action="delete"]');
+//   if (deleteButton) deleteSubtask(deleteButton);
+// }
 
-function editSubtaskOnEditButtonClick(event) {
-  const editButton = event.target.closest('[data-action="edit"]');
-  if (editButton) editSubtask(editButton);
-}
+// function editSubtaskOnEditButtonClick(event) {
+//   const editButton = event.target.closest('[data-action="edit"]');
+//   if (editButton) editSubtask(editButton);
+// }
 
 /**
  * Handles all Add Task dialog clicks.
  * @param {MouseEvent} event - Document click event.
  * @returns {void}
  */
-function handleClickOnAddTaskDialog(event) {
-  closeAddTaskDialogOnCloseButtonClick();
-  selectTaskPriorityOnPriorityButtonClick(event);
-  deleteSubtaskOnDeleteButtonClick(event);
-  editSubtaskOnEditButtonClick(event);
-}
+// function handleClickOnAddTaskDialog(event) {
+//   closeAddTaskDialogOnCloseButtonClick(event);
+//   selectTaskPriorityOnPriorityButtonClick(event);
+//   deleteSubtaskOnDeleteButtonClick(event);
+//   editSubtaskOnEditButtonClick(event);
+// }
 
 function getTaskForm() {
   return document.querySelector("#add-task-form");
@@ -314,9 +313,7 @@ function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
 
   if (card) openTaskCardDialog(card.dataset.taskId);
-  document.querySelector(".task-overlay-delete").addEventListener("click", () => {
-    deleteTaskCard(card.dataset.taskId);
-  }) 
+  if(event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
   if (event.target.closest(".close-btn")) closeTaskCardDialog();
 }

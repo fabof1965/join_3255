@@ -20,9 +20,23 @@ let draggedTaskId = "";
 
 async function initBoardContent() {
   await loadTasks();
-  renderBoard(allTasks);
+  renderTaskCards();
   initializeTaskSearch();
   initializeTaskDropZones();
+}
+
+function renderTaskCards(tasks = allTasks) {
+  for(let indexTask = 0; indexTask < allTasks.length; indexTask++) {
+    const task = allTasks[indexTask];
+    const taskStatus = task.status;
+    const taskList = document.querySelector('div.task-list[data-status="' + taskStatus + '"]');
+    taskList.innerHTML += getTaskCardHtml(task);
+  }
+}
+
+function emptyTaskLists() {
+  const taskLists = document.querySelectorAll(".task-list");
+  taskLists.forEach((taskList) => (taskList.innerHTML = ""));
 }
 
 /**
@@ -335,15 +349,15 @@ function initializeTaskDropZones() {
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
-function mapTasksToArray(tasksObject) {
-  if (!tasksObject) return [];
-  return Object.entries(tasksObject).map(([id, task]) => ({ ...task, id }));
+function createAllTaskArrayFromData(allTaskData) {
+  if (!allTaskData) return [];
+  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
 }
 
 async function loadTasks() {
   try {
-    const taskData = await getData("tasks");
-    allTasks = mapTasksToArray(taskData);
+    const allTaskData = await getData("tasks");
+    allTasks = createAllTaskArrayFromData(allTaskData);
   } catch (error) {
     console.error("Fehler beim laden der Tasks", error);
     allTasks = [];
