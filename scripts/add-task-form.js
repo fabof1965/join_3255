@@ -93,8 +93,30 @@ function editSubtask(button) {
   const span = item.querySelector('span');
   span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
   const input = document.querySelector('.subtask-edit-input');
+  const handleButtons = item.querySelector('.subtask-button-container');
+  handleButtons.style.opacity = 1;
+  item.style.backgroundColor = 'transparent';
   input.focus();
 }
+
+function handleEditIconFocus(button, checkButton) {
+  const item = button.closest('.subtask-button-container');
+  checkButton.src = "./assets/icons/check.svg";
+  const editBtn = item.querySelector('.edit-icon');
+}
+
+// function handlePasswordFocus(field) {
+//   if (field.input.type === "password") {
+//     field.icon.src = "./assets/icons/visibility_off.svg";
+//     field.icon.alt = "hide password";
+//     field.toggle.setAttribute("aria-label", "Hide password");
+//   } else {
+//     field.input.type = "text";
+//     field.icon.src = './assets/icons/visibility.svg';
+//     field.icon.alt = "show password";
+//     field.toggle.setAttribute("aria-label", "Show password");
+//   }
+// }
 
 /**
  * Saves the edited subtask title when Enter is pressed in the edit input.
@@ -194,16 +216,16 @@ function addPendingSubtask(form) {
 
 function buildTaskData(data, assignedUsers) {
   return {
-    title: data.get("title").trim(), 
+    title: data.get("title").trim(),
     description: data.get("description").trim(),
-    dueDate: data.get("dueDate"), 
-    category: data.get("category"), 
+    dueDate: data.get("dueDate"),
+    category: data.get("category"),
     status: newTaskCategory,
-    priority: selectedTaskPriority, 
+    priority: selectedTaskPriority,
     assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers), 
+    assignedUserNames: getSelectedUserNames(assignedUsers),
     subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks], 
+    subtaskTitles: [...newTaskSubtasks],
     subtaskDone: newTaskSubtasks.map(() => false),
   };
 }
@@ -214,20 +236,22 @@ function getSubtaskProgress() {
 
 function updateTaskFromForm(currentTask, form) {
   const taskData = createTaskFromForm(form);
-  return { 
-            ...currentTask,
-            ...taskData, 
-            id: editingTaskId, 
-            status: currentTask.status,
-            fullDescription: taskData.description 
-          };
+  return {
+    ...currentTask,
+    ...taskData,
+    id: editingTaskId,
+    status: currentTask.status,
+    fullDescription: taskData.description
+  };
 }
 
 function getTaskPatch(task) {
   const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
     subtasks, subtaskTitles, subtaskDone } = task;
-  return { title, description, fullDescription: description, dueDate, category, priority,
-    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
+  return {
+    title, description, fullDescription: description, dueDate, category, priority,
+    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone
+  };
 }
 
 /**

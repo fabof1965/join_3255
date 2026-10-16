@@ -336,6 +336,14 @@ textarea {
   opacity: 1;
 }
 
+.subtask-edit-input{
+  outline: none;
+}
+
+/* .subtask-edit-input:hover{
+  background-color: none;
+} */
+
 .create-task-button {
   align-self: flex-end;
   border: none;

@@ -252,9 +252,9 @@ const addTaskSubtaskTemplate = `
   <li class="subtask-list" data-index="{{index}}">
     <div class="subtask-wrapper">
       <span>{{title}}</span>
-      <div class="subtask-button-container">
-        <button type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask"><img src="../assets/icons/edit.svg" alt=""></button>
-        <button type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask"><img src="../assets/icons/delete.svg" alt=""></button>
+      <div id="subtask-button-container" class="subtask-button-container">
+        <button type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask"><img class="edit-icon" src="../assets/icons/edit.svg" alt="edit"></button>
+        <button type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask"><img src="../assets/icons/delete.svg" alt="delete"></button>
       </div>
     </div>
   </li>`;
