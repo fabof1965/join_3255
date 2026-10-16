@@ -231,7 +231,7 @@ const addTaskContentTemplate =
               <path class="btn-svg-color" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round"/>
           </svg>
       </button>
-      <button type="submit" class="btn-create-task btn">
+      <button id="btn-create-task" type="submit" class="btn-create-task btn">
           <span>
               Create Task
           </span>

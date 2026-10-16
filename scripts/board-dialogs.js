@@ -34,7 +34,8 @@ document.addEventListener("submit", (event) => {
     submitEditedTask(form);
     return;
   }
-})
+});
+
 document.addEventListener("click", (event) => {
   handleClickOnAddTaskDialog(event);
 });
@@ -98,11 +99,10 @@ async function openAddTaskDialog(status) {
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   addTaskDialog.innerHTML = addTaskDialogTemplate;
-  getTaskForm().classList.add(dialogModes.addTaskMode);
-  await renderAssignedContacts(addTaskDialog);
-  
   const taskForm = getTaskForm();
-  (taskForm, selectedTaskPriority);
+  getTaskForm().classList.add(dialogModes.addTaskMode);
+  await renderAssignedContacts(taskForm);
+  
   addTaskDialog.showModal();
 }
 
@@ -117,7 +117,6 @@ function fillTaskForm(form, task) {
   form.elements.description.value = (task.fullDescription || task.description);
   form.elements.dueDate.value = task.dueDate || "";
   form.elements.category.value = task.category || "";
-  (form, task.priority);
   setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
   newTaskSubtasks = [...(task.subtaskTitles || [])];
   renderNewSubtasks();
@@ -133,11 +132,10 @@ async function openAddTaskDialogInEditMode(task) {
   editingTaskId = task.id;
   newTaskCategory = task.status;
   addTaskDialog.innerHTML = addTaskDialogTemplate;
-  getTaskForm().classList.add(dialogModes.editTaskMode);
-  await renderAssignedContacts(addTaskDialog);
-  addTaskDialog.querySelector("#add-task-title").textContent = "Edit Task";
-  addTaskDialog.querySelector(".create-task-button").textContent = "Save Task";
-  fillTaskForm(addTaskDialog.querySelector("#add-task-form"), task);
+  const taskForm = getTaskForm();
+  taskForm.classList.add(dialogModes.editTaskMode);
+  await renderAssignedContacts(taskForm);
+  fillTaskForm(taskForm, task);
   
   addTaskDialog.showModal();
 }
@@ -270,7 +268,6 @@ function openTaskCardDialog(taskId) {
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
   taskCardDialog.showModal();
-  document.body.classList.add("overlay-open");
 }
 
 /**

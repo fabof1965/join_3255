@@ -3,6 +3,8 @@ let editingTaskId = "";
 let newTaskCategory = "toDo";
 let newTaskSubtasks = [];
 
+document.addEventListener("submit", submitNewTask);
+
 /**
  * Selects assigned users in the task form.
  * @param {HTMLSelectElement} select - Assigned users select.
@@ -266,12 +268,13 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  const task = createTaskFromForm(form);
-  const response = await postData("tasks", task);
+  const taskData = createTaskFromForm(form);
+  const response = await postData("tasks", taskData);
   if (!response) return;
   const firebaseId = response.name;
-  task.id = firebaseId;
-  finishTaskSubmission(form, task);
+  taskData.id = firebaseId;
+  finishTaskSubmission(form, taskData);
+  window.location.href = "../pages/board.html";
 }
 
 /**
