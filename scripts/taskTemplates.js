@@ -104,14 +104,14 @@ const addTaskDialogTemplate = `
     <form id="add-task-form" class="add-task-form-dialog" novalidate>
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
-        <input name="title" type="text" placeholder="Enter a title" />
+        <input class="task-title-input" name="title" type="text" placeholder="Enter a title" />
         <small data-error="title"></small>
       </label>
       <label class="add-task-field"><strong>Description <span>(optional)</span></strong>
-        <textarea name="description" placeholder="Enter a Description"></textarea>
+        <textarea class="task-description-input" name="description" placeholder="Enter a Description"></textarea>
       </label>
       <label class="add-task-field"><strong>Due date</strong>
-        <input name="dueDate" type="date" />
+        <input class="add-task-date-input" name="dueDate" type="date" />
         <small data-error="dueDate"></small>
       </label>
       <fieldset class="add-task-priority"><legend>Priority</legend>
@@ -148,7 +148,7 @@ const addTaskDialogTemplate = `
         <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
-        <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
+        <select class="task-category-select" name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
         <small data-error="category"></small>
       </label>
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
@@ -251,7 +251,7 @@ const addTaskContentTemplate =
 const addTaskSubtaskTemplate = `
   <li class="subtask-list" data-index="{{index}}">
     <div class="subtask-wrapper">
-      <span>{{title}}</span>
+      <span class="subtask-title">{{title}}</span>
       <div>
         <button type="button" class="subtask-btn" data-action="edit"><img src="../assets/icons/edit.svg" alt="edit subtask"></button>
         <button type="button" class="subtask-btn" data-action="delete"><img src="../assets/icons/delete.svg" alt="delete subtask"></button>

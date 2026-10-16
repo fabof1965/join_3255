@@ -1,3 +1,5 @@
+let selectedTaskPriority = "medium";
+
 /**
  * Selects assigned users in the task form.
  * @param {HTMLSelectElement} select - Assigned users select.
@@ -160,7 +162,39 @@ function getSelectedUserNames(select) {
 function createTaskFromForm(form) {
   addPendingSubtask(form);
   const data = new FormData(form);
+  //data soll ein Objekt in etwa dieser Form sein: 
+// {
+//     title: document.querySelector(".task-title-input").value.trim(), 
+//     description: document.querySelector(".task-description-input").value.trim(),
+//     dueDate: document.querySelector(".add-task-date-input").value, 
+//     category: getSelectedOptionFromForm(document.querySelector("task-category-select")), 
+//     priority: selectedTaskPriority, 
+//     assignedUsers: getSelectedUsers(assignedUsers),
+//     subtasks: getSubtasksFromForm,
+//     subtaskTitles: [...newTaskSubtasks], 
+//     subtaskDone: newTaskSubtasks.map(() => false),
+//   };
   return buildTaskData(data, form.elements.assignedUsers);
+}
+
+function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
+    return totalSubtasks / subtasksDone;
+}
+
+function getSelectedOptionFromForm(select) {
+    const option = select.selectedOptions[0];
+    const optionText = option ? option.textContent : "";
+
+    return optionText;
+}
+
+function getSubtasksFromForm() {
+    const subtaskTitles = document.querySelectorAll(".subtaskTitle");
+    const subtaskCheckboxes = "";
+    const subtasks = subtaskTitles.map((title) => {
+        const subtaskTitle = title;
+        const subtaskDone = "";
+    });
 }
 
 /**
@@ -203,10 +237,10 @@ function updateTaskFromForm(currentTask, form) {
           };
 }
 
-function getTaskPatch(task) {
+function getPatchedTaskData(task) {
   const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
     subtasks, subtaskTitles, subtaskDone } = task;
-  return { title, description, fullDescription: description, dueDate, category, priority,
+  return { title, description, dueDate, category, priority,
     assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
 }
 

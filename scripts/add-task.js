@@ -1,6 +1,3 @@
-document.addEventListener("submit", handleAddTaskFormEvent);
-document.addEventListener("keydown", handleAddTaskFormEvent);
-
 async function initTaskContent() {
   await loadAddTaskContent();
 }

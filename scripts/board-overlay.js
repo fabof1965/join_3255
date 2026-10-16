@@ -1,6 +1,5 @@
 let editingTaskId = "";
 let newTaskCategory = "toDo";
-let selectedTaskPriority = "medium";
 let newTaskSubtasks = [];
 const dialogModes = {
   addTaskMode: "add-task",
@@ -106,8 +105,6 @@ async function openAddTaskDialog(status) {
   addTaskDialog.showModal();
 }
 
-
-
 /**
  * Fills the task form with existing task data.
  * @param {HTMLFormElement} form - Add/Edit Task form.
@@ -166,7 +163,7 @@ async function submitEditedTask(form) {
   if (taskIndex === -1) return;
   const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
   allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, getTaskPatch(updatedTask));
+  await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
   renderSearchResults(document.getElementById("task-search").value);
 }

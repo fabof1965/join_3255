@@ -53,7 +53,7 @@ function getAssignedUsersHtml(assignedUsers) {
  * @param {{completed: number, total: number}|undefined} subtasks - Subtask counts.
  * @returns {string} Progress HTML.
  */
-function getSubtaskProgressHtml(subtasks) {
+function getSubtaskDataProgressHtml(subtasks) {
   if (!subtasks) return "";
   const progress = (subtasks.completed / subtasks.total) * 100;
   return fillTemplate(subtaskProgressTemplate, {
@@ -84,7 +84,7 @@ function getTaskCardHtml(task) {
     id: task.id,
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.description,
-    subtaskProgress: getSubtaskProgressHtml(task.subtasks),
+    subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
     assignedUsers: getAssignedUsersHtml(task.assignedUsers),
     priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
   });
