@@ -51,10 +51,10 @@
   justify-content: space-between;
   gap: var(--gap-small);
   height: var(--full);
- 
+
 }
 
-.subtask-btn{
+.subtask-btn {
   background: none;
   border: none;
 }
@@ -145,7 +145,7 @@ textarea {
   border-radius: 30px;
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
-  
+
   overflow: hidden;
 }
 
@@ -161,10 +161,14 @@ textarea {
   background-color: var(--white-color);
   border-radius: 30px;
   box-shadow: var(--addTaskBoxShadow);
-  min-width: 0; /*mobile-test*/
-  min-height: 0; /*mobile-test*/
-  width: var(--full); /*mobile-test*/
-  overflow-x: hidden; /*mobile-test*/
+  min-width: 0;
+  /*mobile-test*/
+  min-height: 0;
+  /*mobile-test*/
+  width: var(--full);
+  /*mobile-test*/
+  overflow-x: hidden;
+  /*mobile-test*/
   overflow: hidden;
 }
 
@@ -320,8 +324,16 @@ textarea {
   justify-content: space-between;
 }
 
+.subtask-button-container {
+  opacity: 0;
+}
+
 .subtask-list:hover {
   background-color: var(--secondary-color);
+}
+
+.subtask-list:hover .subtask-button-container{
+  opacity: 1;
 }
 
 .create-task-button {

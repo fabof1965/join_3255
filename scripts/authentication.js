@@ -343,7 +343,6 @@ function setElementVisibility(element, visibility) {
 function setDisplayForLoginElements(display = "flex") {
     const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
     const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
-
     setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
     setElementVisibility(SIGNUP_WRAPPER, display);
 }
@@ -352,7 +351,6 @@ function setDisplayForSignupElements(display = "none") {
     const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
     const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
     const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
-
     setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
     setElementVisibility(SHOW_LOGIN_BUTTON, display);
     styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
