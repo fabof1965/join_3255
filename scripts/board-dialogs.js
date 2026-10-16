@@ -164,7 +164,7 @@ async function submitEditedTask(form) {
   allTasks[taskIndex] = updatedTask;
   await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**
@@ -213,7 +213,7 @@ async function toggleSubtask(index) {
     subtaskDone: task.subtaskDone,
     subtasks: task.subtasks,
   });
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**
@@ -279,7 +279,7 @@ async function deleteTaskCard(taskCardId) {
   allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
   closeTaskCardDialog();
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**

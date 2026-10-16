@@ -20,7 +20,7 @@ let draggedTaskId = "";
 
 async function initBoardContent() {
   await loadTasks();
-  renderTaskCards();
+  renderBoardContent(allTasks);
   initializeTaskSearch();
   initializeTaskDropZones();
 }
@@ -126,12 +126,10 @@ function openTask() {
  * @param {Object[]} tasks - Tasks to render.
  * @returns {void}
  */
-function renderBoard(tasks) {
-  const taskLists = document.querySelectorAll(".task-list");
-
-  taskLists.forEach((taskList) => (taskList.innerHTML = ""));
-  tasks.forEach(renderTask);
-  renderEmptyTaskLists(taskLists);
+function renderBoardContent(tasks) {
+  emptyTaskLists();
+  renderTaskCards(tasks);
+  renderEmptyTaskLists();
   initializeDraggableCards();
   setBadgeBackgroundColor();
 }
@@ -141,7 +139,8 @@ function renderBoard(tasks) {
  * @param {NodeListOf<HTMLElement>} taskLists - Board column containers.
  * @returns {void}
  */
-function renderEmptyTaskLists(taskLists) {
+function renderEmptyTaskLists() {
+  const taskLists = document.querySelectorAll(".task.list");
   taskLists.forEach((taskList) => {
     if (taskList.children.length) return;
     taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
@@ -191,7 +190,9 @@ function searchTasks(event) {
  */
 function renderSearchResults(searchTerm) {
   const filteredTasks = filterTasks(searchTerm);
-  renderBoard(filteredTasks);
+  emptyTaskLists();
+  renderTaskCards(filteredTasks);
+
   toggleNoResultsMessage(searchTerm.trim() !== "" && !filteredTasks.length);
 }
 
@@ -317,7 +318,7 @@ async function dropTask(event) {
   if (!task) return;
   const target = getDropTarget(event.currentTarget, event.clientY);
   moveTaskToPosition(task, event.currentTarget.dataset.status, target?.dataset.taskId);
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
