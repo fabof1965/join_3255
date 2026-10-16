@@ -1,6 +1,3 @@
-let editingTaskId = "";
-let newTaskCategory = "toDo";
-let newTaskSubtasks = [];
 const dialogModes = {
   addTaskMode: "add-task",
   editTaskMode: "edit-task",
@@ -104,8 +101,8 @@ async function openAddTaskDialog(status) {
   getTaskForm().classList.add(dialogModes.addTaskMode);
   await renderAssignedContacts(addTaskDialog);
   
-
-  setTaskFormPriority(getTaskForm(), selectedTaskPriority);
+  const taskForm = getTaskForm();
+  (taskForm, selectedTaskPriority);
   addTaskDialog.showModal();
 }
 
@@ -120,7 +117,7 @@ function fillTaskForm(form, task) {
   form.elements.description.value = (task.fullDescription || task.description);
   form.elements.dueDate.value = task.dueDate || "";
   form.elements.category.value = task.category || "";
-  setTaskFormPriority(form, task.priority);
+  (form, task.priority);
   setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
   newTaskSubtasks = [...(task.subtaskTitles || [])];
   renderNewSubtasks();

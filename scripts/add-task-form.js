@@ -1,4 +1,7 @@
 let selectedTaskPriority = "medium";
+let editingTaskId = "";
+let newTaskCategory = "toDo";
+let newTaskSubtasks = [];
 
 /**
  * Selects assigned users in the task form.
@@ -112,7 +115,6 @@ function resetForm(form = document.getElementById('add-task-form')) {
   );
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
-  setTaskFormPriority(form, selectedTaskPriority);
   renderNewSubtasks();
 }
 
