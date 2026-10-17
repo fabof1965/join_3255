@@ -83,40 +83,29 @@ async function deleteSubtask(button) {
 }
 
 /**
- * Replaces the title of the clicked subtask with an input field; Enter saves the change.
+ * Replaces the title of the clicked subtask with a focused input field and turns the edit
+ * icon into a check icon. Clicking the button again (or pressing Enter) saves the change.
  * @param {HTMLElement} button - Clicked edit button inside a subtask item.
  * @returns {void}
  */
+
+
 function editSubtask(button) {
   const item = button.closest('.subtask-list');
+  const editInput = item.querySelector('.subtask-edit-input');
+  if (editInput) return saveSubtask(editInput);
   const index = Number(item.dataset.index);
   const span = item.querySelector('span');
   span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
-  const input = document.querySelector('.subtask-edit-input');
   const handleButtons = item.querySelector('.subtask-button-container');
   handleButtons.style.opacity = 1;
   item.style.backgroundColor = 'transparent';
-  input.focus();
+  const icon = button.querySelector('img');
+  icon.src = icon.src.replace('edit.svg', 'check.svg');
+  icon.alt = 'save';
+  button.setAttribute('aria-label', 'Save subtask');
+  item.querySelector('.subtask-edit-input').focus();
 }
-
-function handleEditIconFocus(button, checkButton) {
-  const item = button.closest('.subtask-button-container');
-  checkButton.src = "./assets/icons/check.svg";
-  const editBtn = item.querySelector('.edit-icon');
-}
-
-// function handlePasswordFocus(field) {
-//   if (field.input.type === "password") {
-//     field.icon.src = "./assets/icons/visibility_off.svg";
-//     field.icon.alt = "hide password";
-//     field.toggle.setAttribute("aria-label", "Hide password");
-//   } else {
-//     field.input.type = "text";
-//     field.icon.src = './assets/icons/visibility.svg';
-//     field.icon.alt = "show password";
-//     field.toggle.setAttribute("aria-label", "Show password");
-//   }
-// }
 
 /**
  * Saves the edited subtask title when Enter is pressed in the edit input.
@@ -126,8 +115,17 @@ function handleEditIconFocus(button, checkButton) {
 function saveSubtaskOnEnter(event) {
   if (event.key !== 'Enter') return;
   event.preventDefault();
-  const index = Number(event.target.closest('.subtask-list').dataset.index);
-  const value = event.target.value.trim();
+  saveSubtask(event.target);
+}
+
+/**
+ * Writes the edit input's value back to the subtask and re-renders the list.
+ * @param {HTMLInputElement} input - Subtask edit input.
+ * @returns {void}
+ */
+function saveSubtask(input) {
+  const index = Number(input.closest('.subtask-list').dataset.index);
+  const value = input.value.trim();
   if (value) newTaskSubtasks[index] = value;
   renderNewSubtasks();
 }
