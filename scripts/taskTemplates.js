@@ -97,7 +97,7 @@ const addTaskDialogTemplate = `
   <section class="add-task-dialog" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
     <header class="add-task-header">
       <h2 id="add-task-title">Add Task</h2>
-      <button class="close-btn" type="button" aria-label="Close add task">
+      <button class="close-btn add-task-close" type="button" aria-label="Close add task">
         <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close add-task-dialog" />
       </button>
     </header>

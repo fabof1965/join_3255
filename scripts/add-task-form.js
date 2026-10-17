@@ -89,7 +89,6 @@ async function deleteSubtask(button) {
  * @returns {void}
  */
 
-
 function editSubtask(button) {
   const item = button.closest('.subtask-list');
   const editInput = item.querySelector('.subtask-edit-input');

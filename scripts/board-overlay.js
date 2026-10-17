@@ -68,7 +68,7 @@ function addClickEventListenersToTaskCategoryButtons() {
 }
 
 function closeAddTaskDialogOnCloseButtonClick(event) {
-if (event.target.closest("#close-add-task-btn")) closeAddTaskDialog();
+if (event.target.closest(".add-task-close")) closeAddTaskDialog();
 }
 
 function selectTaskPriorityOnPriorityButtonClick(event) {
@@ -333,7 +333,7 @@ function handleTaskCardClick(event) {
   if (card) openTaskCardDialog(card.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteTaskCard(openedTaskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
-  if (event.target.closest(".close-btn")) closeTaskCardDialog();
+  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }
 
 /**

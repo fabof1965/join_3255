@@ -1,5 +1,12 @@
 const BASE_URL = "https://join-3255-default-rtdb.europe-west1.firebasedatabase.app/";
 
+async function getAuthUrl(path) {
+    const { auth } = await import("./firebaseInit.js");
+    await auth.authStateReady();
+    const token = await auth.currentUser?.getIdToken();
+    return BASE_URL + path + ".json?auth=" + token;
+}
+
 /**
  * Retrieves data from a Firebase path.
  * @param {string} path - Relative database path.
@@ -7,7 +14,7 @@ const BASE_URL = "https://join-3255-default-rtdb.europe-west1.firebasedatabase.a
  */
 async function getData(path = "") {
     try {
-        let response = await fetch(BASE_URL + path + ".json");
+        let response = await fetch(await getAuthUrl(path));
         return data = await response.json();
     } catch (error) {
         console.error("Fehler beim Laden der Daten");
@@ -22,7 +29,7 @@ async function getData(path = "") {
  */
 async function postData(path = "", data = {}) {
     try {
-        let response = await fetch(BASE_URL + path + ".json", {
+        let response = await fetch(await getAuthUrl(path), {
             method: "POST",
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(data)
@@ -41,7 +48,7 @@ async function postData(path = "", data = {}) {
  */
 async function patchData(path = "", data = {}) {
     try {
-        let response = await fetch(BASE_URL + path + ".json", {
+        let response = await fetch(await getAuthUrl(path), {
             method: "PATCH",
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(data)
@@ -54,7 +61,7 @@ async function patchData(path = "", data = {}) {
 
 async function deleteData(path = "") {
     try {
-        let response = await fetch(BASE_URL + path + ".json", {
+        let response = await fetch(await getAuthUrl(path), {
             method: "DELETE",
         });
         return responseToJson = await response.json();
