@@ -99,9 +99,8 @@ function editSubtask(button) {
   const handleButtons = item.querySelector('.subtask-button-container');
   handleButtons.style.opacity = 1;
   item.style.backgroundColor = 'transparent';
-  const icon = button.querySelector('img');
-  icon.src = icon.src.replace('edit.svg', 'check.svg');
-  icon.alt = 'save';
+  button.innerHTML = checkIconSvg;
+  item.classList.add('is-editing');
   button.setAttribute('aria-label', 'Save subtask');
   item.querySelector('.subtask-edit-input').focus();
 }

@@ -319,30 +319,51 @@ textarea {
   }
 }
 
-.subtask-wrapper {
+/* Änderungen 17.10.2026 zu den Subtasks */
+
+.subtask-wrapper{
   display: flex;
   justify-content: space-between;
 }
 
 .subtask-button-container {
   opacity: 0;
+  display: flex;
+  align-items: center;
 }
 
 .subtask-list:hover {
   background-color: var(--secondary-color);
 }
 
-.subtask-list:hover .subtask-button-container{
+.subtask-list:hover .subtask-button-container {
   opacity: 1;
 }
 
-.subtask-edit-input{
-  outline: none;
+.subtask-list.is-editing .subtask-btn svg:hover{
+  background-color: var(--close-btn-hover-color);
+  border-radius: var(--border-radius-circular);
 }
 
-/* .subtask-edit-input:hover{
-  background-color: none;
-} */
+.subtask-edit-input {
+  border: none;
+}
+
+.is-editing .subtask-wrapper{
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.subtask-edit-input:focus {
+  outline: transparent;
+}
+
+.handle-subtask-icon {
+  fill: var(--active-menu-color);
+}
+
+.handle-subtask-icon:hover{
+  fill: var(--primary-color);
+}
 
 .create-task-button {
   align-self: flex-end;
