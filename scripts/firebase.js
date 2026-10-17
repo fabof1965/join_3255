@@ -15,7 +15,8 @@ async function getAuthUrl(path) {
 async function getData(path = "") {
     try {
         let response = await fetch(await getAuthUrl(path));
-        return data = await response.json();
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return await response.json()
     } catch (error) {
         console.error("Fehler beim Laden der Daten");
     }
