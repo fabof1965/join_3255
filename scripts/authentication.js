@@ -139,12 +139,14 @@ function comparePassword() {
     const confirmPasswordSignup = document.getElementById('confirm-password');
     const borderBottom = document.getElementById('confirm-password-border-bottom');
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
-
     const matches = passwordSignup.value === confirmPasswordSignup.value;
-    invalidPassword.classList.toggle('visibility-hidden', matches);
-    borderBottom.classList.toggle('error-message-border-bottom', !matches);
-    confirmPasswordSignup.setAttribute('aria-invalid', String(!matches));
-    return matches;
+    const passwordTooShort = confirmPasswordSignup.value.length < 6;
+    const validPassword = matches && !passwordTooShort;
+    invalidPassword.textContent = passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
+    invalidPassword.classList.toggle('visibility-hidden', validPassword);
+    borderBottom.classList.toggle('error-message-border-bottom', !validPassword);
+    confirmPasswordSignup.setAttribute('aria-invalid', String(!validPassword));
+    return validPassword;
 }
 
 function acceptPrivacyPolicy() {
