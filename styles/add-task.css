@@ -57,6 +57,15 @@
 .subtask-btn {
   background: none;
   border: none;
+  color: var(--active-menu-color);
+}
+
+.subtask-btn:hover{
+  color: var(--primary-color);
+}
+
+.subtask-btn svg {
+  fill: currentColor;
 }
 
 @media(max-width: 950px) {
@@ -349,20 +358,12 @@ textarea {
   border: none;
 }
 
-.is-editing .subtask-wrapper{
+.is-editing{
   border-bottom: 1px solid var(--primary-color);
 }
 
 .subtask-edit-input:focus {
   outline: transparent;
-}
-
-.handle-subtask-icon {
-  fill: var(--active-menu-color);
-}
-
-.handle-subtask-icon:hover{
-  fill: var(--primary-color);
 }
 
 .create-task-button {
