@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
 
@@ -264,9 +264,15 @@ function resetLogin() {
     });
 }
 
-function logInGuestUser() {
+async function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
 
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error('Guest login failed', error);
+        return;
+    }
     localStorage.setItem('name', 'Guest');
     localStorage.removeItem('email');
 
