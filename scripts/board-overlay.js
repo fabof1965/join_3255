@@ -318,8 +318,8 @@ function editTaskCard() {
 function closeTaskCardDialog() {
   const taskCardDialog = document.getElementById("task-card-dialog");
   taskCardDialog.innerHTML = "";
-
   taskCardDialog.close();
+  document.body.classList.remove('overlay-open');
 }
 
 /**
