@@ -40,6 +40,16 @@ document.addEventListener("submit", (event) => {
 //   handleClickOnAddTaskDialog(event);
 // });
 
+/**
+ * Keeps Enter in the subtask inputs from submitting the whole form.
+ * @param {KeyboardEvent} event - Document keydown event.
+ * @returns {void}
+ */
+document.addEventListener("keydown", (event) => {
+  if (event.target.name === "subtask") addSubtaskOnEnter(event);
+  if (event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
+});
+
 document.getElementById("btn-add-task").addEventListener("click", () => {
   openAddTaskDialog("toDo");
 });
@@ -300,8 +310,8 @@ function editTaskCard() {
 function closeTaskCardDialog() {
   const taskCardDialog = document.getElementById("task-card-dialog");
   taskCardDialog.innerHTML = "";
-
   taskCardDialog.close();
+  document.body.classList.remove('overlay-open');
 }
 
 /**
@@ -315,7 +325,7 @@ function handleTaskCardClick(event) {
   if (card) openTaskCardDialog(card.dataset.taskId);
   if(event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
-  if (event.target.closest(".close-btn")) closeTaskCardDialog();
+  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }
 
 /**

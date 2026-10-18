@@ -80,17 +80,26 @@ async function deleteSubtask(button) {
 }
 
 /**
- * Replaces the title of the clicked subtask with an input field; Enter saves the change.
+ * Replaces the title of the clicked subtask with a focused input field and turns the edit
+ * icon into a check icon. Clicking the button again (or pressing Enter) saves the change.
  * @param {HTMLElement} button - Clicked edit button inside a subtask item.
  * @returns {void}
  */
+
 function editSubtask(button) {
   const item = button.closest('.subtask-list');
+  const editInput = item.querySelector('.subtask-edit-input');
+  if (editInput) return saveSubtask(editInput);
   const index = Number(item.dataset.index);
   const span = item.querySelector('span');
   span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
-  const input = document.querySelector('.subtask-edit-input');
-  input.focus();
+  const handleButtons = item.querySelector('.subtask-button-container');
+  handleButtons.style.opacity = 1;
+  item.style.backgroundColor = 'transparent';
+  button.innerHTML = checkIconSvg;
+  item.classList.add('is-editing');
+  button.setAttribute('aria-label', 'Save subtask');
+  item.querySelector('.subtask-edit-input').focus();
 }
 
 /**
@@ -101,8 +110,17 @@ function editSubtask(button) {
 function saveSubtaskOnEnter(event) {
   if (event.key !== 'Enter') return;
   event.preventDefault();
-  const index = Number(event.target.closest('.subtask-list').dataset.index);
-  const value = event.target.value.trim();
+  saveSubtask(event.target);
+}
+
+/**
+ * Writes the edit input's value back to the subtask and re-renders the list.
+ * @param {HTMLInputElement} input - Subtask edit input.
+ * @returns {void}
+ */
+function saveSubtask(input) {
+  const index = Number(input.closest('.subtask-list').dataset.index);
+  const value = input.value.trim();
   if (value) newTaskSubtasks[index] = value;
   renderNewSubtasks();
 }
@@ -222,16 +240,16 @@ function addPendingSubtask(form) {
 
 function buildTaskData(data, assignedUsers) {
   return {
-    title: data.get("title").trim(), 
+    title: data.get("title").trim(),
     description: data.get("description").trim(),
-    dueDate: data.get("dueDate"), 
-    category: data.get("category"), 
+    dueDate: data.get("dueDate"),
+    category: data.get("category"),
     status: newTaskCategory,
-    priority: selectedTaskPriority, 
+    priority: selectedTaskPriority,
     assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers), 
+    assignedUserNames: getSelectedUserNames(assignedUsers),
     subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks], 
+    subtaskTitles: [...newTaskSubtasks],
     subtaskDone: newTaskSubtasks.map(() => false),
   };
 }
@@ -242,13 +260,13 @@ function getSubtaskProgress() {
 
 function updateTaskFromForm(currentTask, form) {
   const taskData = createTaskFromForm(form);
-  return { 
-            ...currentTask,
-            ...taskData, 
-            id: editingTaskId, 
-            status: currentTask.status,
-            fullDescription: taskData.description 
-          };
+  return {
+    ...currentTask,
+    ...taskData,
+    id: editingTaskId,
+    status: currentTask.status,
+    fullDescription: taskData.description
+  };
 }
 
 function getPatchedTaskData(task) {

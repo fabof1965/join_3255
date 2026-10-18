@@ -146,7 +146,7 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("popover-menu").innerHTML = "";
+    document.getElementById("popover-menu").remove();
 }
 
 function renderContactInformation(indexContact) {
@@ -208,7 +208,7 @@ function closeContactDialog() {
 
     contactDialog.classList.remove("slide-in");
     setTimeout(() => {
-        closeContactDialog.close();
+        contactDialog.close();
     }, 500);
 
     resetBadge();
@@ -342,15 +342,13 @@ function assignValuesToContact(contact) {
 }
 
 async function deleteContact(i) {
-    let contactDetails = document.getElementById('contact-detail');
     const contact = allContacts[i];
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
-    contactDetails.innerHTML = "";
+    if (currentlyOpenedCard) hideContactDetail()
     closeContactDialog();
     closeEditContactDialog();
     await renderContacts();
-    location.reload();
 }
 
 getAddContactDialog().addEventListener("close", () => {

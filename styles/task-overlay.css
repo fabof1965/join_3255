@@ -138,6 +138,10 @@
   padding: 6px 16px;
 }
 
+.task-overlay label, .subtask-checkbox {
+  cursor: pointer;
+}
+
 .subtask-checkbox {
   width: initial;
 }

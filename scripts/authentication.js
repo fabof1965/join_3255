@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
 
@@ -33,14 +33,23 @@ function initPasswordEventListener() {
 }
 
 function passwordInputFields() {
-    const toggles = document.querySelectorAll('.password-toggle');
-    return [createPasswordField('login-password', 'login-password-toggle-icon', toggles[0]),
-    createPasswordField('sign-up-password', 'sign-up-password-toggle-icon', toggles[1]),
-    createPasswordField('confirm-password', 'confirm-password-toggle-icon', toggles[2])];
+    return [
+        createPasswordField('login-password', 'login-password-toggle-icon'),
+        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon'),
+        createPasswordField('confirm-password', 'confirm-password-toggle-icon')
+    ];
 }
 
-function createPasswordField(inputId, iconId, toggle) {
-    return { input: document.getElementById(inputId), icon: document.getElementById(iconId), toggle };
+function createPasswordField(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    let toggle = null;
+    if (icon) {
+        toggle = icon.closest('.password-toggle');
+    } else {
+        toggle = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}]`) || null;
+    }
+    return { input: input, icon: icon, toggle: toggle }
 }
 
 function handlePasswordFocus(field) {
@@ -130,12 +139,14 @@ function comparePassword() {
     const confirmPasswordSignup = document.getElementById('confirm-password');
     const borderBottom = document.getElementById('confirm-password-border-bottom');
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
-
     const matches = passwordSignup.value === confirmPasswordSignup.value;
-    invalidPassword.classList.toggle('visibility-hidden', matches);
-    borderBottom.classList.toggle('error-message-border-bottom', !matches);
-    confirmPasswordSignup.setAttribute('aria-invalid', String(!matches));
-    return matches;
+    const passwordTooShort = confirmPasswordSignup.value.length < 6;
+    const validPassword = matches && !passwordTooShort;
+    invalidPassword.textContent = passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
+    invalidPassword.classList.toggle('visibility-hidden', validPassword);
+    borderBottom.classList.toggle('error-message-border-bottom', !validPassword);
+    confirmPasswordSignup.setAttribute('aria-invalid', String(!validPassword));
+    return validPassword;
 }
 
 function acceptPrivacyPolicy() {
@@ -253,9 +264,15 @@ function resetLogin() {
     });
 }
 
-function logInGuestUser() {
+async function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
 
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error('Guest login failed', error);
+        return;
+    }
     localStorage.setItem('name', 'Guest');
     localStorage.removeItem('email');
 
@@ -334,7 +351,6 @@ function setElementVisibility(element, visibility) {
 function setDisplayForLoginElements(display = "flex") {
     const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
     const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
-
     setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
     setElementVisibility(SIGNUP_WRAPPER, display);
 }
@@ -343,7 +359,6 @@ function setDisplayForSignupElements(display = "none") {
     const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
     const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
     const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
-
     setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
     setElementVisibility(SHOW_LOGIN_BUTTON, display);
     styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");

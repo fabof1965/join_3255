@@ -112,6 +112,9 @@ function getInputFieldsForLogin() {
   return loginInputFieldsTemplate;
 }
 
+const pwTooShortMsg = 'Password should be at least 6 characters';
+const pwMismatchMsg = 'passwords do not match';
+
 const signupInputFieldsTemplate = `<div class="input-wrapper">
               <div class="input-content-container">  
                 <label for="name" class="visually-hidden">Name</label>
@@ -124,7 +127,7 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
             <div class="input-wrapper">
                 <div class="input-content-container" id="invalid-email-border-bottom">
                   <label for="email-signup" class="visually-hidden">Email</label>
-                  <input class="input-field" type="email" id="email-signup" placeholder="Email" aria-describedby="invalid-email-msg" required>
+                  <input class="input-field" type="email" id="email-signup" placeholder="Email" aria-describedby="invalid-email-msg">
                   <img src="./assets/icons/mail.svg" alt="">
                 </div>
                 <span id="invalid-email-msg" class="error-msg visibility-hidden" aria-live="polite">Email already in use.</span>
@@ -134,7 +137,7 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
               <div class="input-content-container">
                 <label for="sign-up-password" class="visually-hidden">Password</label>
                 <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
-                <button type="button" class="password-toggle" aria-label="Show password">
+                <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
                   <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
                 </button>
               </div>
@@ -145,7 +148,7 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
                 <div class="input-content-container" id="confirm-password-border-bottom">
                   <label for="confirm-password" class="visually-hidden">Confirm Password</label>
                   <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
-                  <button type="button" class="password-toggle" aria-label="Show password">
+                  <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
                     <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
                   </button>
                 </div>

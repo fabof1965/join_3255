@@ -51,12 +51,21 @@
   justify-content: space-between;
   gap: var(--gap-small);
   height: var(--full);
- 
+
 }
 
-.subtask-btn{
+.subtask-btn {
   background: none;
   border: none;
+  color: var(--active-menu-color);
+}
+
+.subtask-btn:hover{
+  color: var(--primary-color);
+}
+
+.subtask-btn svg {
+  fill: currentColor;
 }
 
 @media(max-width: 950px) {
@@ -145,7 +154,7 @@ textarea {
   border-radius: 30px;
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
-  
+
   overflow: hidden;
 }
 
@@ -161,10 +170,14 @@ textarea {
   background-color: var(--white-color);
   border-radius: 30px;
   box-shadow: var(--addTaskBoxShadow);
-  min-width: 0; /*mobile-test*/
-  min-height: 0; /*mobile-test*/
-  width: var(--full); /*mobile-test*/
-  overflow-x: hidden; /*mobile-test*/
+  min-width: 0;
+  /*mobile-test*/
+  min-height: 0;
+  /*mobile-test*/
+  width: var(--full);
+  /*mobile-test*/
+  overflow-x: hidden;
+  /*mobile-test*/
   overflow: hidden;
 }
 
@@ -315,13 +328,42 @@ textarea {
   }
 }
 
-.subtask-wrapper {
+/* Änderungen 17.10.2026 zu den Subtasks */
+
+.subtask-wrapper{
   display: flex;
   justify-content: space-between;
 }
 
+.subtask-button-container {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+}
+
 .subtask-list:hover {
   background-color: var(--secondary-color);
+}
+
+.subtask-list:hover .subtask-button-container {
+  opacity: 1;
+}
+
+.subtask-list.is-editing .subtask-btn svg:hover{
+  background-color: var(--close-btn-hover-color);
+  border-radius: var(--border-radius-circular);
+}
+
+.subtask-edit-input {
+  border: none;
+}
+
+.is-editing{
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.subtask-edit-input:focus {
+  outline: transparent;
 }
 
 .create-task-button {
