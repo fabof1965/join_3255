@@ -1,9 +1,9 @@
 function getPopoverContent(indexContact) {
   return `<button class="edit" onclick="editExistingContact(${indexContact})">
-            <img src="../assets/icons/edit.svg" alt="">Edit
+            <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
           </button>
           <button class="delete" onclick="deleteContact(${indexContact})">
-            <img src="../assets/icons/delete.svg" alt="">Delete
+            <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
           </button> `;
 }
 

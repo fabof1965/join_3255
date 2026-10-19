@@ -4,7 +4,7 @@
 .task-feedback,
 .task-in-board,
 .tasks-done {
-    cursor: default;
+    cursor: pointer;
 }
 
 .summary-container {
@@ -123,13 +123,49 @@
     grid-area: 1 / 1 / 2 / 4;
     background-color: var(--primary-color);
     border-radius: var(--summary-card-border-radius);
+    cursor: pointer;
     transition: var(--element-transition);
     
+}
+
+.blue-head-column:hover {
+    transition: var(--element-transition);
+    transform: scale(var(--hover-scale));
+    background-color: var(--white-color);
+    box-shadow: var(--summary-card-box-shadow);
+    border-top-left-radius: 0;
+
+    .task-number, .sub-text, .date-text, .divider, .task-icons{
+        transform: scale(var(--hover-scale));
+        color: var(--primary-color);
+    }
+
+    .divider {
+        background-color: var(--primary-color);
+    }
 }
 
 @media (max-width: 950px) {
     .blue-head-column {
         grid-area: 1 / 1 / 2 / 7;
+    }
+}
+
+@media(max-width: 600px) {
+    .blue-head-column:hover {
+        transform: unset;
+        background-color: var(--white-color);
+        box-shadow: var(--summary-card-box-shadow);
+        border-top-left-radius: 0;
+
+        .task-number, .sub-text, .date-text, .divider, .task-icons{
+            transform: scale(var(--hover-scale));
+            color: var(--primary-color);
+        }
+
+        .divider {
+            background-color: var(--primary-color);
+        }
     }
 }
 
@@ -203,9 +239,36 @@
     }
 }
 
+.task-in-progress:hover,
+.task-feedback:hover,
+.task-in-board:hover,
+.tasks-done:hover {
+    transition: var(--element-transition);
+    background-color: var(--primary-color);
+    border-top-left-radius: 0;
+    transform: scale(var(--hover-scale));
+
+    .task-number, .sub-text, .task-icons{
+        transform: scale(var(--hover-scale));
+        color: var(--white-color);
+    }
+}
+
 .tasks-to-do {
     background-color: var(--secondary-color);
     grid-area: 2 / 1 / 2 / 2;
+}
+
+.tasks-to-do:hover {
+    transition: var(--element-transition);
+    background-color: var(--white-color);
+    transform: scale(var(--hover-scale));
+    border-top-left-radius: 0;
+
+    .task-number {
+        color: var(--primary-color);
+    }
+
 }
 
 @media (max-width: 950px) {
@@ -213,6 +276,18 @@
         flex-direction: row;
         justify-content: center;
         grid-area: 2 / 1 / 2 / 7;
+    }
+}
+
+@media(max-width: 600px) {
+    .tasks-to-do:hover {
+        background-color: var(--white-color);
+        transform: unset;
+        border-top-left-radius: 0;
+
+        .task-number {
+            color: var(--primary-color);
+        }
     }
 }
 

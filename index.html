@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 
 <head>
   <meta charset="UTF-8" />
@@ -40,7 +40,7 @@
       <div class="spacing"></div>
       <div id="signup-wrapper" class="auth-wrapper">
         <p>Not a join user ?</p>
-        <button onclick="configureSignupView()" id="show-sign-up-btn" class="auth-btn btn">
+        <button onclick="addSignupContent()" id="show-sign-up-btn" class="auth-btn btn">
           Sign up
         </button>
       </div>
@@ -50,7 +50,7 @@
       <form onsubmit="userLogin(event)" id="auth-form" class="auth-form">
         <header class="form-header">
           <button onclick="backToLogin()" id="btn-show-login" type="button" class="arrow-back-btn">
-            <img src="./assets/icons/arrow-left-line.png" alt="" />
+            <img src="./assets/icons/arrow-left-line.png" alt="back-to-login" />
           </button>
           <div class="heading-wrapper">
             <div class="heading-container">
@@ -64,8 +64,8 @@
           <div class="input-wrapper">
             <div class="input-content-container">
               <label for="email" class="visually-hidden">Email</label>
-              <input id="email" class="input-field" type="email" placeholder="Email" aria-describedby="error-msg" required />
-              <img src="./assets/icons/mail.svg" alt="" />
+              <input id="email" class="input-field" type="email" placeholder="Email" required />
+              <img src="./assets/icons/mail.svg" alt="mail icon" />
             </div>
           </div>
           <div id="login-error-msg-border-bottom" class="input-wrapper">
@@ -76,20 +76,20 @@
                 <img id="login-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="" />
               </button>
             </div>
-            <span id="error-msg" class="error-msg visibility-hidden" aria-live="polite">Check your email and password. Please try
+            <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try
               again.</span>
           </div>
         </div>
 
         <div class="checkbox-container" id="checkbox-container">
           <div>
-            <input class="checkbox" type="checkbox" id="checkbox" aria-describedby="privacy-policy-error-msg" />
+            <input class="checkbox" type="checkbox" id="checkbox" />
             <span>I accept the
               <a class="privacy-policy-link" data-text="Privacy Policy" href="./pages/privacy_policy.html">Privacy
                 Policy</a></span>
           </div>
 
-          <span id="privacy-policy-error-msg" class="privacy-policy-error-msg visibility-hidden" aria-live="polite">Please accept the privacy
+          <span id="privacy-policy-error-msg" class="privacy-policy-error-msg visibility-hidden">Please accept the prviacy
             policy</span>
         </div>
 

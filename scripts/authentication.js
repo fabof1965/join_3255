@@ -128,10 +128,8 @@ async function saveNewUser(name, email, password) {
 function setEmailExistsFeedback(emailExists) {
     const border = document.getElementById('invalid-email-border-bottom');
     const message = document.getElementById('invalid-email-msg');
-    const input = document.getElementById('email-signup');
     border.classList.toggle('error-message-border-bottom', emailExists);
     message.classList.toggle('visibility-hidden', !emailExists);
-    input?.setAttribute('aria-invalid', String(emailExists));
 }
 
 function comparePassword() {
@@ -155,20 +153,16 @@ function acceptPrivacyPolicy() {
 
     if (checkboxSignup.checked) {
         errorMsg.classList.add('visibility-hidden');
-        checkboxSignup.setAttribute('aria-invalid', 'false');
         return true;
     } else {
         errorMsg.classList.remove('visibility-hidden');
-        checkboxSignup.setAttribute('aria-invalid', 'true');
         return false;
     }
 }
 
 function resetpricavyPolicityCheckbox() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
-    const checkboxSignup = document.getElementById('checkbox');
     errorMsg.classList.add('visibility-hidden');
-    checkboxSignup?.setAttribute('aria-invalid', 'false');
 }
 
 function signUpSuccessPopUp() {
@@ -190,22 +184,14 @@ function closeDialog() {
  */
 async function userLogin(event) {
     event.preventDefault();
+    const email = document.getElementById('email');
+    const password = document.getElementById('login-password');
     let userCredential;
     try {
-        userCredential = await authenticateLoginForm();
+        userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
     } catch (error) {
         return showErrorMessageForLogin();
     }
-    await completeUserLogin(userCredential);
-}
-
-async function authenticateLoginForm() {
-    const email = document.getElementById('email');
-    const password = document.getElementById('login-password');
-    return signInWithEmailAndPassword(auth, email.value, password.value);
-}
-
-async function completeUserLogin(userCredential) {
     let userData = {};
     const snapshot = await get(ref(db, 'users/' + userCredential.user.uid));
     if (snapshot.exists()) {
@@ -233,11 +219,7 @@ function initLoginEventListeners() {
 function showErrorMessageForLogin() {
     const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('error-msg');
-    const email = document.getElementById('email');
-    const password = document.getElementById('login-password');
     errorMsg.classList.remove('visibility-hidden');
-    email?.setAttribute('aria-invalid', 'true');
-    password?.setAttribute('aria-invalid', 'true');
     borderBottom.forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
@@ -248,17 +230,12 @@ function hideInputErrorMessage(event) {
     wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
     const errMsg = wrapper.querySelector('.error-msg');
     if (errMsg) errMsg.classList.add('visibility-hidden');
-    event.currentTarget.setAttribute('aria-invalid', 'false');
 }
 
 function resetLogin() {
     const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('error-msg');
-    const email = document.getElementById('email');
-    const password = document.getElementById('login-password');
     errorMsg.classList.add('visibility-hidden');
-    email?.setAttribute('aria-invalid', 'false');
-    password?.setAttribute('aria-invalid', 'false');
     borderBottom.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
     });
@@ -285,7 +262,7 @@ function setOnSubmitAttribute(attr = "userLogin(event)") {
     document.getElementById("auth-form").setAttribute("onsubmit", attr);
 }
 
-function configureSignupView() {
+function addSignupContent() {
     setPageTitle("Sign up");
     setPageBackgroundColor("#1268FF");
     setLegalLinkColor("var(--white-color)");
@@ -428,4 +405,4 @@ function setHeadlineText(text) {
     HEADING.innerHTML = text;
 }
 
-Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, configureSignupView, registerUser, backToLogin });
+Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
