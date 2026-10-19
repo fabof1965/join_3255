@@ -150,4 +150,3 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
             </div>
             `;
-}
