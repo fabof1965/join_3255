@@ -23,7 +23,7 @@ async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
   initializeTaskSearch();
-  initializeTaskDropZones();
+  initializeDragAndDrop();
 }
 
 function renderTaskCards(tasks = allTasks) {
@@ -132,7 +132,7 @@ function renderBoardContent(tasks) {
   renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
-  initializeDraggableCards();
+  // initializeDraggableCards();
 }
 
 /**
@@ -216,10 +216,12 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  const grabbedTask = event.currentTarget;
+  const grabbedTask = event.target.closest?.(".task-card");
+  if(!grabbedTask) return;
   draggedTaskId = grabbedTask.dataset.taskId;
   event.dataTransfer.setData("text/plain", draggedTaskId);
   grabbedTask.classList.add("task-card-dragging");
+  grabbedTask.classList.add("task-card-drop-before");
 }
 
 /**
@@ -228,8 +230,10 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const grabbedTask = event.currentTarget;
+  const grabbedTask = event.target.closest?.(".task-card");
+  if(grabbedTask) console.log(grabbedTask);
   grabbedTask.classList.remove("task-card-dragging");
+  grabbedTask.classList.remove("task-card-drop-before");
 }
 
 /**
@@ -238,19 +242,11 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  event.preventDefault();
-  const taskList = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
+  if(!taskList || !draggedTaskId) return;
   taskList.classList.add("task-list-dragover");
-}
-
-/**
- * Removes all visible insertion indicators.
- * @returns {void}
- */
-function clearDropPosition() {
-  document.querySelectorAll(".task-list-dragover").forEach((taskList) =>
-    taskList.classList.remove("task-list-dragover"),
-  );
+  taskList.classList.add("task-list-drop-end");
+  event.preventDefault();
 }
 
 /**
@@ -259,10 +255,10 @@ function clearDropPosition() {
  * @returns {void}
  */
 function leaveTaskCardDropZone(event) {
-  const dragoverClass = "task-list-dragover";
-  const taskList = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
+  if(!taskList || taskList.contains(event.relatedTarget)) return;
 
-  taskList.classList.remove(dragoverClass);
+  taskList.classList.remove("task-list-dragover");
 }
 
 /**
@@ -282,9 +278,11 @@ function changeTaskStatus(task, status) {
  * @returns {void}
  */
 async function dropTaskIntoTaskList(event) {
-  clearDropPosition();
+  const taskList = event.target.closest?.(".task-list");
+  if(!taskList) return;
+  taskList.classList.remove("task-list-dragover");
+  taskList.classList.remove("task-list-drop-end");
   event.preventDefault();
-  const taskList = event.currentTarget;
   const task = allTasks.find(({ id }) => id === draggedTaskId);
   changeTaskStatus(task, taskList.dataset.status);
   renderBoardContent();
@@ -292,26 +290,15 @@ async function dropTaskIntoTaskList(event) {
 }
 
 /**
- * Adds drag events to all rendered task cards.
- * @returns {void}
- */
-function initializeDraggableCards() {
-  document.querySelectorAll(".task-card").forEach((card) => {
-    card.addEventListener("dragstart", startDragging);
-    card.addEventListener("dragend", stopDragging);
-  });
-}
-
-/**
  * Adds drop events to every board column.
  * @returns {void}
  */
-function initializeTaskDropZones() {
-  document.querySelectorAll(".task-list").forEach((taskList) => {
-    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
-    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
-    taskList.addEventListener("drop", dropTaskIntoTaskList);
-  });
+function initializeDragAndDrop() {
+  document.addEventListener("dragstart", startDragging);
+  document.addEventListener("dragend", stopDragging);
+  document.addEventListener("dragover", dragTaskCardOverTaskList);
+  document.addEventListener("dragleave", leaveTaskCardDropZone);
+  document.addEventListener("drop", dropTaskIntoTaskList);
 }
 
 /**
