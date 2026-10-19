@@ -1,20 +1,21 @@
-let allTasks = [
-  {
-    id: "task-1",
-    category: "User Story",
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    fullDescription: "Build start page with recipe recommendation and a detailed description of the recipes.",
-    status: "inProgress",
-    assignedUsers: ["CE", "JB"],
-    assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
-    dueDate: "02/09/2023",
-    priority: "low",
-    subtasks: { completed: 1, total: 2 },
-    subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
-    subtaskDone: [true, false],
-  }
-];
+// this is an example structure of a task
+//{
+//     id: "task-1",
+//     category: "User Story",
+//     title: "Kochwelt Page & Recipe Recommender",
+//     description: "Build start page with recipe recommendation...",
+//     fullDescription: "Build start page with recipe recommendation and a detailed description of the recipes.",
+//     status: "inProgress",
+//     assignedUsers: ["CE", "JB"],
+//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
+//     dueDate: "02/09/2023",
+//     priority: "low",
+//     subtasks: { completed: 1, total: 2 },
+//     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
+//     subtaskDone: [true, false],
+//   }
+
+const allTasks = [];
 
 let draggedTaskId = "";
 
@@ -26,11 +27,11 @@ async function initBoardContent() {
 }
 
 function renderTaskCards(tasks = allTasks) {
-  for(let indexTask = 0; indexTask < allTasks.length; indexTask++) {
-    const task = allTasks[indexTask];
+  for(let indexTask = 0; indexTask < tasks.length; indexTask++) {
+    const task = tasks[indexTask];
     const taskStatus = task.status;
     const taskList = document.querySelector('div.task-list[data-status="' + taskStatus + '"]');
-    taskList.innerHTML += getTaskCardHtml(task);
+    if(taskList) taskList.innerHTML += getTaskCardHtml(task);
   }
 }
 
@@ -130,8 +131,8 @@ function renderBoardContent(tasks) {
   emptyTaskLists();
   renderTaskCards(tasks);
   renderEmptyTaskLists();
-  initializeDraggableCards();
   setBadgeBackgroundColor();
+  initializeDraggableCards();
 }
 
 /**
@@ -142,7 +143,6 @@ function renderBoardContent(tasks) {
 function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task.list");
   taskLists.forEach((taskList) => {
-    if (taskList.children.length) return;
     taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
       text: taskList.dataset.emptyText,
     });
@@ -156,9 +156,14 @@ function renderEmptyTaskLists() {
  */
 function filterTasks(searchTerm) {
   const normalizedTerm = searchTerm.trim().toLowerCase();
-  return allTasks.filter((task) =>
-    `${task.title} ${task.description ?? ""}`.toLowerCase().includes(normalizedTerm),
-  );
+  return allTasks.filter((task) => taskMatchesTerm(task, normalizedTerm));
+}
+
+function taskMatchesTerm(task, normalizedTerm) {
+  const title = task.title.toLowerCase();
+  const description = (task.description ?? "").toLowerCase();
+
+  return title.includes(normalizedTerm) || description.includes(normalizedTerm);
 }
 
 /**
@@ -180,20 +185,20 @@ function toggleNoResultsMessage(shouldShow) {
  */
 function searchTasks(event) {
   const searchTerm = event.target.value;
-  renderSearchResults(searchTerm);
+  const filteredTasks = filterTasks(searchTerm);
+  const showNoResults = isSearchActive(searchTerm) && filteredTasks.length === 0;
+
+  renderSearchResults(filteredTasks, showNoResults);
 }
 
-/**
- * Updates the board and message for a search term.
- * @param {string} searchTerm - Current search text.
- * @returns {void}
- */
-function renderSearchResults(searchTerm) {
-  const filteredTasks = filterTasks(searchTerm);
-  emptyTaskLists();
-  renderTaskCards(filteredTasks);
+function isSearchActive(searchTerm) {
+  return searchTerm.trim() !== "";
+}
 
-  toggleNoResultsMessage(searchTerm.trim() !== "" && !filteredTasks.length);
+function renderSearchResults(tasks, showNoResults) {
+  emptyTaskLists();
+  renderTaskCards(tasks);
+  toggleNoResultsMessage(showNoResults);
 }
 
 /**
@@ -211,9 +216,10 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  draggedTaskId = event.currentTarget.dataset.taskId;
+  const grabbedTask = event.currentTarget;
+  draggedTaskId = grabbedTask.dataset.taskId;
   event.dataTransfer.setData("text/plain", draggedTaskId);
-  event.currentTarget.classList.add("task-card-dragging");
+  grabbedTask.classList.add("task-card-dragging");
 }
 
 /**
@@ -222,8 +228,8 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  event.currentTarget.classList.remove("task-card-dragging");
-  clearDropPosition();
+  const grabbedTask = event.currentTarget;
+  grabbedTask.classList.remove("task-card-dragging");
 }
 
 /**
@@ -231,37 +237,10 @@ function stopDragging(event) {
  * @param {DragEvent} event - Column drag event.
  * @returns {void}
  */
-function allowTaskDrop(event) {
+function dragTaskCardOverTaskList(event) {
   event.preventDefault();
-  event.currentTarget.classList.add("task-list-dragover");
-  showDropPosition(event.currentTarget, event.clientY);
-}
-
-/**
- * Finds the first card below the current pointer position.
- * @param {HTMLElement} taskList - Current drop zone.
- * @param {number} pointerY - Vertical pointer position.
- * @returns {HTMLElement|undefined} Card to insert before.
- */
-function getDropTarget(taskList, pointerY) {
-  const cards = [...taskList.querySelectorAll(".task-card:not(.task-card-dragging)")];
-  return cards.find((card) => {
-    const bounds = card.getBoundingClientRect();
-    return pointerY < bounds.top + bounds.height / 2;
-  });
-}
-
-/**
- * Displays the calculated insertion position in a drop zone.
- * @param {HTMLElement} taskList - Current drop zone.
- * @param {number} pointerY - Vertical pointer position.
- * @returns {void}
- */
-function showDropPosition(taskList, pointerY) {
-  clearDropPosition();
-  const target = getDropTarget(taskList, pointerY);
-  taskList.classList.toggle("task-list-drop-end", !target);
-  target?.classList.add("task-card-drop-before");
+  const taskList = event.currentTarget;
+  taskList.classList.add("task-list-dragover");
 }
 
 /**
@@ -269,14 +248,8 @@ function showDropPosition(taskList, pointerY) {
  * @returns {void}
  */
 function clearDropPosition() {
-  document.querySelectorAll(".task-card-drop-before").forEach((card) =>
-    card.classList.remove("task-card-drop-before"),
-  );
-  document.querySelectorAll(".task-list-drop-end").forEach((list) =>
-    list.classList.remove("task-list-drop-end"),
-  );
-  document.querySelectorAll(".task-list-dragover").forEach((list) =>
-    list.classList.remove("task-list-dragover"),
+  document.querySelectorAll(".task-list-dragover").forEach((taskList) =>
+    taskList.classList.remove("task-list-dragover"),
   );
 }
 
@@ -285,10 +258,11 @@ function clearDropPosition() {
  * @param {DragEvent} event - Column drag event.
  * @returns {void}
  */
-function leaveTaskDropZone(event) {
-  if (event.currentTarget.contains(event.relatedTarget)) return;
-  event.currentTarget.classList.remove("task-list-dragover");
-  clearDropPosition();
+function leaveTaskCardDropZone(event) {
+  const dragoverClass = "task-list-dragover";
+  const taskList = event.currentTarget;
+
+  taskList.classList.remove(dragoverClass);
 }
 
 /**
@@ -298,12 +272,8 @@ function leaveTaskDropZone(event) {
  * @param {string|undefined} targetId - Following task ID.
  * @returns {void}
  */
-function moveTaskToPosition(task, status, targetId) {
-  allTasks.splice(allTasks.indexOf(task), 1);
+function changeTaskStatus(task, status) {
   task.status = status;
-  const targetIndex = allTasks.findIndex(({ id }) => id === targetId);
-  const insertAt = targetIndex === -1 ? allTasks.length : targetIndex;
-  allTasks.splice(insertAt, 0, task);
 }
 
 /**
@@ -311,16 +281,13 @@ function moveTaskToPosition(task, status, targetId) {
  * @param {DragEvent} event - Column drop event.
  * @returns {void}
  */
-async function dropTask(event) {
+async function dropTaskIntoTaskList(event) {
+  clearDropPosition();
   event.preventDefault();
+  const taskList = event.currentTarget;
   const task = allTasks.find(({ id }) => id === draggedTaskId);
-  leaveTaskDropZone(event);
-  if (!task) return;
-  const target = getDropTarget(event.currentTarget, event.clientY);
-  moveTaskToPosition(task, event.currentTarget.dataset.status, target?.dataset.taskId);
-  emptyTaskLists();
-  renderTaskCards();
-  setBadgeBackgroundColor();
+  changeTaskStatus(task, taskList.dataset.status);
+  renderBoardContent();
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
@@ -341,9 +308,9 @@ function initializeDraggableCards() {
  */
 function initializeTaskDropZones() {
   document.querySelectorAll(".task-list").forEach((taskList) => {
-    taskList.addEventListener("dragover", allowTaskDrop);
-    taskList.addEventListener("dragleave", leaveTaskDropZone);
-    taskList.addEventListener("drop", dropTask);
+    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
+    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
+    taskList.addEventListener("drop", dropTaskIntoTaskList);
   });
 }
 
@@ -354,13 +321,14 @@ function initializeTaskDropZones() {
  */
 function createAllTaskArrayFromData(allTaskData) {
   if (!allTaskData) return [];
-  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
+  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id}));
 }
 
 async function loadTasks() {
   try {
     const allTaskData = await getData("tasks");
-    allTasks = createAllTaskArrayFromData(allTaskData);
+    const taskDataArray = createAllTaskArrayFromData(allTaskData);
+    taskDataArray.forEach((task) => allTasks.push(task));
   } catch (error) {
     console.error("Fehler beim laden der Tasks", error);
     allTasks = [];
