@@ -132,7 +132,6 @@ function renderBoardContent(tasks) {
   renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
-  // initializeDraggableCards();
 }
 
 /**
@@ -141,8 +140,9 @@ function renderBoardContent(tasks) {
  * @returns {void}
  */
 function renderEmptyTaskLists() {
-  const taskLists = document.querySelectorAll(".task.list");
+  const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
+    if(taskList.children.length > 0) return;
     taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
       text: taskList.dataset.emptyText,
     });
@@ -285,7 +285,7 @@ async function dropTaskIntoTaskList(event) {
   event.preventDefault();
   const task = allTasks.find(({ id }) => id === draggedTaskId);
   changeTaskStatus(task, taskList.dataset.status);
-  renderBoardContent();
+  renderBoardContent(allTasks);
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
