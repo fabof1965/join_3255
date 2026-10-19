@@ -45,7 +45,6 @@ function validatePhoneInput(input, errorMsg, border) {
     errorMsg.textContent = "Only digits are allowed";
     errorMsg.classList.toggle('visibility-hidden', !invalid);
     border.classList.toggle('error-message-border-bottom', invalid);
-    input.setAttribute('aria-invalid', String(invalid));
 }
 
 async function renderContacts() {
@@ -149,13 +148,13 @@ function hideContactDetail() {
     document.getElementById("popover-menu").remove();
 }
 
-function renderContactInformation(indexContact) {
+function getContactsData(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
 }
 
 function showContactDetail(indexContact) {
-    renderContactInformation(indexContact);
+    getContactsData(indexContact);
     document.querySelector("#contact-detail").classList.add('animation-right');
     setBadgeBackgroundColor();
 }
@@ -168,7 +167,7 @@ function resetBadge() {
     const badge = document.querySelector('.badge-image-container');
     badge.style = "";
     badge.classList.remove('profile-badge-large');
-    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="">';
+    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
 }
 
 function openContactDialog(i = null) {
@@ -178,7 +177,7 @@ function openContactDialog(i = null) {
         const badge = document.querySelector('.badge-image-container');
         badge.style = "";
         badge.classList.remove('profile-badge-large');
-        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="">';
+        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
     }
 
     activateDialog();
@@ -194,7 +193,6 @@ function resetContactForm() {
     const border = document.querySelectorAll('.add-contact-content');
     border.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
-        borderColor.querySelector('input')?.setAttribute('aria-invalid', 'false');
     });
     const errMsg = document.querySelectorAll('.error-msg');
     errMsg.forEach(errorMessage => {
@@ -248,8 +246,6 @@ async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
 function updateContactFieldError(errorID, borderID, exists) {
     document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
-    const input = document.getElementById(borderID)?.querySelector('input');
-    if (input) input.setAttribute('aria-invalid', String(exists));
 }
 
 async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {

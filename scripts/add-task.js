@@ -27,5 +27,13 @@ async function loadAddTaskContent() {
   const CONTAINER_ADD_TASK = document.querySelector(".main-layout");
   CONTAINER_ADD_TASK.innerHTML += addTaskContentTemplate;
   await renderAssignedContacts(CONTAINER_ADD_TASK);
-  setTaskFormPriority(CONTAINER_ADD_TASK.querySelector("#add-task-form"), selectedTaskPriority);
+}
+
+function resetForm(form = document.getElementById('add-task-form')) {
+  if (!form) return;
+  form.reset();
+  newTaskSubtasks = [];
+  selectedTaskPriority = "medium";
+  setTaskFormPriority(form, selectedTaskPriority);
+  renderNewSubtasks();
 }
