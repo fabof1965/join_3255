@@ -325,6 +325,7 @@ function makePlaceholder(draggedTask) {
   const placeholder = document.createElement("li");
   placeholder.classList.add("placeholder");
   placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  console.log("placeholder created");
   return placeholder;
 }
 
@@ -346,7 +347,7 @@ function movePlaceholder(event) {
     }
   } 
 
-  for (const task of tasks.children) {
+  for (const task of tasks) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
       if (task === existingPlaceholder) return;
       existingPlaceholder?.remove();
