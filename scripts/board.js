@@ -288,10 +288,10 @@ async function dropTaskIntoTaskList(event) {
   placeholder.remove();
   taskList.classList.remove("task-list-dragover");
   taskList.classList.remove("task-list-drop-end");
-  // const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
-  // changeTaskStatus(task, taskList.dataset.status);
+  const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
+  changeTaskStatus(task, taskList.dataset.status);
 
-  // await patchData(`tasks/${task.id}`, { status: task.status });
+  await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
 /**
