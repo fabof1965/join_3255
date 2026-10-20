@@ -216,11 +216,8 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(!taskCardElement) return;
+  const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
-  // draggedTaskId = grabbedTask.dataset.taskId;
-  // event.dataTransfer.setData("text/plain", draggedTaskId);
   taskCardElement.classList.add("task-card-dragging");
   taskCardElement.classList.add("task-card-drop-before");
 }
@@ -231,8 +228,9 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
+  const taskCardElement = event.currentTarget;
   if(taskCardElement) console.log(taskCardElement);
+  taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
 }
@@ -243,11 +241,11 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList) return;
+  event.preventDefault();
+  const taskList = event.currentTarget;
   taskList.classList.add("task-list-dragover");
   taskList.classList.add("task-list-drop-end");
-  event.preventDefault();
+  movePlaceholder(event);
 }
 
 /**
@@ -256,9 +254,10 @@ function dragTaskCardOverTaskList(event) {
  * @returns {void}
  */
 function leaveTaskCardDropZone(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList || taskList.contains(event.relatedTarget)) return;
-
+  const taskList = event.currentTarget;
+  if(taskList.contains(event.relatedTarget)) return;
+  const placeholder = taskList.querySelector(".placeholder");
+  placeholder?.remove();
   taskList.classList.remove("task-list-dragover");
 }
 
@@ -279,18 +278,21 @@ function changeTaskStatus(task, status) {
  * @returns {void}
  */
 async function dropTaskIntoTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  const taskCard = document.getElementById("grabbed-card");
-  if(!taskList || !taskCard) return;
   event.preventDefault();
+  const taskList = event.currentTarget;
+  const placeholder = column.querySelector(".placeholder");
+  if(!placeholder) return;
+  const taskCard = document.getElementById("grabbed-card");
+  taskCard.remove();
+  taskList.appendChild(taskCard);
+  placeholder.remove();
   taskList.classList.remove("task-list-dragover");
   taskList.classList.remove("task-list-drop-end");
-  const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
-  taskCard.removeAttribute("id");
-  changeTaskStatus(task, taskList.dataset.status);
-  renderBoardContent(allTasks);
+  // const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
+  // changeTaskStatus(task, taskList.dataset.status);
+  // renderBoardContent(allTasks);
 
-  await patchData(`tasks/${task.id}`, { status: task.status });
+  // await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
 /**
@@ -298,13 +300,70 @@ async function dropTaskIntoTaskList(event) {
  * @returns {void}
  */
 function initializeDragAndDrop() {
-  document.addEventListener("dragstart", startDragging);
-  document.addEventListener("dragend", stopDragging);
-  document.addEventListener("dragover", dragTaskCardOverTaskList);
-  document.addEventListener("dragleave", leaveTaskCardDropZone);
-  document.addEventListener("drop", dropTaskIntoTaskList);
+  initializeDragEventsForTaskCards();
+  initializeDragAndDropForTaskLists();
 }
 
+function initializeDragEventsForTaskCards() {
+  const taskCards = document.querySelectorAll(".task-card");
+  taskCards.forEach((taskCard) => {
+    taskCard.addEventListener("dragstart", startDragging);
+    taskCard.addEventListener("dragend", stopDragging);
+  });
+}
+
+function initializeDragAndDropForTaskLists() {
+  const taskLists = document.querySelectorAll(".task-list");
+  taskLists.forEach((taskList) => {
+    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
+    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
+    taskList.addEventListener("drop", dropTaskIntoTaskList);
+  });
+}
+
+function makePlaceholder(draggedTask) {
+  const placeholder = document.createElement("li");
+  placeholder.classList.add("placeholder");
+  placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  return placeholder;
+}
+
+function movePlaceholder(event) {
+  event.preventDefault();
+
+  const draggedTask = document.getElementById("grabbed-card");
+  const column = event.currentTarget;
+  const tasks = column.children;
+  const existingPlaceholder = column.querySelector(".placeholder");
+
+  if (existingPlaceholder) {
+    const placeholderRect = existingPlaceholder.getBoundingClientRect();
+    if (
+      placeholderRect.top <= event.clientY &&
+      placeholderRect.bottom >= event.clientY
+    ) {
+      return;
+    }
+  } 
+
+  for (const task of tasks.children) {
+    if (task.getBoundingClientRect().bottom >= event.clientY) {
+      if (task === existingPlaceholder) return;
+      existingPlaceholder?.remove();
+      if (task === draggedTask || task.previousElementSibling === draggedTask)
+        return;
+      tasks.insertBefore(
+        existingPlaceholder ?? makePlaceholder(draggedTask),
+        task,
+      );
+      return;
+    }
+  }
+
+  existingPlaceholder?.remove();
+  if (tasks.lastElementChild === draggedTask) return;
+  tasks.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+}
 /**
  *
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
