@@ -229,7 +229,7 @@ function startDragging(event) {
  */
 function stopDragging(event) {
   const taskCardElement = event.currentTarget;
-  if(taskCardElement) console.log(taskCardElement);
+
   taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
@@ -325,7 +325,6 @@ function makePlaceholder(draggedTask) {
   placeholder.classList.add("placeholder");
   placeholder.style.height = `${draggedTask.offsetHeight}px`;
   placeholder.style.width = `${draggedTask.offsetWidth}px`;
-  console.log("placeholder created");
   return placeholder;
 }
 
