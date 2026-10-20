@@ -352,7 +352,7 @@ function movePlaceholder(event) {
       existingPlaceholder?.remove();
       // if (task === draggedTask || task.previousElementSibling === draggedTask)
       //   return;
-      tasks.insertBefore(
+      column.insertBefore(
         existingPlaceholder ?? makePlaceholder(draggedTask),
         task,
       );
