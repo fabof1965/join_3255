@@ -1,7 +1,3 @@
-let editingTaskId = "";
-let newTaskCategory = "toDo";
-let selectedTaskPriority = "medium";
-let newTaskSubtasks = [];
 const dialogModes = {
   addTaskMode: "add-task",
   editTaskMode: "edit-task",
@@ -38,10 +34,11 @@ document.addEventListener("submit", (event) => {
     submitEditedTask(form);
     return;
   }
-})
-document.addEventListener("click", (event) => {
-  handleClickOnAddTaskDialog(event);
 });
+
+// document.addEventListener("click", (event) => {
+//   handleClickOnAddTaskDialog(event);
+// });
 
 /**
  * Keeps Enter in the subtask inputs from submitting the whole form.
@@ -67,36 +64,37 @@ function addClickEventListenersToTaskCategoryButtons() {
   });
 }
 
-function closeAddTaskDialogOnCloseButtonClick(event) {
-if (event.target.closest(".add-task-close")) closeAddTaskDialog();
-}
+// function closeAddTaskDialogOnCloseButtonClick(event) {
+//   const closeButton = event.target.closest("close-btn");
+//   if(closeButton)  closeAddTaskDialog();
+// }
 
-function selectTaskPriorityOnPriorityButtonClick(event) {
-  const priorityButton = event.target.closest("[data-priority]");
-  if (priorityButton) selectTaskPriority(priorityButton);
-}
+// function selectTaskPriorityOnPriorityButtonClick(event) {
+//   const priorityButton = event.target.closest("[data-priority]");
+//   if (priorityButton) selectTaskPriority(priorityButton);
+// }
 
-function deleteSubtaskOnDeleteButtonClick(event) {
-  const deleteButton = event.target.closest('[data-action="delete"]');
-  if (deleteButton) deleteSubtask(deleteButton);
-}
+// function deleteSubtaskOnDeleteButtonClick(event) {
+//   const deleteButton = event.target.closest('[data-action="delete"]');
+//   if (deleteButton) deleteSubtask(deleteButton);
+// }
 
-function editSubtaskOnEditButtonClick(event) {
-  const editButton = event.target.closest('[data-action="edit"]');
-  if (editButton) editSubtask(editButton);
-}
+// function editSubtaskOnEditButtonClick(event) {
+//   const editButton = event.target.closest('[data-action="edit"]');
+//   if (editButton) editSubtask(editButton);
+// }
 
 /**
  * Handles all Add Task dialog clicks.
  * @param {MouseEvent} event - Document click event.
  * @returns {void}
  */
-function handleClickOnAddTaskDialog(event) {
-  closeAddTaskDialogOnCloseButtonClick(event);
-  selectTaskPriorityOnPriorityButtonClick(event);
-  deleteSubtaskOnDeleteButtonClick(event);
-  editSubtaskOnEditButtonClick(event);
-}
+// function handleClickOnAddTaskDialog(event) {
+//   closeAddTaskDialogOnCloseButtonClick(event);
+//   selectTaskPriorityOnPriorityButtonClick(event);
+//   deleteSubtaskOnDeleteButtonClick(event);
+//   editSubtaskOnEditButtonClick(event);
+// }
 
 function getTaskForm() {
   return document.querySelector("#add-task-form");
@@ -110,15 +108,12 @@ async function openAddTaskDialog(status) {
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   addTaskDialog.innerHTML = addTaskDialogTemplate;
+  const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
-  await renderAssignedContacts(addTaskDialog);
+  await renderAssignedContacts(taskForm);
   
-
-  setTaskFormPriority(getTaskForm(), selectedTaskPriority);
   addTaskDialog.showModal();
 }
-
-
 
 /**
  * Fills the task form with existing task data.
@@ -131,7 +126,6 @@ function fillTaskForm(form, task) {
   form.elements.description.value = (task.fullDescription || task.description);
   form.elements.dueDate.value = task.dueDate || "";
   form.elements.category.value = task.category || "";
-  setTaskFormPriority(form, task.priority);
   setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
   newTaskSubtasks = [...(task.subtaskTitles || [])];
   renderNewSubtasks();
@@ -147,11 +141,10 @@ async function openAddTaskDialogInEditMode(task) {
   editingTaskId = task.id;
   newTaskCategory = task.status;
   addTaskDialog.innerHTML = addTaskDialogTemplate;
-  getTaskForm().classList.add(dialogModes.editTaskMode);
-  await renderAssignedContacts(addTaskDialog);
-  addTaskDialog.querySelector("#add-task-title").textContent = "Edit Task";
-  addTaskDialog.querySelector(".create-task-button").textContent = "Save Task";
-  fillTaskForm(addTaskDialog.querySelector("#add-task-form"), task);
+  const taskForm = getTaskForm();
+  taskForm.classList.add(dialogModes.editTaskMode);
+  await renderAssignedContacts(taskForm);
+  fillTaskForm(taskForm, task);
   
   addTaskDialog.showModal();
 }
@@ -179,9 +172,9 @@ async function submitEditedTask(form) {
   if (taskIndex === -1) return;
   const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
   allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, getTaskPatch(updatedTask));
+  await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**
@@ -230,7 +223,7 @@ async function toggleSubtask(index) {
     subtaskDone: task.subtaskDone,
     subtasks: task.subtasks,
   });
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**
@@ -284,7 +277,6 @@ function openTaskCardDialog(taskId) {
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
   taskCardDialog.showModal();
-  document.body.classList.add("overlay-open");
 }
 
 /**
@@ -297,7 +289,7 @@ async function deleteTaskCard(taskCardId) {
   allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
   closeTaskCardDialog();
-  renderSearchResults(document.getElementById("task-search").value);
+  renderTaskCards();
 }
 
 /**
@@ -331,7 +323,7 @@ function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
 
   if (card) openTaskCardDialog(card.dataset.taskId);
-  if (event.target.closest(".task-overlay-delete")) deleteTaskCard(openedTaskId);
+  if(event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
   if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }

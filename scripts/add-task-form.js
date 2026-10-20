@@ -1,11 +1,9 @@
-function setTaskFormPriority(form, priority = "medium") {
-  selectedTaskPriority = priority;
-  form.querySelectorAll("[data-priority]").forEach((button) => {
-    const selected = button.dataset.priority === priority;
-    button.classList.toggle("selected", selected);
-    button.setAttribute("aria-pressed", String(selected));
-  });
-}
+let selectedTaskPriority = "medium";
+let editingTaskId = "";
+let newTaskCategory = "toDo";
+let newTaskSubtasks = [];
+
+document.addEventListener("submit", submitNewTask);
 
 /**
  * Selects assigned users in the task form.
@@ -28,7 +26,6 @@ function selectTaskPriority(button) {
   document.querySelectorAll("[data-priority]").forEach((item) => {
     const selected = item === button;
     item.classList.toggle("selected", selected);
-    item.setAttribute("aria-pressed", String(selected));
   });
   selectedTaskPriority = button.dataset.priority;
 }
@@ -137,7 +134,6 @@ function resetForm(form = document.getElementById('add-task-form')) {
   );
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
-  setTaskFormPriority(form, selectedTaskPriority);
   renderNewSubtasks();
 }
 
@@ -198,7 +194,39 @@ function getSelectedUserNames(select) {
 function createTaskFromForm(form) {
   addPendingSubtask(form);
   const data = new FormData(form);
+  //data soll ein Objekt in etwa dieser Form sein: 
+// {
+//     title: document.querySelector(".task-title-input").value.trim(), 
+//     description: document.querySelector(".task-description-input").value.trim(),
+//     dueDate: document.querySelector(".add-task-date-input").value, 
+//     category: getSelectedOptionFromForm(document.querySelector("task-category-select")), 
+//     priority: selectedTaskPriority, 
+//     assignedUsers: getSelectedUsers(assignedUsers),
+//     subtasks: getSubtasksFromForm,
+//     subtaskTitles: [...newTaskSubtasks], 
+//     subtaskDone: newTaskSubtasks.map(() => false),
+//   };
   return buildTaskData(data, form.elements.assignedUsers);
+}
+
+function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
+    return totalSubtasks / subtasksDone;
+}
+
+function getSelectedOptionFromForm(select) {
+    const option = select.selectedOptions[0];
+    const optionText = option ? option.textContent : "";
+
+    return optionText;
+}
+
+function getSubtasksFromForm() {
+    const subtaskTitles = document.querySelectorAll(".subtaskTitle");
+    const subtaskCheckboxes = "";
+    const subtasks = subtaskTitles.map((title) => {
+        const subtaskTitle = title;
+        const subtaskDone = "";
+    });
 }
 
 /**
@@ -241,13 +269,11 @@ function updateTaskFromForm(currentTask, form) {
   };
 }
 
-function getTaskPatch(task) {
+function getPatchedTaskData(task) {
   const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
     subtasks, subtaskTitles, subtaskDone } = task;
-  return {
-    title, description, fullDescription: description, dueDate, category, priority,
-    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone
-  };
+  return { title, description, dueDate, category, priority,
+    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
 }
 
 /**
@@ -259,12 +285,13 @@ async function submitNewTask(event) {
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  const task = createTaskFromForm(form);
-  const response = await postData("tasks", task);
+  const taskData = createTaskFromForm(form);
+  const response = await postData("tasks", taskData);
   if (!response) return;
   const firebaseId = response.name;
-  task.id = firebaseId;
-  finishTaskSubmission(form, task);
+  taskData.id = firebaseId;
+  finishTaskSubmission(form, taskData);
+  window.location.href = "../pages/board.html";
 }
 
 /**
