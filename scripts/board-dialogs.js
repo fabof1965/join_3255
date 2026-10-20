@@ -223,7 +223,7 @@ async function toggleSubtask(index) {
     subtaskDone: task.subtaskDone,
     subtasks: task.subtasks,
   });
-  renderTaskCards();
+  renderBoardContent(allTasks);
 }
 
 /**
