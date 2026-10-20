@@ -290,7 +290,6 @@ async function dropTaskIntoTaskList(event) {
   taskList.classList.remove("task-list-drop-end");
   // const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
   // changeTaskStatus(task, taskList.dataset.status);
-  // renderBoardContent(allTasks);
 
   // await patchData(`tasks/${task.id}`, { status: task.status });
 }
@@ -325,6 +324,7 @@ function makePlaceholder(draggedTask) {
   const placeholder = document.createElement("li");
   placeholder.classList.add("placeholder");
   placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  placeholder.style.width = `${draggedTask.offsetWidth}px`;
   console.log("placeholder created");
   return placeholder;
 }
@@ -334,7 +334,6 @@ function movePlaceholder(event) {
 
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;
-  const tasks = column.children;
   const existingPlaceholder = column.querySelector(".placeholder");
 
   if (existingPlaceholder) {
@@ -347,12 +346,12 @@ function movePlaceholder(event) {
     }
   } 
 
-  for (const task of tasks) {
+  for (const task of column.children) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
       if (task === existingPlaceholder) return;
       existingPlaceholder?.remove();
-      if (task === draggedTask || task.previousElementSibling === draggedTask)
-        return;
+      // if (task === draggedTask || task.previousElementSibling === draggedTask)
+      //   return;
       tasks.insertBefore(
         existingPlaceholder ?? makePlaceholder(draggedTask),
         task,
@@ -362,8 +361,8 @@ function movePlaceholder(event) {
   }
 
   existingPlaceholder?.remove();
-  if (tasks.lastElementChild === draggedTask) return;
-  tasks.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+  if (column.lastElementChild === draggedTask) return;
+  column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
 }
 /**
  *
