@@ -280,7 +280,7 @@ function changeTaskStatus(task, status) {
 async function dropTaskIntoTaskList(event) {
   event.preventDefault();
   const taskList = event.currentTarget;
-  const placeholder = column.querySelector(".placeholder");
+  const placeholder = taskList.querySelector(".placeholder");
   if(!placeholder) return;
   const taskCard = document.getElementById("grabbed-card");
   taskCard.remove();
