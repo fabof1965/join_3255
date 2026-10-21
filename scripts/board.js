@@ -15,9 +15,25 @@
 //     subtaskDone: [true, false],
 //   }
 
-const allTasks = [];
+// improved structure of a task
+//{
+//     id: "task-1",
+//     category: "User Story",
+//     title: "Kochwelt Page & Recipe Recommender",
+//     description: "Build start page with recipe recommendation and a detailed description of the recipes.",
+//     status: "inProgress",
+//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"], -> die Initialen können direkt aus den Namen abgeleitet werden, und müssen nicht noch zusätzlich gespeichert werden
+//     dueDate: "02/09/2023",
+//     priority: "low",
+//     subtasks: [
+//                 {
+//                  title: 'Einkaufen gehen', 
+//                  done: false
+//                 },
+//               ],
+//   }
 
-// let draggedTaskId = "";
+const allTasks = [];
 
 async function initBoardContent() {
   await loadTasks();
@@ -58,9 +74,7 @@ function getCategoryClass(category) {
  */
 function getAssignedUsersHtml(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers
-    .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
-    .join("");
+  return assignedUsers.map((initials) => fillTemplate(userBadgeTemplate, { initials })).join("");
 }
 
 /**
