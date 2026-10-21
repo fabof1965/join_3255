@@ -67,6 +67,11 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
+document.addEventListener("keydown", (event) => {
+  if (event.target.name === "subtask") addSubtaskOnEnter(event);
+  if (event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
+});
+
 /**
  * Removes the subtask belonging to the clicked delete button and re-renders the list.
  * @param {HTMLElement} button - Clicked delete button inside a subtask item.
@@ -282,6 +287,7 @@ function getPatchedTaskData(task) {
  * @returns {void}
  */
 async function submitNewTask(event) {
+  console.log("submit", event.target)
   event.preventDefault();
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
