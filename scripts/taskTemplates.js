@@ -1,20 +1,21 @@
-const taskCardTemplate = `
-    <article class="task-card" role="button" tabindex="0" aria-label="Open task {{title}}" draggable="true" data-task-id="{{id}}">
-      <div class="task-card-header">
-        <span class="task-category {{categoryClass}}">{{category}}</span>
-        <span class="task-card-drag-icon" aria-hidden="true">↕</span>
-      </div>
-      <div class="task-content">
-        <h3>{{title}}</h3>
-        <p>{{description}}</p>
-      </div>
-      {{subtaskProgress}}
-      <div class="task-footer">
-        <div class="assigned-users">{{assignedUsers}}</div>
-        <span class="task-priority task-priority-{{priority}}" aria-label="{{priority}} priority">{{prioritySymbol}}</span>
-      </div>
-    </article>
-`;
+function getTaskCardTemplate(task) {
+return `<article class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
+          <div class="task-card-header">
+            <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
+            <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+          </div>
+          <div class="task-content">
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+          </div>
+          ${getSubtaskDataProgressHtml(task.subtasks)}
+          <div class="task-footer">
+            <div class="assigned-users">${getUserInitials(task.assignedUsers)}</div>
+            <span class="task-priority task-priority-${task.priority}" aria-label="${task.priority} priority">${getPrioritySymbol(task.priority)}</span>
+          </div>
+        </article>`;
+}
+
 
 const subtaskProgressTemplate = `
     <div class="subtask-progress">

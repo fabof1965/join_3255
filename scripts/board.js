@@ -107,14 +107,7 @@ function getPrioritySymbol(priority) {
  */
 function getTaskCardHtml(task) {
   if (!task) return "";
-  return fillTemplate(taskCardTemplate, {
-    id: task.id,
-    categoryClass: getCategoryClass(task.category), category: task.category,
-    title: task.title, description: task.description,
-    subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
-    assignedUsers: getUserInitials(task.assignedUsers),
-    priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
-  });
+  return getTaskCardTemplate(task);
 }
 
 /**
