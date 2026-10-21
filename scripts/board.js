@@ -143,9 +143,8 @@ function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
     if(taskList.children.length > 0) return;
-    taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
-      text: taskList.dataset.emptyText,
-    });
+    const emptyTaskListMessage = taskList.dataset.emptyText;
+    taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
   });
 }
 
@@ -229,7 +228,10 @@ function startDragging(event) {
  */
 function stopDragging(event) {
   const taskCardElement = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
 
+  taskList.classList.remove("task-list-dragover");
+  taskList.classList.remove("task-list-drop-end");
   taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
@@ -281,16 +283,13 @@ async function dropTaskIntoTaskList(event) {
   event.preventDefault();
   const taskList = event.currentTarget;
   const placeholder = taskList.querySelector(".placeholder");
-  if(!placeholder) return;
   const taskCard = document.getElementById("grabbed-card");
+  if(!placeholder) return;
   taskCard.remove();
   taskList.appendChild(taskCard);
   placeholder.remove();
-  taskList.classList.remove("task-list-dragover");
-  taskList.classList.remove("task-list-drop-end");
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
   changeTaskStatus(task, taskList.dataset.status);
-
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
@@ -349,8 +348,8 @@ function movePlaceholder(event) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
       if (task === existingPlaceholder) return;
       existingPlaceholder?.remove();
-      // if (task === draggedTask || task.previousElementSibling === draggedTask)
-      //   return;
+      if (task === draggedTask || task.previousElementSibling === draggedTask)
+        return;
       column.insertBefore(
         existingPlaceholder ?? makePlaceholder(draggedTask),
         task,
