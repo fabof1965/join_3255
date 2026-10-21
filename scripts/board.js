@@ -144,6 +144,7 @@ function renderBoardContent(tasks) {
   renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -227,6 +228,7 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
+  console.log("dragstart", event.currentTarget);
   const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
   taskCardElement.classList.add("task-card-dragging");
@@ -239,6 +241,7 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
+  console.log("dragend");
   const taskCardElement = event.currentTarget;
   const taskList = event.target.closest?.(".task-list");
 
@@ -255,6 +258,8 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
+  // console.log("dragover", document.getElementById("grabbed-card"));
+  if (!document.getElementById("grabbed-card")) return;
   event.preventDefault();
   const taskList = event.currentTarget;
   taskList.classList.add("task-list-dragover");
