@@ -112,7 +112,8 @@ function getInputFieldsForLogin() {
 const pwTooShortMsg = 'Password should be at least 6 characters';
 const pwMismatchMsg = 'passwords do not match';
 
-const signupInputFieldsTemplate = `<div class="input-wrapper">
+function getInputFieldsForSignup() {
+return `  <div class="input-wrapper">
               <div class="input-content-container">  
                 <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
                 <img src="./assets/icons/person.svg" alt="person logo">
@@ -127,7 +128,7 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
                   <img src="./assets/icons/mail.svg" alt="">
                 </div>
                 <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
-            </div>
+              </div>
 
             <div class="input-wrapper">
               <div class="input-content-container">
@@ -148,9 +149,5 @@ const signupInputFieldsTemplate = `<div class="input-wrapper">
                   </button>
                 </div>
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
-            </div>
-            `;
-
-function getInputFieldsForSignup() {
-  return signupInputFieldsTemplate;
+              </div>`;
 }
