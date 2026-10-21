@@ -263,8 +263,8 @@ const addTaskSubtaskTemplate = `
     <div class="subtask-wrapper">
       <span>{{title}}</span>
       <div id="subtask-button-container" class="subtask-button-container">
-        <button type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
-        <button type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
+        <button onclick="editSubtask(this)" type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
+        <button onclick="deleteSubtask(this)" type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
       </div>
     </div>
   </li>`;
