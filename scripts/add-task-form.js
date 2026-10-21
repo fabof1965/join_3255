@@ -67,9 +67,9 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.target.name === "subtask") addSubtaskOnEnter(event);
-  if (event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
+document.addEventListener('keydown', (event) =>{
+  if(event.target.name === "subtask") addSubtaskOnEnter(event);
+  if(event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
 });
 
 /**
