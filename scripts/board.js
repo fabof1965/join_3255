@@ -122,11 +122,6 @@ function renderTask(task) {
   taskList.innerHTML += getTaskCardHtml(task);
 }
 
-function openTask() {
-  const dialog = document.getElementById('task-card-overlay');
-  dialog.showModal();
-}
-
 /**
  * Renders every task and updates empty board columns.
  * @param {Object[]} tasks - Tasks to render.

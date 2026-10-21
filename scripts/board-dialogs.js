@@ -245,14 +245,7 @@ function getOverlayPriorityIcon(priority) {
 function getTaskOverlayHtml(task) {
   const priority = task.priority;
   const subtasks = getOverlaySubtasksHtml(task);
-  return fillTemplate(taskOverlayTemplate, {
-    categoryClass: getCategoryClass(task.category), category: task.category,
-    title: task.title, description: task.fullDescription || task.description,
-    dueDate: task.dueDate || "No date", priorityLabel: capitalize(priority || "medium"),
-    priorityIcon: getOverlayPriorityIcon(priority || "medium"),
-    assignedUsers: getOverlayUsersHtml(task), subtasks,
-    subtaskSectionClass: subtasks ? "" : "task-overlay-section-hidden",
-  });
+  return getTaskOverlayTemplate(task, priority, subtasks);
 }
 
 /**

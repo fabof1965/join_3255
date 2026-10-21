@@ -32,33 +32,33 @@ function getEmptyTakListElement(emptyTaskListMessage) {
   return `<p class="empty-task-list">${emptyTaskListMessage}</p>`;
 }
 
-const taskOverlayTemplate = `
-  <article class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
-    <header class="task-overlay-header">
-      <span class="task-overlay-category {{categoryClass}}">{{category}}</span>
-      <button class="close-btn task-overlay-close" type="button" aria-label="Close task details">
-        <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close task" />
-      </button>
-    </header>
-    <h2 id="task-overlay-title">{{title}}</h2>
-    <p class="task-overlay-description">{{description}}</p>
-    <div class="task-overlay-row"><strong>Due date:</strong><span>{{dueDate}}</span></div>
-    <div class="task-overlay-row"><strong>Priority:</strong><span class="task-overlay-priority">{{priorityLabel}}{{priorityIcon}}</span></div>
-    <section class="task-overlay-section">
-      <h3>Assigned To:</h3>
-      <div class="task-overlay-users">{{assignedUsers}}</div>
-    </section>
-    <section class="task-overlay-section {{subtaskSectionClass}}">
-      <h3>Subtasks</h3>
-      <div class="task-overlay-subtasks">{{subtasks}}</div>
-    </section>
-    <footer class="task-overlay-actions">
-      <button id="delete-task-card" class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="" />Delete</button>
-      <span></span>
-      <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
-    </footer>
-  </article>
-`;
+function getTaskOverlayTemplate(task, priority, subtasks) {
+  return `<article class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">
+            <header class="task-overlay-header">
+              <span class="task-overlay-category ${getCategoryClass(task.category)}">${task.category}</span>
+              <button class="close-btn task-overlay-close" type="button" aria-label="Close task details">
+                <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close task" />
+              </button>
+            </header>
+            <h2 id="task-overlay-title">${task.title}</h2>
+            <p class="task-overlay-description">${task.description}</p>
+            <div class="task-overlay-row"><strong>Due date:</strong><span>${task.dueDate}</span></div>
+            <div class="task-overlay-row"><strong>Priority:</strong><span class="task-overlay-priority">${capitalize(priority || "medium")}${getOverlayPriorityIcon(priority || "medium")}</span></div>
+            <section class="task-overlay-section">
+              <h3>Assigned To:</h3>
+              <div class="task-overlay-users">${getOverlayUsersHtml(task)}</div>
+            </section>
+            <section class="task-overlay-section ${subtasks ? "" : "task-overlay-section-hidden"}">
+              <h3>Subtasks</h3>
+              <div class="task-overlay-subtasks">${subtasks}</div>
+            </section>
+            <footer class="task-overlay-actions">
+              <button id="delete-task-card" class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="" />Delete</button>
+              <span></span>
+              <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
+            </footer>
+          </article>`;
+}
 
 const taskOverlayUserTemplate = `
   <div class="task-overlay-user">
