@@ -53,14 +53,16 @@ function renderHeader() {
     if (!headerContainer) {
         return;
     }
-    headerContainer.innerHTML = headerTemplate;
+    
+    headerContainer.innerHTML = getHeaderTemplate();
+    initHeaderProfile();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     checkUserLogin()
     renderSidebar();
     renderHeader();
-    initHeaderProfile();
+    // initHeaderProfile();
 });
 
 function toHelpPage() {

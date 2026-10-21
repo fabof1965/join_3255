@@ -144,7 +144,6 @@ function renderBoardContent(tasks) {
   renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
-  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -304,10 +303,25 @@ async function dropTaskIntoTaskList(event) {
   if(!placeholder) return;
   taskCard.remove();
   taskList.appendChild(taskCard);
+  removeEmptyTaskListElement(taskList);
   placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
+  renderEmptyTaskLists();
   changeTaskStatus(task, taskList.dataset.status);
   await patchData(`tasks/${task.id}`, { status: task.status });
+}
+
+function removeEmptyTaskListElement(taskList) {
+  if(isEmptyTaskListElementInTaskList(taskList)) {
+    taskList.children[0].remove();
+  }
+}
+
+function isEmptyTaskListElementInTaskList(taskList) {
+  return  taskList.children[0].innerText === "No tasks To do" ||
+          taskList.children[0].innerText === "No tasks in progress" ||
+          taskList.children[0].innerText === "No tasks awaiting feedback" ||
+          taskList.children[0].innerText === "No tasks done";
 }
 
 /**

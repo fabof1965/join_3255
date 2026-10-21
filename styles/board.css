@@ -165,7 +165,7 @@
   flex-direction: column;
   gap: var(--gap-medium);
   flex-wrap: var(--noTextWrap);
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: calc(var(--task-card-dimensions) * 2.75 + var(--gap-medium));
   transition: background-color 100ms ease;
   border-radius: var(--element-design-border-radius);

@@ -64,28 +64,28 @@ function navigationBeforeLogin() {
           </section>`;
 }
 
-const headerTemplate = `
-  <div class="content-limit">
-    <div class="header-left">
-        <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
-    </div>
-    <div class="header-right">
-      <span class="kanban-text">Kanban Project Management Tool</span>
-      <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
-        <img class="help-icon" src="../assets/icons/help.svg" alt="" />
-      </a>
-      <nav id="header-menu" class="header-menu" popover>
-        <a class="help" href="../pages/help.html">Help</a>
-        <a href="../pages/legal_notice.html">Legal Notice</a>
-        <a href="../pages/privacy_policy.html">Privacy Policy</a>
-        <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
-      </nav>
-      <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
-        <span id="profile-badge">SM</span>
-      </button>
-    </div>
-  </div>
-`;
+function getHeaderTemplate() {
+  return `<div class="content-limit">
+              <div class="header-left">
+                  <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
+              </div>
+              <div class="header-right">
+                <span class="kanban-text">Kanban Project Management Tool</span>
+                <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
+                  <img class="help-icon" src="../assets/icons/help.svg" alt="" />
+                </a>
+                <nav id="header-menu" class="header-menu" popover>
+                  <a class="help" href="../pages/help.html">Help</a>
+                  <a href="../pages/legal_notice.html">Legal Notice</a>
+                  <a href="../pages/privacy_policy.html">Privacy Policy</a>
+                  <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
+                </nav>
+                <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
+                  <span id="profile-badge">SM</span>
+                </button>
+              </div>
+            </div>`;
+}
 
 function getInputFieldsForLogin() {
   return `<div class="input-wrapper">
