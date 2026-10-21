@@ -27,7 +27,9 @@ const subtaskProgressTemplate = `
 
 const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
 
-const emptyTaskListTemplate = `<p class="empty-task-list">{{text}}</p>`;
+function getEmptyTakListElement(emptyTaskListMessage) {
+  return `<p class="empty-task-list">${emptyTaskListMessage}</p>`;
+}
 
 const taskOverlayTemplate = `
   <article class="task-overlay" role="dialog" aria-modal="true" aria-labelledby="task-overlay-title">

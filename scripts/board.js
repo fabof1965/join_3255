@@ -15,9 +15,25 @@
 //     subtaskDone: [true, false],
 //   }
 
-const allTasks = [];
+// improved structure of a task
+//{
+//     id: "task-1",
+//     category: "User Story",
+//     title: "Kochwelt Page & Recipe Recommender",
+//     description: "Build start page with recipe recommendation and a detailed description of the recipes.",
+//     status: "inProgress",
+//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"], -> die Initialen können direkt aus den Namen abgeleitet werden, und müssen nicht noch zusätzlich gespeichert werden
+//     dueDate: "02/09/2023",
+//     priority: "low",
+//     subtasks: [
+//                 {
+//                  title: 'Einkaufen gehen', 
+//                  done: false,
+//                 },
+//               ],
+//   }
 
-// let draggedTaskId = "";
+const allTasks = [];
 
 async function initBoardContent() {
   await loadTasks();
@@ -46,9 +62,7 @@ function emptyTaskLists() {
  * @returns {string} Category CSS class.
  */
 function getCategoryClass(category) {
-  return category === "Technical Task"
-    ? "task-category-technical"
-    : "task-category-user-story";
+  return category === "Technical Task" ? "task-category-technical" : "task-category-user-story";
 }
 
 /**
@@ -56,11 +70,9 @@ function getCategoryClass(category) {
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
-function getAssignedUsersHtml(assignedUsers) {
+function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers
-    .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
-    .join("");
+  return assignedUsers.map((initials) => fillTemplate(userBadgeTemplate, { initials })).join("");
 }
 
 /**
@@ -100,7 +112,7 @@ function getTaskCardHtml(task) {
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.description,
     subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
-    assignedUsers: getAssignedUsersHtml(task.assignedUsers),
+    assignedUsers: getUserInitials(task.assignedUsers),
     priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
   });
 }
@@ -132,6 +144,7 @@ function renderBoardContent(tasks) {
   renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -143,9 +156,8 @@ function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
     if(taskList.children.length > 0) return;
-    taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
-      text: taskList.dataset.emptyText,
-    });
+    const emptyTaskListMessage = taskList.dataset.emptyText;
+    taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
   });
 }
 
@@ -216,11 +228,9 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(!taskCardElement) return;
+  console.log("dragstart", event.currentTarget);
+  const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
-  // draggedTaskId = grabbedTask.dataset.taskId;
-  // event.dataTransfer.setData("text/plain", draggedTaskId);
   taskCardElement.classList.add("task-card-dragging");
   taskCardElement.classList.add("task-card-drop-before");
 }
@@ -231,8 +241,13 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(taskCardElement) console.log(taskCardElement);
+  console.log("dragend");
+  const taskCardElement = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
+
+  taskList.classList.remove("task-list-dragover");
+  taskList.classList.remove("task-list-drop-end");
+  taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
 }
@@ -243,11 +258,13 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList) return;
+  // console.log("dragover", document.getElementById("grabbed-card"));
+  if (!document.getElementById("grabbed-card")) return;
+  event.preventDefault();
+  const taskList = event.currentTarget;
   taskList.classList.add("task-list-dragover");
   taskList.classList.add("task-list-drop-end");
-  event.preventDefault();
+  movePlaceholder(event);
 }
 
 /**
@@ -256,9 +273,10 @@ function dragTaskCardOverTaskList(event) {
  * @returns {void}
  */
 function leaveTaskCardDropZone(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList || taskList.contains(event.relatedTarget)) return;
-
+  const taskList = event.currentTarget;
+  if(taskList.contains(event.relatedTarget)) return;
+  const placeholder = taskList.querySelector(".placeholder");
+  placeholder?.remove();
   taskList.classList.remove("task-list-dragover");
 }
 
@@ -279,17 +297,16 @@ function changeTaskStatus(task, status) {
  * @returns {void}
  */
 async function dropTaskIntoTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  const taskCard = document.getElementById("grabbed-card");
-  if(!taskList || !taskCard) return;
   event.preventDefault();
-  taskList.classList.remove("task-list-dragover");
-  taskList.classList.remove("task-list-drop-end");
+  const taskList = event.currentTarget;
+  const placeholder = taskList.querySelector(".placeholder");
+  const taskCard = document.getElementById("grabbed-card");
+  if(!placeholder) return;
+  taskCard.remove();
+  taskList.appendChild(taskCard);
+  placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
-  taskCard.removeAttribute("id");
   changeTaskStatus(task, taskList.dataset.status);
-  renderBoardContent(allTasks);
-
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
@@ -298,13 +315,70 @@ async function dropTaskIntoTaskList(event) {
  * @returns {void}
  */
 function initializeDragAndDrop() {
-  document.addEventListener("dragstart", startDragging);
-  document.addEventListener("dragend", stopDragging);
-  document.addEventListener("dragover", dragTaskCardOverTaskList);
-  document.addEventListener("dragleave", leaveTaskCardDropZone);
-  document.addEventListener("drop", dropTaskIntoTaskList);
+  initializeDragEventsForTaskCards();
+  initializeDragAndDropForTaskLists();
 }
 
+function initializeDragEventsForTaskCards() {
+  const taskCards = document.querySelectorAll(".task-card");
+  taskCards.forEach((taskCard) => {
+    taskCard.addEventListener("dragstart", startDragging);
+    taskCard.addEventListener("dragend", stopDragging);
+  });
+}
+
+function initializeDragAndDropForTaskLists() {
+  const taskLists = document.querySelectorAll(".task-list");
+  taskLists.forEach((taskList) => {
+    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
+    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
+    taskList.addEventListener("drop", dropTaskIntoTaskList);
+  });
+}
+
+function makePlaceholder(draggedTask) {
+  const placeholder = document.createElement("li");
+  placeholder.classList.add("placeholder");
+  placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  placeholder.style.width = `${draggedTask.offsetWidth}px`;
+  return placeholder;
+}
+
+function movePlaceholder(event) {
+  event.preventDefault();
+
+  const draggedTask = document.getElementById("grabbed-card");
+  const column = event.currentTarget;
+  const existingPlaceholder = column.querySelector(".placeholder");
+
+  if (existingPlaceholder) {
+    const placeholderRect = existingPlaceholder.getBoundingClientRect();
+    if (
+      placeholderRect.top <= event.clientY &&
+      placeholderRect.bottom >= event.clientY
+    ) {
+      return;
+    }
+  } 
+
+  for (const task of column.children) {
+    if (task.getBoundingClientRect().bottom >= event.clientY) {
+      if (task === existingPlaceholder) return;
+      existingPlaceholder?.remove();
+      if (task === draggedTask || task.previousElementSibling === draggedTask)
+        return;
+      column.insertBefore(
+        existingPlaceholder ?? makePlaceholder(draggedTask),
+        task,
+      );
+      return;
+    }
+  }
+
+  existingPlaceholder?.remove();
+  if (column.lastElementChild === draggedTask) return;
+  column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+}
 /**
  *
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
