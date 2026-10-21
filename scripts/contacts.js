@@ -286,7 +286,7 @@ function editExistingContact(indexContact) {
 function openExistingContactDialog(indexContact) {
     const editContactDialog = document.getElementById("edit-contact-dialog");
     const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = renderProfileBadges(allContacts[indexContact].name).toUpperCase();
+    const initials = getInitials(allContacts[indexContact].name).toUpperCase();
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     setBadgeBackgroundColor();

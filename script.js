@@ -118,12 +118,12 @@ function initHeaderProfile() {
     if (!userName || userName === "Guest") {
         profileBadgeElement.innerText = "G";
     } else {
-        profileBadgeElement.innerText = renderProfileBadges(userName);
+        profileBadgeElement.innerText = getInitials(userName);
     }
 }
 
-function renderProfileBadges(initials) {
-    const namePart = initials.split(" ");
+function getInitials(firstAndLastName) {
+    const namePart = firstAndLastName.split(" ");
     const firstLetter = namePart.shift().charAt(0).toUpperCase();
     const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0).toUpperCase() : "";
     return (firstLetter + lastLetter);
@@ -165,7 +165,7 @@ async function renderAssignedContacts(container) {
     const contactRef = container.querySelector('#assigned-contacts');
     contactRef.innerHTML = assignedContacts
         .map(({ name }) =>
-            fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
+            fillTemplate(assignedContactOptionTemplate, { initials: getInitials(name), name }),
         )
         .join("");
 }

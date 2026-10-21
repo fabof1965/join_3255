@@ -28,7 +28,7 @@
 //     subtasks: [
 //                 {
 //                  title: 'Einkaufen gehen', 
-//                  done: false
+//                  done: false,
 //                 },
 //               ],
 //   }
@@ -62,9 +62,7 @@ function emptyTaskLists() {
  * @returns {string} Category CSS class.
  */
 function getCategoryClass(category) {
-  return category === "Technical Task"
-    ? "task-category-technical"
-    : "task-category-user-story";
+  return category === "Technical Task" ? "task-category-technical" : "task-category-user-story";
 }
 
 /**
@@ -72,7 +70,7 @@ function getCategoryClass(category) {
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
-function getAssignedUsersHtml(assignedUsers) {
+function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
   return assignedUsers.map((initials) => fillTemplate(userBadgeTemplate, { initials })).join("");
 }
@@ -114,7 +112,7 @@ function getTaskCardHtml(task) {
     categoryClass: getCategoryClass(task.category), category: task.category,
     title: task.title, description: task.description,
     subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
-    assignedUsers: getAssignedUsersHtml(task.assignedUsers),
+    assignedUsers: getUserInitials(task.assignedUsers),
     priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
   });
 }
