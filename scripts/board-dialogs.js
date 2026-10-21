@@ -64,38 +64,6 @@ function addClickEventListenersToTaskCategoryButtons() {
   });
 }
 
-// function closeAddTaskDialogOnCloseButtonClick(event) {
-//   const closeButton = event.target.closest("close-btn");
-//   if(closeButton)  closeAddTaskDialog();
-// }
-
-// function selectTaskPriorityOnPriorityButtonClick(event) {
-//   const priorityButton = event.target.closest("[data-priority]");
-//   if (priorityButton) selectTaskPriority(priorityButton);
-// }
-
-// function deleteSubtaskOnDeleteButtonClick(event) {
-//   const deleteButton = event.target.closest('[data-action="delete"]');
-//   if (deleteButton) deleteSubtask(deleteButton);
-// }
-
-// function editSubtaskOnEditButtonClick(event) {
-//   const editButton = event.target.closest('[data-action="edit"]');
-//   if (editButton) editSubtask(editButton);
-// }
-
-/**
- * Handles all Add Task dialog clicks.
- * @param {MouseEvent} event - Document click event.
- * @returns {void}
- */
-// function handleClickOnAddTaskDialog(event) {
-//   closeAddTaskDialogOnCloseButtonClick(event);
-//   selectTaskPriorityOnPriorityButtonClick(event);
-//   deleteSubtaskOnDeleteButtonClick(event);
-//   editSubtaskOnEditButtonClick(event);
-// }
-
 function getTaskForm() {
   return document.querySelector("#add-task-form");
 }
@@ -111,7 +79,7 @@ async function openAddTaskDialog(status) {
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
   await renderAssignedContacts(taskForm);
-  
+  clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
 
@@ -145,7 +113,7 @@ async function openAddTaskDialogInEditMode(task) {
   taskForm.classList.add(dialogModes.editTaskMode);
   await renderAssignedContacts(taskForm);
   fillTaskForm(taskForm, task);
-  
+  clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
 
@@ -269,6 +237,7 @@ function openTaskCardDialog(taskId) {
   openedTaskId = taskId;
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
   setBadgeBackgroundColor();
+  clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
 }
 

@@ -105,8 +105,9 @@ function toggleContactDetail(indexContact, contactCard) {
  * @param {HTMLElement} contactCard - The activated contact card.
  */
 function handleContactCardKeydown(event, indexContact, contactCard) {
+    console.log(event.key);
     if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
+    // event.preventDefault();
     toggleContactDetail(indexContact, contactCard);
 }
 
@@ -145,7 +146,6 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("popover-menu").remove();
 }
 
 function getContactsData(indexContact) {
@@ -187,6 +187,7 @@ function activateDialog() {
     const dialog = getAddContactDialog();
     dialog.showModal();
     dialog.classList.add('slide-in');
+    clickEventListener(dialog, closeContactDialog);
 }
 
 function resetContactForm() {
@@ -294,6 +295,7 @@ function openExistingContactDialog(indexContact) {
     fillContactForm(allContacts[indexContact]);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
+    clickEventListener(editContactDialog, closeContactDialog);
 }
 
 function closeEditContactDialog() {

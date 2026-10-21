@@ -69,6 +69,26 @@ function toHelpPage() {
     window.location.href = "../pages/help.html";
 }
 
+function clickEventListener(dialog, closingFunction = null) {
+    dialog.addEventListener("click", (event) => {
+    const RECT = dialog.getBoundingClientRect();
+
+        if (
+            event.clientX < RECT.left ||  
+            event.clientX > RECT.right ||  
+            event.clientY < RECT.top ||    
+            event.clientY > RECT.bottom    
+        ) {
+            if(closingFunction !== null) {
+                closingFunction();
+                return;
+            }
+
+            dialog.close();
+        }
+    });
+}
+
 
 /**
  * Opens the header menu on the help page or navigates to help otherwise.
