@@ -1,10 +1,15 @@
 const BASE_URL = "https://join-3255-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function getAuthUrl(path) {
-    const { auth } = await import("./firebaseInit.js");
-    await auth.authStateReady();
-    const token = await auth.currentUser?.getIdToken();
-    return BASE_URL + path + ".json?auth=" + token;
+    try {
+        const { auth } = await import("./firebaseInit.js");
+        await auth.authStateReady();
+        const token = await auth.currentUser?.getIdToken();
+        return BASE_URL + path + ".json?auth=" + token;
+    } catch (error) {
+        console.error('Fehler beim Erstellen der Auth-URL', error);
+        throw error;
+    }
 }
 
 /**
@@ -35,7 +40,7 @@ async function postData(path = "", data = {}) {
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(data)
         });
-        return responseToJson = await response.json();
+        return await response.json();
     } catch (error) {
         console.error('Fehler beim Hochladen der Daten', error);
     }
@@ -54,7 +59,7 @@ async function patchData(path = "", data = {}) {
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(data)
         });
-        return responseToJson = await response.json();
+        return await response.json();
     } catch (error) {
         console.error('Fehler beim aktualisieren der Daten', error);
     }
@@ -65,7 +70,7 @@ async function deleteData(path = "") {
         let response = await fetch(await getAuthUrl(path), {
             method: "DELETE",
         });
-        return responseToJson = await response.json();
+        return await response.json();
     } catch (error) {
         console.error('Fehler beim löschen der Daten', error);
     }

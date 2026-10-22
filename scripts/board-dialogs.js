@@ -138,7 +138,6 @@ function closeAddTaskDialog() {
   addTaskDialog.innerHTML = "";
 }
 
-
 /**
  * Updates an existing task from the form fields.
  * @param {HTMLFormElement} form - Edit Task form.
