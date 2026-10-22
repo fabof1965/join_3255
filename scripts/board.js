@@ -136,10 +136,19 @@ function renderBoardContent(tasks) {
 function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
-    if(taskList.children.length > 0) return;
-    const emptyTaskListMessage = taskList.dataset.emptyText;
-    taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
+    renderTaskListOnEmptyContent(taskList);
   });
+}
+
+function renderEmptyTaskListContent(taskList) {
+  const emptyTaskListMessage = taskList.dataset.emptyText;
+  taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
+}
+
+function renderTaskListOnEmptyContent(taskList) {
+  if(taskList.children.length === 0) {
+    renderEmptyTaskListContent(taskList);
+  }
 }
 
 /**
