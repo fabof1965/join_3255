@@ -63,8 +63,8 @@ function getTaskOverlayTemplate(task, priority, subtasks) {
 
 function getTaskOverlayUserTemplate(initials, name) {
   return`<div class="task-overlay-user">
-          <span class="profile-badge">{{initials}}</span>
-          <span>{{name}}</span>
+          <span class="profile-badge">${initials}</span>
+          <span>${name}</span>
         </div>`;
 }
 
