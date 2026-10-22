@@ -169,11 +169,7 @@ function getOverlaySubtasksHtml(task) {
   const titles = task.subtaskTitles || [];
   const done = task.subtaskDone || [];
   return titles.map((title, index) =>
-    fillTemplate(taskOverlaySubtaskTemplate, {
-      id: index,
-      title,
-      checked: done[index] ? "checked" : "",
-    }),
+    getSubtaskTemplate(title, done[index] ? "checked" : "", index),
   ).join("");
 }
 
@@ -191,7 +187,17 @@ async function toggleSubtask(index) {
     subtaskDone: task.subtaskDone,
     subtasks: task.subtasks,
   });
-  renderBoardContent(allTasks);
+
+  updateSubtaskProgressOnCard(task);
+}
+
+function updateSubtaskProgressOnCard(task) {
+  const progressFillOnCard = document.getElementById('progress-fill-' + task.id);
+  const progress = (task.subtasks.completed / task.subtasks.total) * 100;
+  const progressCountOnCard = document.getElementById("subtaskcontainer-" + task.id);
+
+  progressFillOnCard.style.width = `${progress}%`;
+  progressCountOnCard.innerText = `${task.subtasks.completed} / ${task.subtasks.total} Subtasks`;
 }
 
 /**

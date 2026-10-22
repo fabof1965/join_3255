@@ -80,14 +80,10 @@ function getUserInitials(assignedUsers) {
  * @param {{completed: number, total: number}|undefined} subtasks - Subtask counts.
  * @returns {string} Progress HTML.
  */
-function getSubtaskDataProgressHtml(subtasks) {
+function getSubtaskDataProgressHtml(subtasks, id) {
   if (!subtasks) return "";
   const progress = (subtasks.completed / subtasks.total) * 100;
-  return fillTemplate(subtaskProgressTemplate, {
-    completed: subtasks.completed,
-    total: subtasks.total,
-    progress,
-  });
+  return getSubtaskProgressTemplate(subtasks.completed, progress, subtasks.total, id); 
 }
 
 /**
@@ -245,7 +241,6 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  // console.log("dragover", document.getElementById("grabbed-card"));
   if (!document.getElementById("grabbed-card")) return;
   event.preventDefault();
   const taskList = event.currentTarget;

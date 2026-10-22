@@ -8,7 +8,7 @@ return `<article class="task-card" role="button" tabindex="0" aria-label="Open t
             <h3>${task.title}</h3>
             <p>${task.description}</p>
           </div>
-          ${getSubtaskDataProgressHtml(task.subtasks)}
+          ${getSubtaskDataProgressHtml(task.subtasks, task.id)}
           <div class="task-footer">
             <div class="assigned-users">${getUserInitials(task.assignedUsers)}</div>
             <span class="task-priority task-priority-${task.priority}" aria-label="${task.priority} priority">${getPrioritySymbol(task.priority)}</span>
@@ -16,15 +16,14 @@ return `<article class="task-card" role="button" tabindex="0" aria-label="Open t
         </article>`;
 }
 
-
-const subtaskProgressTemplate = `
-    <div class="subtask-progress">
-      <div class="progress-track" role="progressbar" aria-valuenow="{{completed}}" aria-valuemin="0" aria-valuemax="{{total}}">
-        <div class="progress-fill" style="width: {{progress}}%"></div>
-      </div>
-      <span id="subtaskcontainer">{{completed}}/{{total}} Subtasks</span>
-    </div>
-`;
+function getSubtaskProgressTemplate(completed, progress, total, taskId) {
+  return `<div class="subtask-progress">
+            <div class="progress-track" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}">
+              <div class="progress-fill" id="progress-fill-${taskId}" style="width: ${progress}%"></div>
+            </div>
+            <span id="subtaskcontainer-${taskId}">${completed} / ${total} Subtasks</span>
+          </div>`;
+}
 
 const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
 
@@ -67,12 +66,12 @@ const taskOverlayUserTemplate = `
   </div>
 `;
 
-const taskOverlaySubtaskTemplate = `
-  <div class="task-overlay-subtask" data-subtask-index="{{index}}">
-    <input class="subtask-checkbox" type="checkbox" id="subtask-{{id}}" {{checked}} />
-    <span>{{title}}</span>
-  </div>
-`;
+function getSubtaskTemplate(title, checked, id) {
+  return `<div class="task-overlay-subtask" data-subtask-index="${id}">
+            <input class="subtask-checkbox" type="checkbox" id="subtask-${id}" ${checked} />
+            <span>${title}</span>
+          </div>`;
+}
 
 const urgentPriorityTemplate = 
     `<svg class="urgent-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
