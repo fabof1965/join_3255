@@ -250,6 +250,7 @@ function openTaskCardDialog(taskId) {
   setBadgeBackgroundColor();
   clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
+  document.body.classList.add('overlay-open');
 }
 
 /**
@@ -284,8 +285,11 @@ function closeTaskCardDialog() {
   const taskCardDialog = document.getElementById("task-card-dialog");
   taskCardDialog.innerHTML = "";
   taskCardDialog.close();
-  document.body.classList.remove('overlay-open');
 }
+
+document.getElementById('task-card-dialog').addEventListener('close', () =>{
+  document.body.classList.remove('overlay-open');
+})
 
 /**
  * Handles clicks on cards and overlay closing areas.
