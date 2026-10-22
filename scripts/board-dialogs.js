@@ -263,7 +263,7 @@ async function deleteTaskCard(taskCardId) {
   allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
   closeTaskCardDialog();
-  renderTaskCards();
+  renderBoardContent(allTasks);
 }
 
 /**
@@ -297,7 +297,7 @@ function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
 
   if (card) openTaskCardDialog(card.dataset.taskId);
-  if (event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
+  if (event.target.closest(".task-overlay-delete")) deleteTaskCard(openedTaskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
   if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }

@@ -294,7 +294,8 @@ async function submitNewTask(event) {
   const firebaseId = response.name;
   taskData.id = firebaseId;
   finishTaskSubmission(form, taskData);
-  window.location.href = "../pages/board.html";
+  renderBoardContent(allTasks);
+  closeAddTaskDialog();
 }
 
 /**

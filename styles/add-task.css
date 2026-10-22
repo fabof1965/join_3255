@@ -314,7 +314,7 @@ textarea {
 }
 
 .add-task-subtasks {
-  padding-left: var(--padding-small);
+  padding-left: 24px;
   width: var(--full);
   min-height: 50px;
   max-height: 80px;
