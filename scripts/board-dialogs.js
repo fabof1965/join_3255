@@ -31,7 +31,7 @@ document.addEventListener("submit", (event) => {
   const form = event.target;
 
   if (form.classList.contains(dialogModes.addTaskMode)) {
-    submitNewTask(event);
+    submitTask(event);
     return;
   }
 

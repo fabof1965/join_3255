@@ -6,7 +6,7 @@ const allTasks = [];
 
 document.addEventListener("submit", (event) => {
   event.preventDefault();
-  if (!event.target.closest("dialog")) submitNewTask(event);
+  if (!event.target.closest("dialog")) submitTask(event);
 });
 
 /**
@@ -285,9 +285,7 @@ function getPatchedTaskData(task) {
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
  */
-async function submitNewTask(event) {
-  console.log("submit", event.target)
-  event.preventDefault();
+async function submitTask(event) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
   const taskData = createTaskFromForm(form);
