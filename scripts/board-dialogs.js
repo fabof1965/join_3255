@@ -269,10 +269,12 @@ function openTaskCardDialog(taskId) {
 async function deleteTaskCard(taskCardId) {
   const taskIndex = allTasks.findIndex(({ id }) => id === taskCardId);
   const taskCard = document.getElementById(taskCardId);
-  taskCard.remove();
-  allTasks.splice(taskIndex, 1); 
-  await deleteData("tasks/" + openedTaskId);
-  closeTaskCardDialog();
+  const taskList = document.querySelector('div.task-list[data-status="' + allTasks[taskIndex].status + '"]');
+  console.log(taskList);
+  // taskCard.remove();
+  // allTasks.splice(taskIndex, 1); 
+  // await deleteData("tasks/" + openedTaskId);
+  // closeTaskCardDialog();
 }
 
 /**
