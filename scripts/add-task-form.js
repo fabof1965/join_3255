@@ -2,8 +2,10 @@ let selectedTaskPriority = "medium";
 let editingTaskId = "";
 let newTaskCategory = "toDo";
 let newTaskSubtasks = [];
+const allTasks = [];
 
 document.addEventListener("submit", (event) => {
+  event.preventDefault();
   if (!event.target.closest("dialog")) submitNewTask(event);
 });
 
@@ -267,7 +269,7 @@ function updateTaskFromForm(currentTask, form) {
     ...taskData,
     id: editingTaskId,
     status: currentTask.status,
-    fullDescription: taskData.description
+    description: taskData.description
   };
 }
 
@@ -293,19 +295,24 @@ async function submitNewTask(event) {
   if (!response) return;
   const firebaseId = response.name;
   taskData.id = firebaseId;
-  finishTaskSubmission(form, taskData);
-  renderBoardContent(allTasks);
-  closeAddTaskDialog();
+  allTasks.push(taskData);
+  directToBoard("../pages/board.html");
 }
 
-/**
- * Cleans up the matching Add Task surface after a task was created.
- * @param {HTMLFormElement} form - Submitted Add Task form.
- * @param {Object} task - Created task with Firebase id.
- * @returns {void}
- */
-function finishTaskSubmission(form, task) {
-  if (typeof allTasks !== "undefined") allTasks.push(task);
-
-  resetForm(form);
+function directToBoard(boardURL) {
+  if(window.location.pathname !== boardURL) {
+    window.location.href = boardURL;
+  }
 }
+
+// /**
+//  * Cleans up the matching Add Task surface after a task was created.
+//  * @param {HTMLFormElement} form - Submitted Add Task form.
+//  * @param {Object} task - Created task with Firebase id.
+//  * @returns {void}
+//  */
+// function finishTaskSubmission(form, task) {
+//   if (typeof allTasks !== "undefined") allTasks.push(task);
+
+//   resetForm(form);
+// }

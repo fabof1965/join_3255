@@ -33,8 +33,6 @@
 //               ],
 //   }
 
-const allTasks = [];
-
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
