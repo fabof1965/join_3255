@@ -402,6 +402,6 @@
 }
 
 .placeholder {
-  border: 1px solid #cccccc;
-  border-radius: 3px;
+  border: 2px dashed var(--primary-color);
+  border-radius: 20px;
 }
