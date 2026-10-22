@@ -38,7 +38,7 @@ function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
   if (!list) return;
   list.innerHTML = newTaskSubtasks.map((title, index) =>
-    fillTemplate(addTaskSubtaskTemplate, { title, index }),
+    getAddTaskSubtaskTemplate(index, title),
   ).join("");
 }
 

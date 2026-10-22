@@ -259,16 +259,17 @@ const editIconSvg = `<svg class="edit-icon handle-subtask-icon" width="24" heigh
 const deleteIconSvg = `<svg class="delete-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6C4.71667 6 4.47917 5.90417 4.2875 5.7125C4.09583 5.52083 4 5.28333 4 5C4 4.71667 4.09583 4.47917 4.2875 4.2875C4.47917 4.09583 4.71667 4 5 4H9C9 3.71667 9.09583 3.47917 9.2875 3.2875C9.47917 3.09583 9.71667 3 10 3H14C14.2833 3 14.5208 3.09583 14.7125 3.2875C14.9042 3.47917 15 3.71667 15 4H19C19.2833 4 19.5208 4.09583 19.7125 4.2875C19.9042 4.47917 20 4.71667 20 5C20 5.28333 19.9042 5.52083 19.7125 5.7125C19.5208 5.90417 19.2833 6 19 6V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM7 6V19H17V6H7ZM9 16C9 16.2833 9.09583 16.5208 9.2875 16.7125C9.47917 16.9042 9.71667 17 10 17C10.2833 17 10.5208 16.9042 10.7125 16.7125C10.9042 16.5208 11 16.2833 11 16V9C11 8.71667 10.9042 8.47917 10.7125 8.2875C10.5208 8.09583 10.2833 8 10 8C9.71667 8 9.47917 8.09583 9.2875 8.2875C9.09583 8.47917 9 8.71667 9 9V16ZM13 16C13 16.2833 13.0958 16.5208 13.2875 16.7125C13.4792 16.9042 13.7167 17 14 17C14.2833 17 14.5208 16.9042 14.7125 16.7125C14.9042 16.5208 15 16.2833 15 16V9C15 8.71667 14.9042 8.47917 14.7125 8.2875C14.5208 8.09583 14.2833 8 14 8C13.7167 8 13.4792 8.09583 13.2875 8.2875C13.0958 8.47917 13 8.71667 13 9V16Z"/></svg>`
 const checkIconSvg = `<svg class="check-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.55002 15.15L18.025 6.675C18.225 6.475 18.4625 6.375 18.7375 6.375C19.0125 6.375 19.25 6.475 19.45 6.675C19.65 6.875 19.75 7.1125 19.75 7.3875C19.75 7.6625 19.65 7.9 19.45 8.1L10.25 17.3C10.05 17.5 9.81669 17.6 9.55002 17.6C9.28336 17.6 9.05002 17.5 8.85002 17.3L4.55002 13C4.35002 12.8 4.25419 12.5625 4.26252 12.2875C4.27086 12.0125 4.37502 11.775 4.57502 11.575C4.77502 11.375 5.01252 11.275 5.28752 11.275C5.56252 11.275 5.80002 11.375 6.00002 11.575L9.55002 15.15Z"/></svg>`
 
-const addTaskSubtaskTemplate = `
-  <li class="subtask-list" data-index="{{index}}">
-    <div class="subtask-wrapper">
-      <span>{{title}}</span>
-      <div id="subtask-button-container" class="subtask-button-container">
-        <button onclick="editSubtask(this)" type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
-        <button onclick="deleteSubtask(this)" type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
-      </div>
-    </div>
-  </li>`;
+function getAddTaskSubtaskTemplate(index, title) {
+  return `<li class="subtask-list" data-index="${index}">
+            <div class="subtask-wrapper">
+              <span>${title}</span>
+              <div id="subtask-button-container" class="subtask-button-container">
+                <button onclick="editSubtask(this)" type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
+                <button onclick="deleteSubtask(this)" type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
+              </div>
+            </div>
+          </li>`;
+}
 
 const editSubtaskTemplate = `
   <input class="subtask-edit-input" name="subtask-edit" value="{{title}}" />`;

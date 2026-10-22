@@ -59,7 +59,7 @@ function renderHeader() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    checkUserLogin()
+    authGuard()
     renderSidebar();
     renderHeader();
     // initHeaderProfile();
@@ -201,7 +201,7 @@ function fillTemplate(template, values) {
     );
 }
 
-function checkUserLogin() {
+function authGuard() {
     const currentUrl = window.location.pathname;
     if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();
     showPageAfterLogin();
