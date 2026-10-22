@@ -97,7 +97,7 @@ function editSubtask(button) {
   if (editInput) return saveSubtask(editInput);
   const index = Number(item.dataset.index);
   const span = item.querySelector('span');
-  span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
+  span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index]);
   const handleButtons = item.querySelector('.subtask-button-container');
   handleButtons.style.opacity = 1;
   item.style.backgroundColor = 'transparent';

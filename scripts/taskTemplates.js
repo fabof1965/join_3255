@@ -270,8 +270,9 @@ function getAddTaskSubtaskTemplate(index, title) {
           </li>`;
 }
 
-const editSubtaskTemplate = `
-  <input class="subtask-edit-input" name="subtask-edit" value="{{title}}" />`;
+function getEditSubtaskTemplate(subtaskTitle) {
+  return `<input class="subtask-edit-input" name="subtask-edit" value="${subtaskTitle}" />`;
+}
 
 function getAssignedContactOptionTemplate(initials, name) {
   return `<option value="${initials}">${name}</option>`;
