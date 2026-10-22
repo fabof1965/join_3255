@@ -153,10 +153,7 @@ async function submitEditedTask(form) {
 function getOverlayUsersHtml(task) {
   const users = task.assignedUsers || [];
   return users.map((initials, index) =>
-    fillTemplate(taskOverlayUserTemplate, {
-      initials,
-      name: task.assignedUserNames?.[index] || initials,
-    }),
+    getTaskOverlayUserTemplate(initials, task.assignedUserNames?.[index] || initials),
   ).join("");
 }
 

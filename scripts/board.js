@@ -72,7 +72,7 @@ function getCategoryClass(category) {
  */
 function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers.map((initials) => fillTemplate(userBadgeTemplate, { initials })).join("");
+  return assignedUsers.map((initials) => getUserBadgeTemplate(initials)).join("");
 }
 
 /**

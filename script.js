@@ -188,19 +188,6 @@ async function renderAssignedContacts(container) {
     contactRef.innerHTML = assignedContacts.map(({ name }) => getAssignedContactOptionTemplate(getInitials(name), name)).join("");
 }
 
-/**
- * Replaces every placeholder in an HTML template.
- * @param {string} template - HTML containing named placeholders.
- * @param {Object.<string, string|number>} values - Values for the placeholders.
- * @returns {string} Completed HTML.
- */
-function fillTemplate(template, values) {
-    return Object.entries(values).reduce(
-        (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
-        template,
-    );
-}
-
 function authGuard() {
     const currentUrl = window.location.pathname;
     if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();

@@ -59,12 +59,12 @@ function getTaskOverlayTemplate(task, priority, subtasks) {
           </article>`;
 }
 
-const taskOverlayUserTemplate = `
-  <div class="task-overlay-user">
-    <span class="profile-badge">{{initials}}</span>
-    <span>{{name}}</span>
-  </div>
-`;
+function getTaskOverlayUserTemplate(initials, name) {
+  return`<div class="task-overlay-user">
+          <span class="profile-badge">{{initials}}</span>
+          <span>{{name}}</span>
+        </div>`;
+}
 
 function getSubtaskTemplate(title, checked, id) {
   return `<div class="task-overlay-subtask" data-subtask-index="${id}">
