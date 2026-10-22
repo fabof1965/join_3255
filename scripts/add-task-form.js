@@ -3,7 +3,9 @@ let editingTaskId = "";
 let newTaskCategory = "toDo";
 let newTaskSubtasks = [];
 
-document.addEventListener("submit", submitNewTask);
+document.addEventListener("submit", (event) => {
+  if (!event.target.closest("dialog")) submitNewTask(event);
+});
 
 /**
  * Selects assigned users in the task form.
@@ -11,11 +13,6 @@ document.addEventListener("submit", submitNewTask);
  * @param {string[]} users - User initials to select.
  * @returns {void}
  */
-function setTaskFormUsers(select, users = []) {
-  Array.from(select.options).forEach((option) => {
-    option.selected = users.includes(option.value);
-  });
-}
 
 /**
  * Selects one priority button.

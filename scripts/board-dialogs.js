@@ -17,6 +17,12 @@ const taskCategoryButtons = [
   },
 ];
 
+function setTaskFormUsers(select, users = []) {
+  Array.from(select.options).forEach((option) => {
+    option.selected = users.includes(option.value);
+  });
+}
+
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
@@ -24,12 +30,12 @@ document.addEventListener("change", handleSubtaskCheckboxChange);
 document.addEventListener("submit", (event) => {
   const form = event.target;
 
-  if(form.classList.contains(dialogModes.addTaskMode)) {
+  if (form.classList.contains(dialogModes.addTaskMode)) {
     submitNewTask(event);
     return;
   }
 
-  if(form.classList.contains(dialogModes.editTaskMode)) {
+  if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
     submitEditedTask(form);
     return;
@@ -68,7 +74,6 @@ function getTaskForm() {
   return document.querySelector("#add-task-form");
 }
 
-
 async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = "";
@@ -97,6 +102,10 @@ function fillTaskForm(form, task) {
   setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
   newTaskSubtasks = [...(task.subtaskTitles || [])];
   renderNewSubtasks();
+  const priority = task.priority || "medium";
+  selectTaskPriority(form.querySelector(`[data-priority="${priority}"]`));
+  document.getElementById('add-task-title').textContent = "Edit task";
+  document.getElementById('btn-create-task').textContent = "Ok"
 }
 
 /**
@@ -142,7 +151,7 @@ async function submitEditedTask(form) {
   allTasks[taskIndex] = updatedTask;
   await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
-  renderTaskCards();
+  renderBoardContent(allTasks);
 }
 
 /**
@@ -288,7 +297,7 @@ function handleTaskCardClick(event) {
   const card = event.target.closest(".task-card");
 
   if (card) openTaskCardDialog(card.dataset.taskId);
-  if(event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
+  if (event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
   if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
 }
@@ -301,7 +310,7 @@ function handleTaskCardClick(event) {
 function handleTaskCardKeydown(event) {
   const card = event.target.closest(".task-card");
   if (!card || (event.key !== "Enter" && event.key !== " ")) return;
-  
+
   event.preventDefault();
   openTaskCardDialog(card.dataset.taskId);
 }
