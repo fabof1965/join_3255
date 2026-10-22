@@ -273,6 +273,6 @@ const addTaskSubtaskTemplate = `
 const editSubtaskTemplate = `
   <input class="subtask-edit-input" name="subtask-edit" value="{{title}}" />`;
 
-const assignedContactOptionTemplate = `<option value="{{initials}}">{{name}}</option>`;
-
-
+function getAssignedContactOptionTemplate(initials, name) {
+  return `<option value="${initials}">${name}</option>`;
+}

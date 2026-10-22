@@ -185,11 +185,7 @@ async function renderAssignedContacts(container) {
     const assignedContacts = await getAssignedContacts();
     sortContactsByName(assignedContacts);
     const contactRef = container.querySelector('#assigned-contacts');
-    contactRef.innerHTML = assignedContacts
-        .map(({ name }) =>
-            fillTemplate(assignedContactOptionTemplate, { initials: getInitials(name), name }),
-        )
-        .join("");
+    contactRef.innerHTML = assignedContacts.map(({ name }) => getAssignedContactOptionTemplate(getInitials(name), name)).join("");
 }
 
 /**
