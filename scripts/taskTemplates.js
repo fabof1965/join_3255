@@ -25,7 +25,9 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
           </div>`;
 }
 
-const userBadgeTemplate = `<span class="profile-badge">{{initials}}</span>`;
+function getUserBadgeTemplate(initials) {
+  return `<span class="profile-badge">${initials}</span>`;
+}
 
 function getEmptyTakListElement(emptyTaskListMessage) {
   return `<p class="empty-task-list">${emptyTaskListMessage}</p>`;
