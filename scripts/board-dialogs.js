@@ -31,6 +31,7 @@ document.addEventListener("submit", (event) => {
   const form = event.target;
 
   if (form.classList.contains(dialogModes.addTaskMode)) {
+    event.preventDefault();
     submitTask(event);
     return;
   }
@@ -41,10 +42,6 @@ document.addEventListener("submit", (event) => {
     return;
   }
 });
-
-// document.addEventListener("click", (event) => {
-//   handleClickOnAddTaskDialog(event);
-// });
 
 /**
  * Keeps Enter in the subtask inputs from submitting the whole form.
@@ -150,7 +147,19 @@ async function submitEditedTask(form) {
   allTasks[taskIndex] = updatedTask;
   await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
+
   renderBoardContent(allTasks);
+}
+
+function updateTaskFromForm(currentTask, form) {
+  const taskData = createTaskFromForm(form);
+  return {
+    ...currentTask,
+    ...taskData,
+    id: editingTaskId,
+    status: currentTask.status,
+    description: taskData.description
+  };
 }
 
 /**
@@ -259,11 +268,11 @@ function openTaskCardDialog(taskId) {
  */
 async function deleteTaskCard(taskCardId) {
   const taskIndex = allTasks.findIndex(({ id }) => id === taskCardId);
-
-  allTasks.splice(taskIndex, 1);
+  const taskCard = document.getElementById(taskCardId);
+  taskCard.remove();
+  allTasks.splice(taskIndex, 1); 
   await deleteData("tasks/" + openedTaskId);
   closeTaskCardDialog();
-  renderBoardContent(allTasks);
 }
 
 /**

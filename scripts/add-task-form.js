@@ -262,17 +262,6 @@ function getSubtaskProgress() {
   return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
 }
 
-function updateTaskFromForm(currentTask, form) {
-  const taskData = createTaskFromForm(form);
-  return {
-    ...currentTask,
-    ...taskData,
-    id: editingTaskId,
-    status: currentTask.status,
-    description: taskData.description
-  };
-}
-
 function getPatchedTaskData(task) {
   const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
     subtasks, subtaskTitles, subtaskDone } = task;

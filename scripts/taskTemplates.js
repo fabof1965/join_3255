@@ -1,5 +1,5 @@
 function getTaskCardTemplate(task) {
-return `<article class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
+return `<article id="${task.id}" class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
           <div class="task-card-header">
             <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
             <span class="task-card-drag-icon" aria-hidden="true">↕</span>
