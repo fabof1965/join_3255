@@ -1,6 +1,11 @@
 function getTaskCardTemplate(task) {
 return `<article id="${task.id}" class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
-          <div class="task-card-header">
+          ${getTaskCardContentTemplate(task)}
+        </article>`;
+}
+
+function getTaskCardContentTemplate(task) {
+  return `<div class="task-card-header">
             <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
             <span class="task-card-drag-icon" aria-hidden="true">↕</span>
           </div>
@@ -12,8 +17,7 @@ return `<article id="${task.id}" class="task-card" role="button" tabindex="0" ar
           <div class="task-footer">
             <div class="assigned-users">${getUserInitials(task.assignedUsers)}</div>
             <span class="task-priority task-priority-${task.priority}" aria-label="${task.priority} priority">${getPrioritySymbol(task.priority)}</span>
-          </div>
-        </article>`;
+          </div>`;
 }
 
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {

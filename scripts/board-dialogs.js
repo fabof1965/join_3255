@@ -143,12 +143,18 @@ function closeAddTaskDialog() {
 async function submitEditedTask(form) {
   const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
   if (taskIndex === -1) return;
-  const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
+  const taskToUpdate = allTasks[taskIndex];
+  const updatedTask = updateTaskFromForm(taskToUpdate, form);
   allTasks[taskIndex] = updatedTask;
   await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
   closeAddTaskDialog();
+  updateTaskCardContent(updatedTask);
+}
 
-  renderBoardContent(allTasks);
+function updateTaskCardContent(task) {
+  const taskCard = document.getElementById(task.id);
+  taskCard.innerHTML = getTaskCardContentTemplate(task);
+  setBadgeBackgroundColor();
 }
 
 function updateTaskFromForm(currentTask, form) {
