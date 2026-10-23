@@ -26,7 +26,11 @@ async function loadAllTaskData() {
 
 async function updateSummaryNumbers() {
   const allTasks = await loadAllTaskData();
-
+  if(!allTasks) {
+    const zero = "0";
+    displaySummaryNumbers(zero, zero, zero, zero, zero, zero);
+    return;
+  }
   const totalTasksToDo = allTasks.filter(task => task.status === "toDo").length;
   const totalTasksInProgress = allTasks.filter(task => task.status === "inProgress").length;
   const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback" ).length;
@@ -50,7 +54,10 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
 }
 
 function updateUpcomingDeadline(urgentTasks) {
-  const urgentTaskDates = urgentTasks.filter(duty => duty.dueDate);
+  const urgentTaskDates = urgentTasks.filter(duty => {
+    if((duty.dueDate) && (duty.status !== "done"))
+      return duty;
+  });
   
   urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   const closestDateStr = urgentTaskDates[0].dueDate;
@@ -64,7 +71,7 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
   const today = new Date();
   const closestDate = new Date(closestDateStr);
   dateEl.innerText = formatDate(closestDateStr);
-
+  
   if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
@@ -72,6 +79,7 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
 
   if(closestDate < today) {
     deadlineInfo.innerText = "Missed deadline";
+    return;
   }
 }
 
