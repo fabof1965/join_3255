@@ -91,7 +91,7 @@ function getInputFieldsForLogin() {
   return `<div class="input-wrapper">
                 <div class="input-content-container">
                   <label for="email" class="visually-hidden">Email</label>
-                  <input id="email" class="input-field" type="email" placeholder="Email" required />
+                  <input id="email" class="input-field" type="email" placeholder="Email"/>
                   <img src="./assets/icons/mail.svg" alt="mail icon" />
                 </div>
                 <span id="email-err-msg" class="error-msg visibility-hidden"></span>
@@ -99,7 +99,7 @@ function getInputFieldsForLogin() {
             <div class="input-wrapper">
                 <div class="input-content-container" id="error-msg-border-bottom">
                   <label for="login-password" class="visually-hidden">Passwort</label>
-                  <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
+                  <input id="login-password" class="input-field" type="password" placeholder="Passwort"/>
                   <button type="button" class="password-toggle" aria-label="Show password">
                     <img id="login-password-toggle-icon" class="lock-img"
                         src="./assets/icons/lock.svg" alt="" />
