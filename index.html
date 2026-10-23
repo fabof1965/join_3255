@@ -64,20 +64,20 @@
           <div class="input-wrapper">
             <div class="input-content-container">
               <label for="email" class="visually-hidden">Email</label>
-              <input id="email" class="input-field" type="email" placeholder="Email" required />
+              <input id="email" class="input-field" type="email" placeholder="Email"/>
               <img src="./assets/icons/mail.svg" alt="mail icon" />
             </div>
+            <span id="email-err-msg" class="error-msg visibility-hidden"></span>
           </div>
           <div id="login-error-msg-border-bottom" class="input-wrapper">
             <div class="input-content-container">
               <label for="login-password" class="visually-hidden">Password</label>
-              <input id="login-password" class="input-field" type="password" placeholder="Password" aria-describedby="error-msg" required />
+              <input id="login-password" class="input-field" type="password" placeholder="Password" aria-describedby="login-password-err-msg"/>
               <button type="button" class="password-toggle" data-password-toggle-for="login-password" aria-label="Show password">
                 <img id="login-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="" />
               </button>
             </div>
-            <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try
-              again.</span>
+            <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
           </div>
         </div>
 

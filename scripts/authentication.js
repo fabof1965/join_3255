@@ -218,191 +218,206 @@ function initLoginEventListeners() {
 
 function showErrorMessageForLogin() {
     const borderBottom = document.querySelectorAll('.input-content-container');
-    const errorMsg = document.getElementById('error-msg');
-    errorMsg.classList.remove('visibility-hidden');
+    const emailErrMsg = document.getElementById('email-err-msg'); //span
+    const passwordErrMsg = document.getElementById('login-password-err-msg'); // das ist die span
+    const emptyEmail = !document.getElementById('email').value; // input
+    const emptyPassword = !document.getElementById('login-password').value; // input
     borderBottom.forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
-}
-
-function hideInputErrorMessage(event) {
-    const wrapper = event.currentTarget.closest('.input-wrapper');
-    wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
-    const errMsg = wrapper.querySelector('.error-msg');
-    if (errMsg) errMsg.classList.add('visibility-hidden');
-}
-
-function resetLogin() {
-    const borderBottom = document.querySelectorAll('.input-content-container');
-    const errorMsg = document.getElementById('error-msg');
-    errorMsg.classList.add('visibility-hidden');
-    borderBottom.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
-}
-
-async function logInGuestUser() {
-    const signUpForm = document.getElementById('auth-form');
-
-    try {
-        await signInAnonymously(auth);
-    } catch (error) {
-        console.error('Guest login failed', error);
-        return;
+    if (emptyEmail || emptyPassword) {
+        setLoginErrorText(emailErrMsg, emptyEmail ? enterLoginEmailMsg : '');
+        setLoginErrorText(passwordErrMsg, emptyPassword ? enterLoginPwMsg : '')
+    } else {
+        setLoginErrorText(emailErrMsg, '');
+        setLoginErrorText(passwordErrMsg, wrongEmail);
     }
-    localStorage.setItem('name', 'Guest');
-    localStorage.removeItem('email');
-
-    resetLogin();
-    signUpForm.reset();
-    window.location.href = './pages/summary.html';
 }
 
-function setOnSubmitAttribute(attr = "userLogin(event)") {
-    document.getElementById("auth-form").setAttribute("onsubmit", attr);
-}
+    function setLoginErrorText(element, text) {
+        element.textContent = text;
+        element.classList.toggle('visibility-hidden', !text);
+    }
 
-function addSignupContent() {
-    setPageTitle("Sign up");
-    setPageBackgroundColor("#1268FF");
-    setLegalLinkColor("var(--white-color)");
-    setLegalLinkHoverEffect();
-    setLogoStyles("var(--white-color)", "none");
-    setSignupFormContent();
-    initSignUpEventListeners();
-    initEventListenersForRegistrationForm();
-    initPasswordEventListener();
-    setAuthenticationHeaderMargin("0");
-}
+    function hideInputErrorMessage(event) {
+        const wrapper = event.currentTarget.closest('.input-wrapper');
+        wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
+        const errMsg = wrapper.querySelector('.error-msg');
+        if (errMsg) errMsg.classList.add('visibility-hidden');
+    }
 
-function setAuthenticationHeaderMargin(marginAttribute) {
-    document.querySelector(".auth-header").style.margin = marginAttribute;
-}
+    function resetLogin() {
+        const borderBottom = document.querySelectorAll('.input-content-container');
+        const errorMsg = document.getElementById('login-password-err-msg');
+        errorMsg.classList.add('visibility-hidden');
+        document.getElementById('email-err-msg').classList.add('visibility-hidden');
+        borderBottom.forEach(borderColor => {
+            borderColor.classList.remove('error-message-border-bottom');
+        });
+    }
 
-function setLegalLinkColor(color) {
-    const legalLinks = document.querySelectorAll('.footer-legal-link');
-    legalLinks.forEach(legalLink => {
-        legalLink.style.color = color;
-    });
-}
+    async function logInGuestUser() {
+        const signUpForm = document.getElementById('auth-form');
 
-function setLegalLinkHoverEffect() {
-    const legalLinks = document.querySelectorAll('.footer-legal-link');
-    legalLinks.forEach(legalLink => {
-        legalLink.classList.add('signup-legal-link');
-    });
-}
+        try {
+            await signInAnonymously(auth);
+        } catch (error) {
+            console.error('Guest login failed', error);
+            return;
+        }
+        localStorage.setItem('name', 'Guest');
+        localStorage.removeItem('email');
 
-function resetLegalLinkHoverEffect() {
-    const legalLinks = document.querySelectorAll('.footer-legal-link');
-    legalLinks.forEach(legalLink => {
-        legalLink.classList.remove('signup-legal-link');
-        legalLink.removeAttribute('style');
-    });
-}
+        resetLogin();
+        signUpForm.reset();
+        window.location.href = './pages/summary.html';
+    }
 
-function setPageBackgroundColor(color) {
-    document.body.style.animation = "none";
-    document.body.style.backgroundColor = color;
-}
+    function setOnSubmitAttribute(attr = "userLogin(event)") {
+        document.getElementById("auth-form").setAttribute("onsubmit", attr);
+    }
 
-function setLogoStyles(color, animationStyles) {
-    document.querySelectorAll(".logo-path").forEach(path => {
-        setAnimationStyle(path, animationStyles);
-        setLogoColor(path, color);
-    });
-}
+    function addSignupContent() {
+        setPageTitle("Sign up");
+        setPageBackgroundColor("#1268FF");
+        setLegalLinkColor("var(--white-color)");
+        setLegalLinkHoverEffect();
+        setLogoStyles("var(--white-color)", "none");
+        setSignupFormContent();
+        initSignUpEventListeners();
+        initEventListenersForRegistrationForm();
+        initPasswordEventListener();
+        setAuthenticationHeaderMargin("0");
+    }
 
-function setLogoColor(path, color) {
-    path.style.fill = color;
-}
+    function setAuthenticationHeaderMargin(marginAttribute) {
+        document.querySelector(".auth-header").style.margin = marginAttribute;
+    }
 
-function setAnimationStyle(element, animationStyle) {
-    element.style.animation = animationStyle;
-}
+    function setLegalLinkColor(color) {
+        const legalLinks = document.querySelectorAll('.footer-legal-link');
+        legalLinks.forEach(legalLink => {
+            legalLink.style.color = color;
+        });
+    }
 
-function setElementVisibility(element, visibility) {
-    element.style.display = visibility;
-}
+    function setLegalLinkHoverEffect() {
+        const legalLinks = document.querySelectorAll('.footer-legal-link');
+        legalLinks.forEach(legalLink => {
+            legalLink.classList.add('signup-legal-link');
+        });
+    }
 
-function setDisplayForLoginElements(display = "flex") {
-    const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
-    const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
-    setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
-    setElementVisibility(SIGNUP_WRAPPER, display);
-}
+    function resetLegalLinkHoverEffect() {
+        const legalLinks = document.querySelectorAll('.footer-legal-link');
+        legalLinks.forEach(legalLink => {
+            legalLink.classList.remove('signup-legal-link');
+            legalLink.removeAttribute('style');
+        });
+    }
 
-function setDisplayForSignupElements(display = "none") {
-    const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
-    const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
-    const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
-    setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
-    setElementVisibility(SHOW_LOGIN_BUTTON, display);
-    styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
-    setElementVisibility(CHECKBOX_CONTAINER, display);
-}
+    function setPageBackgroundColor(color) {
+        document.body.style.animation = "none";
+        document.body.style.backgroundColor = color;
+    }
 
-function styleElementDimensions(element, dimensions) {
-    element.style.width = dimensions;
-    element.style.height = dimensions;
-}
+    function setLogoStyles(color, animationStyles) {
+        document.querySelectorAll(".logo-path").forEach(path => {
+            setAnimationStyle(path, animationStyles);
+            setLogoColor(path, color);
+        });
+    }
 
-function setPageTitle(title) {
-    document.title = title;
-}
+    function setLogoColor(path, color) {
+        path.style.fill = color;
+    }
 
-function backToLogin() {
-    resetLoginPageStyle();
-    renderLoginForm();
-    resetLoginFormState();
-    initPasswordEventListener();
-    initLoginEventListeners();
-}
+    function setAnimationStyle(element, animationStyle) {
+        element.style.animation = animationStyle;
+    }
 
-function resetLoginPageStyle() {
-    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
-    setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
-    setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
-}
+    function setElementVisibility(element, visibility) {
+        element.style.display = visibility;
+    }
 
-function renderLoginForm() {
-    document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
-    setDisplayForSignupElements(); setDisplayForLoginElements();
-}
+    function setDisplayForLoginElements(display = "flex") {
+        const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
+        const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
+        setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
+        setElementVisibility(SIGNUP_WRAPPER, display);
+    }
 
-function resetLoginFormState() {
-    resetCheckboxValidity(); resetpricavyPolicityCheckbox();
-}
+    function setDisplayForSignupElements(display = "none") {
+        const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
+        const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
+        const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
+        setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
+        setElementVisibility(SHOW_LOGIN_BUTTON, display);
+        styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
+        setElementVisibility(CHECKBOX_CONTAINER, display);
+    }
 
-function setminHeightAnimationOnForm() {
-    document.getElementById("auth-form").classList.add("min-height-animated");
-}
+    function styleElementDimensions(element, dimensions) {
+        element.style.width = dimensions;
+        element.style.height = dimensions;
+    }
 
-function resetCheckboxValidity() {
-    let CHECKBOX = document.getElementById("checkbox");
-    CHECKBOX.setCustomValidity("");
-}
+    function setPageTitle(title) {
+        document.title = title;
+    }
 
-function setSignupFormContent() {
-    setLoginFormBackgroundColor("white");
-    setHeadlineText("Sign up");
+    function backToLogin() {
+        resetLoginPageStyle();
+        renderLoginForm();
+        resetLoginFormState();
+        initPasswordEventListener();
+        initLoginEventListeners();
+    }
 
-    const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
-    FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
+    function resetLoginPageStyle() {
+        setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
+        setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
+        setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
+    }
 
-    setDisplayForSignupElements("flex");
-    setDisplayForLoginElements("none");
+    function renderLoginForm() {
+        document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
+        setDisplayForSignupElements(); setDisplayForLoginElements();
+    }
 
-    setOnSubmitAttribute("registerUser(event)");
-}
+    function resetLoginFormState() {
+        resetCheckboxValidity(); resetpricavyPolicityCheckbox();
+    }
 
-function setLoginFormBackgroundColor(color) {
-    document.getElementById("auth-form").style.backgroundColor = color;
-}
+    function setminHeightAnimationOnForm() {
+        document.getElementById("auth-form").classList.add("min-height-animated");
+    }
 
-function setHeadlineText(text) {
-    const HEADING = document.getElementById("heading");
-    HEADING.innerHTML = text;
-}
+    function resetCheckboxValidity() {
+        let CHECKBOX = document.getElementById("checkbox");
+        CHECKBOX.setCustomValidity("");
+    }
 
-Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
+    function setSignupFormContent() {
+        setLoginFormBackgroundColor("white");
+        setHeadlineText("Sign up");
+
+        const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
+        FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
+
+        setDisplayForSignupElements("flex");
+        setDisplayForLoginElements("none");
+
+        setOnSubmitAttribute("registerUser(event)");
+    }
+
+    function setLoginFormBackgroundColor(color) {
+        document.getElementById("auth-form").style.backgroundColor = color;
+    }
+
+    function setHeadlineText(text) {
+        const HEADING = document.getElementById("heading");
+        HEADING.innerHTML = text;
+    }
+
+    Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });

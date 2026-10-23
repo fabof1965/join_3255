@@ -94,6 +94,7 @@ function getInputFieldsForLogin() {
                   <input id="email" class="input-field" type="email" placeholder="Email" required />
                   <img src="./assets/icons/mail.svg" alt="mail icon" />
                 </div>
+                <span id="email-err-msg" class="error-msg visibility-hidden"></span>
             </div>
             <div class="input-wrapper">
                 <div class="input-content-container" id="error-msg-border-bottom">
@@ -104,13 +105,17 @@ function getInputFieldsForLogin() {
                         src="./assets/icons/lock.svg" alt="" />
                   </button>
                 </div>
-            <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try again.</span>
+            <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
             </div>
             `;
 }
 
 const pwTooShortMsg = 'Password should be at least 6 characters';
 const pwMismatchMsg = 'passwords do not match';
+
+const wrongEmail = 'Check your email and password. Please try again.'
+const enterLoginEmailMsg = 'Please enter your email';
+const enterLoginPwMsg = 'Please enter your password';
 
 function getInputFieldsForSignup() {
 return `  <div class="input-wrapper">
