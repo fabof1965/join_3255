@@ -179,7 +179,6 @@ function openContactDialog(i = null) {
         badge.classList.remove('profile-badge-large');
         badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
     }
-
     activateDialog();
 }
 
