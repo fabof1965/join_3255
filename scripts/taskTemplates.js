@@ -177,14 +177,14 @@ const addTaskContentTemplate =
     <section class="form-content">
       <label class="add-task-field add-task-title-field">
         <span class="visually-hidden">Title</span>
-        <input name="title" type="text" placeholder="Enter a title" />
+        <input id="taskTitleInput" name="title" type="text" placeholder="Enter a title" />
         <small data-error="title"></small>
       </label>
       <label class="add-task-field"><strong>Description <span>(optional)</span></strong>
-        <textarea name="description" placeholder="Enter a Description"></textarea>
+        <textarea id="taskDescription" name="description" placeholder="Enter a Description"></textarea>
       </label>
       <label class="add-task-field"><strong>Due date</strong>
-        <input name="dueDate" type="date" />
+        <input id="taskDueDate" name="dueDate" type="date" />
         <small data-error="dueDate"></small>
       </label>
       <fieldset class="add-task-priority">
@@ -226,13 +226,13 @@ const addTaskContentTemplate =
         <select id="assigned-contacts" name="assignedUsers" multiple></select>
       </label>
       <label class="add-task-field"><strong>Category</strong>
-        <select name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
+        <select id="taskCategorySelect" name="category"><option value="">Select task category</option><option>User Story</option><option>Technical Task</option></select>
         <small data-error="category"></small>
       </label>
       <label class="add-task-field"><strong>Subtasks <span>(optional)</span></strong>
         <input name="subtask" type="text" placeholder="Add new subtask" />
       </label>
-      <ul class="add-task-subtasks"></ul>
+      <ul id="taskSubtasks" class="add-task-subtasks"></ul>
     </section>
     <section class="form-buttons">
       <button onclick="resetForm()" type="button" class="btn-clear btn">

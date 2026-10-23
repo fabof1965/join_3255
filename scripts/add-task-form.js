@@ -26,7 +26,6 @@ function selectTaskPriority(button) {
     const selected = item === button;
     item.classList.toggle("selected", selected);
   });
-  selectedTaskPriority = button.dataset.priority;
 }
 
 /**
@@ -190,27 +189,57 @@ function getSelectedUserNames(select) {
   return Array.from(select.selectedOptions, ({ textContent }) => textContent);
 }
 
+function getAssignedContactsFromForm() {
+  const select = document.getElementById("assigned-contacts");
+  const assignedContacts = [];
+  const selectedContacts = select.selectedOptions;
+
+  for(let i = 0; i < selectedContacts.length; i++) {
+    assignedContacts.push(selectedContacts[i].innerText);
+  }
+
+  return assignedContacts;
+}
+
 /**
  * Creates a task object from the form fields.
  * @param {HTMLFormElement} form - Add Task form.
  * @returns {Object} New board task.
  */
-function createTaskFromForm(form) {
-  addPendingSubtask(form);
-  const data = new FormData(form);
-  //data soll ein Objekt in etwa dieser Form sein: 
-// {
-//     title: document.querySelector(".task-title-input").value.trim(), 
-//     description: document.querySelector(".task-description-input").value.trim(),
-//     dueDate: document.querySelector(".add-task-date-input").value, 
-//     category: getSelectedOptionFromForm(document.querySelector("task-category-select")), 
-//     priority: selectedTaskPriority, 
-//     assignedUsers: getSelectedUsers(assignedUsers),
-//     subtasks: getSubtasksFromForm,
-//     subtaskTitles: [...newTaskSubtasks], 
-//     subtaskDone: newTaskSubtasks.map(() => false),
-//   };
-  return buildTaskData(data, form.elements.assignedUsers);
+function getTaskData() {
+  const taskTitleField = document.getElementById("taskTitleInput");
+  const taskDescriptionElement = document.getElementById("taskDescription");
+  const taskDueDateElement = document.getElementById("taskDueDate");
+  const selectedCategory = document.getElementById("taskCategorySelect").selectedOptions[0].innerText;
+  const assignedContactsArray = getAssignedContactsFromForm();
+  const selectedPriorityText = document.querySelector(".selected").dataset.priority;
+  const subtasks = getSubtasksFromForm();
+
+  const taskData = {
+    title: taskTitleField.value.trim(),
+    description: taskDescriptionElement.value.trim(),
+    dueDate: taskDueDateElement.value,
+    category: selectedCategory,
+    status: "inProgress",
+    assignedContacts:  assignedContactsArray,
+    priority: selectedPriorityText,
+    subtasks: subtasks,
+  };
+
+  return taskData;
+}
+
+function getSubtasksFromForm() {
+  const subtasksElements = document.querySelectorAll(".subtask-wrapper");
+  let subtasks = [];
+  subtasksElements.forEach((subtaskElement) => {
+    subtasks.push(subtaskElement.innerText);
+  });
+
+  subtasks = subtasks.map((subtaskTitle) => {
+    return {title: subtaskTitle, done: false};
+  });
+ return subtasks;
 }
 
 function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
@@ -222,40 +251,6 @@ function getSelectedOptionFromForm(select) {
     const optionText = option ? option.textContent : "";
 
     return optionText;
-}
-
-function getSubtasksFromForm() {
-    const subtaskTitles = document.querySelectorAll(".subtaskTitle");
-    const subtaskCheckboxes = "";
-    const subtasks = subtaskTitles.map((title) => {
-        const subtaskTitle = title;
-        const subtaskDone = "";
-    });
-}
-
-/**
- * Includes a subtask that is still typed into the input when the form is submitted.
- * @param {HTMLFormElement} form - Add Task form.
- * @returns {void}
- */
-function addPendingSubtask(form) {
-  if (form.elements.subtask) addSubtaskFromInput(form.elements.subtask);
-}
-
-function buildTaskData(data, assignedUsers) {
-  return {
-    title: data.get("title").trim(),
-    description: data.get("description").trim(),
-    dueDate: data.get("dueDate"),
-    category: data.get("category"),
-    status: newTaskCategory,
-    priority: selectedTaskPriority,
-    assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers),
-    subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks],
-    subtaskDone: newTaskSubtasks.map(() => false),
-  };
 }
 
 function getSubtaskProgress() {
@@ -276,8 +271,9 @@ function getPatchedTaskData(task) {
  */
 async function submitTask(event) {
   const form = event.target;
+  const taskData = getTaskData();
+  console.log(taskData);
   if (!isAddTaskFormValid(form)) return;
-  const taskData = createTaskFromForm(form);
   const response = await postData("tasks", taskData);
   if (!response) return;
   const firebaseId = response.name;
@@ -291,15 +287,3 @@ function directToBoard(boardURL) {
     window.location.href = boardURL;
   }
 }
-
-// /**
-//  * Cleans up the matching Add Task surface after a task was created.
-//  * @param {HTMLFormElement} form - Submitted Add Task form.
-//  * @param {Object} task - Created task with Firebase id.
-//  * @returns {void}
-//  */
-// function finishTaskSubmission(form, task) {
-//   if (typeof allTasks !== "undefined") allTasks.push(task);
-
-//   resetForm(form);
-// }

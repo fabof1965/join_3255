@@ -158,7 +158,7 @@ function updateTaskCardContent(task) {
 }
 
 function updateTaskFromForm(currentTask, form) {
-  const taskData = createTaskFromForm(form);
+  const taskData = getTaskData();
   return {
     ...currentTask,
     ...taskData,

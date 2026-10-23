@@ -17,13 +17,12 @@
 
 // improved structure of a task
 //{
-//     id: "task-1",
-//     category: "User Story",
 //     title: "Kochwelt Page & Recipe Recommender",
 //     description: "Build start page with recipe recommendation and a detailed description of the recipes.",
+//     dueDate: "02/09/2023",
+//     category: "User Story",
 //     status: "inProgress",
 //     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"], -> die Initialen können direkt aus den Namen abgeleitet werden, und müssen nicht noch zusätzlich gespeichert werden
-//     dueDate: "02/09/2023",
 //     priority: "low",
 //     subtasks: [
 //                 {
@@ -31,7 +30,8 @@
 //                  done: false,
 //                 },
 //               ],
-//   }
+//     id: "task-1",
+//}
 
 async function initBoardContent() {
   await loadTasks();
