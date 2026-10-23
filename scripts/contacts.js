@@ -14,13 +14,13 @@ const displayAttributes = {
 const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
 document.getElementById("open-button").addEventListener("click", () => {
-  if( (isMobile && !isPreviouslyOpenedCard) || !isMobile) {
+    if ((isMobile && !isPreviouslyOpenedCard) || !isMobile) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return;
     }
 
-    if(isMobile && isPreviouslyOpenedCard) {
+    if (isMobile && isPreviouslyOpenedCard) {
         setTimeout(() => showPopover(), 100);
     }
 });
@@ -295,7 +295,7 @@ function openExistingContactDialog(indexContact) {
     fillContactForm(allContacts[indexContact]);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
-    clickEventListener(editContactDialog, closeContactDialog);
+    clickEventListener(editContactDialog, closeEditContactDialog);
 }
 
 function closeEditContactDialog() {
