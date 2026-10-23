@@ -220,7 +220,7 @@ function getTaskData() {
     description: taskDescriptionElement.value.trim(),
     dueDate: taskDueDateElement.value,
     category: selectedCategory,
-    status: "inProgress",
+    status: "toDo",
     assignedContacts:  assignedContactsArray,
     priority: selectedPriorityText,
     subtasks: subtasks,
