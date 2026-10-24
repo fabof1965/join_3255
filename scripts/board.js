@@ -79,9 +79,20 @@ function getUserInitials(assignedUsers) {
  * @returns {string} Progress HTML.
  */
 function getSubtaskDataProgressHtml(subtasks, id) {
-  if (!subtasks) return "";
-  const progress = (subtasks.completed / subtasks.total) * 100;
-  return getSubtaskProgressTemplate(subtasks.completed, progress, subtasks.total, id); 
+  if (!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
+  const totalSubtasks = subtasks.length;
+  const  completedSubtasks = countCompletedSubtasks(subtasks);
+  const progress = (completedSubtasks / totalSubtasks) * 100;
+  return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id); 
+}
+
+function countCompletedSubtasks(subtasks) {
+  let completedSubtasks = 0;
+  subtasks.forEach((subtask) => {
+    if(subtask.done === true) completedSubtasks++
+  });
+
+  return completedSubtasks;
 }
 
 /**
