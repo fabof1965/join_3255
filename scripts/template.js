@@ -110,26 +110,28 @@ function getInputFieldsForLogin() {
             `;
 }
 
-const pwTooShortMsg = 'Password should be at least 6 characters';
-const pwMismatchMsg = 'passwords do not match';
+const pwTooShortMsg = "Password should be at least 6 characters.";
+const pwMismatchMsg = "Passwords do not match.";
 
-const wrongEmail = 'Check your email and password. Please try again.'
-const enterLoginEmailMsg = 'Please enter your email';
-const enterLoginPwMsg = 'Please enter your password';
+const wrongEmail = "Check your email and password. Please try again."
+const enterLoginEmailMsg = "Please enter your email.";
+const enterLoginPwMsg = "Please enter your password.";
+
+const requiredMsg = "This field is required.";
 
 function getInputFieldsForSignup() {
 return `  <div class="input-wrapper">
-              <div class="input-content-container">  
-                <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
+              <div id="name-err-msg-border" class="input-content-container">  
+                <input id="signup-name-input" class="input-field" type="text" placeholder="Name" autocomplete="name">
                 <img src="./assets/icons/person.svg" alt="person logo">
               </div>
-              <span class="error-msg visibility-hidden"></span>
+              <span id="signup-name-err-msg" class="error-msg visibility-hidden"></span>
             </div>
 
             <div class="input-wrapper">
                 <div class="input-content-container" id="invalid-email-border-bottom">
                   <label for="email-signup" class="visually-hidden">Email</label>
-                  <input class="input-field" type="email" id="email-signup" placeholder="Email" aria-describedby="invalid-email-msg">
+                  <input id="email-signup" class="input-field" type="email" placeholder="Email" aria-describedby="invalid-email-msg">
                   <img src="./assets/icons/mail.svg" alt="">
                 </div>
                 <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
@@ -137,18 +139,18 @@ return `  <div class="input-wrapper">
 
             <div class="input-wrapper">
               <div class="input-content-container">
-                <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
+                <input id="signup-password" class="input-field" type="password" placeholder="Password">
                 <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
-                  <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                  <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock">
                 </button>
               </div>
-              <span class="error-msg visibility-hidden"></span>
+              <span id="signup-password-err-msg" class="error-msg visibility-hidden"></span>
             </div>
 
             <div class="input-wrapper" >
                 <div class="input-content-container" id="confirm-password-border-bottom">
                   <label for="confirm-password" class="visually-hidden">Confirm Password</label>
-                  <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
+                  <input id="confirm-password" class="input-field" type="password" placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
                   <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
                     <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
                   </button>

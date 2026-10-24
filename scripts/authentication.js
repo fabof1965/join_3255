@@ -14,8 +14,9 @@ function initSignUpEventListeners() {
 
 function initEventListenersForRegistrationForm() {
     const inputFields = [
+        document.getElementById('signup-name-input'),
         document.getElementById('email-signup'),
-        document.getElementById('sign-up-password'),
+        document.getElementById('signup-password'),
         document.getElementById('confirm-password')
     ];
     inputFields.forEach(field => {
@@ -35,7 +36,7 @@ function initPasswordEventListener() {
 function passwordInputFields() {
     return [
         createPasswordField('login-password', 'login-password-toggle-icon'),
-        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon'),
+        createPasswordField('signup-password', 'signup-password-toggle-icon'),
         createPasswordField('confirm-password', 'confirm-password-toggle-icon')
     ];
 }
@@ -93,20 +94,21 @@ function toggleShowPassword(field) {
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
     const emailSignup = document.getElementById('email-signup');
-    const passwordSignup = document.getElementById('sign-up-password');
-    const name = document.getElementById('name');
+    const passwordSignup = document.getElementById('signup-password');
+    const signupNameInput = document.getElementById('signup-name-input');
     event.preventDefault();
-
-    const userData = await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
     if (!(await isRegistrationValid())) return;
+    const userData = await saveNewUser(signupNameInput.value, emailSignup.value, passwordSignup.value);
+
     if (!userData) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
 
 async function isRegistrationValid() {
-    const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
-    return passwordOk && privacyOk;
+    const inputOk = sendFeedbackForEmptySignupInputfield();
+    const passwordOk = validatePassword();
+    return inputOk && passwordOk && privacyOk;
 }
 
 async function saveNewUser(name, email, password) {
@@ -132,18 +134,43 @@ function setEmailExistsFeedback(emailExists) {
     message.classList.toggle('visibility-hidden', !emailExists);
 }
 
-function comparePassword() {
-    const passwordSignup = document.getElementById('sign-up-password');
+function sendFeedbackForEmptySignupInputfield() {
+    const emptyNameInput = !document.getElementById('signup-name-input').value;
+    const emptyEmailInput = !document.getElementById('email-signup').value;
+    const redBorder = document.getElementById('name-err-msg-border');
+    const emailBorder = document.getElementById('invalid-email-border-bottom');
+    redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
+    emailBorder.classList.toggle('error-message-border-bottom', emptyEmailInput);
+
+    const nameErrMsg = document.getElementById('signup-name-err-msg');
+    const emailErrMsg = document.getElementById('invalid-email-msg');
+
+    if (emptyNameInput || emptyEmailInput) {
+        setLoginErrorText(nameErrMsg, emptyNameInput ? requiredMsg : '');
+        setLoginErrorText(emailErrMsg, emptyEmailInput ? requiredMsg : '');
+    }
+    return !emptyNameInput && !emptyEmailInput;
+}
+
+function validatePassword() {
+    const passwordSignup = document.getElementById('signup-password');
     const confirmPasswordSignup = document.getElementById('confirm-password');
-    const borderBottom = document.getElementById('confirm-password-border-bottom');
+    const borderBottom = [
+        passwordSignup.closest('.input-content-container'),
+        confirmPasswordSignup.closest('.input-content-container')
+    ];
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
+    const passwordErrMsg = document.getElementById('signup-password-err-msg');
     const matches = passwordSignup.value === confirmPasswordSignup.value;
     const passwordTooShort = confirmPasswordSignup.value.length < 6;
     const validPassword = matches && !passwordTooShort;
     invalidPassword.textContent = passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
     invalidPassword.classList.toggle('visibility-hidden', validPassword);
-    borderBottom.classList.toggle('error-message-border-bottom', !validPassword);
-    confirmPasswordSignup.setAttribute('aria-invalid', String(!validPassword));
+    passwordErrMsg.textContent = invalidPassword.textContent;
+    passwordErrMsg.classList.toggle('visibility-hidden', validPassword);
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.toggle('error-message-border-bottom', !validPassword);
+    });
     return validPassword;
 }
 
@@ -209,7 +236,7 @@ function storeLoggedInUser(user) {
 function initLoginEventListeners() {
     const inputFields = [
         document.getElementById('email'),
-        document.getElementById('login-password')
+        document.getElementById('login-password'),
     ]
     inputFields.forEach(fields => {
         fields.addEventListener('input', resetLogin)
@@ -217,207 +244,206 @@ function initLoginEventListeners() {
 }
 
 function showErrorMessageForLogin() {
-    const borderBottom = document.querySelectorAll('.input-content-container');
     const emailErrMsg = document.getElementById('email-err-msg'); //span
-    const passwordErrMsg = document.getElementById('login-password-err-msg'); // das ist die span
-    const emptyEmail = !document.getElementById('email').value; // input
-    const emptyPassword = !document.getElementById('login-password').value; // input
-    borderBottom.forEach(borderColor => {
+    const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
+    const emptyEmailInput = !document.getElementById('email').value; // input
+    const emptyPasswordInput = !document.getElementById('login-password').value; // input
+    document.querySelectorAll('.input-content-container').forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
-    if (emptyEmail || emptyPassword) {
-        setLoginErrorText(emailErrMsg, emptyEmail ? enterLoginEmailMsg : '');
-        setLoginErrorText(passwordErrMsg, emptyPassword ? enterLoginPwMsg : '')
+    if (emptyEmailInput || emptyPasswordInput) {
+        setLoginErrorText(emailErrMsg, emptyEmailInput ? enterLoginEmailMsg : '');
+        setLoginErrorText(passwordErrMsg, emptyPasswordInput ? enterLoginPwMsg : '')
     } else {
         setLoginErrorText(emailErrMsg, '');
         setLoginErrorText(passwordErrMsg, wrongEmail);
     }
 }
 
-    function setLoginErrorText(element, text) {
-        element.textContent = text;
-        element.classList.toggle('visibility-hidden', !text);
+function setLoginErrorText(element, text) {
+    element.textContent = text;
+    element.classList.toggle('visibility-hidden', !text);
+}
+
+function hideInputErrorMessage(event) {
+    const wrapper = event.currentTarget.closest('.input-wrapper');
+    wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
+    const errMsg = wrapper.querySelector('.error-msg');
+    if (errMsg) errMsg.classList.add('visibility-hidden');
+}
+
+function resetLogin() {
+    const borderBottom = document.querySelectorAll('.input-content-container');
+    const errorMsg = document.getElementById('login-password-err-msg');
+    errorMsg.classList.add('visibility-hidden');
+    document.getElementById('email-err-msg').classList.add('visibility-hidden');
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.remove('error-message-border-bottom');
+    });
+}
+
+async function logInGuestUser() {
+    const signUpForm = document.getElementById('auth-form');
+
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error('Guest login failed', error);
+        return;
     }
+    localStorage.setItem('name', 'Guest');
+    localStorage.removeItem('email');
 
-    function hideInputErrorMessage(event) {
-        const wrapper = event.currentTarget.closest('.input-wrapper');
-        wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
-        const errMsg = wrapper.querySelector('.error-msg');
-        if (errMsg) errMsg.classList.add('visibility-hidden');
-    }
+    resetLogin();
+    signUpForm.reset();
+    window.location.href = './pages/summary.html';
+}
 
-    function resetLogin() {
-        const borderBottom = document.querySelectorAll('.input-content-container');
-        const errorMsg = document.getElementById('login-password-err-msg');
-        errorMsg.classList.add('visibility-hidden');
-        document.getElementById('email-err-msg').classList.add('visibility-hidden');
-        borderBottom.forEach(borderColor => {
-            borderColor.classList.remove('error-message-border-bottom');
-        });
-    }
+function setOnSubmitAttribute(attr = "userLogin(event)") {
+    document.getElementById("auth-form").setAttribute("onsubmit", attr);
+}
 
-    async function logInGuestUser() {
-        const signUpForm = document.getElementById('auth-form');
+function addSignupContent() {
+    setPageTitle("Sign up");
+    setPageBackgroundColor("#1268FF");
+    setLegalLinkColor("var(--white-color)");
+    setLegalLinkHoverEffect();
+    setLogoStyles("var(--white-color)", "none");
+    setSignupFormContent();
+    initSignUpEventListeners();
+    initEventListenersForRegistrationForm();
+    initPasswordEventListener();
+    setAuthenticationHeaderMargin("0");
+}
 
-        try {
-            await signInAnonymously(auth);
-        } catch (error) {
-            console.error('Guest login failed', error);
-            return;
-        }
-        localStorage.setItem('name', 'Guest');
-        localStorage.removeItem('email');
+function setAuthenticationHeaderMargin(marginAttribute) {
+    document.querySelector(".auth-header").style.margin = marginAttribute;
+}
 
-        resetLogin();
-        signUpForm.reset();
-        window.location.href = './pages/summary.html';
-    }
+function setLegalLinkColor(color) {
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.style.color = color;
+    });
+}
 
-    function setOnSubmitAttribute(attr = "userLogin(event)") {
-        document.getElementById("auth-form").setAttribute("onsubmit", attr);
-    }
+function setLegalLinkHoverEffect() {
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.add('signup-legal-link');
+    });
+}
 
-    function addSignupContent() {
-        setPageTitle("Sign up");
-        setPageBackgroundColor("#1268FF");
-        setLegalLinkColor("var(--white-color)");
-        setLegalLinkHoverEffect();
-        setLogoStyles("var(--white-color)", "none");
-        setSignupFormContent();
-        initSignUpEventListeners();
-        initEventListenersForRegistrationForm();
-        initPasswordEventListener();
-        setAuthenticationHeaderMargin("0");
-    }
+function resetLegalLinkHoverEffect() {
+    const legalLinks = document.querySelectorAll('.footer-legal-link');
+    legalLinks.forEach(legalLink => {
+        legalLink.classList.remove('signup-legal-link');
+        legalLink.removeAttribute('style');
+    });
+}
 
-    function setAuthenticationHeaderMargin(marginAttribute) {
-        document.querySelector(".auth-header").style.margin = marginAttribute;
-    }
+function setPageBackgroundColor(color) {
+    document.body.style.animation = "none";
+    document.body.style.backgroundColor = color;
+}
 
-    function setLegalLinkColor(color) {
-        const legalLinks = document.querySelectorAll('.footer-legal-link');
-        legalLinks.forEach(legalLink => {
-            legalLink.style.color = color;
-        });
-    }
+function setLogoStyles(color, animationStyles) {
+    document.querySelectorAll(".logo-path").forEach(path => {
+        setAnimationStyle(path, animationStyles);
+        setLogoColor(path, color);
+    });
+}
 
-    function setLegalLinkHoverEffect() {
-        const legalLinks = document.querySelectorAll('.footer-legal-link');
-        legalLinks.forEach(legalLink => {
-            legalLink.classList.add('signup-legal-link');
-        });
-    }
+function setLogoColor(path, color) {
+    path.style.fill = color;
+}
 
-    function resetLegalLinkHoverEffect() {
-        const legalLinks = document.querySelectorAll('.footer-legal-link');
-        legalLinks.forEach(legalLink => {
-            legalLink.classList.remove('signup-legal-link');
-            legalLink.removeAttribute('style');
-        });
-    }
+function setAnimationStyle(element, animationStyle) {
+    element.style.animation = animationStyle;
+}
 
-    function setPageBackgroundColor(color) {
-        document.body.style.animation = "none";
-        document.body.style.backgroundColor = color;
-    }
+function setElementVisibility(element, visibility) {
+    element.style.display = visibility;
+}
 
-    function setLogoStyles(color, animationStyles) {
-        document.querySelectorAll(".logo-path").forEach(path => {
-            setAnimationStyle(path, animationStyles);
-            setLogoColor(path, color);
-        });
-    }
+function setDisplayForLoginElements(display = "flex") {
+    const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
+    const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
+    setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
+    setElementVisibility(SIGNUP_WRAPPER, display);
+}
 
-    function setLogoColor(path, color) {
-        path.style.fill = color;
-    }
+function setDisplayForSignupElements(display = "none") {
+    const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
+    const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
+    const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
+    setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
+    setElementVisibility(SHOW_LOGIN_BUTTON, display);
+    styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
+    setElementVisibility(CHECKBOX_CONTAINER, display);
+}
 
-    function setAnimationStyle(element, animationStyle) {
-        element.style.animation = animationStyle;
-    }
+function styleElementDimensions(element, dimensions) {
+    element.style.width = dimensions;
+    element.style.height = dimensions;
+}
 
-    function setElementVisibility(element, visibility) {
-        element.style.display = visibility;
-    }
+function setPageTitle(title) {
+    document.title = title;
+}
 
-    function setDisplayForLoginElements(display = "flex") {
-        const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
-        const SIGNUP_WRAPPER = document.getElementById("signup-wrapper");
-        setElementVisibility(SUBMIT_BUTTON_CONTAINER, display);
-        setElementVisibility(SIGNUP_WRAPPER, display);
-    }
+function backToLogin() {
+    resetLoginPageStyle();
+    renderLoginForm();
+    resetLoginFormState();
+    initPasswordEventListener();
+    initLoginEventListeners();
+}
 
-    function setDisplayForSignupElements(display = "none") {
-        const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
-        const SHOW_LOGIN_BUTTON = document.getElementById("btn-show-login");
-        const CHECKBOX_CONTAINER = document.getElementById("checkbox-container");
-        setElementVisibility(SIGNUP_BUTTON_CONTAINER, display);
-        setElementVisibility(SHOW_LOGIN_BUTTON, display);
-        styleElementDimensions(SHOW_LOGIN_BUTTON, "var(--back-btn-image-dimensions)");
-        setElementVisibility(CHECKBOX_CONTAINER, display);
-    }
+function resetLoginPageStyle() {
+    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
+    setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
+    setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
+}
 
-    function styleElementDimensions(element, dimensions) {
-        element.style.width = dimensions;
-        element.style.height = dimensions;
-    }
+function renderLoginForm() {
+    document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
+    setDisplayForSignupElements(); setDisplayForLoginElements();
+}
 
-    function setPageTitle(title) {
-        document.title = title;
-    }
+function resetLoginFormState() {
+    resetCheckboxValidity(); resetpricavyPolicityCheckbox();
+}
 
-    function backToLogin() {
-        resetLoginPageStyle();
-        renderLoginForm();
-        resetLoginFormState();
-        initPasswordEventListener();
-        initLoginEventListeners();
-    }
+function setminHeightAnimationOnForm() {
+    document.getElementById("auth-form").classList.add("min-height-animated");
+}
 
-    function resetLoginPageStyle() {
-        setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
-        setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
-        setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
-    }
+function resetCheckboxValidity() {
+    let CHECKBOX = document.getElementById("checkbox");
+    CHECKBOX.setCustomValidity("");
+}
 
-    function renderLoginForm() {
-        document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
-        setDisplayForSignupElements(); setDisplayForLoginElements();
-    }
+function setSignupFormContent() {
+    setLoginFormBackgroundColor("white");
+    setHeadlineText("Sign up");
 
-    function resetLoginFormState() {
-        resetCheckboxValidity(); resetpricavyPolicityCheckbox();
-    }
+    const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
+    FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
 
-    function setminHeightAnimationOnForm() {
-        document.getElementById("auth-form").classList.add("min-height-animated");
-    }
+    setDisplayForSignupElements("flex");
+    setDisplayForLoginElements("none");
 
-    function resetCheckboxValidity() {
-        let CHECKBOX = document.getElementById("checkbox");
-        CHECKBOX.setCustomValidity("");
-    }
+    setOnSubmitAttribute("registerUser(event)");
+}
 
-    function setSignupFormContent() {
-        setLoginFormBackgroundColor("white");
-        setHeadlineText("Sign up");
+function setLoginFormBackgroundColor(color) {
+    document.getElementById("auth-form").style.backgroundColor = color;
+}
 
-        const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
-        FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
+function setHeadlineText(text) {
+    const HEADING = document.getElementById("heading");
+    HEADING.innerHTML = text;
+}
 
-        setDisplayForSignupElements("flex");
-        setDisplayForLoginElements("none");
-
-        setOnSubmitAttribute("registerUser(event)");
-    }
-
-    function setLoginFormBackgroundColor(color) {
-        document.getElementById("auth-form").style.backgroundColor = color;
-    }
-
-    function setHeadlineText(text) {
-        const HEADING = document.getElementById("heading");
-        HEADING.innerHTML = text;
-    }
-
-    Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
+Object.assign(window, { initAuth, setminHeightAnimationOnForm, logInGuestUser, userLogin, addSignupContent, registerUser, backToLogin });
