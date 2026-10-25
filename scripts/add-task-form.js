@@ -282,6 +282,10 @@ async function submitTask(event) {
   directToBoard("../pages/board.html");
 }
 
+/**
+ * Forward to the board
+ */
+
 function directToBoard(boardURL) {
   if(window.location.pathname !== boardURL) {
     window.location.href = boardURL;
