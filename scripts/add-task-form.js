@@ -171,24 +171,6 @@ function isAddTaskFormValid(form) {
   return !titleInvalid && !dateInvalid && !categoryInvalid;
 }
 
-/**
- * Returns the selected contact initials.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected initials.
- */
-function getSelectedUsers(select) {
-  return Array.from(select.selectedOptions, ({ value }) => value);
-}
-
-/**
- * Returns the names of all selected contacts.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected contact names.
- */
-function getSelectedUserNames(select) {
-  return Array.from(select.selectedOptions, ({ textContent }) => textContent);
-}
-
 function getAssignedContactsFromForm() {
   const select = document.getElementById("assigned-contacts");
   const assignedContacts = [];
@@ -239,29 +221,8 @@ function getSubtasksFromForm() {
   subtasks = subtasks.map((subtaskTitle) => {
     return {title: subtaskTitle, done: false};
   });
+
  return subtasks;
-}
-
-function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
-    return totalSubtasks / subtasksDone;
-}
-
-function getSelectedOptionFromForm(select) {
-    const option = select.selectedOptions[0];
-    const optionText = option ? option.textContent : "";
-
-    return optionText;
-}
-
-function getSubtaskProgress() {
-  return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
-}
-
-function getPatchedTaskData(task) {
-  const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
-    subtasks, subtaskTitles, subtaskDone } = task;
-  return { title, description, dueDate, category, priority,
-    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
 }
 
 /**
@@ -271,9 +232,9 @@ function getPatchedTaskData(task) {
  */
 async function submitTask(event) {
   const form = event.target;
-  const taskData = getTaskData();
   console.log(taskData);
   if (!isAddTaskFormValid(form)) return;
+  const taskData = getTaskData();
   const response = await postData("tasks", taskData);
   if (!response) return;
   const firebaseId = response.name;

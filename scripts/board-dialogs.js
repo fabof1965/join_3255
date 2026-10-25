@@ -38,7 +38,7 @@ document.addEventListener("submit", (event) => {
 
   if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
-    submitEditedTask(form);
+    submitEditedTask();
     return;
   }
 });
@@ -135,18 +135,13 @@ function closeAddTaskDialog() {
   addTaskDialog.innerHTML = "";
 }
 
-/**
- * Updates an existing task from the form fields.
- * @param {HTMLFormElement} form - Edit Task form.
- * @returns {Promise<void>}
- */
-async function submitEditedTask(form) {
+async function submitEditedTask() {
   const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
   if (taskIndex === -1) return;
   const taskToUpdate = allTasks[taskIndex];
-  const updatedTask = updateTaskFromForm(taskToUpdate, form);
+  const updatedTask = updateTaskFromForm(taskToUpdate);
   allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
+  await patchData(`tasks/${editingTaskId}`, updatedTask);
   closeAddTaskDialog();
   updateTaskCardContent(updatedTask);
 }
@@ -157,14 +152,12 @@ function updateTaskCardContent(task) {
   setBadgeBackgroundColor();
 }
 
-function updateTaskFromForm(currentTask, form) {
+function updateTaskFromForm(currentTask) {
   const taskData = getTaskData();
   return {
     ...currentTask,
     ...taskData,
-    id: editingTaskId,
-    status: currentTask.status,
-    description: taskData.description
+    id: editingTaskId,    
   };
 }
 
@@ -174,9 +167,9 @@ function updateTaskFromForm(currentTask, form) {
  * @returns {string} Assigned-user HTML.
  */
 function getOverlayUsersHtml(task) {
-  const users = task.assignedUsers || [];
-  return users.map((initials, index) =>
-    getTaskOverlayUserTemplate(initials, task.assignedUserNames?.[index] || initials),
+  const users = task.assignedContacts;
+  return users.map((contactName) =>
+    getTaskOverlayUserTemplate(getInitials(contactName), contactName),
   ).join("");
 }
 
@@ -186,11 +179,12 @@ function getOverlayUsersHtml(task) {
  * @returns {string} Subtask HTML.
  */
 function getOverlaySubtasksHtml(task) {
-  const titles = task.subtaskTitles || [];
-  const done = task.subtaskDone || [];
-  return titles.map((title, index) =>
-    getSubtaskTemplate(title, done[index] ? "checked" : "", index),
-  ).join("");
+  const subtasks = task.subtasks;
+  if(!subtasks) return "";
+  return subtasks.map((subtask, index) => {
+    const isChecked = subtask.done;
+    return getSubtaskTemplate(subtask, isChecked, task.id, index);
+  }).join("");
 }
 
 /**
@@ -198,26 +192,32 @@ function getOverlaySubtasksHtml(task) {
  * @param {number} index - Index of the subtask to toggle.
  */
 
-async function toggleSubtask(index) {
+async function toggleSubtask(index, checkbox) {
   const task = allTasks.find(({ id }) => id === openedTaskId);
+  const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
   if (!task) return;
-  task.subtaskDone[index] = !task.subtaskDone[index];
-  task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
+  
+  console.log(task);
+  task.subtasks[index].done = !task.subtasks[index].done;
+  checkbox.checked = task.subtasks[index].done;
+  allTasks[taskIndex] = task;
+  console.log(allTasks[taskIndex]);  
   await patchData(`tasks/${openedTaskId}`, {
-    subtaskDone: task.subtaskDone,
-    subtasks: task.subtasks,
+    done: task.subtasks[index].done,
   });
 
-  updateSubtaskProgressOnCard(task);
+  updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
 }
 
-function updateSubtaskProgressOnCard(task) {
-  const progressFillOnCard = document.getElementById('progress-fill-' + task.id);
-  const progress = (task.subtasks.completed / task.subtasks.total) * 100;
-  const progressCountOnCard = document.getElementById("subtaskcontainer-" + task.id);
+function updateSubtaskProgressOnCard(subtasks, taskID) {
+  const progressFillOnCard = document.getElementById('progress-fill-' + taskID);
+  const completedSubtasks = countCompletedSubtasks(subtasks);
+  const totalSubtasks = subtasks.length;
+  const progress = (completedSubtasks / totalSubtasks) * 100;
+  const progressCountOnCard = document.getElementById("subtaskcontainer-" + taskID);
 
   progressFillOnCard.style.width = `${progress}%`;
-  progressCountOnCard.innerText = `${task.subtasks.completed} / ${task.subtasks.total} Subtasks`;
+  progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
 }
 
 /**
@@ -238,8 +238,9 @@ function getOverlayPriorityIcon(priority) {
  */
 function getTaskOverlayHtml(task) {
   const priority = task.priority;
-  const subtasks = getOverlaySubtasksHtml(task);
-  return getTaskOverlayTemplate(task, priority, subtasks);
+  const subtasksHTML = getOverlaySubtasksHtml(task);
+  
+  return getTaskOverlayTemplate(task, priority, subtasksHTML);
 }
 
 /**
@@ -262,10 +263,18 @@ function openTaskCardDialog(taskId) {
   if (!task) return;
   openedTaskId = taskId;
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
+  setSubtasksCheckedVisually(task.subtasks);
   setBadgeBackgroundColor();
   clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
   document.body.classList.add('overlay-open');
+}
+
+function setSubtasksCheckedVisually(subtasks) {
+  subtasks.forEach((subtask, index) => {
+    const checkBox = document.querySelector('[data-index-number="' + index + '"]');
+    checkBox.checked = subtask.done; 
+  });
 }
 
 /**
@@ -342,7 +351,8 @@ function handleTaskCardKeydown(event) {
  */
 function handleSubtaskCheckboxChange(event) {
   if (event.target.classList.contains("subtask-checkbox")) {
-    const index = Number(event.target.id.replace("subtask-", ""));
-    toggleSubtask(index);
+    const checkbox = event.target;
+    const index = Number(checkbox.dataset.indexNumber);
+    toggleSubtask(index, checkbox);
   }
 }

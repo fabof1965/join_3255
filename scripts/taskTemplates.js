@@ -72,10 +72,10 @@ function getTaskOverlayUserTemplate(initials, name) {
         </div>`;
 }
 
-function getSubtaskTemplate(title, checked, id) {
-  return `<div class="task-overlay-subtask" data-subtask-index="${id}">
-            <input class="subtask-checkbox" type="checkbox" id="subtask-${id}" ${checked} />
-            <span>${title}</span>
+function getSubtaskTemplate(subtask, checked, taskId, index) {
+  return `<div class="task-overlay-subtask">
+            <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" checked="${checked}"/>
+            <span id="subtask-title-${taskId}-${index}">${subtask.title}</span>
           </div>`;
 }
 
