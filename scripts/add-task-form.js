@@ -9,22 +9,18 @@ document.addEventListener("submit", (event) => {
   if (!event.target.closest("dialog")) submitTask(event);
 });
 
-/**
- * Selects assigned users in the task form.
- * @param {HTMLSelectElement} select - Assigned users select.
- * @param {string[]} users - User initials to select.
- * @returns {void}
- */
+document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
+    priorityButton.addEventListener("click", (event) => {
+      removeSelectedClassFromPriorityButtons();
+      priorityButton.classList.add("selected");
+  })
+});
 
-/**
- * Selects one priority button.
- * @param {HTMLButtonElement} button - Clicked priority button.
- * @returns {void}
- */
-function selectTaskPriority(button) {
-  document.querySelectorAll("[data-priority]").forEach((item) => {
-    const selected = item === button;
-    item.classList.toggle("selected", selected);
+document.querySelector("#btn-clear-task-form").addEventListener("click", () => resetForm());
+
+function removeSelectedClassFromPriorityButtons() {
+  document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
+    priorityButton.classList.remove("selected");
   });
 }
 
