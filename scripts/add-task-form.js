@@ -267,10 +267,10 @@ async function submitTask(event) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
   const taskData = getTaskData();
-  // const response = await postData("tasks", taskData);
-  // if (!response) return;
-  // const firebaseId = response.name;
-  // taskData.id = firebaseId;
+  const response = await postData("tasks", taskData);
+  if (!response) return;
+  const firebaseId = response.name;
+  taskData.id = firebaseId;
   allTasks.push(taskData);
 }
 
