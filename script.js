@@ -175,19 +175,6 @@ function compareContactNames(a, b) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 }
 
-async function getAssignedContacts() {
-    const response = await getData('contacts');
-    if (!response) return [];
-    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
-}
-
-async function renderAssignedContacts(container) {
-    const assignedContacts = await getAssignedContacts();
-    sortContactsByName(assignedContacts);
-    const contactRef = container.querySelector('#assigned-contacts');
-    contactRef.innerHTML = assignedContacts.map(({ name }) => getAssignedContactOptionTemplate(getInitials(name), name)).join("");
-}
-
 function authGuard() {
     const currentUrl = window.location.pathname;
     if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();

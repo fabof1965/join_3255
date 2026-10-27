@@ -1,20 +1,3 @@
-// this is an example structure of a task
-//{
-//     id: "task-1",
-//     category: "User Story",
-//     title: "Kochwelt Page & Recipe Recommender",
-//     description: "Build start page with recipe recommendation...",
-//     fullDescription: "Build start page with recipe recommendation and a detailed description of the recipes.",
-//     status: "inProgress",
-//     assignedUsers: ["CE", "JB"],
-//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
-//     dueDate: "02/09/2023",
-//     priority: "low",
-//     subtasks: { completed: 1, total: 2 },
-//     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
-//     subtaskDone: [true, false],
-//   }
-
 // improved structure of a task
 //{
 //     title: "Kochwelt Page & Recipe Recommender",
@@ -79,10 +62,11 @@ function getUserInitials(assignedUsers) {
  * @returns {string} Progress HTML.
  */
 function getSubtaskDataProgressHtml(subtasks, id) {
-  if (!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
+  if(!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
   const totalSubtasks = subtasks.length;
   const  completedSubtasks = countCompletedSubtasks(subtasks);
   const progress = (completedSubtasks / totalSubtasks) * 100;
+  if(isNaN(progress)) progress = 0;
   return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id); 
 }
 

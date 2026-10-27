@@ -4,28 +4,54 @@ let newTaskCategory = "toDo";
 let newTaskSubtasks = [];
 const allTasks = [];
 
-document.addEventListener("submit", (event) => {
-  event.preventDefault();
-  if (!event.target.closest("dialog")) submitTask(event);
+document.addEventListener("DOMContentLoaded", async () => { 
+  console.log(window.location.pathname);
+  if(window.location.pathname === "/pages/addTask.html") {
+    const addTaskForm = document.getElementById("add-task-form");
+    await renderAssignedContacts(addTaskForm);
+  }
 });
 
-/**
- * Selects assigned users in the task form.
- * @param {HTMLSelectElement} select - Assigned users select.
- * @param {string[]} users - User initials to select.
- * @returns {void}
- */
+document.addEventListener("submit", (event) => {
+  if (!event.target.closest("dialog")) {
+    event.preventDefault();
+    submitTask(event);
+    directToBoard("../pages/board.html");
+  }
+});
 
-/**
- * Selects one priority button.
- * @param {HTMLButtonElement} button - Clicked priority button.
- * @returns {void}
- */
-function selectTaskPriority(button) {
-  document.querySelectorAll("[data-priority]").forEach((item) => {
-    const selected = item === button;
-    item.classList.toggle("selected", selected);
+initPriorityButtonClickListeners();
+
+function initPriorityButtonClickListeners() {
+  document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
+      priorityButton.addEventListener("click", () => {
+        removeSelectedClassFromPriorityButtons();
+        priorityButton.classList.add("selected");
+    });
   });
+}
+
+const btnCleartaskForm = document.getElementById("btn-clear-task-form");
+if(btnCleartaskForm) btnCleartaskForm.addEventListener("click", () => resetForm());
+
+function removeSelectedClassFromPriorityButtons() {
+  document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
+    priorityButton.classList.remove("selected");
+  });
+}
+
+async function getAssignedContacts() {
+    const response = await getData('contacts');
+    if (!response) return [];
+    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+}
+
+async function renderAssignedContacts(container) {
+  const assignedContacts = await getAssignedContacts();
+  sortContactsByName(assignedContacts);
+
+  const contactRef = container.querySelector('#assigned-contacts');
+  contactRef.innerHTML = assignedContacts.map((contact) => getAssignedContactOptionTemplate(getInitials(contact.name), contact.name)).join("");
 }
 
 /**
@@ -189,19 +215,16 @@ function getAssignedContactsFromForm() {
  * @returns {Object} New board task.
  */
 function getTaskData() {
-  const taskTitleField = document.getElementById("taskTitleInput");
-  const taskDescriptionElement = document.getElementById("taskDescription");
-  const taskDueDateElement = document.getElementById("taskDueDate");
-  const selectedCategory = document.getElementById("taskCategorySelect").selectedOptions[0].innerText;
+  const formElements = getFormElements();
   const assignedContactsArray = getAssignedContactsFromForm();
   const selectedPriorityText = document.querySelector(".selected").dataset.priority;
   const subtasks = getSubtasksFromForm();
 
   const taskData = {
-    title: taskTitleField.value.trim(),
-    description: taskDescriptionElement.value.trim(),
-    dueDate: taskDueDateElement.value,
-    category: selectedCategory,
+    title: formElements.taskTitleInputElement.value.trim(),
+    description: formElements.taskDescriptionElement.value.trim(),
+    dueDate: formElements.dueDateElement.value,
+    category: formElements.categorySelectElement.selectedOptions[0].innerText,
     status: "toDo",
     assignedContacts:  assignedContactsArray,
     priority: selectedPriorityText,
@@ -209,6 +232,17 @@ function getTaskData() {
   };
 
   return taskData;
+}
+
+function getFormElements(priority = "") {
+  return {
+    taskTitleInputElement: document.getElementById("taskTitleInput"),
+    taskDescriptionElement: document.getElementById("taskDescription"),
+    dueDateElement: document.getElementById("taskDueDate"),
+    selectedPriorityButton: document.querySelector('[data-priority="' + priority + '"]'),
+    assignedContactsSelectElement: document.getElementById("assigned-contacts"),
+    categorySelectElement: document.getElementById("taskCategorySelect"),
+  };
 }
 
 function getSubtasksFromForm() {
@@ -232,7 +266,6 @@ function getSubtasksFromForm() {
  */
 async function submitTask(event) {
   const form = event.target;
-  console.log(taskData); // entfernen
   if (!isAddTaskFormValid(form)) return;
   const taskData = getTaskData();
   const response = await postData("tasks", taskData);
@@ -240,7 +273,6 @@ async function submitTask(event) {
   const firebaseId = response.name;
   taskData.id = firebaseId;
   allTasks.push(taskData);
-  directToBoard("../pages/board.html");
 }
 
 /**

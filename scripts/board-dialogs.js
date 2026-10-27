@@ -77,9 +77,10 @@ async function openAddTaskDialog(status) {
   newTaskCategory = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
+  initPriorityButtonClickListeners();
   await renderAssignedContacts(taskForm);
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
@@ -91,16 +92,17 @@ async function openAddTaskDialog(status) {
  * @param {Object} task - Existing task.
  * @returns {void}
  */
-function fillTaskForm(form, task) {
-  form.elements.title.value = task.title;
-  form.elements.description.value = (task.fullDescription || task.description);
-  form.elements.dueDate.value = task.dueDate || "";
-  form.elements.category.value = task.category || "";
-  setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
-  newTaskSubtasks = [...(task.subtaskTitles || [])];
-  renderNewSubtasks();
-  const priority = task.priority || "medium";
-  selectTaskPriority(form.querySelector(`[data-priority="${priority}"]`));
+function fillFormElementsWithTaskData(task) {
+  removeSelectedClassFromPriorityButtons();
+  initPriorityButtonClickListeners();
+
+  const formElements = getFormElements(task.priority);
+  formElements.taskTitleInputElement.value = task.title;
+  formElements.taskDescriptionElement.value = task.description;
+  formElements.dueDateElement.value = task.dueDate;
+  formElements.selectedPriorityButton.classList.add("selected");
+  formElements.categorySelectElement.value = task.category;
+  
   document.getElementById('add-task-title').textContent = "Edit task";
   document.getElementById('btn-create-task').textContent = "Ok"
 }
@@ -114,11 +116,12 @@ async function openAddTaskDialogInEditMode(task) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = task.id;
   newTaskCategory = task.status;
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
   await renderAssignedContacts(taskForm);
-  fillTaskForm(taskForm, task);
+  fillFormElementsWithTaskData(task);
+  initPriorityButtonClickListeners();
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
@@ -167,6 +170,7 @@ function updateTaskFromForm(currentTask) {
  * @returns {string} Assigned-user HTML.
  */
 function getOverlayUsersHtml(task) {
+  if(!task.assignedContacts) return `<span>No assigned contacts</span>`;
   const users = task.assignedContacts;
   return users.map((contactName) =>
     getTaskOverlayUserTemplate(getInitials(contactName), contactName),
@@ -196,13 +200,11 @@ async function toggleSubtask(index, checkbox) {
   const task = allTasks.find(({ id }) => id === openedTaskId);
   const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
   if (!task) return;
-  
-  console.log(task);
   task.subtasks[index].done = !task.subtasks[index].done;
   checkbox.checked = task.subtasks[index].done;
   allTasks[taskIndex] = task;
   console.log(allTasks[taskIndex]);  
-  await patchData(`tasks/${openedTaskId}`, {
+  await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
     done: task.subtasks[index].done,
   });
 
@@ -259,18 +261,19 @@ function capitalize(value) {
  */
 function openTaskCardDialog(taskId) {
   const taskCardDialog = document.getElementById("task-card-dialog");
-  const task = allTasks.find(({ id }) => id === taskId);
+  const task = allTasks.find((task) => task.id === taskId);
   if (!task) return;
   openedTaskId = taskId;
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
-  setSubtasksCheckedVisually(task.subtasks);
+  if(task.subtasks) setSubtasksCheckedVisually(task);
   setBadgeBackgroundColor();
   clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
   document.body.classList.add('overlay-open');
 }
 
-function setSubtasksCheckedVisually(subtasks) {
+function setSubtasksCheckedVisually(task) {
+  const subtasks = task.subtasks;
   subtasks.forEach((subtask, index) => {
     const checkBox = document.querySelector('[data-index-number="' + index + '"]');
     checkBox.checked = subtask.done; 
@@ -297,7 +300,7 @@ async function deleteTaskCard(taskCardId) {
  * @returns {void}
  */
 function editTaskCard() {
-  const task = allTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find((task) => task.id === openedTaskId);
   if (!task) return;
   closeTaskCardDialog();
   openAddTaskDialogInEditMode(task);
@@ -323,9 +326,9 @@ document.getElementById('task-card-dialog').addEventListener('close', () =>{
  * @returns {void}
  */
 function handleTaskCardClick(event) {
-  const card = event.target.closest(".task-card");
+  const taskCard = event.target.closest(".task-card");
 
-  if (card) openTaskCardDialog(card.dataset.taskId);
+  if (taskCard) openTaskCardDialog(taskCard.dataset.taskId);
   if (event.target.closest(".task-overlay-delete")) deleteTaskCard(openedTaskId);
   if (event.target.closest(".task-overlay-edit")) editTaskCard();
   if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
