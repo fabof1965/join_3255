@@ -16,6 +16,8 @@
 //     id: "task-1",
 //}
 
+document.addEventListener("DOMContentLoaded", initBoardContent());
+
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
@@ -65,15 +67,18 @@ function getSubtaskDataProgressHtml(subtasks, id) {
   if(!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
   const totalSubtasks = subtasks.length;
   const  completedSubtasks = countCompletedSubtasks(subtasks);
-  const progress = (completedSubtasks / totalSubtasks) * 100;
+  let  progress = (completedSubtasks / totalSubtasks) * 100;
   if(isNaN(progress)) progress = 0;
   return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id); 
 }
 
 function countCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
-  subtasks.forEach((subtask) => {
+  if(!subtasks) return completedSubtasks;
+  subtasks.map((subtask) => {
+    console.log(subtask);
     if(subtask.done === true) completedSubtasks++
+    return completedSubtasks;
   });
 
   return completedSubtasks;
@@ -118,7 +123,7 @@ function renderTask(task) {
  */
 function renderBoardContent(tasks) {
   emptyTaskLists();
-  renderTaskCards(tasks);
+  if(tasks) renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
