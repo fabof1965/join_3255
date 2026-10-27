@@ -86,9 +86,9 @@
   box-shadow: var(--button-box-shadow);
   margin: 0;
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(16px);
   transition: display 300ms allow-discrete,
-    opacity 300ms ease-in-out 100ms,
+    opacity 300ms ease-in-out,
     overlay 300ms allow-discrete,
     transform 300ms ease-in-out;
 }
@@ -99,10 +99,14 @@
   display: flex;
   opacity: 1;
   transform: translateY(0);
+  transition: display 300ms allow-discrete,
+    opacity 300ms ease-in-out 140ms,
+    overlay 300ms allow-discrete,
+    transform 300ms ease-in-out;
 
   @starting-style {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(-24px);
   }
 }
 
