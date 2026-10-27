@@ -55,7 +55,7 @@ function getCategoryClass(category) {
  */
 function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers.map((initials) => getUserBadgeTemplate(initials)).join("");
+  return assignedUsers.map((initials) => getUserBadgeTemplate(getInitials(initials).toUpperCase())).join("");
 }
 
 /**
