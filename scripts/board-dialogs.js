@@ -27,12 +27,18 @@ document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
 
-document.addEventListener("submit", (event) => {
+document.addEventListener("submit", async (event) => {
   const form = event.target;
 
   if (form.classList.contains(dialogModes.addTaskMode)) {
     event.preventDefault();
-    submitTask(event);
+    await submitTask(event);
+    closeAddTaskDialog();
+    const newTaskData = allTasks[allTasks.length - 1];
+    document.querySelector('div.task-list[data-status=toDo]').innerHTML += getTaskCardHtml(newTaskData);
+    const taskCard = document.querySelector("#" + newTaskData.id);
+    taskCard.addEventListener("dragstart", startDragging);
+    taskCard.addEventListener("dragend", stopDragging);
     return;
   }
 
@@ -94,7 +100,7 @@ async function openAddTaskDialog(status) {
  */
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
-  initPriorityButtonClickListeners();
+  initPriorityButtonClickListeners()
 
   const formElements = getFormElements(task.priority);
   formElements.taskTitleInputElement.value = task.title;
@@ -139,7 +145,7 @@ function closeAddTaskDialog() {
 }
 
 async function submitEditedTask() {
-  const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
+  const taskIndex = allTasks.findIndex((task) => task.id === editingTaskId);
   if (taskIndex === -1) return;
   const taskToUpdate = allTasks[taskIndex];
   const updatedTask = updateTaskFromForm(taskToUpdate);
@@ -197,7 +203,7 @@ function getOverlaySubtasksHtml(task) {
  */
 
 async function toggleSubtask(index, checkbox) {
-  const task = allTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find((task) => task.id === openedTaskId);
   const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
   if (!task) return;
   task.subtasks[index].done = !task.subtasks[index].done;
@@ -285,7 +291,8 @@ function setSubtasksCheckedVisually(task) {
  * @returns {promise}
  */
 async function deleteTaskCard(taskCardId) {
-  const taskIndex = allTasks.findIndex(({ id }) => id === taskCardId);
+  const taskIndex = allTasks.findIndex((task) => task.id === taskCardId);
+  if(taskIndex === -1) return;
   const taskCard = document.getElementById(taskCardId);
   const taskList = document.querySelector('div.task-list[data-status="' + allTasks[taskIndex].status + '"]');
   taskCard.remove();
