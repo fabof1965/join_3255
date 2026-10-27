@@ -12,20 +12,6 @@
   overflow-y: auto;
 }
 
-.add-task-form-dialog {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: var(--gap-large);
-  /* padding: var(--padding); */
-  justify-content: flex-start;
-  width: var(--full);
-  max-width: unset;
-  flex: 1;
-  padding-right: unset;
-  overflow-y: auto;
-}
-
 @media(max-width: 1540px) {
   .add-task-form {
     padding: var(--padding);

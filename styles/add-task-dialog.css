@@ -1,0 +1,16 @@
+.add-task-dialog {
+    border: none;
+    margin: auto;
+}
+
+.add-task-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: var(--gap-small);
+}
+
+.form-buttons {
+    margin-top: 0;
+    margin-left: auto;
+}
