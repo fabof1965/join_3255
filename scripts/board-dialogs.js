@@ -80,8 +80,8 @@ async function openAddTaskDialog(status) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
-  initPriorityButtonClickListeners();
   await renderAssignedContacts(taskForm);
+  initPriorityButtonClickListeners();
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
