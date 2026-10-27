@@ -32,7 +32,7 @@ document.addEventListener("submit", async (event) => {
 
   if (form.classList.contains(dialogModes.addTaskMode)) {
     event.preventDefault();
-    await submitTask(event);
+    await submitTask(event, null);
     closeAddTaskDialog();
     const newTaskData = allTasks[allTasks.length - 1];
     document.querySelector('div.task-list[data-status="' + newTaskStatus + '"]').innerHTML += getTaskCardHtml(newTaskData);
@@ -45,7 +45,8 @@ document.addEventListener("submit", async (event) => {
 
   if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
-    submitEditedTask();
+    submitEditedTask(event);
+    closeAddTaskDialog();
     return;
   }
 });
@@ -148,15 +149,13 @@ function closeAddTaskDialog() {
   addTaskDialog.innerHTML = "";
 }
 
-async function submitEditedTask() {
+function submitEditedTask(event) {
   const taskIndex = allTasks.findIndex((task) => task.id === editingTaskId);
   if (taskIndex === -1) return;
   const taskToUpdate = allTasks[taskIndex];
   const updatedTask = updateTaskFromForm(taskToUpdate);
-  allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, updatedTask);
-  closeAddTaskDialog();
   updateTaskCardContent(updatedTask);
+  submitTask(event, updatedTask);
 }
 
 function updateTaskCardContent(task) {

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.addEventListener("submit", (event) => {
   if (!event.target.closest("dialog")) {
     event.preventDefault();
-    submitTask(event);
+    submitTask(event, null);
     directToBoard("../pages/board.html");
   }
 });
@@ -263,12 +263,18 @@ function getSubtasksFromForm() {
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
  */
-async function submitTask(event) {
+async function submitTask(event, task) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  const taskData = getTaskData();
-  const response = await postData("tasks", taskData);
-  if (!response) return;
+  let taskData = "";
+  let response = "";
+  if(task === null) {
+    taskData = getTaskData();
+    response = await postData("tasks", taskData);
+  } else if(task) {
+    await patchData(`tasks/${task.id}`, task);
+  }
+  if (response === "") return;
   const firebaseId = response.name;
   taskData.id = firebaseId;
   allTasks.push(taskData);
