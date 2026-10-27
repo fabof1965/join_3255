@@ -329,9 +329,9 @@ function handleTaskCardClick(event) {
   const taskCard = event.target.closest(".task-card");
 
   if (taskCard) openTaskCardDialog(taskCard.dataset.taskId);
-  if (event.target.closest(".task-overlay-delete")) deleteTaskCard(openedTaskId);
-  if (event.target.closest(".task-overlay-edit")) editTaskCard();
-  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
+  if (event.target.closest(".btn-delete-task-card")) deleteTaskCard(openedTaskId);
+  if (event.target.closest(".btn-edit-task")) editTaskCard();
+  if (event.target.closest(".task-card-dialog-close")) closeTaskCardDialog();
 }
 
 /**

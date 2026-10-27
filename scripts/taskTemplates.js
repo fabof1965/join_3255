@@ -39,7 +39,7 @@ function getEmptyTakListElement(emptyTaskListMessage) {
 }
 
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-  const subtaskOutput = subtasksHTML === "" ? "No Subtasks" : subtasksHTML;
+  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>` : subtasksHTML;
   return `<article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
             <header class="task-card-dialog-header">
               <span class="task-card-dialog-category ${getCategoryClass(task.category)}">${task.category}</span>
@@ -60,9 +60,9 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
               <div class="task-card-dialog-subtasks">${subtaskOutput}</div>
             </section>
             <footer class="task-card-dialog-buttons">
-              <button id="delete-task-card" class="task-overlay-delete" type="button"><img src="../assets/icons/delete.svg" alt="" />Delete</button>
+              <button id="delete-task-card" class="btn-delete-task-card" type="button"><img src="../assets/icons/delete.svg" alt="" />Delete</button>
               <span></span>
-              <button class="task-overlay-edit" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
+              <button class="btn-edit-task" type="button"><img src="../assets/icons/edit.svg" alt="edit task" />Edit</button>
             </footer>
           </article>`;
 }

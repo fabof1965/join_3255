@@ -129,7 +129,6 @@
   padding: 7px 16px;
 }
 
-
 .task-card-dialog-user-badge {
   width: 42px;
   height: 42px;
@@ -149,6 +148,10 @@
   gap: 16px;
   height: 32px;
   padding: 6px 16px;
+}
+
+.no-subtasks {
+  padding-left: 16px;
 }
 
 .task-card-dialog label, .subtask-checkbox {
