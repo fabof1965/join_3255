@@ -104,7 +104,7 @@ function fillFormElementsWithTaskData(task) {
   formElements.categorySelectElement.value = task.category;
   
   document.getElementById('add-task-title').textContent = "Edit task";
-  document.getElementById('btn-create-task').textContent = "Ok"
+  document.getElementById('btn-create-task').textContent = "Ok";
 }
 
 /**

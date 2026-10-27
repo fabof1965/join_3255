@@ -121,62 +121,11 @@ textarea {
 
 .btn-create-task {
   background-color: var(--primary-color);
+  height: 100%;
 }
 
 .btn-create-task>span {
   color: var(--white-color);
-}
-
-.add-task-backdrop[open] {
-  width: min(518px, 100%);
-  max-height: calc(100vh - 8px);
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  border-radius: 30px;
-  border: none;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
-
-  overflow: hidden;
-}
-
-.add-task-backdrop::backdrop {
-  background-color: var(--addTaskBackdrop-color);
-}
-
-.add-task-dialog {
-  display: flex;
-  flex-direction: column;
-  max-height: calc(100vh - 8px);
-  padding: 24px 40px;
-  background-color: var(--white-color);
-  border-radius: 30px;
-  box-shadow: var(--addTaskBoxShadow);
-  min-width: 0;
-  /*mobile-test*/
-  min-height: 0;
-  /*mobile-test*/
-  width: var(--full);
-  /*mobile-test*/
-  overflow-x: hidden;
-  /*mobile-test*/
-  overflow: hidden;
-}
-
-.add-task-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 48px;
-}
-
-.add-task-header h2 {
-  font-size: var(--large-font-size);
-  line-height: 1.2;
 }
 
 .add-task-close {
