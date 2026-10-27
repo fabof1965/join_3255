@@ -232,7 +232,7 @@ function getSubtasksFromForm() {
  */
 async function submitTask(event) {
   const form = event.target;
-  console.log(taskData);
+  console.log(taskData); // entfernen
   if (!isAddTaskFormValid(form)) return;
   const taskData = getTaskData();
   const response = await postData("tasks", taskData);
