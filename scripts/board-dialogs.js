@@ -213,7 +213,6 @@ async function toggleSubtask(index, checkbox) {
   task.subtasks[index].done = !task.subtasks[index].done;
   checkbox.checked = task.subtasks[index].done;
   allTasks[taskIndex] = task;
-  console.log(allTasks[taskIndex]);
   await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
     done: task.subtasks[index].done,
   });

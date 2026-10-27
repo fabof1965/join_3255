@@ -21,7 +21,6 @@ function getTaskCardContentTemplate(task) {
 }
 
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
-  console.log(progress);
   return `<div class="subtask-progress">
             <div class="progress-track" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}">
               <div class="progress-fill" id="progress-fill-${taskId}" style="width: ${progress}%"></div>

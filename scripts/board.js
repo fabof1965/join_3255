@@ -76,7 +76,6 @@ function countCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
   if(!subtasks) return completedSubtasks;
   subtasks.map((subtask) => {
-    console.log(subtask);
     if(subtask.done === true) completedSubtasks++
     return completedSubtasks;
   });
@@ -218,7 +217,6 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  console.log("dragstart", event.currentTarget);
   const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
   taskCardElement.classList.add("task-card-dragging");
@@ -231,7 +229,6 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  console.log("dragend");
   const taskCardElement = event.currentTarget;
   const taskList = event.target.closest?.(".task-list");
 

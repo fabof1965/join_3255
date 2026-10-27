@@ -5,7 +5,6 @@ let newTaskSubtasks = [];
 const allTasks = [];
 
 document.addEventListener("DOMContentLoaded", async () => { 
-  console.log(window.location.pathname);
   if(window.location.pathname === "/pages/addTask.html") {
     const addTaskForm = document.getElementById("add-task-form");
     await renderAssignedContacts(addTaskForm);
