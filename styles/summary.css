@@ -114,6 +114,10 @@
     }
 }
 
+.deadline-container{
+    color: var(--white-color);
+}
+
 .blue-head-column {
     display: flex;
     align-items: center;
@@ -135,7 +139,7 @@
     box-shadow: var(--summary-card-box-shadow);
     border-top-left-radius: 0;
 
-    .task-number, .sub-text, .date-text, .divider, .task-icons{
+    .task-number, .sub-text, .date-text, .divider, .task-icons, .deadline-container{
         transform: scale(var(--hover-scale));
         color: var(--primary-color);
     }

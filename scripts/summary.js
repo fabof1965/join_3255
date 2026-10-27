@@ -77,7 +77,6 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
     dateEl.innerText = "No deadline";
     return;
   } else {
-    upcommingDeadline.style.color = "var(--white-color)";
     upcommingDeadline.innerText = "Upcomming deadline";
   }
 
