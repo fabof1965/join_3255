@@ -1,6 +1,6 @@
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
-let newTaskCategory = "toDo";
+let newTaskStatus = "toDo";
 let newTaskSubtasks = [];
 const allTasks = [];
 
@@ -225,7 +225,7 @@ function getTaskData() {
     description: formElements.taskDescriptionElement.value.trim(),
     dueDate: formElements.dueDateElement.value,
     category: formElements.categorySelectElement.selectedOptions[0].innerText,
-    status: "toDo",
+    status: newTaskStatus,
     assignedContacts:  assignedContactsArray,
     priority: selectedPriorityText,
     subtasks: subtasks,
@@ -268,10 +268,10 @@ async function submitTask(event) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
   const taskData = getTaskData();
-  const response = await postData("tasks", taskData);
-  if (!response) return;
-  const firebaseId = response.name;
-  taskData.id = firebaseId;
+  // const response = await postData("tasks", taskData);
+  // if (!response) return;
+  // const firebaseId = response.name;
+  // taskData.id = firebaseId;
   allTasks.push(taskData);
 }
 

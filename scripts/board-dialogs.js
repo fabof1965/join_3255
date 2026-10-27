@@ -35,10 +35,11 @@ document.addEventListener("submit", async (event) => {
     await submitTask(event);
     closeAddTaskDialog();
     const newTaskData = allTasks[allTasks.length - 1];
-    document.querySelector('div.task-list[data-status=toDo]').innerHTML += getTaskCardHtml(newTaskData);
+    document.querySelector('div.task-list[data-status="' + newTaskStatus + '"]').innerHTML += getTaskCardHtml(newTaskData);
     const taskCard = document.querySelector("#" + newTaskData.id);
     taskCard.addEventListener("dragstart", startDragging);
     taskCard.addEventListener("dragend", stopDragging);
+    newTaskStatus = "toDo";
     return;
   }
 
@@ -80,7 +81,7 @@ function getTaskForm() {
 async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = "";
-  newTaskCategory = status;
+  newTaskStatus = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
@@ -121,7 +122,7 @@ function fillFormElementsWithTaskData(task) {
 async function openAddTaskDialogInEditMode(task) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = task.id;
-  newTaskCategory = task.status;
+  newTaskStatus = task.status;
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
