@@ -105,7 +105,6 @@ function toggleContactDetail(indexContact, contactCard) {
  * @param {HTMLElement} contactCard - The activated contact card.
  */
 function handleContactCardKeydown(event, indexContact, contactCard) {
-    console.log(event.key);
     if (event.key !== "Enter" && event.key !== " ") return;
     // event.preventDefault();
     toggleContactDetail(indexContact, contactCard);
