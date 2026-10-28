@@ -256,11 +256,16 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'pho
 
 async function submitContactForm(event) {
     event.preventDefault();
-    if (editIndex === null) {
-
-        await addNewContact(event);
-    } else {
-        await saveEditedContact();
+    if (isSubmittingContact) return;
+    isSubmittingContact = true;
+    try {
+        if (editIndex === null) {
+            await addNewContact(event);
+        } else {
+            await saveEditedContact();
+        }
+    } finally {
+        isSubmittingContact = false;
     }
 }
 
@@ -349,6 +354,10 @@ async function deleteContact(i) {
     closeEditContactDialog();
     await renderContacts();
 }
+
+document.getElementById("edit-contact-dialog").addEventListener("close", () => {
+    editIndex = null;
+});
 
 getAddContactDialog().addEventListener("close", () => {
     editIndex = null;
