@@ -10,7 +10,7 @@ function getPopoverContent(indexContact) {
 function getContactTemplate(indexContact) {
   return `
       <div class="contact-card" id="contact-card${indexContact}" role="button" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}" onclick="toggleContactDetail(${indexContact}, this)" onkeydown="handleContactCardKeydown(event, ${indexContact}, this)">
-        <div class="profile-badge">${renderProfileBadges(allContacts[indexContact].name).toUpperCase()}</div>
+        <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
         <div class="name-and-mail">
           <span class="name">${allContacts[indexContact].name}</span>
           <span class="mail">${allContacts[indexContact].email}</span>
@@ -29,7 +29,7 @@ function getFirstLetterTemplate(firstLetter) {
 function getContactHeaderTemplate(contact, indexContact) {
   return `<header class="detail-header">
     <div class="header-content-1">
-      <div class="profile-badge-large large-text"><span class="profile-badge-text" id="initials-detail">${renderProfileBadges(contact.name).toUpperCase()}</span></div>
+      <div class="profile-badge-large large-text"><span class="profile-badge-text" id="initials-detail">${getInitials(contact.name).toUpperCase()}</span></div>
       <div class="name-edit-delete"><h2 class="name large-text" id="name-detail">${contact.name}</h2>
       <div class="edit-delete" id="edit-delete-detail">${getPopoverContent(indexContact)}</div></div>
     </div>

@@ -1,33 +1,56 @@
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
-let newTaskCategory = "toDo";
+let newTaskStatus = "toDo";
 let newTaskSubtasks = [];
+const allTasks = [];
 
-document.addEventListener("submit", submitNewTask);
+document.addEventListener("DOMContentLoaded", async () => { 
+  if(window.location.pathname === "/pages/addTask.html") {
+    const addTaskForm = document.getElementById("add-task-form");
+    await renderAssignedContacts(addTaskForm);
+  }
+});
 
-/**
- * Selects assigned users in the task form.
- * @param {HTMLSelectElement} select - Assigned users select.
- * @param {string[]} users - User initials to select.
- * @returns {void}
- */
-function setTaskFormUsers(select, users = []) {
-  Array.from(select.options).forEach((option) => {
-    option.selected = users.includes(option.value);
+document.addEventListener("submit", (event) => {
+  if (!event.target.closest("dialog")) {
+    event.preventDefault();
+    submitTask(event, null);
+    directToBoard("../pages/board.html");
+  }
+});
+
+initPriorityButtonClickListeners();
+
+function initPriorityButtonClickListeners() {
+  document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
+      priorityButton.addEventListener("click", () => {
+        removeSelectedClassFromPriorityButtons();
+        priorityButton.classList.add("selected");
+    });
   });
 }
 
-/**
- * Selects one priority button.
- * @param {HTMLButtonElement} button - Clicked priority button.
- * @returns {void}
- */
-function selectTaskPriority(button) {
-  document.querySelectorAll("[data-priority]").forEach((item) => {
-    const selected = item === button;
-    item.classList.toggle("selected", selected);
+const btnCleartaskForm = document.getElementById("btn-clear-task-form");
+if(btnCleartaskForm) btnCleartaskForm.addEventListener("click", () => resetForm());
+
+function removeSelectedClassFromPriorityButtons() {
+  document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
+    priorityButton.classList.remove("selected");
   });
-  selectedTaskPriority = button.dataset.priority;
+}
+
+async function getAssignedContacts() {
+    const response = await getData('contacts');
+    if (!response) return [];
+    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
+}
+
+async function renderAssignedContacts(container) {
+  const assignedContacts = await getAssignedContacts();
+  sortContactsByName(assignedContacts);
+
+  const contactRef = container.querySelector('#assigned-contacts');
+  contactRef.innerHTML = assignedContacts.map((contact) => getAssignedContactOptionTemplate(getInitials(contact.name), contact.name)).join("");
 }
 
 /**
@@ -38,7 +61,7 @@ function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
   if (!list) return;
   list.innerHTML = newTaskSubtasks.map((title, index) =>
-    fillTemplate(addTaskSubtaskTemplate, { title, index }),
+    getAddTaskSubtaskTemplate(index, title),
   ).join("");
 }
 
@@ -67,6 +90,11 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
+document.addEventListener('keydown', (event) =>{
+  if(event.target.name === "subtask") addSubtaskOnEnter(event);
+  if(event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
+});
+
 /**
  * Removes the subtask belonging to the clicked delete button and re-renders the list.
  * @param {HTMLElement} button - Clicked delete button inside a subtask item.
@@ -92,7 +120,7 @@ function editSubtask(button) {
   if (editInput) return saveSubtask(editInput);
   const index = Number(item.dataset.index);
   const span = item.querySelector('span');
-  span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
+  span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index]);
   const handleButtons = item.querySelector('.subtask-button-container');
   handleButtons.style.opacity = 1;
   item.style.backgroundColor = 'transparent';
@@ -168,22 +196,16 @@ function isAddTaskFormValid(form) {
   return !titleInvalid && !dateInvalid && !categoryInvalid;
 }
 
-/**
- * Returns the selected contact initials.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected initials.
- */
-function getSelectedUsers(select) {
-  return Array.from(select.selectedOptions, ({ value }) => value);
-}
+function getAssignedContactsFromForm() {
+  const select = document.getElementById("assigned-contacts");
+  const assignedContacts = [];
+  const selectedContacts = select.selectedOptions;
 
-/**
- * Returns the names of all selected contacts.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected contact names.
- */
-function getSelectedUserNames(select) {
-  return Array.from(select.selectedOptions, ({ textContent }) => textContent);
+  for(let i = 0; i < selectedContacts.length; i++) {
+    assignedContacts.push(selectedContacts[i].innerText);
+  }
+
+  return assignedContacts;
 }
 
 /**
@@ -191,89 +213,49 @@ function getSelectedUserNames(select) {
  * @param {HTMLFormElement} form - Add Task form.
  * @returns {Object} New board task.
  */
-function createTaskFromForm(form) {
-  addPendingSubtask(form);
-  const data = new FormData(form);
-  //data soll ein Objekt in etwa dieser Form sein: 
-// {
-//     title: document.querySelector(".task-title-input").value.trim(), 
-//     description: document.querySelector(".task-description-input").value.trim(),
-//     dueDate: document.querySelector(".add-task-date-input").value, 
-//     category: getSelectedOptionFromForm(document.querySelector("task-category-select")), 
-//     priority: selectedTaskPriority, 
-//     assignedUsers: getSelectedUsers(assignedUsers),
-//     subtasks: getSubtasksFromForm,
-//     subtaskTitles: [...newTaskSubtasks], 
-//     subtaskDone: newTaskSubtasks.map(() => false),
-//   };
-  return buildTaskData(data, form.elements.assignedUsers);
+function getTaskData() {
+  const formElements = getFormElements();
+  const assignedContactsArray = getAssignedContactsFromForm();
+  const selectedPriorityText = document.querySelector(".selected").dataset.priority;
+  const subtasks = getSubtasksFromForm();
+
+  const taskData = {
+    title: formElements.taskTitleInputElement.value.trim(),
+    description: formElements.taskDescriptionElement.value.trim(),
+    dueDate: formElements.dueDateElement.value,
+    category: formElements.categorySelectElement.selectedOptions[0].innerText,
+    status: newTaskStatus,
+    assignedContacts:  assignedContactsArray,
+    priority: selectedPriorityText,
+    subtasks: subtasks,
+  };
+
+  return taskData;
 }
 
-function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
-    return totalSubtasks / subtasksDone;
-}
-
-function getSelectedOptionFromForm(select) {
-    const option = select.selectedOptions[0];
-    const optionText = option ? option.textContent : "";
-
-    return optionText;
+function getFormElements(priority = "") {
+  return {
+    taskTitleInputElement: document.getElementById("taskTitleInput"),
+    taskDescriptionElement: document.getElementById("taskDescription"),
+    dueDateElement: document.getElementById("taskDueDate"),
+    selectedPriorityButton: document.querySelector('[data-priority="' + priority + '"]'),
+    assignedContactsSelectElement: document.getElementById("assigned-contacts"),
+    categorySelectElement: document.getElementById("taskCategorySelect"),
+  };
 }
 
 function getSubtasksFromForm() {
-    const subtaskTitles = document.querySelectorAll(".subtaskTitle");
-    const subtaskCheckboxes = "";
-    const subtasks = subtaskTitles.map((title) => {
-        const subtaskTitle = title;
-        const subtaskDone = "";
-    });
-}
+  const subtasksElements = document.querySelectorAll(".subtask-wrapper");
+  let subtasks = [];
+  subtasksElements.forEach((subtaskElement) => {
+    subtasks.push(subtaskElement.innerText);
+  });
 
-/**
- * Includes a subtask that is still typed into the input when the form is submitted.
- * @param {HTMLFormElement} form - Add Task form.
- * @returns {void}
- */
-function addPendingSubtask(form) {
-  if (form.elements.subtask) addSubtaskFromInput(form.elements.subtask);
-}
+  subtasks = subtasks.map((subtaskTitle) => {
+    return {title: subtaskTitle, done: false};
+  });
 
-function buildTaskData(data, assignedUsers) {
-  return {
-    title: data.get("title").trim(),
-    description: data.get("description").trim(),
-    dueDate: data.get("dueDate"),
-    category: data.get("category"),
-    status: newTaskCategory,
-    priority: selectedTaskPriority,
-    assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers),
-    subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks],
-    subtaskDone: newTaskSubtasks.map(() => false),
-  };
-}
-
-function getSubtaskProgress() {
-  return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
-}
-
-function updateTaskFromForm(currentTask, form) {
-  const taskData = createTaskFromForm(form);
-  return {
-    ...currentTask,
-    ...taskData,
-    id: editingTaskId,
-    status: currentTask.status,
-    fullDescription: taskData.description
-  };
-}
-
-function getPatchedTaskData(task) {
-  const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
-    subtasks, subtaskTitles, subtaskDone } = task;
-  return { title, description, dueDate, category, priority,
-    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
+ return subtasks;
 }
 
 /**
@@ -281,27 +263,28 @@ function getPatchedTaskData(task) {
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
  */
-async function submitNewTask(event) {
-  event.preventDefault();
+async function submitTask(event, editedTask) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  const taskData = createTaskFromForm(form);
-  const response = await postData("tasks", taskData);
-  if (!response) return;
-  const firebaseId = response.name;
-  taskData.id = firebaseId;
-  finishTaskSubmission(form, taskData);
-  window.location.href = "../pages/board.html";
+  if(editedTask === null) {
+    const taskData = getTaskData();
+    const response = await postData("tasks", taskData);
+    const firebaseId = response.name;
+    taskData.id = firebaseId;
+    allTasks.push(taskData);
+    await patchData(`tasks/${taskData.id}`, taskData);
+    return;
+  }
+
+  await patchData(`tasks/${editedTask.id}`, editedTask);
 }
 
 /**
- * Cleans up the matching Add Task surface after a task was created.
- * @param {HTMLFormElement} form - Submitted Add Task form.
- * @param {Object} task - Created task with Firebase id.
- * @returns {void}
+ * Forward to the board
  */
-function finishTaskSubmission(form, task) {
-  if (typeof allTasks !== "undefined") allTasks.push(task);
 
-  resetForm(form);
+function directToBoard(boardURL) {
+  if(window.location.pathname !== boardURL) {
+    window.location.href = boardURL;
+  }
 }

@@ -14,8 +14,9 @@ function initSignUpEventListeners() {
 
 function initEventListenersForRegistrationForm() {
     const inputFields = [
+        document.getElementById('signup-name-input'),
         document.getElementById('email-signup'),
-        document.getElementById('sign-up-password'),
+        document.getElementById('signup-password'),
         document.getElementById('confirm-password')
     ];
     inputFields.forEach(field => {
@@ -35,7 +36,7 @@ function initPasswordEventListener() {
 function passwordInputFields() {
     return [
         createPasswordField('login-password', 'login-password-toggle-icon'),
-        createPasswordField('sign-up-password', 'sign-up-password-toggle-icon'),
+        createPasswordField('signup-password', 'signup-password-toggle-icon'),
         createPasswordField('confirm-password', 'confirm-password-toggle-icon')
     ];
 }
@@ -93,20 +94,21 @@ function toggleShowPassword(field) {
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
     const emailSignup = document.getElementById('email-signup');
-    const passwordSignup = document.getElementById('sign-up-password');
-    const name = document.getElementById('name');
+    const passwordSignup = document.getElementById('signup-password');
+    const signupNameInput = document.getElementById('signup-name-input');
     event.preventDefault();
-
-    const userData = await saveNewUser(name.value, emailSignup.value, passwordSignup.value);
     if (!(await isRegistrationValid())) return;
+    const userData = await saveNewUser(signupNameInput.value, emailSignup.value, passwordSignup.value);
+
     if (!userData) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
 
 async function isRegistrationValid() {
-    const passwordOk = comparePassword();
     const privacyOk = acceptPrivacyPolicy();
-    return passwordOk && privacyOk;
+    const inputOk = sendFeedbackForEmptySignupInputfield();
+    const passwordOk = validatePassword();
+    return inputOk && passwordOk && privacyOk;
 }
 
 async function saveNewUser(name, email, password) {
@@ -132,18 +134,43 @@ function setEmailExistsFeedback(emailExists) {
     message.classList.toggle('visibility-hidden', !emailExists);
 }
 
-function comparePassword() {
-    const passwordSignup = document.getElementById('sign-up-password');
+function sendFeedbackForEmptySignupInputfield() {
+    const emptyNameInput = !document.getElementById('signup-name-input').value;
+    const emptyEmailInput = !document.getElementById('email-signup').value;
+    const redBorder = document.getElementById('name-err-msg-border');
+    const emailBorder = document.getElementById('invalid-email-border-bottom');
+    redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
+    emailBorder.classList.toggle('error-message-border-bottom', emptyEmailInput);
+
+    const nameErrMsg = document.getElementById('signup-name-err-msg');
+    const emailErrMsg = document.getElementById('invalid-email-msg');
+
+    if (emptyNameInput || emptyEmailInput) {
+        setLoginErrorText(nameErrMsg, emptyNameInput ? requiredMsg : '');
+        setLoginErrorText(emailErrMsg, emptyEmailInput ? requiredMsg : '');
+    }
+    return !emptyNameInput && !emptyEmailInput;
+}
+
+function validatePassword() {
+    const passwordSignup = document.getElementById('signup-password');
     const confirmPasswordSignup = document.getElementById('confirm-password');
-    const borderBottom = document.getElementById('confirm-password-border-bottom');
+    const borderBottom = [
+        passwordSignup.closest('.input-content-container'),
+        confirmPasswordSignup.closest('.input-content-container')
+    ];
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
+    const passwordErrMsg = document.getElementById('signup-password-err-msg');
     const matches = passwordSignup.value === confirmPasswordSignup.value;
     const passwordTooShort = confirmPasswordSignup.value.length < 6;
     const validPassword = matches && !passwordTooShort;
     invalidPassword.textContent = passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
     invalidPassword.classList.toggle('visibility-hidden', validPassword);
-    borderBottom.classList.toggle('error-message-border-bottom', !validPassword);
-    confirmPasswordSignup.setAttribute('aria-invalid', String(!validPassword));
+    passwordErrMsg.textContent = invalidPassword.textContent;
+    passwordErrMsg.classList.toggle('visibility-hidden', validPassword);
+    borderBottom.forEach(borderColor => {
+        borderColor.classList.toggle('error-message-border-bottom', !validPassword);
+    });
     return validPassword;
 }
 
@@ -209,7 +236,7 @@ function storeLoggedInUser(user) {
 function initLoginEventListeners() {
     const inputFields = [
         document.getElementById('email'),
-        document.getElementById('login-password')
+        document.getElementById('login-password'),
     ]
     inputFields.forEach(fields => {
         fields.addEventListener('input', resetLogin)
@@ -217,12 +244,25 @@ function initLoginEventListeners() {
 }
 
 function showErrorMessageForLogin() {
-    const borderBottom = document.querySelectorAll('.input-content-container');
-    const errorMsg = document.getElementById('error-msg');
-    errorMsg.classList.remove('visibility-hidden');
-    borderBottom.forEach(borderColor => {
+    const emailErrMsg = document.getElementById('email-err-msg'); //span
+    const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
+    const emptyEmailInput = !document.getElementById('email').value; // input
+    const emptyPasswordInput = !document.getElementById('login-password').value; // input
+    document.querySelectorAll('.input-content-container').forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
+    if (emptyEmailInput || emptyPasswordInput) {
+        setLoginErrorText(emailErrMsg, emptyEmailInput ? enterLoginEmailMsg : '');
+        setLoginErrorText(passwordErrMsg, emptyPasswordInput ? enterLoginPwMsg : '')
+    } else {
+        setLoginErrorText(emailErrMsg, '');
+        setLoginErrorText(passwordErrMsg, wrongEmail);
+    }
+}
+
+function setLoginErrorText(element, text) {
+    element.textContent = text;
+    element.classList.toggle('visibility-hidden', !text);
 }
 
 function hideInputErrorMessage(event) {
@@ -234,8 +274,9 @@ function hideInputErrorMessage(event) {
 
 function resetLogin() {
     const borderBottom = document.querySelectorAll('.input-content-container');
-    const errorMsg = document.getElementById('error-msg');
+    const errorMsg = document.getElementById('login-password-err-msg');
     errorMsg.classList.add('visibility-hidden');
+    document.getElementById('email-err-msg').classList.add('visibility-hidden');
     borderBottom.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
     });

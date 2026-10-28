@@ -53,18 +53,40 @@ function renderHeader() {
     if (!headerContainer) {
         return;
     }
-    headerContainer.innerHTML = headerTemplate;
+    
+    headerContainer.innerHTML = getHeaderTemplate();
+    initHeaderProfile();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    checkUserLogin()
+    authGuard()
     renderSidebar();
     renderHeader();
-    initHeaderProfile();
+    // initHeaderProfile();
 });
 
 function toHelpPage() {
     window.location.href = "../pages/help.html";
+}
+
+function clickEventListener(dialog, closingFunction = null) {
+    dialog.addEventListener("click", (event) => {
+    const RECT = dialog.getBoundingClientRect();
+
+        if (
+            event.clientX < RECT.left ||  
+            event.clientX > RECT.right ||  
+            event.clientY < RECT.top ||    
+            event.clientY > RECT.bottom    
+        ) {
+            if(closingFunction !== null) {
+                closingFunction();
+                return;
+            }
+
+            dialog.close();
+        }
+    });
 }
 
 
@@ -118,12 +140,12 @@ function initHeaderProfile() {
     if (!userName || userName === "Guest") {
         profileBadgeElement.innerText = "G";
     } else {
-        profileBadgeElement.innerText = renderProfileBadges(userName);
+        profileBadgeElement.innerText = getInitials(userName);
     }
 }
 
-function renderProfileBadges(initials) {
-    const namePart = initials.split(" ");
+function getInitials(firstAndLastName) {
+    const namePart = firstAndLastName.split(" ");
     const firstLetter = namePart.shift().charAt(0).toUpperCase();
     const lastLetter = namePart.length > 0 ? namePart[namePart.length - 1].charAt(0).toUpperCase() : "";
     return (firstLetter + lastLetter);
@@ -153,37 +175,7 @@ function compareContactNames(a, b) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 }
 
-async function getAssignedContacts() {
-    const response = await getData('contacts');
-    if (!response) return [];
-    return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
-}
-
-async function renderAssignedContacts(container) {
-    const assignedContacts = await getAssignedContacts();
-    sortContactsByName(assignedContacts);
-    const contactRef = container.querySelector('#assigned-contacts');
-    contactRef.innerHTML = assignedContacts
-        .map(({ name }) =>
-            fillTemplate(assignedContactOptionTemplate, { initials: renderProfileBadges(name), name }),
-        )
-        .join("");
-}
-
-/**
- * Replaces every placeholder in an HTML template.
- * @param {string} template - HTML containing named placeholders.
- * @param {Object.<string, string|number>} values - Values for the placeholders.
- * @returns {string} Completed HTML.
- */
-function fillTemplate(template, values) {
-    return Object.entries(values).reduce(
-        (html, [key, value]) => html.replaceAll(`{{${key}}}`, value),
-        template,
-    );
-}
-
-function checkUserLogin() {
+function authGuard() {
     const currentUrl = window.location.pathname;
     if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();
     showPageAfterLogin();

@@ -17,28 +17,39 @@ const taskCategoryButtons = [
   },
 ];
 
+function setTaskFormUsers(select, users = []) {
+  Array.from(select.options).forEach((option) => {
+    option.selected = users.includes(option.value);
+  });
+}
+
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
 
-document.addEventListener("submit", (event) => {
+document.addEventListener("submit", async (event) => {
   const form = event.target;
 
-  if(form.classList.contains(dialogModes.addTaskMode)) {
-    submitNewTask(event);
+  if (form.classList.contains(dialogModes.addTaskMode)) {
+    event.preventDefault();
+    await submitTask(event, null);
+    closeAddTaskDialog();
+    const newTaskData = allTasks[allTasks.length - 1];
+    document.querySelector('div.task-list[data-status="' + newTaskStatus + '"]').innerHTML += getTaskCardHtml(newTaskData);
+    const taskCard = document.querySelector("#" + newTaskData.id);
+    taskCard.addEventListener("dragstart", startDragging);
+    taskCard.addEventListener("dragend", stopDragging);
+    newTaskStatus = "toDo";
     return;
   }
 
-  if(form.classList.contains(dialogModes.editTaskMode)) {
+  if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
-    submitEditedTask(form);
+    submitEditedTask(event);
+    closeAddTaskDialog();
     return;
   }
 });
-
-// document.addEventListener("click", (event) => {
-//   handleClickOnAddTaskDialog(event);
-// });
 
 /**
  * Keeps Enter in the subtask inputs from submitting the whole form.
@@ -64,54 +75,22 @@ function addClickEventListenersToTaskCategoryButtons() {
   });
 }
 
-// function closeAddTaskDialogOnCloseButtonClick(event) {
-//   const closeButton = event.target.closest("close-btn");
-//   if(closeButton)  closeAddTaskDialog();
-// }
-
-// function selectTaskPriorityOnPriorityButtonClick(event) {
-//   const priorityButton = event.target.closest("[data-priority]");
-//   if (priorityButton) selectTaskPriority(priorityButton);
-// }
-
-// function deleteSubtaskOnDeleteButtonClick(event) {
-//   const deleteButton = event.target.closest('[data-action="delete"]');
-//   if (deleteButton) deleteSubtask(deleteButton);
-// }
-
-// function editSubtaskOnEditButtonClick(event) {
-//   const editButton = event.target.closest('[data-action="edit"]');
-//   if (editButton) editSubtask(editButton);
-// }
-
-/**
- * Handles all Add Task dialog clicks.
- * @param {MouseEvent} event - Document click event.
- * @returns {void}
- */
-// function handleClickOnAddTaskDialog(event) {
-//   closeAddTaskDialogOnCloseButtonClick(event);
-//   selectTaskPriorityOnPriorityButtonClick(event);
-//   deleteSubtaskOnDeleteButtonClick(event);
-//   editSubtaskOnEditButtonClick(event);
-// }
-
 function getTaskForm() {
   return document.querySelector("#add-task-form");
 }
 
-
 async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = "";
-  newTaskCategory = status;
+  newTaskStatus = status;
   selectedTaskPriority = "medium";
   newTaskSubtasks = [];
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
   await renderAssignedContacts(taskForm);
-  
+  initPriorityButtonClickListeners();
+  clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
 
@@ -121,14 +100,19 @@ async function openAddTaskDialog(status) {
  * @param {Object} task - Existing task.
  * @returns {void}
  */
-function fillTaskForm(form, task) {
-  form.elements.title.value = task.title;
-  form.elements.description.value = (task.fullDescription || task.description);
-  form.elements.dueDate.value = task.dueDate || "";
-  form.elements.category.value = task.category || "";
-  setTaskFormUsers(form.elements.assignedUsers, task.assignedUsers);
-  newTaskSubtasks = [...(task.subtaskTitles || [])];
-  renderNewSubtasks();
+function fillFormElementsWithTaskData(task) {
+  removeSelectedClassFromPriorityButtons();
+  initPriorityButtonClickListeners()
+
+  const formElements = getFormElements(task.priority);
+  formElements.taskTitleInputElement.value = task.title;
+  formElements.taskDescriptionElement.value = task.description;
+  formElements.dueDateElement.value = task.dueDate;
+  formElements.selectedPriorityButton.classList.add("selected");
+  formElements.categorySelectElement.value = task.category;
+
+  document.getElementById('add-task-title').textContent = "Edit task";
+  document.getElementById('btn-create-task').textContent = "Ok";
 }
 
 /**
@@ -139,13 +123,17 @@ function fillTaskForm(form, task) {
 async function openAddTaskDialogInEditMode(task) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = task.id;
-  newTaskCategory = task.status;
-  addTaskDialog.innerHTML = addTaskDialogTemplate;
+  newTaskStatus = task.status;
+  const subtasks = await getData(`tasks/${task.id}/subtasks`);
+  newTaskSubtasks = (subtasks || []).map((subtask) => subtask.title)
+  addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
   await renderAssignedContacts(taskForm);
-  fillTaskForm(taskForm, task);
-  
+  fillFormElementsWithTaskData(task);
+  renderNewSubtasks();
+  initPriorityButtonClickListeners();
+  clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
 
@@ -157,24 +145,34 @@ function closeAddTaskDialog() {
   const addTaskDialog = document.getElementById("add-task-dialog");
   if (!addTaskDialog) return;
   editingTaskId = "";
+  newTaskStatus = "toDo";
   addTaskDialog.close();
   addTaskDialog.innerHTML = "";
 }
 
-
-/**
- * Updates an existing task from the form fields.
- * @param {HTMLFormElement} form - Edit Task form.
- * @returns {Promise<void>}
- */
-async function submitEditedTask(form) {
-  const taskIndex = allTasks.findIndex(({ id }) => id === editingTaskId);
+function submitEditedTask(event) {
+  const taskIndex = allTasks.findIndex((task) => task.id === editingTaskId);
   if (taskIndex === -1) return;
-  const updatedTask = updateTaskFromForm(allTasks[taskIndex], form);
+  const taskToUpdate = allTasks[taskIndex];
+  const updatedTask = updateTaskFromForm(taskToUpdate);
   allTasks[taskIndex] = updatedTask;
-  await patchData(`tasks/${editingTaskId}`, getPatchedTaskData(updatedTask));
-  closeAddTaskDialog();
-  renderTaskCards();
+  updateTaskCardContent(updatedTask);
+  submitTask(event, updatedTask);
+}
+
+function updateTaskCardContent(task) {
+  const taskCard = document.getElementById(task.id);
+  taskCard.innerHTML = getTaskCardContentTemplate(task);
+  setBadgeBackgroundColor();
+}
+
+function updateTaskFromForm(currentTask) {
+  const taskData = getTaskData();
+  return {
+    ...currentTask,
+    ...taskData,
+    id: editingTaskId,
+  };
 }
 
 /**
@@ -183,12 +181,10 @@ async function submitEditedTask(form) {
  * @returns {string} Assigned-user HTML.
  */
 function getOverlayUsersHtml(task) {
-  const users = task.assignedUsers || [];
-  return users.map((initials, index) =>
-    fillTemplate(taskOverlayUserTemplate, {
-      initials,
-      name: task.assignedUserNames?.[index] || initials,
-    }),
+  if (!task.assignedContacts) return `<span>No assigned contacts</span>`;
+  const users = task.assignedContacts;
+  return users.map((contactName) =>
+    getTaskOverlayUserTemplate(getInitials(contactName), contactName),
   ).join("");
 }
 
@@ -198,15 +194,12 @@ function getOverlayUsersHtml(task) {
  * @returns {string} Subtask HTML.
  */
 function getOverlaySubtasksHtml(task) {
-  const titles = task.subtaskTitles || [];
-  const done = task.subtaskDone || [];
-  return titles.map((title, index) =>
-    fillTemplate(taskOverlaySubtaskTemplate, {
-      id: index,
-      title,
-      checked: done[index] ? "checked" : "",
-    }),
-  ).join("");
+  const subtasks = task.subtasks;
+  if (!subtasks) return "";
+  return subtasks.map((subtask, index) => {
+    const isChecked = subtask.done;
+    return getSubtaskTemplate(subtask, isChecked, task.id, index);
+  }).join("");
 }
 
 /**
@@ -214,16 +207,29 @@ function getOverlaySubtasksHtml(task) {
  * @param {number} index - Index of the subtask to toggle.
  */
 
-async function toggleSubtask(index) {
-  const task = allTasks.find(({ id }) => id === openedTaskId);
+async function toggleSubtask(index, checkbox) {
+  const task = allTasks.find((task) => task.id === openedTaskId);
+  const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
   if (!task) return;
-  task.subtaskDone[index] = !task.subtaskDone[index];
-  task.subtasks.completed = task.subtaskDone.filter(Boolean).length;
-  await patchData(`tasks/${openedTaskId}`, {
-    subtaskDone: task.subtaskDone,
-    subtasks: task.subtasks,
+  task.subtasks[index].done = !task.subtasks[index].done;
+  checkbox.checked = task.subtasks[index].done;
+  allTasks[taskIndex] = task;
+  await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
+    done: task.subtasks[index].done,
   });
-  renderTaskCards();
+
+  updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
+}
+
+function updateSubtaskProgressOnCard(subtasks, taskID) {
+  const progressFillOnCard = document.getElementById('progress-fill-' + taskID);
+  const completedSubtasks = countCompletedSubtasks(subtasks);
+  const totalSubtasks = subtasks.length;
+  const progress = (completedSubtasks / totalSubtasks) * 100;
+  const progressCountOnCard = document.getElementById("subtaskcontainer-" + taskID);
+
+  progressFillOnCard.style.width = `${progress}%`;
+  progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
 }
 
 /**
@@ -244,15 +250,9 @@ function getOverlayPriorityIcon(priority) {
  */
 function getTaskOverlayHtml(task) {
   const priority = task.priority;
-  const subtasks = getOverlaySubtasksHtml(task);
-  return fillTemplate(taskOverlayTemplate, {
-    categoryClass: getCategoryClass(task.category), category: task.category,
-    title: task.title, description: task.fullDescription || task.description,
-    dueDate: task.dueDate || "No date", priorityLabel: capitalize(priority || "medium"),
-    priorityIcon: getOverlayPriorityIcon(priority || "medium"),
-    assignedUsers: getOverlayUsersHtml(task), subtasks,
-    subtaskSectionClass: subtasks ? "" : "task-overlay-section-hidden",
-  });
+  const subtasksHTML = getOverlaySubtasksHtml(task);
+
+  return getTaskOverlayTemplate(task, priority, subtasksHTML);
 }
 
 /**
@@ -271,12 +271,23 @@ function capitalize(value) {
  */
 function openTaskCardDialog(taskId) {
   const taskCardDialog = document.getElementById("task-card-dialog");
-  const task = allTasks.find(({ id }) => id === taskId);
+  const task = allTasks.find((task) => task.id === taskId);
   if (!task) return;
   openedTaskId = taskId;
   taskCardDialog.innerHTML = getTaskOverlayHtml(task);
+  if (task.subtasks) setSubtasksCheckedVisually(task);
   setBadgeBackgroundColor();
+  clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
+  document.body.classList.add('overlay-open');
+}
+
+function setSubtasksCheckedVisually(task) {
+  const subtasks = task.subtasks;
+  subtasks.forEach((subtask, index) => {
+    const checkBox = document.querySelector('[data-index-number="' + index + '"]');
+    checkBox.checked = subtask.done;
+  });
 }
 
 /**
@@ -284,12 +295,15 @@ function openTaskCardDialog(taskId) {
  * @returns {promise}
  */
 async function deleteTaskCard(taskCardId) {
-  const taskIndex = allTasks.findIndex(({ id }) => id === taskCardId);
-
+  const taskIndex = allTasks.findIndex((task) => task.id === taskCardId);
+  if (taskIndex === -1) return;
+  const taskCard = document.getElementById(taskCardId);
+  const taskList = document.querySelector('div.task-list[data-status="' + allTasks[taskIndex].status + '"]');
+  taskCard.remove();
   allTasks.splice(taskIndex, 1);
   await deleteData("tasks/" + openedTaskId);
+  renderTaskListOnEmptyContent(taskList);
   closeTaskCardDialog();
-  renderTaskCards();
 }
 
 /**
@@ -297,7 +311,7 @@ async function deleteTaskCard(taskCardId) {
  * @returns {void}
  */
 function editTaskCard() {
-  const task = allTasks.find(({ id }) => id === openedTaskId);
+  const task = allTasks.find((task) => task.id === openedTaskId);
   if (!task) return;
   closeTaskCardDialog();
   openAddTaskDialogInEditMode(task);
@@ -311,8 +325,11 @@ function closeTaskCardDialog() {
   const taskCardDialog = document.getElementById("task-card-dialog");
   taskCardDialog.innerHTML = "";
   taskCardDialog.close();
-  document.body.classList.remove('overlay-open');
 }
+
+document.getElementById('task-card-dialog').addEventListener('close', () => {
+  document.body.classList.remove('overlay-open');
+})
 
 /**
  * Handles clicks on cards and overlay closing areas.
@@ -320,12 +337,12 @@ function closeTaskCardDialog() {
  * @returns {void}
  */
 function handleTaskCardClick(event) {
-  const card = event.target.closest(".task-card");
+  const taskCard = event.target.closest(".task-card");
 
-  if (card) openTaskCardDialog(card.dataset.taskId);
-  if(event.target.closest(".task-overlay-delete")) deleteTaskCard(card.dataset.taskId);
-  if (event.target.closest(".task-overlay-edit")) editTaskCard();
-  if (event.target.closest(".task-overlay-close")) closeTaskCardDialog();
+  if (taskCard) openTaskCardDialog(taskCard.dataset.taskId);
+  if (event.target.closest(".btn-delete-task-card")) deleteTaskCard(openedTaskId);
+  if (event.target.closest(".btn-edit-task")) editTaskCard();
+  if (event.target.closest(".task-card-dialog-close")) closeTaskCardDialog();
 }
 
 /**
@@ -336,7 +353,7 @@ function handleTaskCardClick(event) {
 function handleTaskCardKeydown(event) {
   const card = event.target.closest(".task-card");
   if (!card || (event.key !== "Enter" && event.key !== " ")) return;
-  
+
   event.preventDefault();
   openTaskCardDialog(card.dataset.taskId);
 }
@@ -348,7 +365,8 @@ function handleTaskCardKeydown(event) {
  */
 function handleSubtaskCheckboxChange(event) {
   if (event.target.classList.contains("subtask-checkbox")) {
-    const index = Number(event.target.id.replace("subtask-", ""));
-    toggleSubtask(index);
+    const checkbox = event.target;
+    const index = Number(checkbox.dataset.indexNumber);
+    toggleSubtask(index, checkbox);
   }
 }

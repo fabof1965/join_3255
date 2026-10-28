@@ -64,93 +64,97 @@ function navigationBeforeLogin() {
           </section>`;
 }
 
-const headerTemplate = `
-  <div class="content-limit">
-    <div class="header-left">
-        <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
-    </div>
-    <div class="header-right">
-      <span class="kanban-text">Kanban Project Management Tool</span>
-      <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
-        <img class="help-icon" src="../assets/icons/help.svg" alt="" />
-      </a>
-      <nav id="header-menu" class="header-menu" popover>
-        <a class="help" href="../pages/help.html">Help</a>
-        <a href="../pages/legal_notice.html">Legal Notice</a>
-        <a href="../pages/privacy_policy.html">Privacy Policy</a>
-        <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
-      </nav>
-      <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
-        <span id="profile-badge">SM</span>
-      </button>
-    </div>
-  </div>
-`;
+function getHeaderTemplate() {
+  return `<div class="content-limit">
+              <div class="header-left">
+                  <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
+              </div>
+              <div class="header-right">
+                <span class="kanban-text">Kanban Project Management Tool</span>
+                <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
+                  <img class="help-icon" src="../assets/icons/help.svg" alt="" />
+                </a>
+                <nav id="header-menu" class="header-menu" popover>
+                  <a class="help" href="../pages/help.html">Help</a>
+                  <a href="../pages/legal_notice.html">Legal Notice</a>
+                  <a href="../pages/privacy_policy.html">Privacy Policy</a>
+                  <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
+                </nav>
+                <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
+                  <span id="profile-badge">SM</span>
+                </button>
+              </div>
+            </div>`;
+}
 
 function getInputFieldsForLogin() {
   return `<div class="input-wrapper">
                 <div class="input-content-container">
                   <label for="email" class="visually-hidden">Email</label>
-                  <input id="email" class="input-field" type="email" placeholder="Email" required />
+                  <input id="email" class="input-field" type="email" placeholder="Email"/>
                   <img src="./assets/icons/mail.svg" alt="mail icon" />
                 </div>
+                <span id="email-err-msg" class="error-msg visibility-hidden"></span>
             </div>
             <div class="input-wrapper">
                 <div class="input-content-container" id="error-msg-border-bottom">
                   <label for="login-password" class="visually-hidden">Passwort</label>
-                  <input id="login-password" class="input-field" type="password" placeholder="Passwort" required />
+                  <input id="login-password" class="input-field" type="password" placeholder="Passwort"/>
                   <button type="button" class="password-toggle" aria-label="Show password">
                     <img id="login-password-toggle-icon" class="lock-img"
                         src="./assets/icons/lock.svg" alt="" />
                   </button>
                 </div>
-            <span id="error-msg" class="error-msg visibility-hidden">Check your email and password. Please try again.</span>
+            <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
             </div>
             `;
 }
 
-const pwTooShortMsg = 'Password should be at least 6 characters';
-const pwMismatchMsg = 'passwords do not match';
+const pwTooShortMsg = "Password should be at least 6 characters.";
+const pwMismatchMsg = "Passwords do not match.";
 
-const signupInputFieldsTemplate = `<div class="input-wrapper">
-              <div class="input-content-container">  
-                <input class="input-field" type="text" id="name" placeholder="Name" autocomplete="name" required>
+const wrongEmail = "Check your email and password. Please try again."
+const enterLoginEmailMsg = "Please enter your email.";
+const enterLoginPwMsg = "Please enter your password.";
+
+const requiredMsg = "This field is required.";
+
+function getInputFieldsForSignup() {
+return `  <div class="input-wrapper">
+              <div id="name-err-msg-border" class="input-content-container">  
+                <input id="signup-name-input" class="input-field" type="text" placeholder="Name" autocomplete="name">
                 <img src="./assets/icons/person.svg" alt="person logo">
               </div>
-              <span class="error-msg visibility-hidden"></span>
+              <span id="signup-name-err-msg" class="error-msg visibility-hidden"></span>
             </div>
 
             <div class="input-wrapper">
                 <div class="input-content-container" id="invalid-email-border-bottom">
                   <label for="email-signup" class="visually-hidden">Email</label>
-                  <input class="input-field" type="email" id="email-signup" placeholder="Email" aria-describedby="invalid-email-msg">
+                  <input id="email-signup" class="input-field" type="email" placeholder="Email" aria-describedby="invalid-email-msg">
                   <img src="./assets/icons/mail.svg" alt="">
                 </div>
                 <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
-            </div>
+              </div>
 
             <div class="input-wrapper">
               <div class="input-content-container">
-                <input class="input-field" type="password" id="sign-up-password" required placeholder="Password">
+                <input id="signup-password" class="input-field" type="password" placeholder="Password">
                 <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
-                  <img id="sign-up-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+                  <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock">
                 </button>
               </div>
-              <span class="error-msg visibility-hidden"></span>
+              <span id="signup-password-err-msg" class="error-msg visibility-hidden"></span>
             </div>
 
             <div class="input-wrapper" >
                 <div class="input-content-container" id="confirm-password-border-bottom">
                   <label for="confirm-password" class="visually-hidden">Confirm Password</label>
-                  <input class="input-field" type="password" id="confirm-password" required placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
+                  <input id="confirm-password" class="input-field" type="password" placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
                   <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
                     <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
                   </button>
                 </div>
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
-            </div>
-            `;
-
-function getInputFieldsForSignup() {
-  return signupInputFieldsTemplate;
+              </div>`;
 }

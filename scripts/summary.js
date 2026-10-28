@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    initSummary();
+  initSummary();
 });
 
 async function initSummary() {
@@ -11,7 +11,7 @@ async function initSummary() {
 
 async function loadAllTaskData() {
   try {
-     const taskData = await getData("tasks");
+    const taskData = await getData("tasks");
     if (taskData) {
       const allTasks = taskData ? Object.values(taskData) : [];
 
@@ -19,28 +19,32 @@ async function loadAllTaskData() {
     }
   } catch (error) {
     console.error("Fehler beim Laden der Tasks:", error);
-    
+
     return [];
   }
 }
 
 async function updateSummaryNumbers() {
   const allTasks = await loadAllTaskData();
-
+  if (!allTasks) {
+    const zero = "0";
+    displaySummaryNumbers(zero, zero, zero, zero, zero, zero);
+    return;
+  }
   const totalTasksToDo = allTasks.filter(task => task.status === "toDo").length;
   const totalTasksInProgress = allTasks.filter(task => task.status === "inProgress").length;
-  const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback" ).length;
-  const totalTasksDone = allTasks.filter(task => task.status === "done" ).length;
+  const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback").length;
+  const totalTasksDone = allTasks.filter(task => task.status === "done").length;
   const urgentTasks = allTasks.filter(task => task.priority === "urgent");
 
   const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
   const totalTasksUrgent = urgentTasks.length;
 
-  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, totalTasksUrgent);  
+  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, totalTasksUrgent);
   updateUpcomingDeadline(urgentTasks);
 }
 
-function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent ){
+function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent) {
   document.getElementById("summary-todo").innerText = todo;
   document.getElementById("summary-inprogress").innerText = inprogress;
   document.getElementById("summary-feedback").innerText = feedback;
@@ -50,8 +54,11 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent )
 }
 
 function updateUpcomingDeadline(urgentTasks) {
-  const urgentTaskDates = urgentTasks.filter(duty => duty.dueDate);
-  
+  const urgentTaskDates = urgentTasks.filter(duty => {
+    if ((duty.dueDate) && (duty.status !== "done"))
+      return duty;
+  });
+
   urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   const closestDateStr = urgentTaskDates[0].dueDate;
 
@@ -64,14 +71,19 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
   const today = new Date();
   const closestDate = new Date(closestDateStr);
   dateEl.innerText = formatDate(closestDateStr);
+  const upcommingDeadline = document.getElementById('upcomming-deadline');
 
   if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
+  } else {
+    upcommingDeadline.innerText = "Upcomming deadline";
   }
 
-  if(closestDate < today) {
+  if (closestDate < today) {
     deadlineInfo.innerText = "Missed deadline";
+    upcommingDeadline.innerText = "";
+    return;
   }
 }
 
@@ -79,7 +91,7 @@ function formatDate(dateString) {
   const date = new Date(dateString);
 
   if (isNaN(date)) return dateString;
-  
+
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -98,21 +110,21 @@ async function loadUserName() {
 }
 
 function updateGreetingUI(user, isGuest) {
-    const nameEl = document.getElementById("username");
-    const commaEl = document.getElementById("comma");
-    if (!nameEl) return;
-    const showName = user?.name && !isGuest && !isGuestStored();
-    nameEl.innerText = showName ? formatUserName(user.name) : "";
-    if (commaEl) commaEl.style.display = showName ? "inline" : "none";
+  const nameEl = document.getElementById("username");
+  const commaEl = document.getElementById("comma");
+  if (!nameEl) return;
+  const showName = user?.name && !isGuest && !isGuestStored();
+  nameEl.innerText = showName ? formatUserName(user.name) : "";
+  if (commaEl) commaEl.style.display = showName ? "inline" : "none";
 }
 
 function isGuestStored() {
-    return localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
+  return localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
 }
 
 function formatUserName(name) {
-    const parts = name.trim().split(" ");
-    return name.length > 13 ? `${parts[0][0]} ${parts[parts.length - 1]}` : name;
+  const parts = name.trim().split(" ");
+  return name.length > 13 ? `${parts[0][0]} ${parts[parts.length - 1]}` : name;
 }
 
 function initCardClicks() {
@@ -136,22 +148,22 @@ function addBoardNavigation(selector) {
 
 
 function updateGreetingText() {
-    const greetingEl = document.getElementById("greeting");
-    const nameEl = document.getElementById("username");
-    if (!greetingEl) return;
-    if(nameEl.innerText !== "") greetingEl.style.fontWeight = "unset";
-    greetingEl.innerText = getDynamicGreeting();
+  const greetingEl = document.getElementById("greeting");
+  const nameEl = document.getElementById("username");
+  if (!greetingEl) return;
+  if (nameEl.innerText !== "") greetingEl.style.fontWeight = "unset";
+  greetingEl.innerText = getDynamicGreeting();
 }
 
 function getDynamicGreeting() {
-    const now = new Date();     
-    const hour = now.getHours(); 
-    
-    if (hour >= 5 && hour < 12) {
-        return "Good Morning";
-    } else if (hour >= 12 && hour < 17) {
-        return "Good Afternoon";
-    } else {
-        return "Good Evening";
-    }
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return "Good Morning";
+  } else if (hour >= 12 && hour < 17) {
+    return "Good Afternoon";
+  } else {
+    return "Good Evening";
+  }
 }

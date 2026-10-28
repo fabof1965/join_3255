@@ -14,13 +14,13 @@ const displayAttributes = {
 const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
 document.getElementById("open-button").addEventListener("click", () => {
-  if( (isMobile && !isPreviouslyOpenedCard) || !isMobile) {
+    if ((isMobile && !isPreviouslyOpenedCard) || !isMobile) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return;
     }
 
-    if(isMobile && isPreviouslyOpenedCard) {
+    if (isMobile && isPreviouslyOpenedCard) {
         setTimeout(() => showPopover(), 100);
     }
 });
@@ -106,7 +106,7 @@ function toggleContactDetail(indexContact, contactCard) {
  */
 function handleContactCardKeydown(event, indexContact, contactCard) {
     if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
+    // event.preventDefault();
     toggleContactDetail(indexContact, contactCard);
 }
 
@@ -145,7 +145,6 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("popover-menu").remove();
 }
 
 function getContactsData(indexContact) {
@@ -179,7 +178,6 @@ function openContactDialog(i = null) {
         badge.classList.remove('profile-badge-large');
         badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
     }
-
     activateDialog();
 }
 
@@ -187,6 +185,7 @@ function activateDialog() {
     const dialog = getAddContactDialog();
     dialog.showModal();
     dialog.classList.add('slide-in');
+    clickEventListener(dialog, closeContactDialog);
 }
 
 function resetContactForm() {
@@ -286,7 +285,7 @@ function editExistingContact(indexContact) {
 function openExistingContactDialog(indexContact) {
     const editContactDialog = document.getElementById("edit-contact-dialog");
     const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = renderProfileBadges(allContacts[indexContact].name).toUpperCase();
+    const initials = getInitials(allContacts[indexContact].name).toUpperCase();
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     setBadgeBackgroundColor();
@@ -294,6 +293,7 @@ function openExistingContactDialog(indexContact) {
     fillContactForm(allContacts[indexContact]);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
+    clickEventListener(editContactDialog, closeEditContactDialog);
 }
 
 function closeEditContactDialog() {

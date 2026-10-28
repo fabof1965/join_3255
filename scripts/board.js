@@ -1,23 +1,22 @@
-// this is an example structure of a task
+// improved structure of a task
 //{
-//     id: "task-1",
-//     category: "User Story",
 //     title: "Kochwelt Page & Recipe Recommender",
-//     description: "Build start page with recipe recommendation...",
-//     fullDescription: "Build start page with recipe recommendation and a detailed description of the recipes.",
-//     status: "inProgress",
-//     assignedUsers: ["CE", "JB"],
-//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
+//     description: "Build start page with recipe recommendation and a detailed description of the recipes.",
 //     dueDate: "02/09/2023",
+//     category: "User Story",
+//     status: "inProgress",
+//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"], -> die Initialen können direkt aus den Namen abgeleitet werden, und müssen nicht noch zusätzlich gespeichert werden
 //     priority: "low",
-//     subtasks: { completed: 1, total: 2 },
-//     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
-//     subtaskDone: [true, false],
-//   }
+//     subtasks: [
+//                 {
+//                  title: 'Einkaufen gehen', 
+//                  done: false,
+//                 },
+//               ],
+//     id: "task-1",
+//}
 
-const allTasks = [];
-
-// let draggedTaskId = "";
+document.addEventListener("DOMContentLoaded", initBoardContent());
 
 async function initBoardContent() {
   await loadTasks();
@@ -46,9 +45,7 @@ function emptyTaskLists() {
  * @returns {string} Category CSS class.
  */
 function getCategoryClass(category) {
-  return category === "Technical Task"
-    ? "task-category-technical"
-    : "task-category-user-story";
+  return category === "Technical Task" ? "task-category-technical" : "task-category-user-story";
 }
 
 /**
@@ -56,11 +53,9 @@ function getCategoryClass(category) {
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
-function getAssignedUsersHtml(assignedUsers) {
+function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers
-    .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
-    .join("");
+  return assignedUsers.map((initials) => getUserBadgeTemplate(getInitials(initials).toUpperCase())).join("");
 }
 
 /**
@@ -68,14 +63,24 @@ function getAssignedUsersHtml(assignedUsers) {
  * @param {{completed: number, total: number}|undefined} subtasks - Subtask counts.
  * @returns {string} Progress HTML.
  */
-function getSubtaskDataProgressHtml(subtasks) {
-  if (!subtasks) return "";
-  const progress = (subtasks.completed / subtasks.total) * 100;
-  return fillTemplate(subtaskProgressTemplate, {
-    completed: subtasks.completed,
-    total: subtasks.total,
-    progress,
+function getSubtaskDataProgressHtml(subtasks, id) {
+  if(!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
+  const totalSubtasks = subtasks.length;
+  const  completedSubtasks = countCompletedSubtasks(subtasks);
+  let  progress = (completedSubtasks / totalSubtasks) * 100;
+  if(isNaN(progress)) progress = 0;
+  return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id); 
+}
+
+function countCompletedSubtasks(subtasks) {
+  let completedSubtasks = 0;
+  if(!subtasks) return completedSubtasks;
+  subtasks.map((subtask) => {
+    if(subtask.done === true) completedSubtasks++
+    return completedSubtasks;
   });
+
+  return completedSubtasks;
 }
 
 /**
@@ -95,14 +100,7 @@ function getPrioritySymbol(priority) {
  */
 function getTaskCardHtml(task) {
   if (!task) return "";
-  return fillTemplate(taskCardTemplate, {
-    id: task.id,
-    categoryClass: getCategoryClass(task.category), category: task.category,
-    title: task.title, description: task.description,
-    subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
-    assignedUsers: getAssignedUsersHtml(task.assignedUsers),
-    priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
-  });
+  return getTaskCardTemplate(task);
 }
 
 /**
@@ -117,11 +115,6 @@ function renderTask(task) {
   taskList.innerHTML += getTaskCardHtml(task);
 }
 
-function openTask() {
-  const dialog = document.getElementById('task-card-overlay');
-  dialog.showModal();
-}
-
 /**
  * Renders every task and updates empty board columns.
  * @param {Object[]} tasks - Tasks to render.
@@ -129,7 +122,7 @@ function openTask() {
  */
 function renderBoardContent(tasks) {
   emptyTaskLists();
-  renderTaskCards(tasks);
+  if(tasks) renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
@@ -142,11 +135,19 @@ function renderBoardContent(tasks) {
 function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
-    if(taskList.children.length > 0) return;
-    taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
-      text: taskList.dataset.emptyText,
-    });
+    renderTaskListOnEmptyContent(taskList);
   });
+}
+
+function renderEmptyTaskListContent(taskList) {
+  const emptyTaskListMessage = taskList.dataset.emptyText;
+  taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
+}
+
+function renderTaskListOnEmptyContent(taskList) {
+  if(taskList.children.length === 0) {
+    renderEmptyTaskListContent(taskList);
+  }
 }
 
 /**
@@ -216,11 +217,8 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(!taskCardElement) return;
+  const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
-  // draggedTaskId = grabbedTask.dataset.taskId;
-  // event.dataTransfer.setData("text/plain", draggedTaskId);
   taskCardElement.classList.add("task-card-dragging");
   taskCardElement.classList.add("task-card-drop-before");
 }
@@ -231,8 +229,12 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(taskCardElement) console.log(taskCardElement);
+  const taskCardElement = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
+
+  taskList.classList.remove("task-list-dragover");
+  taskList.classList.remove("task-list-drop-end");
+  taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
 }
@@ -243,11 +245,12 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList) return;
+  if (!document.getElementById("grabbed-card")) return;
+  event.preventDefault();
+  const taskList = event.currentTarget;
   taskList.classList.add("task-list-dragover");
   taskList.classList.add("task-list-drop-end");
-  event.preventDefault();
+  movePlaceholder(event);
 }
 
 /**
@@ -256,9 +259,10 @@ function dragTaskCardOverTaskList(event) {
  * @returns {void}
  */
 function leaveTaskCardDropZone(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList || taskList.contains(event.relatedTarget)) return;
-
+  const taskList = event.currentTarget;
+  if(taskList.contains(event.relatedTarget)) return;
+  const placeholder = taskList.querySelector(".placeholder");
+  placeholder?.remove();
   taskList.classList.remove("task-list-dragover");
 }
 
@@ -279,18 +283,32 @@ function changeTaskStatus(task, status) {
  * @returns {void}
  */
 async function dropTaskIntoTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  const taskCard = document.getElementById("grabbed-card");
-  if(!taskList || !taskCard) return;
   event.preventDefault();
-  taskList.classList.remove("task-list-dragover");
-  taskList.classList.remove("task-list-drop-end");
+  const taskList = event.currentTarget;
+  const placeholder = taskList.querySelector(".placeholder");
+  const taskCard = document.getElementById("grabbed-card");
+  if(!placeholder) return;
+  taskCard.remove();
+  taskList.appendChild(taskCard);
+  removeEmptyTaskListElement(taskList);
+  placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
-  taskCard.removeAttribute("id");
+  renderEmptyTaskLists();
   changeTaskStatus(task, taskList.dataset.status);
-  renderBoardContent(allTasks);
-
   await patchData(`tasks/${task.id}`, { status: task.status });
+}
+
+function removeEmptyTaskListElement(taskList) {
+  if(isEmptyTaskListElementInTaskList(taskList)) {
+    taskList.children[0].remove();
+  }
+}
+
+function isEmptyTaskListElementInTaskList(taskList) {
+  return  taskList.children[0].innerText === "No tasks To do" ||
+          taskList.children[0].innerText === "No tasks in progress" ||
+          taskList.children[0].innerText === "No tasks awaiting feedback" ||
+          taskList.children[0].innerText === "No tasks done";
 }
 
 /**
@@ -298,13 +316,70 @@ async function dropTaskIntoTaskList(event) {
  * @returns {void}
  */
 function initializeDragAndDrop() {
-  document.addEventListener("dragstart", startDragging);
-  document.addEventListener("dragend", stopDragging);
-  document.addEventListener("dragover", dragTaskCardOverTaskList);
-  document.addEventListener("dragleave", leaveTaskCardDropZone);
-  document.addEventListener("drop", dropTaskIntoTaskList);
+  initializeDragEventsForTaskCards();
+  initializeDragAndDropForTaskLists();
 }
 
+function initializeDragEventsForTaskCards() {
+  const taskCards = document.querySelectorAll(".task-card");
+  taskCards.forEach((taskCard) => {
+    taskCard.addEventListener("dragstart", startDragging);
+    taskCard.addEventListener("dragend", stopDragging);
+  });
+}
+
+function initializeDragAndDropForTaskLists() {
+  const taskLists = document.querySelectorAll(".task-list");
+  taskLists.forEach((taskList) => {
+    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
+    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
+    taskList.addEventListener("drop", dropTaskIntoTaskList);
+  });
+}
+
+function makePlaceholder(draggedTask) {
+  const placeholder = document.createElement("li");
+  placeholder.classList.add("placeholder");
+  placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  placeholder.style.width = `${draggedTask.offsetWidth}px`;
+  return placeholder;
+}
+
+function movePlaceholder(event) {
+  event.preventDefault();
+
+  const draggedTask = document.getElementById("grabbed-card");
+  const column = event.currentTarget;
+  const existingPlaceholder = column.querySelector(".placeholder");
+
+  if (existingPlaceholder) {
+    const placeholderRect = existingPlaceholder.getBoundingClientRect();
+    if (
+      placeholderRect.top <= event.clientY &&
+      placeholderRect.bottom >= event.clientY
+    ) {
+      return;
+    }
+  } 
+
+  for (const task of column.children) {
+    if (task.getBoundingClientRect().bottom >= event.clientY) {
+      if (task === existingPlaceholder) return;
+      existingPlaceholder?.remove();
+      if (task === draggedTask || task.previousElementSibling === draggedTask)
+        return;
+      column.insertBefore(
+        existingPlaceholder ?? makePlaceholder(draggedTask),
+        task,
+      );
+      return;
+    }
+  }
+
+  existingPlaceholder?.remove();
+  if (column.lastElementChild === draggedTask) return;
+  column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+}
 /**
  *
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).

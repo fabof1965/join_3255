@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
     <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/summary.js" defer></script>
 </head>
+
 <body style="display: none">
     <header class="header" id="header"></header>
     <main class="main-layout">
@@ -38,19 +40,24 @@
                         </div>
                         <span class="sub-text">Tasks Urgent</span>
                     </div>
+
                     <div class="divider"></div>
-                    <div class="date">
-                        <span id="date" class="date-text">October 16, 2022</span>
-                        <span id="deadline-info" class="sub-text">Upcoming Deadline</span>
+                    <div class="deadline-container">
+                        <div class="date">
+                            <span id="date" class="date-text">Urgent Tasks</span>
+                            <span id="deadline-info" class="sub-text"></span>
+                        </div>
+                        <span id="upcomming-deadline"></span>
                     </div>
+
                 </div>
                 <div class="tasks-to-do">
                     <div class="icon-and-number">
                         <img class="task-icons" src="../assets/icons/task_to_do.png" alt="task icon">
-                        <span class="task-number" id="summary-todo">1</span>
+                        <span class="task-number" id="summary-todo"></span>
                     </div>
                     <span class="sub-text">Tasks To-do</span>
-                </div> 
+                </div>
 
                 <div class="task-in-progress">
                     <div class="icon-and-number">
@@ -58,7 +65,7 @@
                         <span class="task-number" id="summary-inprogress"></span>
                     </div>
                     <span class="sub-text">Task in <br> Progress</span>
-                </div> 
+                </div>
 
                 <div class="task-feedback">
                     <div class="icon-and-number">
@@ -86,6 +93,7 @@
                 </div>
             </section>
         </section>
-    </main>    
+    </main>
 </body>
+
 </html>
