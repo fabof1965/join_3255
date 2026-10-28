@@ -3,6 +3,7 @@ const DETAIL_TRANSITION_MS = 600;
 let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
+let isSubmittingContact = false;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
@@ -241,10 +242,6 @@ async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
     updateContactFieldError(errorID, borderID, exists);
     return exists;
 }
-
-// async function checkIfFieldIsEmpty() {
-    
-// }
 
 function updateContactFieldError(errorID, borderID, exists) {
     document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
