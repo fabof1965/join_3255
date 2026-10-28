@@ -263,21 +263,20 @@ function getSubtasksFromForm() {
  * @param {SubmitEvent} event - Add Task form submit event.
  * @returns {void}
  */
-async function submitTask(event, task) {
+async function submitTask(event, editedTask) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return;
-  let taskData = "";
-  let response = "";
-  if(task === null) {
-    taskData = getTaskData();
-    response = await postData("tasks", taskData);
-  } else if(task) {
-    await patchData(`tasks/${task.id}`, task);
+  if(editedTask === null) {
+    const taskData = getTaskData();
+    const response = await postData("tasks", taskData);
+    const firebaseId = response.name;
+    taskData.id = firebaseId;
+    allTasks.push(taskData);
+    await patchData(`tasks/${taskData.id}`, taskData);
+    return;
   }
-  if (response === "") return;
-  const firebaseId = response.name;
-  taskData.id = firebaseId;
-  allTasks.push(taskData);
+
+  await patchData(`tasks/${editedTask.id}`, editedTask);
 }
 
 /**

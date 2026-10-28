@@ -123,7 +123,7 @@ function fillFormElementsWithTaskData(task) {
 async function openAddTaskDialogInEditMode(task) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = task.id;
-  newTaskCategory = task.status;
+  newTaskStatus = task.status;
   const subtasks = await getData(`tasks/${task.id}/subtasks`);
   newTaskSubtasks = (subtasks || []).map((subtask) => subtask.title)
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
@@ -145,6 +145,7 @@ function closeAddTaskDialog() {
   const addTaskDialog = document.getElementById("add-task-dialog");
   if (!addTaskDialog) return;
   editingTaskId = "";
+  newTaskStatus = "toDo";
   addTaskDialog.close();
   addTaskDialog.innerHTML = "";
 }
@@ -154,6 +155,7 @@ function submitEditedTask(event) {
   if (taskIndex === -1) return;
   const taskToUpdate = allTasks[taskIndex];
   const updatedTask = updateTaskFromForm(taskToUpdate);
+  allTasks[taskIndex] = updatedTask;
   updateTaskCardContent(updatedTask);
   submitTask(event, updatedTask);
 }
