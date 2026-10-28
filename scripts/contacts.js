@@ -106,7 +106,7 @@ function toggleContactDetail(indexContact, contactCard) {
  */
 function handleContactCardKeydown(event, indexContact, contactCard) {
     if (event.key !== "Enter" && event.key !== " ") return;
-    // event.preventDefault();
+    event.preventDefault();
     toggleContactDetail(indexContact, contactCard);
 }
 
@@ -242,6 +242,10 @@ async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
     return exists;
 }
 
+// async function checkIfFieldIsEmpty() {
+    
+// }
+
 function updateContactFieldError(errorID, borderID, exists) {
     document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
@@ -276,6 +280,7 @@ async function addNewContact(event) {
     form.reset();
     closeContactDialog();
     await renderContacts();
+    console.log('Kontakt gespeichert:', contact);
 }
 
 function editExistingContact(indexContact) {
@@ -313,6 +318,7 @@ async function saveEditedContact() {
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
     await refreshEditedContact();
+    console.log('Kontakt gespeichert:', contact);
 }
 
 async function contactHasValidationErrors(contact, ownId) {

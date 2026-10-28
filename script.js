@@ -53,7 +53,7 @@ function renderHeader() {
     if (!headerContainer) {
         return;
     }
-    
+
     headerContainer.innerHTML = getHeaderTemplate();
     initHeaderProfile();
 }
@@ -71,15 +71,16 @@ function toHelpPage() {
 
 function clickEventListener(dialog, closingFunction = null) {
     dialog.addEventListener("click", (event) => {
-    const RECT = dialog.getBoundingClientRect();
+        if (event.target !== dialog) return;
+        const RECT = dialog.getBoundingClientRect();
 
         if (
-            event.clientX < RECT.left ||  
-            event.clientX > RECT.right ||  
-            event.clientY < RECT.top ||    
-            event.clientY > RECT.bottom    
+            event.clientX < RECT.left ||
+            event.clientX > RECT.right ||
+            event.clientY < RECT.top ||
+            event.clientY > RECT.bottom
         ) {
-            if(closingFunction !== null) {
+            if (closingFunction !== null) {
                 closingFunction();
                 return;
             }
