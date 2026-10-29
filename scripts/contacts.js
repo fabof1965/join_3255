@@ -27,17 +27,23 @@ document.getElementById("open-button").addEventListener("click", () => {
         setTimeout(() => showPopover(), 100);
     }
 });
+
 function initContacts() {
     renderContacts();
     initPhoneFilter();
 }
 
 function initPhoneFilter() {
-    const phoneInput = document.getElementById('phone');
-    const errorMsg = document.getElementById('phone-err-msg');
-    const border = document.getElementById('wrong-phone-border');
+    addPhoneFilter('phone', 'phone-err-msg', 'wrong-phone-border');
+    addPhoneFilter('existing-contact-phone', 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
+}
 
-    phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput, errorMsg, border));
+function addPhoneFilter(inputId, errorMsgId, borderId) {
+    const input = document.getElementById(inputId);
+    const errorMsg = document.getElementById(errorMsgId);
+    const border = document.getElementById(borderId);
+
+    input.addEventListener('input', () => validatePhoneInput(input, errorMsg, border));
 }
 
 function validatePhoneInput(input, errorMsg, border) {
