@@ -49,8 +49,14 @@
 #contacts {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    padding: 0 var(--padding-medium);
+    overflow-y: auto;
+    padding: 0 var(--padding-left-right);
+}
+
+@media(max-width: 950px) {
+    #contacts {
+        height: calc(100dvh - var(--header-height) - 96px);
+    }
 }
 
 .letter {
