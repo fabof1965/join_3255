@@ -7,6 +7,8 @@ let isSubmittingContact = false;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
+document.addEventListener("DOMContentLoaded", initContacts());
+
 const displayAttributes = {
     show: "flex",
     hide: "none"
@@ -25,7 +27,6 @@ document.getElementById("open-button").addEventListener("click", () => {
         setTimeout(() => showPopover(), 100);
     }
 });
-
 function initContacts() {
     renderContacts();
     initPhoneFilter();
