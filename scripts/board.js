@@ -289,7 +289,7 @@ async function dropTaskIntoTaskList(event) {
   const taskCard = document.getElementById("grabbed-card");
   if(!placeholder) return;
   taskCard.remove();
-  taskList.appendChild(taskCard);
+  taskList.insertBefore(taskCard, placeholder);
   removeEmptyTaskListElement(taskList);
   placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
