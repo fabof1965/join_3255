@@ -289,7 +289,7 @@ async function dropTaskIntoTaskList(event) {
   const taskCard = document.getElementById("grabbed-card");
   if(!placeholder) return;
   taskCard.remove();
-  taskList.appendChild(taskCard);
+  taskList.insertBefore(taskCard, placeholder);
   removeEmptyTaskListElement(taskList);
   placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
@@ -323,8 +323,7 @@ function initializeDragAndDrop() {
 function initializeDragEventsForTaskCards() {
   const taskCards = document.querySelectorAll(".task-card");
   taskCards.forEach((taskCard) => {
-    taskCard.addEventListener("dragstart", startDragging);
-    taskCard.addEventListener("dragend", stopDragging);
+    addDragEventListenersToCard(taskCard);
   });
 }
 
@@ -335,6 +334,11 @@ function initializeDragAndDropForTaskLists() {
     taskList.addEventListener("dragleave", leaveTaskCardDropZone);
     taskList.addEventListener("drop", dropTaskIntoTaskList);
   });
+}
+
+function addDragEventListenersToCard(card) {
+  card.addEventListener("dragstart", startDragging);
+  card.addEventListener("dragend", stopDragging);
 }
 
 function makePlaceholder(draggedTask) {

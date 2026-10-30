@@ -42,6 +42,7 @@ dialog[open]::backdrop {
     width: var(--full);
     background-color: var(--primary-color);
     align-items: center;
+    height: 33%;
 }
 
 .dialog-header-content {
@@ -96,7 +97,7 @@ dialog[open]::backdrop {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: var(--margin-medium);
+    height: 66%;
 }
 
 .badge-image-container,
@@ -104,23 +105,21 @@ dialog[open]::backdrop {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 16px auto 0 auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
-    width: var(--large-profile-badge-dimensions);
-    height: var(--large-profile-badge-dimensions);
+    width: 88px;
+    height: 88px;
 }
 
 @media(max-width: 950px) {
-
     .badge-image-container,
     .edit-badge-image-container {
+        margin-top: 0;
         position: fixed;
         left: 50%;
-        top: 26dvh;
+        top: 33%;
         transform: translate(-50%, -50%);
-        width: 60px;
-        height: 60px;
     }
 }
 
@@ -137,7 +136,9 @@ dialog[open]::backdrop {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    justify-content: space-evenly;
+    justify-content: center;
+    height: var(--full);
+    gap: var(--gap-medium);
     width: calc(var(--full) * 0.9);
 }
 

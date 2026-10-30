@@ -7,6 +7,8 @@ let isSubmittingContact = false;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
+document.addEventListener("DOMContentLoaded", initContacts());
+
 const displayAttributes = {
     show: "flex",
     hide: "none"
@@ -36,11 +38,11 @@ function initPhoneFilter() {
     addPhoneFilter('existing-contact-phone', 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
 }
 
-function addPhoneFilter(phoneId, errorMsgId, borderId) {
-    const phoneInput = document.getElementById(phoneId);
+function addPhoneFilter(inputId, errorMsgId, borderId) {
+    const input = document.getElementById(inputId);
     const errorMsg = document.getElementById(errorMsgId);
     const border = document.getElementById(borderId);
-    phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput, errorMsg, border));
+    input.addEventListener('input', () => validatePhoneInput(input, errorMsg, border));
 }
 
 function validatePhoneInput(input, errorMsg, border) {
@@ -98,7 +100,6 @@ function toggleContactDetail(indexContact, contactCard) {
         hidePreviouslyOpenedDetail(contactCard);
         return;
     }
-
     clearActiveContacts();
     showSelectedContact(indexContact, contactCard);
 }
@@ -343,7 +344,6 @@ function assignValuesToContact(contact) {
     const INPUT_NAME = document.getElementById('existing-contact-name').value;
     const INPUT_EMAIL = document.getElementById('existing-contact-email').value;
     const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value;
-
     contact.name = INPUT_NAME;
     contact.email = INPUT_EMAIL;
     contact.phone = INPUT_PHONE_NUMBER;

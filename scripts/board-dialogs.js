@@ -33,23 +33,50 @@ document.addEventListener("submit", async (event) => {
   if (form.classList.contains(dialogModes.addTaskMode)) {
     event.preventDefault();
     await submitTask(event, null);
+    processNewCreatedTask();
     closeAddTaskDialog();
-    const newTaskData = allTasks[allTasks.length - 1];
-    document.querySelector('div.task-list[data-status="' + newTaskStatus + '"]').innerHTML += getTaskCardHtml(newTaskData);
-    const taskCard = document.querySelector("#" + newTaskData.id);
-    taskCard.addEventListener("dragstart", startDragging);
-    taskCard.addEventListener("dragend", stopDragging);
-    newTaskStatus = "toDo";
     return;
   }
 
   if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
-    submitEditedTask(event);
+    await submitEditedTask(event);
     closeAddTaskDialog();
     return;
   }
 });
+
+function processNewCreatedTask() {
+  const newTaskData = allTasks[allTasks.length - 1];
+  const newTaskElement = createNewTaskElement(newTaskData);
+  appendTaskListByNewCreatedTask(newTaskData, newTaskElement);
+  addDragEventListenersToCard(newTaskElement);
+}
+
+function appendTaskListByNewCreatedTask(newTaskData, newTaskElement) {
+  const taskList = document.querySelector('div.task-list[data-status="' + newTaskData.status + '"]');
+
+  if(!isEmptyTaskListElementInTaskList(taskList)) {
+    taskList.appendChild(newTaskElement);
+  } else {
+    taskList.innerHTML = "";
+    taskList.appendChild(newTaskElement);
+  }
+}
+
+function createNewTaskElement(newTaskData) {
+  const newTaskElement = document.createElement("article");
+  newTaskElement.id = newTaskData.id;
+  newTaskElement.classList.add("task-card");
+  newTaskElement.role = "button";
+  newTaskElement.tabIndex = "0";
+  newTaskElement.ariaLabel = "Open task " + newTaskData.title;
+  newTaskElement.draggable = "true";
+  newTaskElement.dataset.taskId = newTaskData.id;
+  newTaskElement.innerHTML = getTaskCardContentTemplate(newTaskData);
+
+  return newTaskElement;
+}
 
 /**
  * Keeps Enter in the subtask inputs from submitting the whole form.
@@ -81,10 +108,7 @@ function getTaskForm() {
 
 async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
-  editingTaskId = "";
   newTaskStatus = status;
-  selectedTaskPriority = "medium";
-  newTaskSubtasks = [];
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
@@ -146,6 +170,7 @@ function closeAddTaskDialog() {
   if (!addTaskDialog) return;
   editingTaskId = "";
   newTaskStatus = "toDo";
+  newTaskSubtasks = [];
   addTaskDialog.close();
   addTaskDialog.innerHTML = "";
 }
