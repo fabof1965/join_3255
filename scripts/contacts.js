@@ -32,10 +32,14 @@ function initContacts() {
 }
 
 function initPhoneFilter() {
-    const phoneInput = document.getElementById('phone');
-    const errorMsg = document.getElementById('phone-err-msg');
-    const border = document.getElementById('wrong-phone-border');
+    addPhoneFilter('phone', 'phone-err-msg', 'wrong-phone-border');
+    addPhoneFilter('existing-contact-phone', 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
+}
 
+function addPhoneFilter(phoneId, errorMsgId, borderId) {
+    const phoneInput = document.getElementById(phoneId);
+    const errorMsg = document.getElementById(errorMsgId);
+    const border = document.getElementById(borderId);
     phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput, errorMsg, border));
 }
 
