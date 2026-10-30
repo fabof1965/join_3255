@@ -390,10 +390,24 @@ async function deleteContact(i) {
     const contact = allContacts[i];
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
+    await removeContactFromTaskCard(contact.name);
     if (currentlyOpenedCard) hideContactDetail()
     closeContactDialog();
     closeEditContactDialog();
     await renderContacts();
+}
+
+async function removeContactFromTaskCard(contactName) {
+    const tasks = await getData('tasks');
+    if (!tasks) return;
+    for (const [id, task] of Object.entries(tasks)) {
+        if (!task.assignedContacts?.includes(contactName)) continue;
+        await patchData('tasks/' + id, { assignedContacts: getRemainingContacts(task, contactName) });
+    }
+}
+
+function getRemainingContacts(task, contactName) {
+    return task.assignedContacts.filter((name) => name !== contactName);
 }
 
 document.getElementById("edit-contact-dialog").addEventListener("close", () => {
