@@ -134,8 +134,8 @@ function setEmailExistsFeedback(emailExists) {
 }
 
 function sendFeedbackForEmptySignupInputfield() {
-    const emptyNameInput = !document.getElementById('signup-name-input').value;
-    const emptyEmailInput = !document.getElementById('email-signup').value;
+    const emptyNameInput = !document.getElementById('signup-name-input').value.trim();
+    const emptyEmailInput = !document.getElementById('email-signup').value.trim();
     const redBorder = document.getElementById('name-err-msg-border');
     const emailBorder = document.getElementById('invalid-email-border-bottom');
     redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
@@ -150,6 +150,9 @@ function sendFeedbackForEmptySignupInputfield() {
     }
     return !emptyNameInput && !emptyEmailInput;
 }
+// function isBLank(value) {
+//     if (value.trim() === "") return;
+// }
 
 function validatePassword() {
     const passwordSignup = document.getElementById('signup-password');
@@ -161,15 +164,14 @@ function validatePassword() {
     const invalidPassword = document.getElementById('invalid-pw-confirm-msg');
     const passwordErrMsg = document.getElementById('signup-password-err-msg');
     const matches = passwordSignup.value === confirmPasswordSignup.value;
+    const emptyPassword = !passwordSignup.value.trim();
     const passwordTooShort = confirmPasswordSignup.value.length < 6;
-    const validPassword = matches && !passwordTooShort;
-    invalidPassword.textContent = passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
+    const validPassword = matches && !passwordTooShort && !emptyPassword;
+    invalidPassword.textContent = emptyPassword ? requiredMsg : passwordTooShort ? pwTooShortMsg : pwMismatchMsg;
     invalidPassword.classList.toggle('visibility-hidden', validPassword);
     passwordErrMsg.textContent = invalidPassword.textContent;
     passwordErrMsg.classList.toggle('visibility-hidden', validPassword);
-    borderBottom.forEach(borderColor => {
-        borderColor.classList.toggle('error-message-border-bottom', !validPassword);
-    });
+    borderBottom.forEach(borderColor => {borderColor.classList.toggle('error-message-border-bottom', !validPassword);});
     return validPassword;
 }
 
@@ -246,8 +248,8 @@ function initLoginEventListeners() {
 function showErrorMessageForLogin() {
     const emailErrMsg = document.getElementById('email-err-msg'); //span
     const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
-    const emptyEmailInput = !document.getElementById('email').value; // input
-    const emptyPasswordInput = !document.getElementById('login-password').value; // input
+    const emptyEmailInput = !document.getElementById('email').value.trim(); // input
+    const emptyPasswordInput = !document.getElementById('login-password').value.trim(); // input
     document.querySelectorAll('.input-content-container').forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });

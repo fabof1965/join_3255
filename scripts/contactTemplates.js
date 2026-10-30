@@ -57,3 +57,10 @@ function getEditBadgeTemplate(initials) {
     <span id="badge-text" class="profile-badge-text" style="font-size: var(--large-font-size)">${initials}</span>
   `;
 }
+
+const enterNameMsg = "Please enter your name.";
+const nameExistsMsg = "This Name already exists.";
+const enterEmailMsg = "Please enter your email.";
+const emailExistsMsg = "That email already exists."
+const enterPhoneMsg = "Please enter your phonenumber.";
+const phoneExistsMsg = "Please choose a different number."
