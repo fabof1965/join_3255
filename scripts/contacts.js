@@ -234,27 +234,29 @@ function fillContactForm(contact) {
 }
 
 async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
-    return checkContactFieldExists('name', inputName, ownId, errorID, borderID);
+    return checkContactFieldExists('name', inputName, ownId, errorID, borderID, nameExistsMsg);
 }
 
 async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
-    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID);
+    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
 }
 
-async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
+async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
     const response = await getData('contacts');
     const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
-    updateContactFieldError(errorID, borderID, exists);
+    updateContactFieldError(errorID, borderID, exists, existsMsg);
     return exists;
 }
 
-function updateContactFieldError(errorID, borderID, exists) {
-    document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
+function updateContactFieldError(errorID, borderID, exists, existsMsg) {
+    const errMsg = document.getElementById(errorID);
+    if (exists) errMsg.textContent = existsMsg;
+    errMsg.classList.toggle('visibility-hidden', !exists);
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
 }
 
 async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    const phoneExists = await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID);
+    const phoneExists = await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
     document.getElementById(errorID).textContent = 'Please choose a different number.';
     return phoneExists;
 }
@@ -274,10 +276,45 @@ async function submitContactForm(event) {
     }
 }
 
+function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
+    const errMsg = document.getElementById(errId);
+    const isBlank = value.trim() === "";
+    if (isBlank) errMsg.textContent = blankMsg;
+    errMsg.classList.toggle('visibility-hidden', !isBlank);
+    document.getElementById(borderId).classList.toggle('error-message-border-bottom', isBlank);
+    return isBlank;
+}
+
+function contactHasBlankFields(contact) {
+    const blankName = fieldIsBlankFeedback(contact.name, 'name-err-msg', 'wrong-name-border', enterNameMsg);
+    const blankEmail = fieldIsBlankFeedback(contact.email, 'email-err-msg', 'wrong-email-border', enterEmailMsg);
+    const blankPhone = fieldIsBlankFeedback(contact.phone, 'phone-err-msg', 'wrong-phone-border', enterPhoneMsg);
+    return blankName || blankEmail || blankPhone;
+}
+
+function hideContactErrMsg(event) {
+    const wrapper = event.currentTarget.closest('.input-wrapper');
+    wrapper.querySelector('.add-contact-content').classList.remove('error-message-border-bottom');
+    const errMsg = wrapper.querySelector('.error-msg');
+    if (errMsg) errMsg.classList.add('visibility-hidden');
+}
+
+function resetErrMsg() {
+    const inputFields = [
+        document.getElementById('name-err-msg'),
+        document.getElementById('email-err-msg'),
+        document.getElementById('phone-err-msg')
+    ];
+    inputFields.forEach(field => {
+        field.addEventListener('input', hideContactErrMsg);
+    });
+}
+
 async function addNewContact(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
+    if (contactHasBlankFields(contact)) return;
     const nameExists = await checkIfContactNameExists(contact.name);
     const emailExists = await checkIfEmailExists(contact.email);
     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
@@ -318,7 +355,7 @@ function closeEditContactDialog() {
 
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
-    const ownId = allContacts[editIndex].id;
+    const ownId = contact.id;
     if (await contactHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     allContacts[editIndex] = contact;
@@ -341,9 +378,9 @@ async function refreshEditedContact() {
 }
 
 function assignValuesToContact(contact) {
-    const INPUT_NAME = document.getElementById('existing-contact-name').value;
-    const INPUT_EMAIL = document.getElementById('existing-contact-email').value;
-    const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value;
+    const INPUT_NAME = document.getElementById('existing-contact-name').value.trim();
+    const INPUT_EMAIL = document.getElementById('existing-contact-email').value.trim();
+    const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value.trim();
     contact.name = INPUT_NAME;
     contact.email = INPUT_EMAIL;
     contact.phone = INPUT_PHONE_NUMBER;
