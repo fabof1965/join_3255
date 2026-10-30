@@ -399,18 +399,25 @@ function resetErrMsg() {
 
 async function addNewContact(event) {
   event.preventDefault();
+
   const form = document.getElementById("contact-form");
   const contact = getContactFormfromForm();
+
   const nameExists = await checkIfContactNameExists(contact.name);
   const emailExists = await checkIfEmailExists(contact.email);
   const phoneExists = await checkIfPhoneNumberExists(contact.phone);
+
   if (nameExists || emailExists || phoneExists) return;
+
   const { name: firebaseId } = await postData("contacts", contact);
   contact.id = firebaseId;
+
   form.reset();
   closeContactDialog();
+
   await renderContacts();
-  console.log("Kontakt gespeichert:", contact);
+
+  showSuccessPopup("Contact successfully created");
 }
 
 function editExistingContact(indexContact) {
@@ -501,12 +508,21 @@ function assignValuesToContact(contact) {
 
 async function deleteContact(i) {
   const contact = allContacts[i];
+
   if (!contact) return;
+
   await deleteData("contacts/" + contact.id);
-  if (currentlyOpenedCard) hideContactDetail();
+
+  if (currentlyOpenedCard) {
+    hideContactDetail();
+  }
+
   closeContactDialog();
   closeEditContactDialog();
+
   await renderContacts();
+
+  showSuccessPopup("Contact successfully deleted");
 }
 
 async function removeContactFromTaskCard(contactName) {
