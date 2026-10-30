@@ -99,7 +99,6 @@ async function registerUser(event) {
     event.preventDefault();
     if (!(await isRegistrationValid())) return;
     const userData = await saveNewUser(signupNameInput.value, emailSignup.value, passwordSignup.value);
-
     if (!userData) return;
     signUpForm.reset(); signUpSuccessPopUp(); backToLogin();
 }
@@ -237,7 +236,7 @@ function initLoginEventListeners() {
     const inputFields = [
         document.getElementById('email'),
         document.getElementById('login-password'),
-    ]
+    ];
     inputFields.forEach(fields => {
         fields.addEventListener('input', resetLogin)
     });
@@ -284,7 +283,6 @@ function resetLogin() {
 
 async function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
-
     try {
         await signInAnonymously(auth);
     } catch (error) {
@@ -293,7 +291,6 @@ async function logInGuestUser() {
     }
     localStorage.setItem('name', 'Guest');
     localStorage.removeItem('email');
-
     resetLogin();
     signUpForm.reset();
     window.location.href = './pages/summary.html';
@@ -427,13 +424,10 @@ function resetCheckboxValidity() {
 function setSignupFormContent() {
     setLoginFormBackgroundColor("white");
     setHeadlineText("Sign up");
-
     const FORM_INPUT_CONTAINER = document.getElementById("formInputContainer");
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
-
     setDisplayForSignupElements("flex");
     setDisplayForLoginElements("none");
-
     setOnSubmitAttribute("registerUser(event)");
 }
 
