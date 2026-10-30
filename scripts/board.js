@@ -5,6 +5,17 @@ async function initBoardContent() {
   renderBoardContent(allTasks);
   initializeTaskSearch();
   initializeDragAndDrop();
+  showPopupAfterRedirect();
+}
+
+/**
+ * Shows and clears the task-created message saved before navigating to the board.
+ * @returns {void}
+ */
+function showPopupAfterRedirect() {
+  if (sessionStorage.getItem("taskCreatedPopup") !== "true") return;
+  sessionStorage.removeItem("taskCreatedPopup");
+  showPopup();
 }
 
 function renderTaskCards(tasks = allTasks) {

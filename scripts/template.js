@@ -113,14 +113,14 @@ function getInputFieldsForLogin() {
 const pwTooShortMsg = "Password should be at least 6 characters.";
 const pwMismatchMsg = "Passwords do not match.";
 
-const wrongEmail = "Check your email and password. Please try again."
+const wrongEmail = "Check your email and password. Please try again.";
 const enterLoginEmailMsg = "Please enter your email.";
 const enterLoginPwMsg = "Please enter your password.";
 
 const requiredMsg = "This field is required.";
 
 function getInputFieldsForSignup() {
-return `  <div class="input-wrapper">
+  return `  <div class="input-wrapper">
               <div id="name-err-msg-border" class="input-content-container">  
                 <input id="signup-name-input" class="input-field" type="text" placeholder="Name" autocomplete="name">
                 <img src="./assets/icons/person.svg" alt="person logo">
@@ -157,4 +157,26 @@ return `  <div class="input-wrapper">
                 </div>
                 <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
               </div>`;
+}
+
+function getPopupTemplate() {
+  return `<dialog id="popup" class="popup" aria-live="polite"><h2></h2></dialog>`;
+}
+
+/**
+ * Shows a success popup and removes it after three seconds.
+ * @param {string} message - Text displayed in the popup.
+ * @returns {void}
+ */
+function showPopup(message = "Task created") {
+  document.getElementById("popup")?.remove();
+  document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
+  const popup = document.getElementById("popup");
+  if (!popup) throw new Error("Could not create the success popup.");
+  popup.querySelector("h2").textContent = message;
+  popup.showModal();
+  window.setTimeout(() => {
+    if (popup.open) popup.close();
+    popup.remove();
+  }, 3000);
 }
