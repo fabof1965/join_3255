@@ -356,20 +356,16 @@ function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) 
 
 function movePlaceholder(event) {
   event.preventDefault();
-
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;
   const existingPlaceholder = column.querySelector(".placeholder");
-
   if(isMouseOutOfPlaceholder(event, existingPlaceholder)) return;
-  
   for (const task of column.children) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
       setPlaceholderPosition(column, task, existingPlaceholder, draggedTask);
       return;
     }
   }
-
   existingPlaceholder?.remove();
   if (column.lastElementChild === draggedTask) return;
   column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
