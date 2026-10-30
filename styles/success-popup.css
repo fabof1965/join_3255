@@ -1,0 +1,36 @@
+.success-popup[open] {
+  padding: 30px;
+  margin: auto;
+  border-radius: 16px;
+  bottom: 25%;
+  position: fixed;
+  border: none;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+  background-color: var(--active-menu-color);
+  color: var(--white-color);
+  animation: success-slide-in-from-bottom 300ms ease-out;
+}
+
+.success-popup::backdrop {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes success-slide-in-from-bottom {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .success-popup[open] {
+    animation: none;
+  }
+}

@@ -1,85 +1,165 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Board</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join Board</title>
-  <link rel="shortcut icon" href="../assets/icons/logo-blue.svg" type="image/x-icon" />
-  <link rel="stylesheet" href="../styles/typography.css">
-  <link rel="stylesheet" href="../styles/root.css" />
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../styles/header.css" />
-  <link rel="stylesheet" href="../styles/sidebar.css" />
-  <link rel="stylesheet" href="../styles/board.css" />
-  <link rel="stylesheet" href="../styles/add-task.css">
-  <link rel="stylesheet" href="../styles/add-task-dialog.css">
-  <link rel="stylesheet" href="../styles/task-card-dialog.css" />
-  <script src="../scripts/template.js" defer></script>
-  <script src="../scripts/taskTemplates.js" defer></script>
-  <script src="../script.js" defer></script>
-  <script src="../scripts/firebase.js" defer></script>
-  <script src="../scripts/add-task-form.js" defer></script>
-  <script src="../scripts/board.js" defer></script>
-  <script src="../scripts/board-dialogs.js" defer></script>
-</head>
+    <link
+      rel="shortcut icon"
+      href="../assets/icons/logo-blue.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/typography.css" />
+    <link rel="stylesheet" href="../styles/root.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/add-task.css" />
+    <link rel="stylesheet" href="../styles/add-task-dialog.css" />
+    <link rel="stylesheet" href="../styles/task-card-dialog.css" />
+    <link rel="stylesheet" href="../styles/success-popup.css" />
 
-<body style="display: none">
-  <header id="header"></header>
-  <main class="main-layout">
-    <nav id="sidebar"></nav>
-    <section class="board-container">
-      <div class="board-toolbar-wrapper">
-        <div class="board-toolbar">
-          <div class="board-search">
-            <label class="visually-hidden" for="task-search">Find task</label>
-            <input id="task-search" type="text" placeholder="Find Task" aria-label="Find task" />
-            <button type="button" class="search-button" aria-label="Search Tasks">
-              <img class="search-image" src="../assets/icons/search.svg" alt=""/>
+    <script src="../scripts/template.js" defer></script>
+    <script src="../scripts/taskTemplates.js" defer></script>
+    <script src="../script.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/add-task-form.js" defer></script>
+    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/board-dialogs.js" defer></script>
+    <script src="../scripts/success-popup.js" defer></script>
+  </head>
+
+  <body style="display: none">
+    <header id="header"></header>
+
+    <main class="main-layout">
+      <nav id="sidebar"></nav>
+
+      <section class="board-container">
+        <div class="board-toolbar-wrapper">
+          <div class="board-toolbar">
+            <div class="board-search">
+              <label class="visually-hidden" for="task-search">
+                Find task
+              </label>
+
+              <input
+                id="task-search"
+                type="text"
+                placeholder="Find Task"
+                aria-label="Find task"
+              />
+
+              <button
+                type="button"
+                class="search-button"
+                aria-label="Search Tasks"
+              >
+                <img
+                  class="search-image"
+                  src="../assets/icons/search.svg"
+                  alt=""
+                />
+              </button>
+            </div>
+
+            <button
+              type="button"
+              id="btn-add-task"
+              class="add-task-button btn"
+              data-add-task-status="toDo"
+            >
+              Add Task +
             </button>
           </div>
-          <button type="button" id="btn-add-task" class="add-task-button btn" data-add-task-status="toDo">Add Task +</button>
+
+          <p id="search-no-results" class="search-no-results" hidden>
+            No tasks found
+          </p>
         </div>
-        <p id="search-no-results" class="search-no-results" hidden>
-          No tasks found
-        </p>
-      </div>
 
-      <div class="board-columns">
-        <section class="board-column">
-          <header class="column-header">
-            <h2>To do</h2>
-            <button type="button" id="btn-to-do" data-add-task-status="toDo" aria-label="add to-do task">+</button>
-          </header>
-          <div class="task-list" data-status="toDo" data-empty-text="No tasks To do"></div>
-        </section>
-        <section class="board-column">
-          <header class="column-header">
-            <h2>In progress</h2>
-            <button type="button" id="btn-in-progress" data-add-task-status="inProgress" aria-label="add in progress task">+</button>
-          </header>
-          <div class="task-list" data-status="inProgress" data-empty-text="No tasks in progress"></div>
-        </section>
-        <section class="board-column">
-          <header class="column-header">
-            <h2>Await feedback</h2>
-            <button type="button" id="btn-await-feedback" data-add-task-status="awaitFeedback" aria-label="add await feedback task">+</button>
-          </header>
-          <div class="task-list" data-status="awaitFeedback" data-empty-text="No tasks awaiting feedback"></div>
-        </section>
-        <section class="board-column">
-          <header class="column-header">
-            <h2>Done</h2>
-          </header>
-          <div class="task-list" data-status="done" data-empty-text="No tasks done"></div>
-        </section>
-      </div>
-    </section>
-  </main>
+        <div class="board-columns">
+          <section class="board-column">
+            <header class="column-header">
+              <h2>To do</h2>
 
-  <dialog id="task-card-dialog" class="task-card-dialog"></dialog>
-  <dialog id="add-task-dialog" class="add-task-dialog"></dialog>
+              <button
+                type="button"
+                id="btn-to-do"
+                data-add-task-status="toDo"
+                aria-label="add to-do task"
+              >
+                +
+              </button>
+            </header>
 
-</body>
+            <div
+              class="task-list"
+              data-status="toDo"
+              data-empty-text="No tasks To do"
+            ></div>
+          </section>
 
+          <section class="board-column">
+            <header class="column-header">
+              <h2>In progress</h2>
+
+              <button
+                type="button"
+                id="btn-in-progress"
+                data-add-task-status="inProgress"
+                aria-label="add in progress task"
+              >
+                +
+              </button>
+            </header>
+
+            <div
+              class="task-list"
+              data-status="inProgress"
+              data-empty-text="No tasks in progress"
+            ></div>
+          </section>
+
+          <section class="board-column">
+            <header class="column-header">
+              <h2>Await feedback</h2>
+
+              <button
+                type="button"
+                id="btn-await-feedback"
+                data-add-task-status="awaitFeedback"
+                aria-label="add await feedback task"
+              >
+                +
+              </button>
+            </header>
+
+            <div
+              class="task-list"
+              data-status="awaitFeedback"
+              data-empty-text="No tasks awaiting feedback"
+            ></div>
+          </section>
+
+          <section class="board-column">
+            <header class="column-header">
+              <h2>Done</h2>
+            </header>
+
+            <div
+              class="task-list"
+              data-status="done"
+              data-empty-text="No tasks done"
+            ></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="task-card-dialog" class="task-card-dialog"></dialog>
+    <dialog id="add-task-dialog" class="add-task-dialog"></dialog>
+  </body>
 </html>
