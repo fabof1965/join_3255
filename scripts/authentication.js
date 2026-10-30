@@ -229,7 +229,8 @@ async function userLogin(event) {
 
 function storeLoggedInUser(user) {
     const userName = user.name || user.username || user.fullName || user.email.split('@')[0];
-    localStorage.setItem('name', userName); localStorage.setItem('email', user.email);
+    localStorage.setItem('name', userName); 
+    localStorage.setItem('email', user.email);
 }
 
 function initLoginEventListeners() {
@@ -237,8 +238,8 @@ function initLoginEventListeners() {
         document.getElementById('email'),
         document.getElementById('login-password'),
     ];
-    inputFields.forEach(fields => {
-        fields.addEventListener('input', resetLogin)
+    inputFields.forEach(field => {
+        field.addEventListener('input', resetLogin)
     });
 }
 

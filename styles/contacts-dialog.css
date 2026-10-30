@@ -49,6 +49,7 @@ dialog[open]::backdrop {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: var(--full);
 }
 
 .dialog-hedaline-wrapper {
@@ -60,7 +61,7 @@ dialog[open]::backdrop {
 }
 
 .dialog-headline {
-    font-size: var(--medium-font-size);
+    font-size: var(--large-font-size);
 }
 
 .dialog-subheading {
@@ -90,7 +91,10 @@ dialog[open]::backdrop {
 }
 
 .logo-header {
-    width: var(--small-user-badge-width);
+    width: 25%;
+    max-width: 80px;
+    min-width: 60px;
+    aspect-ratio: 1;
 }
 
 .dialog-main {
@@ -108,8 +112,8 @@ dialog[open]::backdrop {
     margin: 16px auto 0 auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
-    width: 88px;
-    height: 88px;
+    width: 80px;
+    height: 80px;
 }
 
 @media(max-width: 950px) {
