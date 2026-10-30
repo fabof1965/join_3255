@@ -31,6 +31,7 @@ document.getElementById("open-button").addEventListener("click", () => {
 function initContacts() {
     renderContacts();
     initPhoneFilter();
+    resetErrEventlistener();
 }
 
 function initPhoneFilter() {
@@ -299,11 +300,11 @@ function hideContactErrMsg(event) {
     if (errMsg) errMsg.classList.add('visibility-hidden');
 }
 
-function resetErrMsg() {
+function resetErrEventlistener() {
     const inputFields = [
-        document.getElementById('name-err-msg'),
-        document.getElementById('email-err-msg'),
-        document.getElementById('phone-err-msg')
+        document.getElementById('name'),
+        document.getElementById('email'),
+        document.getElementById('phone')
     ];
     inputFields.forEach(field => {
         field.addEventListener('input', hideContactErrMsg);
