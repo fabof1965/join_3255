@@ -338,7 +338,6 @@ function handleSubtaskCheckboxChange(event) {
   if (event.target.classList.contains("subtask-checkbox")) {
     const checkbox = event.target;
     const index = Number(checkbox.dataset.indexNumber);
-
     toggleSubtask(index, checkbox);
   }
 }
