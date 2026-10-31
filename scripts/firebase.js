@@ -92,11 +92,9 @@ async function deleteData(path = "") {
     let response = await fetch(await getAuthUrl(path), {
       method: "DELETE",
     });
-
     if (!response.ok) {
       throw new Error("HTTP " + response.status);
     }
-
     return await response.json();
   } catch (error) {
     console.error("Fehler beim löschen der Daten", error);
