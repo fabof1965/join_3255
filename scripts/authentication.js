@@ -130,6 +130,7 @@ function setEmailExistsFeedback(emailExists) {
     const border = document.getElementById('invalid-email-border-bottom');
     const message = document.getElementById('invalid-email-msg');
     border.classList.toggle('error-message-border-bottom', emailExists);
+    if (emailExists) message.textContent = emailInUse;
     message.classList.toggle('visibility-hidden', !emailExists);
 }
 
@@ -239,43 +240,11 @@ function initLoginEventListeners() {
     });
 }
 
-function showErrorMessageForLogin() {
-    const emailErrMsg = document.getElementById('email-err-msg'); //span
-    const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
-    const emptyEmailInput = !document.getElementById('email').value.trim(); // input
-    const emptyPasswordInput = !document.getElementById('login-password').value.trim(); // input
-    document.querySelectorAll('.input-content-container').forEach(borderColor => {
-        borderColor.classList.add('error-message-border-bottom');
-    });
-    if (emptyEmailInput || emptyPasswordInput) {
-        setLoginErrorText(emailErrMsg, emptyEmailInput ? enterLoginEmailMsg : '');
-        setLoginErrorText(passwordErrMsg, emptyPasswordInput ? enterLoginPwMsg : '')
-    } else {
-        setLoginErrorText(emailErrMsg, '');
-        setLoginErrorText(passwordErrMsg, wrongEmail);
-    }
-}
-
-function setLoginErrorText(element, text) {
-    element.textContent = text;
-    element.classList.toggle('visibility-hidden', !text);
-}
-
 function hideInputErrorMessage(event) {
     const wrapper = event.currentTarget.closest('.input-wrapper');
     wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
     const errMsg = wrapper.querySelector('.error-msg');
     if (errMsg) errMsg.classList.add('visibility-hidden');
-}
-
-function resetLogin() {
-    const borderBottom = document.querySelectorAll('.input-content-container');
-    const errorMsg = document.getElementById('login-password-err-msg');
-    errorMsg.classList.add('visibility-hidden');
-    document.getElementById('email-err-msg').classList.add('visibility-hidden');
-    borderBottom.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
 }
 
 async function logInGuestUser() {

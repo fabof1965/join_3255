@@ -125,6 +125,8 @@ const enterLoginPwMsg = "Please enter your password.";
 
 const requiredMsg = "This field is required.";
 
+const emailInUse = "Email already in use."
+
 function getInputFieldsForSignup() {
   return `
       <div class="input-wrapper">
@@ -141,7 +143,7 @@ function getInputFieldsForSignup() {
           <input id="email-signup" class="input-field" type="email" placeholder="Email" aria-describedby="invalid-email-msg">
           <img src="./assets/icons/mail.svg" alt="">
         </div>
-        <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
+        <span id="invalid-email-msg" class="error-msg visibility-hidden"></span>
       </div>
 
       <div class="input-wrapper">
