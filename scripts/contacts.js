@@ -309,7 +309,10 @@ function resetErrEventlistener() {
     const inputFields = [
         document.getElementById('name'),
         document.getElementById('email'),
-        document.getElementById('phone')
+        document.getElementById('phone'),
+        document.getElementById('existing-contact-name'),
+        document.getElementById('existing-contact-email'),
+        document.getElementById('existing-contact-phone')
     ];
     inputFields.forEach(field => {
         field.addEventListener('input', hideContactErrMsg);
