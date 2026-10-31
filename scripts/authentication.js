@@ -12,8 +12,6 @@ function initSignUpEventListeners() {
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
 }
 
-// login logik
-
 function initLoginEventListeners() {
     const inputFields = [
         document.getElementById('email'),
@@ -23,6 +21,11 @@ function initLoginEventListeners() {
         field.addEventListener('input', resetLogin)
     });
 }
+
+/**
+ * Handle the login form submission.
+ * @param {Event} event - Login form submission event.
+ */
 
 async function userLogin(event) {
     event.preventDefault();
@@ -49,7 +52,6 @@ function storeLoggedInUser(user) {
     localStorage.setItem('email', user.email);
 }
 
-//guest
 
 async function logInGuestUser() {
     const signUpForm = document.getElementById('auth-form');
@@ -66,7 +68,6 @@ async function logInGuestUser() {
     window.location.href = './pages/summary.html';
 }
 
-// Logik für die Inputfelder
 
 function initPasswordEventListener() {
     passwordInputFields().forEach((field) => {
@@ -135,8 +136,6 @@ function toggleShowPassword(field) {
     }
 }
 
-// Signup
-
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
     const emailSignup = document.getElementById('email-signup');
@@ -193,8 +192,6 @@ function validatePassword() {
     return validPassword;
 }
 
-//popup
-
 function signUpSuccessPopUp() {
     const dialog = document.getElementById('dialog');
     dialog.showModal();
@@ -207,14 +204,6 @@ function closeDialog() {
     const dialog = document.getElementById('dialog');
     dialog.close();
 }
-
-/**
- * Handle the login form submission.
- * @param {Event} event - Login form submission event.
- */
-
-
-//stylings
 
 function setOnSubmitAttribute(attr = "userLogin(event)") {
     document.getElementById("auth-form").setAttribute("onsubmit", attr);
