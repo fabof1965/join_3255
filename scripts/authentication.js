@@ -12,17 +12,61 @@ function initSignUpEventListeners() {
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
 }
 
-function initEventListenersForRegistrationForm() {
+// login logik
+
+function initLoginEventListeners() {
     const inputFields = [
-        document.getElementById('signup-name-input'),
-        document.getElementById('email-signup'),
-        document.getElementById('signup-password'),
-        document.getElementById('confirm-password')
+        document.getElementById('email'),
+        document.getElementById('login-password'),
     ];
     inputFields.forEach(field => {
-        field.addEventListener('input', hideInputErrorMessage);
+        field.addEventListener('input', resetLogin)
     });
 }
+
+async function userLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('email');
+    const password = document.getElementById('login-password');
+    let userCredential;
+    try {
+        userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+    } catch (error) {
+        return showErrorMessageForLogin();
+    }
+    let userData = {};
+    const snapshot = await get(ref(db, 'users/' + userCredential.user.uid));
+    if (snapshot.exists()) {
+        userData = snapshot.val();
+    }
+    storeLoggedInUser({ name: userData.name, email: userCredential.user.email }); resetLogin(); document.getElementById('auth-form').reset();
+    window.location.href = './pages/summary.html';
+}
+
+function storeLoggedInUser(user) {
+    const userName = user.name || user.username || user.fullName || user.email.split('@')[0];
+    localStorage.setItem('name', userName); 
+    localStorage.setItem('email', user.email);
+}
+
+//guest
+
+async function logInGuestUser() {
+    const signUpForm = document.getElementById('auth-form');
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error('Guest login failed', error);
+        return;
+    }
+    localStorage.setItem('name', 'Guest');
+    localStorage.removeItem('email');
+    resetLogin();
+    signUpForm.reset();
+    window.location.href = './pages/summary.html';
+}
+
+// Logik für die Inputfelder
 
 function initPasswordEventListener() {
     passwordInputFields().forEach((field) => {
@@ -91,6 +135,8 @@ function toggleShowPassword(field) {
     }
 }
 
+// Signup
+
 async function registerUser(event) {
     const signUpForm = document.getElementById('auth-form');
     const emailSignup = document.getElementById('email-signup');
@@ -126,30 +172,6 @@ async function saveNewUser(name, email, password) {
     }
 }
 
-function setEmailExistsFeedback(emailExists) {
-    const border = document.getElementById('invalid-email-border-bottom');
-    const message = document.getElementById('invalid-email-msg');
-    border.classList.toggle('error-message-border-bottom', emailExists);
-    if (emailExists) message.textContent = emailInUse;
-    message.classList.toggle('visibility-hidden', !emailExists);
-}
-
-function sendFeedbackForEmptySignupInputfield() {
-    const emptyNameInput = !document.getElementById('signup-name-input').value.trim();
-    const emptyEmailInput = !document.getElementById('email-signup').value.trim();
-    const redBorder = document.getElementById('name-err-msg-border');
-    const emailBorder = document.getElementById('invalid-email-border-bottom');
-    redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
-    emailBorder.classList.toggle('error-message-border-bottom', emptyEmailInput);
-    const nameErrMsg = document.getElementById('signup-name-err-msg');
-    const emailErrMsg = document.getElementById('invalid-email-msg');
-    if (emptyNameInput || emptyEmailInput) {
-        setLoginErrorText(nameErrMsg, emptyNameInput ? requiredMsg : '');
-        setLoginErrorText(emailErrMsg, emptyEmailInput ? requiredMsg : '');
-    }
-    return !emptyNameInput && !emptyEmailInput;
-}
-
 function validatePassword() {
     const passwordSignup = document.getElementById('signup-password');
     const confirmPasswordSignup = document.getElementById('confirm-password');
@@ -171,22 +193,7 @@ function validatePassword() {
     return validPassword;
 }
 
-function acceptPrivacyPolicy() {
-    const checkboxSignup = document.getElementById('checkbox');
-    const errorMsg = document.getElementById('privacy-policy-error-msg');
-    if (checkboxSignup.checked) {
-        errorMsg.classList.add('visibility-hidden');
-        return true;
-    } else {
-        errorMsg.classList.remove('visibility-hidden');
-        return false;
-    }
-}
-
-function resetpricavyPolicityCheckbox() {
-    const errorMsg = document.getElementById('privacy-policy-error-msg');
-    errorMsg.classList.add('visibility-hidden');
-}
+//popup
 
 function signUpSuccessPopUp() {
     const dialog = document.getElementById('dialog');
@@ -205,62 +212,9 @@ function closeDialog() {
  * Handle the login form submission.
  * @param {Event} event - Login form submission event.
  */
-async function userLogin(event) {
-    event.preventDefault();
-    const email = document.getElementById('email');
-    const password = document.getElementById('login-password');
-    let userCredential;
-    try {
-        userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-    } catch (error) {
-        return showErrorMessageForLogin();
-    }
-    let userData = {};
-    const snapshot = await get(ref(db, 'users/' + userCredential.user.uid));
-    if (snapshot.exists()) {
-        userData = snapshot.val();
-    }
-    storeLoggedInUser({ name: userData.name, email: userCredential.user.email }); resetLogin(); document.getElementById('auth-form').reset();
-    window.location.href = './pages/summary.html';
-}
 
-function storeLoggedInUser(user) {
-    const userName = user.name || user.username || user.fullName || user.email.split('@')[0];
-    localStorage.setItem('name', userName); 
-    localStorage.setItem('email', user.email);
-}
 
-function initLoginEventListeners() {
-    const inputFields = [
-        document.getElementById('email'),
-        document.getElementById('login-password'),
-    ];
-    inputFields.forEach(field => {
-        field.addEventListener('input', resetLogin)
-    });
-}
-
-function hideInputErrorMessage(event) {
-    const wrapper = event.currentTarget.closest('.input-wrapper');
-    wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
-    const errMsg = wrapper.querySelector('.error-msg');
-    if (errMsg) errMsg.classList.add('visibility-hidden');
-}
-
-async function logInGuestUser() {
-    const signUpForm = document.getElementById('auth-form');
-    try {
-        await signInAnonymously(auth);
-    } catch (error) {
-        console.error('Guest login failed', error);
-        return;
-    }
-    localStorage.setItem('name', 'Guest');
-    localStorage.removeItem('email');
-    resetLogin();
-    signUpForm.reset();
-    window.location.href = './pages/summary.html';
-}
+//stylings
 
 function setOnSubmitAttribute(attr = "userLogin(event)") {
     document.getElementById("auth-form").setAttribute("onsubmit", attr);

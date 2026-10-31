@@ -1,3 +1,9 @@
+const wrongEmail = "Check your email and password. Please try again.";
+const enterLoginEmailMsg = "Please enter your email.";
+const enterLoginPwMsg = "Please enter your password.";
+
+
+
 function showErrorMessageForLogin() {
     const emailErrMsg = document.getElementById('email-err-msg'); //span
     const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
