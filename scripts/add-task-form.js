@@ -76,6 +76,8 @@ async function renderAssignedContacts(container) {
       );
     })
     .join("");
+
+  renderAssignedContactsDropdown(container);
 }
 
 function renderNewSubtasks() {
@@ -302,3 +304,118 @@ function directToBoard(boardURL) {
     window.location.href = boardURL;
   }
 }
+
+/**
+ * Creates the visible checkbox dropdown.
+ * The hidden select remains the data source for saving tasks.
+ */
+function renderAssignedContactsDropdown(container) {
+  const select = container.querySelector("#assigned-contacts");
+  const dropdown = container.querySelector(".assigned-dropdown");
+
+  if (!select || !dropdown) return;
+
+  const list = dropdown.querySelector(".assigned-dropdown-list");
+  list.replaceChildren();
+
+  const editedTask = allTasks.find((task) => task.id === editingTaskId);
+
+  if (editedTask) {
+    Array.from(select.options).forEach((option) => {
+      option.selected = (editedTask.assignedContacts || []).includes(
+        option.textContent,
+      );
+    });
+  }
+
+  Array.from(select.options).forEach((option) => {
+    const row = document.createElement("label");
+    row.className = "assigned-dropdown-option";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = option.selected;
+
+    const name = document.createElement("span");
+    name.textContent = option.textContent;
+
+    checkbox.addEventListener("change", () => {
+      option.selected = checkbox.checked;
+      updateAssignedContactsSummary(dropdown, select);
+    });
+
+    row.append(checkbox, name);
+    list.appendChild(row);
+  });
+
+  if (!select.options.length) {
+    const empty = document.createElement("p");
+    empty.className = "assigned-dropdown-empty";
+    empty.textContent = "No contacts available";
+    list.appendChild(empty);
+  }
+
+  updateAssignedContactsSummary(dropdown, select);
+}
+
+function updateAssignedContactsSummary(dropdown, select) {
+  const names = Array.from(
+    select.selectedOptions,
+    (option) => option.textContent,
+  );
+
+  dropdown.querySelector(".assigned-dropdown-text").textContent =
+    names.length ? names.join(", ") : "Select contacts to assign";
+}
+
+document.addEventListener("click", (event) => {
+  document.querySelectorAll(".assigned-dropdown[open]").forEach((dropdown) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.open = false;
+    }
+  });
+});
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key !== "Escape") return;
+
+    const dropdown = event.target.closest(".assigned-dropdown[open]");
+
+    if (!dropdown) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    dropdown.open = false;
+    dropdown.querySelector("summary").focus();
+  },
+  true,
+);
+
+document.addEventListener("reset", (event) => {
+  const form = event.target;
+
+  if (!form.querySelector(".assigned-dropdown")) return;
+
+  setTimeout(() => {
+    const dropdown = form.querySelector(".assigned-dropdown");
+    const select = form.querySelector("#assigned-contacts");
+
+    if (!dropdown || !select) return;
+
+    Array.from(select.options).forEach((option) => {
+      option.selected = false;
+    });
+
+    dropdown
+      .querySelectorAll('input[type="checkbox"]')
+      .forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+
+    dropdown.open = false;
+    updateAssignedContactsSummary(dropdown, select);
+  }, 0);
+});
