@@ -116,17 +116,6 @@ function getInputFieldsForLogin() {
     `;
 }
 
-const pwTooShortMsg = "Password should be at least 6 characters.";
-const pwMismatchMsg = "Passwords do not match.";
-
-const wrongEmail = "Check your email and password. Please try again.";
-const enterLoginEmailMsg = "Please enter your email.";
-const enterLoginPwMsg = "Please enter your password.";
-
-const requiredMsg = "This field is required.";
-
-const emailInUse = "Email already in use."
-
 function getInputFieldsForSignup() {
   return `
       <div class="input-wrapper">
