@@ -19,11 +19,11 @@ function showPopupAfterRedirect() {
 }
 
 function renderTaskCards(tasks = allTasks) {
-  for(let indexTask = 0; indexTask < tasks.length; indexTask++) {
+  for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = tasks[indexTask];
     const taskStatus = task.status;
     const taskList = document.querySelector('div.task-list[data-status="' + taskStatus + '"]');
-    if(taskList) taskList.innerHTML += getTaskCardHtml(task);
+    if (taskList) taskList.innerHTML += getTaskCardHtml(task);
   }
 }
 
@@ -57,22 +57,21 @@ function getUserInitials(assignedUsers) {
  * @returns {string} Progress HTML.
  */
 function getSubtaskDataProgressHtml(subtasks, id) {
-  if(!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
+  if (!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
   const totalSubtasks = subtasks.length;
-  const  completedSubtasks = countCompletedSubtasks(subtasks);
-  let  progress = (completedSubtasks / totalSubtasks) * 100;
-  if(isNaN(progress)) progress = 0;
-  return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id); 
+  const completedSubtasks = countCompletedSubtasks(subtasks);
+  let progress = (completedSubtasks / totalSubtasks) * 100;
+  if (isNaN(progress)) progress = 0;
+  return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id);
 }
 
 function countCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
-  if(!subtasks) return completedSubtasks;
+  if (!subtasks) return completedSubtasks;
   subtasks.map((subtask) => {
-    if(subtask.done === true) completedSubtasks++
+    if (subtask.done === true) completedSubtasks++
     return completedSubtasks;
   });
-
   return completedSubtasks;
 }
 
@@ -115,7 +114,7 @@ function renderTask(task) {
  */
 function renderBoardContent(tasks) {
   emptyTaskLists();
-  if(tasks) renderTaskCards(tasks);
+  if (tasks) renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
@@ -138,7 +137,7 @@ function renderEmptyTaskListContent(taskList) {
 }
 
 function renderTaskListOnEmptyContent(taskList) {
-  if(taskList.children.length === 0) {
+  if (taskList.children.length === 0) {
     renderEmptyTaskListContent(taskList);
   }
 }
@@ -156,7 +155,6 @@ function filterTasks(searchTerm) {
 function taskMatchesTerm(task, normalizedTerm) {
   const title = task.title.toLowerCase();
   const description = (task.description ?? "").toLowerCase();
-
   return title.includes(normalizedTerm) || description.includes(normalizedTerm);
 }
 
@@ -181,7 +179,6 @@ function searchTasks(event) {
   const searchTerm = event.target.value;
   const filteredTasks = filterTasks(searchTerm);
   const showNoResults = isSearchActive(searchTerm) && filteredTasks.length === 0;
-
   renderSearchResults(filteredTasks, showNoResults);
 }
 
@@ -224,7 +221,6 @@ function startDragging(event) {
 function stopDragging(event) {
   const taskCardElement = event.currentTarget;
   const taskList = event.target.closest?.(".task-list");
-
   taskList.classList.remove("task-list-dragover");
   taskList.classList.remove("task-list-drop-end");
   taskCardElement.removeAttribute("id");
@@ -253,7 +249,7 @@ function dragTaskCardOverTaskList(event) {
  */
 function leaveTaskCardDropZone(event) {
   const taskList = event.currentTarget;
-  if(taskList.contains(event.relatedTarget)) return;
+  if (taskList.contains(event.relatedTarget)) return;
   const placeholder = taskList.querySelector(".placeholder");
   placeholder?.remove();
   taskList.classList.remove("task-list-dragover");
@@ -280,7 +276,7 @@ async function dropTaskIntoTaskList(event) {
   const taskList = event.currentTarget;
   const placeholder = taskList.querySelector(".placeholder");
   const taskCard = document.getElementById("grabbed-card");
-  if(!placeholder) return;
+  if (!placeholder) return;
   taskCard.remove();
   taskList.insertBefore(taskCard, placeholder);
   removeEmptyTaskListElement(taskList);
@@ -292,16 +288,16 @@ async function dropTaskIntoTaskList(event) {
 }
 
 function removeEmptyTaskListElement(taskList) {
-  if(isEmptyTaskListElementInTaskList(taskList)) {
+  if (isEmptyTaskListElementInTaskList(taskList)) {
     taskList.children[0].remove();
   }
 }
 
 function isEmptyTaskListElementInTaskList(taskList) {
-  return  taskList.children[0].innerText === "No tasks To do" ||
-          taskList.children[0].innerText === "No tasks in progress" ||
-          taskList.children[0].innerText === "No tasks awaiting feedback" ||
-          taskList.children[0].innerText === "No tasks done";
+  return taskList.children[0].innerText === "No tasks To do" ||
+    taskList.children[0].innerText === "No tasks in progress" ||
+    taskList.children[0].innerText === "No tasks awaiting feedback" ||
+    taskList.children[0].innerText === "No tasks done";
 }
 
 /**
@@ -346,8 +342,7 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
   if (existingPlaceholder) {
     const placeholderRect = existingPlaceholder.getBoundingClientRect();
     if (placeholderRect.top <= event.clientY &&
-        placeholderRect.bottom >= event.clientY)
-    {
+      placeholderRect.bottom >= event.clientY) {
       return true;
     }
     else return false;
@@ -355,14 +350,14 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
 }
 
 function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
- if (task === existingPlaceholder) return;
-    existingPlaceholder?.remove();
-    if (task === draggedTask || task.previousElementSibling === draggedTask)
-      return;
-    column.insertBefore(
-      existingPlaceholder ?? makePlaceholder(draggedTask),
-      task,
-    );
+  if (task === existingPlaceholder) return;
+  existingPlaceholder?.remove();
+  if (task === draggedTask || task.previousElementSibling === draggedTask)
+    return;
+  column.insertBefore(
+    existingPlaceholder ?? makePlaceholder(draggedTask),
+    task,
+  );
 }
 
 function movePlaceholder(event) {
@@ -370,7 +365,7 @@ function movePlaceholder(event) {
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;
   const existingPlaceholder = column.querySelector(".placeholder");
-  if(isMouseOutOfPlaceholder(event, existingPlaceholder)) return;
+  if (isMouseOutOfPlaceholder(event, existingPlaceholder)) return;
   for (const task of column.children) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
       setPlaceholderPosition(column, task, existingPlaceholder, draggedTask);
@@ -388,7 +383,7 @@ function movePlaceholder(event) {
  */
 function createAllTaskArrayFromData(allTaskData) {
   if (!allTaskData) return [];
-  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id}));
+  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
 }
 
 async function loadTasks() {
