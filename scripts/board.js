@@ -1,21 +1,3 @@
-// improved structure of a task
-//{
-//     title: "Kochwelt Page & Recipe Recommender",
-//     description: "Build start page with recipe recommendation and a detailed description of the recipes.",
-//     dueDate: "02/09/2023",
-//     category: "User Story",
-//     status: "inProgress",
-//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"], -> die Initialen können direkt aus den Namen abgeleitet werden, und müssen nicht noch zusätzlich gespeichert werden
-//     priority: "low",
-//     subtasks: [
-//                 {
-//                  title: 'Einkaufen gehen', 
-//                  done: false,
-//                 },
-//               ],
-//     id: "task-1",
-//}
-
 document.addEventListener("DOMContentLoaded", initBoardContent());
 
 async function initBoardContent() {
@@ -23,6 +5,17 @@ async function initBoardContent() {
   renderBoardContent(allTasks);
   initializeTaskSearch();
   initializeDragAndDrop();
+  showPopupAfterRedirect();
+}
+
+/**
+ * Shows and clears the task-created message saved before navigating to the board.
+ * @returns {void}
+ */
+function showPopupAfterRedirect() {
+  if (sessionStorage.getItem("taskCreatedPopup") !== "true") return;
+  sessionStorage.removeItem("taskCreatedPopup");
+  showPopup();
 }
 
 function renderTaskCards(tasks = allTasks) {
@@ -349,37 +342,41 @@ function makePlaceholder(draggedTask) {
   return placeholder;
 }
 
+function isMouseOutOfPlaceholder(event, existingPlaceholder) {
+  if (existingPlaceholder) {
+    const placeholderRect = existingPlaceholder.getBoundingClientRect();
+    if (placeholderRect.top <= event.clientY &&
+        placeholderRect.bottom >= event.clientY)
+    {
+      return true;
+    }
+    else return false;
+  }
+}
+
+function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
+ if (task === existingPlaceholder) return;
+    existingPlaceholder?.remove();
+    if (task === draggedTask || task.previousElementSibling === draggedTask)
+      return;
+    column.insertBefore(
+      existingPlaceholder ?? makePlaceholder(draggedTask),
+      task,
+    );
+}
+
 function movePlaceholder(event) {
   event.preventDefault();
-
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;
   const existingPlaceholder = column.querySelector(".placeholder");
-
-  if (existingPlaceholder) {
-    const placeholderRect = existingPlaceholder.getBoundingClientRect();
-    if (
-      placeholderRect.top <= event.clientY &&
-      placeholderRect.bottom >= event.clientY
-    ) {
-      return;
-    }
-  } 
-
+  if(isMouseOutOfPlaceholder(event, existingPlaceholder)) return;
   for (const task of column.children) {
     if (task.getBoundingClientRect().bottom >= event.clientY) {
-      if (task === existingPlaceholder) return;
-      existingPlaceholder?.remove();
-      if (task === draggedTask || task.previousElementSibling === draggedTask)
-        return;
-      column.insertBefore(
-        existingPlaceholder ?? makePlaceholder(draggedTask),
-        task,
-      );
+      setPlaceholderPosition(column, task, existingPlaceholder, draggedTask);
       return;
     }
   }
-
   existingPlaceholder?.remove();
   if (column.lastElementChild === draggedTask) return;
   column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
