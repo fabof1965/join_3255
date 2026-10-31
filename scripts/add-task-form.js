@@ -302,3 +302,16 @@ function directToBoard(boardURL) {
     window.location.href = boardURL;
   }
 }
+
+function showPopup(message = "Task created") {
+  document.getElementById("popup")?.remove();
+  document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
+  const popup = document.getElementById("popup");
+  if (!popup) throw new Error("Could not create the success popup.");
+  popup.querySelector("h2").textContent = message;
+  popup.showModal();
+  window.setTimeout(() => {
+    if (popup.open) popup.close();
+    popup.remove();
+  }, 3000);
+}

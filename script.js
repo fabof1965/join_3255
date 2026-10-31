@@ -73,7 +73,6 @@ function clickEventListener(dialog, closingFunction = null) {
     dialog.addEventListener("click", (event) => {
         if (event.target !== dialog) return;
         const RECT = dialog.getBoundingClientRect();
-
         if (
             event.clientX < RECT.left ||
             event.clientX > RECT.right ||
@@ -84,12 +83,10 @@ function clickEventListener(dialog, closingFunction = null) {
                 closingFunction();
                 return;
             }
-
             dialog.close();
         }
     });
 }
-
 
 /**
  * Opens the header menu on the help page or navigates to help otherwise.

@@ -176,17 +176,3 @@ function getPopupTemplate() {
  * @param {string} message - Text displayed in the popup.
  * @returns {void}
  */
-
-// Diese Funktion noch verschieben
-function showPopup(message = "Task created") {
-  document.getElementById("popup")?.remove();
-  document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
-  const popup = document.getElementById("popup");
-  if (!popup) throw new Error("Could not create the success popup.");
-  popup.querySelector("h2").textContent = message;
-  popup.showModal();
-  window.setTimeout(() => {
-    if (popup.open) popup.close();
-    popup.remove();
-  }, 3000);
-}
