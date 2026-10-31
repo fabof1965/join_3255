@@ -335,6 +335,16 @@ function renderAssignedContactsDropdown(container) {
       updateAssignedContactsSummary(dropdown, select);
     });
 
+    checkbox.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+
+  event.preventDefault();
+
+  if (!event.repeat) {
+    checkbox.click();
+  }
+});
+
     row.append(checkbox, name);
     list.appendChild(row);
   });
