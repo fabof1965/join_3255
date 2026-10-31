@@ -47,67 +47,73 @@ function getSidebarTemplate() {
       </section>
     `;
 }
+
 function navigationBeforeLogin() {
-  return `<section class="sidebar-navigation-before-login">
-            <article class="page-links-before-login">
-              <a href="./index.html">
-                <svg width="24" height="24" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path class="svg-fill" d="M12.2222 22C11.8759 22 11.5856 21.8829 11.3514 21.6486C11.1171 21.4144 11 21.1241 11 20.7778C11 20.4315 11.1171 20.1412 11.3514 19.9069C11.5856 19.6727 11.8759 19.5556 12.2222 19.5556H19.5556V2.44444H12.2222C11.8759 2.44444 11.5856 2.32731 11.3514 2.09306C11.1171 1.8588 11 1.56852 11 1.22222C11 0.875926 11.1171 0.585648 11.3514 0.351389C11.5856 0.11713 11.8759 0 12.2222 0H19.5556C20.2278 0 20.8032 0.239352 21.2819 0.718056C21.7606 1.19676 22 1.77222 22 2.44444V19.5556C22 20.2278 21.7606 20.8032 21.2819 21.2819C20.8032 21.7606 20.2278 22 19.5556 22H12.2222ZM9.99167 12.2222H1.22222C0.875926 12.2222 0.585648 12.1051 0.351389 11.8708C0.11713 11.6366 0 11.3463 0 11C0 10.6537 0.11713 10.3634 0.351389 10.1292C0.585648 9.89491 0.875926 9.77778 1.22222 9.77778H9.99167L7.7 7.48611C7.47593 7.26204 7.36389 6.98704 7.36389 6.66111C7.36389 6.33519 7.47593 6.05 7.7 5.80556C7.92407 5.56111 8.20926 5.4338 8.55556 5.42361C8.90185 5.41343 9.19722 5.53056 9.44167 5.775L13.8111 10.1444C14.0556 10.3889 14.1778 10.6741 14.1778 11C14.1778 11.3259 14.0556 11.6111 13.8111 11.8556L9.44167 16.225C9.19722 16.4694 8.90694 16.5866 8.57083 16.5764C8.23472 16.5662 7.94444 16.4389 7.7 16.1944C7.47593 15.95 7.36898 15.6597 7.37917 15.3236C7.38935 14.9875 7.50648 14.7074 7.73056 14.4833L9.99167 12.2222Z" fill=""/>
-                </svg>
-                <p>Log in</p>
-              </a>
-              <footer class="sidebar-footer-before-login">
-                <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
-                <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
-              </footer>
-            </article>
-          </section>`;
+  return `
+      <section class="sidebar-navigation-before-login">
+        <article class="page-links-before-login">
+          <a href="./index.html">
+            <svg width="24" height="24" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="svg-fill" d="M12.2222 22C11.8759 22 11.5856 21.8829 11.3514 21.6486C11.1171 21.4144 11 21.1241 11 20.7778C11 20.4315 11.1171 20.1412 11.3514 19.9069C11.5856 19.6727 11.8759 19.5556 12.2222 19.5556H19.5556V2.44444H12.2222C11.8759 2.44444 11.5856 2.32731 11.3514 2.09306C11.1171 1.8588 11 1.56852 11 1.22222C11 0.875926 11.1171 0.585648 11.3514 0.351389C11.5856 0.11713 11.8759 0 12.2222 0H19.5556C20.2278 0 20.8032 0.239352 21.2819 0.718056C21.7606 1.19676 22 1.77222 22 2.44444V19.5556C22 20.2278 21.7606 20.8032 21.2819 21.2819C20.8032 21.7606 20.2278 22 19.5556 22H12.2222ZM9.99167 12.2222H1.22222C0.875926 12.2222 0.585648 12.1051 0.351389 11.8708C0.11713 11.6366 0 11.3463 0 11C0 10.6537 0.11713 10.3634 0.351389 10.1292C0.585648 9.89491 0.875926 9.77778 1.22222 9.77778H9.99167L7.7 7.48611C7.47593 7.26204 7.36389 6.98704 7.36389 6.66111C7.36389 6.33519 7.47593 6.05 7.7 5.80556C7.92407 5.56111 8.20926 5.4338 8.55556 5.42361C8.90185 5.41343 9.19722 5.53056 9.44167 5.775L13.8111 10.1444C14.0556 10.3889 14.1778 10.6741 14.1778 11C14.1778 11.3259 14.0556 11.6111 13.8111 11.8556L9.44167 16.225C9.19722 16.4694 8.90694 16.5866 8.57083 16.5764C8.23472 16.5662 7.94444 16.4389 7.7 16.1944C7.47593 15.95 7.36898 15.6597 7.37917 15.3236C7.38935 14.9875 7.50648 14.7074 7.73056 14.4833L9.99167 12.2222Z" fill=""/>
+            </svg>
+            <p>Log in</p>
+          </a>
+          <footer class="sidebar-footer-before-login">
+            <a class="privacy-policy-link" href="./privacy_policy.html">Privacy Policy</a>
+            <a class="legal-notice-link" href="./legal_notice.html">Legal Notice</a>
+          </footer>
+        </article>
+      </section>
+    `;
 }
 
 function getHeaderTemplate() {
-  return `<div class="content-limit">
-              <div class="header-left">
-                  <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
-              </div>
-              <div class="header-right">
-                <span class="kanban-text">Kanban Project Management Tool</span>
-                <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
-                  <img class="help-icon" src="../assets/icons/help.svg" alt="" />
-                </a>
-                <nav id="header-menu" class="header-menu" popover>
-                  <a class="help" href="../pages/help.html">Help</a>
-                  <a href="../pages/legal_notice.html">Legal Notice</a>
-                  <a href="../pages/privacy_policy.html">Privacy Policy</a>
-                  <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
-                </nav>
-                <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
-                  <span id="profile-badge">SM</span>
-                </button>
-              </div>
-            </div>`;
+  return `
+      <div class="content-limit">
+        <div class="header-left">
+          <img src="../assets/icons/logo-white.svg" alt="Join Logo"/>
+        </div>
+        <div class="header-right">
+          <span class="kanban-text">Kanban Project Management Tool</span>
+          <a id="help-button" class="header-icon-button-help" type="button" aria-label="Open help" href="../pages/help.html">
+            <img class="help-icon" src="../assets/icons/help.svg" alt="" />
+          </a>
+          <nav id="header-menu" class="header-menu" popover>
+            <a class="help" href="../pages/help.html">Help</a>
+            <a href="../pages/legal_notice.html">Legal Notice</a>
+            <a href="../pages/privacy_policy.html">Privacy Policy</a>
+            <button id="logout-button" type="button" onclick="logoutUser()">Log out</button>
+          </nav>
+          <button id="profile-button" class="header-icon-button" type="button" aria-label="Open user profile" popovertarget="header-menu">
+            <span id="profile-badge">SM</span>
+          </button>
+        </div>
+      </div>
+    `;
 }
 
 function getInputFieldsForLogin() {
-  return `<div class="input-wrapper">
-                <div class="input-content-container">
-                  <label for="email" class="visually-hidden">Email</label>
-                  <input id="email" class="input-field" type="email" placeholder="Email"/>
-                  <img src="./assets/icons/mail.svg" alt="mail icon" />
-                </div>
-                <span id="email-err-msg" class="error-msg visibility-hidden"></span>
-            </div>
-            <div class="input-wrapper">
-                <div class="input-content-container" id="error-msg-border-bottom">
-                  <label for="login-password" class="visually-hidden">Passwort</label>
-                  <input id="login-password" class="input-field" type="password" placeholder="Passwort"/>
-                  <button type="button" class="password-toggle" aria-label="Show password">
-                    <img id="login-password-toggle-icon" class="lock-img"
-                        src="./assets/icons/lock.svg" alt="" />
-                  </button>
-                </div>
-            <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
-            </div>
-            `;
+  return `
+      <div class="input-wrapper">
+        <div class="input-content-container">
+          <label for="email" class="visually-hidden">Email</label>
+          <input id="email" class="input-field" type="email" placeholder="Email"/>
+          <img src="./assets/icons/mail.svg" alt="mail icon" />
+        </div>
+        <span id="email-err-msg" class="error-msg visibility-hidden"></span>
+      </div>
+      <div class="input-wrapper">
+        <div class="input-content-container" id="error-msg-border-bottom">
+          <label for="login-password" class="visually-hidden">Passwort</label>
+          <input id="login-password" class="input-field" type="password" placeholder="Passwort"/>
+          <button type="button" class="password-toggle" aria-label="Show password">
+            <img id="login-password-toggle-icon" class="lock-img"
+                src="./assets/icons/lock.svg" alt="" />
+          </button>
+        </div>
+        <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
+      </div>
+    `;
 }
 
 const pwTooShortMsg = "Password should be at least 6 characters.";
@@ -120,43 +126,45 @@ const enterLoginPwMsg = "Please enter your password.";
 const requiredMsg = "This field is required.";
 
 function getInputFieldsForSignup() {
-  return `  <div class="input-wrapper">
-              <div id="name-err-msg-border" class="input-content-container">  
-                <input id="signup-name-input" class="input-field" type="text" placeholder="Name" autocomplete="name">
-                <img src="./assets/icons/person.svg" alt="person logo">
-              </div>
-              <span id="signup-name-err-msg" class="error-msg visibility-hidden"></span>
-            </div>
+  return `
+      <div class="input-wrapper">
+        <div id="name-err-msg-border" class="input-content-container">
+          <input id="signup-name-input" class="input-field" type="text" placeholder="Name" autocomplete="name">
+          <img src="./assets/icons/person.svg" alt="person logo">
+        </div>
+        <span id="signup-name-err-msg" class="error-msg visibility-hidden"></span>
+      </div>
 
-            <div class="input-wrapper">
-                <div class="input-content-container" id="invalid-email-border-bottom">
-                  <label for="email-signup" class="visually-hidden">Email</label>
-                  <input id="email-signup" class="input-field" type="email" placeholder="Email" aria-describedby="invalid-email-msg">
-                  <img src="./assets/icons/mail.svg" alt="">
-                </div>
-                <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
-              </div>
+      <div class="input-wrapper">
+        <div class="input-content-container" id="invalid-email-border-bottom">
+          <label for="email-signup" class="visually-hidden">Email</label>
+          <input id="email-signup" class="input-field" type="email" placeholder="Email" aria-describedby="invalid-email-msg">
+          <img src="./assets/icons/mail.svg" alt="">
+        </div>
+        <span id="invalid-email-msg" class="error-msg visibility-hidden">Email already in use.</span>
+      </div>
 
-            <div class="input-wrapper">
-              <div class="input-content-container">
-                <input id="signup-password" class="input-field" type="password" placeholder="Password">
-                <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
-                  <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock">
-                </button>
-              </div>
-              <span id="signup-password-err-msg" class="error-msg visibility-hidden"></span>
-            </div>
+      <div class="input-wrapper">
+        <div class="input-content-container">
+          <input id="signup-password" class="input-field" type="password" placeholder="Password">
+          <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
+            <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock">
+          </button>
+        </div>
+        <span id="signup-password-err-msg" class="error-msg visibility-hidden"></span>
+      </div>
 
-            <div class="input-wrapper" >
-                <div class="input-content-container" id="confirm-password-border-bottom">
-                  <label for="confirm-password" class="visually-hidden">Confirm Password</label>
-                  <input id="confirm-password" class="input-field" type="password" placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
-                  <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
-                    <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
-                  </button>
-                </div>
-                <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
-              </div>`;
+      <div class="input-wrapper" >
+        <div class="input-content-container" id="confirm-password-border-bottom">
+          <label for="confirm-password" class="visually-hidden">Confirm Password</label>
+          <input id="confirm-password" class="input-field" type="password" placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
+          <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
+            <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+          </button>
+        </div>
+        <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
+      </div>
+    `;
 }
 
 function getPopupTemplate() {
@@ -168,6 +176,8 @@ function getPopupTemplate() {
  * @param {string} message - Text displayed in the popup.
  * @returns {void}
  */
+
+// Diese Funktion noch verschieben
 function showPopup(message = "Task created") {
   document.getElementById("popup")?.remove();
   document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
