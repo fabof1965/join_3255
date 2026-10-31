@@ -27,6 +27,11 @@ function setTaskFormUsers(select, users = []) {
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    handleSubtaskCheckboxChange(event);
+  }
+});
 
 document.addEventListener("submit", async (event) => {
   const form = event.target;
