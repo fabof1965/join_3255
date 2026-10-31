@@ -132,7 +132,9 @@ async function openAddTaskDialogInEditMode(task) {
   editingTaskId = task.id;
   newTaskStatus = task.status;
   const subtasks = await getData(`tasks/${task.id}/subtasks`);
-  newTaskSubtasks = (subtasks || []).map((subtask) => subtask.title);
+  newTaskSubtasks = (subtasks || []).map((subtask) => ({
+  ...subtask,
+}));
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);

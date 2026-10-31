@@ -86,8 +86,8 @@ function renderNewSubtasks() {
   if (!list) return;
 
   list.innerHTML = newTaskSubtasks
-    .map((title, index) => {
-      return getAddTaskSubtaskTemplate(index, title);
+    .map((subtask, index) => {
+      return getAddTaskSubtaskTemplate(index, subtask.title);
     })
     .join("");
 }
@@ -97,7 +97,10 @@ function addSubtaskFromInput(input) {
 
   if (!value) return false;
 
-  newTaskSubtasks.push(value);
+  newTaskSubtasks.push({
+  title: value,
+  done: false,
+  });
   input.value = "";
   renderNewSubtasks();
 
@@ -138,7 +141,7 @@ function editSubtask(button) {
   const index = Number(item.dataset.index);
   const span = item.querySelector("span");
 
-  span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index]);
+  span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index].title);
 
   const handleButtons = item.querySelector(".subtask-button-container");
 
@@ -162,7 +165,7 @@ function saveSubtask(input) {
   const value = input.value.trim();
 
   if (value) {
-    newTaskSubtasks[index] = value;
+    newTaskSubtasks[index].title = value;
   }
 
   renderNewSubtasks();
@@ -260,21 +263,9 @@ function getFormElements(priority = "") {
 }
 
 function getSubtasksFromForm() {
-  const subtasksElements = document.querySelectorAll(".subtask-wrapper");
-  let subtasks = [];
-
-  subtasksElements.forEach((subtaskElement) => {
-    subtasks.push(subtaskElement.innerText);
-  });
-
-  subtasks = subtasks.map((subtaskTitle) => {
-    return {
-      title: subtaskTitle,
-      done: false,
-    };
-  });
-
-  return subtasks;
+  return newTaskSubtasks.map((subtask) => ({
+    ...subtask,
+  }));
 }
 
 async function submitTask(event, editedTask) {
