@@ -365,14 +365,17 @@ function closeEditContactDialog() {
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = contact.id;
+    const oldName = contact.name;
     if (await contactHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     if (editContactHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
+    if (oldName !== contact.name) {
+        await renameContactFromTaskCard(oldName, contact.name);
+    }
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
     await refreshEditedContact();
-    console.log('Kontakt gespeichert:', contact);
 }
 
 async function contactHasValidationErrors(contact, ownId) {
@@ -414,6 +417,16 @@ async function removeContactFromTaskCard(contactName) {
     for (const [id, task] of Object.entries(tasks)) {
         if (!task.assignedContacts?.includes(contactName)) continue;
         await patchData('tasks/' + id, { assignedContacts: getRemainingContacts(task, contactName) });
+    }
+}
+
+async function renameContactFromTaskCard(oldName, newName) {
+    const tasks = await getData('tasks');
+    if (!tasks) return;
+    for (const [id, task] of Object.entries(tasks)) {
+        if (!task.assignedContacts?.includes(oldName)) continue;
+        const renamed = task.assignedContacts.map(name => name === oldName ? newName : name);
+        await patchData('tasks/' + id, { assignedContacts: renamed });
     }
 }
 
