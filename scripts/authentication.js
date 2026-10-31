@@ -140,19 +140,14 @@ function sendFeedbackForEmptySignupInputfield() {
     const emailBorder = document.getElementById('invalid-email-border-bottom');
     redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
     emailBorder.classList.toggle('error-message-border-bottom', emptyEmailInput);
-
     const nameErrMsg = document.getElementById('signup-name-err-msg');
     const emailErrMsg = document.getElementById('invalid-email-msg');
-
     if (emptyNameInput || emptyEmailInput) {
         setLoginErrorText(nameErrMsg, emptyNameInput ? requiredMsg : '');
         setLoginErrorText(emailErrMsg, emptyEmailInput ? requiredMsg : '');
     }
     return !emptyNameInput && !emptyEmailInput;
 }
-// function isBLank(value) {
-//     if (value.trim() === "") return;
-// }
 
 function validatePassword() {
     const passwordSignup = document.getElementById('signup-password');
@@ -178,7 +173,6 @@ function validatePassword() {
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
     const errorMsg = document.getElementById('privacy-policy-error-msg');
-
     if (checkboxSignup.checked) {
         errorMsg.classList.add('visibility-hidden');
         return true;

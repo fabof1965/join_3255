@@ -291,6 +291,13 @@ function contactHasBlankFields(contact) {
     return blankName || blankEmail || blankPhone;
 }
 
+function editContactHasBlankFields(contact) {
+    const editBlankName = fieldIsBlankFeedback(contact.name, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border', enterNameMsg);
+    const editBlankEmail = fieldIsBlankFeedback(contact.email, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border', enterEmailMsg);
+    const editBlankPhone = fieldIsBlankFeedback(contact.phone, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border', enterPhoneMsg);
+    return editBlankName || editBlankEmail || editBlankPhone;
+}
+
 function hideContactErrMsg(event) {
     const wrapper = event.currentTarget.closest('.input-wrapper');
     wrapper.querySelector('.add-contact-content').classList.remove('error-message-border-bottom');
@@ -357,6 +364,7 @@ async function saveEditedContact() {
     const ownId = contact.id;
     if (await contactHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
+    if (editContactHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
