@@ -84,15 +84,6 @@ function createNewTaskElement(newTaskData) {
   return newTaskElement;
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.target.name === "subtask") {
-    addSubtaskOnEnter(event);
-  }
-  if (event.target.name === "subtask-edit") {
-    saveSubtaskOnEnter(event);
-  }
-});
-
 document.getElementById("btn-add-task").addEventListener("click", () => {
   openAddTaskDialog("toDo");
 });

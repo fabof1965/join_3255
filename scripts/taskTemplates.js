@@ -89,8 +89,16 @@ function getTaskOverlayUserTemplate(initials, name) {
 
 function getSubtaskTemplate(subtask, checked, taskId, index) {
   return `<div class="task-card-dialog-subtask">
-            <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" checked="${checked}"/>
-            <span id="subtask-title-${taskId}-${index}">${subtask.title}</span>
+            <input
+              class="subtask-checkbox"
+              type="checkbox"
+              data-index-number="${index}"
+              aria-labelledby="subtask-title-${taskId}-${index}"
+              ${checked ? "checked" : ""}
+            />
+            <span id="subtask-title-${taskId}-${index}">
+              ${subtask.title}
+            </span>
           </div>`;
 }
 
