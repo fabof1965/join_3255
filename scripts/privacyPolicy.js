@@ -10,5 +10,4 @@ function leavePrivacyPolicy() {
   window.location.href = "./board.html";
 }
 
-
 document.querySelector(".privacy-policy-back-button").addEventListener("click", leavePrivacyPolicy);

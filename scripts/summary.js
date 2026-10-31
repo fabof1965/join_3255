@@ -58,10 +58,8 @@ function updateUpcomingDeadline(urgentTasks) {
     if ((duty.dueDate) && (duty.status !== "done"))
       return duty;
   });
-
   urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   const closestDateStr = urgentTaskDates[0].dueDate;
-
   deadlineOutput(closestDateStr, urgentTaskDates);
 }
 
@@ -72,14 +70,12 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
   const closestDate = new Date(closestDateStr);
   dateEl.innerText = formatDate(closestDateStr);
   const upcommingDeadline = document.getElementById('upcomming-deadline');
-
   if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
   } else {
     upcommingDeadline.innerText = "Upcomming deadline";
   }
-
   if (closestDate < today) {
     deadlineInfo.innerText = "Missed deadline";
     upcommingDeadline.innerText = "";
@@ -89,9 +85,7 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-
   if (isNaN(date)) return dateString;
-
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -105,7 +99,6 @@ async function loadUserName() {
   const email = localStorage.getItem("email") || sessionStorage.getItem("email");
   const user = users.find(u => u.email === email);
   const isGuest = localStorage.getItem("name") === "Guest";
-
   updateGreetingUI(user, isGuest);
 }
 
@@ -137,7 +130,6 @@ function initCardClicks() {
     ".task-in-board",
     ".tasks-done"
   ];
-
   selectors.forEach(addBoardNavigation);
 }
 
@@ -145,7 +137,6 @@ function addBoardNavigation(selector) {
   const card = document.querySelector(selector);
   if (card) card.addEventListener("click", () => window.location.href = "board.html");
 }
-
 
 function updateGreetingText() {
   const greetingEl = document.getElementById("greeting");
@@ -158,7 +149,6 @@ function updateGreetingText() {
 function getDynamicGreeting() {
   const now = new Date();
   const hour = now.getHours();
-
   if (hour >= 5 && hour < 12) {
     return "Good Morning";
   } else if (hour >= 12 && hour < 17) {

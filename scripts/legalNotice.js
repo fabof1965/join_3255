@@ -10,5 +10,4 @@ function leaveLegalNotice() {
   window.location.href = "./board.html";
 }
 
-
 document.querySelector(".legal-back-button").addEventListener("click", leaveLegalNotice);
