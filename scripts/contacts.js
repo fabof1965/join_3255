@@ -30,8 +30,8 @@ document.getElementById("open-button").addEventListener("click", () => {
 
 function initContacts() {
     renderContacts();
-    initPhoneFilter();
     resetErrEventlistener();
+    initPhoneFilter();
 }
 
 function initPhoneFilter() {
@@ -242,6 +242,10 @@ async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-
     return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
 }
 
+async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
+    return await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
+}
+
 async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
     const response = await getData('contacts');
     const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
@@ -254,12 +258,6 @@ function updateContactFieldError(errorID, borderID, exists, existsMsg) {
     if (exists) errMsg.textContent = existsMsg;
     errMsg.classList.toggle('visibility-hidden', !exists);
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
-}
-
-async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    const phoneExists = await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
-    document.getElementById(errorID).textContent = 'Please choose a different number.';
-    return phoneExists;
 }
 
 async function submitContactForm(event) {
