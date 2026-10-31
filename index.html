@@ -15,8 +15,9 @@
   <script src="./scripts/template.js" defer></script>
   <script src="./scripts/firebase.js" defer></script>
   <script src="./script.js" defer></script>
-  <script src="./scripts/errorMsgForLogin.js"></script>
+
   <script type="module" src="./scripts/authentication.js"></script>
+  <script src="./scripts/errorMsgForLogin.js"></script>
 </head>
 
 <body class="auth-body" onload="initAuth()">
@@ -87,26 +88,18 @@
         <div class="checkbox-container" id="checkbox-container">
           <div>
             <input class="checkbox" type="checkbox" id="checkbox" />
-            <span>I accept the
-              <a class="privacy-policy-link" data-text="Privacy Policy" href="./pages/privacy_policy.html">Privacy
-                Policy</a></span>
+            <span>I accept the<a class="privacy-policy-link" data-text="Privacy Policy" href="./pages/privacy_policy.html">Privacy Policy</a></span>
           </div>
-
-          <span id="privacy-policy-error-msg" class="privacy-policy-error-msg visibility-hidden">Please accept the
-            prviacy policy</span>
+          <span id="privacy-policy-error-msg" class="privacy-policy-error-msg visibility-hidden">Please accept the prviacy policy</span>
         </div>
 
         <div id="signup-btn-container" class="sign-up-button-container">
-          <button id="sign-up-btn" type="submit" class="btn auth-btn">
-            Sign up
-          </button>
+          <button id="sign-up-btn" type="submit" class="btn auth-btn">Sign up</button>
         </div>
 
         <div id="submit-btn-container" class="submit-btn-container">
           <button id="login-btn" class="auth-btn btn">Log in</button>
-          <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">
-            Guest log in
-          </button>
+          <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">Guest log in</button>
         </div>
       </form>
     </main>
