@@ -49,13 +49,18 @@ function hideInputErrorMessage(event) {
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
     const errorMsg = document.getElementById('privacy-policy-error-msg');
+    toggleCheckboxChecked(checkboxSignup);
     if (checkboxSignup.checked) {
         errorMsg.classList.add('visibility-hidden');
-        return true;
+        return;
     } else {
         errorMsg.classList.remove('visibility-hidden');
-        return false;
+        return;
     }
+}
+
+function toggleCheckboxChecked(checkbox) {
+    checkbox.checked = checkbox.checked ? false : true;
 }
 
 function resetpricavyPolicityCheckbox() {

@@ -149,7 +149,7 @@ async function registerUser(event) {
 }
 
 async function isRegistrationValid() {
-    const privacyOk = acceptPrivacyPolicy();
+    const privacyOk = document.getElementById("checkbox").checked;
     const inputOk = sendFeedbackForEmptySignupInputfield();
     const passwordOk = validatePassword();
     return inputOk && passwordOk && privacyOk;
