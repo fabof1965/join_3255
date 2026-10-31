@@ -22,11 +22,9 @@ async function getAuthUrl(path) {
 async function getData(path = "") {
   try {
     let response = await fetch(await getAuthUrl(path));
-
     if (!response.ok) {
       throw new Error("HTTP " + response.status);
     }
-
     return await response.json();
   } catch (error) {
     console.error("Fehler beim Laden der Daten");
@@ -48,11 +46,9 @@ async function postData(path = "", data = {}) {
       },
       body: JSON.stringify(data),
     });
-
     if (!response.ok) {
       throw new Error("HTTP " + response.status);
     }
-
     return await response.json();
   } catch (error) {
     console.error("Fehler beim Hochladen der Daten", error);
@@ -75,11 +71,9 @@ async function patchData(path = "", data = {}) {
       },
       body: JSON.stringify(data),
     });
-
     if (!response.ok) {
       throw new Error("HTTP " + response.status);
     }
-
     return await response.json();
   } catch (error) {
     console.error("Fehler beim aktualisieren der Daten", error);
