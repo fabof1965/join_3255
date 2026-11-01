@@ -5,9 +5,11 @@ import { auth, db } from "./firebaseInit.js";
 function initAuth() {
     initPasswordEventListener();
     initLoginEventListeners();
+    handleUserLogin();
+    logInGuestUser();
 }
 
-logInGuestUser();
+initAuth();
 
 /**
  * Handle the login form submission.
@@ -32,7 +34,11 @@ export function initLoginEventListeners() {
     });
 }
 
-async function userLogin(event) {
+function handleUserLogin() {
+    document.getElementById('auth-form').addEventListener('submit', userLogin);
+}
+
+export async function userLogin(event) {
     event.preventDefault();
     const email = document.getElementById('email');
     const password = document.getElementById('login-password');
@@ -131,5 +137,3 @@ function toggleShowPassword(field) {
         field.toggle.setAttribute("aria-label", "Hide password");
     }
 }
-
-Object.assign(window, { initAuth, logInGuestUser, userLogin });

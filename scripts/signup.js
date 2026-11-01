@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
-import { initLoginEventListeners, initPasswordEventListener } from './login.js';
+import { initLoginEventListeners, initPasswordEventListener, userLogin } from './login.js';
 
 initSignUpEventListeners();
 addSignupContent();
@@ -95,8 +95,11 @@ function showLoginForm() {
     initLoginEventListeners();
 }
 
-function setOnSubmitAttribute(attr = "userLogin(event)") {
-    document.getElementById("auth-form").setAttribute("onsubmit", attr);
+function setSubmitHandler(handler = userLogin) {
+    const form = document.getElementById("auth-form");
+    form.removeEventListener("submit", userLogin);
+    form.removeEventListener("submit", registerUser);
+    form.addEventListener("submit", handler);
 }
 
 function addSignupContent() {
@@ -191,7 +194,7 @@ function setPageTitle(title) {
 }
 
 function resetLoginPageStyle() {
-    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
+    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setSubmitHandler();
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
     setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
 }
@@ -221,7 +224,7 @@ function setSignupFormContent() {
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
     setDisplayForSignupElements("flex");
     setDisplayForLoginElements("none");
-    setOnSubmitAttribute("registerUser(event)");
+    setSubmitHandler(registerUser);
 }
 
 function setLoginFormBackgroundColor(color) {
@@ -232,5 +235,3 @@ function setHeadlineText(text) {
     const HEADING = document.getElementById("heading");
     HEADING.innerHTML = text;
 }
-
-Object.assign(window, { registerUser });
