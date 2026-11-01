@@ -12,7 +12,7 @@ let isSubmittingContact = false;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
-document.addEventListener("DOMContentLoaded", initContacts());
+document.addEventListener("DOMContentLoaded", initContacts);
 
 function initContacts() {
     renderContacts();
