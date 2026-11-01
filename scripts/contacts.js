@@ -316,7 +316,6 @@ function resetErrEventlistener() {
 
 async function addNewContact(event) {
     event.preventDefault();
-    const form = document.getElementById('contact-form');
     const contact = getContactFormfromForm();
     if (contactHasBlankFields(contact)) return;
     const nameExists = await checkIfContactNameExists(contact.name);
@@ -325,7 +324,7 @@ async function addNewContact(event) {
     if (nameExists || emailExists || phoneExists) return;
     const { name: firebaseId } = await postData('contacts', contact);
     contact.id = firebaseId;
-    form.reset();
+    document.getElementById('contact-form').reset();
     closeContactDialog();
     await renderContacts();
     showSuccessPopup('Contact successfully created');
