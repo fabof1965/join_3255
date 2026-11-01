@@ -12,13 +12,13 @@
   overflow-y: auto;
 }
 
-@media(max-width: 1540px) {
+@media (max-width: 1540px) {
   .add-task-form {
     padding: var(--padding);
   }
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .add-task-form {
     align-items: center;
     justify-content: space-around;
@@ -46,7 +46,7 @@
   color: var(--active-menu-color);
 }
 
-.subtask-btn:hover{
+.subtask-btn:hover {
   color: var(--primary-color);
 }
 
@@ -54,7 +54,7 @@
   fill: currentColor;
 }
 
-@media(max-width: 950px) {
+@media (max-width: 950px) {
   .form-content {
     justify-content: space-around;
   }
@@ -82,7 +82,7 @@ textarea {
   gap: var(--gap-between-buttons);
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .form-buttons {
     margin-top: unset;
   }
@@ -93,7 +93,6 @@ textarea {
   display: flex;
   align-self: flex-end;
   gap: var(--gap-small);
-  ;
   align-items: center;
   font-size: var(--login-form-button-font-size);
 }
@@ -124,7 +123,7 @@ textarea {
   height: 100%;
 }
 
-.btn-create-task>span {
+.btn-create-task > span {
   color: var(--white-color);
 }
 
@@ -256,16 +255,13 @@ textarea {
   overflow-y: auto;
 }
 
-@media(max-width: 450px) {
+@media (max-width: 450px) {
   .add-task-subtasks {
     max-height: 80px;
-    /* zum testen*/
   }
 }
 
-/* Änderungen 17.10.2026 zu den Subtasks */
-
-.subtask-wrapper{
+.subtask-wrapper {
   display: flex;
   justify-content: space-between;
 }
@@ -284,7 +280,7 @@ textarea {
   opacity: 1;
 }
 
-.subtask-list.is-editing .subtask-btn svg:hover{
+.subtask-list.is-editing .subtask-btn svg:hover {
   background-color: var(--close-btn-hover-color);
   border-radius: var(--border-radius-circular);
 }
@@ -293,7 +289,7 @@ textarea {
   border: none;
 }
 
-.is-editing{
+.is-editing {
   border-bottom: 1px solid var(--primary-color);
 }
 
@@ -315,4 +311,92 @@ textarea {
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+/* Assigned contacts dropdown */
+
+.assigned-dropdown {
+  width: 100%;
+  color: var(--menu-color);
+  background-color: var(--white-color);
+}
+
+.assigned-dropdown > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: var(--board-search-padding);
+  border-bottom: 1px solid var(--search-bar-outline-color);
+  font-size: var(--small-font-size);
+  cursor: pointer;
+  list-style: none;
+}
+
+.assigned-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.assigned-dropdown > summary:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.assigned-dropdown-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.assigned-dropdown-arrow {
+  flex-shrink: 0;
+}
+
+.assigned-dropdown[open] .assigned-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.assigned-dropdown-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--addTaskBoxShadow);
+}
+
+.assigned-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: var(--small-font-size);
+  cursor: pointer;
+}
+
+.assigned-dropdown-option:hover,
+.assigned-dropdown-option:focus-within {
+  background-color: var(--secondary-color);
+}
+
+.assigned-dropdown-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--primary-color);
+}
+
+.assigned-dropdown-option span {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.assigned-dropdown-empty {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: var(--small-font-size);
+}
+
+.add-task-field > select[hidden] {
+  display: none;
 }
