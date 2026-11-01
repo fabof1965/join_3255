@@ -22,7 +22,6 @@ document.getElementById("open-button").addEventListener("click", () => {
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return;
     }
-
     if (isMobile && isPreviouslyOpenedCard) {
         setTimeout(() => showPopover(), 100);
     }
@@ -123,10 +122,8 @@ function showSelectedContact(indexContact, contactCard) {
         showContactDetail(indexContact);
         setButtonContent();
     }, 250);
-
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
-
     if (isMobile) {
         document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
     }
@@ -209,12 +206,10 @@ function resetContactForm() {
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
     const contactForm = document.getElementById('contact-form');
-
     contactDialog.classList.remove("slide-in");
     setTimeout(() => {
         contactDialog.close();
     }, 500);
-
     resetBadge();
     resetContactForm();
     contactForm.reset();
