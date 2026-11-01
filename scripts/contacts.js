@@ -1,20 +1,11 @@
-const DETAIL_TRANSITION_MS = 600;
+const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
-let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
-let isSubmittingContact = false;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
-document.addEventListener("DOMContentLoaded", initContacts());
-
-const displayAttributes = {
-    show: "flex",
-    hide: "none"
-}
-
-const isMobile = window.matchMedia("(max-width: 950px)").matches;
+document.addEventListener("DOMContentLoaded", initContacts);
 
 document.getElementById("open-button").addEventListener("click", () => {
     if ((isMobile && !isPreviouslyOpenedCard) || !isMobile) {
@@ -29,29 +20,6 @@ document.getElementById("open-button").addEventListener("click", () => {
 
 function initContacts() {
     renderContacts();
-    resetErrEventlistener();
-    initPhoneFilter();
-}
-
-function initPhoneFilter() {
-    addPhoneFilter('phone', 'phone-err-msg', 'wrong-phone-border');
-    addPhoneFilter('existing-contact-phone', 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
-}
-
-function addPhoneFilter(inputId, errorMsgId, borderId) {
-    const input = document.getElementById(inputId);
-    const errorMsg = document.getElementById(errorMsgId);
-    const border = document.getElementById(borderId);
-    input.addEventListener('input', () => validatePhoneInput(input, errorMsg, border));
-}
-
-function validatePhoneInput(input, errorMsg, border) {
-    const cleaned = input.value.replace(/[^0-9]/g, "");
-    const invalid = cleaned !== input.value;
-    input.value = cleaned;
-    errorMsg.textContent = "Only digits are allowed";
-    errorMsg.classList.toggle('visibility-hidden', !invalid);
-    border.classList.toggle('error-message-border-bottom', invalid);
 }
 
 async function renderContacts() {
@@ -77,21 +45,6 @@ async function loadContacts() {
     const response = await getData('contacts');
     if (!response) return [];
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
-}
-
-function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
-    const addContactImage = document.querySelector(".add-new-contact-image");
-
-    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
-        addContactImage.setAttribute("src", newSource);
-    }
-    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
-        addContactImage.setAttribute("src", defaultSource);
-    }
-}
-
-function showPopover() {
-    document.getElementById("popover-menu").showPopover();
 }
 
 function toggleContactDetail(indexContact, contactCard) {
@@ -129,9 +82,15 @@ function showSelectedContact(indexContact, contactCard) {
     }
 }
 
-function hidePreviouslyOpenedDetail(contactCard) {
-    contactCard.classList.remove("background-primary");
-    hideContactDetail();
+function showContactDetail(indexContact) {
+    getContactsData(indexContact);
+    document.querySelector("#contact-detail").classList.add('animation-right');
+    setBadgeBackgroundColor();
+}
+
+function getContactsData(indexContact) {
+    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
+    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
 }
 
 function clearActiveContacts() {
@@ -140,6 +99,11 @@ function clearActiveContacts() {
         hidePreviouslyOpenedDetail(contactCard);
         contactCard.classList.remove('background-primary');
     });
+}
+
+function hidePreviouslyOpenedDetail(contactCard) {
+    contactCard.classList.remove("background-primary");
+    hideContactDetail();
 }
 
 function hideContactDetail() {
@@ -151,289 +115,16 @@ function hideContactDetail() {
     setButtonContent();
 }
 
-function getContactsData(indexContact) {
-    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
-    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
+function showPopover() {
+    document.getElementById("popover-menu").showPopover();
 }
 
-function showContactDetail(indexContact) {
-    getContactsData(indexContact);
-    document.querySelector("#contact-detail").classList.add('animation-right');
-    setBadgeBackgroundColor();
-}
-
-function getAddContactDialog() {
-    return document.getElementById("add-contact-dialog");
-}
-
-function resetBadge() {
-    const badge = document.querySelector('.badge-image-container');
-    badge.style = "";
-    badge.classList.remove('profile-badge-large');
-    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-}
-
-function openContactDialog(i = null) {
-    if (i === null) {
-        resetBadge();
-        document.getElementById('contact-form').reset();
-        const badge = document.querySelector('.badge-image-container');
-        badge.style = "";
-        badge.classList.remove('profile-badge-large');
-        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
+function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
+    const addContactImage = document.querySelector(".add-new-contact-image");
+    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
+        addContactImage.setAttribute("src", newSource);
     }
-    activateDialog();
-}
-
-function activateDialog() {
-    const dialog = getAddContactDialog();
-    dialog.showModal();
-    dialog.classList.add('slide-in');
-    clickEventListener(dialog, closeContactDialog);
-}
-
-function resetContactForm() {
-    const border = document.querySelectorAll('.add-contact-content');
-    border.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
-    const errMsg = document.querySelectorAll('.error-msg');
-    errMsg.forEach(errorMessage => {
-        errorMessage.classList.add('visibility-hidden');
-    });
-}
-
-function closeContactDialog() {
-    const contactDialog = getAddContactDialog();
-    const contactForm = document.getElementById('contact-form');
-    contactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        contactDialog.close();
-    }, 500);
-    resetBadge();
-    resetContactForm();
-    contactForm.reset();
-}
-
-function getContactFormfromForm() {
-    return {
-        name: document.getElementById("name").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone: document.getElementById("phone").value.trim()
-    };
-}
-
-function fillContactForm(contact) {
-    document.getElementById('existing-contact-name').value = contact.name;
-    document.getElementById('existing-contact-email').value = contact.email;
-    document.getElementById('existing-contact-phone').value = contact.phone;
-}
-
-async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
-    return checkContactFieldExists('name', inputName, ownId, errorID, borderID, nameExistsMsg);
-}
-
-async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
-    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
-}
-
-async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    return await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
-}
-
-async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
-    const response = await getData('contacts');
-    const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
-    updateContactFieldError(errorID, borderID, exists, existsMsg);
-    return exists;
-}
-
-function updateContactFieldError(errorID, borderID, exists, existsMsg) {
-    const errMsg = document.getElementById(errorID);
-    if (exists) errMsg.textContent = existsMsg;
-    errMsg.classList.toggle('visibility-hidden', !exists);
-    document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
-}
-
-async function submitContactForm(event) {
-    event.preventDefault();
-    if (isSubmittingContact) return;
-    isSubmittingContact = true;
-    try {
-        if (editIndex === null) {
-            await addNewContact(event);
-        } else {
-            await saveEditedContact();
-        }
-    } finally {
-        isSubmittingContact = false;
+    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
+        addContactImage.setAttribute("src", defaultSource);
     }
 }
-
-function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
-    const errMsg = document.getElementById(errId);
-    const isBlank = value.trim() === "";
-    if (isBlank) errMsg.textContent = blankMsg;
-    errMsg.classList.toggle('visibility-hidden', !isBlank);
-    document.getElementById(borderId).classList.toggle('error-message-border-bottom', isBlank);
-    return isBlank;
-}
-
-function contactHasBlankFields(contact) {
-    const blankName = fieldIsBlankFeedback(contact.name, 'name-err-msg', 'wrong-name-border', enterNameMsg);
-    const blankEmail = fieldIsBlankFeedback(contact.email, 'email-err-msg', 'wrong-email-border', enterEmailMsg);
-    const blankPhone = fieldIsBlankFeedback(contact.phone, 'phone-err-msg', 'wrong-phone-border', enterPhoneMsg);
-    return blankName || blankEmail || blankPhone;
-}
-
-function editContactHasBlankFields(contact) {
-    const editBlankName = fieldIsBlankFeedback(contact.name, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border', enterNameMsg);
-    const editBlankEmail = fieldIsBlankFeedback(contact.email, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border', enterEmailMsg);
-    const editBlankPhone = fieldIsBlankFeedback(contact.phone, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border', enterPhoneMsg);
-    return editBlankName || editBlankEmail || editBlankPhone;
-}
-
-function hideContactErrMsg(event) {
-    const wrapper = event.currentTarget.closest('.input-wrapper');
-    wrapper.querySelector('.add-contact-content').classList.remove('error-message-border-bottom');
-    const errMsg = wrapper.querySelector('.error-msg');
-    if (errMsg) errMsg.classList.add('visibility-hidden');
-}
-
-function resetErrEventlistener() {
-    const inputFields = [
-        document.getElementById('name'),
-        document.getElementById('email'),
-        document.getElementById('phone'),
-        document.getElementById('existing-contact-name'),
-        document.getElementById('existing-contact-email'),
-        document.getElementById('existing-contact-phone')
-    ];
-    inputFields.forEach(field => {
-        field.addEventListener('input', hideContactErrMsg);
-    });
-}
-
-async function addNewContact(event) {
-    event.preventDefault();
-    const contact = getContactFormfromForm();
-    if (contactHasBlankFields(contact)) return;
-    const nameExists = await checkIfContactNameExists(contact.name);
-    const emailExists = await checkIfEmailExists(contact.email);
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-    if (nameExists || emailExists || phoneExists) return;
-    const { name: firebaseId } = await postData('contacts', contact);
-    contact.id = firebaseId;
-    document.getElementById('contact-form').reset();
-    closeContactDialog();
-    await renderContacts();
-    showSuccessPopup('Contact successfully created');
-}
-
-function editExistingContact(indexContact) {
-    openExistingContactDialog(indexContact);
-}
-
-function openExistingContactDialog(indexContact) {
-    const editContactDialog = document.getElementById("edit-contact-dialog");
-    const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = getInitials(allContacts[indexContact].name).toUpperCase();
-    badgeContainer.innerHTML = getEditBadgeTemplate(initials);
-    badgeContainer.classList.add('profile-badge-large');
-    setBadgeBackgroundColor();
-    editIndex = indexContact;
-    fillContactForm(allContacts[indexContact]);
-    editContactDialog.showModal();
-    editContactDialog.classList.add("slide-in");
-    clickEventListener(editContactDialog, closeEditContactDialog);
-}
-
-function closeEditContactDialog() {
-    const editContactDialog = document.getElementById("edit-contact-dialog");
-    editContactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        editContactDialog.close();
-    }, 500);
-}
-
-async function saveEditedContact() {
-    const contact = allContacts[editIndex];
-    const ownId = contact.id;
-    const oldName = contact.name;
-    if (await contactHasValidationErrors(contact, ownId)) return;
-    assignValuesToContact(contact);
-    if (editContactHasBlankFields(contact)) return;
-    allContacts[editIndex] = contact;
-    if (oldName !== contact.name) {
-        await renameContactFromTaskCard(oldName, contact.name);
-    }
-    await patchData('contacts/' + ownId, contact);
-    closeEditContactDialog();
-    await refreshEditedContact();
-}
-
-async function contactHasValidationErrors(contact, ownId) {
-    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
-    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
-    return nameExists || emailExists || phoneExists;
-}
-
-async function refreshEditedContact() {
-    await renderContacts();
-    showContactDetail(editIndex);
-}
-
-function assignValuesToContact(contact) {
-    const INPUT_NAME = document.getElementById('existing-contact-name').value.trim();
-    const INPUT_EMAIL = document.getElementById('existing-contact-email').value.trim();
-    const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value.trim();
-    contact.name = INPUT_NAME;
-    contact.email = INPUT_EMAIL;
-    contact.phone = INPUT_PHONE_NUMBER;
-}
-
-async function deleteContact(i) {
-    const contact = allContacts[i];
-    if (!contact) return;
-    await deleteData('contacts/' + contact.id);
-    await removeContactFromTaskCard(contact.name);
-    if (currentlyOpenedCard) hideContactDetail()
-    closeContactDialog();
-    closeEditContactDialog();
-    await renderContacts();
-    showSuccessPopup('Contact successfully deleted');
-}
-
-async function removeContactFromTaskCard(contactName) {
-    const tasks = await getData('tasks');
-    if (!tasks) return;
-    for (const [id, task] of Object.entries(tasks)) {
-        if (!task.assignedContacts?.includes(contactName)) continue;
-        await patchData('tasks/' + id, { assignedContacts: getRemainingContacts(task, contactName) });
-    }
-}
-
-async function renameContactFromTaskCard(oldName, newName) {
-    const tasks = await getData('tasks');
-    if (!tasks) return;
-    for (const [id, task] of Object.entries(tasks)) {
-        if (!task.assignedContacts?.includes(oldName)) continue;
-        const renamed = task.assignedContacts.map(name => name === oldName ? newName : name);
-        await patchData('tasks/' + id, { assignedContacts: renamed });
-    }
-}
-
-function getRemainingContacts(task, contactName) {
-    return task.assignedContacts.filter((name) => name !== contactName);
-}
-
-document.getElementById("edit-contact-dialog").addEventListener("close", () => {
-    editIndex = null;
-});
-
-getAddContactDialog().addEventListener("close", () => {
-    editIndex = null;
-    resetContactForm();
-    document.getElementById('contact-form');
-});
