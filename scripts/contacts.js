@@ -22,6 +22,9 @@ function initContacts() {
     renderContacts();
 }
 
+/**
+ * renders all Contacts, grouped by initial letter, into the contact list.
+ */
 async function renderContacts() {
     allContacts = await loadContacts();
     const contactContainer = document.getElementById("contacts");
@@ -31,6 +34,9 @@ async function renderContacts() {
     setBadgeBackgroundColor();
 }
 
+/**
+ *  Builds the contact list HTML and adds a letter heading before each new initial.
+ */
 function getContactsHtml() {
     let previousLetter = "";
     return allContacts.map((contact, index) => {
