@@ -47,6 +47,10 @@ function getContactsHtml() {
     }).join("");
 }
 
+/**
+ * Loads the contacts from Firebase.
+ */
+
 async function loadContacts() {
     const response = await getData('contacts');
     if (!response) return [];
