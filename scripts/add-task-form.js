@@ -15,14 +15,10 @@ document.addEventListener("submit", async (event) => {
   if (event.target.id !== "add-task-form" || event.target.closest("dialog")) {
     return;
   }
-
   event.preventDefault();
-
   const saved = await submitTask(event, null);
   if (!saved) return;
-
   showSuccessPopup("Task successfully created");
-
   setTimeout(() => {
     directToBoard("../pages/board.html");
   }, 1500);
