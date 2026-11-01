@@ -14,12 +14,10 @@ async function loadAllTaskData() {
     const taskData = await getData("tasks");
     if (taskData) {
       const allTasks = taskData ? Object.values(taskData) : [];
-
       return allTasks;
     }
   } catch (error) {
     console.error("Fehler beim Laden der Tasks:", error);
-
     return [];
   }
 }
@@ -36,10 +34,8 @@ async function updateSummaryNumbers() {
   const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback").length;
   const totalTasksDone = allTasks.filter(task => task.status === "done").length;
   const urgentTasks = allTasks.filter(task => task.priority === "urgent");
-
   const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
   const totalTasksUrgent = urgentTasks.length;
-
   displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, totalTasksUrgent);
   updateUpcomingDeadline(urgentTasks);
 }

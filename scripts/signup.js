@@ -8,7 +8,6 @@ addSignupContent();
 setminHeightAnimationOnForm();
 backToLogin();
 
-
 function initSignUpEventListeners() {
     const checkboxSignup = document.getElementById('checkbox');
     checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
