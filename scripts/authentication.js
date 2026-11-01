@@ -78,7 +78,6 @@ function setPageTitle(title) {
     document.title = title;
 }
 
-
 function resetLoginPageStyle() {
     setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");

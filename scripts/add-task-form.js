@@ -36,7 +36,6 @@ function initPriorityButtonClickListeners() {
 }
 
 const btnCleartaskForm = document.getElementById("btn-clear-task-form");
-
 if (btnCleartaskForm) {
   btnCleartaskForm.addEventListener("click", () => resetForm());
 }
