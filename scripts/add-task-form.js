@@ -49,9 +49,7 @@ function removeSelectedClassFromPriorityButtons() {
 
 async function getAssignedContacts() {
   const response = await getData("contacts");
-
   if (!response) return [];
-
   return Object.entries(response).map(([id, contact]) => ({
     id,
     ...contact,
@@ -61,9 +59,7 @@ async function getAssignedContacts() {
 async function renderAssignedContacts(container) {
   const assignedContacts = await getAssignedContacts();
   sortContactsByName(assignedContacts);
-
   const contactRef = container.querySelector("#assigned-contacts");
-
   contactRef.innerHTML = assignedContacts
     .map((contact) => {
       return getAssignedContactOptionTemplate(
@@ -72,15 +68,12 @@ async function renderAssignedContacts(container) {
       );
     })
     .join("");
-
   renderAssignedContactsDropdown(container);
 }
 
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
-
   if (!list) return;
-
   list.innerHTML = newTaskSubtasks
     .map((subtask, index) => {
       return getAddTaskSubtaskTemplate(index, subtask.title);
@@ -90,22 +83,18 @@ function renderNewSubtasks() {
 
 function addSubtaskFromInput(input) {
   const value = input.value.trim();
-
   if (!value) return false;
-
   newTaskSubtasks.push({
-  title: value,
-  done: false,
+    title: value,
+    done: false,
   });
   input.value = "";
   renderNewSubtasks();
-
   return true;
 }
 
 function addSubtaskOnEnter(event) {
   if (event.key !== "Enter") return;
-
   event.preventDefault();
   addSubtaskFromInput(event.target);
 }
@@ -114,7 +103,6 @@ document.addEventListener("keydown", (event) => {
   if (event.target.name === "subtask") {
     addSubtaskOnEnter(event);
   }
-
   if (event.target.name === "subtask-edit") {
     saveSubtaskOnEnter(event);
   }
@@ -122,7 +110,6 @@ document.addEventListener("keydown", (event) => {
 
 async function deleteSubtask(button) {
   const index = Number(button.closest(".subtask-list").dataset.index);
-
   newTaskSubtasks.splice(index, 1);
   await deleteData("subtasks" + index);
   renderNewSubtasks();
@@ -131,16 +118,11 @@ async function deleteSubtask(button) {
 function editSubtask(button) {
   const item = button.closest(".subtask-list");
   const editInput = item.querySelector(".subtask-edit-input");
-
   if (editInput) return saveSubtask(editInput);
-
   const index = Number(item.dataset.index);
   const span = item.querySelector("span");
-
   span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index].title);
-
   const handleButtons = item.querySelector(".subtask-button-container");
-
   handleButtons.style.opacity = 1;
   item.style.backgroundColor = "transparent";
   button.innerHTML = checkIconSvg;
@@ -159,27 +141,21 @@ function saveSubtaskOnEnter(event) {
 function saveSubtask(input) {
   const index = Number(input.closest(".subtask-list").dataset.index);
   const value = input.value.trim();
-
   if (value) {
     newTaskSubtasks[index].title = value;
   }
-
   renderNewSubtasks();
 }
 
 function resetForm(form = document.getElementById("add-task-form")) {
   if (!form) return;
-
   form.reset();
-
   form.querySelectorAll("[data-error]").forEach((error) => {
     error.textContent = "";
   });
-
   ["title", "dueDate", "category"].forEach((name) => {
     form.elements[name]?.setAttribute("aria-invalid", "false");
   });
-
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
   renderNewSubtasks();
@@ -188,15 +164,12 @@ function resetForm(form = document.getElementById("add-task-form")) {
 function showTaskFieldError(form, name, isInvalid) {
   const field = form.elements[name];
   const error = form.querySelector(`[data-error="${name}"]`);
-
   if (error) {
     error.textContent = isInvalid ? "This field is required" : "";
   }
-
   if (field) {
     field.setAttribute("aria-invalid", String(isInvalid));
   }
-
   return isInvalid;
 }
 
@@ -204,11 +177,9 @@ function isAddTaskFormValid(form) {
   const titleInvalid = !form.elements.title.value.trim();
   const dateInvalid = !form.elements.dueDate.value;
   const categoryInvalid = !form.elements.category.value;
-
   showTaskFieldError(form, "title", titleInvalid);
   showTaskFieldError(form, "dueDate", dateInvalid);
   showTaskFieldError(form, "category", categoryInvalid);
-
   return !titleInvalid && !dateInvalid && !categoryInvalid;
 }
 
@@ -216,21 +187,17 @@ function getAssignedContactsFromForm() {
   const select = document.getElementById("assigned-contacts");
   const assignedContacts = [];
   const selectedContacts = select.selectedOptions;
-
   for (let i = 0; i < selectedContacts.length; i++) {
     assignedContacts.push(selectedContacts[i].innerText);
   }
-
   return assignedContacts;
 }
 
 function getTaskData() {
   const formElements = getFormElements();
   const assignedContactsArray = getAssignedContactsFromForm();
-  const selectedPriorityText =
-    document.querySelector(".selected").dataset.priority;
+  const selectedPriorityText = document.querySelector(".selected").dataset.priority;
   const subtasks = getSubtasksFromForm();
-
   const taskData = {
     title: formElements.taskTitleInputElement.value.trim(),
     description: formElements.taskDescriptionElement.value.trim(),
@@ -241,7 +208,6 @@ function getTaskData() {
     priority: selectedPriorityText,
     subtasks: subtasks,
   };
-
   return taskData;
 }
 
@@ -250,38 +216,28 @@ function getFormElements(priority = "") {
     taskTitleInputElement: document.getElementById("taskTitleInput"),
     taskDescriptionElement: document.getElementById("taskDescription"),
     dueDateElement: document.getElementById("taskDueDate"),
-    selectedPriorityButton: document.querySelector(
-      '[data-priority="' + priority + '"]',
-    ),
+    selectedPriorityButton: document.querySelector('[data-priority="' + priority + '"]'),
     assignedContactsSelectElement: document.getElementById("assigned-contacts"),
     categorySelectElement: document.getElementById("taskCategorySelect"),
   };
 }
 
 function getSubtasksFromForm() {
-  return newTaskSubtasks.map((subtask) => ({
-    ...subtask,
-  }));
+  return newTaskSubtasks.map((subtask) => ({ ...subtask, }));
 }
 
 async function submitTask(event, editedTask) {
   const form = event.target;
-
   if (!isAddTaskFormValid(form)) return false;
-
   if (editedTask === null) {
     const taskData = getTaskData();
     const response = await postData("tasks", taskData);
     const firebaseId = response.name;
-
     taskData.id = firebaseId;
-
     await patchData(`tasks/${taskData.id}`, taskData);
-
     allTasks.push(taskData);
     return true;
   }
-
   await patchData(`tasks/${editedTask.id}`, editedTask);
   return true;
 }
@@ -312,14 +268,10 @@ function showPopup(message = "Task created") {
 function renderAssignedContactsDropdown(container) {
   const select = container.querySelector("#assigned-contacts");
   const dropdown = container.querySelector(".assigned-dropdown");
-
   if (!select || !dropdown) return;
-
   const list = dropdown.querySelector(".assigned-dropdown-list");
   list.replaceChildren();
-
   const editedTask = allTasks.find((task) => task.id === editingTaskId);
-
   if (editedTask) {
     Array.from(select.options).forEach((option) => {
       option.selected = (editedTask.assignedContacts || []).includes(
@@ -327,44 +279,34 @@ function renderAssignedContactsDropdown(container) {
       );
     });
   }
-
   Array.from(select.options).forEach((option) => {
     const row = document.createElement("label");
     row.className = "assigned-dropdown-option";
-
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = option.selected;
-
     const name = document.createElement("span");
     name.textContent = option.textContent;
-
     checkbox.addEventListener("change", () => {
       option.selected = checkbox.checked;
       updateAssignedContactsSummary(dropdown, select);
     });
-
     checkbox.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter") return;
-
-  event.preventDefault();
-
-  if (!event.repeat) {
-    checkbox.click();
-  }
-});
-
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      if (!event.repeat) {
+        checkbox.click();
+      }
+    });
     row.append(checkbox, name);
     list.appendChild(row);
   });
-
   if (!select.options.length) {
     const empty = document.createElement("p");
     empty.className = "assigned-dropdown-empty";
     empty.textContent = "No contacts available";
     list.appendChild(empty);
   }
-
   updateAssignedContactsSummary(dropdown, select);
 }
 
@@ -373,7 +315,6 @@ function updateAssignedContactsSummary(dropdown, select) {
     select.selectedOptions,
     (option) => option.textContent,
   );
-
   dropdown.querySelector(".assigned-dropdown-text").textContent =
     names.length ? names.join(", ") : "Select contacts to assign";
 }
@@ -390,14 +331,10 @@ document.addEventListener(
   "keydown",
   (event) => {
     if (event.key !== "Escape") return;
-
     const dropdown = event.target.closest(".assigned-dropdown[open]");
-
     if (!dropdown) return;
-
     event.preventDefault();
     event.stopImmediatePropagation();
-
     dropdown.open = false;
     dropdown.querySelector("summary").focus();
   },
@@ -406,25 +343,19 @@ document.addEventListener(
 
 document.addEventListener("reset", (event) => {
   const form = event.target;
-
   if (!form.querySelector(".assigned-dropdown")) return;
-
   setTimeout(() => {
     const dropdown = form.querySelector(".assigned-dropdown");
     const select = form.querySelector("#assigned-contacts");
-
     if (!dropdown || !select) return;
-
     Array.from(select.options).forEach((option) => {
       option.selected = false;
     });
-
     dropdown
       .querySelectorAll('input[type="checkbox"]')
       .forEach((checkbox) => {
         checkbox.checked = false;
       });
-
     dropdown.open = false;
     updateAssignedContactsSummary(dropdown, select);
   }, 0);
