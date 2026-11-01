@@ -153,7 +153,7 @@ function getTaskFormTemplate() {
       <form id="add-task-form" class="add-task-form" novalidate>
         ${getTaskFormContentTemplate()}
         <section class="form-buttons">
-          <button type="button" class="btn-clear btn">
+          <button onclick="resetForm()" type="button" class="btn-clear btn">
             <span>Clear</span>
             <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <path class="btn-svg-color" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round"/>

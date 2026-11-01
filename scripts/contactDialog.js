@@ -101,6 +101,11 @@ function getContactFormfromForm() {
     };
 }
 
+function clearAddContactDialog() {
+    const form = document.getElementById('add-task-form');
+    form.reset();
+}
+
 /* ---------- Validation ---------- */
 
 function contactHasBlankFields(contact) {
