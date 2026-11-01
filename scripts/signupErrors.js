@@ -49,7 +49,6 @@ function hideInputErrorMessage(event) {
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
     const errorMsg = document.getElementById('privacy-policy-error-msg');
-    toggleCheckboxChecked(checkboxSignup);
     if (checkboxSignup.checked) {
         errorMsg.classList.add('visibility-hidden');
         return;

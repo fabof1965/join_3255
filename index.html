@@ -20,7 +20,7 @@
   <script src="./scripts/signupErrors.js" defer></script>
   <script type="module" src="./scripts/signup.js"></script>
   <script type="module" src="./scripts/login.js"></script>
-  <script type="module" src="./scripts/authentication.js"></script>
+  <!-- <script type="module" src="./scripts/authentication.js"></script> -->
 </head>
 
 <body class="auth-body" onload="initAuth()">
@@ -45,7 +45,7 @@
       <div class="spacing"></div>
       <div id="signup-wrapper" class="auth-wrapper">
         <p>Not a join user ?</p>
-        <button onclick="addSignupContent()" id="show-sign-up-btn" class="auth-btn btn">
+        <button id="show-sign-up-btn" class="auth-btn btn">
           Sign up
         </button>
       </div>
@@ -54,7 +54,7 @@
     <main class="auth-main content-wrapper">
       <form onsubmit="userLogin(event)" id="auth-form" class="auth-form" novalidate>
         <header class="form-header">
-          <button onclick="backToLogin()" id="btn-show-login" type="button" class="arrow-back-btn">
+          <button id="btn-show-login" type="button" class="arrow-back-btn">
             <img src="./assets/icons/arrow-left-line.png" alt="back-to-login" />
           </button>
           <div class="heading-wrapper">
@@ -91,7 +91,7 @@
         <div class="checkbox-container" id="checkbox-container">
           <div>
             <input class="checkbox" type="checkbox" id="checkbox" />
-            <span>I accept the<a class="privacy-policy-link" data-text="Privacy Policy" href="./pages/privacy_policy.html">Privacy Policy</a></span>
+            <span>I accept the <a class="privacy-policy-link" data-text="Privacy Policy" href="./pages/privacy_policy.html">Privacy Policy</a></span>
           </div>
           <span id="privacy-policy-error-msg" class="privacy-policy-error-msg visibility-hidden">Please accept the prviacy policy</span>
         </div>
@@ -102,7 +102,7 @@
 
         <div id="submit-btn-container" class="submit-btn-container">
           <button id="login-btn" class="auth-btn btn">Log in</button>
-          <button onclick="logInGuestUser()" type="button" class="guest-login-btn btn">Guest log in</button>
+          <button id="guest-login" type="button" class="guest-login-btn btn">Guest log in</button>
         </div>
       </form>
     </main>
