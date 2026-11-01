@@ -44,6 +44,7 @@
     align-items: center;
     margin-top: 0;
     margin-left: auto;
+    width: var(--full);
 }
 
 .btn-create-task {
