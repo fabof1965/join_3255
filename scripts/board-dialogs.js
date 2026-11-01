@@ -27,6 +27,11 @@ function setTaskFormUsers(select, users = []) {
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    handleSubtaskCheckboxChange(event);
+  }
+});
 
 document.addEventListener("submit", async (event) => {
   const form = event.target;
@@ -79,15 +84,6 @@ function createNewTaskElement(newTaskData) {
   return newTaskElement;
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.target.name === "subtask") {
-    addSubtaskOnEnter(event);
-  }
-  if (event.target.name === "subtask-edit") {
-    saveSubtaskOnEnter(event);
-  }
-});
-
 document.getElementById("btn-add-task").addEventListener("click", () => {
   openAddTaskDialog("toDo");
 });
@@ -136,7 +132,9 @@ async function openAddTaskDialogInEditMode(task) {
   editingTaskId = task.id;
   newTaskStatus = task.status;
   const subtasks = await getData(`tasks/${task.id}/subtasks`);
-  newTaskSubtasks = (subtasks || []).map((subtask) => subtask.title);
+  newTaskSubtasks = (subtasks || []).map((subtask) => ({
+  ...subtask,
+}));
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
