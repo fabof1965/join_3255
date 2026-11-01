@@ -326,9 +326,7 @@ document.addEventListener("click", (event) => {
   });
 });
 
-document.addEventListener(
-  "keydown",
-  (event) => {
+document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
     const dropdown = event.target.closest(".assigned-dropdown[open]");
     if (!dropdown) return;
