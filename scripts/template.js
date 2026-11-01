@@ -107,8 +107,7 @@ function getInputFieldsForLogin() {
           <label for="login-password" class="visually-hidden">Passwort</label>
           <input id="login-password" class="input-field" type="password" placeholder="Passwort"/>
           <button type="button" class="password-toggle" aria-label="Show password">
-            <img id="login-password-toggle-icon" class="lock-img"
-                src="./assets/icons/lock.svg" alt="" />
+            <img id="login-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon" />
           </button>
         </div>
         <span id="login-password-err-msg" class="error-msg visibility-hidden"></span>
@@ -139,7 +138,7 @@ function getInputFieldsForSignup() {
         <div class="input-content-container">
           <input id="signup-password" class="input-field" type="password" placeholder="Password">
           <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
-            <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock">
+            <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon">
           </button>
         </div>
         <span id="signup-password-err-msg" class="error-msg visibility-hidden"></span>
@@ -150,7 +149,7 @@ function getInputFieldsForSignup() {
           <label for="confirm-password" class="visually-hidden">Confirm Password</label>
           <input id="confirm-password" class="input-field" type="password" placeholder="Confirm Password" aria-describedby="invalid-pw-confirm-msg">
           <button type="button" class="password-toggle" data-password-toggle-for="confirm-password" aria-label="Show password">
-            <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="">
+            <img id="confirm-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon">
           </button>
         </div>
         <span id="invalid-pw-confirm-msg" class="error-msg visibility-hidden">passwords do not match</span>
