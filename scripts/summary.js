@@ -55,7 +55,7 @@ function updateUpcomingDeadline(urgentTasks) {
       return duty;
   });
   urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-  const closestDateStr = urgentTaskDates[0].dueDate;
+  const closestDateStr = urgentTaskDates[0]?.dueDate;
   deadlineOutput(closestDateStr, urgentTaskDates);
 }
 
