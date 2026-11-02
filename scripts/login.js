@@ -2,14 +2,13 @@ import { signInWithEmailAndPassword, signInAnonymously } from 'https://www.gstat
 import { ref, get } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
 
-function initAuth() {
-    initPasswordEventListener();
-    initLoginEventListeners();
-    handleUserLogin();
-    logInGuestUser();
-}
+document.addEventListener("DOMContentLoaded", () => initAuthEventListeners());
 
-initAuth();
+function initAuthEventListeners() {
+    initPasswordEventListener();
+    initLoginInputEventListeners();
+    initEventListenersForLoginForm();
+}
 
 /**
  * Handle the login form submission.
@@ -19,12 +18,11 @@ export function initPasswordEventListener() {
     getPasswordFieldObjects().forEach((field) => {
         if (!field.input || !field.icon || !field.togglePasswordVisibility) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
-        // field.icon.addEventListener('focus', () => togglePasswordVisibility(field));
         field.togglePasswordVisibility.addEventListener('click', () => togglePasswordVisibility(field));
     });
 }
 
-export function initLoginEventListeners() {
+export function initLoginInputEventListeners() {
     const inputFields = [
         document.getElementById('email'),
         document.getElementById('login-password'),
@@ -34,12 +32,32 @@ export function initLoginEventListeners() {
     });
 }
 
-function handleUserLogin() {
-    document.getElementById('auth-form').addEventListener('submit', userLogin);
+function initEventListenersForLoginForm() {
+    const loginForm = document.getElementById('auth-form');
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const loginButton = document.getElementById("login-btn");
+        const guestLoginButton = document.getElementById("guest-login-btn")
+        if(event.submitter === loginButton) {
+            userLogin();
+            return;
+        }
+
+        if(event.submitter === guestLoginButton) {
+            logInGuestUser();
+            return;
+        }
+    });
+
+    loginForm.addEventListener("keyup", (event) => {
+        event.preventDefault();
+        if(event.key === "Enter") {
+            userLogin();
+        }
+    });
 }
 
-export async function userLogin(event) {
-    event.preventDefault();
+export async function userLogin() {
     const email = document.getElementById('email');
     const password = document.getElementById('login-password');
     let userCredential;
@@ -64,20 +82,18 @@ function storeLoggedInUser(user) {
 }
 
 async function logInGuestUser() {
-    document.getElementById('guest-login').addEventListener('click', async () => {
-        const signUpForm = document.getElementById('auth-form');
-        try {
-            await signInAnonymously(auth);
-        } catch (error) {
-            console.error('Guest login failed', error);
-            return;
-        }
-        localStorage.setItem('name', 'Guest');
-        localStorage.removeItem('email');
-        resetLogin();
-        signUpForm.reset();
-        window.location.href = './pages/summary.html';
-    });
+    const signUpForm = document.getElementById('auth-form');
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error('Guest login failed', error);
+        return;
+    }
+    localStorage.setItem('name', 'Guest');
+    localStorage.removeItem('email');
+    resetLogin();
+    signUpForm.reset();
+    window.location.href = './pages/summary.html';
 }
 
 function getPasswordFieldObjects() {
