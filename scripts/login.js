@@ -19,7 +19,7 @@ export function initPasswordEventListener() {
     passwordInputFields().forEach((field) => {
         if (!field.input || !field.icon || !field.toggle) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
-        field.input.addEventListener('focus', () => handlePasswordFocus(field));
+        field.input.addEventListener('focus', () => togglePasswordVisibility(field));
         field.toggle.addEventListener('click', () => toggleShowPassword(field));
     });
 }
@@ -100,7 +100,7 @@ function createPasswordField(inputId, iconId) {
     return { input: input, icon: icon, toggle: toggle }
 }
 
-function handlePasswordFocus(field) {
+function togglePasswordVisibility(field) {
     if (field.input.type === "password") {
         field.icon.src = "./assets/icons/visibility_off.svg";
         field.icon.alt = "hide password";
