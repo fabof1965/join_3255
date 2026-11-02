@@ -16,11 +16,11 @@ initAuth();
  * @param {Event} event - Login form submission event.
  */
 export function initPasswordEventListener() {
-    passwordInputFields().forEach((field) => {
-        if (!field.input || !field.icon || !field.toggle) return;
+    getPasswordFieldObjects().forEach((field) => {
+        if (!field.input || !field.icon || !field.togglePasswordVisibility) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
-        field.input.addEventListener('focus', () => togglePasswordVisibility(field));
-        field.toggle.addEventListener('click', () => toggleShowPassword(field));
+        // field.icon.addEventListener('focus', () => togglePasswordVisibility(field));
+        field.togglePasswordVisibility.addEventListener('click', () => togglePasswordVisibility(field));
     });
 }
 
@@ -80,60 +80,47 @@ async function logInGuestUser() {
     });
 }
 
-function passwordInputFields() {
+function getPasswordFieldObjects() {
     return [
-        createPasswordField('login-password', 'login-password-toggle-icon'),
-        createPasswordField('signup-password', 'signup-password-toggle-icon'),
-        createPasswordField('confirm-password', 'confirm-password-toggle-icon')
+        createPasswordFieldObject('login-password', 'login-password-toggle-icon'),
+        createPasswordFieldObject('signup-password', 'signup-password-toggle-icon'),
+        createPasswordFieldObject('confirm-password', 'confirm-password-toggle-icon')
     ];
 }
 
-function createPasswordField(inputId, iconId) {
+function createPasswordFieldObject(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon = document.getElementById(iconId);
-    let toggle = null;
+    let btnTogglePasswordVisibility = null;
     if (icon) {
-        toggle = icon.closest('.password-toggle');
+        btnTogglePasswordVisibility = icon.closest('.password-toggle');
     } else {
-        toggle = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}]`) || null;
+        btnTogglePasswordVisibility = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}]`) || null;
     }
-    return { input: input, icon: icon, toggle: toggle }
-}
-
-function togglePasswordVisibility(field) {
-    if (field.input.type === "password") {
-        field.icon.src = "./assets/icons/visibility_off.svg";
-        field.icon.alt = "hide password";
-        field.toggle.setAttribute("aria-label", "Hide password");
-    } else {
-        field.input.type = "text";
-        field.icon.src = './assets/icons/visibility.svg';
-        field.icon.alt = "show password";
-        field.toggle.setAttribute("aria-label", "Show password");
-    }
+    return { input: input, icon: icon, togglePasswordVisibility: btnTogglePasswordVisibility }
 }
 
 function handleEmptyPasswordInput(field) {
     if (field.input.value === "") return setPasswordIcon(field, "./assets/icons/lock.svg", "lock-img", "Show password");
     const visible = field.input.type === "text";
-    setPasswordIcon(field, visible ? './assets/icons/visibility.svg' : "./assets/icons/visibility_off.svg",
-        visible ? "show password" : "hide password", visible ? "Show password" : "Hide password");
+    setPasswordIcon(field,
+        visible ? './assets/icons/visibility_off.svg' : "./assets/icons/visibility.svg",
+        visible ? "hide password" : "show password", 
+        visible ? "Hide password" : "Show password");
 }
 
 function setPasswordIcon(field, source, alt, label) {
-    field.icon.src = source; field.icon.alt = alt; field.toggle.setAttribute("aria-label", label);
+    field.icon.src = source;
+    field.icon.alt = alt; 
+    field.togglePasswordVisibility.setAttribute("aria-label", label);
 }
 
-function toggleShowPassword(field) {
+function togglePasswordVisibility(field) {
     if (field.input.type === "password") {
         field.input.type = "text";
-        field.icon.src = './assets/icons/visibility.svg';
-        field.icon.alt = "show password";
-        field.toggle.setAttribute("aria-label", "Show password");
+        setPasswordIcon(field, "./assets/icons/visibility_off.svg", "hide password", "Hide password");
     } else {
         field.input.type = "password";
-        field.icon.src = "./assets/icons/visibility_off.svg";
-        field.icon.alt = "hide password";
-        field.toggle.setAttribute("aria-label", "Hide password");
+        setPasswordIcon(field, "./assets/icons/visibility.svg", "show password", "Show password");
     }
 }
