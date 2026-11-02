@@ -2,7 +2,8 @@ const wrongEmail = "Check your email and password. Please try again.";
 const enterLoginEmailMsg = "Please enter your email.";
 const enterLoginPwMsg = "Please enter your password.";
 
-function showErrorMessageForLogin() {
+function showErrorMessageForLogin(event) {
+    if(event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
     const emailErrMsg = document.getElementById('email-err-msg'); //span
     const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
     const emptyEmailInput = !document.getElementById('email').value.trim(); // input
@@ -24,7 +25,7 @@ function setLoginErrorText(element, text) {
     element.classList.toggle('visibility-hidden', !text);
 }
 
-function resetLogin() {
+function hideLoginErrors() {
     const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('login-password-err-msg');
     errorMsg.classList.add('visibility-hidden');

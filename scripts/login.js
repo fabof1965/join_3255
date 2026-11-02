@@ -1,10 +1,14 @@
 import { signInWithEmailAndPassword, signInAnonymously } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, get } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
+import { addSignupContent } from "./signup.js";
 
 document.addEventListener("DOMContentLoaded", () => initAuthEventListeners());
+document.getElementById('show-sign-up-btn').addEventListener('click', () => {
+    addSignupContent();
+});
 
-function initAuthEventListeners() {
+export function initAuthEventListeners() {
     initPasswordEventListener();
     initLoginInputEventListeners();
     initEventListenersForLoginForm();
@@ -15,7 +19,7 @@ function initAuthEventListeners() {
  * @param {Event} event - Login form submission event.
  */
 export function initPasswordEventListener() {
-    getPasswordFieldObjects().forEach((field) => {
+    getLoginPasswordFieldObject().forEach((field) => {
         if (!field.input || !field.icon || !field.togglePasswordVisibility) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
         field.togglePasswordVisibility.addEventListener('click', () => togglePasswordVisibility(field));
@@ -27,51 +31,50 @@ export function initLoginInputEventListeners() {
         document.getElementById('email'),
         document.getElementById('login-password'),
     ];
-    inputFields.forEach(field => {
-        field.addEventListener('input', resetLogin)
+    inputFields.forEach((field) => {
+        field.addEventListener('input', hideLoginErrors)
     });
 }
 
 function initEventListenersForLoginForm() {
     const loginForm = document.getElementById('auth-form');
+    handleLoginOnSubmit(loginForm);
+}
+
+function submitHandler(event) {
+    event.preventDefault();
+    const loginButton = document.getElementById("login-btn");
+    const guestLoginButton = document.getElementById("guest-login-btn")
+    if(event.submitter === loginButton) {
+        userLogin(event);
+    }
+
+    if(event.submitter === guestLoginButton) {
+        logInGuestUser();
+    }
+}
+
+function handleLoginOnSubmit(loginForm) {
     loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const loginButton = document.getElementById("login-btn");
-        const guestLoginButton = document.getElementById("guest-login-btn")
-        if(event.submitter === loginButton) {
-            userLogin();
-            return;
-        }
-
-        if(event.submitter === guestLoginButton) {
-            logInGuestUser();
-            return;
-        }
-    });
-
-    loginForm.addEventListener("keyup", (event) => {
-        event.preventDefault();
-        if(event.key === "Enter") {
-            userLogin();
-        }
+        submitHandler(event);
     });
 }
 
-export async function userLogin() {
+export async function userLogin(event) {
     const email = document.getElementById('email');
     const password = document.getElementById('login-password');
     let userCredential;
     try {
         userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
     } catch (error) {
-        return showErrorMessageForLogin();
+        return showErrorMessageForLogin(event);
     }
     let userData = {};
     const snapshot = await get(ref(db, 'users/' + userCredential.user.uid));
     if (snapshot.exists()) {
         userData = snapshot.val();
     }
-    storeLoggedInUser({ name: userData.name, email: userCredential.user.email }); resetLogin(); document.getElementById('auth-form').reset();
+    storeLoggedInUser({ name: userData.name, email: userCredential.user.email }); hideLoginErrors(); document.getElementById('auth-form').reset();
     window.location.href = './pages/summary.html';
 }
 
@@ -82,7 +85,7 @@ function storeLoggedInUser(user) {
 }
 
 async function logInGuestUser() {
-    const signUpForm = document.getElementById('auth-form');
+    const loginForm = document.getElementById('auth-form');
     try {
         await signInAnonymously(auth);
     } catch (error) {
@@ -91,16 +94,14 @@ async function logInGuestUser() {
     }
     localStorage.setItem('name', 'Guest');
     localStorage.removeItem('email');
-    resetLogin();
-    signUpForm.reset();
+    hideLoginErrors();
+    loginForm.reset();
     window.location.href = './pages/summary.html';
 }
 
-function getPasswordFieldObjects() {
+function getLoginPasswordFieldObject() {
     return [
         createPasswordFieldObject('login-password', 'login-password-toggle-icon'),
-        createPasswordFieldObject('signup-password', 'signup-password-toggle-icon'),
-        createPasswordFieldObject('confirm-password', 'confirm-password-toggle-icon')
     ];
 }
 

@@ -1,28 +1,50 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
-import { initLoginEventListeners, initPasswordEventListener, userLogin } from './login.js';
+import { initAuthEventListeners } from './login.js';
 
-initSignUpEventListeners();
-addSignupContent();
-setminHeightAnimationOnForm();
-backToLogin();
+document.getElementById("checkbox").addEventListener("keyup", (event) => {
+    handleChackboxChangeOnEnter(event);
+});
 
-function initSignUpEventListeners() {
-    const checkboxSignup = document.getElementById('checkbox');
-    checkboxSignup.addEventListener("change", acceptPrivacyPolicy);
+document.getElementById("checkbox").addEventListener("change", (event) => {
+    handleCheckboxChangeOnClick(event);
+});
+
+document.getElementById('btn-show-login').addEventListener('click', showLoginForm);
+
+document.getElementById("auth-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const signupButton = document.getElementById("sign-up-btn");
+    if(event.submitter === signupButton)
+        registerUser(event);
+});
+
+function handleChackboxChangeOnEnter(event) {
+    event.preventDefault();
+    const checkbox = document.getElementById("checkbox");
+    if(event.key === "Enter") {
+        checkbox.checked = !checkbox.checked;
+        acceptPrivacyPolicy();
+    }
 }
 
-async function registerUser(event) {
+function handleCheckboxChangeOnClick(event) {
+    event.preventDefault();
+    acceptPrivacyPolicy();
+}
+
+async function registerUser() {
     const signUpForm = document.getElementById('auth-form');
     const emailSignup = document.getElementById('email-signup');
     const passwordSignup = document.getElementById('signup-password');
     const signupNameInput = document.getElementById('signup-name-input');
-    event.preventDefault();
     if (!(await isRegistrationValid())) return;
     const userData = await saveNewUser(signupNameInput.value, emailSignup.value, passwordSignup.value);
     if (!userData) return;
-    signUpForm.reset(); signUpSuccessPopUp(); showLoginForm();
+    signUpForm.reset(); 
+    signUpSuccessPopUp(); 
+    showLoginForm();
 }
 
 async function isRegistrationValid() {
@@ -37,7 +59,7 @@ async function saveNewUser(name, email, password) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         await set(ref(db, 'users/' + user.uid), {
-            name, email, createdAt: serverTimestamp()
+            name, email, createdAt: serverTimestamp(),
         });
         setEmailExistsFeedback(false);
         return true;
@@ -82,38 +104,22 @@ function closeDialog() {
     dialog.close();
 }
 
-function backToLogin() {
-    document.getElementById('btn-show-login').addEventListener('click', showLoginForm);
-}
-
 function showLoginForm() {
     resetLoginPageStyle();
-    renderLoginForm();
+    renderLoginInputFields();
     resetLoginFormState();
-    initPasswordEventListener();
-    initLoginEventListeners();
+    initAuthEventListeners();
 }
 
-function setSubmitHandler(handler = userLogin) {
-    const form = document.getElementById("auth-form");
-    form.removeEventListener("submit", userLogin);
-    form.removeEventListener("submit", registerUser);
-    form.addEventListener("submit", handler);
-}
-
-function addSignupContent() {
-    document.getElementById('show-sign-up-btn').addEventListener('click', () => {
-        setPageTitle("Sign up");
-        setPageBackgroundColor("#1268FF");
-        setLegalLinkColor("var(--white-color)");
-        setLegalLinkHoverEffect();
-        setLogoStyles("var(--white-color)", "none");
-        setSignupFormContent();
-        initSignUpEventListeners();
-        initEventListenersForRegistrationForm();
-        initPasswordEventListener();
-        setAuthenticationHeaderMargin("0");
-    });
+export function addSignupContent() {
+    setPageTitle("Sign up");
+    setPageBackgroundColor("#1268FF");
+    setLegalLinkColor("var(--white-color)");
+    setLegalLinkHoverEffect();
+    setLogoStyles("var(--white-color)", "none");
+    setSignupFormContent();
+    initRegistrationInputEventListeners();
+    setAuthenticationHeaderMargin("0");
 }
 
 function setAuthenticationHeaderMargin(marginAttribute) {
@@ -136,7 +142,7 @@ function setLegalLinkHoverEffect() {
 
 function resetLegalLinkHoverEffect() {
     const legalLinks = document.querySelectorAll('.footer-legal-link');
-    legalLinks.forEach(legalLink => {
+    legalLinks.forEach((legalLink) => {
         legalLink.classList.remove('signup-legal-link');
         legalLink.removeAttribute('style');
     });
@@ -193,26 +199,27 @@ function setPageTitle(title) {
 }
 
 function resetLoginPageStyle() {
-    setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setSubmitHandler();
+    setAuthenticationHeaderMargin(""); 
+    setPageTitle("Join Log in");
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
-    setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
+    setPageBackgroundColor("var(--white-color)"); 
+    setHeadlineText("Log in"); 
+    resetLegalLinkHoverEffect();
 }
 
-function renderLoginForm() {
+function renderLoginInputFields() {
     document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
-    setDisplayForSignupElements(); setDisplayForLoginElements();
+    setDisplayForSignupElements(); 
+    setDisplayForLoginElements();
 }
 
 function resetLoginFormState() {
-    resetCheckboxValidity(); resetpricavyPolicityCheckbox();
-}
-
-function setminHeightAnimationOnForm() {
-    document.getElementById("auth-form").classList.add("min-height-animated");
+    resetCheckboxValidity(); 
+    resetPrivacyPolicyCheckboxError();
 }
 
 function resetCheckboxValidity() {
-    let CHECKBOX = document.getElementById("checkbox");
+    const CHECKBOX = document.getElementById("checkbox");
     CHECKBOX.setCustomValidity("");
 }
 
@@ -223,7 +230,7 @@ function setSignupFormContent() {
     FORM_INPUT_CONTAINER.innerHTML = getInputFieldsForSignup();
     setDisplayForSignupElements("flex");
     setDisplayForLoginElements("none");
-    setSubmitHandler(registerUser);
+    document.getElementById("checkbox").checked = false;
 }
 
 function setLoginFormBackgroundColor(color) {

@@ -3,14 +3,14 @@ const emailInUse = "Email already in use.";
 const pwTooShortMsg = "Password should be at least 6 characters.";
 const pwMismatchMsg = "Passwords do not match.";
 
-function initEventListenersForRegistrationForm() {
+function initRegistrationInputEventListeners() {
     const inputFields = [
         document.getElementById('signup-name-input'),
         document.getElementById('email-signup'),
         document.getElementById('signup-password'),
         document.getElementById('confirm-password')
     ];
-    inputFields.forEach(field => {
+    inputFields.forEach((field) => {
         field.addEventListener('input', hideInputErrorMessage);
     });
 }
@@ -51,10 +51,8 @@ function acceptPrivacyPolicy() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
     if (checkboxSignup.checked) {
         errorMsg.classList.add('visibility-hidden');
-        return;
     } else {
         errorMsg.classList.remove('visibility-hidden');
-        return;
     }
 }
 
@@ -62,7 +60,7 @@ function toggleCheckboxChecked(checkbox) {
     checkbox.checked = checkbox.checked ? false : true;
 }
 
-function resetpricavyPolicityCheckbox() {
+function resetPrivacyPolicyCheckboxError() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
     errorMsg.classList.add('visibility-hidden');
 }

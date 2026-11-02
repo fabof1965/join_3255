@@ -78,19 +78,19 @@ function setPageTitle(title) {
     document.title = title;
 }
 
-function resetLoginPageStyle() {
+function hideLoginErrorsPageStyle() {
     setAuthenticationHeaderMargin(""); setPageTitle("Join Log in"); setOnSubmitAttribute();
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
     setPageBackgroundColor("var(--white-color)"); setHeadlineText("Log in"); resetLegalLinkHoverEffect();
 }
 
-function renderLoginForm() {
+function renderLoginInputFields() {
     document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
     setDisplayForSignupElements(); setDisplayForLoginElements();
 }
 
-function resetLoginFormState() {
-    resetCheckboxValidity(); resetpricavyPolicityCheckbox();
+function hideLoginErrorsFormState() {
+    resetCheckboxValidity(); resetPrivacyPolicyCheckboxError();
 }
 
 function setminHeightAnimationOnForm() {
