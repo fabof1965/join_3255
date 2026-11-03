@@ -80,9 +80,9 @@ function handleContactCardKeydown(event, indexContact, contactCard) {
 }
 
 /**
- * highlights the selected contact card and displays its contact information 
- * @param {number} indexContact 
- * @param {*HTMLElement} contactCard 
+ * Highlights the selected contact card and displays its contact information.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ * @param {HTMLElement} contactCard - The clicked contact card element.
  */
 function showSelectedContact(indexContact, contactCard) {
     contactCard.classList.add("background-primary");
@@ -97,6 +97,10 @@ function showSelectedContact(indexContact, contactCard) {
     }
 }
 
+/**
+ * Shows the details of the selected contact with a slide-in animation.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
 function showContactDetail(indexContact) {
     getContactsData(indexContact);
     document.querySelector("#contact-detail").classList.add('animation-right');
