@@ -32,6 +32,7 @@ async function renderContacts() {
     sortContactsByName(allContacts);
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
+    // document.querySelectorAll('.contact-card').forEach(card => console.log(card));
 }
 
 /**
