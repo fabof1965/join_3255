@@ -149,6 +149,9 @@ function hideContactDetail() {
     setButtonContent();
 }
 
+/**
+ * opens the popover menu of the selected contact (mobile view)
+ */
 function showPopover() {
     document.getElementById("popover-menu").showPopover();
 }
