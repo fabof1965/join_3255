@@ -107,6 +107,10 @@ function showContactDetail(indexContact) {
     setBadgeBackgroundColor();
 }
 
+/**
+ * Renders the information of the given contact into the contact detail container.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
 function getContactsData(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
