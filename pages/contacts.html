@@ -33,7 +33,7 @@
     <nav id="sidebar"></nav>
 
     <section class="contacts-section">
-      <button id="open-button" class="btn-new-contact btn">
+      <button id="open-button" class="btn-new-contact btn" aria-label="">
         <span id="txt-add-new-contact">Add new contact</span>
         <img class="add-new-contact-image" src="../assets/icons/new_contact.svg" alt="new contact" />
       </button>
@@ -52,8 +52,7 @@
 
   <dialog class="add-contact-dialog" id="add-contact-dialog">
     <header class="dialog-header">
-      <button type="button" class="close-dialog-button" aria-label="Close add contact dialog"
-        onclick="closeContactDialog()">
+      <button type="button" class="close-dialog-button btn-close-add-contact-dialog" aria-label="Close add contact dialog">
         <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)" viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg">
           <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2" stroke-linecap="round" />
@@ -86,7 +85,7 @@
         </svg>
       </div>
 
-      <form class="contact-form" id="contact-form" onsubmit="submitContactForm(event)">
+      <form class="contact-form" id="contact-form">
         <div class="data-input-area">
           <div class="input-wrapper">
             <div id="wrong-name-border" class="add-contact-content">
@@ -116,14 +115,6 @@
         </div>
 
         <div class="btn-container">
-          <button type="button" class="cancel-btn btn" onclick="closeContactDialog()">
-            <span id="cancel-btn-text">Cancel</span>
-
-            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-              <path class="cancel-svg" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
-
           <button type="submit" class="create-contact-btn btn">
             <span>Create Contact</span>
 
@@ -140,6 +131,14 @@
               </g>
             </svg>
           </button>
+
+          <button type="button" class="cancel-btn btn btn-close-add-contact-dialog">
+            <span id="cancel-btn-text">Cancel</span>
+
+            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path class="cancel-svg" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
         </div>
       </form>
     </main>
@@ -147,8 +146,7 @@
 
   <dialog class="edit-contact-dialog" id="edit-contact-dialog">
     <header class="dialog-header">
-      <button type="button" class="close-dialog-button" aria-label="Close edit contact dialog"
-        onclick="closeEditContactDialog()">
+      <button type="button" class="close-dialog-button btn-close-edit-dialog" aria-label="Close edit contact dialog">
         <svg width="var(--back-btn-image-dimensions)" height="var(--back-btn-image-dimensions)" viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg">
           <path d="M8 8L24 24M24 8L8 24" stroke="white" fill="white" stroke-width="2" stroke-linecap="round" />
@@ -167,7 +165,7 @@
     <main class="dialog-main">
       <div class="edit-badge-image-container profile-badge"></div>
 
-      <form class="contact-form" id="edit-contact-form" onsubmit="submitContactForm(event)">
+      <form class="contact-form" id="edit-contact-form">
         <div class="data-input-area">
           <div class="input-wrapper">
             <div id="existing-contact-wrong-name-border" class="add-contact-content">
@@ -199,23 +197,7 @@
         </div>
 
         <div class="btn-container">
-          <button type="button" class="cancel-btn btn" onclick="closeEditContactDialog()">
-            <span>Cancel</span>
-
-            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-              <path class="cancel-svg" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
-
-          <button type="button" class="trash-btn btn" onclick="deleteContact(editIndex)">
-            <span>Delete</span>
-
-            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 8L24 24M24 8L8 24" stroke="#647188" fill="#647188" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
-
-          <button class="create-contact-btn btn">
+          <button class="create-contact-btn save-edited-contact-btn btn">
             <span>Save</span>
 
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,6 +213,15 @@
               </g>
             </svg>
           </button>
+
+          <button type="button" class="cancel-btn btn btn-close-edit-dialog">
+            <span>Cancel</span>
+
+            <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path class="cancel-svg" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+
         </div>
       </form>
     </main>

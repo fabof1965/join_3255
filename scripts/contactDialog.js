@@ -3,14 +3,44 @@ let isSubmittingContact = false;
 initPhoneFilter();
 resetErrEventlistener();
 
-getAddContactDialog().addEventListener("close", () => {
-    editIndex = null;
-    resetContactForm();
+document.querySelectorAll(".btn-close-add-contact-dialog").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        closeDialogHandler(event, closeContactDialog);
+    });
 });
 
-document.getElementById("edit-contact-dialog").addEventListener("close", () => {
-    editIndex = null;
+document.querySelectorAll(".btn-close-edit-dialog").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        closeDialogHandler(event, closeEditContactDialog);
+    });
 });
+
+document.getElementById("contact-form").addEventListener("submit", (event) => {
+    submitHandler(event);
+});
+
+document.getElementById("edit-contact-form").addEventListener("submit", (event) => {
+    submitHandler(event);
+});
+
+getAddContactDialog().addEventListener("cancel", (event) => {
+    closeDialogHandler(event, closeContactDialog);
+});
+
+document.getElementById("edit-contact-dialog").addEventListener("cancel", (event) => {
+    closeDialogHandler(event, closeEditContactDialog);
+});
+
+function submitHandler(event) {
+    event.preventDefault();
+    submitContactForm(event);
+}
+
+function closeDialogHandler(event, closingFunction) {
+    event.preventDefault();
+    editIndex = null;
+    closingFunction();
+}
 
 /* ---------- Add contact dialog ---------- */
 
@@ -201,14 +231,15 @@ function editExistingContact(indexContact) {
 }
 
 function openExistingContactDialog(indexContact) {
+    const contact = allContacts[indexContact];
     const editContactDialog = document.getElementById("edit-contact-dialog");
     const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = getInitials(allContacts[indexContact].name).toUpperCase();
+    const initials = getInitials(contact.name).toUpperCase();
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     setBadgeBackgroundColor();
     editIndex = indexContact;
-    fillContactForm(allContacts[indexContact]);
+    fillContactForm(contact);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
     clickEventListener(editContactDialog, closeEditContactDialog);
