@@ -20,6 +20,13 @@ document.getElementById("open-button").addEventListener("click", () => {
 
 function initContacts() {
     renderContacts();
+    initAriaLabels();
+}
+
+function initAriaLabels() {
+    const btnOpenContactDialog = document.getElementById("open-button");
+
+    btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
 /**
@@ -101,6 +108,9 @@ function showContactDetail(indexContact) {
 function getContactsData(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
+    document.querySelector("#arrow-btn").addEventListener("click", () => {
+        hideContactDetail();
+    });
 }
 
 function clearActiveContacts() {
@@ -123,6 +133,7 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
+    document.getElementById("open-button").setAttribute("aria-label", "Open Dialog to add a new contact"); 
 }
 
 function showPopover() {
@@ -130,11 +141,14 @@ function showPopover() {
 }
 
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
+    const openButton = document.getElementById("open-button");
     const addContactImage = document.querySelector(".add-new-contact-image");
     if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
         addContactImage.setAttribute("src", newSource);
+        openButton.setAttribute("aria-label", "Open popover menu with options to edit or delete the currently opened contact");
     }
     else if (addContactImage.getAttribute("src") === newSource && isMobile) {
         addContactImage.setAttribute("src", defaultSource);
+        openButton.setAttribute("aria-label", "Open Dialog to add a new contact");
     }
 }
