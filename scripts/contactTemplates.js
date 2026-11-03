@@ -19,7 +19,7 @@ function getPopoverContent(indexContact) {
 
 function getContactTemplate(indexContact) {
   return `
-      <article class="contact-card" id="contact-card${indexContact}" role="button" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}" onclick="toggleContactDetail(${indexContact}, this)" onkeydown="handleContactCardKeydown(event, ${indexContact}, this)">
+      <article class="contact-card" id="contact-card${indexContact}" role="button" data-index-number="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
         <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
         <div class="name-and-mail">
           <span class="name">${allContacts[indexContact].name}</span>
@@ -65,11 +65,11 @@ function getContactBodyTemplate(contact) {
       <div class="contact-information">
         <section class="email">
           <h4>E-Mail</h4>
-          <a id="mail-detail" class="email-text" href="mailto:${contact.email}">${contact.email}</a>
+          <a id="mail-detail" class="email-text" href="mailto:${contact.email}" aria-label="Send mail to '${contact.email}'">${contact.email}</a>
         </section>
         <section class="phone">
           <h4>Phone</h4>
-          <a class="phone-detail" id="phone-detail" href="tel:${contact.phone}">${contact.phone}</a>
+          <a class="phone-detail" id="phone-detail" href="tel:${contact.phone}" aria-label="Call '${contact.name}'">${contact.phone}</a>
         </section>
       </div>
   `;

@@ -21,6 +21,7 @@ document.getElementById("open-button").addEventListener("click", () => {
 function initContacts() {
     renderContacts();
     initAriaLabels();
+    console.log(document.getElementsByName(".contact-card"));
 }
 
 function initAriaLabels() {
@@ -36,9 +37,19 @@ async function renderContacts() {
     allContacts = await loadContacts();
     const contactContainer = document.getElementById("contacts");
     contactContainer.innerHTML = "";
-    sortContactsByName(allContacts);
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
+    document.querySelectorAll('.contact-card').forEach((card) => {
+        const contactCardIndex = card.dataset.indexNumber;
+        card.addEventListener("click", () => {
+            toggleContactDetail(contactCardIndex, card);
+        });
+        card.addEventListener("keyup", (event) => {
+            if(event.key === "Enter") {
+                handleContactCardKeydown(event, contactCardIndex, card);
+            }
+        });
+    });
 }
 
 /**
