@@ -40,15 +40,19 @@ async function renderContacts() {
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
     document.querySelectorAll('.contact-card').forEach((card) => {
-        const contactCardIndex = card.dataset.indexNumber;
-        card.addEventListener("click", () => {
+        initContactCardListeners(card);
+    });
+}
+
+function initContactCardListeners(card) {
+    const contactCardIndex = card.dataset.contactIndex;
+    card.addEventListener("click", () => {
+        toggleContactDetail(contactCardIndex, card);
+    });
+    card.addEventListener("keyup", (event) => {
+        if(event.key === "Enter") {
             toggleContactDetail(contactCardIndex, card);
-        });
-        card.addEventListener("keyup", (event) => {
-            if(event.key === "Enter") {
-                handleContactCardKeydown(event, contactCardIndex, card);
-            }
-        });
+        }
     });
 }
 
@@ -83,18 +87,6 @@ function toggleContactDetail(indexContact, contactCard) {
     }
     clearActiveContacts();
     showSelectedContact(indexContact, contactCard);
-}
-
-/**
- * Opens a contact card when activated with the keyboard.
- * @param {KeyboardEvent} event - The keyboard event.
- * @param {number} indexContact - The contact index.
- * @param {HTMLElement} contactCard - The activated contact card.
- */
-function handleContactCardKeydown(event, indexContact, contactCard) {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    toggleContactDetail(indexContact, contactCard);
 }
 
 function showSelectedContact(indexContact, contactCard) {
