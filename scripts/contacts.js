@@ -116,6 +116,9 @@ function getContactsData(indexContact) {
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
 }
 
+/**
+ * Removes the highlight from all active contact cards and hides the contact detail.
+ */
 function clearActiveContacts() {
     const activeContacts = document.querySelectorAll('.background-primary');
     activeContacts.forEach(contactCard => {
