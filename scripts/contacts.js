@@ -79,6 +79,11 @@ function handleContactCardKeydown(event, indexContact, contactCard) {
     toggleContactDetail(indexContact, contactCard);
 }
 
+/**
+ * highlights the selected contact card and displays its contact information 
+ * @param {number} indexContact 
+ * @param {*HTMLElement} contactCard 
+ */
 function showSelectedContact(indexContact, contactCard) {
     contactCard.classList.add("background-primary");
     setTimeout(() => {
