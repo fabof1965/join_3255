@@ -127,6 +127,10 @@ function clearActiveContacts() {
     });
 }
 
+/**
+ * Removes the highlight from the given contact card and hides the contact detail.
+ * @param {HTMLElement} contactCard - The contact card whose highlight and detail view are removed.
+ */
 function hidePreviouslyOpenedDetail(contactCard) {
     contactCard.classList.remove("background-primary");
     hideContactDetail();
