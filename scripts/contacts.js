@@ -156,6 +156,12 @@ function showPopover() {
     document.getElementById("popover-menu").showPopover();
 }
 
+/**
+ * Toggles the add contact button icon between the default icon and the menu icon.
+ * Only has an effect on mobile devices.
+ * @param {string} defaultSource - Path to the default icon.  
+ * @param {string} newSource - Path to the icon for the mobile view.
+ */
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const addContactImage = document.querySelector(".add-new-contact-image");
     if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
