@@ -156,6 +156,11 @@
 }
 
 @media(max-width: 600px) {
+
+    .sub-text{
+        text-align: center;
+    }
+    
     .blue-head-column:hover {
         transform: unset;
         background-color: var(--white-color);
@@ -166,6 +171,7 @@
             transform: scale(var(--hover-scale));
             color: var(--primary-color);
         }
+
 
         .divider {
             background-color: var(--primary-color);
