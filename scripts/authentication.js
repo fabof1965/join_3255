@@ -120,5 +120,3 @@ function setHeadlineText(text) {
     const HEADING = document.getElementById("heading");
     HEADING.innerHTML = text;
 }
-
-// Object.assign(window, { initAuth, setminHeightAnimationOnForm, addSignupContent, registerUser, backToLogin });

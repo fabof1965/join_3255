@@ -47,6 +47,14 @@
     width: var(--full);
 }
 
+.add-task-form.edit-task .btn-clear {
+    display: none;
+}
+
+.add-task-form.edit-task .form-buttons {
+  width: unset;
+}
+
 .btn-create-task {
     color: var(--white-color);
     height: 100%;
