@@ -136,6 +136,10 @@ function hidePreviouslyOpenedDetail(contactCard) {
     hideContactDetail();
 }
 
+/**
+ * Hides the contact detail, removes highlight from the currently opened card. 
+ * and resets the opened-card state.
+ */
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
     if (detail) detail.classList.remove('animation-right');
