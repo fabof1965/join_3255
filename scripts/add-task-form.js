@@ -67,6 +67,10 @@ async function getAssignedContacts() {
   }));
 }
 
+/**
+ * Renders the assigned contacts as options into the hidden select.
+ * @param {HTMLElement} container - Form element containing the `#assigned-contacts` select.
+ */
 async function renderAssignedContacts(container) {
   const assignedContacts = await getAssignedContacts();
   sortContactsByName(assignedContacts);
@@ -82,6 +86,9 @@ async function renderAssignedContacts(container) {
   renderAssignedContactsDropdown(container);
 }
 
+/**
+ * Renders the list of new subtasks.
+ */
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
   if (!list) return;
