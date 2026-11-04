@@ -348,9 +348,7 @@ document.addEventListener("reset", (event) => {
     Array.from(select.options).forEach((option) => {
       option.selected = false;
     });
-    dropdown
-      .querySelectorAll('input[type="checkbox"]')
-      .forEach((checkbox) => {
+    dropdown.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         checkbox.checked = false;
       });
     dropdown.open = false;
