@@ -160,6 +160,11 @@ function hideContactDetailOnArrowButtonClick() {
     });
 }
 
+/**
+ * Shows details for a selected contact card with a slide-in animation.
+ * Sets the badge color and enables the arrow button to return to the contact list.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
 function showContactDetail(indexContact) {
     writeContactDataIntoDetailView(indexContact);
     document.querySelector("#contact-detail").classList.add('animation-right');
