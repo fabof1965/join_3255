@@ -40,6 +40,7 @@
               name="title"
               type="text"
               placeholder="Enter a title"
+              aria-label="Enter task title"
             />
             <small data-error="title"></small>
           </label>
@@ -50,12 +51,13 @@
               id="taskDescription"
               name="description"
               placeholder="Enter a Description"
+              aria-label="Enter a description for your task"
             ></textarea>
           </label>
 
           <label class="add-task-field">
             <strong>Due date</strong>
-            <input id="taskDueDate" name="dueDate" type="date" />
+            <input id="taskDueDate" name="dueDate" type="date" aria-label="Due date picker"/>
             <small data-error="dueDate"></small>
           </label>
 
@@ -188,7 +190,7 @@
 
           <label class="add-task-field">
             <strong>Category</strong>
-            <select id="taskCategorySelect" name="category">
+            <select id="taskCategorySelect" name="category" aria-label="select task category">
               <option value="">Select task category</option>
               <option>User Story</option>
               <option>Technical Task</option>
@@ -198,7 +200,7 @@
 
           <label class="add-task-field">
             <strong>Subtasks <span>(optional)</span></strong>
-            <input name="subtask" type="text" placeholder="Add new subtask" />
+            <input name="subtask" type="text" placeholder="Add new subtask" aria-label="Add new Subtask"/>
           </label>
 
           <ul id="taskSubtasks" class="add-task-subtasks"></ul>

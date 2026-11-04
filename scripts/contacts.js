@@ -31,7 +31,7 @@ function initContacts() {
  */
 function initAriaLabels() {
     const btnOpenContactDialog = document.getElementById("open-button");
-    btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
+    if(isMobile) btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
 /**
