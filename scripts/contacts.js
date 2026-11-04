@@ -77,7 +77,7 @@ function initContactCardListeners(card) {
         toggleContactDetail(contactCardIndex, card);
     });
     card.addEventListener("keyup", (event) => {
-        if(event.key === "Enter") {
+        if (event.key === "Enter") {
             toggleContactDetail(contactCardIndex, card);
         }
     });
@@ -105,6 +105,11 @@ async function loadContacts() {
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
+/**
+ * Toggles the detail view of a contact card.
+ * @param {number} indexContact - The contact index.
+ * @param {HTMLElement} contactCard - The activated contact card.
+ */
 function toggleContactDetail(indexContact, contactCard) {
     if (isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
         currentlyOpenedCard.classList.remove("background-primary");
@@ -115,7 +120,7 @@ function toggleContactDetail(indexContact, contactCard) {
     showSelectedContact(indexContact, contactCard);
 }
 
-/**
+/** 
  * Opens a contact card when activated with the keyboard.
  * @param {KeyboardEvent} event - The keyboard event.
  * @param {number} indexContact - The contact index.
@@ -198,7 +203,7 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("open-button").setAttribute("aria-label", "Open Dialog to add a new contact"); 
+    document.getElementById("open-button").setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
 /**
