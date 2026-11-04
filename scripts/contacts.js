@@ -35,12 +35,28 @@ function initAriaLabels() {
  */
 async function renderContacts() {
     allContacts = await loadContacts();
+    sortAllContactsByName();
     const contactContainer = document.getElementById("contacts");
     contactContainer.innerHTML = "";
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
     document.querySelectorAll('.contact-card').forEach((card) => {
         initContactCardListeners(card);
+    });
+}
+
+function sortAllContactsByName() {
+    allContacts.sort((contactA, contactB) => {
+        const nameA = contactA.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = contactB.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+
+        return 0;
     });
 }
 
