@@ -21,7 +21,6 @@ document.getElementById("open-button").addEventListener("click", () => {
 function initContacts() {
     renderContacts();
     initAriaLabels();
-    console.log(document.getElementsByName(".contact-card"));
 }
 
 function initAriaLabels() {

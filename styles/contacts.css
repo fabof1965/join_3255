@@ -205,6 +205,7 @@
 }
 
 .arrow-btn {
+    margin-right: 16px;
     display: none;
     border: none;
     background-color: var(--white-color);
