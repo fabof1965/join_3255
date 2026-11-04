@@ -162,9 +162,12 @@ function editSubtask(button) {
   item.querySelector(".subtask-edit-input").focus();
 }
 
+/**
+ * Saves subtask when the enter key is pressed.
+ * @param {KeyboardEvent} event - Keydown event from the subtask input field.
+ */
 function saveSubtaskOnEnter(event) {
   if (event.key !== "Enter") return;
-
   event.preventDefault();
   saveSubtask(event.target);
 }
