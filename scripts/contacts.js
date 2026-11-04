@@ -150,6 +150,10 @@ function showSelectedContact(indexContact, contactCard) {
     }
 }
 
+/**
+ * Adds a click listener to the arrow button that hides the contact details
+ * and returns to the contact list.
+ */
 function hideContactDetailOnArrowButtonClick() {
     document.querySelector("#arrow-btn").addEventListener("click", () => {
         hideContactDetail();
