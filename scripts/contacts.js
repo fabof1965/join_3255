@@ -26,9 +26,11 @@ function initContacts() {
     initAriaLabels();
 }
 
+/**
+ * Sets the ARIA label of the button that opens the dialog for adding a new contact.
+ */
 function initAriaLabels() {
     const btnOpenContactDialog = document.getElementById("open-button");
-
     btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
