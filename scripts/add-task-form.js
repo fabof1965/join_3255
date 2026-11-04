@@ -116,6 +116,10 @@ function addSubtaskFromInput(input) {
   return true;
 }
 
+/**
+ * Adds a subtask when the enter key is pressed.
+ * @param {KeyboardEvent} event - Keydown event from the subtask input field
+ */
 function addSubtaskOnEnter(event) {
   if (event.key !== "Enter") return;
   event.preventDefault();
