@@ -53,6 +53,11 @@ function removeSelectedClassFromPriorityButtons() {
   });
 }
 
+/**
+ * Loads all contacts from Firebase and adds the database id to each one.
+ * @returns {Promise<Array<{id: string, email: string, phone: string}>>}
+ * Array of contact objects, or an empty array if no contacts exist.
+ */
 async function getAssignedContacts() {
   const response = await getData("contacts");
   if (!response) return [];
@@ -334,14 +339,14 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    const dropdown = event.target.closest(".assigned-dropdown[open]");
-    if (!dropdown) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    dropdown.open = false;
-    dropdown.querySelector("summary").focus();
-  },
+  if (event.key !== "Escape") return;
+  const dropdown = event.target.closest(".assigned-dropdown[open]");
+  if (!dropdown) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  dropdown.open = false;
+  dropdown.querySelector("summary").focus();
+},
   true,
 );
 
@@ -356,8 +361,8 @@ document.addEventListener("reset", (event) => {
       option.selected = false;
     });
     dropdown.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.checked = false;
-      });
+      checkbox.checked = false;
+    });
     dropdown.open = false;
     updateAssignedContactsSummary(dropdown, select);
   }, 0);
