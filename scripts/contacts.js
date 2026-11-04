@@ -54,8 +54,8 @@ async function renderContacts() {
  */
 function sortAllContactsByName() {
     allContacts.sort((contactA, contactB) => {
-        const nameA = contactA.name.toUpperCase(); // ignore upper and lowercase
-        const nameB = contactB.name.toUpperCase(); // ignore upper and lowercase
+        const nameA = contactA.name.toUpperCase(); 
+        const nameB = contactB.name.toUpperCase(); 
         if (nameA < nameB) {
             return -1;
         }
@@ -150,26 +150,26 @@ function showSelectedContact(indexContact, contactCard) {
     }
 }
 
-/**
- * Shows the details of the selected contact with a slide-in animation.
- * @param {number} indexContact - Index of the contact in allContacts.
- */
+function hideContactDetailOnArrowButtonClick() {
+    document.querySelector("#arrow-btn").addEventListener("click", () => {
+        hideContactDetail();
+    });
+}
+
 function showContactDetail(indexContact) {
-    getContactsData(indexContact);
+    writeContactDataIntoDetailView(indexContact);
     document.querySelector("#contact-detail").classList.add('animation-right');
     setBadgeBackgroundColor();
+    hideContactDetailOnArrowButtonClick();
 }
 
 /**
  * Renders the information of the given contact into the contact detail container.
  * @param {number} indexContact - Index of the contact in allContacts.
  */
-function getContactsData(indexContact) {
+function writeContactDataIntoDetailView(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
-    document.querySelector("#arrow-btn").addEventListener("click", () => {
-        hideContactDetail();
-    });
 }
 
 /**
