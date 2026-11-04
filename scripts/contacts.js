@@ -80,7 +80,7 @@ function getContactsHtml() {
         const letter = contact.name.charAt(0).toUpperCase();
         const heading = letter === previousLetter ? "" : getFirstLetterTemplate(letter);
         previousLetter = letter;
-        return heading + getContactTemplate(index);
+        return heading + getContactCardTemplate(index);
     }).join("");
 }
 

@@ -17,7 +17,7 @@ function getPopoverContent(indexContact) {
   `;
 }
 
-function getContactTemplate(indexContact) {
+function getContactCardTemplate(indexContact) {
   return `
       <article class="contact-card" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
         <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
