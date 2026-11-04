@@ -44,6 +44,9 @@ if (btnCleartaskForm) {
   btnCleartaskForm.addEventListener("click", () => resetForm());
 }
 
+/**
+ * Removes the "selected" class from all priority buttons.
+ */
 function removeSelectedClassFromPriorityButtons() {
   document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
     priorityButton.classList.remove("selected");
