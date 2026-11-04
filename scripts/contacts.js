@@ -18,10 +18,12 @@ document.getElementById("open-button").addEventListener("click", () => {
     }
 });
 
+/**
+ * Initializes the contacts page: renders all contact cards and sets the ARIA labels.
+ */
 function initContacts() {
     renderContacts();
     initAriaLabels();
-    console.log(document.getElementsByName(".contact-card"));
 }
 
 function initAriaLabels() {
