@@ -49,6 +49,9 @@ async function renderContacts() {
     });
 }
 
+/**
+ * Sorts contacts alphabetically by full name.
+ */
 function sortAllContactsByName() {
     allContacts.sort((contactA, contactB) => {
         const nameA = contactA.name.toUpperCase(); // ignore upper and lowercase
@@ -59,7 +62,6 @@ function sortAllContactsByName() {
         if (nameA > nameB) {
             return 1;
         }
-
         return 0;
     });
 }
