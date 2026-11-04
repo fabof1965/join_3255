@@ -6,11 +6,12 @@ const enterPhoneMsg = "Please enter your phonenumber.";
 const phoneExistsMsg = "Please choose a different number.";
 
 function getPopoverContent(indexContact) {
+  const contactName = allContacts[indexContact].name;
   return `
-      <button class="edit" onclick="editExistingContact(${indexContact})">
+      <button class="edit" onclick="editExistingContact(${indexContact})" aria-label="Edit contact '${contactName}'">
         <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
       </button>
-      <button class="delete" onclick="deleteContact(${indexContact})">
+      <button class="delete" onclick="deleteContact(${indexContact})" aria-label="Delete contact '${contactName}'">
         <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
       </button>
   `;
@@ -18,13 +19,13 @@ function getPopoverContent(indexContact) {
 
 function getContactTemplate(indexContact) {
   return `
-      <div class="contact-card" id="contact-card${indexContact}" role="button" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}" onclick="toggleContactDetail(${indexContact}, this)" onkeydown="handleContactCardKeydown(event, ${indexContact}, this)">
+      <article class="contact-card" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
         <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
         <div class="name-and-mail">
           <span class="name">${allContacts[indexContact].name}</span>
           <span class="mail">${allContacts[indexContact].email}</span>
         </div>
-      </div>
+      </article>
   `;
 }
 
@@ -50,7 +51,7 @@ function getContactHeaderTemplate(contact, indexContact) {
         <div class="header-content-2">
           <div class="contact-info-headline-container">
             <h3 class="info-headline"><span>Contact Information</span></h3>
-            <button onclick="hideContactDetail()" class="arrow-btn">
+            <button id="arrow-btn" class="arrow-btn" aria-label="Go back to contact list and hide contact details for '${contact.name}'">
               <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
             </button>
           </div>
@@ -64,11 +65,11 @@ function getContactBodyTemplate(contact) {
       <div class="contact-information">
         <section class="email">
           <h4>E-Mail</h4>
-          <a id="mail-detail" class="email-text" href="mailto:${contact.email}">${contact.email}</a>
+          <a id="mail-detail" class="email-text" href="mailto:${contact.email}" aria-label="Send mail to '${contact.email}'">${contact.email}</a>
         </section>
         <section class="phone">
           <h4>Phone</h4>
-          <a class="phone-detail" id="phone-detail" href="tel:${contact.phone}">${contact.phone}</a>
+          <a class="phone-detail" id="phone-detail" href="tel:${contact.phone}" aria-label="Call '${contact.name}'">${contact.phone}</a>
         </section>
       </div>
   `;

@@ -156,6 +156,11 @@
 }
 
 @media(max-width: 600px) {
+
+    .sub-text{
+        text-align: center;
+    }
+    
     .blue-head-column:hover {
         transform: unset;
         background-color: var(--white-color);

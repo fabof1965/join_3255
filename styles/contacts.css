@@ -78,7 +78,7 @@
     padding: var(--padding-small);
     font-size: var(--medium-font-size);
     border-radius: var(--element-design-border-radius);
-    margin-top: 8px;
+    margin: 8px 0;
 }
 
 .contact-card:hover {
@@ -219,7 +219,7 @@
     }
 }
 
-.arrow-btn:hover {
+.arrow-btn:hover, .arrow-btn:focus {
     background-color: var(--secondary-color);
 }
 
