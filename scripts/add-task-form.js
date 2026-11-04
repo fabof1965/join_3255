@@ -99,6 +99,11 @@ function renderNewSubtasks() {
     .join("");
 }
 
+/**
+ * Adds a input value as a new subtask and renders the subtask-list.
+ * @param {HTMLInputElement} input - Input field containing the subtask title.
+ * @returns {boolean} `true` if a subtask was added, `false` if the input was empty.
+ */
 function addSubtaskFromInput(input) {
   const value = input.value.trim();
   if (!value) return false;
