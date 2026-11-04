@@ -26,6 +26,10 @@ document.addEventListener("submit", async (event) => {
 
 initPriorityButtonClickListeners();
 
+/**
+ * Adds a click listener to every priority button.
+ * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
+ */
 function initPriorityButtonClickListeners() {
   document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
     priorityButton.addEventListener("click", () => {
