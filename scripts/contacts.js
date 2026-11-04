@@ -46,8 +46,8 @@ async function renderContacts() {
 
 function sortAllContactsByName() {
     allContacts.sort((contactA, contactB) => {
-        const nameA = contactA.name.toUpperCase(); // ignore upper and lowercase
-        const nameB = contactB.name.toUpperCase(); // ignore upper and lowercase
+        const nameA = contactA.name.toUpperCase(); 
+        const nameB = contactB.name.toUpperCase(); 
         if (nameA < nameB) {
             return -1;
         }
@@ -117,18 +117,22 @@ function showSelectedContact(indexContact, contactCard) {
     }
 }
 
-function showContactDetail(indexContact) {
-    getContactsData(indexContact);
-    document.querySelector("#contact-detail").classList.add('animation-right');
-    setBadgeBackgroundColor();
-}
-
-function getContactsData(indexContact) {
-    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
-    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
+function hideContactDetailOnArrowButtonClick() {
     document.querySelector("#arrow-btn").addEventListener("click", () => {
         hideContactDetail();
     });
+}
+
+function showContactDetail(indexContact) {
+    writeContactDataIntoDetailView(indexContact);
+    document.querySelector("#contact-detail").classList.add('animation-right');
+    setBadgeBackgroundColor();
+    hideContactDetailOnArrowButtonClick();
+}
+
+function writeContactDataIntoDetailView(indexContact) {
+    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
+    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
 }
 
 function clearActiveContacts() {
