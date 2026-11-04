@@ -48,6 +48,11 @@ async function renderContacts() {
     });
 }
 
+/**
+ * Adds click and Enter-key listeners to a contact card
+ * that toggle the display of its contact details.
+ * @param {HTMLElement} card - The contact card element. 
+ */
 function initContactCardListeners(card) {
     const contactCardIndex = card.dataset.contactIndex;
     card.addEventListener("click", () => {
