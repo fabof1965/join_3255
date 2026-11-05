@@ -97,6 +97,19 @@ function renderNewSubtasks() {
       return getAddTaskSubtaskTemplate(index, subtask.title);
     })
     .join("");
+
+    addButtonEventListenersOnSubtask();
+}
+
+function addButtonEventListenersOnSubtask() {
+  let subtaskIndex = 0;
+  newTaskSubtasks.forEach((subtask) => {
+    const editButton = document.querySelector('[data-edit-index="' + subtaskIndex + '"]');
+    const deleteButton =  document.querySelector('[data-delete-index="' + subtaskIndex + '"]');
+    editButton.addEventListener("click", () => editSubtask(editButton));
+    deleteButton.addEventListener("click", () => deleteSubtask(deleteButton));
+    subtaskIndex++;
+  });
 }
 
 /**

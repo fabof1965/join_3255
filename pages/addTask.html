@@ -55,7 +55,7 @@
 
           <label class="add-task-field">
             <strong>Due date</strong>
-            <input id="taskDueDate" name="dueDate" type="date" />
+            <input id="taskDueDate" name="dueDate" type="date" aria-label="Due date picker"/>
             <small data-error="dueDate"></small>
           </label>
 
@@ -198,10 +198,10 @@
 
           <label class="add-task-field">
             <strong>Subtasks <span>(optional)</span></strong>
-            <input name="subtask" type="text" placeholder="Add new subtask" />
+            <input name="subtask" type="text" placeholder="Add new subtask"/>
+            <ul id="taskSubtasks" class="add-task-subtasks"></ul>
           </label>
 
-          <ul id="taskSubtasks" class="add-task-subtasks"></ul>
         </section>
 
         <section class="form-buttons">

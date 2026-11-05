@@ -56,13 +56,13 @@ function renderHeader() {
 
     headerContainer.innerHTML = getHeaderTemplate();
     initHeaderProfile();
+    document.getElementById("logout-button").addEventListener("click", () => logoutUser());
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     authGuard()
     renderSidebar();
     renderHeader();
-    // initHeaderProfile();
 });
 
 function toHelpPage() {
