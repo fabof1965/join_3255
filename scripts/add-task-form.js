@@ -293,6 +293,10 @@ async function submitTask(event, editedTask) {
   return true;
 }
 
+/**
+ * Redirects to the board page if it isn't already open.
+ * @param {string} boardURL - Path to the board page.
+ */
 function directToBoard(boardURL) {
   if (window.location.pathname !== boardURL) {
     window.location.href = boardURL;
