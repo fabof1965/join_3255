@@ -98,14 +98,14 @@ function renderNewSubtasks() {
     })
     .join("");
 
-    addButtonEventListenersOnSubtask();
+  addButtonEventListenersOnSubtask();
 }
 
 function addButtonEventListenersOnSubtask() {
   let subtaskIndex = 0;
   newTaskSubtasks.forEach((subtask) => {
     const editButton = document.querySelector('[data-edit-index="' + subtaskIndex + '"]');
-    const deleteButton =  document.querySelector('[data-delete-index="' + subtaskIndex + '"]');
+    const deleteButton = document.querySelector('[data-delete-index="' + subtaskIndex + '"]');
     editButton.addEventListener("click", () => editSubtask(editButton));
     deleteButton.addEventListener("click", () => deleteSubtask(deleteButton));
     subtaskIndex++;
@@ -380,13 +380,17 @@ function renderAssignedContactsDropdown(container) {
   updateAssignedContactsSummary(dropdown, select);
 }
 
+/**
+ * Updates the display text in the drop-down menu for the assigned contacts.
+ * @param {HTMLElement} dropdown - Dropdown container with the assigned contacts.
+ * @param {HTMLSelectElement} select - Select element with the contact options.
+ */
 function updateAssignedContactsSummary(dropdown, select) {
   const names = Array.from(
     select.selectedOptions,
     (option) => option.textContent,
   );
-  dropdown.querySelector(".assigned-dropdown-text").textContent =
-    names.length ? names.join(", ") : "Select contacts to assign";
+  dropdown.querySelector(".assigned-dropdown-text").textContent = names.length ? names.join(", ") : "Select contacts to assign";
 }
 
 document.addEventListener("click", (event) => {
