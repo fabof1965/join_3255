@@ -81,11 +81,13 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
         </section>
         <footer class="task-card-dialog-buttons">
           <button id="delete-task-card" class="btn-delete-task-card" type="button">
-            <img src="../assets/icons/delete.svg" alt="" />Delete
+            <img src="../assets/icons/delete.svg" alt="delete task" />
+            <span>Delete</span>
           </button>
           <span></span>
           <button class="btn-edit-task" type="button">
-            <img src="../assets/icons/edit.svg" alt="edit task" />Edit
+            <img src="../assets/icons/edit.svg" alt="edit task" />
+            <span>Edit</span>
           </button>
         </footer>
       </article>
@@ -102,9 +104,10 @@ function getTaskOverlayUserTemplate(initials, name) {
 }
 
 function getSubtaskTemplate(subtask, checked, taskId, index) {
+  const checkedAttribute = checked ? "true" : false;
   return `
       <div class="task-card-dialog-subtask">
-        <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" aria-labelledby="subtask-title-${taskId}-${index}" ${checked ? "checked" : ""}/>
+        <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" aria-labelledby="subtask-title-${taskId}-${index}" checked="${checkedAttribute}" aria-checked="${checkedAttribute}"/>
         <span id="subtask-title-${taskId}-${index}">${subtask.title}</span>
       </div>
   `;
@@ -137,10 +140,10 @@ const lowPriorityTemplate =
 
 function getAddTaskDialogContentTemplate() {
   return `
-      <section class="add-task-dialog-content" role="dialog" aria-modal="true" aria-labelledby="add-task-title">
+      <section class="add-task-dialog-content" aria-labelledby="add-task-title">
         <header class="add-task-header">
           <h2 id="add-task-title">Add Task</h2>
-          <button class="close-btn" type="button" aria-label="Close add task" onclick="closeAddTaskDialog()">
+          <button class="close-btn" type="button" aria-label="Close add task">
             <img class="close-icon" src="../assets/icons/close-task-overlay.svg" alt="close add-task-dialog" />
           </button>
         </header>
@@ -153,7 +156,7 @@ function getTaskFormTemplate() {
       <form id="add-task-form" class="add-task-form" novalidate>
         ${getTaskFormContentTemplate()}
         <section class="form-buttons">
-          <button onclick="resetForm()" type="button" class="btn-clear btn">
+          <button type="button" class="btn-clear btn">
             <span>Clear</span>
             <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <path class="btn-svg-color" d="M8 8L24 24M24 8L8 24" stroke-width="2" stroke-linecap="round"/>
@@ -259,9 +262,9 @@ function getTaskFormContentTemplate() {
         <label class="add-task-field">
           <strong>Subtasks <span>(optional)</span></strong>
           <input name="subtask" type="text" placeholder="Add new subtask" />
+          <ul id="taskSubtasks" class="add-task-subtasks"></ul>
         </label>
 
-        <ul id="taskSubtasks" class="add-task-subtasks"></ul>
       </section>
   `;
 }
@@ -287,8 +290,8 @@ function getAddTaskSubtaskTemplate(index, title) {
         <div class="subtask-wrapper">
           <span>${title}</span>
           <div id="subtask-button-container" class="subtask-button-container">
-            <button onclick="editSubtask(this)" type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
-            <button onclick="deleteSubtask(this)" type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
+            <button data-edit-index="${index}" type="button" class="subtask-btn" data-action="edit" aria-label="Edit subtask">${editIconSvg}</button>
+            <button data-delete-index="${index}" type="button" class="subtask-btn" data-action="delete" aria-label="Delete subtask">${deleteIconSvg}</button>
           </div>
         </div>
       </li>

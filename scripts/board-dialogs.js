@@ -109,9 +109,15 @@ async function openAddTaskDialog(status) {
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
   await renderAssignedContacts(taskForm);
+  initAddTaskDialogListeners(addTaskDialog);
+  addTaskDialog.showModal();
+}
+
+function initAddTaskDialogListeners(addTaskDialog) {
   initPriorityButtonClickListeners();
   clickEventListener(addTaskDialog);
-  addTaskDialog.showModal();
+  document.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
+  document.querySelector(".btn-clear").addEventListener("click", () => resetForm());
 }
 
 function fillFormElementsWithTaskData(task) {
@@ -213,12 +219,20 @@ async function toggleSubtask(index, checkbox) {
   if (!task) return;
   task.subtasks[index].done = !task.subtasks[index].done;
   checkbox.checked = task.subtasks[index].done;
+  setCheckedAttributesHTML(index, checkbox);
   allTasks[taskIndex] = task;
   await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
     done: task.subtasks[index].done,
   });
 
   updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
+}
+
+function setCheckedAttributesHTML(index, checkbox) {
+  const checked = checkbox.checked;
+  const checkboxElement = document.querySelector('[data-index-number="' + index + '"]');
+  checkboxElement.setAttribute("checked", checked);
+  checkboxElement.setAttribute("aria-checked", checked);
 }
 
 function updateSubtaskProgressOnCard(subtasks, taskID) {
