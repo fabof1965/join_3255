@@ -159,6 +159,11 @@ async function deleteSubtask(button) {
   renderNewSubtasks();
 }
 
+/**
+ * // Muss noch geschrieben werden
+ * @param {HTMLElement} button - The edit button inside the subtask list item that was clicked. 
+ * @returns 
+ */
 function editSubtask(button) {
   const item = button.closest(".subtask-list");
   const editInput = item.querySelector(".subtask-edit-input");
