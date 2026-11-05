@@ -282,6 +282,12 @@ function getSubtasksFromForm() {
   return newTaskSubtasks.map((subtask) => ({ ...subtask, }));
 }
 
+/**
+ * Validates the data from the add-task form and saves it to Firebase
+ * @param {SubmitEvent} event - Submit event of the add-task-form. 
+ * @param {Object|null} editedTask - Task to update, or null to create a new one.
+ * @returns {Promise <boolean>} True if the task was saved, false if the form ist invalid.
+ */
 async function submitTask(event, editedTask) {
   const form = event.target;
   if (!isAddTaskFormValid(form)) return false;
