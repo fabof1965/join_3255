@@ -299,6 +299,10 @@ function directToBoard(boardURL) {
   }
 }
 
+/**
+ * Displays a pop-up message when a task is created.
+ * @param {string} message - “Task created” is shown in the pop-up.
+ */
 function showPopup(message = "Task created") {
   document.getElementById("popup")?.remove();
   document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
