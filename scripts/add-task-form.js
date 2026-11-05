@@ -273,6 +273,11 @@ function getFormElements(priority = "") {
   };
 }
 
+/**
+ * Returns a copy of the current subtasks from the form.
+ * The data comes from the global variable `newTaskSubtasks`.
+ * @returns {{title: string, done: boolean} []}
+ */
 function getSubtasksFromForm() {
   return newTaskSubtasks.map((subtask) => ({ ...subtask, }));
 }
