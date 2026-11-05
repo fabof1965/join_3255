@@ -31,7 +31,7 @@ function getContactCardTemplate(indexContact) {
 
 function getFirstLetterTemplate(firstLetter) {
   return `
-      <div class="letter">${firstLetter}</div>
+      <div class="letter" aria-label="${firstLetter}">${firstLetter}</div>
       <div class="seperator"></div>
   `;
 }
@@ -50,7 +50,11 @@ function getContactHeaderTemplate(contact, indexContact) {
         </div>
         <div class="header-content-2">
           <div class="contact-info-headline-container">
-            <h3 class="info-headline"><span>Contact Information</span></h3>
+            <h3 class="info-headline">
+              <span>
+                Contact Information
+              </span>
+            </h3>
             <button id="arrow-btn" class="arrow-btn" aria-label="Go back to contact list and hide contact details for '${contact.name}'">
               <img src="../assets/icons/arrow-left-line.png" alt="back-to-contacts">
             </button>
