@@ -8,10 +8,10 @@ const phoneExistsMsg = "Please choose a different number.";
 function getPopoverContent(indexContact) {
   const contactName = allContacts[indexContact].name;
   return `
-      <button class="edit" onclick="editExistingContact(${indexContact})" aria-label="Edit contact '${contactName}'">
+      <button class="edit" aria-label="Edit contact '${contactName}'">
         <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
       </button>
-      <button class="delete" onclick="deleteContact(${indexContact})" aria-label="Delete contact '${contactName}'">
+      <button class="delete" aria-label="Delete contact '${contactName}'">
         <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
       </button>
   `;

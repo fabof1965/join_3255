@@ -14,8 +14,8 @@ function backToPreviousPage() {
     window.history.back();
     return;
   }
+
   window.location.href = "./board.html";
 }
 
-console.log(backBtn);
 if(backBtn) backBtn.addEventListener("click", backToPreviousPage);

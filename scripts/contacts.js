@@ -147,6 +147,8 @@ function showSelectedContact(indexContact, contactCard) {
     currentlyOpenedCard = contactCard;
     if (isMobile) {
         document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
+        editEventlistener(indexContact);
+        deleteEventListener(indexContact);
     }
 }
 
@@ -170,6 +172,16 @@ function showContactDetail(indexContact) {
     document.querySelector("#contact-detail").classList.add('animation-right');
     setBadgeBackgroundColor();
     hideContactDetailOnArrowButtonClick();
+    editEventlistener(indexContact);
+    deleteEventListener(indexContact);
+}
+
+function editEventlistener(indexContact) {
+    document.querySelector(".edit").addEventListener("click", () => editExistingContact(indexContact));
+}
+
+function deleteEventListener(indexContact) {
+    document.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
 }
 
 /**
@@ -220,6 +232,7 @@ function hideContactDetail() {
  */
 function showPopover() {
     document.getElementById("popover-menu").showPopover();
+
 }
 
 /**

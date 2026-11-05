@@ -131,11 +131,6 @@ function getContactFormfromForm() {
     };
 }
 
-function clearAddContactDialog() {
-    const form = document.getElementById('add-task-form');
-    form.reset();
-}
-
 /* ---------- Validation ---------- */
 
 function contactHasBlankFields(contact) {
@@ -310,7 +305,7 @@ async function deleteContact(i) {
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
     await removeContactFromTaskCard(contact.name);
-    if (currentlyOpenedCard) hideContactDetail()
+    if (currentlyOpenedCard) hideContactDetail();
     closeContactDialog();
     closeEditContactDialog();
     await renderContacts();
