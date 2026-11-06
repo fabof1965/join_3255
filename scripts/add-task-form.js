@@ -243,6 +243,11 @@ function showTaskFieldError(form, name, isInvalid) {
   return isInvalid;
 }
 
+/**
+ * 
+ * @param {HTMLFormElement} form - Form for creating a task.
+ * @returns 
+ */
 function isAddTaskFormValid(form) {
   const titleInvalid = !form.elements.title.value.trim();
   const dateInvalid = !form.elements.dueDate.value;
@@ -281,6 +286,11 @@ function getTaskData() {
   return taskData;
 }
 
+/**
+ * Returns the DOM elements of the add-task form fields.
+ * @param {string} priority - Priority value used to find the matching priority button.
+ * @returns {Object} Object containing the form field elements. 
+ */
 function getFormElements(priority = "") {
   return {
     taskTitleInputElement: document.getElementById("taskTitleInput"),
