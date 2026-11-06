@@ -224,6 +224,13 @@ function resetForm(form = document.getElementById("add-task-form")) {
   renderNewSubtasks();
 }
 
+/**
+ * Shows or clears the error message of a required field and sets aria invalid.
+ * @param {HTMLFormElement} form - Form for creating a task.
+ * @param {string} name - Name of the form field.
+ * @param {boolean} isInvalid - Whether the field is invalid.
+ * @returns {boolean} `true` if the field is invalid(empty), `false` if it's filled in.
+ */
 function showTaskFieldError(form, name, isInvalid) {
   const field = form.elements[name];
   const error = form.querySelector(`[data-error="${name}"]`);
