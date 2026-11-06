@@ -258,6 +258,10 @@ function isAddTaskFormValid(form) {
   return !titleInvalid && !dateInvalid && !categoryInvalid;
 }
 
+/**
+ * Reads the selected contacts from the “Assigned to” select element and return displays their names
+ * @returns {Array}
+ */
 function getAssignedContactsFromForm() {
   const select = document.getElementById("assigned-contacts");
   const assignedContacts = [];
