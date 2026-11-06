@@ -97,13 +97,16 @@ function renderNewSubtasks() {
       return getAddTaskSubtaskTemplate(index, subtask.title);
     })
     .join("");
-
   addButtonEventListenersOnSubtask();
 }
 
+/**
+ * Adds a click listeners to the edit and delete buttons that of every subtask in the list.
+ * The edit button calls `editSubtask`, the delete button calls `deleteSubtask`.
+ */
 function addButtonEventListenersOnSubtask() {
   let subtaskIndex = 0;
-  newTaskSubtasks.forEach((subtask) => {
+  newTaskSubtasks.forEach(() => {
     const editButton = document.querySelector('[data-edit-index="' + subtaskIndex + '"]');
     const deleteButton = document.querySelector('[data-delete-index="' + subtaskIndex + '"]');
     editButton.addEventListener("click", () => editSubtask(editButton));
