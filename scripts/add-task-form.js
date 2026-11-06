@@ -163,9 +163,8 @@ async function deleteSubtask(button) {
 }
 
 /**
- * // Muss noch geschrieben werden
+ * Toggles the edit mode of a subtask: opens the edit input, or saves it if already open.
  * @param {HTMLButtonElement} button - The edit button inside the subtask list item that was clicked. 
- * @returns 
  */
 function editSubtask(button) {
   const item = button.closest(".subtask-list");
