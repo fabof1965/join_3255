@@ -8,10 +8,10 @@ const phoneExistsMsg = "Please choose a different number.";
 function getPopoverContent(indexContact) {
   const contactName = allContacts[indexContact].name;
   return `
-      <button class="edit" onclick="editExistingContact(${indexContact})" aria-label="Edit contact '${contactName}'">
+      <button class="edit" aria-label="Edit contact '${contactName}'">
         <img src="../assets/icons/edit.svg" alt="Edit contact">Edit
       </button>
-      <button class="delete" onclick="deleteContact(${indexContact})" aria-label="Delete contact '${contactName}'">
+      <button class="delete" aria-label="Delete contact '${contactName}'">
         <img src="../assets/icons/delete.svg" alt="Delete contact">Delete
       </button>
   `;
@@ -20,19 +20,25 @@ function getPopoverContent(indexContact) {
 function getContactCardTemplate(indexContact) {
   return `
       <article class="contact-card" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
-        <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
-        <div class="name-and-mail">
-          <span class="name">${allContacts[indexContact].name}</span>
-          <span class="mail">${allContacts[indexContact].email}</span>
-        </div>
+        ${getContactCardContentTemplate(indexContact)}
       </article>
   `;
 }
 
+function getContactCardContentTemplate(indexContact) {
+  return `<div class="profile-badge">
+            ${getInitials(allContacts[indexContact].name).toUpperCase()}
+          </div>
+          <div class="name-and-mail">
+            <span class="name">${allContacts[indexContact].name}</span>
+            <span class="mail">${allContacts[indexContact].email}</span>
+          </div>`;
+}
+
 function getFirstLetterTemplate(firstLetter) {
   return `
-      <div class="letter" aria-label="${firstLetter}">${firstLetter}</div>
-      <div class="seperator"></div>
+      <div class="letter" data-letter="${firstLetter}" aria-label="${firstLetter}">${firstLetter}</div>
+      <div class="seperator" data-letter="${firstLetter}"></div>
   `;
 }
 

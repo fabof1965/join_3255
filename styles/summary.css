@@ -139,8 +139,16 @@
     box-shadow: var(--summary-card-box-shadow);
     border-top-left-radius: 0;
 
-    .task-number, .sub-text, .date-text, .divider, .task-icons, .deadline-container{
+    .task-number, .divider, .task-icons{
         transform: scale(var(--hover-scale));
+        color: var(--primary-color);
+    }
+
+    .date {
+        transform: scale(var(--hover-scale));
+    }
+
+    .date-text, .sub-text {
         color: var(--primary-color);
     }
 
@@ -156,25 +164,8 @@
 }
 
 @media(max-width: 600px) {
-
     .sub-text{
         text-align: center;
-    }
-    
-    .blue-head-column:hover {
-        transform: unset;
-        background-color: var(--white-color);
-        box-shadow: var(--summary-card-box-shadow);
-        border-top-left-radius: 0;
-
-        .task-number, .sub-text, .date-text, .divider, .task-icons{
-            transform: scale(var(--hover-scale));
-            color: var(--primary-color);
-        }
-
-        .divider {
-            background-color: var(--primary-color);
-        }
     }
 }
 

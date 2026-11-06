@@ -119,7 +119,7 @@ async function addNewContact() {
     if (nameExists || emailExists || phoneExists) return;
     await postData('contacts', contact);
     closeContactDialog();
-    await renderContacts();
+    initContacts();
     showSuccessPopup('Contact successfully created');
 }
 
@@ -129,11 +129,6 @@ function getContactFormfromForm() {
         email: document.getElementById("email").value.trim(),
         phone: document.getElementById("phone").value.trim()
     };
-}
-
-function clearAddContactDialog() {
-    const form = document.getElementById('add-task-form');
-    form.reset();
 }
 
 /* ---------- Validation ---------- */
@@ -272,7 +267,7 @@ async function saveEditedContact() {
     }
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
-    await updateEditedContact();
+    updateEditedContact();
 }
 
 async function contactHasValidationErrors(contact, ownId) {
@@ -298,23 +293,35 @@ function editContactHasBlankFields(contact) {
     return editBlankName || editBlankEmail || editBlankPhone;
 }
 
-async function updateEditedContact() {
-    await renderContacts();
+function updateEditedContact() {
+    document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
     showContactDetail(editIndex);
 }
 
 /* ---------- Delete contact ---------- */
 
-async function deleteContact(i) {
-    const contact = allContacts[i];
+async function deleteContact(indexContact) {
+    const contact = allContacts[indexContact];
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
     await removeContactFromTaskCard(contact.name);
-    if (currentlyOpenedCard) hideContactDetail()
-    closeContactDialog();
-    closeEditContactDialog();
-    await renderContacts();
+    if (currentlyOpenedCard) hideContactDetail();
+    removeContactCard(indexContact, contact);
     showSuccessPopup('Contact successfully deleted');
+}
+
+function removeContactCard(indexContact, contactToRemove) {
+    const firstLetter = contactToRemove.name.charAt(0).toUpperCase();
+    const contactCard = document.getElementById("contact-card" + indexContact);
+    const sameInitialContacts = allContacts.filter(
+        (contact) => contact.name.charAt(0).toUpperCase() === firstLetter
+    );
+
+    if(sameInitialContacts.length === 1) {
+        document.querySelectorAll('[data-letter="' + firstLetter + '"]').forEach((element) => element.remove());
+    }
+
+    contactCard.remove();
 }
 
 /* ---------- Task sync (rename / remove contact) ---------- */

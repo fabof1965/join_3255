@@ -61,20 +61,21 @@ function updateUpcomingDeadline(urgentTasks) {
 
 function deadlineOutput(closestDateStr, urgentTaskDates) {
   const dateEl = document.getElementById("date");
-  const deadlineInfo = document.getElementById("deadline-info");
   const today = new Date();
   const closestDate = new Date(closestDateStr);
   dateEl.innerText = formatDate(closestDateStr);
-  const upcommingDeadline = document.getElementById('upcomming-deadline');
+  const upcomingDeadline = document.getElementById('deadline-info');
   if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
-  } else {
-    upcommingDeadline.innerText = "Upcomming deadline";
+  }  
+  
+  if(urgentTaskDates.length > 0){
+    upcomingDeadline.innerText = "Upcoming deadline";
   }
+
   if (closestDate < today) {
-    deadlineInfo.innerText = "Missed deadline";
-    upcommingDeadline.innerText = "";
+    upcomingDeadline.innerText = "Missed deadline";
     return;
   }
 }
