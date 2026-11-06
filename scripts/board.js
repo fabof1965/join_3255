@@ -133,7 +133,7 @@ function renderEmptyTaskLists() {
 
 function renderEmptyTaskListContent(taskList) {
   const emptyTaskListMessage = taskList.dataset.emptyText;
-  taskList.innerHTML = getEmptyTakListElement(emptyTaskListMessage);
+  taskList.innerHTML = getEmptyTaskListElement(emptyTaskListMessage);
 }
 
 function renderTaskListOnEmptyContent(taskList) {

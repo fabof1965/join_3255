@@ -57,7 +57,7 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
 /**
  * Generates the HTML for a single contact badge showing the given initials.
  * @param {string} initials - The initials to display inside the contact badge.
- * @returns The generated HTML string for a single contact badge.
+ * @returns {string} The generated HTML string for a single contact badge.
  */
 function getUserBadgeTemplate(initials) {
   return `
@@ -65,7 +65,12 @@ function getUserBadgeTemplate(initials) {
   `;
 }
 
-function getEmptyTakListElement(emptyTaskListMessage) {
+/**
+* Returns the HTML template for an empty task list state.
+ * @param {string} emptyTaskListMessage - Text shown when a task list is empty.
+ * @returns {string} The generated HTML string for the empty task list message.
+ */
+function getEmptyTaskListElement(emptyTaskListMessage) {
   return `
       <p class="empty-task-list">${emptyTaskListMessage}</p>
   `;
@@ -221,7 +226,7 @@ function getTaskFormContentTemplate() {
           <input id="taskDueDate" name="dueDate" type="date" />
           <small data-error="dueDate"></small>
         </label>
-
+        
         <fieldset class="add-task-priority">
           <legend>Priority</legend>
           <div class="priority-buttons">
@@ -260,16 +265,13 @@ function getTaskFormContentTemplate() {
 
         <div class="add-task-field">
           <strong>Assigned to <span>(optional)</span></strong>
-
           <details class="assigned-dropdown">
             <summary>
               <span class="assigned-dropdown-text">Select contacts to assign</span>
               <span class="assigned-dropdown-arrow" aria-hidden="true">▾</span>
             </summary>
-
             <div class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></div>
           </details>
-
           <select id="assigned-contacts" name="assignedUsers" multiple hidden></select>
         </div>
 
