@@ -54,6 +54,11 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
   `;
 }
 
+/**
+ * Generates the HTML for a single contact badge showing the given initials.
+ * @param {string} initials - The initials to display inside the contact badge.
+ * @returns The generated HTML string for a single contact badge.
+ */
 function getUserBadgeTemplate(initials) {
   return `
       <span class="profile-badge">${initials}</span>
