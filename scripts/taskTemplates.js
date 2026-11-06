@@ -1,7 +1,7 @@
 /**
  * Creates the wrapper of a task card.
- * @param {object} task - Task to display.
- * @returns {string} The HTML string of the task card inckzdubg its content.
+ * @param {object} task - The task object containing details about the task.
+ * @returns {string} The HTML string of the task card including its content.
  * @see getTaskCardContentTemplate
  */
 function getTaskCardTemplate(task) {
@@ -12,6 +12,11 @@ function getTaskCardTemplate(task) {
   `;
 }
 
+/**
+ * Creates the HTML content of the task card (header, content, subtask progress, footer).
+ * @param {object} task - The task object containing details about the task.
+ * @returns {string} HTML string with the content of the task card.
+ */
 function getTaskCardContentTemplate(task) {
   return `
       <header class="task-card-header">
