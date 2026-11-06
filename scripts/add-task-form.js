@@ -244,9 +244,9 @@ function showTaskFieldError(form, name, isInvalid) {
 }
 
 /**
- * 
+ * Validates all required fields in the add-task form.
  * @param {HTMLFormElement} form - Form for creating a task.
- * @returns 
+ * @returns {boolean} `true` if all required fields are filled, otherwise `false`.
  */
 function isAddTaskFormValid(form) {
   const titleInvalid = !form.elements.title.value.trim();
