@@ -267,7 +267,7 @@ async function saveEditedContact() {
     }
     await patchData('contacts/' + ownId, contact);
     closeEditContactDialog();
-    await updateEditedContact();
+    updateEditedContact();
 }
 
 async function contactHasValidationErrors(contact, ownId) {
@@ -293,7 +293,7 @@ function editContactHasBlankFields(contact) {
     return editBlankName || editBlankEmail || editBlankPhone;
 }
 
-async function updateEditedContact() {
+function updateEditedContact() {
     document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
     showContactDetail(editIndex);
 }
