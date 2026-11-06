@@ -195,7 +195,7 @@ function saveSubtaskOnEnter(event) {
 
 /**
  * Saves a subtask in the subtask list and renders the list.
- * @param {HTMLElement} input - Input field containing the subtask title.  
+ * @param {HTMLInputElement} input - Input field containing the subtask title.  
  */
 function saveSubtask(input) {
   const index = Number(input.closest(".subtask-list").dataset.index);
