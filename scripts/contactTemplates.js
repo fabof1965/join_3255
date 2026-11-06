@@ -31,8 +31,8 @@ function getContactCardTemplate(indexContact) {
 
 function getFirstLetterTemplate(firstLetter) {
   return `
-      <div class="letter" aria-label="${firstLetter}">${firstLetter}</div>
-      <div class="seperator"></div>
+      <div class="letter" data-letter="${firstLetter}" aria-label="${firstLetter}">${firstLetter}</div>
+      <div class="seperator" data-letter="${firstLetter}"></div>
   `;
 }
 

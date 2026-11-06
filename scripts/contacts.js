@@ -21,8 +21,11 @@ document.getElementById("open-button").addEventListener("click", () => {
 /**
  * Initializes the contacts page: renders all contact cards and sets the ARIA labels.
  */
-function initContacts() {
+async function initContacts() {
+    allContacts = await loadContacts();
+    sortAllContactsByName();
     renderContacts();
+    initAllContactCardListeners();
     initAriaLabels();
 }
 
@@ -37,13 +40,13 @@ function initAriaLabels() {
 /**
  * renders all Contacts, grouped by initial letter, into the contact list.
  */
-async function renderContacts() {
-    allContacts = await loadContacts();
-    sortAllContactsByName();
+function renderContacts() {
     const contactContainer = document.getElementById("contacts");
-    contactContainer.innerHTML = "";
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
+}
+
+function initAllContactCardListeners() {
     document.querySelectorAll('.contact-card').forEach((card) => {
         initContactCardListeners(card);
     });
@@ -86,14 +89,20 @@ function initContactCardListeners(card) {
 /**
  *  Builds the contact list HTML and adds a letter heading before each new initial.
  */
-function getContactsHtml() {
+function getContactsHtml(contacts = allContacts) {
+    let contactsHTML = "";
     let previousLetter = "";
-    return allContacts.map((contact, index) => {
-        const letter = contact.name.charAt(0).toUpperCase();
-        const heading = letter === previousLetter ? "" : getFirstLetterTemplate(letter);
-        previousLetter = letter;
-        return heading + getContactCardTemplate(index);
-    }).join("");
+    for(let indexContact = 0; indexContact < contacts.length; indexContact++) {
+        const letter = allContacts[indexContact].name.charAt(0).toUpperCase();
+        if(letter !== previousLetter) {
+            contactsHTML += getFirstLetterTemplate(letter);
+            previousLetter = letter;
+        }
+
+        contactsHTML += getContactCardTemplate(indexContact);
+    }
+    
+    return contactsHTML;
 }
 
 /**
@@ -171,7 +180,7 @@ function showContactDetail(indexContact) {
     writeContactDataIntoDetailView(indexContact);
     document.querySelector("#contact-detail").classList.add('animation-right');
     setBadgeBackgroundColor();
-    hideContactDetailOnArrowButtonClick();
+    if(isMobile) hideContactDetailOnArrowButtonClick();
     editEventlistener(indexContact);
     deleteEventListener(indexContact);
 }
@@ -224,7 +233,7 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("open-button").setAttribute("aria-label", "Open Dialog to add a new contact");
+    setTimeout(() => detail.innerHTML = "", 250);   
 }
 
 /**

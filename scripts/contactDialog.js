@@ -119,7 +119,7 @@ async function addNewContact() {
     if (nameExists || emailExists || phoneExists) return;
     await postData('contacts', contact);
     closeContactDialog();
-    await renderContacts();
+    initContacts();
     showSuccessPopup('Contact successfully created');
 }
 
@@ -294,22 +294,34 @@ function editContactHasBlankFields(contact) {
 }
 
 async function updateEditedContact() {
-    await renderContacts();
+    await initContacts();
     showContactDetail(editIndex);
 }
 
 /* ---------- Delete contact ---------- */
 
-async function deleteContact(i) {
-    const contact = allContacts[i];
+async function deleteContact(indexContact) {
+    const contact = allContacts[indexContact];
     if (!contact) return;
     await deleteData('contacts/' + contact.id);
     await removeContactFromTaskCard(contact.name);
     if (currentlyOpenedCard) hideContactDetail();
-    closeContactDialog();
-    closeEditContactDialog();
-    await renderContacts();
+    removeContactCard(indexContact, contact);
     showSuccessPopup('Contact successfully deleted');
+}
+
+function removeContactCard(indexContact, contactToRemove) {
+    const firstLetter = contactToRemove.name.charAt(0).toUpperCase();
+    const contactCard = document.getElementById("contact-card" + indexContact);
+    const sameInitialContacts = allContacts.filter(
+        (contact) => contact.name.charAt(0).toUpperCase() === firstLetter
+    );
+
+    if(sameInitialContacts.length === 1) {
+        document.querySelectorAll('[data-letter="' + firstLetter + '"]').forEach((element) => element.remove());
+    }
+
+    contactCard.remove();
 }
 
 /* ---------- Task sync (rename / remove contact) ---------- */
