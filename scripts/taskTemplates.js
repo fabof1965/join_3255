@@ -1,5 +1,5 @@
 /**
- * Creates the wrapper of a task card.
+ * Generates the wrapper of a task card.
  * @param {object} task - The task object containing details about the task.
  * @returns {string} The HTML string of the task card including its content.
  * @see getTaskCardContentTemplate
@@ -13,7 +13,7 @@ function getTaskCardTemplate(task) {
 }
 
 /**
- * Creates the HTML content of the task card (header, content, subtask progress, footer).
+ * Generates the HTML content of the task card (header, content, subtask progress, footer).
  * @param {object} task - The task object containing details about the task.
  * @returns {string} HTML string with the content of the task card.
  */
@@ -35,6 +35,14 @@ function getTaskCardContentTemplate(task) {
   `;
 }
 
+/**
+ * Generates the subtask progress bar and counter.
+ * @param {number} completed - Number of the completed subtasks.
+ * @param {number} progress - Progress in percent (0-100).
+ * @param {number} total - Total number of subtasks.
+ * @param {number} taskId - ID of the task, used for the element IDs.
+ * @returns {string} The generated HTML string for the subtask progress.
+ */
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
   return `
       <div class="subtask-progress">
