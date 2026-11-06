@@ -294,7 +294,7 @@ function editContactHasBlankFields(contact) {
 }
 
 async function updateEditedContact() {
-    await initContacts();
+    document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
     showContactDetail(editIndex);
 }
 

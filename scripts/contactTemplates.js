@@ -20,13 +20,19 @@ function getPopoverContent(indexContact) {
 function getContactCardTemplate(indexContact) {
   return `
       <article class="contact-card" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
-        <div class="profile-badge">${getInitials(allContacts[indexContact].name).toUpperCase()}</div>
-        <div class="name-and-mail">
-          <span class="name">${allContacts[indexContact].name}</span>
-          <span class="mail">${allContacts[indexContact].email}</span>
-        </div>
+        ${getContactCardContentTemplate(indexContact)}
       </article>
   `;
+}
+
+function getContactCardContentTemplate(indexContact) {
+  return `<div class="profile-badge">
+            ${getInitials(allContacts[indexContact].name).toUpperCase()}
+          </div>
+          <div class="name-and-mail">
+            <span class="name">${allContacts[indexContact].name}</span>
+            <span class="mail">${allContacts[indexContact].email}</span>
+          </div>`;
 }
 
 function getFirstLetterTemplate(firstLetter) {
