@@ -77,11 +77,7 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
 }
 
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-  const subtaskOutput =
-    subtasksHTML === ""
-      ? `<span class="no-subtasks">No Subtasks</span>`
-      : subtasksHTML;
-
+  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>`: subtasksHTML;
   return `
       <article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
@@ -123,6 +119,12 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
   `;
 }
 
+/**
+ * Generates the HTML for a single contact in the task detail overlay.
+ * @param {string} initials - The initials to display inside the contact badge.
+ * @param {string} name - Fullname of the assigned contact.
+ * @returns {string} The generated HTML string for the contact entry.
+ */
 function getTaskOverlayUserTemplate(initials, name) {
   return `
       <div class="task-card-dialog-user">
