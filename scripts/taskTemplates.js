@@ -1,3 +1,9 @@
+/**
+ * Creates the wrapper of a task card.
+ * @param {object} task - Task to display.
+ * @returns {string} The HTML string of the task card inckzdubg its content.
+ * @see getTaskCardContentTemplate
+ */
 function getTaskCardTemplate(task) {
   return `
       <article id="${task.id}" class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
