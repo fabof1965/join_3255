@@ -153,7 +153,7 @@ document.addEventListener("keydown", (event) => {
 
 /**
  * Removes subtask when the trash icon is clicked.
- * @param {HTMLElement} button - The delete button inside the subtask list item that was clicked.
+ * @param {HTMLButtonElement} button - The delete button inside the subtask list item that was clicked.
  */
 async function deleteSubtask(button) {
   const index = Number(button.closest(".subtask-list").dataset.index);
@@ -164,7 +164,7 @@ async function deleteSubtask(button) {
 
 /**
  * // Muss noch geschrieben werden
- * @param {HTMLElement} button - The edit button inside the subtask list item that was clicked. 
+ * @param {HTMLButtonElement} button - The edit button inside the subtask list item that was clicked. 
  * @returns 
  */
 function editSubtask(button) {
@@ -206,6 +206,10 @@ function saveSubtask(input) {
   renderNewSubtasks();
 }
 
+/**
+ * Resets the add-task form to its original state.
+ * @param {HTMLFormElement} form - Form that is being reset. 
+ */
 function resetForm(form = document.getElementById("add-task-form")) {
   if (!form) return;
   form.reset();
