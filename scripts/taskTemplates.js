@@ -76,8 +76,15 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
   `;
 }
 
+/**
+ * Generates the HTML for the detail overlay of a task card.
+ * @param {object} task - The task object containing details about the task.
+ * @param {string} priority - The priority of a task.("urent", "medium" or "low").
+ * @param {string} subtasksHTML - The prepared HTML of the subtasks.
+ * @returns {string} The generated HTML string for the task detail overlay.
+ */
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>`: subtasksHTML;
+  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>` : subtasksHTML;
   return `
       <article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
