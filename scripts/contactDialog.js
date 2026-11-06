@@ -111,16 +111,107 @@ async function submitContactForm(event) {
 }
 
 async function addNewContact() {
+    const contactList = document.getElementById("contacts");
     const contact = getContactFormfromForm();
     if (contactHasBlankFields(contact)) return;
     const nameExists = await checkIfContactNameExists(contact.name);
     const emailExists = await checkIfEmailExists(contact.email);
     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
     if (nameExists || emailExists || phoneExists) return;
-    await postData('contacts', contact);
+    const response = await postData('contacts', contact);
+    const contactObject = {id: response.name, ...contact};
     closeContactDialog();
-    initContacts();
+    allContacts.push(contactObject);
+    sortAllContactsByName();
+    const newContactIndex = allContacts.findIndex((contact) => contact.name === contactObject.name);
+    insertContact(contactList, contactObject.name, newContactIndex);
+    
     showSuccessPopup('Contact successfully created');
+}
+
+function insertContact(contactList, newContactName, indexContact) {
+    const initialLetter = newContactName.charAt(0).toUpperCase();
+
+    const newContactElement = makeNewContactNode(indexContact);
+    const group = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
+
+    if(group.length > 0) {
+        insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact);
+        return;
+    }
+
+    appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList);
+}
+
+function insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact) {
+    const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
+    if(nextElement) nextElement.before(newContactElement);
+    else group.at(-1).after(newContactElement);
+    setBadgeBackgroundColor();
+    newContactElement.addEventListener("click", () => {
+    toggleContactDetail(indexContact, newContactElement);
+    });
+
+    newContactElement.addEventListener("keyup", (event) => {
+        if(event.key === "Enter") {
+            toggleContactDetail(indexContact, newContactElement);
+        }
+    });
+}
+
+function appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList) {
+    const letterElement = makeLetterElement(initialLetter);
+    const seperatorElement = makeSeperatorElement(initialLetter);
+    const nextLetter = [...document.querySelectorAll('.letter')]
+        .find(letter => letter.dataset.letter.localeCompare(initialLetter, 'de') > 0);
+
+    if(nextLetter) nextLetter.before(letterElement, seperatorElement, newContactElement);
+    else contactList.append(letterElement, seperatorElement, newContactElement);
+
+    newContactElement.addEventListener("click", () => {
+        toggleContactDetail(indexContact, newContactElement);
+    });
+
+    newContactElement.addEventListener("keyup", (event) => {
+        if(event.key === "Enter") {
+            toggleContactDetail(indexContact, newContactElement);
+        }
+    });
+
+    setBadgeBackgroundColor();
+}
+
+function makeNewContactNode(indexContact) {
+    const newContactNode = document.createElement("article");
+    newContactNode.classList.add("contact-card");
+    newContactNode.id = "contact-card" + indexContact;
+    newContactNode.role = "button";
+    newContactNode.dataset.contactIndex = indexContact;
+    newContactNode.dataset.name = allContacts[indexContact].name;
+    newContactNode.dataset.initialLetter = allContacts[indexContact].name.charAt(0).toUpperCase();
+    newContactNode.tabIndex = 0;
+    newContactNode.ariaLabel = "Open contact " + allContacts[indexContact].name;
+    newContactNode.innerHTML = getContactCardContentTemplate(indexContact);
+
+    return newContactNode;
+}
+
+function makeLetterElement(letter) {
+    const letterElement = document.createElement("div");
+    letterElement.classList.add("letter");
+    letterElement.dataset.letter = letter;
+    letterElement.ariaLabel = letter;
+    letterElement.innerText = letter;
+
+    return letterElement;
+}
+
+function makeSeperatorElement(letter) {
+    const seperator = document.createElement("div");
+    seperator.classList.add("seperator");
+    seperator.dataset.letter = letter;
+
+    return seperator;
 }
 
 function getContactFormfromForm() {
