@@ -259,8 +259,8 @@ function isAddTaskFormValid(form) {
 }
 
 /**
- * Reads the selected contacts from the “Assigned to” select element and return displays their names
- * @returns {Array}
+ * Reads the selected contacts from the “Assigned to” select element and return  their displayed names.
+ * @returns {string[]} Names of the selected contacts. Empty array if no contact has been selected.
  */
 function getAssignedContactsFromForm() {
   const select = document.getElementById("assigned-contacts");
@@ -272,6 +272,10 @@ function getAssignedContactsFromForm() {
   return assignedContacts;
 }
 
+/**
+ * Reads the add-task form values and return them as a task object.
+ * @returns {object} The task data.
+ */
 function getTaskData() {
   const formElements = getFormElements();
   const assignedContactsArray = getAssignedContactsFromForm();
@@ -293,7 +297,7 @@ function getTaskData() {
 /**
  * Returns the DOM elements of the add-task form fields.
  * @param {string} priority - Priority value used to find the matching priority button.
- * @returns {Object} Object containing the form field elements. 
+ * @returns {object} Object containing the form field elements. 
  */
 function getFormElements(priority = "") {
   return {
