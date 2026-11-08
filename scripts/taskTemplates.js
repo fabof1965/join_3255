@@ -141,6 +141,14 @@ function getTaskOverlayUserTemplate(initials, name) {
   `;
 }
 
+/**
+ * Generates the HTML for a single subtask with a checkbox in the task detail overlay.
+ * @param {{title: string, done: boolean}} subtask - The subtask with its title and status.
+ * @param {boolean} checked - If `true`, subtask is done and the checkbox is checked, if `false`, it is not. 
+ * @param {number} taskId - ID of the task, used for the element IDs.
+ * @param {number} index - The position of the subtask in the task's subtask list.
+ * @returns {string} The generated HTML string for the subtask entry.
+ */
 function getSubtaskTemplate(subtask, checked, taskId, index) {
   const checkedAttribute = checked ? "true" : false;
   return `
