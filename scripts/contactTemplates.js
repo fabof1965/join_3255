@@ -7,7 +7,7 @@ const phoneExistsMsg = "Please choose a different number.";
 
 /**
  * Generates the HTML for the popover buttons (edit and delete) of a contact.
- * @param {number} indexContact -  Index of the selected contact in `allContacts`.
+ * @param {number} indexContact -  Index of the selected contact.
  * @returns {string} HTML string with the edit and delete buttons for the selected contact.
  */
 function getPopoverContent(indexContact) {
@@ -22,6 +22,12 @@ function getPopoverContent(indexContact) {
   `;
 }
 
+/**
+ * Generates the HTML for a single contact card of the contact list.
+ * @param {number} indexContact - Index of the selected contact.
+ * @see getContactCardContentTemplate
+ * @returns HTML string of the contact card.
+ */
 function getContactCardTemplate(indexContact) {
   const initialLetter = allContacts[indexContact].name.charAt(0).toUpperCase();
   const name = allContacts[indexContact].name;
