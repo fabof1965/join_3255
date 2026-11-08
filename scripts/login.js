@@ -122,6 +122,12 @@ function createPasswordFieldObject(inputId, iconId) {
     return { input: input, icon: icon, togglePasswordVisibility: btnTogglePasswordVisibility }
 }
 
+/**
+ * Sets the icon in the password field to reflect the field's current state.
+ * Shows a lock icon if the field is empty, otherwise the show/hide icon.
+ * @param {object} field - Password field object.
+ * @param {HTMLInputElement} field.input - Password input Element.
+ */
 function handleEmptyPasswordInput(field) {
     if (field.input.value === "") return setPasswordIcon(field, "./assets/icons/lock.svg", "lock-img", "Show password");
     const visible = field.input.type === "text";
@@ -133,7 +139,7 @@ function handleEmptyPasswordInput(field) {
 
 /**
  * Toggles the icon and the aria-label of a password field's visibility toggle.
- * @param {Object} field - Password field object.
+ * @param {object} field - Password field object.
  * @param {HTMLImageElement} field.icon - Icon image of the visibility toggle.
  * @param {HTMLButtonElement} field.togglePasswordVisibility - Button that toggles the password visibility.
  * @param {string} source - Path of the icon image.
