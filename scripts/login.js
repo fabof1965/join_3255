@@ -44,6 +44,9 @@ export function initLoginInputEventListeners() {
     });
 }
 
+/**
+ * Initializes the eventlisteners for the login form.
+ */
 function initEventListenersForLoginForm() {
     const loginForm = document.getElementById('auth-form');
     handleLoginOnSubmit(loginForm);
