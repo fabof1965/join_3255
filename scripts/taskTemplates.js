@@ -238,10 +238,10 @@ function getTaskFormTemplate() {
 }
 
 /**
- * Generates the HTML for content of the form fields of the "Add Task" dialog.
+ * Generates the HTML for the form fields of the "Add Task" dialog.
  * Contains the following input fields: title, description, due date, priority, assigned to, category, and subtasks.
  * @see getTaskFormTemplate
- * @returns {string} The generated HTML string for the task form. 
+ * @returns {string} The generated HTML string for the task form fields. 
  */
 function getTaskFormContentTemplate() {
   return `
