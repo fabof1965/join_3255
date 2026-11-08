@@ -38,6 +38,12 @@ function getContactCardTemplate(indexContact) {
   `;
 }
 
+/**
+ * Generates the HTML for the profile badge, contact name and email address
+ * for a single contact card.
+ * @param {number} indexContact - Index of the selected contact.
+ * @returns {string} HTML string containing the profile badge with initials, the contact name and the email address.
+ */
 function getContactCardContentTemplate(indexContact) {
   return `<div class="profile-badge">
             ${getInitials(allContacts[indexContact].name).toUpperCase()}
