@@ -37,6 +37,11 @@ function setBorderColor() {
     password.closest('.input-content-container').classList.toggle('error-message-border-bottom', emptyPassword || bothFilled);
 }
 
+/**
+ * Sets the error message text and shows or hides the message element.
+ * @param {HTMLElement} element - The element that displays the error message below an input field.
+ * @param {string} text - The error message to display. An empty string hides the element.
+ */
 function setLoginErrorText(element, text) {
     element.textContent = text;
     element.classList.toggle('visibility-hidden', !text);
