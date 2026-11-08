@@ -235,7 +235,7 @@ function hideContactDetail() {
 }
 
 /**
- * opens the popover menu of the selected contact (mobile view)
+ * Opens the popover menu of the selected contact (mobile view)
  */
 function showPopover() {
     document.getElementById("popover-menu").showPopover();
