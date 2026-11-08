@@ -160,9 +160,3 @@ function getInputFieldsForSignup() {
 function getPopupTemplate() {
   return `<dialog id="popup" class="popup" aria-live="polite"><h2></h2></dialog>`;
 }
-
-/**
- * Shows a success popup and removes it after three seconds.
- * @param {string} message - Text displayed in the popup.
- * @returns {void}
- */
