@@ -54,6 +54,11 @@ function getContactCardContentTemplate(indexContact) {
           </div>`;
 }
 
+/**
+ * Generates the HTML separator for each required letter.
+ * @param {string} firstLetter - First letter from a firstname from a single contact.
+ * @returns HTML string with a seperator and the first letter.
+ */
 function getFirstLetterTemplate(firstLetter) {
   return `
       <div class="letter" data-letter="${firstLetter}" aria-label="${firstLetter}">${firstLetter}</div>
