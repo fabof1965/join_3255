@@ -2,15 +2,18 @@ const wrongEmail = "Check your email and password. Please try again.";
 const enterLoginEmailMsg = "Please enter your email.";
 const enterLoginPwMsg = "Please enter your password.";
 
+/**
+ * 
+ * @param {submitter} event 
+ * @returns 
+ */
 function showErrorMessageForLogin(event) {
-    if(event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
+    if (event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
     const emailErrMsg = document.getElementById('email-err-msg');
     const passwordErrMsg = document.getElementById('login-password-err-msg');
     const emptyEmailInput = !document.getElementById('email').value.trim();
     const emptyPasswordInput = !document.getElementById('login-password').value.trim();
-    document.querySelectorAll('.input-content-container').forEach(borderColor => {
-        borderColor.classList.add('error-message-border-bottom');
-    });
+    setBorderColor();
     if (emptyEmailInput || emptyPasswordInput) {
         setLoginErrorText(emailErrMsg, emptyEmailInput ? enterLoginEmailMsg : '');
         setLoginErrorText(passwordErrMsg, emptyPasswordInput ? enterLoginPwMsg : '')
@@ -18,6 +21,20 @@ function showErrorMessageForLogin(event) {
         setLoginErrorText(emailErrMsg, '');
         setLoginErrorText(passwordErrMsg, wrongEmail);
     }
+}
+
+/**
+ * Highlights the border of the invalid login inputs.
+ * An empty field is marked individually; if both are filled, both are marked.
+ */
+function setBorderColor() {
+    const email = document.getElementById('email');
+    const password = document.getElementById('login-password');
+    const emptyEmail = !email.value.trim();
+    const emptyPassword = !password.value.trim();
+    const bothFilled = !emptyEmail && !emptyPassword;
+    email.closest('.input-content-container').classList.toggle('error-message-border-bottom', emptyEmail || bothFilled);
+    password.closest('.input-content-container').classList.toggle('error-message-border-bottom', emptyPassword || bothFilled);
 }
 
 function setLoginErrorText(element, text) {
