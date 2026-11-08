@@ -146,6 +146,11 @@ function setPasswordIcon(field, source, alt, label) {
     field.togglePasswordVisibility.setAttribute("aria-label", label);
 }
 
+/**
+ * Shows or hides the password and changes the icon.
+ * @param {object} field - Password field object.
+ * @param {HTMLInputElement} field.input - Password input Element.
+ */
 function togglePasswordVisibility(field) {
     if (field.input.type === "password") {
         field.input.type = "text";
