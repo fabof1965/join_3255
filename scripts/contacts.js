@@ -247,7 +247,6 @@ function hideContactDetail() {
  */
 function showPopover() {
     document.getElementById("popover-menu").showPopover();
-
 }
 
 /**

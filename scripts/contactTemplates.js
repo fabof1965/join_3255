@@ -109,7 +109,7 @@ function getContactHeaderTemplate(contact, indexContact) {
  * @param {string} contact.email - Email of the selected contact.
  * @param {string} contact.name - Name of the selected contact.
  * @param {string} contact.phone - Phonenumber of the selected contact.
- * @returns HTML string of the phonenumer and email adress from a single contact.
+ * @returns {string} HTML string of the phonenumer and email adress from a single contact.
  */
 function getContactBodyTemplate(contact) {
   return `
@@ -126,6 +126,13 @@ function getContactBodyTemplate(contact) {
   `;
 }
 
+/**
+ * Generates the HTML for the contact detail view (header and body).
+ * @param {number} indexContact - Index of the selected contact in `allContacts`.
+ * @see getContactHeaderTemplate
+ * @see getContactBodyTemplate
+ * @returns {string} HTML template of the contact information.
+ */
 function getContactInformationTemplate(indexContact) {
   const contact = allContacts[indexContact];
   return `
@@ -134,6 +141,11 @@ function getContactInformationTemplate(indexContact) {
   `;
 }
 
+/**
+ * Generates the badge text with the contact's initials for the edit dialog.
+ * @param {string} initials - The initials to display inside the contact badge.
+ * @returns {string} HTML string of the badge for a single contact.
+ */
 function getEditBadgeTemplate(initials) {
   return `
       <span id="badge-text" class="profile-badge-text" style="font-size: var(--large-font-size)">${initials}</span>
