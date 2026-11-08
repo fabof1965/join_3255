@@ -3,7 +3,7 @@ import { ref, get } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-dat
 import { auth, db } from "./firebaseInit.js";
 import { addSignupContent } from "./signup.js";
 
-document.addEventListener("DOMContentLoaded", () => initAuthEventListeners());
+document.addEventListener("DOMContentLoaded", () => initLoginEventListeners());
 document.getElementById('show-sign-up-btn').addEventListener('click', () => {
     addSignupContent();
 });
@@ -12,7 +12,7 @@ document.getElementById('show-sign-up-btn').addEventListener('click', () => {
  * Initializes all event listeners for the login form.
  * Contains the listeners for the password field, the login field and the form submission.
  */
-export function initAuthEventListeners() {
+export function initLoginEventListeners() {
     initPasswordEventListener();
     initLoginInputEventListeners();
     initEventListenersForLoginForm();

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
-import { initAuthEventListeners } from './login.js';
+import { initLoginEventListeners } from './login.js';
 
 document.getElementById("checkbox").addEventListener("keyup", (event) => {
     handleChackboxChangeOnEnter(event);
@@ -108,7 +108,7 @@ function showLoginForm() {
     resetLoginPageStyle();
     renderLoginInputFields();
     resetLoginFormState();
-    initAuthEventListeners();
+    initLoginEventListeners();
 }
 
 export function addSignupContent() {
