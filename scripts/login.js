@@ -69,11 +69,9 @@ function handleLoginOnSubmit(loginForm) {
 }
 
 export async function userLogin(event) {
-    const email = document.getElementById('email');
-    const password = document.getElementById('login-password');
     let userCredential;
     try {
-        userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        userCredential = await signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('login-password').value);
     } catch (error) {
         return showErrorMessageForLogin(event);
     }
