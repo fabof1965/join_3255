@@ -5,6 +5,11 @@ const emailExistsMsg = "That email already exists.";
 const enterPhoneMsg = "Please enter your phonenumber.";
 const phoneExistsMsg = "Please choose a different number.";
 
+/**
+ * Generates the HTML for the popover buttons (edit and delete) of a contact.
+ * @param {number} indexContact -  Index of the selected contact in `allContacts`.
+ * @returns {string} HTML string with the edit and delete buttons for the selected contact.
+ */
 function getPopoverContent(indexContact) {
   const contactName = allContacts[indexContact].name;
   return `
