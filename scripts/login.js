@@ -56,7 +56,6 @@ function submitHandler(event) {
     if(event.submitter === loginButton) {
         userLogin(event);
     }
-
     if(event.submitter === guestLoginButton) {
         logInGuestUser();
     }
@@ -132,6 +131,15 @@ function handleEmptyPasswordInput(field) {
         visible ? "Hide password" : "Show password");
 }
 
+/**
+ * Toggles the icon and the aria-label of a password field's visibility toggle.
+ * @param {Object} field - Password field object.
+ * @param {HTMLImageElement} field.icon - Icon image of the visibility toggle.
+ * @param {HTMLButtonElement} field.togglePasswordVisibility - Button that toggles the password visibility.
+ * @param {string} source - Path of the icon image.
+ * @param {string} alt - Alt text of the icon image.
+ * @param {string} label - Aria-label text of the toggle button.
+ */
 function setPasswordIcon(field, source, alt, label) {
     field.icon.src = source;
     field.icon.alt = alt; 
