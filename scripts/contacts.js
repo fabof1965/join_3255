@@ -183,10 +183,18 @@ function showContactDetail(indexContact) {
     deleteEventListener(indexContact);
 }
 
+/**
+ * Adds a click event listener to the edit button that opens the edit dialog for the selected contact.
+ * @param {number} indexContact - Index of the contact to edit.
+ */
 function editEventlistener(indexContact) {
     document.querySelector(".edit").addEventListener("click", () => editExistingContact(indexContact));
 }
 
+/**
+ * Adds a click eventlistener to the delete button that deletes the selected contact.
+ * @param {number} indexContact - Index of the contact to delete.
+ */
 function deleteEventListener(indexContact) {
     document.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
 }
