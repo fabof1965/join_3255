@@ -42,8 +42,6 @@ function closeDialogHandler(event, closingFunction) {
     closingFunction();
 }
 
-/* ---------- Add contact dialog ---------- */
-
 function getAddContactDialog() {
     return document.getElementById("add-contact-dialog");
 }
@@ -93,8 +91,6 @@ function resetContactForm() {
     });
 }
 
-/* ---------- Submit (add / edit) ---------- */
-
 async function submitContactForm(event) {
     event.preventDefault();
     if (isSubmittingContact) return;
@@ -119,41 +115,37 @@ async function addNewContact() {
     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
     if (nameExists || emailExists || phoneExists) return;
     const response = await postData('contacts', contact);
-    const contactObject = {id: response.name, ...contact};
+    const contactObject = { id: response.name, ...contact };
     closeContactDialog();
     allContacts.push(contactObject);
     sortAllContactsByName();
     const newContactIndex = allContacts.findIndex((contact) => contact.name === contactObject.name);
     insertContact(contactList, contactObject.name, newContactIndex);
-    
     showSuccessPopup('Contact successfully created');
 }
 
 function insertContact(contactList, newContactName, indexContact) {
     const initialLetter = newContactName.charAt(0).toUpperCase();
-
     const newContactElement = makeNewContactNode(indexContact);
     const group = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
-
-    if(group.length > 0) {
+    if (group.length > 0) {
         insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact);
         return;
     }
-
     appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList);
 }
 
 function insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact) {
     const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
-    if(nextElement) nextElement.before(newContactElement);
+    if (nextElement) nextElement.before(newContactElement);
     else group.at(-1).after(newContactElement);
     setBadgeBackgroundColor();
     newContactElement.addEventListener("click", () => {
-    toggleContactDetail(indexContact, newContactElement);
+        toggleContactDetail(indexContact, newContactElement);
     });
 
     newContactElement.addEventListener("keyup", (event) => {
-        if(event.key === "Enter") {
+        if (event.key === "Enter") {
             toggleContactDetail(indexContact, newContactElement);
         }
     });
@@ -162,22 +154,17 @@ function insertContactIntoContactGroup(newContactName, newContactElement, group,
 function appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList) {
     const letterElement = makeLetterElement(initialLetter);
     const seperatorElement = makeSeperatorElement(initialLetter);
-    const nextLetter = [...document.querySelectorAll('.letter')]
-        .find(letter => letter.dataset.letter.localeCompare(initialLetter, 'de') > 0);
-
-    if(nextLetter) nextLetter.before(letterElement, seperatorElement, newContactElement);
+    const nextLetter = [...document.querySelectorAll('.letter')].find(letter => letter.dataset.letter.localeCompare(initialLetter, 'de') > 0);
+    if (nextLetter) nextLetter.before(letterElement, seperatorElement, newContactElement);
     else contactList.append(letterElement, seperatorElement, newContactElement);
-
     newContactElement.addEventListener("click", () => {
         toggleContactDetail(indexContact, newContactElement);
     });
-
     newContactElement.addEventListener("keyup", (event) => {
-        if(event.key === "Enter") {
+        if (event.key === "Enter") {
             toggleContactDetail(indexContact, newContactElement);
         }
     });
-
     setBadgeBackgroundColor();
 }
 
@@ -192,7 +179,6 @@ function makeNewContactNode(indexContact) {
     newContactNode.tabIndex = 0;
     newContactNode.ariaLabel = "Open contact " + allContacts[indexContact].name;
     newContactNode.innerHTML = getContactCardContentTemplate(indexContact);
-
     return newContactNode;
 }
 
@@ -202,7 +188,6 @@ function makeLetterElement(letter) {
     letterElement.dataset.letter = letter;
     letterElement.ariaLabel = letter;
     letterElement.innerText = letter;
-
     return letterElement;
 }
 
@@ -210,7 +195,6 @@ function makeSeperatorElement(letter) {
     const seperator = document.createElement("div");
     seperator.classList.add("seperator");
     seperator.dataset.letter = letter;
-
     return seperator;
 }
 
@@ -221,8 +205,6 @@ function getContactFormfromForm() {
         phone: document.getElementById("phone").value.trim()
     };
 }
-
-/* ---------- Validation ---------- */
 
 function contactHasBlankFields(contact) {
     const blankName = fieldIsBlankFeedback(contact.name, 'name-err-msg', 'wrong-name-border', enterNameMsg);
@@ -266,8 +248,6 @@ function updateContactFieldError(errorID, borderID, exists, existsMsg) {
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
 }
 
-/* ---------- Input listeners ---------- */
-
 function resetErrEventlistener() {
     const inputFields = [
         document.getElementById('name'),
@@ -309,8 +289,6 @@ function validatePhoneInput(input, errorMsg, border) {
     errorMsg.classList.toggle('visibility-hidden', !invalid);
     border.classList.toggle('error-message-border-bottom', invalid);
 }
-
-/* ---------- Edit contact dialog ---------- */
 
 function editExistingContact(indexContact) {
     openExistingContactDialog(indexContact);
@@ -389,8 +367,6 @@ function updateEditedContact() {
     showContactDetail(editIndex);
 }
 
-/* ---------- Delete contact ---------- */
-
 async function deleteContact(indexContact) {
     const contact = allContacts[indexContact];
     if (!contact) return;
@@ -404,18 +380,12 @@ async function deleteContact(indexContact) {
 function removeContactCard(indexContact, contactToRemove) {
     const firstLetter = contactToRemove.name.charAt(0).toUpperCase();
     const contactCard = document.getElementById("contact-card" + indexContact);
-    const sameInitialContacts = allContacts.filter(
-        (contact) => contact.name.charAt(0).toUpperCase() === firstLetter
-    );
-
-    if(sameInitialContacts.length === 1) {
+    const sameInitialContacts = allContacts.filter((contact) => contact.name.charAt(0).toUpperCase() === firstLetter);
+    if (sameInitialContacts.length === 1) {
         document.querySelectorAll('[data-letter="' + firstLetter + '"]').forEach((element) => element.remove());
     }
-
     contactCard.remove();
 }
-
-/* ---------- Task sync (rename / remove contact) ---------- */
 
 async function renameContactFromTaskCard(oldName, newName) {
     const tasks = await getData('tasks');

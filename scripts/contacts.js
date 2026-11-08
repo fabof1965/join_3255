@@ -98,10 +98,8 @@ function getContactsHtml(contacts = allContacts) {
             contactsHTML += getFirstLetterTemplate(letter);
             previousLetter = letter;
         }
-
         contactsHTML += getContactCardTemplate(indexContact);
     }
-    
     return contactsHTML;
 }
 
