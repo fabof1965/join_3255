@@ -206,7 +206,7 @@ function getAddTaskDialogContentTemplate() {
 
 /**
  * Generates the HTML for the task form of the "Add Task" dialog.
- * Contains the form fields and the "Clear" and "Create Task" buttons.
+ * Wraps the form fields in a form element and adds the "Clear" and "Create Task" buttons.
  * @see getTaskFormContentTemplate
  * @returns {string} The generated HTML string for the task form. 
  */
@@ -237,6 +237,12 @@ function getTaskFormTemplate() {
   `;
 }
 
+/**
+ * Generates the HTML for content of the form fields of the "Add Task" dialog.
+ * Contains the following input fields: title, description, due date, priority, assigned to, category, and subtasks.
+ * @see getTaskFormTemplate
+ * @returns {string} The generated HTML string for the task form. 
+ */
 function getTaskFormContentTemplate() {
   return `
       <section class="form-content">
