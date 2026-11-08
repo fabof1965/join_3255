@@ -204,6 +204,12 @@ function getAddTaskDialogContentTemplate() {
   `;
 }
 
+/**
+ * Generates the HTML for the task form of the "Add Task" dialog.
+ * Contains the form fields and the "Clear" and "Create Task" buttons.
+ * @see getTaskFormContentTemplate
+ * @returns {string} The generated HTML string for the task form. 
+ */
 function getTaskFormTemplate() {
   return `
       <form id="add-task-form" class="add-task-form" novalidate>
