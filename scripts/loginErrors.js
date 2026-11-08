@@ -4,10 +4,10 @@ const enterLoginPwMsg = "Please enter your password.";
 
 function showErrorMessageForLogin(event) {
     if(event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
-    const emailErrMsg = document.getElementById('email-err-msg'); //span
-    const passwordErrMsg = document.getElementById('login-password-err-msg'); // span
-    const emptyEmailInput = !document.getElementById('email').value.trim(); // input
-    const emptyPasswordInput = !document.getElementById('login-password').value.trim(); // input
+    const emailErrMsg = document.getElementById('email-err-msg');
+    const passwordErrMsg = document.getElementById('login-password-err-msg');
+    const emptyEmailInput = !document.getElementById('email').value.trim();
+    const emptyPasswordInput = !document.getElementById('login-password').value.trim();
     document.querySelectorAll('.input-content-container').forEach(borderColor => {
         borderColor.classList.add('error-message-border-bottom');
     });
