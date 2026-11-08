@@ -47,6 +47,9 @@ function setLoginErrorText(element, text) {
     element.classList.toggle('visibility-hidden', !text);
 }
 
+/**
+ * Hides the login error messages and removes the red bottom border from the input fields.
+ */
 function hideLoginErrors() {
     const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('login-password-err-msg');
