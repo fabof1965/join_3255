@@ -53,7 +53,7 @@ function initEventListenersForLoginForm() {
 }
 
 /**
- * Handles the submit event of the login
+ * Handles the submit event of the login form.
  * @param {SubmitEvent} event - Submit event of the login form.
  */
 function submitHandler(event) {
@@ -68,12 +68,22 @@ function submitHandler(event) {
     }
 }
 
+/**
+ *  Adds a submit event listener to the login form.
+ * @param {HTMLFormElement} loginForm - The login form element.
+ */
 function handleLoginOnSubmit(loginForm) {
     loginForm.addEventListener('submit', (event) => {
         submitHandler(event);
     });
 }
 
+/**
+ * Logs in the user with the form data and redirects to the summary page.
+ * Shows an error message if the login fails.
+ * @param {SubmitEvent} event - Submit event of the login form.
+ * @returns {Promise<void>}
+ */
 export async function userLogin(event) {
     let userCredential;
     try {
@@ -123,6 +133,10 @@ async function logInGuestUser() {
     window.location.href = './pages/summary.html';
 }
 
+/**
+ * Creates the password field object of the login form.
+ * @returns {Array<Object>} Array with the login password field object.
+ */
 function getLoginPasswordFieldObject() {
     return [
         createPasswordFieldObject('login-password', 'login-password-toggle-icon'),
