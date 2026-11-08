@@ -3,9 +3,9 @@ const enterLoginEmailMsg = "Please enter your email.";
 const enterLoginPwMsg = "Please enter your password.";
 
 /**
- * 
- * @param {submitter} event 
- * @returns 
+ * Validates the login inputs on form submit and shows the matching
+ * error messages below the fields.
+ * @param {SubmitEvent} event - The submit event of the login form.
  */
 function showErrorMessageForLogin(event) {
     if (event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
