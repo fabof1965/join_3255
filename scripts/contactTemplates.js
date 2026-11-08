@@ -102,6 +102,15 @@ function getContactHeaderTemplate(contact, indexContact) {
   `;
 }
 
+/**
+ * Generates the HTML for the contact information from a single contact.
+ * Contains the contact email address and the contact phonenumber.
+ * @param {object} contact - The selected contact.
+ * @param {string} contact.email - Email of the selected contact.
+ * @param {string} contact.name - Name of the selected contact.
+ * @param {string} contact.phone - Phonenumber of the selected contact.
+ * @returns HTML string of the phonenumer and email adress from a single contact.
+ */
 function getContactBodyTemplate(contact) {
   return `
       <div class="contact-information">
