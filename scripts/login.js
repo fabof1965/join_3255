@@ -8,6 +8,10 @@ document.getElementById('show-sign-up-btn').addEventListener('click', () => {
     addSignupContent();
 });
 
+/**
+ * Initializes all event listeners for the login form.
+ * Contains the listeners for the password field, the login field and the form submission.
+ */
 export function initAuthEventListeners() {
     initPasswordEventListener();
     initLoginInputEventListeners();
@@ -15,7 +19,7 @@ export function initAuthEventListeners() {
 }
 
 /**
- * Handle the login form submission.
+ * Handles the login form submission.
  * @param {Event} event - Login form submission event.
  */
 export function initPasswordEventListener() {
