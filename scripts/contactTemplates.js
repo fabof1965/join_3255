@@ -66,6 +66,14 @@ function getFirstLetterTemplate(firstLetter) {
   `;
 }
 
+/**
+ * Generates the HTML for the contact header.
+ * Contains the contact name, the edit and delete icons and the contact information heading.
+ * @param {object} contact - The selected contact.
+ * @param {string} contact.name - Name of the selected contact.
+ * @param {number} indexContact - Index of the selected contact.
+ * @returns {string} HTML string of the contact information header.
+ */
 function getContactHeaderTemplate(contact, indexContact) {
   return `
       <header class="detail-header">
