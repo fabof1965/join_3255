@@ -369,7 +369,7 @@ function getAddTaskSubtaskTemplate(index, title) {
 /**
  * Generates the HTML for the input field shown while a subtask is being edited.
  * @param {string} subtaskTitle - The current title of the subtask, used as the input's initial value.
- * @returns {string}  The generated HTML string for the subtask edit input field.
+ * @returns {string} The generated HTML string for the subtask edit input field.
  */
 function getEditSubtaskTemplate(subtaskTitle) {
   return `
@@ -377,6 +377,12 @@ function getEditSubtaskTemplate(subtaskTitle) {
   `;
 }
 
+/**
+ * Generates the HTML for a selectable contact option used to assign a contact to the task.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} name - Fullname of the assigned contact.
+ * @returns The HTML generated string for the contact option element.
+ */
 function getAssignedContactOptionTemplate(initials, name) {
   return `
       <option value="${initials}">${name}</option>
