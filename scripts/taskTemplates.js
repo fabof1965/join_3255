@@ -184,6 +184,12 @@ const lowPriorityTemplate =
     <path class="low-svg" d="M10 14.5093C9.7654 14.5097 9.53687 14.4349 9.34802 14.2958L0.444913 7.72606C0.210967 7.55327 0.0552944 7.29469 0.0121402 7.00721C-0.031014 6.71973 0.0418855 6.42689 0.214802 6.19312C0.387718 5.95935 0.646486 5.80379 0.934181 5.76067C1.22188 5.71754 1.51493 5.79039 1.74888 5.96318L10 12.0457L18.2511 5.96318C18.4851 5.79039 18.7781 5.71754 19.0658 5.76067C19.3535 5.80379 19.6123 5.95935 19.7852 6.19312C19.9581 6.42689 20.031 6.71973 19.9879 7.00721C19.9447 7.29469 19.789 7.55327 19.5551 7.72606L10.652 14.2958C10.4631 14.4349 10.2346 14.5097 10 14.5093Z" fill=""/>
   </svg>`;
 
+/**
+ * Generates the HTML for the content of the "Add Task" dialog.
+ * Contains the dialog header (title and close button).
+ * @see getTaskFormTemplate
+ * @returns {string} The generated HTML string for the add task content.
+ */
 function getAddTaskDialogContentTemplate() {
   return `
       <section class="add-task-dialog-content" aria-labelledby="add-task-title">
@@ -194,6 +200,7 @@ function getAddTaskDialogContentTemplate() {
           </button>
         </header>
         ${getTaskFormTemplate()}
+      </section>
   `;
 }
 
