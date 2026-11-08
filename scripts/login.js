@@ -122,6 +122,12 @@ function getLoginPasswordFieldObject() {
     ];
 }
 
+/**
+ * Collects the input, icon and toggle button of a password field.
+ * @param {string} inputId - ID of the password input field.
+ * @param {string} iconId - ID of the toggle icon.
+ * @returns {{input: HTMLInputElement|null, icon: HTMLImageElement|null, togglePasswordVisibility: HTMLButtonElement|null}} Object with the three elements, `null` if not found.
+ */
 function createPasswordFieldObject(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon = document.getElementById(iconId);
@@ -129,7 +135,7 @@ function createPasswordFieldObject(inputId, iconId) {
     if (icon) {
         btnTogglePasswordVisibility = icon.closest('.password-toggle');
     } else {
-        btnTogglePasswordVisibility = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}]`) || null;
+        btnTogglePasswordVisibility = document.querySelector(`.password-toggle[data-password-toggle-for="${inputId}"]`) || null;
     }
     return { input: input, icon: icon, togglePasswordVisibility: btnTogglePasswordVisibility }
 }
