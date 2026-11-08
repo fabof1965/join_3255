@@ -52,14 +52,18 @@ function initEventListenersForLoginForm() {
     handleLoginOnSubmit(loginForm);
 }
 
+/**
+ * Handles the submit event of the login
+ * @param {SubmitEvent} event - Submit event of the login form.
+ */
 function submitHandler(event) {
     event.preventDefault();
     const loginButton = document.getElementById("login-btn");
     const guestLoginButton = document.getElementById("guest-login-btn")
-    if(event.submitter === loginButton) {
+    if (event.submitter === loginButton) {
         userLogin(event);
     }
-    if(event.submitter === guestLoginButton) {
+    if (event.submitter === guestLoginButton) {
         logInGuestUser();
     }
 }
@@ -154,7 +158,7 @@ function handleEmptyPasswordInput(field) {
     const visible = field.input.type === "text";
     setPasswordIcon(field,
         visible ? './assets/icons/visibility_off.svg' : "./assets/icons/visibility.svg",
-        visible ? "hide password" : "show password", 
+        visible ? "hide password" : "show password",
         visible ? "Hide password" : "Show password");
 }
 
@@ -169,7 +173,7 @@ function handleEmptyPasswordInput(field) {
  */
 function setPasswordIcon(field, source, alt, label) {
     field.icon.src = source;
-    field.icon.alt = alt; 
+    field.icon.alt = alt;
     field.togglePasswordVisibility.setAttribute("aria-label", label);
 }
 
