@@ -366,6 +366,11 @@ function getAddTaskSubtaskTemplate(index, title) {
   `;
 }
 
+/**
+ * Generates the HTML for the input field shown while a subtask is being edited.
+ * @param {string} subtaskTitle - The current title of the subtask, used as the input's initial value.
+ * @returns {string}  The generated HTML string for the subtask edit input field.
+ */
 function getEditSubtaskTemplate(subtaskTitle) {
   return `
       <input class="subtask-edit-input" name="subtask-edit" value="${subtaskTitle}" />
