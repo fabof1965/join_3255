@@ -83,6 +83,13 @@ export async function userLogin(event) {
     window.location.href = './pages/summary.html';
 }
 
+/**
+ * Saves the name and email adress of the logged-in user in the local storage.
+ * If no name is given, the part of the email before the "@" is used instead.
+ * @param {object} user - The logged-in user.
+ * @param {string} [user.name] - Name of the user.
+ * @param {string} user.email  - Email of the user.
+ */
 function storeLoggedInUser(user) {
     const userName = user.name || user.username || user.fullName || user.email.split('@')[0];
     localStorage.setItem('name', userName);
