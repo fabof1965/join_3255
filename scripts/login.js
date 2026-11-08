@@ -89,6 +89,11 @@ function storeLoggedInUser(user) {
     localStorage.setItem('email', user.email);
 }
 
+/**
+ * Logs in guest user anonymously, saves the name "Guest" in the local storage
+ * and redirects to the summary page.
+ * @async
+ */
 async function logInGuestUser() {
     const loginForm = document.getElementById('auth-form');
     try {
