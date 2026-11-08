@@ -30,6 +30,10 @@ export function initPasswordEventListener() {
     });
 }
 
+/**
+ * Adds an input event listener for the email and password input fields.
+ * Each input clears the current error message.
+ */
 export function initLoginInputEventListeners() {
     const inputFields = [
         document.getElementById('email'),
