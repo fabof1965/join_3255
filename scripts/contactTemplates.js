@@ -18,8 +18,10 @@ function getPopoverContent(indexContact) {
 }
 
 function getContactCardTemplate(indexContact) {
+  const initialLetter = allContacts[indexContact].name.charAt(0).toUpperCase();
+  const name = allContacts[indexContact].name;
   return `
-      <article class="contact-card" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
+      <article class="contact-card" data-name="${name}" data-initial-letter="${initialLetter}" id="contact-card${indexContact}" role="button" data-contact-index="${indexContact}" tabindex="0" aria-label="Open contact ${allContacts[indexContact].name}">
         ${getContactCardContentTemplate(indexContact)}
       </article>
   `;
