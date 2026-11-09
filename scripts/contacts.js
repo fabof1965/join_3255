@@ -123,7 +123,11 @@ async function loadContacts() {
  * @param {HTMLElement} contactCard - The activated contact card.
  */
 function toggleContactDetail(indexContact, contactCard) {
-    if(currentlyOpenedCard) hidePreviouslyOpenedDetail(currentlyOpenedCard);
+    if(isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
+        hidePreviouslyOpenedDetail(contactCard);
+        return;
+    }
+    clearActiveContacts();
     showSelectedContact(indexContact, contactCard);
 }
 
@@ -157,6 +161,17 @@ function showSelectedContact(indexContact, contactCard) {
         editEventlistener(indexContact);
         deleteEventListener(indexContact);
     }
+}
+
+/**
+ * @description Removes the highlight from all active contact cards and hides the contact detail.
+ */
+function clearActiveContacts() {
+    const activeContacts = document.querySelectorAll('.background-primary');
+    activeContacts.forEach(contactCard => {
+        hidePreviouslyOpenedDetail(contactCard);
+        contactCard.classList.remove('background-primary');
+    });
 }
 
 /**

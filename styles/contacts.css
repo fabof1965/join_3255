@@ -187,6 +187,7 @@
 .header-content-1 {
     display: flex;
     gap: var(--gap-large);
+    align-items: center;
 }
 
 .header-content-2 {

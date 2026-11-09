@@ -31,36 +31,47 @@ document.getElementById("edit-contact-dialog").addEventListener("cancel", (event
     closeDialogHandler(event, closeEditContactDialog);
 });
 
+/**
+ * @description Handles the contact form's submit
+ * @param {SubmitEvent} event 
+ */
 function submitHandler(event) {
     event.preventDefault();
     submitContactForm(event);
 }
 
+/**
+ * @description Handles the cancel event on the dialogs 
+ * @param {Cancel} event 
+ * @param {calling function} closingFunction 
+ */
 function closeDialogHandler(event, closingFunction) {
     event.preventDefault();
     editIndex = null;
     closingFunction();
 }
 
+/**
+ * Gets the dialog element with the given id 'add-contact-dialog'
+ * @returns HTML Dialog element
+ */
 function getAddContactDialog() {
     return document.getElementById("add-contact-dialog");
 }
 
-function openContactDialog(i = null) {
-    if (i === null) {
-        resetBadge();
-        document.getElementById('contact-form').reset();
-    }
-    activateDialog();
-}
-
-function activateDialog() {
+/**
+ * @description Opens the dialog that makes it possile to create a new contact
+ */
+function openContactDialog() {
     const dialog = getAddContactDialog();
     dialog.showModal();
     dialog.classList.add('slide-in');
     clickEventListener(dialog, closeContactDialog);
 }
 
+/**
+ * @description Closes the 'Add Contact' - Dialog 
+ */
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
     const contactForm = document.getElementById('contact-form');
@@ -68,19 +79,14 @@ function closeContactDialog() {
     setTimeout(() => {
         contactDialog.close();
     }, 500);
-    resetBadge();
-    resetContactForm();
+    resetContactFormErrors();
     contactForm.reset();
 }
 
-function resetBadge() {
-    const badge = document.querySelector('.badge-image-container');
-    badge.style = "";
-    badge.classList.remove('profile-badge-large');
-    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-}
-
-function resetContactForm() {
+/**
+ * @description Resets the error messages from the add-contact-dialog
+ */
+function resetContactFormErrors() {
     const border = document.querySelectorAll('.add-contact-content');
     border.forEach(borderColor => {
         borderColor.classList.remove('error-message-border-bottom');
@@ -91,6 +97,11 @@ function resetContactForm() {
     });
 }
 
+/**
+ * @description Submits Contact data to firebase
+ * @param {SubmitEvent} event 
+ * @returns {Promise<void>}
+ */
 async function submitContactForm(event) {
     event.preventDefault();
     if (isSubmittingContact) return;
@@ -106,6 +117,10 @@ async function submitContactForm(event) {
     }
 }
 
+/**
+ * @description 
+ * @returns {Promise<void>}
+ */
 async function addNewContact() {
     const contactList = document.getElementById("contacts");
     const contact = getContactFormfromForm();
@@ -119,7 +134,7 @@ async function addNewContact() {
     closeContactDialog();
     allContacts.push(contactObject);
     sortAllContactsByName();
-    const newContactIndex = allContacts.findIndex((contact) => contact.name === contactObject.name);
+    const newContactIndex = allContacts.findIndex((contact) => contact.id === contactObject.id);
     insertContact(contactList, contactObject.name, newContactIndex);
     showSuccessPopup('Contact successfully created');
 }
@@ -127,44 +142,31 @@ async function addNewContact() {
 function insertContact(contactList, newContactName, indexContact) {
     const initialLetter = newContactName.charAt(0).toUpperCase();
     const newContactElement = makeNewContactNode(indexContact);
-    const group = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
-    if (group.length > 0) {
-        insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact);
+    const firstLetterGroup = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
+    
+    if (firstLetterGroup.length > 0) {
+        insertContactIntoContactGroup(newContactName, newContactElement, firstLetterGroup);
         return;
     }
-    appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList);
+    
+    appendContactListByNewElement(initialLetter, newContactElement, contactList);
 }
 
-function insertContactIntoContactGroup(newContactName, newContactElement, group, indexContact) {
+function insertContactIntoContactGroup(newContactName, newContactElement, group) {
     const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
     if (nextElement) nextElement.before(newContactElement);
     else group.at(-1).after(newContactElement);
     setBadgeBackgroundColor();
-    newContactElement.addEventListener("click", () => {
-        toggleContactDetail(indexContact, newContactElement);
-    });
-
-    newContactElement.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            toggleContactDetail(indexContact, newContactElement);
-        }
-    });
+    initContactCardListeners(newContactElement);
 }
 
-function appendContactListByNewElement(initialLetter, newContactElement, indexContact, contactList) {
+function appendContactListByNewElement(initialLetter, newContactElement, contactList) {
     const letterElement = makeLetterElement(initialLetter);
     const seperatorElement = makeSeperatorElement(initialLetter);
     const nextLetter = [...document.querySelectorAll('.letter')].find(letter => letter.dataset.letter.localeCompare(initialLetter, 'de') > 0);
     if (nextLetter) nextLetter.before(letterElement, seperatorElement, newContactElement);
     else contactList.append(letterElement, seperatorElement, newContactElement);
-    newContactElement.addEventListener("click", () => {
-        toggleContactDetail(indexContact, newContactElement);
-    });
-    newContactElement.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            toggleContactDetail(indexContact, newContactElement);
-        }
-    });
+    initContactCardListeners(newContactElement);
     setBadgeBackgroundColor();
 }
 
