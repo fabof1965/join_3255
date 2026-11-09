@@ -118,12 +118,13 @@ async function submitContactForm(event) {
 }
 
 /**
- * @description 
+ * @description Inserts a new created contact into the contact list and 
+ * loads the data into the global allContacts Array as well as to firebase
  * @returns {Promise<void>}
  */
 async function addNewContact() {
     const contactList = document.getElementById("contacts");
-    const contact = getContactFormfromForm();
+    const contact = getContactDataFromForm();
     if (contactHasBlankFields(contact)) return;
     const nameExists = await checkIfContactNameExists(contact.name);
     const emailExists = await checkIfEmailExists(contact.email);
@@ -139,6 +140,13 @@ async function addNewContact() {
     showSuccessPopup('Contact successfully created');
 }
 
+/**
+ * @description Inserts a new contact element into the contact list
+ * @param {HTMLElement} contactList 
+ * @param {string} newContactName 
+ * @param {number} indexContact 
+ * @returns {void}
+ */
 function insertContact(contactList, newContactName, indexContact) {
     const initialLetter = newContactName.charAt(0).toUpperCase();
     const newContactElement = makeNewContactNode(indexContact);
@@ -152,6 +160,12 @@ function insertContact(contactList, newContactName, indexContact) {
     appendContactListByNewElement(initialLetter, newContactElement, contactList);
 }
 
+/**
+ * @description Sets the newContactElement to the correct place inside a contact group 
+ * @param {string} newContactName 
+ * @param {Node} newContactElement 
+ * @param {Array<Node>} group 
+ */
 function insertContactIntoContactGroup(newContactName, newContactElement, group) {
     const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
     if (nextElement) nextElement.before(newContactElement);
@@ -160,6 +174,12 @@ function insertContactIntoContactGroup(newContactName, newContactElement, group)
     initContactCardListeners(newContactElement);
 }
 
+/**
+ * @description Inserts the newContactElement to the correct position at the contact list
+ * @param {string} initialLetter 
+ * @param {Node} newContactElement 
+ * @param {HTMLElement} contactList 
+ */
 function appendContactListByNewElement(initialLetter, newContactElement, contactList) {
     const letterElement = makeLetterElement(initialLetter);
     const seperatorElement = makeSeperatorElement(initialLetter);
@@ -170,6 +190,11 @@ function appendContactListByNewElement(initialLetter, newContactElement, contact
     setBadgeBackgroundColor();
 }
 
+/**
+ * @description Creates a new contact node element and sets all nesseccary attributes
+ * @param {number} indexContact 
+ * @returns {Node} contact node
+ */
 function makeNewContactNode(indexContact) {
     const newContactNode = document.createElement("article");
     newContactNode.classList.add("contact-card");
@@ -184,6 +209,12 @@ function makeNewContactNode(indexContact) {
     return newContactNode;
 }
 
+/**
+ * @description Creates a letter Element that represents the headline for a contact group
+ * grouped by the initial letter of the contacts belonging to this group 
+ * @param {string} letter 
+ * @returns {Node} letter node
+ */
 function makeLetterElement(letter) {
     const letterElement = document.createElement("div");
     letterElement.classList.add("letter");
@@ -193,6 +224,11 @@ function makeLetterElement(letter) {
     return letterElement;
 }
 
+/**
+ * @description Creates a seperator element 
+ * @param {string} letter 
+ * @returns {Node} seperator Node
+ */
 function makeSeperatorElement(letter) {
     const seperator = document.createElement("div");
     seperator.classList.add("seperator");
@@ -200,7 +236,13 @@ function makeSeperatorElement(letter) {
     return seperator;
 }
 
-function getContactFormfromForm() {
+/**
+ * @description Retrieves the data from the input fields in the contact dialog
+ * @returns {JSON} name: 'the name from users input', 
+ * email: 'email-address from the users input', 
+ * phone: 'pone number from the users input' 
+ */
+function getContactDataFromForm() {
     return {
         name: document.getElementById("name").value.trim(),
         email: document.getElementById("email").value.trim(),
@@ -208,6 +250,11 @@ function getContactFormfromForm() {
     };
 }
 
+/**
+ * Checks if the contact form has input fields that are not filled with text
+ * @param {JSON} contact 
+ * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled
+ */
 function contactHasBlankFields(contact) {
     const blankName = fieldIsBlankFeedback(contact.name, 'name-err-msg', 'wrong-name-border', enterNameMsg);
     const blankEmail = fieldIsBlankFeedback(contact.email, 'email-err-msg', 'wrong-email-border', enterEmailMsg);
