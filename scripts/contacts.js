@@ -19,26 +19,27 @@ document.getElementById("open-button").addEventListener("click", () => {
 });
 
 /**
- * Initializes the contacts page: renders all contact cards and sets the ARIA labels.
+ * @description Initializes the contacts page: loads contact-data, renders all contact cards
+ * and sets the ARIA label on the add contact button.
  */
 async function initContacts() {
     allContacts = await loadContacts();
     sortAllContactsByName();
     renderContacts();
     initAllContactCardListeners();
-    initAriaLabels();
+    initAddContactButtonAriaLabel();
 }
 
 /**
- * Sets the ARIA label of the button that opens the dialog for adding a new contact.
+ * @description Initializes the ARIA label of the button that opens the dialog for adding a new contact on mobile devices.
  */
-function initAriaLabels() {
+function initAddContactButtonAriaLabel() {
     const btnOpenContactDialog = document.getElementById("open-button");
     if(isMobile) btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
 /**
- * renders all Contacts, grouped by initial letter, into the contact list.
+ * @description renders all Contact Cards into the contact list.
  */
 function renderContacts() {
     const contactContainer = document.getElementById("contacts");
@@ -46,6 +47,10 @@ function renderContacts() {
     setBadgeBackgroundColor();
 }
 
+/**
+ * @description Initializes eventListeners on each HTML-Element with including
+ * class 'contact-card'.
+ */
 function initAllContactCardListeners() {
     document.querySelectorAll('.contact-card').forEach((card) => {
         initContactCardListeners(card);
@@ -53,7 +58,7 @@ function initAllContactCardListeners() {
 }
 
 /**
- * Sorts contacts alphabetically by full name.
+ * @description Sorts contact-data alphabetically by full name.
  */
 function sortAllContactsByName() {
     allContacts.sort((contactA, contactB) => {
@@ -70,7 +75,7 @@ function sortAllContactsByName() {
 }
 
 /**
- * Adds click and Enter-key listeners to a contact card
+ * @description Adds click and Enter-key listeners to a contact card
  * that toggle the display of its contact details.
  * @param {HTMLElement} card - The contact card element. 
  */
@@ -87,7 +92,7 @@ function initContactCardListeners(card) {
 }
 
 /**
- *  Builds the contact list HTML and adds a letter heading before each new initial.
+ * @description Builds the contact list HTML and adds a letter heading before each new initial.
  */
 function getContactsHtml(contacts = allContacts) {
     let contactsHTML = "";
@@ -104,7 +109,7 @@ function getContactsHtml(contacts = allContacts) {
 }
 
 /**
- * Loads the contacts from Firebase.
+ * @description Loads the contacts from Firebase.
  */
 async function loadContacts() {
     const response = await getData('contacts');
@@ -113,22 +118,17 @@ async function loadContacts() {
 }
 
 /**
- * Toggles the detail view of a contact card.
+ * @description Toggles the detail view of a contact card.
  * @param {number} indexContact - The contact index.
  * @param {HTMLElement} contactCard - The activated contact card.
  */
 function toggleContactDetail(indexContact, contactCard) {
-    if (isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
-        currentlyOpenedCard.classList.remove("background-primary");
-        hidePreviouslyOpenedDetail(contactCard);
-        return;
-    }
-    clearActiveContacts();
+    if(currentlyOpenedCard) hidePreviouslyOpenedDetail(currentlyOpenedCard);
     showSelectedContact(indexContact, contactCard);
 }
 
 /** 
- * Opens a contact card when activated with the keyboard.
+ * @description Opens a contact card when activated with the keyboard.
  * @param {KeyboardEvent} event - The keyboard event.
  * @param {number} indexContact - The contact index.
  * @param {HTMLElement} contactCard - The activated contact card.
@@ -140,7 +140,7 @@ function handleContactCardKeydown(event, indexContact, contactCard) {
 }
 
 /**
- * Highlights the selected contact card and displays its contact information.
+ * @description Highlights the selected contact card and displays its contact information.
  * @param {number} indexContact - Index of the contact in allContacts.
  * @param {HTMLElement} contactCard - The clicked contact card element.
  */
@@ -160,7 +160,7 @@ function showSelectedContact(indexContact, contactCard) {
 }
 
 /**
- * Adds a click listener to the arrow button that hides the contact details
+ * @description Adds a click listener to the arrow button that hides the contact details
  * and returns to the contact list.
  */
 function hideContactDetailOnArrowButtonClick() {
@@ -170,8 +170,8 @@ function hideContactDetailOnArrowButtonClick() {
 }
 
 /**
- * Shows details for a selected contact card with a slide-in animation.
- * Sets the badge color and enables the arrow button to return to the contact list.
+ * @description Shows details for a selected contact card with a slide-in animation.
+ * Sets the badge color and enables the arrow button on mobile to return to the contact list.
  * @param {number} indexContact - Index of the contact in allContacts.
  */
 function showContactDetail(indexContact) {
@@ -184,7 +184,7 @@ function showContactDetail(indexContact) {
 }
 
 /**
- * Adds a click event listener to the edit button that opens the edit dialog for the selected contact.
+ * @description Adds a click event listener to the edit button that opens the edit dialog for the selected contact.
  * @param {number} indexContact - Index of the contact to edit.
  */
 function editEventlistener(indexContact) {
@@ -192,7 +192,7 @@ function editEventlistener(indexContact) {
 }
 
 /**
- * Adds a click eventlistener to the delete button that deletes the selected contact.
+ * @description Adds a click eventlistener to the delete button that deletes the selected contact.
  * @param {number} indexContact - Index of the contact to delete.
  */
 function deleteEventListener(indexContact) {
@@ -200,27 +200,16 @@ function deleteEventListener(indexContact) {
 }
 
 /**
- * Renders the information of the given contact into the contact detail container.
+ * @description Renders the information of the given contact into the contact detail container.
  * @param {number} indexContact - Index of the contact in allContacts.
  */
 function writeContactDataIntoDetailView(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
-}
+}   
 
 /**
- * Removes the highlight from all active contact cards and hides the contact detail.
- */
-function clearActiveContacts() {
-    const activeContacts = document.querySelectorAll('.background-primary');
-    activeContacts.forEach(contactCard => {
-        hidePreviouslyOpenedDetail(contactCard);
-        contactCard.classList.remove('background-primary');
-    });
-}
-
-/**
- * Removes the highlight from the given contact card and hides the contact detail.
+ * @description Removes the highlight from the given contact card and hides the contact detail.
  * @param {HTMLElement} contactCard - The contact card whose highlight and detail view are removed.
  */
 function hidePreviouslyOpenedDetail(contactCard) {
@@ -229,13 +218,12 @@ function hidePreviouslyOpenedDetail(contactCard) {
 }
 
 /**
- * Hides the contact detail, removes highlight from the currently opened card. 
+ * @description Hides the contact detail, removes highlight from the currently opened card
  * and resets the opened-card state.
  */
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
     if (detail) detail.classList.remove('animation-right');
-    currentlyOpenedCard.classList.remove("background-primary");
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
@@ -243,14 +231,16 @@ function hideContactDetail() {
 }
 
 /**
- * Opens the popover menu of the selected contact (mobile view)
+ * @description Opens the popover menu of the selected contact that enables the user
+ *  to either edit or delete the contact 
+ *  that is currently opened (mobile view)
  */
 function showPopover() {
     document.getElementById("popover-menu").showPopover();
 }
 
 /**
- * Toggles the add contact button icon between the default icon and the menu icon.
+ * @description Toggles the add contact button icon between the default icon and the menu icon.
  * Only has an effect on mobile devices.
  * @param {string} defaultSource - Path to the default icon.  
  * @param {string} newSource - Path to the icon for the mobile view.
