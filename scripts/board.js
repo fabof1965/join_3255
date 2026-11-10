@@ -173,6 +173,12 @@ function filterTasks(searchTerm) {
   return allTasks.filter((task) => taskMatchesTerm(task, normalizedTerm));
 }
 
+/**
+ * Checks whether a task's title or decription countains the search term.
+ * @param {object} task - Task object with a title and an optional description.
+ * @param {string} normalizedTerm - Trimmed, lowercase search term.
+ * @returns {boolean} - `True` if the title or descritopn contains the term.
+ */
 function taskMatchesTerm(task, normalizedTerm) {
   const title = task.title.toLowerCase();
   const description = (task.description ?? "").toLowerCase();
