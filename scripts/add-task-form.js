@@ -395,7 +395,6 @@ function renderAssignedContactsDropdown(container) {
     name.textContent = option.textContent;
     checkbox.addEventListener("change", () => {
       option.selected = checkbox.checked;
-      // updateAssignedContactsSummary(dropdown, select);
     });
     checkbox.addEventListener("keydown", (event) => {
       if (event.key !== "Enter") return;
@@ -413,21 +412,7 @@ function renderAssignedContactsDropdown(container) {
     empty.textContent = "No contacts available";
     list.appendChild(empty);
   }
-  // updateAssignedContactsSummary(dropdown, select);
 }
-
-/**
- * @description Updates the display text in the drop-down menu for the assigned contacts.
- * @param {HTMLElement} dropdown - Dropdown container with the assigned contacts.
- * @param {HTMLSelectElement} select - Select element with the contact options.
- */
-// function updateAssignedContactsSummary(dropdown, select) {
-//   const names = Array.from(
-//     select.selectedOptions,
-//     (option) => option.textContent,
-//   );
-//   dropdown.querySelector(".assigned-dropdown-text").textContent = names.length ? names.join(", ") : "Select contacts to assign";
-// }
 
 document.addEventListener("click", (event) => {
   document.querySelectorAll(".assigned-dropdown[open]").forEach((dropdown) => {
