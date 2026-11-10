@@ -152,6 +152,11 @@ function renderEmptyTaskListContent(taskList) {
   taskList.innerHTML = getEmptyTaskListElement(emptyTaskListMessage);
 }
 
+/**
+ * Checks whether a task list on the board is empty.
+ * If a task list has no entries, a message saying “No tasks ...” appears.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
 function renderTaskListOnEmptyContent(taskList) {
   if (taskList.children.length === 0) {
     renderEmptyTaskListContent(taskList);
