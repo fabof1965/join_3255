@@ -368,7 +368,7 @@ function showPopup(message = "Task created") {
 }
 
 /**
- * Creates the visible checkbox dropdown.
+ * Fills the visible checkbox dropdown.
  * The hidden select remains the data source for saving tasks.
  */
 function renderAssignedContactsDropdown(container) {
