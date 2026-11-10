@@ -426,7 +426,7 @@ function updateAssignedContactsSummary(dropdown, select) {
     select.selectedOptions,
     (option) => option.textContent,
   );
-  dropdown.querySelector(".assigned-dropdown-text").textContent = names.length ? names.join(", ") : "Select contacts to assign";
+  // dropdown.querySelector(".assigned-dropdown-text").textContent = names.length ? names.join(", ") : "Select contacts to assign";
 }
 
 document.addEventListener("click", (event) => {

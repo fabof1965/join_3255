@@ -151,12 +151,10 @@ function insertContact(contactList, newContactName, indexContact) {
     const initialLetter = newContactName.charAt(0).toUpperCase();
     const newContactElement = makeNewContactNode(indexContact);
     const firstLetterGroup = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
-    
     if (firstLetterGroup.length > 0) {
         insertContactIntoContactGroup(newContactName, newContactElement, firstLetterGroup);
         return;
     }
-    
     appendContactListByNewElement(initialLetter, newContactElement, contactList);
 }
 
