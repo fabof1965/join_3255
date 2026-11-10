@@ -27,7 +27,7 @@ document.addEventListener("submit", async (event) => {
 initPriorityButtonClickListeners();
 
 /**
- * Adds a click listener to every priority button.
+ * @description Adds a click listener to every priority button.
  * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
  */
 function initPriorityButtonClickListeners() {
@@ -45,7 +45,7 @@ if (btnCleartaskForm) {
 }
 
 /**
- * Removes the "selected" class from all priority buttons.
+ * @description Removes the "selected" class from all priority buttons.
  */
 function removeSelectedClassFromPriorityButtons() {
   document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
@@ -54,7 +54,7 @@ function removeSelectedClassFromPriorityButtons() {
 }
 
 /**
- * Loads all contacts from Firebase and adds the database id to each one.
+ * @description Loads all contacts from Firebase and adds the database id to each one.
  * @returns {Promise<Array<{id: string, email: string, phone: string}>>}
  * Array of contact objects, or an empty array if no contacts exist.
  */
@@ -68,7 +68,7 @@ async function getAssignedContacts() {
 }
 
 /**
- * Renders the assigned contacts as options into the hidden select.
+ * @description Renders the assigned contacts as options into the hidden select.
  * @param {HTMLElement} container - Form element containing the `#assigned-contacts` select.
  */
 async function renderAssignedContacts(container) {
@@ -87,7 +87,7 @@ async function renderAssignedContacts(container) {
 }
 
 /**
- * Renders the list of new subtasks.
+ * @description Renders the list of new subtasks.
  */
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
@@ -101,7 +101,7 @@ function renderNewSubtasks() {
 }
 
 /**
- * Adds a click listeners to the edit and delete buttons that of every subtask in the list.
+ * @description Adds a click listeners to the edit and delete buttons that of every subtask in the list.
  * The edit button calls `editSubtask`, the delete button calls `deleteSubtask`.
  */
 function addButtonEventListenersOnSubtask() {
@@ -116,7 +116,7 @@ function addButtonEventListenersOnSubtask() {
 }
 
 /**
- * Adds a input value as a new subtask and renders the subtask-list.
+ * @description Adds a input value as a new subtask and renders the subtask-list.
  * @param {HTMLInputElement} input - Input field containing the subtask title.
  * @returns {boolean} `true` if a subtask was added, `false` if the input was empty.
  */
@@ -133,7 +133,7 @@ function addSubtaskFromInput(input) {
 }
 
 /**
- * Adds a subtask when the enter key is pressed.
+ * @description Adds a subtask when the enter key is pressed.
  * @param {KeyboardEvent} event - Keydown event from the subtask input field
  */
 function addSubtaskOnEnter(event) {
@@ -152,7 +152,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 /**
- * Removes subtask when the trash icon is clicked.
+ * @description Removes subtask when the trash icon is clicked.
  * @param {HTMLButtonElement} button - The delete button inside the subtask list item that was clicked.
  */
 async function deleteSubtask(button) {
@@ -163,7 +163,7 @@ async function deleteSubtask(button) {
 }
 
 /**
- * Toggles the edit mode of a subtask: opens the edit input, or saves it if already open.
+ * @description Toggles the edit mode of a subtask: opens the edit input, or saves it if already open.
  * @param {HTMLButtonElement} button - The edit button inside the subtask list item that was clicked. 
  */
 function editSubtask(button) {
@@ -183,7 +183,7 @@ function editSubtask(button) {
 }
 
 /**
- * Saves subtask when the enter key is pressed.
+ * @description Saves subtask when the enter key is pressed.
  * @param {KeyboardEvent} event - Keydown event from the subtask input field.
  */
 function saveSubtaskOnEnter(event) {
@@ -193,7 +193,7 @@ function saveSubtaskOnEnter(event) {
 }
 
 /**
- * Saves a subtask in the subtask list and renders the list.
+ * @description Saves a subtask in the subtask list and renders the list.
  * @param {HTMLInputElement} input - Input field containing the subtask title.  
  */
 function saveSubtask(input) {
@@ -206,7 +206,7 @@ function saveSubtask(input) {
 }
 
 /**
- * Resets the add-task form to its original state.
+ * @description Resets the add-task form to its original state.
  * @param {HTMLFormElement} form - Form that is being reset. 
  */
 function resetForm(form = document.getElementById("add-task-form")) {
@@ -224,7 +224,7 @@ function resetForm(form = document.getElementById("add-task-form")) {
 }
 
 /**
- * Shows or clears the error message of a required field and sets aria invalid.
+ * @description Shows or clears the error message of a required field and sets aria invalid.
  * @param {HTMLFormElement} form - Form for creating a task.
  * @param {string} name - Name of the form field.
  * @param {boolean} isInvalid - Whether the field is invalid.
@@ -243,7 +243,7 @@ function showTaskFieldError(form, name, isInvalid) {
 }
 
 /**
- * Validates all required fields in the add-task form.
+ * @description Validates all required fields in the add-task form.
  * @param {HTMLFormElement} form - Form for creating a task.
  * @returns {boolean} `true` if all required fields are filled, otherwise `false`.
  */
@@ -258,7 +258,7 @@ function isAddTaskFormValid(form) {
 }
 
 /**
- * Reads the selected contacts from the “Assigned to” select element and return  their displayed names.
+ * @description Reads the selected contacts from the “Assigned to” select element and return  their displayed names.
  * @returns {string[]} Names of the selected contacts. Empty array if no contact has been selected.
  */
 function getAssignedContactsFromForm() {
@@ -272,7 +272,7 @@ function getAssignedContactsFromForm() {
 }
 
 /**
- * Reads the add-task form values and return them as a task object.
+ * @description Reads the add-task form values and return them as a task object.
  * @returns {object} The task data.
  */
 function getTaskData() {
@@ -294,7 +294,7 @@ function getTaskData() {
 }
 
 /**
- * Returns the DOM elements of the add-task form fields.
+ * @description Returns the DOM elements of the add-task form fields.
  * @param {string} priority - Priority value used to find the matching priority button.
  * @returns {object} Object containing the form field elements. 
  */
@@ -310,7 +310,7 @@ function getFormElements(priority = "") {
 }
 
 /**
- * Returns a copy of the current subtasks from the form.
+ * @description Returns a copy of the current subtasks from the form.
  * The data comes from the global variable `newTaskSubtasks`.
  * @returns {{title: string, done: boolean} []}
  */
@@ -319,7 +319,7 @@ function getSubtasksFromForm() {
 }
 
 /**
- * Validates the data from the add-task form and saves it to Firebase
+ * @description Validates the data from the add-task form and saves it to Firebase
  * @param {SubmitEvent} event - Submit event of the add-task-form. 
  * @param {Object|null} editedTask - Task to update, or null to create a new one.
  * @returns {Promise <boolean>} True if the task was saved, false if the form ist invalid.
@@ -341,7 +341,7 @@ async function submitTask(event, editedTask) {
 }
 
 /**
- * Redirects to the page url if the page with specified url if it isn't already open.
+ * @description Redirects to the page url if the page with specified url if it isn't already open.
  * @param {string} pageURL - Path to the specified page.
  */
 function directToPage(pageURL) {
@@ -351,7 +351,7 @@ function directToPage(pageURL) {
 }
 
 /**
- * Displays a pop-up message when a task is created.
+ * @description Displays a pop-up message when a task is created.
  * @param {string} message - “Task created” is shown in the pop-up.
  */
 function showPopup(message = "Task created") {
@@ -368,7 +368,7 @@ function showPopup(message = "Task created") {
 }
 
 /**
- * Fills the visible checkbox dropdown.
+ * @description Fills the visible checkbox dropdown.
  * The hidden select remains the data source for saving tasks.
  */
 function renderAssignedContactsDropdown(container) {
@@ -417,7 +417,7 @@ function renderAssignedContactsDropdown(container) {
 }
 
 /**
- * Updates the display text in the drop-down menu for the assigned contacts.
+ * @description Updates the display text in the drop-down menu for the assigned contacts.
  * @param {HTMLElement} dropdown - Dropdown container with the assigned contacts.
  * @param {HTMLSelectElement} select - Select element with the contact options.
  */
