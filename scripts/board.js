@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", initBoardContent());
-
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
@@ -127,6 +126,13 @@ function renderTask(task) {
 function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
+  tasks.forEach((task) => {
+    const moveTaskButton = document.getElementById("btn-move-task-card-" + task.id);
+    moveTaskButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      console.log("move button with id: " + task.id + " clicked");
+   });
+  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }

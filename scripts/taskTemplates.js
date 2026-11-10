@@ -21,8 +21,11 @@ function getTaskCardContentTemplate(task) {
   return `
       <header class="task-card-header">
         <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
-        <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+        <button class="btn" id="btn-move-task-card-${task.id}">
+          <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+        </button>      
       </header>
+
       <div class="task-content">
         <h3>${task.title}</h3>
         <p>${task.description}</p>
