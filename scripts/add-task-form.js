@@ -20,7 +20,7 @@ document.addEventListener("submit", async (event) => {
   if (!saved) return;
   showSuccessPopup("Task successfully created");
   setTimeout(() => {
-    directToBoard("../pages/board.html");
+    directToPage("../pages/board.html");
   }, 1500);
 });
 
@@ -341,12 +341,12 @@ async function submitTask(event, editedTask) {
 }
 
 /**
- * Redirects to the board page if it isn't already open.
- * @param {string} boardURL - Path to the board page.
+ * Redirects to the page url if the page with specified url if it isn't already open.
+ * @param {string} pageURL - Path to the specified page.
  */
-function directToBoard(boardURL) {
-  if (window.location.pathname !== boardURL) {
-    window.location.href = boardURL;
+function directToPage(pageURL) {
+  if (window.location.pathname !== pageURL) {
+    window.location.href = pageURL;
   }
 }
 
@@ -386,7 +386,7 @@ function renderAssignedContactsDropdown(container) {
     });
   }
   Array.from(select.options).forEach((option) => {
-    const row = document.createElement("label");
+    const row = document.createElement("li");
     row.className = "assigned-dropdown-option";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";

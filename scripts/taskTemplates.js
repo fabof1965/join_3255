@@ -306,7 +306,7 @@ function getTaskFormContentTemplate() {
               <span class="assigned-dropdown-text">Select contacts to assign</span>
               <span class="assigned-dropdown-arrow" aria-hidden="true">▾</span>
             </summary>
-            <div class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></div>
+            <ul class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></ul>
           </details>
           <select id="assigned-contacts" name="assignedUsers" multiple hidden></select>
         </div>
