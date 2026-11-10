@@ -324,7 +324,6 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'pho
  * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false
  */
 async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
-    console.log(typeof(field));
     const response = await getData('contacts');
     const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
     updateContactFieldError(errorID, borderID, exists, existsMsg);

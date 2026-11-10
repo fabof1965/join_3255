@@ -26,6 +26,9 @@ function renderTaskCards(tasks = allTasks) {
   }
 }
 
+/**
+ * Removes all rendered task cards from every task list on the board.
+ */
 function emptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => (taskList.innerHTML = ""));
