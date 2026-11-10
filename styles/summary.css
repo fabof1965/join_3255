@@ -85,8 +85,8 @@
 
 .summary-card-container {
     display: grid;
-    grid-template-columns: repeat(4, var(--summary-grid-width));
-    grid-template-rows: repeat(2, var(--summary-grid-width));
+    grid-template-columns: repeat(4, minmax(60px, calc(100vw / 4)));
+    grid-template-rows: repeat(2, minmax(60px, calc(100vw / 7)));
     gap: var(--gap-medium);
     width: fit-content;
 }
@@ -114,6 +114,10 @@
     }
 }
 
+.deadline-container{
+    color: var(--white-color);
+}
+
 .blue-head-column {
     display: flex;
     align-items: center;
@@ -135,8 +139,16 @@
     box-shadow: var(--summary-card-box-shadow);
     border-top-left-radius: 0;
 
-    .task-number, .sub-text, .date-text, .divider, .task-icons{
+    .task-number, .divider, .task-icons{
         transform: scale(var(--hover-scale));
+        color: var(--primary-color);
+    }
+
+    .date {
+        transform: scale(var(--hover-scale));
+    }
+
+    .date-text, .sub-text {
         color: var(--primary-color);
     }
 
@@ -152,20 +164,8 @@
 }
 
 @media(max-width: 600px) {
-    .blue-head-column:hover {
-        transform: unset;
-        background-color: var(--white-color);
-        box-shadow: var(--summary-card-box-shadow);
-        border-top-left-radius: 0;
-
-        .task-number, .sub-text, .date-text, .divider, .task-icons{
-            transform: scale(var(--hover-scale));
-            color: var(--primary-color);
-        }
-
-        .divider {
-            background-color: var(--primary-color);
-        }
+    .sub-text{
+        text-align: center;
     }
 }
 

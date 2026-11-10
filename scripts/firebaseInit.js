@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Firebase initialization and configuration for Realtime Database
+ * @description This module initializes the Firebase app with the provided configuration
+ * and exports the Realtime Database instance for use in other parts of the application.
+ * @module scripts/firebaseInit
+ */
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 import { getAuth } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { getDatabase } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
@@ -12,7 +19,6 @@ const firebaseConfig = {
     appId: "1:301039811414:web:59a8902ca02d464b84f4f7"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);

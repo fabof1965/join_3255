@@ -1,0 +1,78 @@
+dialog.success-popup[open] {
+  display: block;
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  bottom: 25%;
+  left: 0;
+  margin: auto;
+
+  width: fit-content;
+  height: fit-content;
+  min-height: 0;
+  max-height: calc(100dvh - 32px);
+  max-width: calc(100vw - 32px);
+
+  padding: 30px;
+  border: none;
+  border-radius: 16px;
+
+  background-color: var(--active-menu-color, #4589ff);
+  color: #ffffff;
+
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+
+  box-shadow: none;
+  transform: none;
+  transition: none;
+  animation: success-slide-in-from-bottom 300ms ease-out;
+}
+
+dialog.success-popup > h2 {
+  margin: 0;
+  padding: 0;
+
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+dialog.success-popup::backdrop {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes success-slide-in-from-bottom {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 500px) {
+  dialog.success-popup[open] {
+    padding: 24px;
+  }
+
+  dialog.success-popup > h2 {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.success-popup[open] {
+    animation: none;
+  }
+}

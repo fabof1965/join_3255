@@ -42,12 +42,14 @@ dialog[open]::backdrop {
     width: var(--full);
     background-color: var(--primary-color);
     align-items: center;
+    height: 33%;
 }
 
 .dialog-header-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: var(--full);
 }
 
 .dialog-hedaline-wrapper {
@@ -59,7 +61,7 @@ dialog[open]::backdrop {
 }
 
 .dialog-headline {
-    font-size: var(--medium-font-size);
+    font-size: var(--large-font-size);
 }
 
 .dialog-subheading {
@@ -89,14 +91,17 @@ dialog[open]::backdrop {
 }
 
 .logo-header {
-    width: var(--small-user-badge-width);
+    width: 25%;
+    max-width: 80px;
+    min-width: 60px;
+    aspect-ratio: 1;
 }
 
 .dialog-main {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-top: var(--margin-medium);
+    height: 66%;
 }
 
 .badge-image-container,
@@ -104,23 +109,21 @@ dialog[open]::backdrop {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 16px auto 0 auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
-    width: var(--large-profile-badge-dimensions);
-    height: var(--large-profile-badge-dimensions);
+    width: 80px;
+    height: 80px;
 }
 
 @media(max-width: 950px) {
-
     .badge-image-container,
     .edit-badge-image-container {
+        margin-top: 0;
         position: fixed;
         left: 50%;
-        top: 26dvh;
+        top: 33%;
         transform: translate(-50%, -50%);
-        width: 60px;
-        height: 60px;
     }
 }
 
@@ -137,7 +140,9 @@ dialog[open]::backdrop {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    justify-content: space-evenly;
+    justify-content: center;
+    height: var(--full);
+    gap: var(--gap-medium);
     width: calc(var(--full) * 0.9);
 }
 
@@ -155,6 +160,7 @@ input {
 
 .btn-container {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     gap: var(--gap-between-buttons);
@@ -172,6 +178,12 @@ input {
     color: var(--guest-login-button-text-color);
     font-size: var(--small-font-size);
     border: var(--guest-login-button-border);
+}
+
+@media(max-width: 950px) {
+    .cancel-btn {
+        display: none;
+    }
 }
 
 .trash-btn {

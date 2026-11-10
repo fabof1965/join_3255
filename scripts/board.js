@@ -1,40 +1,38 @@
-// this is an example structure of a task
-//{
-//     id: "task-1",
-//     category: "User Story",
-//     title: "Kochwelt Page & Recipe Recommender",
-//     description: "Build start page with recipe recommendation...",
-//     fullDescription: "Build start page with recipe recommendation and a detailed description of the recipes.",
-//     status: "inProgress",
-//     assignedUsers: ["CE", "JB"],
-//     assignedUserNames: ["Saeed Ghorbani", "Jan-Simon Boecker"],
-//     dueDate: "02/09/2023",
-//     priority: "low",
-//     subtasks: { completed: 1, total: 2 },
-//     subtaskTitles: ["Establish CSS Methodology", "Setup Base Styles"],
-//     subtaskDone: [true, false],
-//   }
-
-const allTasks = [];
-
-// let draggedTaskId = "";
-
+document.addEventListener("DOMContentLoaded", initBoardContent());
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
   initializeTaskSearch();
   initializeDragAndDrop();
+  showPopupAfterRedirect();
 }
 
+/**
+ * Shows and clears the task-created message saved before navigating to the board.
+ */
+function showPopupAfterRedirect() {
+  if (sessionStorage.getItem("taskCreatedPopup") !== "true") return;
+  sessionStorage.removeItem("taskCreatedPopup");
+  showPopup();
+}
+
+/**
+ * @description Displays all tasks as cards in the appropriate column on the board.
+ * @param {Array<Object>} [tasks=allTasks] - List of tasks to be rendered.
+ * @param {string} task[].status - Task status ("todo", "In progress", "Await feedback" and "Done").
+ */
 function renderTaskCards(tasks = allTasks) {
-  for(let indexTask = 0; indexTask < tasks.length; indexTask++) {
+  for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = tasks[indexTask];
     const taskStatus = task.status;
     const taskList = document.querySelector('div.task-list[data-status="' + taskStatus + '"]');
-    if(taskList) taskList.innerHTML += getTaskCardHtml(task);
+    if (taskList) taskList.innerHTML += getTaskCardHtml(task);
   }
 }
 
+/**
+ * Removes all rendered task cards from every task list on the board.
+ */
 function emptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => (taskList.innerHTML = ""));
@@ -46,9 +44,7 @@ function emptyTaskLists() {
  * @returns {string} Category CSS class.
  */
 function getCategoryClass(category) {
-  return category === "Technical Task"
-    ? "task-category-technical"
-    : "task-category-user-story";
+  return category === "Technical Task" ? "task-category-technical" : "task-category-user-story";
 }
 
 /**
@@ -56,11 +52,9 @@ function getCategoryClass(category) {
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
-function getAssignedUsersHtml(assignedUsers) {
+function getUserInitials(assignedUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers
-    .map((initials) => fillTemplate(userBadgeTemplate, { initials }))
-    .join("");
+  return assignedUsers.map((initials) => getUserBadgeTemplate(getInitials(initials).toUpperCase())).join("");
 }
 
 /**
@@ -68,14 +62,28 @@ function getAssignedUsersHtml(assignedUsers) {
  * @param {{completed: number, total: number}|undefined} subtasks - Subtask counts.
  * @returns {string} Progress HTML.
  */
-function getSubtaskDataProgressHtml(subtasks) {
-  if (!subtasks) return "";
-  const progress = (subtasks.completed / subtasks.total) * 100;
-  return fillTemplate(subtaskProgressTemplate, {
-    completed: subtasks.completed,
-    total: subtasks.total,
-    progress,
+function getSubtaskDataProgressHtml(subtasks, id) {
+  if (!subtasks) return getSubtaskProgressTemplate(0, 0, 0, id);
+  const totalSubtasks = subtasks.length;
+  const completedSubtasks = countCompletedSubtasks(subtasks);
+  let progress = (completedSubtasks / totalSubtasks) * 100;
+  if (isNaN(progress)) progress = 0;
+  return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id);
+}
+
+/**
+ * Counts the completed subtasks.
+ * @param {Array<{done: boolean}>} subtasks - List of subtasks.
+ * @returns {number} Number of completed subtasks.
+ */
+function countCompletedSubtasks(subtasks) {
+  let completedSubtasks = 0;
+  if (!subtasks) return completedSubtasks;
+  subtasks.map((subtask) => {
+    if (subtask.done === true) completedSubtasks++
+    return completedSubtasks;
   });
+  return completedSubtasks;
 }
 
 /**
@@ -95,14 +103,7 @@ function getPrioritySymbol(priority) {
  */
 function getTaskCardHtml(task) {
   if (!task) return "";
-  return fillTemplate(taskCardTemplate, {
-    id: task.id,
-    categoryClass: getCategoryClass(task.category), category: task.category,
-    title: task.title, description: task.description,
-    subtaskProgress: getSubtaskDataProgressHtml(task.subtasks),
-    assignedUsers: getAssignedUsersHtml(task.assignedUsers),
-    priority: task.priority, prioritySymbol: getPrioritySymbol(task.priority),
-  });
+  return getTaskCardTemplate(task);
 }
 
 /**
@@ -117,11 +118,6 @@ function renderTask(task) {
   taskList.innerHTML += getTaskCardHtml(task);
 }
 
-function openTask() {
-  const dialog = document.getElementById('task-card-overlay');
-  dialog.showModal();
-}
-
 /**
  * Renders every task and updates empty board columns.
  * @param {Object[]} tasks - Tasks to render.
@@ -129,7 +125,14 @@ function openTask() {
  */
 function renderBoardContent(tasks) {
   emptyTaskLists();
-  renderTaskCards(tasks);
+  if (tasks) renderTaskCards(tasks);
+  tasks.forEach((task) => {
+    const moveTaskButton = document.getElementById("btn-move-task-card-" + task.id);
+    moveTaskButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      console.log("move button with id: " + task.id + " clicked");
+   });
+  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
@@ -142,11 +145,28 @@ function renderBoardContent(tasks) {
 function renderEmptyTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
-    if(taskList.children.length > 0) return;
-    taskList.innerHTML = fillTemplate(emptyTaskListTemplate, {
-      text: taskList.dataset.emptyText,
-    });
+    renderTaskListOnEmptyContent(taskList);
   });
+}
+
+/**
+ * Renders a message for an empty task list.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
+function renderEmptyTaskListContent(taskList) {
+  const emptyTaskListMessage = taskList.dataset.emptyText;
+  taskList.innerHTML = getEmptyTaskListElement(emptyTaskListMessage);
+}
+
+/**
+ * Checks whether a task list on the board is empty.
+ * If a task list has no entries, a message saying “No tasks ...” appears.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
+function renderTaskListOnEmptyContent(taskList) {
+  if (taskList.children.length === 0) {
+    renderEmptyTaskListContent(taskList);
+  }
 }
 
 /**
@@ -159,10 +179,15 @@ function filterTasks(searchTerm) {
   return allTasks.filter((task) => taskMatchesTerm(task, normalizedTerm));
 }
 
+/**
+ * Checks whether a task's title or decription countains the search term.
+ * @param {object} task - Task object with a title and an optional description.
+ * @param {string} normalizedTerm - Trimmed, lowercase search term.
+ * @returns {boolean} - True if the title or descritopn contains the term.
+ */
 function taskMatchesTerm(task, normalizedTerm) {
   const title = task.title.toLowerCase();
   const description = (task.description ?? "").toLowerCase();
-
   return title.includes(normalizedTerm) || description.includes(normalizedTerm);
 }
 
@@ -187,18 +212,30 @@ function searchTasks(event) {
   const searchTerm = event.target.value;
   const filteredTasks = filterTasks(searchTerm);
   const showNoResults = isSearchActive(searchTerm) && filteredTasks.length === 0;
-
   renderSearchResults(filteredTasks, showNoResults);
 }
 
+/**
+ * @description Checks whether the search field contains a usable search term.
+ * @param {string} searchTerm - Text from the searchbar.
+ * @returns {boolean} True if the term is not empty after trimming.
+ */
 function isSearchActive(searchTerm) {
   return searchTerm.trim() !== "";
 }
 
+/**
+ * Renders the given tasks on the board after search.
+ * @param {Array<Object>} tasks - Tasks matching the search term
+ * @param {boolean} showNoResults - True if the "no results" message should be shown.
+ */
 function renderSearchResults(tasks, showNoResults) {
   emptyTaskLists();
   renderTaskCards(tasks);
+  renderEmptyTaskLists();
+  setBadgeBackgroundColor();
   toggleNoResultsMessage(showNoResults);
+  initializeDragEventsForTaskCards(); 
 }
 
 /**
@@ -216,11 +253,8 @@ function initializeTaskSearch() {
  * @returns {void}
  */
 function startDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(!taskCardElement) return;
+  const taskCardElement = event.currentTarget;
   taskCardElement.id = "grabbed-card";
-  // draggedTaskId = grabbedTask.dataset.taskId;
-  // event.dataTransfer.setData("text/plain", draggedTaskId);
   taskCardElement.classList.add("task-card-dragging");
   taskCardElement.classList.add("task-card-drop-before");
 }
@@ -231,8 +265,11 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const taskCardElement = event.target.closest?.(".task-card");
-  if(taskCardElement) console.log(taskCardElement);
+  const taskCardElement = event.currentTarget;
+  const taskList = event.target.closest?.(".task-list");
+  taskList.classList.remove("task-list-dragover");
+  taskList.classList.remove("task-list-drop-end");
+  taskCardElement.removeAttribute("id");
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
 }
@@ -243,11 +280,12 @@ function stopDragging(event) {
  * @returns {void}
  */
 function dragTaskCardOverTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList) return;
+  if (!document.getElementById("grabbed-card")) return;
+  event.preventDefault();
+  const taskList = event.currentTarget;
   taskList.classList.add("task-list-dragover");
   taskList.classList.add("task-list-drop-end");
-  event.preventDefault();
+  movePlaceholder(event);
 }
 
 /**
@@ -256,9 +294,10 @@ function dragTaskCardOverTaskList(event) {
  * @returns {void}
  */
 function leaveTaskCardDropZone(event) {
-  const taskList = event.target.closest?.(".task-list");
-  if(!taskList || taskList.contains(event.relatedTarget)) return;
-
+  const taskList = event.currentTarget;
+  if (taskList.contains(event.relatedTarget)) return;
+  const placeholder = taskList.querySelector(".placeholder");
+  placeholder?.remove();
   taskList.classList.remove("task-list-dragover");
 }
 
@@ -279,18 +318,38 @@ function changeTaskStatus(task, status) {
  * @returns {void}
  */
 async function dropTaskIntoTaskList(event) {
-  const taskList = event.target.closest?.(".task-list");
-  const taskCard = document.getElementById("grabbed-card");
-  if(!taskList || !taskCard) return;
   event.preventDefault();
-  taskList.classList.remove("task-list-dragover");
-  taskList.classList.remove("task-list-drop-end");
+  const taskList = event.currentTarget;
+  const placeholder = taskList.querySelector(".placeholder");
+  const taskCard = document.getElementById("grabbed-card");
+  if (!placeholder) return;
+  taskCard.remove();
+  taskList.insertBefore(taskCard, placeholder);
+  removeEmptyTaskListElement(taskList);
+  placeholder.remove();
   const task = allTasks.find(({ id }) => id === taskCard.getAttribute("data-task-id"));
-  taskCard.removeAttribute("id");
+  renderEmptyTaskLists();
   changeTaskStatus(task, taskList.dataset.status);
-  renderBoardContent(allTasks);
-
   await patchData(`tasks/${task.id}`, { status: task.status });
+}
+
+/**
+ * @description Removes the "No tasks..." text  from a column on the as soon as a task is added to it.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
+function removeEmptyTaskListElement(taskList) {
+  if (isEmptyTaskListElementInTaskList(taskList)) {
+    taskList.children[0].remove();
+  }
+}
+
+/**
+ * Checks whether the first child of a task list is the "No tasks ..." placeholder.
+ * @param {HTMLElement} taskList - The task list element to check.
+ * @returns {boolean} True if the placeholder is the first child.
+ */
+function isEmptyTaskListElementInTaskList(taskList) {
+  return !!taskList.children[0]?.classList.contains("empty-task-list");
 }
 
 /**
@@ -298,21 +357,86 @@ async function dropTaskIntoTaskList(event) {
  * @returns {void}
  */
 function initializeDragAndDrop() {
-  document.addEventListener("dragstart", startDragging);
-  document.addEventListener("dragend", stopDragging);
-  document.addEventListener("dragover", dragTaskCardOverTaskList);
-  document.addEventListener("dragleave", leaveTaskCardDropZone);
-  document.addEventListener("drop", dropTaskIntoTaskList);
+  initializeDragEventsForTaskCards();
+  initializeDragAndDropForTaskLists();
+}
+
+function initializeDragEventsForTaskCards() {
+  const taskCards = document.querySelectorAll(".task-card");
+  taskCards.forEach((taskCard) => {
+    addDragEventListenersToCard(taskCard);
+  });
+}
+
+function initializeDragAndDropForTaskLists() {
+  const taskLists = document.querySelectorAll(".task-list");
+  taskLists.forEach((taskList) => {
+    taskList.addEventListener("dragover", dragTaskCardOverTaskList);
+    taskList.addEventListener("dragleave", leaveTaskCardDropZone);
+    taskList.addEventListener("drop", dropTaskIntoTaskList);
+  });
+}
+
+function addDragEventListenersToCard(card) {
+  card.addEventListener("dragstart", startDragging);
+  card.addEventListener("dragend", stopDragging);
+}
+
+function makePlaceholder(draggedTask) {
+  const placeholder = document.createElement("li");
+  placeholder.classList.add("placeholder");
+  placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  placeholder.style.width = `${draggedTask.offsetWidth}px`;
+  return placeholder;
+}
+
+function isMouseOutOfPlaceholder(event, existingPlaceholder) {
+  if (existingPlaceholder) {
+    const placeholderRect = existingPlaceholder.getBoundingClientRect();
+    if (placeholderRect.top <= event.clientY &&
+      placeholderRect.bottom >= event.clientY) {
+      return true;
+    }
+    else return false;
+  }
+}
+
+function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
+  if (task === existingPlaceholder) return;
+  existingPlaceholder?.remove();
+  if (task === draggedTask || task.previousElementSibling === draggedTask)
+    return;
+  column.insertBefore(
+    existingPlaceholder ?? makePlaceholder(draggedTask),
+    task,
+  );
+}
+
+function movePlaceholder(event) {
+  event.preventDefault();
+  const draggedTask = document.getElementById("grabbed-card");
+  const column = event.currentTarget;
+  const existingPlaceholder = column.querySelector(".placeholder");
+  if (isMouseOutOfPlaceholder(event, existingPlaceholder)) return;
+  for (const task of column.children) {
+    if (task.getBoundingClientRect().bottom >= event.clientY) {
+      setPlaceholderPosition(column, task, existingPlaceholder, draggedTask);
+      return;
+    }
+  }
+  existingPlaceholder?.remove();
+  if (column.lastElementChild === draggedTask) return;
+  column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
 }
 
 /**
- *
+ * Hier eine Beschreibung einfügen.
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function createAllTaskArrayFromData(allTaskData) {
   if (!allTaskData) return [];
-  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id}));
+  return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
 }
 
 async function loadTasks() {

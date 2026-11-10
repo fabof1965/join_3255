@@ -1,105 +1,138 @@
-const DETAIL_TRANSITION_MS = 600;
+const isMobile = window.matchMedia("(max-width: 950px)").matches;
 
-let detailTimeout = null;
 let allContacts = [];
 let editIndex = null;
 let isPreviouslyOpenedCard = false;
 let currentlyOpenedCard = null;
 
-const displayAttributes = {
-    show: "flex",
-    hide: "none"
-}
-
-const isMobile = window.matchMedia("(max-width: 950px)").matches;
+document.addEventListener("DOMContentLoaded", initContacts);
 
 document.getElementById("open-button").addEventListener("click", () => {
-  if( (isMobile && !isPreviouslyOpenedCard) || !isMobile) {
+    if ((isMobile && !isPreviouslyOpenedCard) || !isMobile) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return;
     }
-
-    if(isMobile && isPreviouslyOpenedCard) {
+    if (isMobile && isPreviouslyOpenedCard) {
         setTimeout(() => showPopover(), 100);
     }
 });
 
-function initContacts() {
-    renderContacts();
-    initPhoneFilter();
-}
-
-function initPhoneFilter() {
-    const phoneInput = document.getElementById('phone');
-    const errorMsg = document.getElementById('phone-err-msg');
-    const border = document.getElementById('wrong-phone-border');
-
-    phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput, errorMsg, border));
-}
-
-function validatePhoneInput(input, errorMsg, border) {
-    const cleaned = input.value.replace(/[^0-9]/g, "");
-    const invalid = cleaned !== input.value;
-    input.value = cleaned;
-    errorMsg.textContent = "Only digits are allowed";
-    errorMsg.classList.toggle('visibility-hidden', !invalid);
-    border.classList.toggle('error-message-border-bottom', invalid);
-}
-
-async function renderContacts() {
+/**
+ * @description Initializes the contacts page: loads contact-data, renders all contact cards
+ * and sets the ARIA label on the add contact button.
+ */
+async function initContacts() {
     allContacts = await loadContacts();
+    sortAllContactsByName();
+    renderContacts();
+    initAllContactCardListeners();
+    initAddContactButtonAriaLabel();
+}
+
+/**
+ * @description Initializes the ARIA label of the button that opens the dialog for adding a new contact on mobile devices.
+ */
+function initAddContactButtonAriaLabel() {
+    const btnOpenContactDialog = document.getElementById("open-button");
+    if(isMobile) btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
+}
+
+/**
+ * @description renders all Contact Cards into the contact list.
+ */
+function renderContacts() {
     const contactContainer = document.getElementById("contacts");
-    contactContainer.innerHTML = "";
-    sortContactsByName(allContacts);
     contactContainer.innerHTML = getContactsHtml();
     setBadgeBackgroundColor();
 }
 
-function getContactsHtml() {
-    let previousLetter = "";
-    return allContacts.map((contact, index) => {
-        const letter = contact.name.charAt(0).toUpperCase();
-        const heading = letter === previousLetter ? "" : getFirstLetterTemplate(letter);
-        previousLetter = letter;
-        return heading + getContactTemplate(index);
-    }).join("");
+/**
+ * @description Initializes eventListeners on each HTML-Element with including
+ * class 'contact-card'.
+ */
+function initAllContactCardListeners() {
+    document.querySelectorAll('.contact-card').forEach((card) => {
+        initContactCardListeners(card);
+    });
 }
 
+/**
+ * @description Sorts contact-data alphabetically by full name.
+ */
+function sortAllContactsByName() {
+    allContacts.sort((contactA, contactB) => {
+        const nameA = contactA.name.toUpperCase(); 
+        const nameB = contactB.name.toUpperCase(); 
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+}
+
+/**
+ * @description Adds click and Enter-key listeners to a contact card
+ * that toggle the display of its contact details.
+ * @param {HTMLElement} card - The contact card element. 
+ */
+function initContactCardListeners(card) {
+    const contactCardIndex = card.dataset.contactIndex;
+    card.addEventListener("click", () => {
+        toggleContactDetail(contactCardIndex, card);
+    });
+    card.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            toggleContactDetail(contactCardIndex, card);
+        }
+    });
+}
+
+/**
+ * @description Builds the contact list HTML and adds a letter heading before each new initial.
+ */
+function getContactsHtml(contacts = allContacts) {
+    let contactsHTML = "";
+    let previousLetter = "";
+    for(let indexContact = 0; indexContact < contacts.length; indexContact++) {
+        const letter = allContacts[indexContact].name.charAt(0).toUpperCase();
+        if(letter !== previousLetter) {
+            contactsHTML += getFirstLetterTemplate(letter);
+            previousLetter = letter;
+        }
+        contactsHTML += getContactCardTemplate(indexContact);
+    }
+    return contactsHTML;
+}
+
+/**
+ * @description Loads the contacts from Firebase.
+ */
 async function loadContacts() {
     const response = await getData('contacts');
     if (!response) return [];
     return Object.entries(response).map(([id, contact]) => ({ id, ...contact }));
 }
 
-function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
-    const addContactImage = document.querySelector(".add-new-contact-image");
-
-    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
-        addContactImage.setAttribute("src", newSource);
-    }
-    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
-        addContactImage.setAttribute("src", defaultSource);
-    }
-}
-
-function showPopover() {
-    document.getElementById("popover-menu").showPopover();
-}
-
+/**
+ * @description Toggles the detail view of a contact card.
+ * @param {number} indexContact - The contact index.
+ * @param {HTMLElement} contactCard - The activated contact card.
+ */
 function toggleContactDetail(indexContact, contactCard) {
-    if (isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
-        currentlyOpenedCard.classList.remove("background-primary");
+    if(isPreviouslyOpenedCard && contactCard === currentlyOpenedCard) {
         hidePreviouslyOpenedDetail(contactCard);
         return;
     }
-
     clearActiveContacts();
     showSelectedContact(indexContact, contactCard);
 }
 
-/**
- * Opens a contact card when activated with the keyboard.
+/** 
+ * @description Opens a contact card when activated with the keyboard.
  * @param {KeyboardEvent} event - The keyboard event.
  * @param {number} indexContact - The contact index.
  * @param {HTMLElement} contactCard - The activated contact card.
@@ -110,26 +143,29 @@ function handleContactCardKeydown(event, indexContact, contactCard) {
     toggleContactDetail(indexContact, contactCard);
 }
 
+/**
+ * @description Highlights the selected contact card and displays its contact information.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ * @param {HTMLElement} contactCard - The clicked contact card element.
+ */
 function showSelectedContact(indexContact, contactCard) {
     contactCard.classList.add("background-primary");
     setTimeout(() => {
         showContactDetail(indexContact);
         setButtonContent();
     }, 250);
-
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
-
     if (isMobile) {
         document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
+        editEventlistener(indexContact);
+        deleteEventListener(indexContact);
     }
 }
 
-function hidePreviouslyOpenedDetail(contactCard) {
-    contactCard.classList.remove("background-primary");
-    hideContactDetail();
-}
-
+/**
+ * @description Removes the highlight from all active contact cards and hides the contact detail.
+ */
 function clearActiveContacts() {
     const activeContacts = document.querySelectorAll('.background-primary');
     activeContacts.forEach(contactCard => {
@@ -138,217 +174,101 @@ function clearActiveContacts() {
     });
 }
 
+/**
+ * @description Adds a click listener to the arrow button that hides the contact details
+ * and returns to the contact list.
+ */
+function hideContactDetailOnArrowButtonClick() {
+    document.querySelector("#arrow-btn").addEventListener("click", () => {
+        hidePreviouslyOpenedDetail(currentlyOpenedCard);
+    });
+}
+
+/**
+ * @description Shows details for a selected contact card with a slide-in animation.
+ * Sets the badge color and enables the arrow button on mobile to return to the contact list.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
+function showContactDetail(indexContact) {
+    writeContactDataIntoDetailView(indexContact);
+    document.querySelector("#contact-detail").classList.add('animation-right');
+    setBadgeBackgroundColor();
+    if(isMobile) hideContactDetailOnArrowButtonClick();
+    editEventlistener(indexContact);
+    deleteEventListener(indexContact);
+}
+
+/**
+ * @description Adds a click event listener to the edit button that opens the edit dialog for the selected contact.
+ * @param {number} indexContact - Index of the contact to edit.
+ */
+function editEventlistener(indexContact) {
+    document.querySelector(".edit").addEventListener("click", () => editExistingContact(indexContact));
+}
+
+/**
+ * @description Adds a click eventlistener to the delete button that deletes the selected contact.
+ * @param {number} indexContact - Index of the contact to delete.
+ */
+function deleteEventListener(indexContact) {
+    document.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
+}
+
+/**
+ * @description Renders the information of the given contact into the contact detail container.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
+function writeContactDataIntoDetailView(indexContact) {
+    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
+    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
+}   
+
+/**
+ * @description Removes the highlight from the given contact card and hides the contact detail.
+ * @param {HTMLElement} contactCard - The contact card whose highlight and detail view are removed.
+ */
+function hidePreviouslyOpenedDetail(contactCard) {
+    contactCard.classList.remove("background-primary");
+    hideContactDetail();
+}
+
+/**
+ * @description Hides the contact detail, removes highlight from the currently opened card
+ * and resets the opened-card state.
+ */
 function hideContactDetail() {
     const detail = document.getElementById('contact-detail');
     if (detail) detail.classList.remove('animation-right');
-    currentlyOpenedCard.classList.remove("background-primary");
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    document.getElementById("popover-menu").remove();
+    setTimeout(() => detail.innerHTML = "", 250);   
 }
 
-function getContactsData(indexContact) {
-    const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
-    CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
+/**
+ * @description Opens the popover menu of the selected contact that enables the user
+ *  to either edit or delete the contact 
+ *  that is currently opened (mobile view)
+ */
+function showPopover() {
+    document.getElementById("popover-menu").showPopover();
 }
 
-function showContactDetail(indexContact) {
-    getContactsData(indexContact);
-    document.querySelector("#contact-detail").classList.add('animation-right');
-    setBadgeBackgroundColor();
-}
-
-function getAddContactDialog() {
-    return document.getElementById("add-contact-dialog");
-}
-
-function resetBadge() {
-    const badge = document.querySelector('.badge-image-container');
-    badge.style = "";
-    badge.classList.remove('profile-badge-large');
-    badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
-}
-
-function openContactDialog(i = null) {
-    if (i === null) {
-        resetBadge();
-        document.getElementById('contact-form').reset();
-        const badge = document.querySelector('.badge-image-container');
-        badge.style = "";
-        badge.classList.remove('profile-badge-large');
-        badge.innerHTML = '<img src="../assets/icons/person.svg" alt="person icon">';
+/**
+ * @description Toggles the add contact button icon between the default icon and the menu icon.
+ * Only has an effect on mobile devices.
+ * @param {string} defaultSource - Path to the default icon.  
+ * @param {string} newSource - Path to the icon for the mobile view.
+ */
+function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
+    const openButton = document.getElementById("open-button");
+    const addContactImage = document.querySelector(".add-new-contact-image");
+    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
+        addContactImage.setAttribute("src", newSource);
+        openButton.setAttribute("aria-label", "Open popover menu with options to edit or delete the currently opened contact");
     }
-
-    activateDialog();
-}
-
-function activateDialog() {
-    const dialog = getAddContactDialog();
-    dialog.showModal();
-    dialog.classList.add('slide-in');
-}
-
-function resetContactForm() {
-    const border = document.querySelectorAll('.add-contact-content');
-    border.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
-    const errMsg = document.querySelectorAll('.error-msg');
-    errMsg.forEach(errorMessage => {
-        errorMessage.classList.add('visibility-hidden');
-    });
-}
-
-function closeContactDialog() {
-    const contactDialog = getAddContactDialog();
-    const contactForm = document.getElementById('contact-form');
-
-    contactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        contactDialog.close();
-    }, 500);
-
-    resetBadge();
-    resetContactForm();
-    contactForm.reset();
-}
-
-function getContactFormfromForm() {
-    return {
-        name: document.getElementById("name").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone: document.getElementById("phone").value.trim()
-    };
-}
-
-function fillContactForm(contact) {
-    document.getElementById('existing-contact-name').value = contact.name;
-    document.getElementById('existing-contact-email').value = contact.email;
-    document.getElementById('existing-contact-phone').value = contact.phone;
-}
-
-async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
-    return checkContactFieldExists('name', inputName, ownId, errorID, borderID);
-}
-
-async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
-    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID);
-}
-
-async function checkContactFieldExists(field, value, ownId, errorID, borderID) {
-    const response = await getData('contacts');
-    const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
-    updateContactFieldError(errorID, borderID, exists);
-    return exists;
-}
-
-function updateContactFieldError(errorID, borderID, exists) {
-    document.getElementById(errorID).classList.toggle('visibility-hidden', !exists);
-    document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
-}
-
-async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    const phoneExists = await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID);
-    document.getElementById(errorID).textContent = 'Please choose a different number.';
-    return phoneExists;
-}
-
-async function submitContactForm(event) {
-    event.preventDefault();
-    if (editIndex === null) {
-
-        await addNewContact(event);
-    } else {
-        await saveEditedContact();
+    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
+        addContactImage.setAttribute("src", defaultSource);
+        openButton.setAttribute("aria-label", "Open Dialog to add a new contact");
     }
 }
-
-async function addNewContact(event) {
-    event.preventDefault();
-    const form = document.getElementById('contact-form');
-    const contact = getContactFormfromForm();
-    const nameExists = await checkIfContactNameExists(contact.name);
-    const emailExists = await checkIfEmailExists(contact.email);
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-    if (nameExists || emailExists || phoneExists) return;
-    const { name: firebaseId } = await postData('contacts', contact);
-    contact.id = firebaseId;
-    form.reset();
-    closeContactDialog();
-    await renderContacts();
-}
-
-function editExistingContact(indexContact) {
-    openExistingContactDialog(indexContact);
-}
-
-function openExistingContactDialog(indexContact) {
-    const editContactDialog = document.getElementById("edit-contact-dialog");
-    const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = renderProfileBadges(allContacts[indexContact].name).toUpperCase();
-    badgeContainer.innerHTML = getEditBadgeTemplate(initials);
-    badgeContainer.classList.add('profile-badge-large');
-    setBadgeBackgroundColor();
-    editIndex = indexContact;
-    fillContactForm(allContacts[indexContact]);
-    editContactDialog.showModal();
-    editContactDialog.classList.add("slide-in");
-}
-
-function closeEditContactDialog() {
-    const editContactDialog = document.getElementById("edit-contact-dialog");
-    editContactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        editContactDialog.close();
-    }, 500);
-}
-
-async function saveEditedContact() {
-    const contact = allContacts[editIndex];
-    const ownId = allContacts[editIndex].id;
-    if (await contactHasValidationErrors(contact, ownId)) return;
-    assignValuesToContact(contact);
-    allContacts[editIndex] = contact;
-    await patchData('contacts/' + ownId, contact);
-    closeEditContactDialog();
-    await refreshEditedContact();
-}
-
-async function contactHasValidationErrors(contact, ownId) {
-    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
-    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
-    return nameExists || emailExists || phoneExists;
-}
-
-async function refreshEditedContact() {
-    await renderContacts();
-    showContactDetail(editIndex);
-}
-
-function assignValuesToContact(contact) {
-    const INPUT_NAME = document.getElementById('existing-contact-name').value;
-    const INPUT_EMAIL = document.getElementById('existing-contact-email').value;
-    const INPUT_PHONE_NUMBER = document.getElementById('existing-contact-phone').value;
-
-    contact.name = INPUT_NAME;
-    contact.email = INPUT_EMAIL;
-    contact.phone = INPUT_PHONE_NUMBER;
-}
-
-async function deleteContact(i) {
-    const contact = allContacts[i];
-    if (!contact) return;
-    await deleteData('contacts/' + contact.id);
-    if (currentlyOpenedCard) hideContactDetail()
-    closeContactDialog();
-    closeEditContactDialog();
-    await renderContacts();
-}
-
-getAddContactDialog().addEventListener("close", () => {
-    editIndex = null;
-    resetContactForm();
-    document.getElementById('contact-form');
-});

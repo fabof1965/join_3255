@@ -134,12 +134,12 @@
 
 .arrow-back-btn {
   display: none;
-  
   background: none;
   border: none;
+  border-radius: var(--border-radius-circular);
 }
 
-.arrow-back-btn:hover {
+.arrow-back-btn:hover, .arrow-back-btn:focus {
   background-color: var(--arrow-back-btn-hover-color);
   border-radius: var(--border-radius-circular);
 }

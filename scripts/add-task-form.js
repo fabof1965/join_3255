@@ -1,65 +1,140 @@
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
-let newTaskCategory = "toDo";
+let newTaskStatus = "toDo";
 let newTaskSubtasks = [];
+const allTasks = [];
 
-document.addEventListener("submit", submitNewTask);
+document.addEventListener("DOMContentLoaded", async () => {
+  if (window.location.pathname.endsWith("/pages/addTask.html")) {
+    const addTaskForm = document.getElementById("add-task-form");
+    await renderAssignedContacts(addTaskForm);
+  }
+});
+
+document.addEventListener("submit", async (event) => {
+  if (event.target.id !== "add-task-form" || event.target.closest("dialog")) {
+    return;
+  }
+  event.preventDefault();
+  const saved = await submitTask(event, null);
+  if (!saved) return;
+  showSuccessPopup("Task successfully created");
+  setTimeout(() => {
+    directToPage("../pages/board.html");
+  }, 1500);
+});
+
+initPriorityButtonClickListeners();
 
 /**
- * Selects assigned users in the task form.
- * @param {HTMLSelectElement} select - Assigned users select.
- * @param {string[]} users - User initials to select.
- * @returns {void}
+ * @description Adds a click listener to every priority button.
+ * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
  */
-function setTaskFormUsers(select, users = []) {
-  Array.from(select.options).forEach((option) => {
-    option.selected = users.includes(option.value);
+function initPriorityButtonClickListeners() {
+  document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
+    priorityButton.addEventListener("click", () => {
+      removeSelectedClassFromPriorityButtons();
+      priorityButton.classList.add("selected");
+    });
+  });
+}
+
+const btnCleartaskForm = document.getElementById("btn-clear-task-form");
+if (btnCleartaskForm) {
+  btnCleartaskForm.addEventListener("click", () => resetForm());
+}
+
+/**
+ * @description Removes the "selected" class from all priority buttons.
+ */
+function removeSelectedClassFromPriorityButtons() {
+  document.querySelectorAll("[data-priority]").forEach((priorityButton) => {
+    priorityButton.classList.remove("selected");
   });
 }
 
 /**
- * Selects one priority button.
- * @param {HTMLButtonElement} button - Clicked priority button.
- * @returns {void}
+ * @description Loads all contacts from Firebase and adds the database id to each one.
+ * @returns {Promise<Array<{id: string, email: string, phone: string}>>}
+ * Array of contact objects, or an empty array if no contacts exist.
  */
-function selectTaskPriority(button) {
-  document.querySelectorAll("[data-priority]").forEach((item) => {
-    const selected = item === button;
-    item.classList.toggle("selected", selected);
-  });
-  selectedTaskPriority = button.dataset.priority;
+async function getAssignedContacts() {
+  const response = await getData("contacts");
+  if (!response) return [];
+  return Object.entries(response).map(([id, contact]) => ({
+    id,
+    ...contact,
+  }));
 }
 
 /**
- * Renders all entered subtasks below the input.
- * @returns {void}
+ * @description Renders the assigned contacts as options into the hidden select.
+ * @param {HTMLElement} container - Form element containing the `#assigned-contacts` select.
+ */
+async function renderAssignedContacts(container) {
+  const assignedContacts = await getAssignedContacts();
+  sortContactsByName(assignedContacts);
+  const contactRef = container.querySelector("#assigned-contacts");
+  contactRef.innerHTML = assignedContacts
+    .map((contact) => {
+      return getAssignedContactOptionTemplate(
+        getInitials(contact.name),
+        contact.name,
+      );
+    })
+    .join("");
+  renderAssignedContactsDropdown(container);
+}
+
+/**
+ * @description Renders the list of new subtasks.
  */
 function renderNewSubtasks() {
   const list = document.querySelector(".add-task-subtasks");
   if (!list) return;
-  list.innerHTML = newTaskSubtasks.map((title, index) =>
-    fillTemplate(addTaskSubtaskTemplate, { title, index }),
-  ).join("");
+  list.innerHTML = newTaskSubtasks
+    .map((subtask, index) => {
+      return getAddTaskSubtaskTemplate(index, subtask.title);
+    })
+    .join("");
+  addButtonEventListenersOnSubtask();
 }
 
 /**
- * Adds a subtask value to the current form state.
- * @param {HTMLInputElement} input - Subtask input field.
- * @returns {boolean} Whether a subtask was added.
+ * @description Adds a click listeners to the edit and delete buttons that of every subtask in the list.
+ * The edit button calls `editSubtask`, the delete button calls `deleteSubtask`.
+ */
+function addButtonEventListenersOnSubtask() {
+  let subtaskIndex = 0;
+  newTaskSubtasks.forEach(() => {
+    const editButton = document.querySelector('[data-edit-index="' + subtaskIndex + '"]');
+    const deleteButton = document.querySelector('[data-delete-index="' + subtaskIndex + '"]');
+    editButton.addEventListener("click", () => editSubtask(editButton));
+    deleteButton.addEventListener("click", () => deleteSubtask(deleteButton));
+    subtaskIndex++;
+  });
+}
+
+/**
+ * @description Adds a input value as a new subtask and renders the subtask-list.
+ * @param {HTMLInputElement} input - Input field containing the subtask title.
+ * @returns {boolean} `true` if a subtask was added, `false` if the input was empty.
  */
 function addSubtaskFromInput(input) {
   const value = input.value.trim();
   if (!value) return false;
-  newTaskSubtasks.push(value);
+  newTaskSubtasks.push({
+    title: value,
+    done: false,
+  });
   input.value = "";
   renderNewSubtasks();
   return true;
 }
 
 /**
- * Adds a subtask without submitting the main form.
- * @param {KeyboardEvent} event - Subtask input keyboard event.
- * @returns {void}
+ * @description Adds a subtask when the enter key is pressed.
+ * @param {KeyboardEvent} event - Keydown event from the subtask input field
  */
 function addSubtaskOnEnter(event) {
   if (event.key !== "Enter") return;
@@ -67,97 +142,111 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
+document.addEventListener("keydown", (event) => {
+  if (event.target.name === "subtask") {
+    addSubtaskOnEnter(event);
+  }
+  if (event.target.name === "subtask-edit") {
+    saveSubtaskOnEnter(event);
+  }
+});
+
 /**
- * Removes the subtask belonging to the clicked delete button and re-renders the list.
- * @param {HTMLElement} button - Clicked delete button inside a subtask item.
- * @returns {void}
+ * @description Removes subtask when the trash icon is clicked.
+ * @param {HTMLButtonElement} button - The delete button inside the subtask list item that was clicked.
  */
 async function deleteSubtask(button) {
-  const index = Number(button.closest('.subtask-list').dataset.index);
+  const index = Number(button.closest(".subtask-list").dataset.index);
   newTaskSubtasks.splice(index, 1);
-  await deleteData('subtasks' + index);
+  await deleteData("subtasks" + index);
   renderNewSubtasks();
 }
 
 /**
- * Replaces the title of the clicked subtask with a focused input field and turns the edit
- * icon into a check icon. Clicking the button again (or pressing Enter) saves the change.
- * @param {HTMLElement} button - Clicked edit button inside a subtask item.
- * @returns {void}
+ * @description Toggles the edit mode of a subtask: opens the edit input, or saves it if already open.
+ * @param {HTMLButtonElement} button - The edit button inside the subtask list item that was clicked. 
  */
-
 function editSubtask(button) {
-  const item = button.closest('.subtask-list');
-  const editInput = item.querySelector('.subtask-edit-input');
+  const item = button.closest(".subtask-list");
+  const editInput = item.querySelector(".subtask-edit-input");
   if (editInput) return saveSubtask(editInput);
   const index = Number(item.dataset.index);
-  const span = item.querySelector('span');
-  span.innerHTML = fillTemplate(editSubtaskTemplate, { title: newTaskSubtasks[index] });
-  const handleButtons = item.querySelector('.subtask-button-container');
+  const span = item.querySelector("span");
+  span.innerHTML = getEditSubtaskTemplate(newTaskSubtasks[index].title);
+  const handleButtons = item.querySelector(".subtask-button-container");
   handleButtons.style.opacity = 1;
-  item.style.backgroundColor = 'transparent';
+  item.style.backgroundColor = "transparent";
   button.innerHTML = checkIconSvg;
-  item.classList.add('is-editing');
-  button.setAttribute('aria-label', 'Save subtask');
-  item.querySelector('.subtask-edit-input').focus();
+  item.classList.add("is-editing");
+  button.setAttribute("aria-label", "Save subtask");
+  item.querySelector(".subtask-edit-input").focus();
 }
 
 /**
- * Saves the edited subtask title when Enter is pressed in the edit input.
- * @param {KeyboardEvent} event - Keydown event of the subtask edit input.
- * @returns {void}
+ * @description Saves subtask when the enter key is pressed.
+ * @param {KeyboardEvent} event - Keydown event from the subtask input field.
  */
 function saveSubtaskOnEnter(event) {
-  if (event.key !== 'Enter') return;
+  if (event.key !== "Enter") return;
   event.preventDefault();
   saveSubtask(event.target);
 }
 
 /**
- * Writes the edit input's value back to the subtask and re-renders the list.
- * @param {HTMLInputElement} input - Subtask edit input.
- * @returns {void}
+ * @description Saves a subtask in the subtask list and renders the list.
+ * @param {HTMLInputElement} input - Input field containing the subtask title.  
  */
 function saveSubtask(input) {
-  const index = Number(input.closest('.subtask-list').dataset.index);
+  const index = Number(input.closest(".subtask-list").dataset.index);
   const value = input.value.trim();
-  if (value) newTaskSubtasks[index] = value;
+  if (value) {
+    newTaskSubtasks[index].title = value;
+  }
   renderNewSubtasks();
 }
 
-function resetForm(form = document.getElementById('add-task-form')) {
+/**
+ * @description Resets the add-task form to its original state.
+ * @param {HTMLFormElement} form - Form that is being reset. 
+ */
+function resetForm(form = document.getElementById("add-task-form")) {
   if (!form) return;
   form.reset();
-  form.querySelectorAll("[data-error]").forEach((error) => { error.textContent = ""; });
-  ["title", "dueDate", "category"].forEach((name) =>
-    form.elements[name]?.setAttribute("aria-invalid", "false"),
-  );
+  form.querySelectorAll("[data-error]").forEach((error) => {
+    error.textContent = "";
+  });
+  ["title", "dueDate", "category"].forEach((name) => {
+    form.elements[name]?.setAttribute("aria-invalid", "false");
+  });
   newTaskSubtasks = [];
   selectedTaskPriority = "medium";
   renderNewSubtasks();
 }
 
 /**
- * Displays an error below a required field.
- * @param {HTMLFormElement} form - Add Task form.
- * @param {string} name - Field name.
+ * @description Shows or clears the error message of a required field and sets aria invalid.
+ * @param {HTMLFormElement} form - Form for creating a task.
+ * @param {string} name - Name of the form field.
  * @param {boolean} isInvalid - Whether the field is invalid.
- * @returns {boolean} The invalid state.
+ * @returns {boolean} `true` if the field is invalid(empty), `false` if it's filled in.
  */
 function showTaskFieldError(form, name, isInvalid) {
   const field = form.elements[name];
   const error = form.querySelector(`[data-error="${name}"]`);
-  if (error) error.textContent = isInvalid ? "This field is required" : "";
-  if (field) field.setAttribute("aria-invalid", String(isInvalid));
+  if (error) {
+    error.textContent = isInvalid ? "This field is required" : "";
+  }
+  if (field) {
+    field.setAttribute("aria-invalid", String(isInvalid));
+  }
   return isInvalid;
 }
 
 /**
- * Checks all required Add Task fields.
- * @param {HTMLFormElement} form - Add Task form.
- * @returns {boolean} Whether the form is valid.
+ * @description Validates all required fields in the add-task form.
+ * @param {HTMLFormElement} form - Form for creating a task.
+ * @returns {boolean} `true` if all required fields are filled, otherwise `false`.
  */
-
 function isAddTaskFormValid(form) {
   const titleInvalid = !form.elements.title.value.trim();
   const dateInvalid = !form.elements.dueDate.value;
@@ -169,139 +258,196 @@ function isAddTaskFormValid(form) {
 }
 
 /**
- * Returns the selected contact initials.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected initials.
+ * @description Reads the selected contacts from the “Assigned to” select element and return  their displayed names.
+ * @returns {string[]} Names of the selected contacts. Empty array if no contact has been selected.
  */
-function getSelectedUsers(select) {
-  return Array.from(select.selectedOptions, ({ value }) => value);
+function getAssignedContactsFromForm() {
+  const select = document.getElementById("assigned-contacts");
+  const assignedContacts = [];
+  const selectedContacts = select.selectedOptions;
+  for (let i = 0; i < selectedContacts.length; i++) {
+    assignedContacts.push(selectedContacts[i].innerText);
+  }
+  return assignedContacts;
 }
 
 /**
- * Returns the names of all selected contacts.
- * @param {HTMLSelectElement} select - Assigned contacts field.
- * @returns {string[]} Selected contact names.
+ * @description Reads the add-task form values and return them as a task object.
+ * @returns {object} The task data.
  */
-function getSelectedUserNames(select) {
-  return Array.from(select.selectedOptions, ({ textContent }) => textContent);
+function getTaskData() {
+  const formElements = getFormElements();
+  const assignedContactsArray = getAssignedContactsFromForm();
+  const selectedPriorityText = document.querySelector(".selected").dataset.priority;
+  const subtasks = getSubtasksFromForm();
+  const taskData = {
+    title: formElements.taskTitleInputElement.value.trim(),
+    description: formElements.taskDescriptionElement.value.trim(),
+    dueDate: formElements.dueDateElement.value,
+    category: formElements.categorySelectElement.selectedOptions[0].innerText,
+    status: newTaskStatus,
+    assignedContacts: assignedContactsArray,
+    priority: selectedPriorityText,
+    subtasks: subtasks,
+  };
+  return taskData;
 }
 
 /**
- * Creates a task object from the form fields.
- * @param {HTMLFormElement} form - Add Task form.
- * @returns {Object} New board task.
+ * @description Returns the DOM elements of the add-task form fields.
+ * @param {string} priority - Priority value used to find the matching priority button.
+ * @returns {object} Object containing the form field elements. 
  */
-function createTaskFromForm(form) {
-  addPendingSubtask(form);
-  const data = new FormData(form);
-  //data soll ein Objekt in etwa dieser Form sein: 
-// {
-//     title: document.querySelector(".task-title-input").value.trim(), 
-//     description: document.querySelector(".task-description-input").value.trim(),
-//     dueDate: document.querySelector(".add-task-date-input").value, 
-//     category: getSelectedOptionFromForm(document.querySelector("task-category-select")), 
-//     priority: selectedTaskPriority, 
-//     assignedUsers: getSelectedUsers(assignedUsers),
-//     subtasks: getSubtasksFromForm,
-//     subtaskTitles: [...newTaskSubtasks], 
-//     subtaskDone: newTaskSubtasks.map(() => false),
-//   };
-  return buildTaskData(data, form.elements.assignedUsers);
+function getFormElements(priority = "") {
+  return {
+    taskTitleInputElement: document.getElementById("taskTitleInput"),
+    taskDescriptionElement: document.getElementById("taskDescription"),
+    dueDateElement: document.getElementById("taskDueDate"),
+    selectedPriorityButton: document.querySelector('[data-priority="' + priority + '"]'),
+    assignedContactsSelectElement: document.getElementById("assigned-contacts"),
+    categorySelectElement: document.getElementById("taskCategorySelect"),
+  };
 }
 
-function calculateSubtaskProgress(totalSubtasks, subtasksDone) {
-    return totalSubtasks / subtasksDone;
-}
-
-function getSelectedOptionFromForm(select) {
-    const option = select.selectedOptions[0];
-    const optionText = option ? option.textContent : "";
-
-    return optionText;
-}
-
+/**
+ * @description Returns a copy of the current subtasks from the form.
+ * The data comes from the global variable `newTaskSubtasks`.
+ * @returns {{title: string, done: boolean} []}
+ */
 function getSubtasksFromForm() {
-    const subtaskTitles = document.querySelectorAll(".subtaskTitle");
-    const subtaskCheckboxes = "";
-    const subtasks = subtaskTitles.map((title) => {
-        const subtaskTitle = title;
-        const subtaskDone = "";
-    });
+  return newTaskSubtasks.map((subtask) => ({ ...subtask, }));
 }
 
 /**
- * Includes a subtask that is still typed into the input when the form is submitted.
- * @param {HTMLFormElement} form - Add Task form.
- * @returns {void}
+ * @description Validates the data from the add-task form and saves it to Firebase
+ * @param {SubmitEvent} event - Submit event of the add-task-form. 
+ * @param {Object|null} editedTask - Task to update, or null to create a new one.
+ * @returns {Promise <boolean>} True if the task was saved, false if the form ist invalid.
  */
-function addPendingSubtask(form) {
-  if (form.elements.subtask) addSubtaskFromInput(form.elements.subtask);
-}
-
-function buildTaskData(data, assignedUsers) {
-  return {
-    title: data.get("title").trim(),
-    description: data.get("description").trim(),
-    dueDate: data.get("dueDate"),
-    category: data.get("category"),
-    status: newTaskCategory,
-    priority: selectedTaskPriority,
-    assignedUsers: getSelectedUsers(assignedUsers),
-    assignedUserNames: getSelectedUserNames(assignedUsers),
-    subtasks: getSubtaskProgress(),
-    subtaskTitles: [...newTaskSubtasks],
-    subtaskDone: newTaskSubtasks.map(() => false),
-  };
-}
-
-function getSubtaskProgress() {
-  return newTaskSubtasks.length ? { completed: 0, total: newTaskSubtasks.length } : undefined;
-}
-
-function updateTaskFromForm(currentTask, form) {
-  const taskData = createTaskFromForm(form);
-  return {
-    ...currentTask,
-    ...taskData,
-    id: editingTaskId,
-    status: currentTask.status,
-    fullDescription: taskData.description
-  };
-}
-
-function getPatchedTaskData(task) {
-  const { title, description, dueDate, category, priority, assignedUsers, assignedUserNames,
-    subtasks, subtaskTitles, subtaskDone } = task;
-  return { title, description, dueDate, category, priority,
-    assignedUsers, assignedUserNames, subtasks, subtaskTitles, subtaskDone };
-}
-
-/**
- * Saves a new task locally and refreshes the board.
- * @param {SubmitEvent} event - Add Task form submit event.
- * @returns {void}
- */
-async function submitNewTask(event) {
-  event.preventDefault();
+async function submitTask(event, editedTask) {
   const form = event.target;
-  if (!isAddTaskFormValid(form)) return;
-  const taskData = createTaskFromForm(form);
-  const response = await postData("tasks", taskData);
-  if (!response) return;
-  const firebaseId = response.name;
-  taskData.id = firebaseId;
-  finishTaskSubmission(form, taskData);
-  window.location.href = "../pages/board.html";
+  if (!isAddTaskFormValid(form)) return false;
+  if (editedTask === null) {
+    const taskData = getTaskData();
+    const response = await postData("tasks", taskData);
+    const firebaseId = response.name;
+    taskData.id = firebaseId;
+    await patchData(`tasks/${taskData.id}`, taskData);
+    allTasks.push(taskData);
+    return true;
+  }
+  await patchData(`tasks/${editedTask.id}`, editedTask);
+  return true;
 }
 
 /**
- * Cleans up the matching Add Task surface after a task was created.
- * @param {HTMLFormElement} form - Submitted Add Task form.
- * @param {Object} task - Created task with Firebase id.
- * @returns {void}
+ * @description Redirects to the page url if the page with specified url if it isn't already open.
+ * @param {string} pageURL - Path to the specified page.
  */
-function finishTaskSubmission(form, task) {
-  if (typeof allTasks !== "undefined") allTasks.push(task);
-
-  resetForm(form);
+function directToPage(pageURL) {
+  if (window.location.pathname !== pageURL) {
+    window.location.href = pageURL;
+  }
 }
+
+/**
+ * @description Displays a pop-up message when a task is created.
+ * @param {string} message - “Task created” is shown in the pop-up.
+ */
+function showPopup(message = "Task created") {
+  document.getElementById("popup")?.remove();
+  document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
+  const popup = document.getElementById("popup");
+  if (!popup) throw new Error("Could not create the success popup.");
+  popup.querySelector("h2").textContent = message;
+  popup.showModal();
+  window.setTimeout(() => {
+    if (popup.open) popup.close();
+    popup.remove();
+  }, 3000);
+}
+
+/**
+ * @description Fills the visible checkbox dropdown.
+ * The hidden select remains the data source for saving tasks.
+ */
+function renderAssignedContactsDropdown(container) {
+  const select = container.querySelector("#assigned-contacts");
+  const dropdown = container.querySelector(".assigned-dropdown");
+  if (!select || !dropdown) return;
+  const list = dropdown.querySelector(".assigned-dropdown-list");
+  list.replaceChildren();
+  const editedTask = allTasks.find((task) => task.id === editingTaskId);
+  if (editedTask) {
+    Array.from(select.options).forEach((option) => {
+      option.selected = (editedTask.assignedContacts || []).includes(
+        option.textContent,
+      );
+    });
+  }
+  Array.from(select.options).forEach((option) => {
+    const row = document.createElement("li");
+    row.className = "assigned-dropdown-option";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = option.selected;
+    const name = document.createElement("span");
+    name.textContent = option.textContent;
+    checkbox.addEventListener("change", () => {
+      option.selected = checkbox.checked;
+    });
+    checkbox.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      if (!event.repeat) {
+        checkbox.click();
+      }
+    });
+    row.append(checkbox, name);
+    list.appendChild(row);
+  });
+  if (!select.options.length) {
+    const empty = document.createElement("p");
+    empty.className = "assigned-dropdown-empty";
+    empty.textContent = "No contacts available";
+    list.appendChild(empty);
+  }
+}
+
+document.addEventListener("click", (event) => {
+  document.querySelectorAll(".assigned-dropdown[open]").forEach((dropdown) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.open = false;
+    }
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const dropdown = event.target.closest(".assigned-dropdown[open]");
+  if (!dropdown) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  dropdown.open = false;
+  dropdown.querySelector("summary").focus();
+},
+  true,
+);
+
+document.addEventListener("reset", (event) => {
+  const form = event.target;
+  if (!form.querySelector(".assigned-dropdown")) return;
+  setTimeout(() => {
+    const dropdown = form.querySelector(".assigned-dropdown");
+    const select = form.querySelector("#assigned-contacts");
+    if (!dropdown || !select) return;
+    Array.from(select.options).forEach((option) => {
+      option.selected = false;
+    });
+    dropdown.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    dropdown.open = false;
+    updateAssignedContactsSummary(dropdown, select);
+  }, 0);
+});
