@@ -177,7 +177,7 @@ function filterTasks(searchTerm) {
  * Checks whether a task's title or decription countains the search term.
  * @param {object} task - Task object with a title and an optional description.
  * @param {string} normalizedTerm - Trimmed, lowercase search term.
- * @returns {boolean} - `True` if the title or descritopn contains the term.
+ * @returns {boolean} - True if the title or descritopn contains the term.
  */
 function taskMatchesTerm(task, normalizedTerm) {
   const title = task.title.toLowerCase();
@@ -209,6 +209,11 @@ function searchTasks(event) {
   renderSearchResults(filteredTasks, showNoResults);
 }
 
+/**
+ * @description Checks whether the search field contains a usable search term.
+ * @param {string} searchTerm - Text from the searchbar.
+ * @returns {boolean} True if the term is not empty after trimming.
+ */
 function isSearchActive(searchTerm) {
   return searchTerm.trim() !== "";
 }
