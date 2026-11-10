@@ -180,7 +180,7 @@ function clearActiveContacts() {
  */
 function hideContactDetailOnArrowButtonClick() {
     document.querySelector("#arrow-btn").addEventListener("click", () => {
-        hideContactDetail();
+        hidePreviouslyOpenedDetail(currentlyOpenedCard);
     });
 }
 
