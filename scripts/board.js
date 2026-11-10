@@ -428,8 +428,9 @@ function movePlaceholder(event) {
   if (column.lastElementChild === draggedTask) return;
   column.append(existingPlaceholder ?? makePlaceholder(draggedTask));
 }
+
 /**
- *
+ * Hier eine Beschreibung einfügen.
  * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
  * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
