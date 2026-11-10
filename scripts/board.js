@@ -232,6 +232,7 @@ function isSearchActive(searchTerm) {
 function renderSearchResults(tasks, showNoResults) {
   emptyTaskLists();
   renderTaskCards(tasks);
+  renderEmptyTaskLists();
   setBadgeBackgroundColor();
   toggleNoResultsMessage(showNoResults);
   initializeDragEventsForTaskCards(); 
