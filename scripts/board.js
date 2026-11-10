@@ -10,7 +10,6 @@ async function initBoardContent() {
 
 /**
  * Shows and clears the task-created message saved before navigating to the board.
- * @returns {void}
  */
 function showPopupAfterRedirect() {
   if (sessionStorage.getItem("taskCreatedPopup") !== "true") return;
