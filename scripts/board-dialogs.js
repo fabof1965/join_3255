@@ -147,7 +147,7 @@ async function openAddTaskDialogInEditMode(task) {
   await renderAssignedContacts(taskForm);
   fillFormElementsWithTaskData(task);
   renderNewSubtasks();
-  initPriorityButtonClickListeners();
+  initAddTaskDialogListeners(addTaskDialog);
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
 }
