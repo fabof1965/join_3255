@@ -1,7 +1,7 @@
 let isSubmittingContact = false;
 
 initPhoneFilter();
-resetErrEventlistener();
+setErrEventListeners();
 
 document.querySelectorAll(".btn-close-add-contact-dialog").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -260,6 +260,14 @@ function contactHasBlankFields(contact) {
     return blankName || blankEmail || blankPhone;
 }
 
+/**
+ * @description Checks if the given value is an empty string
+ * @param {string} value 
+ * @param {string} errId 
+ * @param {string} borderId 
+ * @param {string} blankMsg 
+ * @returns {Boolean} If the field, which includes the value is an empty string the return value is true, else the return value is false
+ */
 function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
     const errMsg = document.getElementById(errId);
     const isBlank = value.trim() === "";
@@ -269,25 +277,67 @@ function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
     return isBlank;
 }
 
+/**
+ * Checks if the given contact name is already available in firebase database
+ * @param {string} inputName 
+ * @param {string|null} ownId 
+ * @param {string} errorID 
+ * @param {string} borderID 
+ * @returns {Promise<boolean>} If the given input name is found in firebase, the return value is true, else the return value is false
+ */
 async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
     return checkContactFieldExists('name', inputName, ownId, errorID, borderID, nameExistsMsg);
 }
 
+/**
+ * Checks if the given email is already available in firebase database
+ * @param {string} inputName 
+ * @param {string|null} ownId 
+ * @param {string} errorID 
+ * @param {string} borderID 
+ * @returns {Promise<boolean>} If the given input mail is found in firebase, the return value is true, else the return value is false
+ */
 async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
     return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
 }
 
+/**
+ * Checks if the given phone number is already available in firebase database
+ * @param {string} inputName 
+ * @param {string|null} ownId 
+ * @param {string} errorID 
+ * @param {string} borderID 
+ * @returns {Promise<boolean>} If the given input phone is found in firebase, the return value is true, else the return value is false
+ */
 async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
     return await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
 }
 
+/**
+ * @description Checks if the value that the user put in already exists in firebase database
+ * @param {string} field 
+ * @param {string} value 
+ * @param {string} ownId 
+ * @param {string} errorID 
+ * @param {string} borderID 
+ * @param {string} existsMsg 
+ * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false
+ */
 async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
+    console.log(typeof(field));
     const response = await getData('contacts');
     const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
     updateContactFieldError(errorID, borderID, exists, existsMsg);
     return exists;
 }
 
+/**
+ * @description Sets error message on contact field
+ * @param {string} errorID 
+ * @param {string} borderID 
+ * @param {boolean} exists 
+ * @param {string} existsMsg 
+ */
 function updateContactFieldError(errorID, borderID, exists, existsMsg) {
     const errMsg = document.getElementById(errorID);
     if (exists) errMsg.textContent = existsMsg;
@@ -295,7 +345,11 @@ function updateContactFieldError(errorID, borderID, exists, existsMsg) {
     document.getElementById(borderID).classList.toggle('error-message-border-bottom', exists);
 }
 
-function resetErrEventlistener() {
+/**
+ * @description Sets error eventListeners to hide the errors on Contact fields if a contact field has user input
+ * input fields are the fields with following id's: 'name', 'email', 'phone', 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
+ */
+function setErrEventListeners() {
     const inputFields = [
         document.getElementById('name'),
         document.getElementById('email'),
@@ -309,6 +363,10 @@ function resetErrEventlistener() {
     });
 }
 
+/**
+ * @description Hides the error message 
+ * @param {InputEvent} event 
+ */
 function hideContactErrMsg(event) {
     const wrapper = event.currentTarget.closest('.input-wrapper');
     wrapper.querySelector('.add-contact-content').classList.remove('error-message-border-bottom');
@@ -316,11 +374,20 @@ function hideContactErrMsg(event) {
     if (errMsg) errMsg.classList.add('visibility-hidden');
 }
 
+/**
+ * @description Initializes the phone filter on the input fields with id 'phone' and 'existing-contact-phone'
+ */
 function initPhoneFilter() {
     addPhoneFilter('phone', 'phone-err-msg', 'wrong-phone-border');
     addPhoneFilter('existing-contact-phone', 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
 }
 
+/**
+ * @description Adds a phone filter to the input field with the given inputId
+ * @param {string} inputId 
+ * @param {string} errorMsgId 
+ * @param {string} borderId 
+ */
 function addPhoneFilter(inputId, errorMsgId, borderId) {
     const input = document.getElementById(inputId);
     const errorMsg = document.getElementById(errorMsgId);
@@ -328,6 +395,9 @@ function addPhoneFilter(inputId, errorMsgId, borderId) {
     input.addEventListener('input', () => validatePhoneInput(input, errorMsg, border));
 }
 
+/**
+ * @description Validates the input of the phone number
+ */
 function validatePhoneInput(input, errorMsg, border) {
     const cleaned = input.value.replace(/[^0-9]/g, "");
     const invalid = cleaned !== input.value;
@@ -337,10 +407,18 @@ function validatePhoneInput(input, errorMsg, border) {
     border.classList.toggle('error-message-border-bottom', invalid);
 }
 
+/**
+ * Opens the Edit Contact Dialog
+ * @param {number} indexContact 
+ */
 function editExistingContact(indexContact) {
     openExistingContactDialog(indexContact);
 }
 
+/**
+ * Fills the edit contact dialog with contact data and opens the dialog
+ * @param {number} indexContact 
+ */
 function openExistingContactDialog(indexContact) {
     const contact = allContacts[indexContact];
     const editContactDialog = document.getElementById("edit-contact-dialog");
@@ -356,12 +434,20 @@ function openExistingContactDialog(indexContact) {
     clickEventListener(editContactDialog, closeEditContactDialog);
 }
 
+/**
+ * Fills the fiels with following id's with contact-data: 
+ * 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
+ * @param {object} contact 
+ */
 function fillContactForm(contact) {
     document.getElementById('existing-contact-name').value = contact.name;
     document.getElementById('existing-contact-email').value = contact.email;
     document.getElementById('existing-contact-phone').value = contact.phone;
 }
 
+/**
+ * Closes the edit Contact dialog
+ */
 function closeEditContactDialog() {
     const editContactDialog = document.getElementById("edit-contact-dialog");
     editContactDialog.classList.remove("slide-in");
@@ -370,11 +456,16 @@ function closeEditContactDialog() {
     }, 500);
 }
 
+/**
+ * Overrides the contact data on firebase with the new contact Data that has been edited.
+ * Also the name of a contact is updated in a task card
+ * @returns {Promise<void>}
+ */
 async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = contact.id;
     const oldName = contact.name;
-    if (await contactHasValidationErrors(contact, ownId)) return;
+    if (contactFormHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     if (editContactHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
@@ -386,13 +477,23 @@ async function saveEditedContact() {
     updateEditedContact();
 }
 
-async function contactHasValidationErrors(contact, ownId) {
+/**
+ * @description Checks if there are validation errors on the contact form 
+ * @param {object} contact 
+ * @param {string} ownId 
+ * @returns {Boolean} if name, email or phone number exists in firebase true, else false
+ */
+async function contactFormHasValidationErrors(contact, ownId) {
     const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
     const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
     const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
     return nameExists || emailExists || phoneExists;
 }
 
+/**
+ * @description Assigns values from the edit contact dialogs input fields to the gien contact object
+ * @param {object} contact 
+ */
 function assignValuesToContact(contact) {
     const INPUT_NAME = document.getElementById('existing-contact-name').value.trim();
     const INPUT_EMAIL = document.getElementById('existing-contact-email').value.trim();
@@ -402,6 +503,11 @@ function assignValuesToContact(contact) {
     contact.phone = INPUT_PHONE_NUMBER;
 }
 
+/**
+ * @description Checks if there are empty input fields in the edit contact dialog
+ * @param {object} contact 
+ * @returns {boolean} True if one of the edit contact dialog form input fields is empty else false
+ */
 function editContactHasBlankFields(contact) {
     const editBlankName = fieldIsBlankFeedback(contact.name, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border', enterNameMsg);
     const editBlankEmail = fieldIsBlankFeedback(contact.email, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border', enterEmailMsg);
@@ -409,11 +515,19 @@ function editContactHasBlankFields(contact) {
     return editBlankName || editBlankEmail || editBlankPhone;
 }
 
+/**
+ * @description Updates the contect data that is seen in the contact card as well as in the contact detail 
+ */
 function updateEditedContact() {
     document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
     showContactDetail(editIndex);
 }
 
+/**
+ * @description Deletes the contact with the given index from firebase, the contact list (visually) and from the allContacts array
+ * @param {number} indexContact 
+ * @returns {Promise<void>}
+ */
 async function deleteContact(indexContact) {
     const contact = allContacts[indexContact];
     if (!contact) return;
@@ -421,9 +535,15 @@ async function deleteContact(indexContact) {
     await removeContactFromTaskCard(contact.name);
     if (currentlyOpenedCard) hideContactDetail();
     removeContactCard(indexContact, contact);
+    allContacts.splice(indexContact, 1);
     showSuccessPopup('Contact successfully deleted');
 }
 
+/**
+ * @description Removes the contact card visually from the contact list 
+ * @param {number} indexContact 
+ * @param {object} contactToRemove 
+ */
 function removeContactCard(indexContact, contactToRemove) {
     const firstLetter = contactToRemove.name.charAt(0).toUpperCase();
     const contactCard = document.getElementById("contact-card" + indexContact);
@@ -434,6 +554,12 @@ function removeContactCard(indexContact, contactToRemove) {
     contactCard.remove();
 }
 
+/**
+ * @description Changes the name of a contact on task cards with this contact
+ * @param {string} oldName 
+ * @param {string} newName 
+ * @returns {Promise<void>}
+ */
 async function renameContactFromTaskCard(oldName, newName) {
     const tasks = await getData('tasks');
     if (!tasks) return;
@@ -444,6 +570,11 @@ async function renameContactFromTaskCard(oldName, newName) {
     }
 }
 
+/**
+ * @description Removes a contact from the task card
+ * @param {string} contactName 
+ * @returns {Promise<void>}
+ */
 async function removeContactFromTaskCard(contactName) {
     const tasks = await getData('tasks');
     if (!tasks) return;
@@ -453,6 +584,12 @@ async function removeContactFromTaskCard(contactName) {
     }
 }
 
+/**
+ * @description Gets all contacts excluding the given contactName
+ * @param {object} task 
+ * @param {string} contactName 
+ * @returns {Array<string>}  
+ */
 function getRemainingContacts(task, contactName) {
     return task.assignedContacts.filter((name) => name !== contactName);
 }
