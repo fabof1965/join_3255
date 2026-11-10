@@ -72,6 +72,11 @@ function getSubtaskDataProgressHtml(subtasks, id) {
   return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id);
 }
 
+/**
+ * Counts the completed subtasks.
+ * @param {Array<{done: boolean}>} subtasks - List of subtasks.
+ * @returns {number} Number of completed subtasks.
+ */
 function countCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
   if (!subtasks) return completedSubtasks;
