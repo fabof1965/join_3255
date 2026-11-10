@@ -87,13 +87,12 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(60px, calc(100vw / 4)));
     grid-template-rows: repeat(2, minmax(60px, calc(100vw / 7)));
-    gap: var(--gap-large);
+    gap: var(--gap-medium);
     width: fit-content;
 }
 
 @media(max-width: 950px) {
     .summary-card-container {
-        gap: var(--gap-medium);
         position: fixed;
         padding: 0 var(--padding-left-right);
         top: -100%;
