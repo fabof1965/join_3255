@@ -143,6 +143,10 @@ function renderEmptyTaskLists() {
   });
 }
 
+/**
+ * Renders a message for an empty task list.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
 function renderEmptyTaskListContent(taskList) {
   const emptyTaskListMessage = taskList.dataset.emptyText;
   taskList.innerHTML = getEmptyTaskListElement(emptyTaskListMessage);
