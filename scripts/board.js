@@ -17,6 +17,11 @@ function showPopupAfterRedirect() {
   showPopup();
 }
 
+/**
+ * @description Displays all tasks as cards in the appropriate column on the board.
+ * @param {Array<Object>} [tasks=allTasks] - List of tasks to be rendered.
+ * @param {string} task[].status - Task status ("todo", "In progress", "Await feedback" and "Done").
+ */
 function renderTaskCards(tasks = allTasks) {
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = tasks[indexTask];
