@@ -227,6 +227,7 @@ function renderSearchResults(tasks, showNoResults) {
   emptyTaskLists();
   renderTaskCards(tasks);
   setBadgeBackgroundColor();
+  initializeDragEventsForTaskCards();
   toggleNoResultsMessage(showNoResults);
 }
 
