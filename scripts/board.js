@@ -326,6 +326,10 @@ async function dropTaskIntoTaskList(event) {
   await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
+/**
+ * @description Removes the "No tasks..." text  from a column on the as soon as a task is added to it.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
 function removeEmptyTaskListElement(taskList) {
   if (isEmptyTaskListElementInTaskList(taskList)) {
     taskList.children[0].remove();
