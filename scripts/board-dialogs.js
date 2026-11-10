@@ -244,7 +244,7 @@ function updateSubtaskProgressOnCard(subtasks, taskID) {
     "subtaskcontainer-" + taskID,
   );
 
-  progressFillOnCard.style.width = `${progress}%`;
+  progressFillOnCard.value = progress;
   progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
 }
 

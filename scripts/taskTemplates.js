@@ -46,9 +46,9 @@ function getTaskCardContentTemplate(task) {
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
   return `
       <div class="subtask-progress">
-        <div class="progress-track" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}">
-          <div class="progress-fill" id="progress-fill-${taskId}" style="width: ${progress}%"></div>
-        </div>
+        <progress class="progress-track" id="progress-fill-${taskId}" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}" min="0" max="100" value="${progress}">
+          
+        </progress>
         <span id="subtaskcontainer-${taskId}">${completed} / ${total} Subtasks</span>
       </div>
   `;

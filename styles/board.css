@@ -300,16 +300,6 @@
 
 .progress-track {
   width: var(--full);
-  height: 8px;
-  background-color: var(--progress-track-background-color);
-  border-radius: var(--element-design-border-radius);
-  ;
-}
-
-.progress-fill {
-  height: var(--full);
-  background-color: #6347ff;
-  border-radius: var(--element-design-border-radius);
 }
 
 .subtask-progress span {
