@@ -16,6 +16,11 @@ function showPopupAfterRedirect() {
   showPopup();
 }
 
+/**
+ * @description Displays all tasks as cards in the appropriate column on the board.
+ * @param {Array<Object>} [tasks=allTasks] - List of tasks to be rendered.
+ * @param {string} task[].status - Task status ("todo", "In progress", "Await feedback" and "Done").
+ */
 function renderTaskCards(tasks = allTasks) {
   for (let indexTask = 0; indexTask < tasks.length; indexTask++) {
     const task = tasks[indexTask];
@@ -66,6 +71,11 @@ function getSubtaskDataProgressHtml(subtasks, id) {
   return getSubtaskProgressTemplate(completedSubtasks, progress, totalSubtasks, id);
 }
 
+/**
+ * Counts the completed subtasks.
+ * @param {Array<{done: boolean}>} subtasks - List of subtasks.
+ * @returns {number} Number of completed subtasks.
+ */
 function countCompletedSubtasks(subtasks) {
   let completedSubtasks = 0;
   if (!subtasks) return completedSubtasks;
@@ -139,11 +149,20 @@ function renderEmptyTaskLists() {
   });
 }
 
+/**
+ * Renders a message for an empty task list.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
 function renderEmptyTaskListContent(taskList) {
   const emptyTaskListMessage = taskList.dataset.emptyText;
   taskList.innerHTML = getEmptyTaskListElement(emptyTaskListMessage);
 }
 
+/**
+ * Checks whether a task list on the board is empty.
+ * If a task list has no entries, a message saying “No tasks ...” appears.
+ * @param {HTMLElement} taskList - The task list element that should display the empty message.
+ */
 function renderTaskListOnEmptyContent(taskList) {
   if (taskList.children.length === 0) {
     renderEmptyTaskListContent(taskList);
@@ -160,6 +179,12 @@ function filterTasks(searchTerm) {
   return allTasks.filter((task) => taskMatchesTerm(task, normalizedTerm));
 }
 
+/**
+ * Checks whether a task's title or decription countains the search term.
+ * @param {object} task - Task object with a title and an optional description.
+ * @param {string} normalizedTerm - Trimmed, lowercase search term.
+ * @returns {boolean} - True if the title or descritopn contains the term.
+ */
 function taskMatchesTerm(task, normalizedTerm) {
   const title = task.title.toLowerCase();
   const description = (task.description ?? "").toLowerCase();
@@ -190,6 +215,11 @@ function searchTasks(event) {
   renderSearchResults(filteredTasks, showNoResults);
 }
 
+/**
+ * @description Checks whether the search field contains a usable search term.
+ * @param {string} searchTerm - Text from the searchbar.
+ * @returns {boolean} True if the term is not empty after trimming.
+ */
 function isSearchActive(searchTerm) {
   return searchTerm.trim() !== "";
 }
@@ -197,6 +227,7 @@ function isSearchActive(searchTerm) {
 function renderSearchResults(tasks, showNoResults) {
   emptyTaskLists();
   renderTaskCards(tasks);
+  setBadgeBackgroundColor();
   toggleNoResultsMessage(showNoResults);
 }
 
