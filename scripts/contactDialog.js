@@ -464,7 +464,7 @@ async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = contact.id;
     const oldName = contact.name;
-    if (contactFormHasValidationErrors(contact, ownId)) return;
+    if (await contactFormHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     if (editContactHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
