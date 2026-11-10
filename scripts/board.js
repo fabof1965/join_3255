@@ -342,11 +342,13 @@ function removeEmptyTaskListElement(taskList) {
   }
 }
 
+/**
+ * Checks whether the first child of a task list is the "No tasks ..." placeholder.
+ * @param {HTMLElement} taskList - The task list element to check.
+ * @returns {boolean} True if the placeholder is the first child.
+ */
 function isEmptyTaskListElementInTaskList(taskList) {
-  return taskList.children[0].innerText === "No tasks To do" ||
-    taskList.children[0].innerText === "No tasks in progress" ||
-    taskList.children[0].innerText === "No tasks awaiting feedback" ||
-    taskList.children[0].innerText === "No tasks done";
+  return !!taskList.children[0]?.classList.contains("empty-task-list");
 }
 
 /**
