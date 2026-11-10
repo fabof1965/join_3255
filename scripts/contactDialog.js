@@ -248,15 +248,28 @@ function getContactDataFromForm() {
     };
 }
 
+const ADD_CONTACT_FIELD_IDS = {
+    name: ['name-err-msg', 'wrong-name-border'],
+    email: ['email-err-msg', 'wrong-email-border'],
+    phone: ['phone-err-msg', 'wrong-phone-border']
+}
+
+const EDIT_CONTACT_FIELD_IDS = {
+    name: ['existing-contact-name-err-msg', 'existing-contact-wrong-name-border'],
+    email: ['existing-contact-email-err-msg', 'existing-contact-wrong-email-border'],
+    phone: ['existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border']
+}
+
 /**
  * Checks if the contact form has input fields that are not filled with text
  * @param {JSON} contact 
  * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled
  */
 function contactHasBlankFields(contact) {
-    const blankName = fieldIsBlankFeedback(contact.name, 'name-err-msg', 'wrong-name-border', enterNameMsg);
-    const blankEmail = fieldIsBlankFeedback(contact.email, 'email-err-msg', 'wrong-email-border', enterEmailMsg);
-    const blankPhone = fieldIsBlankFeedback(contact.phone, 'phone-err-msg', 'wrong-phone-border', enterPhoneMsg);
+    const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
+    const blankName = fieldIsBlankFeedback(contact.name, ...ids.name, enterNameMsg);
+    const blankEmail = fieldIsBlankFeedback(contact.email, ...ids.email, enterEmailMsg);
+    const blankPhone = fieldIsBlankFeedback(contact.phone, ...ids.phone, enterPhoneMsg);
     return blankName || blankEmail || blankPhone;
 }
 
@@ -466,7 +479,7 @@ async function saveEditedContact() {
     const oldName = contact.name;
     if (await contactFormHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
-    if (editContactHasBlankFields(contact)) return;
+    if (contactHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
     if (oldName !== contact.name) {
         await renameContactFromTaskCard(oldName, contact.name);
@@ -500,18 +513,6 @@ function assignValuesToContact(contact) {
     contact.name = INPUT_NAME;
     contact.email = INPUT_EMAIL;
     contact.phone = INPUT_PHONE_NUMBER;
-}
-
-/**
- * @description Checks if there are empty input fields in the edit contact dialog
- * @param {object} contact 
- * @returns {boolean} True if one of the edit contact dialog form input fields is empty else false
- */
-function editContactHasBlankFields(contact) {
-    const editBlankName = fieldIsBlankFeedback(contact.name, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border', enterNameMsg);
-    const editBlankEmail = fieldIsBlankFeedback(contact.email, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border', enterEmailMsg);
-    const editBlankPhone = fieldIsBlankFeedback(contact.phone, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border', enterPhoneMsg);
-    return editBlankName || editBlankEmail || editBlankPhone;
 }
 
 /**
