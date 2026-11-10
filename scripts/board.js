@@ -218,6 +218,11 @@ function isSearchActive(searchTerm) {
   return searchTerm.trim() !== "";
 }
 
+/**
+ * Renders the given tasks on the board after search.
+ * @param {Array<Object>} tasks - Tasks matching the search term
+ * @param {boolean} showNoResults - True if the "no results" message should be shown.
+ */
 function renderSearchResults(tasks, showNoResults) {
   emptyTaskLists();
   renderTaskCards(tasks);
