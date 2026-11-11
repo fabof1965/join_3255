@@ -417,7 +417,6 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
     const placeholderRect = existingPlaceholder.getBoundingClientRect();
     if (placeholderRect.top <= event.clientY &&
       placeholderRect.bottom >= event.clientY) {
-        console.log(event);
       return true;
     }
      else return false;
@@ -425,6 +424,8 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
 }
 
 function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
+  console.log(column);
+  
   if (task === existingPlaceholder) return;
   existingPlaceholder?.remove();
   if (task === draggedTask || task.previousElementSibling === draggedTask)
