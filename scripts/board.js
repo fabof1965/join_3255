@@ -353,7 +353,7 @@ function isEmptyTaskListElementInTaskList(taskList) {
 }
 
 /**
- * Adds drop events to every board column.
+ * @description Adds drop events to every board column.
  * @returns {void}
  */
 function initializeDragAndDrop() {
