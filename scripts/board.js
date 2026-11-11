@@ -419,13 +419,19 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
       placeholderRect.bottom >= event.clientY) {
       return true;
     }
-     else return false;
+    else return false;
   }
 }
 
+/**
+ * @description Positions the placeholder in the column at the spot where the dragged task would be dropped.
+ * @param {HTMLElement} column - Column for "To do", "In progress", "Await feedback" and "Done".
+ * @param {HTMLElement} task - The task card.
+ * @param {HTMLLIElement} existingPlaceholder - The Placeholder element.
+ * @param {HTMLElement} draggedTask - The dragged task card.
+ * @returns {void}
+ */
 function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
-  console.log(column);
-  
   if (task === existingPlaceholder) return;
   existingPlaceholder?.remove();
   if (task === draggedTask || task.previousElementSibling === draggedTask)
