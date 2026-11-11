@@ -450,5 +450,12 @@ function toggleCardMenu(event, taskId){
     console.warn(`Fehler: Kein Menü mit der ID "cardmenu${taskId}" im HTML gefunden!`);
     return;
   }
- console.log( `Das Menü für die ID ${taskId} wurde gefunden:`, menu);
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block"; // یا flex، بسته به اینکه چطور استایل‌دهی کردی
+  } else {
+    menu.style.display = "none";
+  }
+
+  console.log(`Das Menü für die ID ${taskId} wurde gefunden:`, menu);
+ 
 }

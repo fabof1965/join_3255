@@ -44,11 +44,36 @@ function getCardMenuTemplate(taskId, currentStatus) {
       </button> 
     
       <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;">
-
+        ${getCardMenuOptionsHtml(taskId, currentStatus)}
       </div>
     </div>
   `;
 }
+
+function getCardMenuOptionsHtml(taskId, currentStatus){
+  const allStatuses = [
+    { key: 'toDo', label: 'To do' },
+    { key: 'inProgress', label: 'In progress' },
+    { key: 'awaitFeedback', label: 'Await feedback' },
+    { key: 'done', label: 'Done' }
+  ];
+
+  let optionsHtml = '';
+
+  for(let i=0; i < allStatuses.length; i++) {
+    const status = allStatuses[i];
+    console.log("Aktuelles Status-Objekt:", status);
+    if(status.key !== currentStatus){
+      optionsHtml += `
+        <div class="menu-option" onclick="moveToStatus('${taskId}', '${status.key}')">
+          ${status.label}
+        </div>
+      `;
+    }
+  }
+   return optionsHtml;
+  }
+
 
 /**
  * Generates the subtask progress bar and counter.
