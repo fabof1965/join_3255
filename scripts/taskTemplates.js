@@ -36,6 +36,13 @@ function getTaskCardContentTemplate(task) {
   `;
 }
 
+/**
+ * Generates the HTML template for the card's dropdown menu container and trigger button.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task.
+ * @param {string} currentStatus - The current status key of the task.
+ * @returns {string} HTML string for the card menu container.
+ */
 function getCardMenuTemplate(taskId, currentStatus) {
     return `
     <div class="card-menu-container">
@@ -50,6 +57,14 @@ function getCardMenuTemplate(taskId, currentStatus) {
   `;
 }
 
+/**
+ * Generates the HTML options for the task card dropdown menu, 
+ * excluding the current active status of the task.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task.
+ * @param {string} currentStatus - The current status key to filter out from options.
+ * @returns {string} HTML string containing all available status movement options.
+ */
 function getCardMenuOptionsHtml(taskId, currentStatus){
 
   let optionsHtml = '';
