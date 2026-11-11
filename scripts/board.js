@@ -377,6 +377,10 @@ function initializeDragAndDropForTaskLists() {
   });
 }
 
+/**
+ * @description Adds event listeners for start and end the drag functionality.
+ * @param {HTMLElement} card - All task cards from the task board.
+ */
 function addDragEventListenersToCard(card) {
   card.addEventListener("dragstart", startDragging);
   card.addEventListener("dragend", stopDragging);
