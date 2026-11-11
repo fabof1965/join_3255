@@ -131,7 +131,7 @@ function renderBoardContent(tasks) {
     moveTaskButton.addEventListener("click", (event) => {
       event.stopPropagation();
       console.log("move button with id: " + task.id + " clicked");
-   });
+    });
   });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
@@ -235,7 +235,7 @@ function renderSearchResults(tasks, showNoResults) {
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
   toggleNoResultsMessage(showNoResults);
-  initializeDragEventsForTaskCards(); 
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -399,14 +399,22 @@ function makePlaceholder(draggedTask) {
   return placeholder;
 }
 
+/**
+ * @description Checks whether the mouse pointer is vertically aligned with the placeholder while dragging.
+ * @param {DragEvent} event - The drag event.
+ * @param {HTMLLIElement} existingPlaceholder - The Placeholder element.
+ * @returns If `true` if the pointer is between the placeholder's top and bottom edge,
+ * `false` if it is outside `undefined` if no placeholder exists. 
+ */
 function isMouseOutOfPlaceholder(event, existingPlaceholder) {
   if (existingPlaceholder) {
     const placeholderRect = existingPlaceholder.getBoundingClientRect();
     if (placeholderRect.top <= event.clientY &&
       placeholderRect.bottom >= event.clientY) {
+        console.log(event);
       return true;
     }
-    else return false;
+     else return false;
   }
 }
 
