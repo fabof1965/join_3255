@@ -368,6 +368,9 @@ function initializeDragEventsForTaskCards() {
   });
 }
 
+/**
+ * @description Set up drag-and-drop for the board's columns ("To do", "In Progress", "Await feedback" and "Done").
+ */
 function initializeDragAndDropForTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
