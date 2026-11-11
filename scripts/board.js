@@ -483,8 +483,11 @@ async function moveToStatus(taskId, newStatus){
      }
     }
      if (!task) return;
+     let taskIndex = allTasks.indexOf(task);
      task.status = newStatus;
      renderBoardContent(allTasks);
+     allTasks.splice(taskIndex, 1);
+     allTasks.push(task);
      await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
