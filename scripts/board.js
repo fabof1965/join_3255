@@ -361,6 +361,9 @@ function initializeDragAndDrop() {
   initializeDragAndDropForTaskLists();
 }
 
+/**
+ * @description Makes drag-and-drop events available for all task cards on the board.
+ */
 function initializeDragEventsForTaskCards() {
   const taskCards = document.querySelectorAll(".task-card");
   taskCards.forEach((taskCard) => {
