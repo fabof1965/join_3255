@@ -126,13 +126,6 @@ function renderTask(task) {
 function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
-  tasks.forEach((task) => {
-    const moveTaskButton = document.getElementById("btn-move-task-card-" + task.id);
-    moveTaskButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      console.log("move button with id: " + task.id + " clicked");
-   });
-  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
@@ -448,4 +441,14 @@ async function loadTasks() {
     console.error("Fehler beim laden der Tasks", error);
     allTasks = [];
   }
+}
+
+function toggleCardMenu(event, taskId){
+ event.stopPropagation();
+ const menu = document.getElementById(`card-menu-${taskId}`);
+ if (!menu) {
+    console.warn(`Fehler: Kein Menü mit der ID "cardmenu${taskId}" im HTML gefunden!`);
+    return;
+  }
+ console.log( `Das Menü für die ID ${taskId} wurde gefunden:`, menu);
 }
