@@ -386,6 +386,11 @@ function addDragEventListenersToCard(card) {
   card.addEventListener("dragend", stopDragging);
 }
 
+/**
+ * Creates a placeholder element for drag-and-drop on the board.
+ * @param {HTMLElement} draggedTask - The dragged task card.
+ * @returns {HTMLLIElement} The placeholder element.
+ */
 function makePlaceholder(draggedTask) {
   const placeholder = document.createElement("li");
   placeholder.classList.add("placeholder");
