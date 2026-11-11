@@ -128,6 +128,7 @@ function renderBoardContent(tasks) {
   if (tasks) renderTaskCards(tasks);
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -464,6 +465,27 @@ function toggleCardMenu(event, taskId) {
   if (!isOpen) {
     currentMenu.style.display = 'block';
   }
+}
+
+/**
+ * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task to move.
+ * @param {string} newStatus - The target status key to move the task into.
+ * @returns {Promise<void>}
+ */
+async function moveToStatus(taskId, newStatus){
+    let task = null;
+    for(let t of allTasks){
+      if(t.id ==taskId){
+        task = t;
+        break;
+     }
+    }
+     if (!task) return;
+     task.status = newStatus;
+     renderBoardContent(allTasks);
+     await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
 /**
