@@ -211,7 +211,7 @@
 
 .task-card {
   width: var(--full);
-  min-height: 250px;
+  min-height: 400px;
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -371,7 +371,6 @@
   align-items: center;
   width: var(--small-user-badge-width);
   height: var(--small-user-badge-width);
-  /* padding: var(--padding-small); */
   border-radius: var(--border-radius-circular);
   border: 2px solid var(--white-color);
   font-size: 16px;
@@ -395,4 +394,38 @@
 .placeholder {
   border: 2px dashed var(--primary-color);
   border-radius: 20px;
+}
+
+.card-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.card-dropdown-menu {
+  position: absolute;
+  right: -8px;
+  top: 50px; 
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); 
+  z-index: 9999; 
+  min-width: 140px;
+  padding: 4px 0;
+  display: none; 
+}
+
+.card-dropdown-menu .menu-option {
+  padding: 2px 4px;
+  font-size: 16px;
+  color: #2a3647;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  transition: background-color 0.15s ease;
+}
+
+.card-dropdown-menu .menu-option:hover {
+  background-color: var(--secondary-color);
+  color: var(--menu-color);
 }

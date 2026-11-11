@@ -43,7 +43,7 @@ function getCardMenuTemplate(taskId, currentStatus) {
         <span class="task-card-drag-icon" aria-hidden="true">↕</span>
       </button> 
     
-      <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;">
+      <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;" onclick="event.stopPropagation()">
         ${getCardMenuOptionsHtml(taskId, currentStatus)}
       </div>
     </div>
@@ -51,22 +51,15 @@ function getCardMenuTemplate(taskId, currentStatus) {
 }
 
 function getCardMenuOptionsHtml(taskId, currentStatus){
-  const allStatuses = [
-    { key: 'toDo', label: 'To do' },
-    { key: 'inProgress', label: 'In progress' },
-    { key: 'awaitFeedback', label: 'Await feedback' },
-    { key: 'done', label: 'Done' }
-  ];
 
   let optionsHtml = '';
 
-  for(let i=0; i < allStatuses.length; i++) {
-    const status = allStatuses[i];
-    console.log("Aktuelles Status-Objekt:", status);
+  for(let i=0; i < ALL_STATUSES.length; i++) {
+    const status = ALL_STATUSES[i];
     if(status.key !== currentStatus){
       optionsHtml += `
         <div class="menu-option" onclick="moveToStatus('${taskId}', '${status.key}')">
-          ${status.label}
+          Move to ${status.label}
         </div>
       `;
     }

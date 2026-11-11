@@ -451,7 +451,7 @@ function toggleCardMenu(event, taskId){
     return;
   }
   if (menu.style.display === "none" || menu.style.display === "") {
-    menu.style.display = "block"; // یا flex، بسته به اینکه چطور استایل‌دهی کردی
+    menu.style.display = "block"; 
   } else {
     menu.style.display = "none";
   }

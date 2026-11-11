@@ -1,3 +1,10 @@
+const ALL_STATUSES = [
+  { key: 'toDo', label: 'To do' },
+  { key: 'inProgress', label: 'In progress' },
+  { key: 'awaitFeedback', label: 'Await feedback' },
+  { key: 'done', label: 'Done' }
+];
+
 const colorContacts = [
     "#E65100", // Orange
     "#8E24AA", // Violett
