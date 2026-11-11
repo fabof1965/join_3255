@@ -59,7 +59,7 @@ function getCardMenuOptionsHtml(taskId, currentStatus){
     if(status.key !== currentStatus){
       optionsHtml += `
         <div class="menu-option" onclick="moveToStatus('${taskId}', '${status.key}')">
-          Move to ${status.label}
+       Move➔ ${status.label}
         </div>
       `;
     }

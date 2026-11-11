@@ -413,6 +413,8 @@
   min-width: 140px;
   padding: 4px 0;
   display: none; 
+  width: 200px;
+  box-sizing: border-box;
 }
 
 .card-dropdown-menu .menu-option {
@@ -421,7 +423,7 @@
   color: #2a3647;
   cursor: pointer;
   white-space: nowrap;
-  text-align: center;
+  
   transition: background-color 0.15s ease;
 }
 

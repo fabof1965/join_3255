@@ -443,19 +443,35 @@ async function loadTasks() {
   }
 }
 
-function toggleCardMenu(event, taskId){
- event.stopPropagation();
- const menu = document.getElementById(`card-menu-${taskId}`);
- if (!menu) {
-    console.warn(`Fehler: Kein Menü mit der ID "cardmenu${taskId}" im HTML gefunden!`);
-    return;
-  }
-  if (menu.style.display === "none" || menu.style.display === "") {
-    menu.style.display = "block"; 
-  } else {
-    menu.style.display = "none";
-  }
+/**
+ * Toggles the visibility of a task card's dropdown menu.
+ * Ensures only one menu is open at a time and handles opening/closing states.
+ * 
+ * @param {MouseEvent} event - The click event object.
+ * @param {string|number} taskId - The unique identifier of the task card.
+ */
+function toggleCardMenu(event, taskId) {
+  event.stopPropagation();
 
-  console.log(`Das Menü für die ID ${taskId} wurde gefunden:`, menu);
- 
+  const currentMenu = document.getElementById(`card-menu-${taskId}`);
+  if (!currentMenu) return;
+
+  const isOpen = currentMenu.style.display === 'block';
+  document.querySelectorAll('.card-dropdown-menu').forEach(menu => {
+    menu.style.display = 'none';
+  });
+
+  if (!isOpen) {
+    currentMenu.style.display = 'block';
+  }
 }
+
+/**
+ * Global document click listener to automatically close all open task dropdown menus
+ * when clicking outside of them on empty spaces.
+ */
+document.addEventListener('click', function() {
+  document.querySelectorAll('.card-dropdown-menu').forEach(menu => {
+    menu.style.display = 'none';
+  });
+});
