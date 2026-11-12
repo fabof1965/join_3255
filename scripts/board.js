@@ -126,13 +126,6 @@ function renderTask(task) {
 function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
-  tasks.forEach((task) => {
-    const moveTaskButton = document.getElementById("btn-move-task-card-" + task.id);
-    moveTaskButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      console.log("move button with id: " + task.id + " clicked");
-    });
-  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
 }
@@ -442,7 +435,14 @@ function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) 
   );
 }
 
+/**
+ * Moves the placeholder element to the position a dragged card would be put to.
+ * The placeholder position depends on the y-axis of the mouse.
+ * @param {DragEvent} event 
+ * @returns {void}
+ */
 function movePlaceholder(event) {
+  console.log(event);
   event.preventDefault();
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;
@@ -460,15 +460,21 @@ function movePlaceholder(event) {
 }
 
 /**
- * Hier eine Beschreibung einfügen.
- * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
- * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
+ * @description Makes an array from the task data that are drawn from firebase.
+ * @param {Object.<string, Object>|null} tasksObject - tasks-object from firebase (key = Firebase-ID).
+ * @returns {Array<Object>} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function createAllTaskArrayFromData(allTaskData) {
   if (!allTaskData) return [];
   return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
 }
 
+/**
+ * @description Loads the data of all tasks from firebase. 
+ * The task data is being converted to an array called 'taskDataArray'.
+ * The data from 'taskDataArray' is being pushed to allTasks array. 
+ * @returns {Promise<void>}
+ */
 async function loadTasks() {
   try {
     const allTaskData = await getData("tasks");
@@ -476,6 +482,5 @@ async function loadTasks() {
     taskDataArray.forEach((task) => allTasks.push(task));
   } catch (error) {
     console.error("Fehler beim laden der Tasks", error);
-    allTasks = [];
   }
 }
