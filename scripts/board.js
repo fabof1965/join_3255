@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", initBoardContent());
+
+/**
+ * Initializes the content of the board page.
+ * @returns {Promise<void>} Resolves once the board is fully initialized.
+ */
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
@@ -113,7 +118,6 @@ function getTaskCardHtml(task) {
  */
 function renderTask(task) {
   const taskList = document.querySelector(`[data-status="${task.status}"]`);
-
   if (!taskList) return;
   taskList.innerHTML += getTaskCardHtml(task);
 }
