@@ -108,7 +108,7 @@ async function openAddTaskDialog(status) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   initAddTaskDialogListeners(addTaskDialog);
   addTaskDialog.showModal();
 }
@@ -145,7 +145,7 @@ async function openAddTaskDialogInEditMode(task) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   fillFormElementsWithTaskData(task);
   renderNewSubtasks();
   initAddTaskDialogListeners(addTaskDialog);
@@ -155,11 +155,11 @@ async function openAddTaskDialogInEditMode(task) {
 
 function checkContactsFromTask(task) {
   const contactNames = task.assignedContacts;
+  const contactChecked = true;
   contactNames.forEach((contactName) => {
-    const checked = true;
     const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
-    contactCheckBox.checked = checked;
-    contactCheckBox.ariaChecked = checked;
+    contactCheckBox.checked = contactChecked;
+    contactCheckBox.ariaChecked = contactChecked;
   });
 }
 

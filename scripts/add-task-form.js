@@ -3,11 +3,12 @@ let editingTaskId = "";
 let newTaskStatus = "toDo";
 let newTaskSubtasks = [];
 const allTasks = [];
+let firebaseContacts = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (window.location.pathname.endsWith("/pages/addTask.html")) {
     const addTaskForm = document.getElementById("add-task-form");
-    await renderAssignedContacts(addTaskForm);
+    await initContactsOnForm(addTaskForm);
   }
 });
 
@@ -56,9 +57,9 @@ function removeSelectedClassFromPriorityButtons() {
 /**
  * @description Loads all contacts from Firebase and adds the database id to each one.
  * @returns {Promise<Array<{id: string, email: string, phone: string}>>}
- * Array of contact objects, or an empty array if no contacts exist.
+ * Array of contact objects, or an empty array if no contact exists.
  */
-async function getAssignedContacts() {
+async function getAllContactsFromFirebase() {
   const response = await getData("contacts");
   if (!response) return [];
   return Object.entries(response).map(([id, contact]) => ({
@@ -67,24 +68,26 @@ async function getAssignedContacts() {
   }));
 }
 
+async function initContactsOnForm(addTaskForm) {
+  if(firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
+  sortContactsByName(firebaseContacts);
+  renderFirebaseContacts(addTaskForm, firebaseContacts);
+  initContactCheckboxListeners(firebaseContacts);
+}
+
 /**
  * @description Renders the assigned contacts as options into the hidden select.
  * @param {HTMLElement} container - Form element containing the `#assigned-contacts` select.
  */
-async function renderAssignedContacts(container) {
-  const assignedContacts = await getAssignedContacts();
-  sortContactsByName(assignedContacts);
-  const contactRef = container.querySelector(".assigned-dropdown-list");
-  contactRef.innerHTML = assignedContacts
-    .map((contact) => {
-      return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name,)
-    }).join("");
-
-    initContactCheckboxListeners(assignedContacts); 
+function renderFirebaseContacts(container, firebaseContacts) {
+  const contactDropdown = container.querySelector(".assigned-dropdown-list");
+  contactDropdown.innerHTML = firebaseContacts.map((contact) => {
+    return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name,)
+  }).join("");
 }
 
-function initContactCheckboxListeners(contacts) {
-  contacts.forEach((contact) => {
+function initContactCheckboxListeners(firebaseContacts) {
+  firebaseContacts.forEach((contact) => {
     const checkboxForContact = document.getElementById('chk-box-' + contact.name);
     checkboxForContact.addEventListener("click", () => {
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
