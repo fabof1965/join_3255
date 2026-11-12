@@ -123,6 +123,7 @@ function initAddTaskDialogListeners(addTaskDialog) {
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
   initPriorityButtonClickListeners();
+  checkContactsFromTask(task);
   const formElements = getFormElements(task.priority);
   formElements.taskTitleInputElement.value = task.title;
   formElements.taskDescriptionElement.value = task.description;
@@ -150,6 +151,16 @@ async function openAddTaskDialogInEditMode(task) {
   initAddTaskDialogListeners(addTaskDialog);
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
+}
+
+function checkContactsFromTask(task) {
+  const contactNames = task.assignedContacts;
+  contactNames.forEach((contactName) => {
+    const checked = true;
+    const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
+    contactCheckBox.checked = checked;
+    contactCheckBox.ariaChecked = checked;
+  });
 }
 
 function closeAddTaskDialog() {

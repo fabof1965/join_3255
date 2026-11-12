@@ -77,12 +77,9 @@ async function renderAssignedContacts(container) {
   const contactRef = container.querySelector(".assigned-dropdown-list");
   contactRef.innerHTML = assignedContacts
     .map((contact) => {
-      return getAssignedContactOptionTemplate(
-        getInitials(contact.name),
-        contact.name,
-      );
-    })
-    .join("");
+      return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name,)
+    }).join("");
+
     initContactCheckboxListeners(assignedContacts); 
 }
 
@@ -90,15 +87,15 @@ function initContactCheckboxListeners(contacts) {
   contacts.forEach((contact) => {
     const checkboxForContact = document.getElementById('chk-box-' + contact.name);
     checkboxForContact.addEventListener("click", () => {
-      checkboxForContact.checked = !checkboxForContact.checked;
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
     });
 
-    checkboxForContact.addEventListener("keyup", (event) => {
-      if(event.key === "Enter") {
-        checkboxForContact.checked = !checkboxForContact.checked;
-        checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
-      }
+    checkboxForContact.addEventListener("keydown", (event) => {
+      if(event.key !== "Enter") return;
+      event.preventDefault();
+      checkboxForContact.checked = !checkboxForContact.checked;
+      checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
+    
     });
   });
 }
@@ -279,12 +276,17 @@ function isAddTaskFormValid(form) {
  * @returns {string[]} Names of the selected contacts. Empty array if no contact has been selected.
  */
 function getAssignedContactsFromForm() {
-  const select = document.getElementById("assigned-contacts");
+  const assignedContactList = document.querySelector(".assigned-dropdown-list");
+  const assignedContactChildren = assignedContactList.children;
   const assignedContacts = [];
-  const selectedContacts = select.selectedOptions;
-  for (let i = 0; i < selectedContacts.length; i++) {
-    assignedContacts.push(selectedContacts[i].innerText);
+  for (let i = 0; i < assignedContactChildren.length; i++) {
+    const contactCheckBox = assignedContactChildren[i].children[0];
+    if(contactCheckBox.checked) {
+      const contactName = contactCheckBox.dataset.contactName;
+      assignedContacts.push(contactName);
+    } 
   }
+
   return assignedContacts;
 }
 
