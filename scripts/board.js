@@ -133,6 +133,14 @@ function renderTask(task) {
 function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
+  tasks.forEach((task) => {
+    const openCardMenuButton = document.getElementById("btn-move-task-card-" + task.id);
+    if(openCardMenuButton) openCardMenuButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      
+      toggleCardMenu(event, task.id);
+    });
+  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
   initializeDragEventsForTaskCards();
@@ -512,13 +520,13 @@ async function moveToStatus(taskId, newStatus){
         break;
      }
     }
-     if (!task) return;
-     let taskIndex = allTasks.indexOf(task);
-     task.status = newStatus;
-     renderBoardContent(allTasks);
-     allTasks.splice(taskIndex, 1);
-     allTasks.push(task);
-     await patchData(`tasks/${task.id}`, { status: task.status });
+    if (!task) return;
+    let taskIndex = allTasks.indexOf(task);
+    task.status = newStatus;
+    renderBoardContent(allTasks);
+    allTasks.splice(taskIndex, 1);
+    allTasks.push(task);
+    await patchData(`tasks/${task.id}`, { status: task.status });
 }
 
 /**

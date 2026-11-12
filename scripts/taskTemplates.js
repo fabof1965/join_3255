@@ -50,7 +50,7 @@ function getCardMenuTemplate(taskId, currentStatus) {
         <span class="task-card-drag-icon" aria-hidden="true">↕</span>
       </button> 
     
-      <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;" onclick="event.stopPropagation()">
+      <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;" onclick="event.stopPropagation()" popover>
         ${getCardMenuOptionsHtml(taskId, currentStatus)}
       </div>
     </div>
