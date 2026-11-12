@@ -58,6 +58,10 @@ document.addEventListener("submit", async (event) => {
   }
 });
 
+/**
+ * @description Renders the most recently created task as a card in its matching board column
+ *  and enables drag and drop for it.
+ */
 function processNewCreatedTask() {
   const newTaskData = allTasks[allTasks.length - 1];
   const newTaskElement = createNewTaskElement(newTaskData);
