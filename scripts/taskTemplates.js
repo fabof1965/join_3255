@@ -46,7 +46,7 @@ function getTaskCardContentTemplate(task) {
 function getCardMenuTemplate(taskId, currentStatus) {
     return `
     <div class="card-menu-container">
-      <button class="btn" id="btn-move-task-card-${taskId}" onclick="toggleCardMenu(event, '${taskId}')">
+      <button popovertarget="card-menu-${taskId}" class="btn" id="btn-move-task-card-${taskId}">
         <span class="task-card-drag-icon" aria-hidden="true">↕</span>
       </button> 
     
@@ -57,30 +57,14 @@ function getCardMenuTemplate(taskId, currentStatus) {
   `;
 }
 
-/**
- * Generates the HTML options for the task card dropdown menu, 
- * excluding the current active status of the task.
- * 
- * @param {string|number} taskId - The unique identifier of the task.
- * @param {string} currentStatus - The current status key to filter out from options.
- * @returns {string} HTML string containing all available status movement options.
- */
-function getCardMenuOptionsHtml(taskId, currentStatus){
 
-  let optionsHtml = '';
-
-  for(let i=0; i < ALL_STATUSES.length; i++) {
-    const status = ALL_STATUSES[i];
-    if(status.key !== currentStatus){
-      optionsHtml += `
-        <div class="menu-option" onclick="moveToStatus('${taskId}', '${status.key}')">
-       Move➔ ${status.label}
-        </div>
-      `;
-    }
-  }
-   return optionsHtml;
-  }
+function getMenuOptiontemplate(taskId, statuskey, statuslabel ){
+  return `
+    <div class="menu-option" onclick="moveToStatus('${taskId}', '${statuskey}')">
+      Move➔ ${statuslabel}
+    </div>
+    `;
+ }
 
 
 /**

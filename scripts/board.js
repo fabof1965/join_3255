@@ -1,3 +1,10 @@
+const ALL_STATUSES = [
+  { key: 'toDo', label: 'To do' },
+  { key: 'inProgress', label: 'In progress' },
+  { key: 'awaitFeedback', label: 'Await feedback' },
+  { key: 'done', label: 'Done' }
+];
+
 document.addEventListener("DOMContentLoaded", initBoardContent());
 async function initBoardContent() {
   await loadTasks();
@@ -443,6 +450,29 @@ async function loadTasks() {
     allTasks = [];
   }
 }
+
+/**
+ * Generates the HTML options for the task card dropdown menu, 
+ * excluding the current active status of the task.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task.
+ * @param {string} currentStatus - The current status key to filter out from options.
+ * @returns {string} HTML string containing all available status movement options.
+ */
+function getCardMenuOptionsHtml(taskId, currentStatus){
+
+  let optionsHtml = '';
+
+  for(let i=0; i < ALL_STATUSES.length; i++) {
+    const status = ALL_STATUSES[i];
+    if(status.key !== currentStatus){
+      const statusKey = status.key;
+      const statusLabel =  status.label;
+     optionsHtml += getMenuOptiontemplate(taskId, statusKey, statusLabel);
+    }
+  }
+   return optionsHtml;
+  }
 
 /**
  * Toggles the visibility of a task card's dropdown menu.
