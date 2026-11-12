@@ -57,6 +57,13 @@ function processNewCreatedTask() {
   addDragEventListenersToCard(newTaskElement);
 }
 
+/**
+ * @description Appends a newly created task card to the task list matching its status.
+ * If the list only contains the "empty" placeholder, the placeholder is removed first.
+ * @param {object} newTaskData - Data of the newly created task.
+ * @param {string} newTaskData.status - Status of the task, used to find the targtet column via `data-status`.
+ * @param {HTMLElement} newTaskElement - The task card element to insert into the list.
+ */
 function appendTaskListByNewCreatedTask(newTaskData, newTaskElement) {
   const taskList = document.querySelector(
     'div.task-list[data-status="' + newTaskData.status + '"]',
