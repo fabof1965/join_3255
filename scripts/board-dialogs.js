@@ -18,18 +18,6 @@ const taskCategoryButtons = [
   },
 ];
 
-/**
- * 
- * @param {*} select 
- * @param {*} users 
- */
-function setTaskFormUsers(select, users = []) {
-  console.log(users);
-  Array.from(select.options).forEach((option) => {
-    option.selected = users.includes(option.value);
-  });
-}
-
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
