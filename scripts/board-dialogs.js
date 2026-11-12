@@ -96,7 +96,8 @@ document.getElementById("btn-add-task").addEventListener("click", () => {
 addClickEventListenersToTaskCategoryButtons();
 
 /**
- * Adds a click listener for the "+" button for the columns "To do", "In progress", "Await feedback" and "Done".
+ @description Adds click listeners to the "+" buttons of the columns "To do", "In progress"
+ * and "Await feedback" that open the add-task dialog with the matching status.
  */
 function addClickEventListenersToTaskCategoryButtons() {
   taskCategoryButtons.forEach((item) => {
@@ -160,6 +161,9 @@ async function openAddTaskDialogInEditMode(task) {
   addTaskDialog.showModal();
 }
 
+/**
+ * @description Closes and resets the add task dialog.
+ */
 function closeAddTaskDialog() {
   const addTaskDialog = document.getElementById("add-task-dialog");
   if (!addTaskDialog) return;
