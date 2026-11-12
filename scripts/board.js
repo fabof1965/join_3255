@@ -442,7 +442,6 @@ function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) 
  * @returns {void}
  */
 function movePlaceholder(event) {
-  console.log(event);
   event.preventDefault();
   const draggedTask = document.getElementById("grabbed-card");
   const column = event.currentTarget;

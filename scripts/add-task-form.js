@@ -219,7 +219,8 @@ function resetForm(form = document.getElementById("add-task-form")) {
     form.elements[name]?.setAttribute("aria-invalid", "false");
   });
   newTaskSubtasks = [];
-  selectedTaskPriority = "medium";
+  removeSelectedClassFromPriorityButtons();
+  document.getElementById("btn-medium")?.classList.add("selected");
   renderNewSubtasks();
 }
 
@@ -448,6 +449,5 @@ document.addEventListener("reset", (event) => {
       checkbox.checked = false;
     });
     dropdown.open = false;
-    updateAssignedContactsSummary(dropdown, select);
   }, 0);
 });
