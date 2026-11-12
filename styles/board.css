@@ -221,6 +221,7 @@
   background-color: var(--white-color);
   cursor: grab;
   flex: 0 0 var(--task-card-dimensions);
+  position-anchor: --task-card-anchor;
 }
 
 @media(max-width: 950px) {
@@ -402,9 +403,10 @@
 }
 
 .card-dropdown-menu {
-  position: absolute;
-  right: -8px;
-  top: 50px; 
+  position-anchor: --task-card-anchor;
+  position: fixed;
+  top: anchor(bottom);
+  left: anchor(left);
   background-color: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 8px;
@@ -415,6 +417,13 @@
   display: none; 
   width: 200px;
   box-sizing: border-box;
+}
+
+.card-dropdown-menu:popover-open {
+  position-anchor: --task-card-anchor;
+  position: fixed;
+  top: anchor(bottom);
+  left: anchor(left);
 }
 
 .card-dropdown-menu .menu-option {

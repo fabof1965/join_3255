@@ -523,7 +523,8 @@ async function moveToStatus(taskId, newStatus){
     if (!task) return;
     let taskIndex = allTasks.indexOf(task);
     task.status = newStatus;
-    renderBoardContent(allTasks);
+    const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
+    appendTaskListByNewCreatedTask(task, movedTaskCard);
     allTasks.splice(taskIndex, 1);
     allTasks.push(task);
     await patchData(`tasks/${task.id}`, { status: task.status });

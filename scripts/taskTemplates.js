@@ -46,7 +46,7 @@ function getTaskCardContentTemplate(task) {
 function getCardMenuTemplate(taskId, currentStatus) {
     return `
     <div class="card-menu-container">
-      <button popovertarget="card-menu-${taskId}" class="btn" id="btn-move-task-card-${taskId}">
+      <button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
         <span class="task-card-drag-icon" aria-hidden="true">↕</span>
       </button> 
     
