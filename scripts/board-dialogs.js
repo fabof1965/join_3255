@@ -95,6 +95,9 @@ document.getElementById("btn-add-task").addEventListener("click", () => {
 
 addClickEventListenersToTaskCategoryButtons();
 
+/**
+ * Adds a click listener for the "+" button for the columns "To do", "In progress", "Await feedback" and "Done".
+ */
 function addClickEventListenersToTaskCategoryButtons() {
   taskCategoryButtons.forEach((item) => {
     item.button.addEventListener("click", () => {
