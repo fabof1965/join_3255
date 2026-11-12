@@ -18,7 +18,13 @@ const taskCategoryButtons = [
   },
 ];
 
+/**
+ * 
+ * @param {*} select 
+ * @param {*} users 
+ */
 function setTaskFormUsers(select, users = []) {
+  console.log(users);
   Array.from(select.options).forEach((option) => {
     option.selected = users.includes(option.value);
   });
@@ -139,8 +145,8 @@ async function openAddTaskDialogInEditMode(task) {
   newTaskStatus = task.status;
   const subtasks = await getData(`tasks/${task.id}/subtasks`);
   newTaskSubtasks = (subtasks || []).map((subtask) => ({
-  ...subtask,
-}));
+    ...subtask,
+  }));
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
@@ -175,7 +181,7 @@ function submitEditedTask(event) {
 }
 
 function updateTaskCardContent(task) {
-  const taskCard = document.getElementById(task.id);
+  const taskCard = document.querySelector(`[data-task-id="${task.id}"]`);
   taskCard.innerHTML = getTaskCardContentTemplate(task);
   setBadgeBackgroundColor();
 }
