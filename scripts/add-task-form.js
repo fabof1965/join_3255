@@ -3,11 +3,12 @@ let editingTaskId = "";
 let newTaskStatus = "toDo";
 let newTaskSubtasks = [];
 const allTasks = [];
+let firebaseContacts = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (window.location.pathname.endsWith("/pages/addTask.html")) {
     const addTaskForm = document.getElementById("add-task-form");
-    await renderAssignedContacts(addTaskForm);
+    await initContactsOnForm(addTaskForm);
   }
 });
 
@@ -56,9 +57,9 @@ function removeSelectedClassFromPriorityButtons() {
 /**
  * @description Loads all contacts from Firebase and adds the database id to each one.
  * @returns {Promise<Array<{id: string, email: string, phone: string}>>}
- * Array of contact objects, or an empty array if no contacts exist.
+ * Array of contact objects, or an empty array if no contact exists.
  */
-async function getAssignedContacts() {
+async function getAllContactsFromFirebase() {
   const response = await getData("contacts");
   if (!response) return [];
   return Object.entries(response).map(([id, contact]) => ({
@@ -67,23 +68,39 @@ async function getAssignedContacts() {
   }));
 }
 
+async function initContactsOnForm(addTaskForm) {
+  if(firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
+  sortContactsByName(firebaseContacts);
+  renderFirebaseContacts(addTaskForm, firebaseContacts);
+  initContactCheckboxListeners(firebaseContacts);
+}
+
 /**
  * @description Renders the assigned contacts as options into the hidden select.
  * @param {HTMLElement} container - Form element containing the `#assigned-contacts` select.
  */
-async function renderAssignedContacts(container) {
-  const assignedContacts = await getAssignedContacts();
-  sortContactsByName(assignedContacts);
-  const contactRef = container.querySelector("#assigned-contacts");
-  contactRef.innerHTML = assignedContacts
-    .map((contact) => {
-      return getAssignedContactOptionTemplate(
-        getInitials(contact.name),
-        contact.name,
-      );
-    })
-    .join("");
-  renderAssignedContactsDropdown(container);
+function renderFirebaseContacts(container, firebaseContacts) {
+  const contactDropdown = container.querySelector(".assigned-dropdown-list");
+  contactDropdown.innerHTML = firebaseContacts.map((contact) => {
+    return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name,)
+  }).join("");
+}
+
+function initContactCheckboxListeners(firebaseContacts) {
+  firebaseContacts.forEach((contact) => {
+    const checkboxForContact = document.getElementById('chk-box-' + contact.name);
+    checkboxForContact.addEventListener("click", () => {
+      checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
+    });
+
+    checkboxForContact.addEventListener("keydown", (event) => {
+      if(event.key !== "Enter") return;
+      event.preventDefault();
+      checkboxForContact.checked = !checkboxForContact.checked;
+      checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
+    
+    });
+  });
 }
 
 /**
@@ -263,12 +280,17 @@ function isAddTaskFormValid(form) {
  * @returns {string[]} Names of the selected contacts. Empty array if no contact has been selected.
  */
 function getAssignedContactsFromForm() {
-  const select = document.getElementById("assigned-contacts");
+  const assignedContactList = document.querySelector(".assigned-dropdown-list");
+  const assignedContactChildren = assignedContactList.children;
   const assignedContacts = [];
-  const selectedContacts = select.selectedOptions;
-  for (let i = 0; i < selectedContacts.length; i++) {
-    assignedContacts.push(selectedContacts[i].innerText);
+  for (let i = 0; i < assignedContactChildren.length; i++) {
+    const contactCheckBox = assignedContactChildren[i].children[0];
+    if(contactCheckBox.checked) {
+      const contactName = contactCheckBox.dataset.contactName;
+      assignedContacts.push(contactName);
+    } 
   }
+
   return assignedContacts;
 }
 
@@ -367,87 +389,3 @@ function showPopup(message = "Task created") {
     popup.remove();
   }, 3000);
 }
-
-/**
- * @description Fills the visible checkbox dropdown.
- * The hidden select remains the data source for saving tasks.
- */
-function renderAssignedContactsDropdown(container) {
-  const select = container.querySelector("#assigned-contacts");
-  const dropdown = container.querySelector(".assigned-dropdown");
-  if (!select || !dropdown) return;
-  const list = dropdown.querySelector(".assigned-dropdown-list");
-  list.replaceChildren();
-  const editedTask = allTasks.find((task) => task.id === editingTaskId);
-  if (editedTask) {
-    Array.from(select.options).forEach((option) => {
-      option.selected = (editedTask.assignedContacts || []).includes(
-        option.textContent,
-      );
-    });
-  }
-  Array.from(select.options).forEach((option) => {
-    const row = document.createElement("li");
-    row.className = "assigned-dropdown-option";
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = option.selected;
-    const name = document.createElement("span");
-    name.textContent = option.textContent;
-    checkbox.addEventListener("change", () => {
-      option.selected = checkbox.checked;
-    });
-    checkbox.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter") return;
-      event.preventDefault();
-      if (!event.repeat) {
-        checkbox.click();
-      }
-    });
-    row.append(checkbox, name);
-    list.appendChild(row);
-  });
-  if (!select.options.length) {
-    const empty = document.createElement("p");
-    empty.className = "assigned-dropdown-empty";
-    empty.textContent = "No contacts available";
-    list.appendChild(empty);
-  }
-}
-
-document.addEventListener("click", (event) => {
-  document.querySelectorAll(".assigned-dropdown[open]").forEach((dropdown) => {
-    if (!dropdown.contains(event.target)) {
-      dropdown.open = false;
-    }
-  });
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape") return;
-  const dropdown = event.target.closest(".assigned-dropdown[open]");
-  if (!dropdown) return;
-  event.preventDefault();
-  event.stopImmediatePropagation();
-  dropdown.open = false;
-  dropdown.querySelector("summary").focus();
-},
-  true,
-);
-
-document.addEventListener("reset", (event) => {
-  const form = event.target;
-  if (!form.querySelector(".assigned-dropdown")) return;
-  setTimeout(() => {
-    const dropdown = form.querySelector(".assigned-dropdown");
-    const select = form.querySelector("#assigned-contacts");
-    if (!dropdown || !select) return;
-    Array.from(select.options).forEach((option) => {
-      option.selected = false;
-    });
-    dropdown.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-    dropdown.open = false;
-  }, 0);
-});

@@ -117,7 +117,7 @@ async function openAddTaskDialog(status) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   initAddTaskDialogListeners(addTaskDialog);
   addTaskDialog.showModal();
 }
@@ -132,6 +132,7 @@ function initAddTaskDialogListeners(addTaskDialog) {
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
   initPriorityButtonClickListeners();
+  checkContactsFromTask(task);
   const formElements = getFormElements(task.priority);
   formElements.taskTitleInputElement.value = task.title;
   formElements.taskDescriptionElement.value = task.description;
@@ -153,12 +154,26 @@ async function openAddTaskDialogInEditMode(task) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   fillFormElementsWithTaskData(task);
   renderNewSubtasks();
   initAddTaskDialogListeners(addTaskDialog);
   clickEventListener(addTaskDialog);
   addTaskDialog.showModal();
+}
+
+/**
+ * @description Checks checkboxes for contacts from the contact-array of the given task
+ * @param {object} task The task object that includes the task data 
+ */
+function checkContactsFromTask(task) {
+  const contactNames = task.assignedContacts;
+  const contactChecked = true;
+  contactNames.forEach((contactName) => {
+    const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
+    contactCheckBox.checked = contactChecked;
+    contactCheckBox.ariaChecked = contactChecked;
+  });
 }
 
 /**

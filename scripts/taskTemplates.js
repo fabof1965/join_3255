@@ -342,9 +342,8 @@ function getTaskFormContentTemplate() {
               <span class="assigned-dropdown-text">Select contacts to assign</span>
               <span class="assigned-dropdown-arrow" aria-hidden="true">▾</span>
             </summary>
-            <ul class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></ul>
+            <ul id="assigned-contacts" class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></ul>
           </details>
-          <select id="assigned-contacts" name="assignedUsers" multiple hidden></select>
         </div>
 
         <label class="add-task-field">
@@ -417,7 +416,12 @@ function getEditSubtaskTemplate(subtaskTitle) {
  * @returns The HTML generated string for the contact option element.
  */
 function getAssignedContactOptionTemplate(initials, name) {
-    return `
-      <option value="${initials}">${name}</option>
+  return `
+    <div class="contact-option">
+      <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
+      <option value="${initials}">
+        ${name}
+      </option>
+    </div>
   `;
 }

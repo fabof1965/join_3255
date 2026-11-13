@@ -60,7 +60,7 @@
   }
 }
 
-input,
+input:not([type="checkbox"]),
 select,
 textarea {
   font-size: var(--small-font-size);
@@ -333,10 +333,6 @@ textarea {
   list-style: none;
 }
 
-.assigned-dropdown > summary::-webkit-details-marker {
-  display: none;
-}
-
 .assigned-dropdown > summary:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
@@ -363,40 +359,23 @@ textarea {
   box-shadow: var(--addTaskBoxShadow);
 }
 
-.assigned-dropdown-option {
+.contact-option {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--gap-medium);
   padding: 12px 16px;
-  font-size: var(--small-font-size);
-  cursor: pointer;
 }
 
-.assigned-dropdown-option:hover,
-.assigned-dropdown-option:focus-within {
+.contact-option:hover,
+.contact-option:focus {
   background-color: var(--secondary-color);
 }
 
-.assigned-dropdown-option input[type="checkbox"] {
+input[type="checkbox"] {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
   margin: 0;
   padding: 0;
   accent-color: var(--primary-color);
-}
-
-.assigned-dropdown-option span {
-  overflow-wrap: anywhere;
-  min-width: 0;
-}
-
-.assigned-dropdown-empty {
-  margin: 0;
-  padding: 12px 16px;
-  font-size: var(--small-font-size);
-}
-
-.add-task-field > select[hidden] {
-  display: none;
 }
