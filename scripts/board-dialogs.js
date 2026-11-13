@@ -75,6 +75,11 @@ function appendTaskListByTaskElement(taskData, taskCardElement) {
   }
 }
 
+/**
+ * @description Creates a new Task HTML-Element from the given task data
+ * @param {object} newTaskData The task's data 
+ * @returns {HTML Element article} The new task HTML element with all information it needs to be processed.
+ */
 function createNewTaskElement(newTaskData) {
   const newTaskElement = document.createElement("article");
   newTaskElement.id = newTaskData.id;
