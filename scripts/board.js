@@ -534,67 +534,6 @@ function getCardMenuOptionsHtml(taskId, currentStatus) {
    return optionsHtml;
   }
 
-  function handleMenuOptionClick(event) {
-    event.stopPropagation();
-    const moveTo = option.dataset.moveTo;
-    moveToStatus(task.id, moveTo);
-  }
-
-/**
- * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
- * 
- * @param {string|number} taskId - The unique identifier of the task to move.
- * @param {string} newStatus - The target status key to move the task into.
- * @returns {Promise<void>}
- */
-async function moveToStatus(event, taskId, newStatus){
-  event.stopPropagation();
-  const task = allTasks.find(task => task.id = taskId);
-  if (!task) return;
-  task.status = newStatus;
-  const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
-  appendTaskListByNewCreatedTask(task, movedTaskCard);
-  document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
-  const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
-  menuOptions.forEach((option) => {
-    option.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const newStatus = option.dataset.moveTo;
-      moveToStatus(event, task.id, newStatus);
-    });
-  });
-    await patchData(`tasks/${task.id}`, { status: task.status });
-}
-
-/**
- * Generates the HTML options for the task card dropdown menu, 
- * excluding the current active status of the task.
- * 
- * @param {string|number} taskId - The unique identifier of the task.
- * @param {string} currentStatus - The current status key to filter out from options.
- * @returns {string} HTML string containing all available status movement options.
- */
-function getCardMenuOptionsHtml(taskId, currentStatus) {
-    let optionsHtml = '';
-
-    for(let i=0; i < ALL_STATUSES.length; i++) {
-      const status = ALL_STATUSES[i];
-      if(status.key !== currentStatus){
-        const statusLabel =  status.label;
-        const statusKey = status.key;
-        optionsHtml += getMenuOptionTemplate(taskId, statusLabel, statusKey);
-      }
-    }
-
-   return optionsHtml;
-  }
-
-  function handleMenuOptionClick(event) {
-    event.stopPropagation();
-    const moveTo = option.dataset.moveTo;
-    moveToStatus(task.id, moveTo);
-  }
-
 /**
  * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
  * 
