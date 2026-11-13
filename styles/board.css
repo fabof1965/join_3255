@@ -210,8 +210,9 @@
 }
 
 .task-card {
+  position: relative;
   width: var(--full);
-  min-height: 250px;
+  min-height: 200px;
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -371,7 +372,6 @@
   align-items: center;
   width: var(--small-user-badge-width);
   height: var(--small-user-badge-width);
-  /* padding: var(--padding-small); */
   border-radius: var(--border-radius-circular);
   border: 2px solid var(--white-color);
   font-size: 16px;
@@ -395,4 +395,40 @@
 .placeholder {
   border: 2px dashed var(--primary-color);
   border-radius: 20px;
+}
+
+.card-dropdown-menu {
+  inset: 0;
+  position: fixed;
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); 
+  z-index: 9999; 
+  padding: 4px 0;
+}
+
+.card-dropdown-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  position-area: bottom span-left;
+  position-try-fallbacks: flip-block, flip-inline;
+}
+
+.menu-option {
+  padding: 8px;
+  font-size: 16px;
+  color: #2a3647;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.menu-option:hover, .menu-option:focus {
+  background-color: var(--secondary-color);
+  color: var(--menu-color);
 }
