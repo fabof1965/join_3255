@@ -53,26 +53,25 @@ document.addEventListener("submit", async (event) => {
 function processNewCreatedTask() {
   const newTaskData = allTasks[allTasks.length - 1];
   const newTaskElement = createNewTaskElement(newTaskData);
-  appendTaskListByNewCreatedTask(newTaskData, newTaskElement);
+  appendTaskListByTaskElement(newTaskData, newTaskElement);
   addDragEventListenersToCard(newTaskElement);
 }
 
 /**
- * @description Appends a newly created task card to the task list matching its status.
+ * @description Appends a task card to the task list matching its status.
  * If the list only contains the "empty" placeholder, the placeholder is removed first.
- * @param {object} newTaskData - Data of the newly created task.
- * @param {string} newTaskData.status - Status of the task, used to find the targtet column via `data-status`.
- * @param {HTMLElement} newTaskElement - The task card element to insert into the list.
+ * @param {object} taskData - Data of the task.
+ * @param {HTMLElement} taskCardElement - The task card element to insert into the list.
  */
-function appendTaskListByNewCreatedTask(newTaskData, newTaskElement) {
+function appendTaskListByTaskElement(taskData, taskCardElement) {
   const taskList = document.querySelector(
-    'div.task-list[data-status="' + newTaskData.status + '"]',
+    'div.task-list[data-status="' + taskData.status + '"]'
   );
   if (!isEmptyTaskListElementInTaskList(taskList)) {
-    taskList.appendChild(newTaskElement);
+    taskList.appendChild(taskCardElement);
   } else {
     taskList.innerHTML = "";
-    taskList.appendChild(newTaskElement);
+    taskList.appendChild(taskCardElement);
   }
 }
 

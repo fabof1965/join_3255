@@ -547,7 +547,7 @@ async function moveToStatus(event, taskId, newStatus){
   if (!task) return;
   task.status = newStatus;
   const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
-  appendTaskListByNewCreatedTask(task, movedTaskCard);
+  appendTaskListByTaskElement(task, movedTaskCard);
   document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
   const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
   menuOptions.forEach((option) => {
