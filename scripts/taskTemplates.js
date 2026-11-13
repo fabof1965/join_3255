@@ -1,11 +1,11 @@
 /**
- * Generates the wrapper of a task card.
+ * @description Generates the wrapper of a task card.
  * @param {object} task - The task object containing details about the task.
  * @returns {string} The HTML string of the task card including its content.
  * @see getTaskCardContentTemplate
  */
 function getTaskCardTemplate(task) {
-  return `
+    return `
       <article id="${task.id}" class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
         ${getTaskCardContentTemplate(task)}
       </article>
@@ -13,17 +13,15 @@ function getTaskCardTemplate(task) {
 }
 
 /**
- * Generates the HTML content of the task card (header, content, subtask progress, footer).
+ * @description Generates the HTML content of the task card (header, content, subtask progress, footer).
  * @param {object} task - The task object containing details about the task.
  * @returns {string} HTML string with the content of the task card.
  */
 function getTaskCardContentTemplate(task) {
-  return `
+    return `
       <header class="task-card-header">
         <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
-        <button class="btn" id="btn-move-task-card-${task.id}">
-          <span class="task-card-drag-icon" aria-hidden="true">↕</span>
-        </button>      
+        ${getCardMenuTemplate(task.id, task.status)} 
       </header>
 
       <div class="task-content">
@@ -39,7 +37,42 @@ function getTaskCardContentTemplate(task) {
 }
 
 /**
- * Generates the subtask progress bar and counter.
+ * @description Generates the HTML template for the card's dropdown menu container and trigger button.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task.
+ * @param {string} currentStatus - The current status key of the task.
+ * @returns {string} HTML string for the card menu container.
+ */
+function getCardMenuTemplate(taskId, currentStatus) {
+    return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
+              <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+            </button> 
+    
+          <div id="card-menu-${taskId}" class="card-dropdown-menu" popover>
+            ${getCardMenuOptionsHtml(taskId, currentStatus)}
+          </div>
+  `;
+}
+
+/**
+ * @description Gets the HTML String for a button inside the task-card-menu
+ * @param {string} taskId 
+ * @param {string} statuslabel 
+ * @param {string} statusKey 
+ * @returns {HTMLButtonString} The HTML-String, that represents the button
+ *  to move a task into another category by clicking on it.
+ */
+function getMenuOptionTemplate(taskId, statuslabel, statusKey){
+  return `
+    <button class="menu-option btn" data-move-to="${statusKey}" data-option-id="option-${taskId}">
+      ${statuslabel}
+    </button>
+    `;
+ }
+
+
+/**
+ * @description Generates the subtask progress bar and counter.
  * @param {number} completed - Number of the completed subtasks.
  * @param {number} progress - Progress in percent (0-100).
  * @param {number} total - Total number of subtasks.
@@ -47,7 +80,7 @@ function getTaskCardContentTemplate(task) {
  * @returns {string} The generated HTML string for the subtask progress.
  */
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
-  return `
+    return `
       <div class="subtask-progress">
         <progress class="progress-track" id="progress-fill-${taskId}" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}" min="0" max="100" value="${progress}">
           
@@ -58,37 +91,40 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
 }
 
 /**
- * Generates the HTML for a single contact badge showing the given initials.
+ * @description Generates the HTML for a single contact badge showing the given initials.
  * @param {string} initials - The initials to display inside the contact badge.
  * @returns {string} The generated HTML string for a single contact badge.
  */
 function getUserBadgeTemplate(initials) {
-  return `
+    return `
       <span class="profile-badge">${initials}</span>
   `;
 }
 
 /**
-* Returns the HTML template for an empty task list state.
+ * @description Returns the HTML template for an empty task list state.
  * @param {string} emptyTaskListMessage - Text shown when a task list is empty.
  * @returns {string} The generated HTML string for the empty task list message.
  */
 function getEmptyTaskListElement(emptyTaskListMessage) {
-  return `
+    return `
       <p class="empty-task-list">${emptyTaskListMessage}</p>
   `;
 }
 
 /**
- * Generates the HTML for the detail overlay of a task card.
+ * @description Generates the HTML for the detail overlay of a task card.
  * @param {object} task - The task object containing details about the task.
  * @param {string} priority - The priority of a task.("urent", "medium" or "low").
  * @param {string} subtasksHTML - The prepared HTML of the subtasks.
  * @returns {string} The generated HTML string for the task detail overlay.
  */
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>` : subtasksHTML;
-  return `
+    const subtaskOutput =
+        subtasksHTML === ""
+            ? `<span class="no-subtasks">No Subtasks</span>`
+            : subtasksHTML;
+    return `
       <article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
           <span class="task-card-dialog-category ${getCategoryClass(task.category)}">${task.category}</span>
@@ -130,13 +166,13 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
 }
 
 /**
- * Generates the HTML for a single contact in the task detail overlay.
+ * @description Generates the HTML for a single contact in the task detail overlay.
  * @param {string} initials - The initials to display inside the contact badge.
  * @param {string} name - Fullname of the assigned contact.
  * @returns {string} The generated HTML string for the contact entry.
  */
 function getTaskOverlayUserTemplate(initials, name) {
-  return `
+    return `
       <div class="task-card-dialog-user">
         <span class="profile-badge">${initials}</span>
         <span>${name}</span>
@@ -145,16 +181,16 @@ function getTaskOverlayUserTemplate(initials, name) {
 }
 
 /**
- * Generates the HTML for a single subtask with a checkbox in the task detail overlay.
+ * @description Generates the HTML for a single subtask with a checkbox in the task detail overlay.
  * @param {{title: string, done: boolean}} subtask - The subtask with its title and status.
- * @param {boolean} checked - If `true`, subtask is done and the checkbox is checked, if `false`, it is not. 
+ * @param {boolean} checked - If `true`, subtask is done and the checkbox is checked, if `false`, it is not.
  * @param {number} taskId - ID of the task, used for the element IDs.
  * @param {number} index - The position of the subtask in the task's subtask list.
  * @returns {string} The generated HTML string for the subtask entry.
  */
 function getSubtaskTemplate(subtask, checked, taskId, index) {
-  const checkedAttribute = checked ? "true" : false;
-  return `
+    const checkedAttribute = checked ? "true" : false;
+    return `
       <div class="task-card-dialog-subtask">
         <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" aria-labelledby="subtask-title-${taskId}-${index}" checked="${checkedAttribute}" aria-checked="${checkedAttribute}"/>
         <span id="subtask-title-${taskId}-${index}">${subtask.title}</span>
@@ -162,14 +198,12 @@ function getSubtaskTemplate(subtask, checked, taskId, index) {
   `;
 }
 
-const urgentPriorityTemplate =
-  `<svg class="urgent-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
+const urgentPriorityTemplate = `<svg class="urgent-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
     <path class="urgent-svg" d="M18.9043 14.5096C18.6696 14.51 18.4411 14.4351 18.2522 14.2961L10.0001 8.21288L1.74809 14.2961C1.63224 14.3816 1.50066 14.4435 1.36086 14.4783C1.22106 14.513 1.07577 14.5199 0.933305 14.4986C0.790837 14.4772 0.653973 14.428 0.530528 14.3538C0.407083 14.2796 0.299474 14.1818 0.213845 14.0661C0.128216 13.9503 0.0662437 13.8188 0.0314671 13.6791C-0.00330956 13.5394 -0.0102098 13.3943 0.0111604 13.2519C0.0543195 12.9644 0.21001 12.7058 0.443982 12.533L9.34809 5.96249C9.53679 5.8229 9.76536 5.74756 10.0001 5.74756C10.2349 5.74756 10.4635 5.8229 10.6522 5.96249L19.5563 12.533C19.7422 12.6699 19.8801 12.862 19.9503 13.0819C20.0204 13.3018 20.0193 13.5382 19.9469 13.7573C19.8746 13.9765 19.7349 14.1673 19.5476 14.3024C19.3604 14.4375 19.1352 14.51 18.9043 14.5096Z" fill=""/>
     <path class="urgent-svg" d="M18.9043 8.76057C18.6696 8.76097 18.4411 8.68612 18.2522 8.54702L10.0002 2.46386L1.7481 8.54702C1.51412 8.71983 1.22104 8.79269 0.93331 8.74956C0.645583 8.70643 0.386785 8.55086 0.213849 8.31706C0.0409137 8.08326 -0.0319941 7.79039 0.011165 7.50288C0.054324 7.21536 0.210015 6.95676 0.443986 6.78395L9.3481 0.213471C9.5368 0.0738799 9.76537 -0.00146484 10.0002 -0.00146484C10.2349 -0.00146484 10.4635 0.0738799 10.6522 0.213471L19.5563 6.78395C19.7422 6.92087 19.8801 7.11298 19.9503 7.33286C20.0204 7.55274 20.0193 7.78914 19.947 8.00832C19.8746 8.22751 19.7349 8.41826 19.5476 8.55335C19.3604 8.68844 19.1352 8.76096 18.9043 8.76057Z" fill=""/>
   </svg>`;
 
-const mediumPriorityTemplate =
-  `<svg class="medium-svg" width="20" height="8" viewBox="0 0 20 8" xmlns="http://www.w3.org/2000/svg">
+const mediumPriorityTemplate = `<svg class="medium-svg" width="20" height="8" viewBox="0 0 20 8" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_79630_4973)">
       <path class="medium-svg" d="M18.9041 7.45086H1.09589C0.805242 7.45086 0.526498 7.33456 0.320979 7.12755C0.11546 6.92054 0 6.63977 0 6.34701C0 6.05425 0.11546 5.77349 0.320979 5.56647C0.526498 5.35946 0.805242 5.24316 1.09589 5.24316H18.9041C19.1948 5.24316 19.4735 5.35946 19.679 5.56647C19.8845 5.77349 20 6.05425 20 6.34701C20 6.63977 19.8845 6.92054 19.679 7.12755C19.4735 7.33456 19.1948 7.45086 18.9041 7.45086Z" fill=""/>
       <path class="medium-svg" d="M18.9041 2.2077H1.09589C0.805242 2.2077 0.526498 2.0914 0.320979 1.88439C0.11546 1.67738 0 1.39661 0 1.10385C0 0.81109 0.11546 0.530322 0.320979 0.32331C0.526498 0.116298 0.805242 0 1.09589 0L18.9041 0C19.1948 0 19.4735 0.116298 19.679 0.32331C19.8845 0.530322 20 0.81109 20 1.10385C20 1.39661 19.8845 1.67738 19.679 1.88439C19.4735 2.0914 19.1948 2.2077 18.9041 2.2077Z" fill=""/>
@@ -181,20 +215,19 @@ const mediumPriorityTemplate =
     </defs>
   </svg>`;
 
-const lowPriorityTemplate =
-  `<svg class="low-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
+const lowPriorityTemplate = `<svg class="low-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
     <path class="low-svg" d="M10 8.76077C9.7654 8.76118 9.53687 8.68634 9.34802 8.54726L0.444913 1.97752C0.329075 1.89197 0.231235 1.78445 0.15698 1.66111C0.0827245 1.53777 0.033508 1.40102 0.0121402 1.25868C-0.031014 0.971193 0.0418855 0.678356 0.214802 0.444584C0.387718 0.210811 0.646486 0.0552534 0.934181 0.0121312C1.22188 -0.0309911 1.51493 0.0418545 1.74888 0.214643L10 6.29712L18.2511 0.214643C18.367 0.129087 18.4985 0.0671675 18.6383 0.0324205C18.7781 -0.00232646 18.9234 -0.00922079 19.0658 0.0121312C19.2083 0.0334832 19.3451 0.0826633 19.4685 0.156864C19.592 0.231064 19.6996 0.328831 19.7852 0.444584C19.8708 0.560336 19.9328 0.691806 19.9676 0.831488C20.0023 0.97117 20.0092 1.11633 19.9879 1.25868C19.9665 1.40102 19.9173 1.53777 19.843 1.66111C19.7688 1.78445 19.6709 1.89197 19.5551 1.97752L10.652 8.54726C10.4631 8.68634 10.2346 8.76118 10 8.76077Z" fill=""/>
     <path class="low-svg" d="M10 14.5093C9.7654 14.5097 9.53687 14.4349 9.34802 14.2958L0.444913 7.72606C0.210967 7.55327 0.0552944 7.29469 0.0121402 7.00721C-0.031014 6.71973 0.0418855 6.42689 0.214802 6.19312C0.387718 5.95935 0.646486 5.80379 0.934181 5.76067C1.22188 5.71754 1.51493 5.79039 1.74888 5.96318L10 12.0457L18.2511 5.96318C18.4851 5.79039 18.7781 5.71754 19.0658 5.76067C19.3535 5.80379 19.6123 5.95935 19.7852 6.19312C19.9581 6.42689 20.031 6.71973 19.9879 7.00721C19.9447 7.29469 19.789 7.55327 19.5551 7.72606L10.652 14.2958C10.4631 14.4349 10.2346 14.5097 10 14.5093Z" fill=""/>
   </svg>`;
 
 /**
- * Generates the HTML for the content of the "Add Task" dialog.
+ * @description Generates the HTML for the content of the "Add Task" dialog.
  * Contains the dialog header (title and close button).
  * @see getTaskFormTemplate
  * @returns {string} The generated HTML string for the add task content.
  */
 function getAddTaskDialogContentTemplate() {
-  return `
+    return `
       <section class="add-task-dialog-content" aria-labelledby="add-task-title">
         <header class="add-task-header">
           <h2 id="add-task-title">Add Task</h2>
@@ -208,13 +241,13 @@ function getAddTaskDialogContentTemplate() {
 }
 
 /**
- * Generates the HTML for the task form of the "Add Task" dialog.
+ * @description Generates the HTML for the task form of the "Add Task" dialog.
  * Wraps the form fields in a form element and adds the "Clear" and "Create Task" buttons.
  * @see getTaskFormContentTemplate
- * @returns {string} The generated HTML string for the task form. 
+ * @returns {string} The generated HTML string for the task form.
  */
 function getTaskFormTemplate() {
-  return `
+    return `
       <form id="add-task-form" class="add-task-form" novalidate>
         ${getTaskFormContentTemplate()}
         <section class="form-buttons">
@@ -241,13 +274,13 @@ function getTaskFormTemplate() {
 }
 
 /**
- * Generates the HTML for the form fields of the "Add Task" dialog.
+ * @description Generates the HTML for the form fields of the "Add Task" dialog.
  * Contains the following input fields: title, description, due date, priority, assigned to, category, and subtasks.
  * @see getTaskFormTemplate
- * @returns {string} The generated HTML string for the task form fields. 
+ * @returns {string} The generated HTML string for the task form fields.
  */
 function getTaskFormContentTemplate() {
-  return `
+    return `
       <section class="form-content">
         <label class="add-task-field add-task-title-field">
           <span class="visually-hidden">Title</span>
@@ -309,9 +342,8 @@ function getTaskFormContentTemplate() {
               <span class="assigned-dropdown-text">Select contacts to assign</span>
               <span class="assigned-dropdown-arrow" aria-hidden="true">▾</span>
             </summary>
-            <ul class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></ul>
+            <ul id="assigned-contacts" class="assigned-dropdown-list" role="group" aria-label="Assign contacts"></ul>
           </details>
-          <select id="assigned-contacts" name="assignedUsers" multiple hidden></select>
         </div>
 
         <label class="add-task-field">
@@ -334,29 +366,26 @@ function getTaskFormContentTemplate() {
   `;
 }
 
-const editIconSvg =
-  `<svg class="edit-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+const editIconSvg = `<svg class="edit-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z"/>
   </svg>`;
 
-const deleteIconSvg =
-  `<svg class="delete-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+const deleteIconSvg = `<svg class="delete-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6C4.71667 6 4.47917 5.90417 4.2875 5.7125C4.09583 5.52083 4 5.28333 4 5C4 4.71667 4.09583 4.47917 4.2875 4.2875C4.47917 4.09583 4.71667 4 5 4H9C9 3.71667 9.09583 3.47917 9.2875 3.2875C9.47917 3.09583 9.71667 3 10 3H14C14.2833 3 14.5208 3.09583 14.7125 3.2875C14.9042 3.47917 15 3.71667 15 4H19C19.2833 4 19.5208 4.09583 19.7125 4.2875C19.9042 4.47917 20 4.71667 20 5C20 5.28333 19.9042 5.52083 19.7125 5.7125C19.5208 5.90417 19.2833 6 19 6V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM7 6V19H17V6H7ZM9 16C9 16.2833 9.09583 16.5208 9.2875 16.7125C9.47917 16.9042 9.71667 17 10 17C10.2833 17 10.5208 16.9042 10.7125 16.7125C10.9042 16.5208 11 16.2833 11 16V9C11 8.71667 10.9042 8.47917 10.7125 8.2875C10.5208 8.09583 10.2833 8 10 8C9.71667 8 9.47917 8.09583 9.2875 8.2875C9.09583 8.47917 9 8.71667 9 9V16ZM13 16C13 16.2833 13.0958 16.5208 13.2875 16.7125C13.4792 16.9042 13.7167 17 14 17C14.2833 17 14.5208 16.9042 14.7125 16.7125C14.9042 16.5208 15 16.2833 15 16V9C15 8.71667 14.9042 8.47917 14.7125 8.2875C14.5208 8.09583 14.2833 8 14 8C13.7167 8 13.4792 8.09583 13.2875 8.2875C13.0958 8.47917 13 8.71667 13 9V16Z"/>
   </svg>`;
 
-const checkIconSvg =
-  `<svg class="check-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+const checkIconSvg = `<svg class="check-icon handle-subtask-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9.55002 15.15L18.025 6.675C18.225 6.475 18.4625 6.375 18.7375 6.375C19.0125 6.375 19.25 6.475 19.45 6.675C19.65 6.875 19.75 7.1125 19.75 7.3875C19.75 7.6625 19.65 7.9 19.45 8.1L10.25 17.3C10.05 17.5 9.81669 17.6 9.55002 17.6C9.28336 17.6 9.05002 17.5 8.85002 17.3L4.55002 13C4.35002 12.8 4.25419 12.5625 4.26252 12.2875C4.27086 12.0125 4.37502 11.775 4.57502 11.575C4.77502 11.375 5.01252 11.275 5.28752 11.275C5.56252 11.275 5.80002 11.375 6.00002 11.575L9.55002 15.15Z"/>
   </svg>`;
 
 /**
- * Generates the HTML for a single subtask list item.
+ * @description Generates the HTML for a single subtask list item.
  * @param {number} index - The position of the subtask in the task's subtask list.
  * @param {string} title - The description of the subtask.
- * @returns {string} The generated HTML string for the subtask item with edit and delete actions. 
+ * @returns {string} The generated HTML string for the subtask item with edit and delete actions.
  */
 function getAddTaskSubtaskTemplate(index, title) {
-  return `
+    return `
       <li class="subtask-list" data-index="${index}">
         <div class="subtask-wrapper">
           <span>${title}</span>
@@ -370,24 +399,29 @@ function getAddTaskSubtaskTemplate(index, title) {
 }
 
 /**
- * Generates the HTML for the input field shown while a subtask is being edited.
+ * @description Generates the HTML for the input field shown while a subtask is being edited.
  * @param {string} subtaskTitle - The current title of the subtask, used as the input's initial value.
  * @returns {string} The generated HTML string for the subtask edit input field.
  */
 function getEditSubtaskTemplate(subtaskTitle) {
-  return `
+    return `
       <input class="subtask-edit-input" name="subtask-edit" value="${subtaskTitle}" />
   `;
 }
 
 /**
- * Generates the HTML for a selectable contact option used to assign a contact to the task.
+ * @description Generates the HTML for a selectable contact option used to assign a contact to the task.
  * @param {string} initials - The initials of the contact.
  * @param {string} name - Fullname of the assigned contact.
  * @returns The HTML generated string for the contact option element.
  */
 function getAssignedContactOptionTemplate(initials, name) {
   return `
-      <option value="${initials}">${name}</option>
+    <div class="contact-option">
+      <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
+      <option value="${initials}">
+        ${name}
+      </option>
+    </div>
   `;
 }

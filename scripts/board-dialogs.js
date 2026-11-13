@@ -18,12 +18,6 @@ const taskCategoryButtons = [
   },
 ];
 
-function setTaskFormUsers(select, users = []) {
-  Array.from(select.options).forEach((option) => {
-    option.selected = users.includes(option.value);
-  });
-}
-
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
@@ -52,25 +46,40 @@ document.addEventListener("submit", async (event) => {
   }
 });
 
+/**
+ * @description Renders the most recently created task as a card in its matching board column
+ *  and enables drag and drop for it.
+ */
 function processNewCreatedTask() {
   const newTaskData = allTasks[allTasks.length - 1];
   const newTaskElement = createNewTaskElement(newTaskData);
-  appendTaskListByNewCreatedTask(newTaskData, newTaskElement);
+  appendTaskListByTaskElement(newTaskData, newTaskElement);
   addDragEventListenersToCard(newTaskElement);
 }
 
-function appendTaskListByNewCreatedTask(newTaskData, newTaskElement) {
+/**
+ * @description Appends a task card to the task list matching its status.
+ * If the list only contains the "empty" placeholder, the placeholder is removed first.
+ * @param {object} taskData - Data of the task.
+ * @param {HTMLElement} taskCardElement - The task card element to insert into the list.
+ */
+function appendTaskListByTaskElement(taskData, taskCardElement) {
   const taskList = document.querySelector(
-    'div.task-list[data-status="' + newTaskData.status + '"]',
+    'div.task-list[data-status="' + taskData.status + '"]'
   );
   if (!isEmptyTaskListElementInTaskList(taskList)) {
-    taskList.appendChild(newTaskElement);
+    taskList.appendChild(taskCardElement);
   } else {
     taskList.innerHTML = "";
-    taskList.appendChild(newTaskElement);
+    taskList.appendChild(taskCardElement);
   }
 }
 
+/**
+ * @description Creates a new Task HTML-Element from the given task data
+ * @param {object} newTaskData The task's data 
+ * @returns {HTML Element article} The new task HTML element with all information it needs to be processed.
+ */
 function createNewTaskElement(newTaskData) {
   const newTaskElement = document.createElement("article");
   newTaskElement.id = newTaskData.id;
@@ -90,6 +99,10 @@ document.getElementById("btn-add-task").addEventListener("click", () => {
 
 addClickEventListenersToTaskCategoryButtons();
 
+/**
+ @description Adds click listeners to the "+" buttons of the columns "To do", "In progress"
+ * and "Await feedback" that open the add-task dialog with the matching status.
+ */
 function addClickEventListenersToTaskCategoryButtons() {
   taskCategoryButtons.forEach((item) => {
     item.button.addEventListener("click", () => {
@@ -108,7 +121,7 @@ async function openAddTaskDialog(status) {
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   getTaskForm().classList.add(dialogModes.addTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   initAddTaskDialogListeners(addTaskDialog);
   addTaskDialog.showModal();
 }
@@ -123,6 +136,7 @@ function initAddTaskDialogListeners(addTaskDialog) {
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
   initPriorityButtonClickListeners();
+  checkContactsFromTask(task);
   const formElements = getFormElements(task.priority);
   formElements.taskTitleInputElement.value = task.title;
   formElements.taskDescriptionElement.value = task.description;
@@ -139,12 +153,12 @@ async function openAddTaskDialogInEditMode(task) {
   newTaskStatus = task.status;
   const subtasks = await getData(`tasks/${task.id}/subtasks`);
   newTaskSubtasks = (subtasks || []).map((subtask) => ({
-  ...subtask,
-}));
+    ...subtask,
+  }));
   addTaskDialog.innerHTML = getAddTaskDialogContentTemplate();
   const taskForm = getTaskForm();
   taskForm.classList.add(dialogModes.editTaskMode);
-  await renderAssignedContacts(taskForm);
+  await initContactsOnForm(taskForm);
   fillFormElementsWithTaskData(task);
   renderNewSubtasks();
   initAddTaskDialogListeners(addTaskDialog);
@@ -152,6 +166,23 @@ async function openAddTaskDialogInEditMode(task) {
   addTaskDialog.showModal();
 }
 
+/**
+ * @description Checks checkboxes for contacts from the contact-array of the given task
+ * @param {object} task The task object that includes the task data 
+ */
+function checkContactsFromTask(task) {
+  const contactNames = task.assignedContacts;
+  const contactChecked = true;
+  contactNames.forEach((contactName) => {
+    const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
+    contactCheckBox.checked = contactChecked;
+    contactCheckBox.ariaChecked = contactChecked;
+  });
+}
+
+/**
+ * @description Closes and resets the add task dialog.
+ */
 function closeAddTaskDialog() {
   const addTaskDialog = document.getElementById("add-task-dialog");
   if (!addTaskDialog) return;
@@ -175,7 +206,7 @@ function submitEditedTask(event) {
 }
 
 function updateTaskCardContent(task) {
-  const taskCard = document.getElementById(task.id);
+  const taskCard = document.querySelector(`[data-task-id="${task.id}"]`);
   taskCard.innerHTML = getTaskCardContentTemplate(task);
   setBadgeBackgroundColor();
 }

@@ -1,4 +1,16 @@
+const ALL_STATUSES = [
+  { key: 'toDo', label: 'To do' },
+  { key: 'inProgress', label: 'In progress' },
+  { key: 'awaitFeedback', label: 'Await feedback' },
+  { key: 'done', label: 'Done' }
+];
+
 document.addEventListener("DOMContentLoaded", initBoardContent());
+
+/**
+ * Initializes the content of the board page.
+ * @returns {Promise<void>} Resolves once the board is fully initialized.
+ */
 async function initBoardContent() {
   await loadTasks();
   renderBoardContent(allTasks);
@@ -113,7 +125,6 @@ function getTaskCardHtml(task) {
  */
 function renderTask(task) {
   const taskList = document.querySelector(`[data-status="${task.status}"]`);
-
   if (!taskList) return;
   taskList.innerHTML += getTaskCardHtml(task);
 }
@@ -127,14 +138,23 @@ function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
   tasks.forEach((task) => {
-    const moveTaskButton = document.getElementById("btn-move-task-card-" + task.id);
-    moveTaskButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      console.log("move button with id: " + task.id + " clicked");
-   });
+    const openCardMenuButton = document.getElementById("btn-move-task-card-" + task.id);
+    if(openCardMenuButton) openCardMenuButton.addEventListener("click", (event) => {
+      event.stopImmediatePropagation();
+    });
+
+    const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
+    menuOptions.forEach((option) => {
+      option.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const newStatus = option.dataset.moveTo;
+        moveToStatus(event, task.id, newStatus);
+      });
+    });
   });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -235,7 +255,7 @@ function renderSearchResults(tasks, showNoResults) {
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
   toggleNoResultsMessage(showNoResults);
-  initializeDragEventsForTaskCards(); 
+  initializeDragEventsForTaskCards();
 }
 
 /**
@@ -353,7 +373,7 @@ function isEmptyTaskListElementInTaskList(taskList) {
 }
 
 /**
- * Adds drop events to every board column.
+ * @description Adds drop events to every board column.
  * @returns {void}
  */
 function initializeDragAndDrop() {
@@ -361,6 +381,9 @@ function initializeDragAndDrop() {
   initializeDragAndDropForTaskLists();
 }
 
+/**
+ * @description Makes drag-and-drop events available for all task cards on the board.
+ */
 function initializeDragEventsForTaskCards() {
   const taskCards = document.querySelectorAll(".task-card");
   taskCards.forEach((taskCard) => {
@@ -368,6 +391,9 @@ function initializeDragEventsForTaskCards() {
   });
 }
 
+/**
+ * @description Set up drag-and-drop for the board's columns ("To do", "In Progress", "Await feedback" and "Done").
+ */
 function initializeDragAndDropForTaskLists() {
   const taskLists = document.querySelectorAll(".task-list");
   taskLists.forEach((taskList) => {
@@ -377,11 +403,20 @@ function initializeDragAndDropForTaskLists() {
   });
 }
 
+/**
+ * @description Adds event listeners for start and end the drag functionality.
+ * @param {HTMLElement} card - All task cards from the task board.
+ */
 function addDragEventListenersToCard(card) {
   card.addEventListener("dragstart", startDragging);
   card.addEventListener("dragend", stopDragging);
 }
 
+/**
+ * Creates a placeholder element for drag-and-drop on the board.
+ * @param {HTMLElement} draggedTask - The dragged task card.
+ * @returns {HTMLLIElement} The placeholder element.
+ */
 function makePlaceholder(draggedTask) {
   const placeholder = document.createElement("li");
   placeholder.classList.add("placeholder");
@@ -390,6 +425,13 @@ function makePlaceholder(draggedTask) {
   return placeholder;
 }
 
+/**
+ * @description Checks whether the mouse pointer is vertically aligned with the placeholder while dragging.
+ * @param {DragEvent} event - The drag event.
+ * @param {HTMLLIElement} existingPlaceholder - The Placeholder element.
+ * @returns If `true` if the pointer is between the placeholder's top and bottom edge,
+ * `false` if it is outside `undefined` if no placeholder exists. 
+ */
 function isMouseOutOfPlaceholder(event, existingPlaceholder) {
   if (existingPlaceholder) {
     const placeholderRect = existingPlaceholder.getBoundingClientRect();
@@ -401,6 +443,14 @@ function isMouseOutOfPlaceholder(event, existingPlaceholder) {
   }
 }
 
+/**
+ * @description Positions the placeholder in the column at the spot where the dragged task would be dropped.
+ * @param {HTMLElement} column - Column for "To do", "In progress", "Await feedback" and "Done".
+ * @param {HTMLElement} task - The task card.
+ * @param {HTMLLIElement} existingPlaceholder - The Placeholder element.
+ * @param {HTMLElement} draggedTask - The dragged task card.
+ * @returns {void}
+ */
 function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) {
   if (task === existingPlaceholder) return;
   existingPlaceholder?.remove();
@@ -412,6 +462,12 @@ function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) 
   );
 }
 
+/**
+ * Moves the placeholder element to the position a dragged card would be put to.
+ * The placeholder position depends on the y-axis of the mouse.
+ * @param {DragEvent} event 
+ * @returns {void}
+ */
 function movePlaceholder(event) {
   event.preventDefault();
   const draggedTask = document.getElementById("grabbed-card");
@@ -430,15 +486,21 @@ function movePlaceholder(event) {
 }
 
 /**
- * Hier eine Beschreibung einfügen.
- * @param {Object.<string, Object>|null} tasksObject - Tasks-Objekt aus Firebase (Key = Firebase-ID).
- * @returns {Object[]} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
+ * @description Makes an array from the task data that are drawn from firebase.
+ * @param {Object.<string, Object>|null} tasksObject - tasks-object from firebase (key = Firebase-ID).
+ * @returns {Array<Object>} Array mit allen Tasks, jeder Task enthält zusätzlich seine id.
  */
 function createAllTaskArrayFromData(allTaskData) {
   if (!allTaskData) return [];
   return Object.entries(allTaskData).map(([id, task]) => ({ ...task, id }));
 }
 
+/**
+ * @description Loads the data of all tasks from firebase. 
+ * The task data is being converted to an array called 'taskDataArray'.
+ * The data from 'taskDataArray' is being pushed to allTasks array. 
+ * @returns {Promise<void>}
+ */
 async function loadTasks() {
   try {
     const allTaskData = await getData("tasks");
@@ -446,6 +508,54 @@ async function loadTasks() {
     taskDataArray.forEach((task) => allTasks.push(task));
   } catch (error) {
     console.error("Fehler beim laden der Tasks", error);
-    allTasks = [];
   }
+}
+
+/**
+ * Generates the HTML options for the task card dropdown menu, 
+ * excluding the current active status of the task.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task.
+ * @param {string} currentStatus - The current status key to filter out from options.
+ * @returns {string} HTML string containing all available status movement options.
+ */
+function getCardMenuOptionsHtml(taskId, currentStatus) {
+    let optionsHtml = '';
+
+    for(let i=0; i < ALL_STATUSES.length; i++) {
+      const status = ALL_STATUSES[i];
+      if(status.key !== currentStatus){
+        const statusLabel =  status.label;
+        const statusKey = status.key;
+        optionsHtml += getMenuOptionTemplate(taskId, statusLabel, statusKey);
+      }
+    }
+
+   return optionsHtml;
+  }
+
+/**
+ * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
+ * 
+ * @param {string|number} taskId - The unique identifier of the task to move.
+ * @param {string} newStatus - The target status key to move the task into.
+ * @returns {Promise<void>}
+ */
+async function moveToStatus(event, taskId, newStatus){
+  event.stopPropagation();
+  const task = allTasks.find(task => task.id = taskId);
+  if (!task) return;
+  task.status = newStatus;
+  const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
+  appendTaskListByTaskElement(task, movedTaskCard);
+  document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
+  const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
+  menuOptions.forEach((option) => {
+    option.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const newStatus = option.dataset.moveTo;
+      moveToStatus(event, task.id, newStatus);
+    });
+  });
+    await patchData(`tasks/${task.id}`, { status: task.status });
 }
