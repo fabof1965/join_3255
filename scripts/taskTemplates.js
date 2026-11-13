@@ -1,5 +1,5 @@
 /**
- * Generates the wrapper of a task card.
+ * @description Generates the wrapper of a task card.
  * @param {object} task - The task object containing details about the task.
  * @returns {string} The HTML string of the task card including its content.
  * @see getTaskCardContentTemplate
@@ -13,7 +13,7 @@ function getTaskCardTemplate(task) {
 }
 
 /**
- * Generates the HTML content of the task card (header, content, subtask progress, footer).
+ * @description Generates the HTML content of the task card (header, content, subtask progress, footer).
  * @param {object} task - The task object containing details about the task.
  * @returns {string} HTML string with the content of the task card.
  */
@@ -37,7 +37,7 @@ function getTaskCardContentTemplate(task) {
 }
 
 /**
- * Generates the HTML template for the card's dropdown menu container and trigger button.
+ * @description Generates the HTML template for the card's dropdown menu container and trigger button.
  * 
  * @param {string|number} taskId - The unique identifier of the task.
  * @param {string} currentStatus - The current status key of the task.
@@ -54,7 +54,14 @@ function getCardMenuTemplate(taskId, currentStatus) {
   `;
 }
 
-
+/**
+ * @description Gets the HTML String for a button inside the task-card-menu
+ * @param {string} taskId 
+ * @param {string} statuslabel 
+ * @param {string} statusKey 
+ * @returns {HTMLButtonString} The HTML-String, that represents the button
+ *  to move a task into another category by clicking on it.
+ */
 function getMenuOptionTemplate(taskId, statuslabel, statusKey){
   return `
     <button class="menu-option btn" data-move-to="${statusKey}" data-option-id="option-${taskId}">
@@ -65,7 +72,7 @@ function getMenuOptionTemplate(taskId, statuslabel, statusKey){
 
 
 /**
- * Generates the subtask progress bar and counter.
+ * @description Generates the subtask progress bar and counter.
  * @param {number} completed - Number of the completed subtasks.
  * @param {number} progress - Progress in percent (0-100).
  * @param {number} total - Total number of subtasks.
@@ -84,7 +91,7 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
 }
 
 /**
- * Generates the HTML for a single contact badge showing the given initials.
+ * @description Generates the HTML for a single contact badge showing the given initials.
  * @param {string} initials - The initials to display inside the contact badge.
  * @returns {string} The generated HTML string for a single contact badge.
  */
@@ -95,7 +102,7 @@ function getUserBadgeTemplate(initials) {
 }
 
 /**
- * Returns the HTML template for an empty task list state.
+ * @description Returns the HTML template for an empty task list state.
  * @param {string} emptyTaskListMessage - Text shown when a task list is empty.
  * @returns {string} The generated HTML string for the empty task list message.
  */
@@ -106,7 +113,7 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
 }
 
 /**
- * Generates the HTML for the detail overlay of a task card.
+ * @description Generates the HTML for the detail overlay of a task card.
  * @param {object} task - The task object containing details about the task.
  * @param {string} priority - The priority of a task.("urent", "medium" or "low").
  * @param {string} subtasksHTML - The prepared HTML of the subtasks.
@@ -159,7 +166,7 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
 }
 
 /**
- * Generates the HTML for a single contact in the task detail overlay.
+ * @description Generates the HTML for a single contact in the task detail overlay.
  * @param {string} initials - The initials to display inside the contact badge.
  * @param {string} name - Fullname of the assigned contact.
  * @returns {string} The generated HTML string for the contact entry.
@@ -174,7 +181,7 @@ function getTaskOverlayUserTemplate(initials, name) {
 }
 
 /**
- * Generates the HTML for a single subtask with a checkbox in the task detail overlay.
+ * @description Generates the HTML for a single subtask with a checkbox in the task detail overlay.
  * @param {{title: string, done: boolean}} subtask - The subtask with its title and status.
  * @param {boolean} checked - If `true`, subtask is done and the checkbox is checked, if `false`, it is not.
  * @param {number} taskId - ID of the task, used for the element IDs.
@@ -214,7 +221,7 @@ const lowPriorityTemplate = `<svg class="low-svg" width="20" height="15" viewBox
   </svg>`;
 
 /**
- * Generates the HTML for the content of the "Add Task" dialog.
+ * @description Generates the HTML for the content of the "Add Task" dialog.
  * Contains the dialog header (title and close button).
  * @see getTaskFormTemplate
  * @returns {string} The generated HTML string for the add task content.
@@ -234,7 +241,7 @@ function getAddTaskDialogContentTemplate() {
 }
 
 /**
- * Generates the HTML for the task form of the "Add Task" dialog.
+ * @description Generates the HTML for the task form of the "Add Task" dialog.
  * Wraps the form fields in a form element and adds the "Clear" and "Create Task" buttons.
  * @see getTaskFormContentTemplate
  * @returns {string} The generated HTML string for the task form.
@@ -267,7 +274,7 @@ function getTaskFormTemplate() {
 }
 
 /**
- * Generates the HTML for the form fields of the "Add Task" dialog.
+ * @description Generates the HTML for the form fields of the "Add Task" dialog.
  * Contains the following input fields: title, description, due date, priority, assigned to, category, and subtasks.
  * @see getTaskFormTemplate
  * @returns {string} The generated HTML string for the task form fields.
@@ -373,7 +380,7 @@ const checkIconSvg = `<svg class="check-icon handle-subtask-icon" width="24" hei
   </svg>`;
 
 /**
- * Generates the HTML for a single subtask list item.
+ * @description Generates the HTML for a single subtask list item.
  * @param {number} index - The position of the subtask in the task's subtask list.
  * @param {string} title - The description of the subtask.
  * @returns {string} The generated HTML string for the subtask item with edit and delete actions.
@@ -393,7 +400,7 @@ function getAddTaskSubtaskTemplate(index, title) {
 }
 
 /**
- * Generates the HTML for the input field shown while a subtask is being edited.
+ * @description Generates the HTML for the input field shown while a subtask is being edited.
  * @param {string} subtaskTitle - The current title of the subtask, used as the input's initial value.
  * @returns {string} The generated HTML string for the subtask edit input field.
  */
@@ -404,7 +411,7 @@ function getEditSubtaskTemplate(subtaskTitle) {
 }
 
 /**
- * Generates the HTML for a selectable contact option used to assign a contact to the task.
+ * @description Generates the HTML for a selectable contact option used to assign a contact to the task.
  * @param {string} initials - The initials of the contact.
  * @param {string} name - Fullname of the assigned contact.
  * @returns The HTML generated string for the contact option element.
