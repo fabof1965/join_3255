@@ -136,9 +136,16 @@ function renderBoardContent(tasks) {
   tasks.forEach((task) => {
     const openCardMenuButton = document.getElementById("btn-move-task-card-" + task.id);
     if(openCardMenuButton) openCardMenuButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      
-      toggleCardMenu(event, task.id);
+      event.stopImmediatePropagation();
+    });
+
+    const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
+    menuOptions.forEach((option) => {
+      option.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const newStatus = option.dataset.moveTo;
+        moveToStatus(event, task.id, newStatus);
+      });
     });
   });
   renderEmptyTaskLists();
@@ -467,43 +474,26 @@ async function loadTasks() {
  * @param {string} currentStatus - The current status key to filter out from options.
  * @returns {string} HTML string containing all available status movement options.
  */
-function getCardMenuOptionsHtml(taskId, currentStatus){
+function getCardMenuOptionsHtml(taskId, currentStatus) {
+    let optionsHtml = '';
 
-  let optionsHtml = '';
-
-  for(let i=0; i < ALL_STATUSES.length; i++) {
-    const status = ALL_STATUSES[i];
-    if(status.key !== currentStatus){
-      const statusKey = status.key;
-      const statusLabel =  status.label;
-     optionsHtml += getMenuOptiontemplate(taskId, statusKey, statusLabel);
+    for(let i=0; i < ALL_STATUSES.length; i++) {
+      const status = ALL_STATUSES[i];
+      if(status.key !== currentStatus){
+        const statusLabel =  status.label;
+        const statusKey = status.key;
+        optionsHtml += getMenuOptionTemplate(taskId, statusLabel, statusKey);
+      }
     }
-  }
+
    return optionsHtml;
   }
 
-/**
- * Toggles the visibility of a task card's dropdown menu.
- * Ensures only one menu is open at a time and handles opening/closing states.
- * 
- * @param {MouseEvent} event - The click event object.
- * @param {string|number} taskId - The unique identifier of the task card.
- */
-function toggleCardMenu(event, taskId) {
-  event.stopPropagation();
-
-  const currentMenu = document.getElementById(`card-menu-${taskId}`);
-  if (!currentMenu) return;
-
-  const isOpen = currentMenu.style.display === 'block';
-  document.querySelectorAll('.card-dropdown-menu').forEach(menu => {
-    menu.style.display = 'none';
-  });
-
-  if (!isOpen) {
-    currentMenu.style.display = 'block';
+  function handleMenuOptionClick(event) {
+    event.stopPropagation();
+    const moveTo = option.dataset.moveTo;
+    moveToStatus(task.id, moveTo);
   }
-}
 
 /**
  * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
@@ -512,30 +502,21 @@ function toggleCardMenu(event, taskId) {
  * @param {string} newStatus - The target status key to move the task into.
  * @returns {Promise<void>}
  */
-async function moveToStatus(taskId, newStatus){
-    let task = null;
-    for(let t of allTasks){
-      if(t.id ==taskId){
-        task = t;
-        break;
-     }
-    }
-    if (!task) return;
-    let taskIndex = allTasks.indexOf(task);
-    task.status = newStatus;
-    const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
-    appendTaskListByNewCreatedTask(task, movedTaskCard);
-    allTasks.splice(taskIndex, 1);
-    allTasks.push(task);
+async function moveToStatus(event, taskId, newStatus){
+  event.stopPropagation();
+  const task = allTasks.find(task => task.id = taskId);
+  if (!task) return;
+  task.status = newStatus;
+  const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
+  appendTaskListByNewCreatedTask(task, movedTaskCard);
+  document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
+  const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
+  menuOptions.forEach((option) => {
+    option.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const newStatus = option.dataset.moveTo;
+      moveToStatus(event, task.id, newStatus);
+    });
+  });
     await patchData(`tasks/${task.id}`, { status: task.status });
 }
-
-/**
- * Global document click listener to automatically close all open task dropdown menus
- * when clicking outside of them on empty spaces.
- */
-document.addEventListener('click', function() {
-  document.querySelectorAll('.card-dropdown-menu').forEach(menu => {
-    menu.style.display = 'none';
-  });
-});

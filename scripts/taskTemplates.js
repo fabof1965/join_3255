@@ -44,25 +44,22 @@ function getTaskCardContentTemplate(task) {
  * @returns {string} HTML string for the card menu container.
  */
 function getCardMenuTemplate(taskId, currentStatus) {
-    return `
-    <div class="card-menu-container">
-      <button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
-        <span class="task-card-drag-icon" aria-hidden="true">↕</span>
-      </button> 
+    return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
+              <span class="task-card-drag-icon" aria-hidden="true">↕</span>
+            </button> 
     
-      <div id="card-menu-${taskId}" class="card-dropdown-menu" style="display: none;" onclick="event.stopPropagation()" popover>
-        ${getCardMenuOptionsHtml(taskId, currentStatus)}
-      </div>
-    </div>
+          <div id="card-menu-${taskId}" class="card-dropdown-menu" popover>
+            ${getCardMenuOptionsHtml(taskId, currentStatus)}
+          </div>
   `;
 }
 
 
-function getMenuOptiontemplate(taskId, statuskey, statuslabel ){
+function getMenuOptionTemplate(taskId, statuslabel, statusKey){
   return `
-    <div class="menu-option" onclick="moveToStatus('${taskId}', '${statuskey}')">
-      Move➔ ${statuslabel}
-    </div>
+    <button class="menu-option btn" data-move-to="${statusKey}" data-option-id="option-${taskId}">
+      ${statuslabel}
+    </button>
     `;
  }
 
