@@ -3,6 +3,9 @@ const emailInUse = "Email already in use.";
 const pwTooShortMsg = "Password should be at least 6 characters.";
 const pwMismatchMsg = "Passwords do not match.";
 
+/**
+ * @description Adds an input event listener for the input fields from the registration.
+ */
 function initRegistrationInputEventListeners() {
     const inputFields = [
         document.getElementById('signup-name-input'),
