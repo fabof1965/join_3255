@@ -517,7 +517,7 @@ function getCardMenuOptionsHtml(taskId, currentStatus) {
 }
 
 /**
- * Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
+ * @description Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
  * @param {string|number} taskId - The unique identifier of the task to move.
  * @param {string} newStatus - The target status key to move the task into.
  * @returns {Promise<void>}
