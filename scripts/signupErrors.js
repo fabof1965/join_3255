@@ -39,7 +39,12 @@ function sendFeedbackForEmptySignupInputfield() {
     return !emptyNameInput && !emptyEmailInput;
 }
 
+/**
+ * @description Displays an error message and a red border whenever the email address is already in use.
+ * @param {boolean} emailExists True if email already exists, otherwise false.
+ */
 function setEmailExistsFeedback(emailExists) {
+    console.log(emailExists);
     const border = document.getElementById('invalid-email-border-bottom');
     const message = document.getElementById('invalid-email-msg');
     border.classList.toggle('error-message-border-bottom', emailExists);
