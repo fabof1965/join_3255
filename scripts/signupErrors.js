@@ -77,7 +77,7 @@ function acceptPrivacyPolicy() {
 }
 
 /**
- * Resets the privacy policy checkbox error message.
+ * @description Resets the privacy policy checkbox error message.
  */
 function resetPrivacyPolicyCheckboxError() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
