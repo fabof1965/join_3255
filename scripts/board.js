@@ -349,7 +349,7 @@ function removeEmptyTaskListElement(taskList) {
 }
 
 /**
- * Checks whether the first child of a task list is the "No tasks ..." placeholder.
+ * @description Checks whether the first child of a task list is the "No tasks ..." placeholder.
  * @param {HTMLElement} taskList - The task list element to check.
  * @returns {boolean} True if the placeholder is the first child.
  */
