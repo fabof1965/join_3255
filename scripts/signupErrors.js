@@ -76,10 +76,6 @@ function acceptPrivacyPolicy() {
     }
 }
 
-function toggleCheckboxChecked(checkbox) {
-    checkbox.checked = checkbox.checked ? false : true;
-}
-
 function resetPrivacyPolicyCheckboxError() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
     errorMsg.classList.add('visibility-hidden');
