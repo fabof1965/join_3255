@@ -497,7 +497,7 @@ async function loadTasks() {
 }
 
 /**
- * Generates the HTML options for the task card dropdown menu, 
+ * @description Generates the HTML options for the task card dropdown menu, 
  * excluding the current active status of the task.
  * @param {string|number} taskId - The unique identifier of the task.
  * @param {string} currentStatus - The current status key to filter out from options.
