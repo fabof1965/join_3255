@@ -140,6 +140,8 @@ async function logInGuestUser() {
 function getLoginPasswordFieldObject() {
     return [
         createPasswordFieldObject('login-password', 'login-password-toggle-icon'),
+        createPasswordFieldObject('signup-password', 'signup-password-toggle-icon'),
+        createPasswordFieldObject('confirm-password', 'confirm-password-toggle-icon')
     ];
 }
 

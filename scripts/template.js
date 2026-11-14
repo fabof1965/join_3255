@@ -137,7 +137,7 @@ function getInputFieldsForSignup() {
       <div class="input-wrapper">
         <div class="input-content-container">
           <input id="signup-password" class="input-field" type="password" placeholder="Password" aria-label="Password input">
-          <button type="button" class="password-toggle" data-password-toggle-for="sign-up-password" aria-label="Show password">
+          <button type="button" class="password-toggle" data-password-toggle-for="signup-password" aria-label="Show password">
             <img id="signup-password-toggle-icon" class="lock-img" src="./assets/icons/lock.svg" alt="lock icon">
           </button>
         </div>

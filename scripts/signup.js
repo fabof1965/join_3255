@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
-import { initLoginEventListeners } from './login.js';
+import { initLoginEventListeners, initPasswordEventListener } from './login.js';
 
 document.getElementById("checkbox").addEventListener("keyup", (event) => {
     handleChackboxChangeOnEnter(event);
@@ -148,6 +148,7 @@ export function addSignupContent() {
     setLegalLinkHoverEffect();
     setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
+    initPasswordEventListener();
     initRegistrationInputEventListeners();
     setAuthenticationHeaderMargin("0");
 }
