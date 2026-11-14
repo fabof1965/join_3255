@@ -76,6 +76,9 @@ function acceptPrivacyPolicy() {
     }
 }
 
+/**
+ * Resets the privacy policy checkbox error message.
+ */
 function resetPrivacyPolicyCheckboxError() {
     const errorMsg = document.getElementById('privacy-policy-error-msg');
     errorMsg.classList.add('visibility-hidden');
