@@ -52,6 +52,10 @@ function setEmailExistsFeedback(emailExists) {
     message.classList.toggle('visibility-hidden', !emailExists);
 }
 
+/**
+ * @description Hides the error message and removes the red border of the input field when the user types into it.
+ * @param {Event} event - The input event of the field the user is typing in.
+ */
 function hideInputErrorMessage(event) {
     const wrapper = event.currentTarget.closest('.input-wrapper');
     wrapper.querySelector('.input-content-container').classList.remove('error-message-border-bottom');
