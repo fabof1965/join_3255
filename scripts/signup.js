@@ -21,7 +21,7 @@ document.getElementById("auth-form").addEventListener("submit", (event) => {
 });
 
 /**
- * @description handles the visual change of the checkbox on enter
+ * @description Handles the visual change of the checkbox on enter.
  * @param {KeyboardEvent} event  
  */
 function handleChackboxChangeOnEnter(event) {
@@ -34,7 +34,7 @@ function handleChackboxChangeOnEnter(event) {
 }
 
 /**
- * @description handles the visual change of the checkbox on click
+ * @description Handles the visual change of the checkbox on click.
  * @param {click} event  
  */
 function handleCheckboxChangeOnClick(event) {
@@ -44,7 +44,7 @@ function handleCheckboxChangeOnClick(event) {
 
 /**
  * @description A new user is registered and the registration is shown by a popup that appears 
- * on successful registration
+ * on successful registration.
  */
 async function registerUser() {
     const signUpForm = document.getElementById('auth-form');
@@ -61,17 +61,17 @@ async function registerUser() {
 
 /**
  * @description This function checks if the neccessary fields are filled
- * and password as well as confirm password match
+ * and password as well as confirm password match.
  */
 async function isRegistrationValid() {
-    const privacyOk = document.getElementById("checkbox").checked;
+    acceptPrivacyPolicy();
     const inputOk = sendFeedbackForEmptySignupInputfield();
     const passwordOk = validatePassword();
-    return inputOk && passwordOk && privacyOk;
+    return inputOk && passwordOk;
 }
 
 /**
- * @description Saves a user and sends the data up to firebase
+ * @description Saves a user and sends the data up to firebase.
  * @param {string} name 
  * @param {string} email 
  * @param {string} password 
@@ -94,7 +94,7 @@ async function saveNewUser(name, email, password) {
 }
 
 /**
- * @description Checks if both passwords that are put into the password fields match each other
+ * @description Checks if both passwords that are put into the password fields match each other.
  */
 function validatePassword() {
     const passwordSignup = document.getElementById('signup-password');
@@ -118,7 +118,7 @@ function validatePassword() {
 }
 
 /**
- * @description Shows and removes popup
+ * @description Shows and removes popup.
  */
 function signUpSuccessPopUp() {
     const dialog = document.getElementById('dialog');
@@ -129,7 +129,7 @@ function signUpSuccessPopUp() {
 }
 
 /**
- * @description Sets up the login pages look
+ * @description Sets up the login pages look.
  */
 function showLoginForm() {
     setLoginPageStyle();
