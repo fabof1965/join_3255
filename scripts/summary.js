@@ -69,11 +69,9 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
     dateEl.innerText = "No deadline";
     return;
   }  
-  
   if(urgentTaskDates.length > 0){
     upcomingDeadline.innerText = "Upcoming deadline";
   }
-
   if (closestDate < today) {
     upcomingDeadline.innerText = "Missed deadline";
     return;
