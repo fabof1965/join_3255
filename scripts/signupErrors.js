@@ -18,6 +18,11 @@ function initRegistrationInputEventListeners() {
     });
 }
 
+/**
+ * @description Displays an error message and a red border whenever the name
+ * and email input fields are empty.
+ * @returns {boolean} True if name and email are filled in, otherwise false.
+ */
 function sendFeedbackForEmptySignupInputfield() {
     const emptyNameInput = !document.getElementById('signup-name-input').value.trim();
     const emptyEmailInput = !document.getElementById('email-signup').value.trim();
