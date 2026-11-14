@@ -137,21 +137,6 @@ function renderTask(task) {
 function renderBoardContent(tasks) {
   emptyTaskLists();
   if (tasks) renderTaskCards(tasks);
-  tasks.forEach((task) => {
-    const openCardMenuButton = document.getElementById("btn-move-task-card-" + task.id);
-    if(openCardMenuButton) openCardMenuButton.addEventListener("click", (event) => {
-      event.stopImmediatePropagation();
-    });
-
-    const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
-    menuOptions.forEach((option) => {
-      option.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const newStatus = option.dataset.moveTo;
-        moveToStatus(event, task.id, newStatus);
-      });
-    });
-  });
   renderEmptyTaskLists();
   setBadgeBackgroundColor();
   initializeDragEventsForTaskCards();
@@ -549,13 +534,5 @@ async function moveToStatus(event, taskId, newStatus){
   const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
   appendTaskListByTaskElement(task, movedTaskCard);
   document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
-  const menuOptions = document.querySelectorAll('[data-option-id="option-' + task.id + '"]');
-  menuOptions.forEach((option) => {
-    option.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const newStatus = option.dataset.moveTo;
-      moveToStatus(event, task.id, newStatus);
-    });
-  });
-    await patchData(`tasks/${task.id}`, { status: task.status });
+  await patchData(`tasks/${task.id}`, { status: task.status });
 }
