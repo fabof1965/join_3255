@@ -355,24 +355,67 @@ document.getElementById("task-card-dialog").addEventListener("close", () => {
 });
 
 function handleTaskCardClick(event) {
+  console.log(event.target);
   const taskCard = event.target.closest(".task-card");
-  if (taskCard) {
-    openTaskCardDialog(taskCard.dataset.taskId);
+  const menuOption = event.target.closest(".menu-option");
+
+  if(onOpenPopoverButton(event)) {
+    handlePopoverOpenOnTaskCard(event);
+    return;
   }
-  if (event.target.closest(".btn-delete-task-card")) {
-    deleteTaskCard(openedTaskId);
-  }
-  if (event.target.closest(".btn-edit-task")) {
-    editTaskCard();
-  }
-  if (event.target.closest(".task-card-dialog-close")) {
-    closeTaskCardDialog();
+  if(menuOption) {
+    handleMenuOption(event);
+    return;
+  } 
+  if (taskCard) openTaskCardDialog(taskCard.dataset.taskId);
+  if (event.target.closest(".btn-delete-task-card")) deleteTaskCard(openedTaskId);
+  if (event.target.closest(".btn-edit-task")) editTaskCard();
+  if (event.target.closest(".task-card-dialog-close")) closeTaskCardDialog();
+}
+
+/**
+ * @description Checks if we are currently on the button that opens the card's popover-menu.
+ * @param {Event} event The event object 
+ * @returns {boolean} True if on open popover button, false if not on open popover button.
+ */
+function onOpenPopoverButton(event) {
+  if(event.target.closest(".btn-open-popover-menu"))
+    return true;
+  else return false;
+}
+
+/**
+ * @description Prevents eventBubblung and handles the menu-option event by moving the task-card into a new column
+ * @param {Event} event The event object 
+ */
+function handleMenuOption(event) {
+  event.stopPropagation();
+  const menuOption = event.target.closest(".menu-option");
+  const newTaskCategory = menuOption.dataset.moveTo;
+  const taskId = menuOption.dataset.taskId;
+  moveToStatus(event, taskId, newTaskCategory);
+}
+
+function handlePopoverOpenOnTaskCard(event) {
+  if(onOpenPopoverButton(event)) {
+    event.stopPropagation();
+    return;
   }
 }
 
 function handleTaskCardKeydown(event) {
+  console.log(event.target);
   const card = event.target.closest(".task-card");
+  const menuOption = event.target.closest(".menu-option");
   if (!card || (event.key !== "Enter" && event.key !== " ")) return;
+  if(onOpenPopoverButton(event)) {
+    handlePopoverOpenOnTaskCard(event);
+    return;
+  }
+  if(menuOption) {
+    handleMenuOption(event);
+    return;
+  }
   event.preventDefault();
   openTaskCardDialog(card.dataset.taskId);
 }

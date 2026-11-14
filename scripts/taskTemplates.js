@@ -64,7 +64,7 @@ function getCardMenuTemplate(taskId, currentStatus) {
  */
 function getMenuOptionTemplate(taskId, statuslabel, statusKey){
   return `
-    <button class="menu-option btn" data-move-to="${statusKey}" data-option-id="option-${taskId}">
+    <button class="menu-option btn" data-move-to="${statusKey}" data-task-id="${taskId}">
       ${statuslabel}
     </button>
     `;
