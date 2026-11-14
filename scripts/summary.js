@@ -89,10 +89,10 @@ function formatDate(dateString) {
 }
 
 async function loadUserName() {
-  const res = await getData("users");
-  const users = res ? Object.values(res) : [];
-  const email = localStorage.getItem("email") || sessionStorage.getItem("email");
-  const user = users.find(u => u.email === email);
+  const { auth } = await import("./firebaseInit.js");
+  await auth.authStateReady();
+  const uid = auth.currentUser?.uid;
+  const user = uid ? await getData("users/" + uid) : null;
   const isGuest = localStorage.getItem("name") === "Guest";
   updateGreetingUI(user, isGuest);
 }
