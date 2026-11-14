@@ -63,6 +63,9 @@ function hideInputErrorMessage(event) {
     if (errMsg) errMsg.classList.add('visibility-hidden');
 }
 
+/**
+ * @description Shows an error message if the privacy policy checkbox is not checked.
+ */
 function acceptPrivacyPolicy() {
     const checkboxSignup = document.getElementById('checkbox');
     const errorMsg = document.getElementById('privacy-policy-error-msg');
