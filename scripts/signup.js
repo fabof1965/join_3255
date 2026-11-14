@@ -16,7 +16,7 @@ document.getElementById('btn-show-login').addEventListener('click', showLoginFor
 document.getElementById("auth-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const signupButton = document.getElementById("sign-up-btn");
-    if(event.submitter === signupButton)
+    if (event.submitter === signupButton)
         registerUser(event);
 });
 
@@ -27,7 +27,7 @@ document.getElementById("auth-form").addEventListener("submit", (event) => {
 function handleChackboxChangeOnEnter(event) {
     event.preventDefault();
     const checkbox = document.getElementById("checkbox");
-    if(event.key === "Enter") {
+    if (event.key === "Enter") {
         checkbox.checked = !checkbox.checked;
         acceptPrivacyPolicy();
     }
@@ -54,8 +54,8 @@ async function registerUser() {
     if (!(await isRegistrationValid())) return;
     const userData = await saveNewUser(signupNameInput.value, emailSignup.value, passwordSignup.value);
     if (!userData) return;
-    signUpForm.reset(); 
-    signUpSuccessPopUp(); 
+    signUpForm.reset();
+    signUpSuccessPopUp();
     showLoginForm();
 }
 
@@ -287,11 +287,11 @@ function setPageTitle(title) {
  * @description Sets the styles for login page
  */
 function setLoginPageStyle() {
-    setAuthenticationHeaderMargin(""); 
+    setAuthenticationHeaderMargin("");
     setPageTitle("Join Log in");
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
-    setPageBackgroundColor("var(--white-color)"); 
-    setHeadlineText("Log in"); 
+    setPageBackgroundColor("var(--white-color)");
+    setHeadlineText("Log in");
     resetLegalLinkHoverEffect();
 }
 
@@ -300,7 +300,7 @@ function setLoginPageStyle() {
  */
 function renderLoginInputFields() {
     document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
-    setDisplayForSignupElements(); 
+    setDisplayForSignupElements();
     setDisplayForLoginElements();
 }
 
@@ -308,7 +308,7 @@ function renderLoginInputFields() {
  * @description Sets the login forms origin state
  */
 function setLoginFormState() {
-    resetCheckboxValidity(); 
+    resetCheckboxValidity();
     resetPrivacyPolicyCheckboxError();
 }
 
