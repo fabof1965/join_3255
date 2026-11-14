@@ -448,7 +448,7 @@ function setPlaceholderPosition(column, task, existingPlaceholder, draggedTask) 
 }
 
 /**
- * Moves the placeholder element to the position a dragged card would be put to.
+ * @description Moves the placeholder element to the position a dragged card would be put to.
  * The placeholder position depends on the y-axis of the mouse.
  * @param {DragEvent} event 
  * @returns {void}
