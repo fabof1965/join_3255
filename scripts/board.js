@@ -318,7 +318,7 @@ function changeTaskStatus(task, status) {
 }
 
 /**
- * Moves the dragged task into the selected board column.
+ * @description Moves the dragged task into the selected board column.
  * @param {DragEvent} event - Column drop event.
  * @returns {void}
  */
