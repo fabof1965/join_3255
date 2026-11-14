@@ -139,7 +139,7 @@ function showLoginForm() {
 }
 
 /**
- * @description Destructures the page into Signup page
+ * @description Destructures the page into Signup page.
  */
 export function addSignupContent() {
     setPageTitle("Sign up");
@@ -154,7 +154,7 @@ export function addSignupContent() {
 }
 
 /**
- * @description Sets the margin attribute value on the auth-header class
+ * @description Sets the margin attribute value on the auth-header class.
  * @param {string} marginAttribute 
  */
 function setAuthenticationHeaderMargin(marginAttribute) {
@@ -162,7 +162,7 @@ function setAuthenticationHeaderMargin(marginAttribute) {
 }
 
 /**
- * @description Sets the text color for the legal links of the page
+ * @description Sets the text color for the legal links of the page.
  * @param {string} color 
  */
 function setLegalLinkColor(color) {
@@ -173,7 +173,7 @@ function setLegalLinkColor(color) {
 }
 
 /**
- * @description Sets the hover effect of the legal links
+ * @description Sets the hover effect of the legal links.
  */
 function setLegalLinkHoverEffect() {
     const legalLinks = document.querySelectorAll('.footer-legal-link');
@@ -183,7 +183,7 @@ function setLegalLinkHoverEffect() {
 }
 
 /**
- * @description Sets the hover effect of the legal links to default
+ * @description Sets the hover effect of the legal links to default.
  */
 function resetLegalLinkHoverEffect() {
     const legalLinks = document.querySelectorAll('.footer-legal-link');
@@ -194,7 +194,7 @@ function resetLegalLinkHoverEffect() {
 }
 
 /**
- * @description Sets the pages background color
+ * @description Sets the pages background color.
  * @param {string} color 
  */
 function setPageBackgroundColor(color) {
@@ -203,7 +203,7 @@ function setPageBackgroundColor(color) {
 }
 
 /**
- * @description Sets styles for the pages logo
+ * @description Sets styles for the pages logo.
  * @param {string} color 
  * @param {string} animationStyles 
  */
@@ -215,7 +215,7 @@ function setLogoStyles(color, animationStyles) {
 }
 
 /**
- * @description Sets the fill attribute of the logo svg with the given color
+ * @description Sets the fill attribute of the logo svg with the given color.
  * @param {SVGPathElement} path 
  * @param {string} color 
  */
@@ -224,7 +224,7 @@ function setLogoColor(path, color) {
 }
 
 /**
- * @description Sets the SVG path's animation s 
+ * @description Sets the SVG path's animations.
  * @param {SVGPathElement} path 
  * @param {string} animationStyle 
  */
@@ -233,7 +233,7 @@ function setAnimationStyle(path, animationStyle) {
 }
 
 /**
- * @description Sets the visibility of the given element by the visibility argument
+ * @description Sets the visibility of the given element by the visibility argument.
  * @param {HTMLElement} element 
  * @param {string} visibility 
  */
@@ -242,7 +242,7 @@ function setElementVisibility(element, visibility) {
 }
 
 /**
- * @description Sets login element's visibility by the display argument
+ * @description Sets login element's visibility by the display argument.
  * @param {string} display 
  */
 function setDisplayForLoginElements(display = "flex") {
@@ -253,7 +253,7 @@ function setDisplayForLoginElements(display = "flex") {
 }
 
 /**
- * Sets the signup element's visibility by the display argument 
+ * @description Sets the signup element's visibility by the display argument. 
  * @param {string} display 
  */
 function setDisplayForSignupElements(display = "none") {
@@ -267,7 +267,7 @@ function setDisplayForSignupElements(display = "none") {
 }
 
 /**
- * @description Sets the width and height attribute of the given HTML Element by dimensions value
+ * @description Sets the width and height attribute of the given HTML Element by dimensions value.
  * @param {HTMLElement} element 
  * @param {string} dimensions 
  */
@@ -277,7 +277,7 @@ function styleElementDimensions(element, dimensions) {
 }
 
 /**
- * @description Sets the title for the page 
+ * @description Sets the title for the page. 
  * @param {string} title 
  */
 function setPageTitle(title) {
@@ -285,7 +285,7 @@ function setPageTitle(title) {
 }
 
 /**
- * @description Sets the styles for login page
+ * @description Sets the styles for login page.
  */
 function setLoginPageStyle() {
     setAuthenticationHeaderMargin("");
@@ -297,7 +297,7 @@ function setLoginPageStyle() {
 }
 
 /**
- * @description Renders the input fields for login form
+ * @description Renders the input fields for login form.
  */
 function renderLoginInputFields() {
     document.getElementById("formInputContainer").innerHTML = getInputFieldsForLogin();
@@ -306,7 +306,7 @@ function renderLoginInputFields() {
 }
 
 /**
- * @description Sets the login forms origin state
+ * @description Sets the login forms origin state.
  */
 function setLoginFormState() {
     resetCheckboxValidity();
@@ -314,7 +314,7 @@ function setLoginFormState() {
 }
 
 /**
- * @description Sets the custom validity of the chackbox to an empty string
+ * @description Sets the custom validity of the chackbox to an empty string.
  */
 function resetCheckboxValidity() {
     const CHECKBOX = document.getElementById("checkbox");
@@ -322,7 +322,7 @@ function resetCheckboxValidity() {
 }
 
 /**
- * @description Sets up the form content for the signup form
+ * @description Sets up the form content for the signup form.
  */
 function setSignupFormContent() {
     setLoginFormBackgroundColor("white");
@@ -335,7 +335,7 @@ function setSignupFormContent() {
 }
 
 /**
- * @description Sets the background color of the login form to the color attribute
+ * @description Sets the background color of the login form to the color attribute.
  * @param {string} color 
  */
 function setLoginFormBackgroundColor(color) {
@@ -344,7 +344,7 @@ function setLoginFormBackgroundColor(color) {
 
 /**
  * @description Sets the element's headline text to the given text. 
- * The element must contain the id 'heading' to work
+ * The element must contain the id 'heading' to work.
  * @param {string} text 
  */
 function setHeadlineText(text) {
