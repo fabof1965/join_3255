@@ -9,12 +9,10 @@ function backToPreviousPage() {
     window.location.href = "../index.html";
     return;
   }
-  
   if (document.referrer) {
     window.history.back();
     return;
   }
-
   window.location.href = "./board.html";
 }
 

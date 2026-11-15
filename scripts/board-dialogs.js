@@ -255,7 +255,6 @@ async function toggleSubtask(index, checkbox) {
   await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
     done: task.subtasks[index].done,
   });
-
   updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
 }
 

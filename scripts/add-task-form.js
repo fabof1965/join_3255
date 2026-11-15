@@ -92,13 +92,11 @@ function initContactCheckboxListeners(firebaseContacts) {
     checkboxForContact.addEventListener("click", () => {
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
     });
-
     checkboxForContact.addEventListener("keydown", (event) => {
       if(event.key !== "Enter") return;
       event.preventDefault();
       checkboxForContact.checked = !checkboxForContact.checked;
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
-    
     });
   });
 }
@@ -290,7 +288,6 @@ function getAssignedContactsFromForm() {
       assignedContacts.push(contactName);
     } 
   }
-
   return assignedContacts;
 }
 
