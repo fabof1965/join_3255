@@ -241,6 +241,14 @@ function closeAddTaskDialog() {
   addTaskDialog.innerHTML = "";
 }
 
+/**
+ * @description Handles the submission of an edited task. Finds the task in the global list by its ID,
+ * updates its properties from the form data, updates the local task array and task card UI, 
+ * and sends the updated task data to be persisted.
+ * 
+ * @param {Event} event - The form submission event.
+ * @returns {void}
+ */
 function submitEditedTask(event) {
   const taskIndex = allTasks.findIndex((task) => {
     return task.id === editingTaskId;
@@ -253,6 +261,13 @@ function submitEditedTask(event) {
   submitTask(event, updatedTask);
 }
 
+/**
+ * @description Updates the HTML content and UI of an existing task card in the DOM 
+ * using the latest task data, and refreshes badge background colors.
+ * 
+ * @param {Object} task - The updated task object containing the ID and details to render.
+ * @returns {void}
+ */
 function updateTaskCardContent(task) {
   const taskCard = document.querySelector(`[data-task-id="${task.id}"]`);
   taskCard.innerHTML = getTaskCardContentTemplate(task);
