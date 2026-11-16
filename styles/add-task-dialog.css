@@ -1,21 +1,13 @@
 .add-task-dialog[open] {
-    display: flex;
-    padding: var(--padding);
-    border-radius: 30px;
-    border: none;
-    margin: auto;
-    max-width: 500px;
-    height: 100dvh;
-    box-shadow: var(--addTaskBoxShadow);
-}
-
-/* .add-task-dialog[open] {
   display: flex;
-  flex-direction: column;
-  background-color: var(--white-color);
+  padding: var(--padding);
   border-radius: 30px;
+  border: none;
+  margin: auto;
+  max-width: 500px;
+  height: 100dvh;
   box-shadow: var(--addTaskBoxShadow);
-} */
+}
 
 .add-task-header {
   display: flex;
@@ -30,21 +22,21 @@
 }
 
 .add-task-form {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    align-items: center;
-    gap: var(--gap-small);
-    height: 90%;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
+  gap: var(--gap-small);
+  height: 90%;
+  overflow-y: auto;
 }
 
 .form-buttons {
-    display: flex;
-    align-items: center;
-    margin-top: 0;
-    margin-left: auto;
-    width: var(--full);
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  margin-left: auto;
+  width: var(--full);
 }
 
 .add-task-form.edit-task .btn-clear {
@@ -56,6 +48,6 @@
 }
 
 .btn-create-task {
-    color: var(--white-color);
-    height: 100%;
+  color: var(--white-color);
+  height: 100%;
 }
