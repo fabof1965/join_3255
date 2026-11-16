@@ -1,3 +1,6 @@
+/**
+ * Global state variables for task management.
+ */
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
 let newTaskStatus = "toDo";
@@ -5,6 +8,10 @@ let newTaskSubtasks = [];
 const allTasks = [];
 let firebaseContacts = [];
 
+/**
+ * Event listener triggered when the DOM is fully loaded.
+ * Initializes the add-task form and its contacts if the user is on the addTask page.
+ */
 document.addEventListener("DOMContentLoaded", async () => {
   if (window.location.pathname.endsWith("/pages/addTask.html")) {
     const addTaskForm = document.getElementById("add-task-form");
@@ -30,6 +37,7 @@ initPriorityButtonClickListeners();
 /**
  * @description Adds a click listener to every priority button.
  * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
+ * @returns {void}
  */
 function initPriorityButtonClickListeners() {
   document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
