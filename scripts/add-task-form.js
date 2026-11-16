@@ -101,6 +101,13 @@ function renderFirebaseContacts(container, firebaseContacts) {
   }).join("");
 }
 
+/**
+ * @description Initializes click and keyboard event listeners for contact checkboxes.
+ * Updates the ARIA checked attribute on click and allows toggling via the Enter key for accessibility.
+ * 
+ * @param {Array<Object>} firebaseContacts - Array of contact objects containing at least a name property.
+ * @returns {void}
+ */
 function initContactCheckboxListeners(firebaseContacts) {
   firebaseContacts.forEach((contact) => {
     const checkboxForContact = document.getElementById('chk-box-' + contact.name);
@@ -172,6 +179,10 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
+/**
+ * @description Global keydown event listener that handles Enter-key actions 
+ * for subtask inputs, triggering either creation or saving depending on the input field name.
+ */
 document.addEventListener("keydown", (event) => {
   if (event.target.name === "subtask") {
     addSubtaskOnEnter(event);
