@@ -1,3 +1,7 @@
+/**
+ * @description Generates the HTML markup of the sidebar navigation for users who are logged in.
+ * @returns {string} The generated HTML string of the sidebar navigation after login.
+ */
 function getSidebarTemplate() {
   return `
       <section class="sidebar-navigation">
@@ -48,6 +52,10 @@ function getSidebarTemplate() {
     `;
 }
 
+/**
+ * @description Generates the HTML markup of the sidebar navigation for users who are not logged in.
+ * @returns {string} The generated HTML string of the sidebar navigation before login.
+ */
 function navigationBeforeLogin() {
   return `
       <section class="sidebar-navigation-before-login">
@@ -67,6 +75,10 @@ function navigationBeforeLogin() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the page header for logged-in users.
+ * @returns The generated HTML string of the page header for users who are logged in.
+ */
 function getHeaderTemplate() {
   return `
       <div class="content-limit">
@@ -92,6 +104,10 @@ function getHeaderTemplate() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the input fields for the login form.
+ * @returns {string} The generated HTML string of the input fields for the login form.
+ */
 function getInputFieldsForLogin() {
   return `
       <div class="input-wrapper">
@@ -115,6 +131,10 @@ function getInputFieldsForLogin() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the input fields for the signup form.
+ * @returns {string} The generated HTML string of the input fields for the signup form.
+ */
 function getInputFieldsForSignup() {
   return `
       <div class="input-wrapper">
@@ -157,6 +177,10 @@ function getInputFieldsForSignup() {
     `;
 }
 
+/**
+ * @description Generates the HTML for an empty popup dialog.
+ * @returns {string} The generated HTML string for the popup dialog.
+ */
 function getPopupTemplate() {
   return `<dialog id="popup" class="popup" aria-live="polite"><h2></h2></dialog>`;
 }
