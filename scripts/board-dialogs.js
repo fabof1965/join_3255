@@ -1,8 +1,16 @@
+/**
+ * @description Object defining the possible operation modes for the task dialog.
+ * @type {{ addTaskMode: string, editTaskMode: string }}
+ */
 const dialogModes = {
   addTaskMode: "add-task",
   editTaskMode: "edit-task",
 };
 
+/**
+ * @description Array mapping task category identifiers to their corresponding DOM button elements.
+ * @type {Array<{ taskCategory: string, button: HTMLElement | null }>}
+ */
 const taskCategoryButtons = [
   {
     taskCategory: "toDo",
@@ -18,6 +26,10 @@ const taskCategoryButtons = [
   },
 ];
 
+/**
+ * @description Global event listeners for managing task card interactions, 
+ * subtask checkbox changes, and keyboard accessibility (Enter key support).
+ */
 document.addEventListener("click", handleTaskCardClick);
 document.addEventListener("keydown", handleTaskCardKeydown);
 document.addEventListener("change", handleSubtaskCheckboxChange);
@@ -27,6 +39,10 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+/**
+ * @description Global submit event listener that handles form submissions for both 
+ * creating new tasks (with validation, success popup, and dialog closure) and editing existing tasks.
+ */
 document.addEventListener("submit", async (event) => {
   const form = event.target;
   if (form.classList.contains(dialogModes.addTaskMode)) {
@@ -87,7 +103,11 @@ function createNewTaskElement(newTaskData) {
   newTaskElement.innerHTML = getTaskCardContentTemplate(newTaskData);
   return newTaskElement;
 }
-
+/**
+ * @description Attaches a click event listener to the "Add Task" button to open 
+ * the task creation dialog with the default "toDo" status, and initializes 
+ * click event listeners for the task category buttons.
+ */
 document.getElementById("btn-add-task").addEventListener("click", () => {
   openAddTaskDialog("toDo");
 });
@@ -106,10 +126,21 @@ function addClickEventListenersToTaskCategoryButtons() {
   });
 }
 
+/**
+ * @description Retrieves the add-task form element from the DOM.
+ * @returns {HTMLFormElement | null} The add-task form element, or null if it does not exist.
+ */
 function getTaskForm() {
   return document.querySelector("#add-task-form");
 }
 
+/**
+ * @description Opens the add-task dialog with the specified status, injects the template content,
+ * initializes the form, loads and renders contacts, sets up dialog listeners, and opens the modal.
+ * 
+ * @param {string} status - The initial status for the new task (e.g., "toDo", "inProgress").
+ * @returns {Promise<void>}
+ */
 async function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   newTaskStatus = status;
@@ -121,12 +152,27 @@ async function openAddTaskDialog(status) {
   addTaskDialog.showModal();
 }
 
+/**
+ * @description Initializes all interactive event listeners for the add-task dialog,
+ * including priority buttons, general dialog container clicks, close button, and form reset.
+ * 
+ * @param {HTMLElement} addTaskDialog - The dialog element containing the add-task interface.
+ * @returns {void}
+ */
 function initAddTaskDialogListeners(addTaskDialog) {
   clickEventListener(addTaskDialog);
   document.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
   document.querySelector(".btn-clear").addEventListener("click", () => resetForm());
 }
 
+/**
+ * @description Populates the task form input elements and UI controls with data from an existing task 
+ * when opening the dialog in edit mode. Sets up priority buttons, checks associated contacts, 
+ * fills in text fields, dates, and category selections, and updates dialog headers and buttons.
+ * 
+ * @param {Object} task - The task object containing the data to populate the form with.
+ * @returns {void}
+ */
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
   checkContactsFromTask(task);
@@ -140,6 +186,14 @@ function fillFormElementsWithTaskData(task) {
   document.getElementById("btn-create-task").textContent = "Ok";
 }
 
+/**
+ * @description Opens the task dialog in edit mode for an existing task, sets global editing states, 
+ * fetches and maps associated subtasks from the database, renders the dialog content and form elements, 
+ * populates them with existing task data, and opens the modal.
+ * 
+ * @param {Object} task - The task object containing the ID, status, and details of the task to be edited.
+ * @returns {Promise<void>}
+ */
 async function openAddTaskDialogInEditMode(task) {
   const addTaskDialog = document.getElementById("add-task-dialog");
   editingTaskId = task.id;
