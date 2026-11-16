@@ -104,6 +104,10 @@ function getHeaderTemplate() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the input fields for the login form.
+ * @returns {string} The generated HTML string of the input fields for the login form.
+ */
 function getInputFieldsForLogin() {
   return `
       <div class="input-wrapper">
