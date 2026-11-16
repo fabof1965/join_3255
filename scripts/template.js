@@ -75,6 +75,10 @@ function navigationBeforeLogin() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the page header for logged-in users.
+ * @returns The generated HTML string of the page header for users who are logged in.
+ */
 function getHeaderTemplate() {
   return `
       <div class="content-limit">
