@@ -48,6 +48,10 @@ function getSidebarTemplate() {
     `;
 }
 
+/**
+ * @description Generates the HTML markup of the sidebar navigation for users who are not logged in.
+ * @returns The HTML markup of the sidebar navigation before login.
+ */
 function navigationBeforeLogin() {
   return `
       <section class="sidebar-navigation-before-login">
