@@ -165,6 +165,10 @@ function getInputFieldsForSignup() {
     `;
 }
 
+/**
+ * @description Generates the HTML for an empty popup dialog.
+ * @returns {string} The generated HTML string for the popup dialog.
+ */
 function getPopupTemplate() {
   return `<dialog id="popup" class="popup" aria-live="polite"><h2></h2></dialog>`;
 }
