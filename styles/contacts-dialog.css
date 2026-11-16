@@ -116,6 +116,10 @@ dialog[open]::backdrop {
     height: 80px;
 }
 
+.badge-image-container svg {
+    width: 60%;
+}
+
 @media(max-width: 950px) {
     .badge-image-container,
     .edit-badge-image-container {
