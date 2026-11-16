@@ -131,6 +131,10 @@ function getInputFieldsForLogin() {
     `;
 }
 
+/**
+ * Generates the HTML markup of the input fields for the signup form.
+ * @returns {string} The generated HTML string of the input fields for the signup form.
+ */
 function getInputFieldsForSignup() {
   return `
       <div class="input-wrapper">
