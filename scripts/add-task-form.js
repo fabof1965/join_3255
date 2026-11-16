@@ -1,3 +1,6 @@
+/**
+ * @description Global state variables for task management.
+ */
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
 let newTaskStatus = "toDo";
@@ -5,6 +8,10 @@ let newTaskSubtasks = [];
 const allTasks = [];
 let firebaseContacts = [];
 
+/**
+ * @description Event listener triggered when the DOM is fully loaded.
+ * Initializes the add-task form and its contacts if the user is on the addTask page.
+ */
 document.addEventListener("DOMContentLoaded", async () => {
   if (window.location.pathname.endsWith("/pages/addTask.html")) {
     const addTaskForm = document.getElementById("add-task-form");
@@ -30,6 +37,7 @@ initPriorityButtonClickListeners();
 /**
  * @description Adds a click listener to every priority button.
  * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
+ * @returns {void}
  */
 function initPriorityButtonClickListeners() {
   document.addEventListener("click", (event) => {
@@ -68,6 +76,13 @@ async function getAllContactsFromFirebase() {
   }));
 }
 
+/**
+ * @description Fetches contacts from Firebase if not already cached, sorts them alphabetically by name,
+ * renders them inside the given task form, and initializes their checkbox event listeners.
+ * 
+ * @param {HTMLFormElement} addTaskForm - The form element where the contacts should be rendered.
+ * @returns {Promise<void>}
+ */
 async function initContactsOnForm(addTaskForm) {
   if(firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
   sortContactsByName(firebaseContacts);
@@ -86,6 +101,13 @@ function renderFirebaseContacts(container, firebaseContacts) {
   }).join("");
 }
 
+/**
+ * @description Initializes click and keyboard event listeners for contact checkboxes.
+ * Updates the ARIA checked attribute on click and allows toggling via the Enter key for accessibility.
+ * 
+ * @param {Array<Object>} firebaseContacts - Array of contact objects containing at least a name property.
+ * @returns {void}
+ */
 function initContactCheckboxListeners(firebaseContacts) {
   firebaseContacts.forEach((contact) => {
     const checkboxForContact = document.getElementById('chk-box-' + contact.name);
@@ -157,6 +179,10 @@ function addSubtaskOnEnter(event) {
   addSubtaskFromInput(event.target);
 }
 
+/**
+ * @description Global keydown event listener that handles Enter-key actions 
+ * for subtask inputs, triggering either creation or saving depending on the input field name.
+ */
 document.addEventListener("keydown", (event) => {
   if (event.target.name === "subtask") {
     addSubtaskOnEnter(event);

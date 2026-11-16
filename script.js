@@ -65,10 +65,22 @@ document.addEventListener("DOMContentLoaded", function () {
     renderHeader();
 });
 
+/**
+ * Navigates the user to the help page.
+ * @returns {void}
+ */
 function toHelpPage() {
     window.location.href = "../pages/help.html";
 }
 
+/**
+ * Adds a click event listener to a dialog element to handle outside clicks (backdrop clicks).
+ * If a click occurs outside the dialog boundaries, it either executes a custom closing function or closes the dialog directly.
+ * 
+ * @param {HTMLDialogElement} dialog - The dialog element to attach the click listener to.
+ * @param {Function|null} [closingFunction=null] - Optional custom callback function to execute when clicking outside.
+ * @returns {void}
+ */
 function clickEventListener(dialog, closingFunction = null) {
     dialog.addEventListener("click", (event) => {
         if (event.target !== dialog) return;
