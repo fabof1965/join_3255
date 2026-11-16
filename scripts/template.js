@@ -1,3 +1,7 @@
+/**
+ * @description Generates the HTML markup of the sidebar navigation for users who are logged in.
+ * @returns {string} The generated HTML string of the sidebar navigation after login.
+ */
 function getSidebarTemplate() {
   return `
       <section class="sidebar-navigation">
@@ -50,7 +54,7 @@ function getSidebarTemplate() {
 
 /**
  * @description Generates the HTML markup of the sidebar navigation for users who are not logged in.
- * @returns {string} The HTML markup of the sidebar navigation before login.
+ * @returns {string} The generated HTML string of the sidebar navigation before login.
  */
 function navigationBeforeLogin() {
   return `
