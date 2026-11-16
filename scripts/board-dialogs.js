@@ -34,16 +34,13 @@ document.addEventListener("submit", async (event) => {
     const saved = await submitTask(event, null);
     if (!saved) return;
     processNewCreatedTask();
-    closeAddTaskDialog();
     showSuccessPopup("Task successfully created");
-    return;
   }
   if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
     submitEditedTask(event);
-    closeAddTaskDialog();
-    return;
   }
+  closeAddTaskDialog();
 });
 
 /**
@@ -64,9 +61,7 @@ function processNewCreatedTask() {
  * @param {HTMLElement} taskCardElement - The task card element to insert into the list.
  */
 function appendTaskListByTaskElement(taskData, taskCardElement) {
-  const taskList = document.querySelector(
-    'div.task-list[data-status="' + taskData.status + '"]'
-  );
+  const taskList = document.querySelector('div.task-list[data-status="' + taskData.status + '"]');
   if (!isEmptyTaskListElementInTaskList(taskList)) {
     taskList.appendChild(taskCardElement);
   } else {
@@ -127,7 +122,6 @@ async function openAddTaskDialog(status) {
 }
 
 function initAddTaskDialogListeners(addTaskDialog) {
-  initPriorityButtonClickListeners();
   clickEventListener(addTaskDialog);
   document.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
   document.querySelector(".btn-clear").addEventListener("click", () => resetForm());
@@ -135,7 +129,6 @@ function initAddTaskDialogListeners(addTaskDialog) {
 
 function fillFormElementsWithTaskData(task) {
   removeSelectedClassFromPriorityButtons();
-  initPriorityButtonClickListeners();
   checkContactsFromTask(task);
   const formElements = getFormElements(task.priority);
   formElements.taskTitleInputElement.value = task.title;
@@ -173,6 +166,7 @@ async function openAddTaskDialogInEditMode(task) {
 function checkContactsFromTask(task) {
   const contactNames = task.assignedContacts;
   const contactChecked = true;
+  if(!contactNames) return;
   contactNames.forEach((contactName) => {
     const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
     contactCheckBox.checked = contactChecked;
@@ -354,7 +348,6 @@ document.getElementById("task-card-dialog").addEventListener("close", () => {
 });
 
 function handleTaskCardClick(event) {
-  console.log(event.target);
   const taskCard = event.target.closest(".task-card");
   const menuOption = event.target.closest(".menu-option");
 

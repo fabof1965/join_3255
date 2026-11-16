@@ -2,18 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
-  position: relative;
   flex: 1;
-  min-width: 0;
-  min-height: 0;
-  padding: var(--padding);
-  padding-top: 0;
+  padding: 0 var(--padding);
+  overflow: auto;
 }
 
 .main-layout {
-  height: auto;
   min-height: var(--page-content-height);
-  
 }
 
 .board-toolbar-wrapper {
@@ -23,7 +18,7 @@
   z-index: 10;
   background-color: var(--white-color);
   position: sticky;
-  top: var(--header-height);
+  top: 0;
 }
 
 .board-toolbar {
@@ -101,8 +96,6 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap-medium);
-  min-height: 0;
-  overflow: auto;
 }
 
 .board-columns[hidden] {
@@ -172,6 +165,7 @@
   border-radius: var(--element-design-border-radius);
   padding: var(--gap-small);
   position: relative;
+  min-height: 100dvh;
 }
 
 @media(max-width: 950px) {

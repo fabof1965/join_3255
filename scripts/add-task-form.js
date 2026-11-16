@@ -32,11 +32,11 @@ initPriorityButtonClickListeners();
  * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
  */
 function initPriorityButtonClickListeners() {
-  document.querySelectorAll(".priority-btn").forEach((priorityButton) => {
-    priorityButton.addEventListener("click", () => {
+  document.addEventListener("click", (event) => {
+    if(event.target.closest(".priority-btn")) {
       removeSelectedClassFromPriorityButtons();
-      priorityButton.classList.add("selected");
-    });
+      event.target.closest(".priority-btn").classList.add("selected");
+    }
   });
 }
 

@@ -354,7 +354,7 @@ function removeEmptyTaskListElement(taskList) {
  * @returns {boolean} True if the placeholder is the first child.
  */
 function isEmptyTaskListElementInTaskList(taskList) {
-  return !!taskList.children[0]?.classList.contains("empty-task-list");
+  return taskList.children[0]?.classList.contains("empty-task-list");
 }
 
 /**
@@ -517,7 +517,7 @@ function getCardMenuOptionsHtml(taskId, currentStatus) {
 }
 
 /**
- * @description Moves a task to a new status using a manual loop, updates the board content, and saves changes to the backend.
+ * @description Moves a task to a new status, updates the board content and saves changes to the backend.
  * @param {string|number} taskId - The unique identifier of the task to move.
  * @param {string} newStatus - The target status key to move the task into.
  * @returns {Promise<void>}
@@ -526,9 +526,10 @@ async function moveToStatus(event, taskId, newStatus) {
   event.stopPropagation();
   const task = allTasks.find(task => task.id = taskId);
   if (!task) return;
-  task.status = newStatus;
   const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
+  task.status = newStatus;
   appendTaskListByTaskElement(task, movedTaskCard);
   document.querySelector("#card-menu-" + task.id).innerHTML = getCardMenuOptionsHtml(taskId, newStatus);
   await patchData(`tasks/${task.id}`, { status: task.status });
+  renderEmptyTaskLists();
 }
