@@ -1,4 +1,4 @@
-const colorContacts = [
+const COLOR_CONTACTS = [
     "#E65100", // Orange
     "#8E24AA", // Violett
     "#D32F2F", // Rot
@@ -89,35 +89,15 @@ function clickEventListener(dialog, closingFunction = null) {
 }
 
 /**
- * Opens the header menu on the help page or navigates to help otherwise.
+ * @description Navigates to the help page. 
  * @returns {void}
  */
 function handleHelpButtonClick() {
-    const headerMenu = document.getElementById("header-menu");
-
-    if (window.location.pathname.endsWith("/help.html")) {
-        toggleHeaderMenu();
-        return;
-    }
     toHelpPage();
 }
 
 /**
- * Toggles the visibility of the shared header menu.
- * @returns {void}
- */
-function toggleHeaderMenu() {
-    const headerMenu = document.getElementById("header-menu");
-    if (!headerMenu) return;
-    if (typeof headerMenu.togglePopover !== "function") {
-        headerMenu.classList.toggle("is-visible");
-        return;
-    }
-    headerMenu.togglePopover();
-}
-
-/**
- * Logs the current user out and returns to the login page.
+ * @description Logs the current user out and returns to the login page.
  * @returns {void}
  */
 function logoutUser() {
@@ -127,7 +107,7 @@ function logoutUser() {
 }
 
 /**
- * Universal function for the header badge (splits names like Saeed Ghorbani -> SG).
+ * @description Universal function for the header badge (splits names like Saeed Ghorbani -> SG).
  */
 function initHeaderProfile() {
     let profileBadgeElement = document.getElementById("profile-badge");
@@ -142,6 +122,11 @@ function initHeaderProfile() {
     }
 }
 
+/**
+ * @description Splits the firstAndLastName parameter by ' ' (one empty character) and gets the initials of the given parameter out of it. 
+ * @param {string} firstAndLastName 
+ * @returns {string} The initials that the parameter firstAndLastName gives.
+ */
 function getInitials(firstAndLastName) {
     const namePart = firstAndLastName.split(" ");
     const firstLetter = namePart.shift().charAt(0).toUpperCase();
@@ -149,15 +134,23 @@ function getInitials(firstAndLastName) {
     return (firstLetter + lastLetter);
 }
 
+/**
+ * @description Calculates the character sum and returns the given color code.
+ * @param {string} initials - The initials of the given name
+ * @returns {string} The hexadecimal color code for the given badge color. 
+ */
 function getBadgeColor(initials) {
     let charSum = 0;
     for (let i = 0; i < initials.length; i++) {
         charSum += initials.charCodeAt(i);
     }
 
-    return colorContacts[charSum % colorContacts.length];
+    return COLOR_CONTACTS[charSum % COLOR_CONTACTS.length];
 }
 
+/**
+ * @description Sets the background color to each element with the class 'profile-badge' and 'profile-badge.large'.
+ */
 function setBadgeBackgroundColor() {
     const badges = document.querySelectorAll('.profile-badge, .profile-badge-large');
     badges.forEach(badge => {
@@ -165,29 +158,61 @@ function setBadgeBackgroundColor() {
     });
 }
 
+/**
+ * @description Sorts the contacts by their names in alphabetical order.
+ * @param {Array<object>} contacts All given contacts from the contact list.
+ */
 function sortContactsByName(contacts) {
     contacts.sort(compareContactNames);
 }
 
+/**
+ * @description Compares the given strings a and by by their occurence in the alphabet.
+ * @param {string} a 
+ * @param {string} b 
+ * @returns {number} If a comes after b in the alphabet, the return value is a positive number value.
+ * If b comes after a in the alphabet, the return value is a negative number value. 
+ */
 function compareContactNames(a, b) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 }
 
+/**
+ * @description Checks if the current URL is not publicly accessible. 
+ * The page is accessible if a logged in user changed the page URL and comes back to his previously opened page or 
+ * the pages URL ends with '/index.html', '/privacy_policy_start.html', or '/legal_notice_start.html'. 
+ * 
+ * @returns {function redirectToLogin(void)} If the current page is not to be accessed publicly and 
+ * the local storage does not include an item with "name" the user is redirected to login.
+ */
 function authGuard() {
     const currentUrl = window.location.pathname;
-    if (shouldRedirectToLogin(currentUrl)) return redirectToLogin();
-    showPageAfterLogin();
+    if (!isPublicPage(currentUrl) && !localStorage.getItem("name")) return redirectToLogin();
+    setPageStylesAfterLogin();
 }
 
-function shouldRedirectToLogin(url) {
+/**
+ * @description Checks if the given URL is from a public page. 
+ * The pulic pages URL's end with: '/index.html', '/privacy_policy_start.html', or '/legal_notice_start.html'.
+ * @param {string} url The given page URL 
+ * @returns {boolean} True if the given URL includes one of the public pages URL's.
+ * If the given URL does not include any of the given URL's it returns false.
+ */
+function isPublicPage(url) {
     const publicPage = url.endsWith("index.html") || url.endsWith("privacy_policy_start.html") || url.endsWith("legal_notice_start.html");
-    return !publicPage && !localStorage.getItem("name");
+    return publicPage;
 }
 
+/**
+ * @description Directs to login page
+ */
 function redirectToLogin() {
     window.location.href = "../index.html";
 }
 
-function showPageAfterLogin() {
+/**
+ * @description Makes the document visible by setting the display attribute from 'none' to 'flex'. The flex-direction attribute is set to 'column'.
+ */
+function setPageStylesAfterLogin() {
     setTimeout(() => { document.body.style.display = "flex"; document.body.style.flexDirection = "column"; }, 1);
 }
