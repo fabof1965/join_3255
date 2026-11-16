@@ -1,5 +1,5 @@
 /**
- * Global state variables for task management.
+ * @description Global state variables for task management.
  */
 let selectedTaskPriority = "medium";
 let editingTaskId = "";
@@ -9,7 +9,7 @@ const allTasks = [];
 let firebaseContacts = [];
 
 /**
- * Event listener triggered when the DOM is fully loaded.
+ * @description Event listener triggered when the DOM is fully loaded.
  * Initializes the add-task form and its contacts if the user is on the addTask page.
  */
 document.addEventListener("DOMContentLoaded", async () => {
@@ -76,6 +76,13 @@ async function getAllContactsFromFirebase() {
   }));
 }
 
+/**
+ * @description Fetches contacts from Firebase if not already cached, sorts them alphabetically by name,
+ * renders them inside the given task form, and initializes their checkbox event listeners.
+ * 
+ * @param {HTMLFormElement} addTaskForm - The form element where the contacts should be rendered.
+ * @returns {Promise<void>}
+ */
 async function initContactsOnForm(addTaskForm) {
   if(firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
   sortContactsByName(firebaseContacts);
