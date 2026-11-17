@@ -8,7 +8,7 @@ const dialogModes = {
 };
 
 /**
- * @description Global event listeners for managing task card interactions, 
+ * @description Global event listeners for managing task card interactions,
  * subtask checkbox changes, and keyboard accessibility (Enter key support).
  */
 document.addEventListener("click", handleTaskCardClick);
@@ -21,7 +21,7 @@ document.addEventListener("keyup", (event) => {
 });
 
 /**
- * @description Global submit event listener that handles form submissions for both 
+ * @description Global submit event listener that handles form submissions for both
  * creating new tasks (with validation, success popup, and dialog closure) and editing existing tasks.
  */
 document.addEventListener("submit", async (event) => {
@@ -69,7 +69,7 @@ function appendTaskListByTaskElement(taskData, taskCardElement) {
 
 /**
  * @description Creates a new Task HTML-Element from the given task data
- * @param {object} newTaskData The task's data 
+ * @param {object} newTaskData The task's data
  * @returns {HTML Element article} The new task HTML element with all information it needs to be processed.
  */
 function createNewTaskElement(newTaskData) {
@@ -93,17 +93,12 @@ addClickEventListenersToTaskCategoryButtons();
  */
 function addClickEventListenersToTaskCategoryButtons() {
   document.addEventListener("click", (event) => {
-    if(event.target.closest(".status-btn")) {
+    if (event.target.closest(".status-btn")) {
       const statusBtn = event.target.closest(".status-btn");
       const status = statusBtn.dataset.addTaskStatus;
       openAddTaskDialog(status);
     }
   });
-  // taskCategoryButtons.forEach((item) => {
-  //   item.button.addEventListener("click", () => {
-  //     openAddTaskDialog(item.taskCategory);
-  //   });
-  // });
 }
 
 /**
@@ -117,7 +112,6 @@ function getTaskForm() {
 /**
  * @description Opens the add-task dialog with the specified status, injects the template content,
  * initializes the form, loads and renders contacts, sets up dialog listeners, and opens the modal.
- * 
  * @param {string} status - The initial status for the new task (e.g., "toDo", "inProgress").
  * @returns {Promise<void>}
  */
@@ -135,7 +129,6 @@ async function openAddTaskDialog(status) {
 /**
  * @description Initializes all interactive event listeners for the add-task dialog,
  * including priority buttons, general dialog container clicks, close button, and form reset.
- * 
  * @param {HTMLElement} addTaskDialog - The dialog element containing the add-task interface.
  * @returns {void}
  */
@@ -146,10 +139,9 @@ function initAddTaskDialogListeners(addTaskDialog) {
 }
 
 /**
- * @description Populates the task form input elements and UI controls with data from an existing task 
- * when opening the dialog in edit mode. Sets up priority buttons, checks associated contacts, 
+ * @description Populates the task form input elements and UI controls with data from an existing task
+ * when opening the dialog in edit mode. Sets up priority buttons, checks associated contacts,
  * fills in text fields, dates, and category selections, and updates dialog headers and buttons.
- * 
  * @param {Object} task - The task object containing the data to populate the form with.
  * @returns {void}
  */
@@ -167,10 +159,9 @@ function fillFormElementsWithTaskData(task) {
 }
 
 /**
- * @description Opens the task dialog in edit mode for an existing task, sets global editing states, 
- * fetches and maps associated subtasks from the database, renders the dialog content and form elements, 
+ * @description Opens the task dialog in edit mode for an existing task, sets global editing states,
+ * fetches and maps associated subtasks from the database, renders the dialog content and form elements,
  * populates them with existing task data, and opens the modal.
- * 
  * @param {Object} task - The task object containing the ID, status, and details of the task to be edited.
  * @returns {Promise<void>}
  */
@@ -195,12 +186,12 @@ async function openAddTaskDialogInEditMode(task) {
 
 /**
  * @description Checks checkboxes for contacts from the contact-array of the given task
- * @param {object} task The task object that includes the task data 
+ * @param {object} task The task object that includes the task data
  */
 function checkContactsFromTask(task) {
   const contactNames = task.assignedContacts;
   const contactChecked = true;
-  if(!contactNames) return;
+  if (!contactNames) return;
   contactNames.forEach((contactName) => {
     const contactCheckBox = document.querySelector('[data-contact-name="' + contactName + '"]');
     contactCheckBox.checked = contactChecked;
@@ -223,9 +214,8 @@ function closeAddTaskDialog() {
 
 /**
  * @description Handles the submission of an edited task. Finds the task in the global list by its ID,
- * updates its properties from the form data, updates the local task array and task card UI, 
+ * updates its properties from the form data, updates the local task array and task card UI,
  * and sends the updated task data to be persisted.
- * 
  * @param {Event} event - The form submission event.
  * @returns {void}
  */
@@ -242,9 +232,8 @@ function submitEditedTask(event) {
 }
 
 /**
- * @description Updates the HTML content and UI of an existing task card in the DOM 
+ * @description Updates the HTML content and UI of an existing task card in the DOM
  * using the latest task data, and refreshes badge background colors.
- * 
  * @param {Object} task - The updated task object containing the ID and details to render.
  * @returns {void}
  */
@@ -257,7 +246,6 @@ function updateTaskCardContent(task) {
 /**
  * @description Updates an existing task object by merging current task properties with new data retrieved from the form,
  * while preserving the editing task ID.
- * 
  * @param {Object} currentTask - The original task object before updates.
  * @returns {Object} The newly updated task object containing the combined properties.
  */
@@ -268,127 +256,6 @@ function updateTaskFromForm(currentTask) {
     ...taskData,
     id: editingTaskId,
   };
-}
-/**
- * @description Generates the HTML string for the assigned contacts of a given task,
- * returning formatted user templates with initials or a fallback message if no contacts are assigned.
- * 
- * @param {Object} task - The task object containing the assigned contacts data.
- * @returns {string} The generated HTML string of user templates or a fallback span.
- */
-function getOverlayUsersHtml(task) {
-  if (!task.assignedContacts) {
-    return `<span>No assigned contacts</span>`;
-  }
-  const users = task.assignedContacts;
-  return users
-    .map((contactName) => {
-      return getTaskOverlayUserTemplate(getInitials(contactName), contactName);
-    })
-    .join("");
-}
-
-/**
- * @description Generates the HTML string for the assigned contacts of a given task,
- * returning formatted user templates with initials or a fallback message if no contacts are assigned.
- * 
- * @param {Object} task - The task object containing the assigned contacts data.
- * @returns {string} The generated HTML string of user templates or a fallback span.
- */
-function getOverlaySubtasksHtml(task) {
-  const subtasks = task.subtasks;
-  if (!subtasks) return "";
-  return subtasks
-    .map((subtask, index) => {
-      const isChecked = subtask.done;
-
-      return getSubtaskTemplate(subtask, isChecked, task.id, index);
-    })
-    .join("");
-}
-
-/**
- * @description Toggles the completion status of a subtask, updates the UI checkbox and progress bar,
- * and saves the change to the database.
- * @param {number} index - The index of the subtask in the task's subtasks array.
- * @param {HTMLInputElement} checkbox - The checkbox element associated with the subtask.
- * @returns {Promise<void>}
- */
-async function toggleSubtask(index, checkbox) {
-  const task = allTasks.find((task) => task.id === openedTaskId);
-  const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
-  if (!task) return;
-  task.subtasks[index].done = !task.subtasks[index].done;
-  checkbox.checked = task.subtasks[index].done;
-  setCheckedAttributesHTML(index, checkbox);
-  allTasks[taskIndex] = task;
-  await patchData(`tasks/${openedTaskId}/subtasks/${index}`, {
-    done: task.subtasks[index].done,
-  });
-  updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
-}
-
-/**
- * @description Updates the checked attributes and aria-states of a DOM element based on the checkbox state.
- * @param {number} index - The index number of the element.
- * @param {HTMLInputElement} checkbox - The checkbox input element.
- * @returns {void}
- */
-function setCheckedAttributesHTML(index, checkbox) {
-  const checked = checkbox.checked;
-  const checkboxElement = document.querySelector('[data-index-number="' + index + '"]');
-  checkboxElement.setAttribute("checked", checked);
-  checkboxElement.setAttribute("aria-checked", checked);
-}
-
-/**
- * @description Calculates the progress percentage of completed subtasks and updates the progress bar and counter UI on the task card.
- * @param {Array<Object>} subtasks - The array of subtask objects for the specific task.
- * @param {string|number} taskID - The unique identifier of the task card.
- * @returns {void}
- */
-function updateSubtaskProgressOnCard(subtasks, taskID) {
-  const progressFillOnCard = document.getElementById("progress-fill-" + taskID);
-  const completedSubtasks = countCompletedSubtasks(subtasks);
-  const totalSubtasks = subtasks.length;
-  const progress = (completedSubtasks / totalSubtasks) * 100;
-  const progressCountOnCard = document.getElementById(
-    "subtaskcontainer-" + taskID,
-  );
-
-  progressFillOnCard.value = progress;
-  progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
-}
-
-/**
- * @description Returns the appropriate priority icon template based on the given priority level.
- * @param {string} priority - The priority level ("urgent", "medium", "low").
- * @returns {string} The HTML template string for the corresponding priority icon.
- */
-function getOverlayPriorityIcon(priority) {
-  if (priority === "urgent") return urgentPriorityTemplate;
-  if (priority === "medium") return mediumPriorityTemplate;
-  return lowPriorityTemplate;
-}
-
-/**
- * @description Generates the complete HTML markup for the task details overlay by combining priority, subtasks, and task templates.
- * @param {Object} task - The task object to display in the overlay.
- * @returns {string} The generated HTML string for the task overlay.
- */
-function getTaskOverlayHtml(task) {
-  const priority = task.priority;
-  const subtasksHTML = getOverlaySubtasksHtml(task);
-  return getTaskOverlayTemplate(task, priority, subtasksHTML);
-}
-
-/**
- * @description Capitalizes the first letter of a given string.
- * @param {string} value - The input string to capitalize.
- * @returns {string} The string with its first letter converted to uppercase.
- */
-function capitalize(value) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 /**
@@ -412,22 +279,7 @@ function openTaskCardDialog(taskId) {
 }
 
 /**
- * @description Updates the visual checked state of all subtask checkboxes in the overlay based on task data.
- * @param {Object} task - The task object containing subtasks data.
- * @returns {void}
- */
-function setSubtasksCheckedVisually(task) {
-  const subtasks = task.subtasks;
-  subtasks.forEach((subtask, index) => {
-    const checkBox = document.querySelector(
-      '[data-index-number="' + index + '"]',
-    );
-    checkBox.checked = subtask.done;
-  });
-}
-
-/**
- * @description Deletes a task card from the server, removes it from the local array and DOM, 
+ * @description Deletes a task card from the server, removes it from the local array and DOM,
  * updates the list layout, closes the dialog, and shows a success notification.
  * @param {string|number} taskCardId - The unique identifier of the task card to delete.
  * @returns {Promise<void>}
@@ -482,15 +334,14 @@ document.getElementById("task-card-dialog").addEventListener("close", () => {
 function handleTaskCardClick(event) {
   const taskCard = event.target.closest(".task-card");
   const menuOption = event.target.closest(".menu-option");
-
-  if(onOpenPopoverButton(event)) {
+  if (onOpenPopoverButton(event)) {
     handlePopoverOpenOnTaskCard(event);
     return;
   }
-  if(menuOption) {
+  if (menuOption) {
     handleMenuOption(event);
     return;
-  } 
+  }
   if (taskCard) openTaskCardDialog(taskCard.dataset.taskId);
   if (event.target.closest(".btn-delete-task-card")) deleteTaskCard(openedTaskId);
   if (event.target.closest(".btn-edit-task")) editTaskCard();
@@ -499,18 +350,18 @@ function handleTaskCardClick(event) {
 
 /**
  * @description Checks if we are currently on the button that opens the card's popover-menu.
- * @param {Event} event The event object 
+ * @param {Event} event The event object
  * @returns {boolean} True if on open popover button, false if not on open popover button.
  */
 function onOpenPopoverButton(event) {
-  if(event.target.closest(".btn-open-popover-menu"))
+  if (event.target.closest(".btn-open-popover-menu"))
     return true;
   else return false;
 }
 
 /**
  * @description Prevents eventBubblung and handles the menu-option event by moving the task-card into a new column
- * @param {Event} event The event object 
+ * @param {Event} event The event object
  */
 function handleMenuOption(event) {
   event.stopPropagation();
@@ -526,7 +377,7 @@ function handleMenuOption(event) {
  * @returns {void}
  */
 function handlePopoverOpenOnTaskCard(event) {
-  if(onOpenPopoverButton(event)) {
+  if (onOpenPopoverButton(event)) {
     event.stopPropagation();
     return;
   }
@@ -538,15 +389,14 @@ function handlePopoverOpenOnTaskCard(event) {
  * @returns {void}
  */
 function handleTaskCardKeydown(event) {
-  console.log(event.target);
   const card = event.target.closest(".task-card");
   const menuOption = event.target.closest(".menu-option");
   if (!card || (event.key !== "Enter" && event.key !== " ")) return;
-  if(onOpenPopoverButton(event)) {
+  if (onOpenPopoverButton(event)) {
     handlePopoverOpenOnTaskCard(event);
     return;
   }
-  if(menuOption) {
+  if (menuOption) {
     handleMenuOption(event);
     return;
   }
