@@ -66,7 +66,6 @@ function getCategoryClass(category) {
  */
 function getUserInitials(assignedUsers, maxShownUsers) {
   if (!assignedUsers) return "";
-
   let userBadgesHTML = "";
   for(let indexUserName = 0; indexUserName < assignedUsers.length; indexUserName++) {
     const assignedUserName = assignedUsers[indexUserName];
@@ -80,7 +79,6 @@ function getUserInitials(assignedUsers, maxShownUsers) {
       break;
     }
   }
-  
   return userBadgesHTML;
 }
 

@@ -41,7 +41,7 @@ initPriorityButtonClickListeners();
  */
 function initPriorityButtonClickListeners() {
   document.addEventListener("click", (event) => {
-    if(event.target.closest(".priority-btn")) {
+    if (event.target.closest(".priority-btn")) {
       removeSelectedClassFromPriorityButtons();
       event.target.closest(".priority-btn").classList.add("selected");
     }
@@ -79,12 +79,11 @@ async function getAllContactsFromFirebase() {
 /**
  * @description Fetches contacts from Firebase if not already cached, sorts them alphabetically by name,
  * renders them inside the given task form, and initializes their checkbox event listeners.
- * 
  * @param {HTMLFormElement} addTaskForm - The form element where the contacts should be rendered.
  * @returns {Promise<void>}
  */
 async function initContactsOnForm(addTaskForm) {
-  if(firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
+  if (firebaseContacts.length === 0) firebaseContacts = await getAllContactsFromFirebase();
   sortContactsByName(firebaseContacts);
   renderFirebaseContacts(addTaskForm, firebaseContacts);
   initContactCheckboxListeners(firebaseContacts);
@@ -97,14 +96,13 @@ async function initContactsOnForm(addTaskForm) {
 function renderFirebaseContacts(container, firebaseContacts) {
   const contactDropdown = container.querySelector(".assigned-dropdown-list");
   contactDropdown.innerHTML = firebaseContacts.map((contact) => {
-    return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name,)
+    return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name)
   }).join("");
 }
 
 /**
  * @description Initializes click and keyboard event listeners for contact checkboxes.
  * Updates the ARIA checked attribute on click and allows toggling via the Enter key for accessibility.
- * 
  * @param {Array<Object>} firebaseContacts - Array of contact objects containing at least a name property.
  * @returns {void}
  */
@@ -115,7 +113,7 @@ function initContactCheckboxListeners(firebaseContacts) {
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
     });
     checkboxForContact.addEventListener("keydown", (event) => {
-      if(event.key !== "Enter") return;
+      if (event.key !== "Enter") return;
       event.preventDefault();
       checkboxForContact.checked = !checkboxForContact.checked;
       checkboxForContact.setAttribute("aria-checked", checkboxForContact.checked);
@@ -309,10 +307,10 @@ function getAssignedContactsFromForm() {
   const assignedContacts = [];
   for (let i = 0; i < assignedContactChildren.length; i++) {
     const contactCheckBox = assignedContactChildren[i].children[0].children[0];
-    if(contactCheckBox.checked) {
+    if (contactCheckBox.checked) {
       const contactName = contactCheckBox.dataset.contactName;
       assignedContacts.push(contactName);
-    } 
+    }
   }
   return assignedContacts;
 }
