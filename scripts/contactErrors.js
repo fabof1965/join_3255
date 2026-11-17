@@ -171,3 +171,16 @@ function validatePhoneInput(input, errorMsg, border) {
     errorMsg.classList.toggle('visibility-hidden', !invalid);
     border.classList.toggle('error-message-border-bottom', invalid);
 }
+
+/**
+ * @description Checks if there are validation errors on the contact form 
+ * @param {object} contact 
+ * @param {string} ownId 
+ * @returns {Boolean} if name, email or phone number exists in firebase true, else false
+ */
+async function contactFormHasValidationErrors(contact, ownId) {
+    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
+    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
+    const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
+    return nameExists || emailExists || phoneExists;
+}
