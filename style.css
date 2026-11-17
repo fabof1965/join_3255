@@ -80,3 +80,11 @@ button {
 a{
   text-decoration: none;
 }
+
+.assigned-to-label{
+  display: flex;
+  width: var(--full);
+  align-items: center;
+  gap: var(--gap-medium);
+  cursor: pointer;
+}

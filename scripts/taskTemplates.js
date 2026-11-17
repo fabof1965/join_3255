@@ -418,10 +418,12 @@ function getEditSubtaskTemplate(subtaskTitle) {
 function getAssignedContactOptionTemplate(initials, name) {
   return `
     <div class="contact-option">
-      <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
-      <option value="${initials}">
-        ${name}
-      </option>
+      <label class="visibility-hidden assigned-to-label" for="chk-box-${name}">
+        <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
+        <option value="${initials}">
+          ${name}
+        </option>
+      </label>
     </div>
   `;
 }
