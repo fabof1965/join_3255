@@ -362,13 +362,20 @@ textarea {
 .contact-option {
   display: flex;
   align-items: center;
-  gap: var(--gap-medium);
   padding: 12px 16px;
 }
 
 .contact-option:hover,
 .contact-option:focus {
   background-color: var(--secondary-color);
+}
+
+.assigned-to-label {
+  display: flex;
+  width: var(--full);
+  align-items: center;
+  gap: var(--gap-medium);
+  cursor: pointer;
 }
 
 input[type="checkbox"] {
