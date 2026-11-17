@@ -32,7 +32,11 @@
   align-items: center;
   gap: var(--gap-large);
   width: var(--full);
-  margin: var(--padding-top-bottom) 0;
+  margin-top: var(--padding-top-bottom);
+}
+
+#task-search {
+  border: none;
 }
 
 @media(max-width: 950px) {
@@ -362,6 +366,7 @@
 
 .assigned-users {
   display: flex;
+  height: 40px;
 }
 
 .profile-badge:not(:first-child){
