@@ -5,7 +5,7 @@ const ALL_STATUSES = [
   { key: 'done', label: 'Done' }
 ];
 
-document.addEventListener("DOMContentLoaded", initBoardContent());
+document.addEventListener("DOMContentLoaded", initBoardContent);
 
 /**
  * Initializes the content of the board page.
@@ -264,8 +264,6 @@ function initializeTaskSearch() {
   const searchInput = document.getElementById("task-search");
   searchInput.addEventListener("input", searchTasks);
 }
-
-
 
 /**
  * @description Makes an array from the task data that are drawn from firebase.
