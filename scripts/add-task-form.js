@@ -308,7 +308,7 @@ function getAssignedContactsFromForm() {
   const assignedContactChildren = assignedContactList.children;
   const assignedContacts = [];
   for (let i = 0; i < assignedContactChildren.length; i++) {
-    const contactCheckBox = assignedContactChildren[i].children[0];
+    const contactCheckBox = assignedContactChildren[i].children[0].children[0];
     if(contactCheckBox.checked) {
       const contactName = contactCheckBox.dataset.contactName;
       assignedContacts.push(contactName);
