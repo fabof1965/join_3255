@@ -319,7 +319,7 @@ function getCardMenuOptionsHtml(taskId, currentStatus) {
  */
 async function moveToStatus(event, taskId, newStatus) {
   event.stopPropagation();
-  const task = allTasks.find(task => task.id = taskId);
+  const task = allTasks.find(task => task.id === taskId);
   if (!task) return;
   const movedTaskCard = document.querySelector('[data-task-id="' + taskId + '"]');
   task.status = newStatus;
