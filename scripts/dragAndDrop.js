@@ -4,7 +4,7 @@
  * @returns {void}
  */
 function startDragging(event) {
-  const taskCardElement = event.currentTarget;
+  const taskCardElement = event.target.closest(".task-card");
   taskCardElement.id = "grabbed-card";
   taskCardElement.classList.add("task-card-dragging");
   taskCardElement.classList.add("task-card-drop-before");
@@ -16,7 +16,7 @@ function startDragging(event) {
  * @returns {void}
  */
 function stopDragging(event) {
-  const taskCardElement = event.currentTarget;
+  const taskCardElement = event.target.closest(".task-card");
   const taskList = event.target.closest?.(".task-list");
   taskList.classList.remove("task-list-dragover");
   taskList.classList.remove("task-list-drop-end");
@@ -116,10 +116,8 @@ function initializeDragAndDrop() {
  * @description Makes drag-and-drop events available for all task cards on the board.
  */
 function initializeDragEventsForTaskCards() {
-  const taskCards = document.querySelectorAll(".task-card");
-  taskCards.forEach((taskCard) => {
-    addDragEventListenersToCard(taskCard);
-  });
+  document.addEventListener("dragstart", startDragging);
+  document.addEventListener("dragend", stopDragging);
 }
 
 /**
@@ -132,15 +130,6 @@ function initializeDragAndDropForTaskLists() {
     taskList.addEventListener("dragleave", leaveTaskCardDropZone);
     taskList.addEventListener("drop", dropTaskIntoTaskList);
   });
-}
-
-/**
- * @description Adds event listeners for start and end the drag functionality.
- * @param {HTMLElement} card - All task cards from the task board.
- */
-function addDragEventListenersToCard(card) {
-  card.addEventListener("dragstart", startDragging);
-  card.addEventListener("dragend", stopDragging);
 }
 
 /**
