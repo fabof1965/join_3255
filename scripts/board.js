@@ -64,9 +64,24 @@ function getCategoryClass(category) {
  * @param {string[]} assignedUsers - Initials of assigned users.
  * @returns {string} User badge HTML.
  */
-function getUserInitials(assignedUsers) {
+function getUserInitials(assignedUsers, maxShownUsers) {
   if (!assignedUsers) return "";
-  return assignedUsers.map((initials) => getUserBadgeTemplate(getInitials(initials).toUpperCase())).join("");
+
+  let userBadgesHTML = "";
+  for(let indexUserName = 0; indexUserName < assignedUsers.length; indexUserName++) {
+    const assignedUserName = assignedUsers[indexUserName];
+    if((indexUserName + 1) <= maxShownUsers)
+      userBadgesHTML += getUserBadgeTemplate(getInitials(assignedUserName).toUpperCase());
+
+    if((indexUserName + 1) === maxShownUsers) {
+      const otherUserNumber = assignedUsers.length - (indexUserName + 1);
+      if(otherUserNumber > 0)
+        userBadgesHTML += getUserBadgeTemplate("+" + otherUserNumber);
+      break;
+    }
+  }
+  
+  return userBadgesHTML;
 }
 
 /**

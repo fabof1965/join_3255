@@ -30,7 +30,7 @@ function getTaskCardContentTemplate(task) {
       </div>
       ${getSubtaskDataProgressHtml(task.subtasks, task.id)}
       <footer class="task-footer">
-        <div class="assigned-users">${getUserInitials(task.assignedContacts)}</div>
+        <div class="assigned-users">${getUserInitials(task.assignedContacts, 3)}</div>
         <span class="task-priority task-priority-${task.priority}" aria-label="${task.priority} priority">${getPrioritySymbol(task.priority)}</span>
       </footer>
   `;

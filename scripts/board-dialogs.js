@@ -8,25 +8,6 @@ const dialogModes = {
 };
 
 /**
- * @description Array mapping task category identifiers to their corresponding DOM button elements.
- * @type {Array<{ taskCategory: string, button: HTMLElement | null }>}
- */
-const taskCategoryButtons = [
-  {
-    taskCategory: "toDo",
-    button: document.getElementById("btn-to-do"),
-  },
-  {
-    taskCategory: "inProgress",
-    button: document.getElementById("btn-in-progress"),
-  },
-  {
-    taskCategory: "awaitFeedback",
-    button: document.getElementById("btn-await-feedback"),
-  },
-];
-
-/**
  * @description Global event listeners for managing task card interactions, 
  * subtask checkbox changes, and keyboard accessibility (Enter key support).
  */
@@ -103,14 +84,6 @@ function createNewTaskElement(newTaskData) {
   newTaskElement.innerHTML = getTaskCardContentTemplate(newTaskData);
   return newTaskElement;
 }
-/**
- * @description Attaches a click event listener to the "Add Task" button to open 
- * the task creation dialog with the default "toDo" status, and initializes 
- * click event listeners for the task category buttons.
- */
-document.getElementById("btn-add-task").addEventListener("click", () => {
-  openAddTaskDialog("toDo");
-});
 
 addClickEventListenersToTaskCategoryButtons();
 
@@ -119,11 +92,18 @@ addClickEventListenersToTaskCategoryButtons();
  * and "Await feedback" that open the add-task dialog with the matching status.
  */
 function addClickEventListenersToTaskCategoryButtons() {
-  taskCategoryButtons.forEach((item) => {
-    item.button.addEventListener("click", () => {
-      openAddTaskDialog(item.taskCategory);
-    });
+  document.addEventListener("click", (event) => {
+    if(event.target.closest(".status-btn")) {
+      const statusBtn = event.target.closest(".status-btn");
+      const status = statusBtn.dataset.addTaskStatus;
+      openAddTaskDialog(status);
+    }
   });
+  // taskCategoryButtons.forEach((item) => {
+  //   item.button.addEventListener("click", () => {
+  //     openAddTaskDialog(item.taskCategory);
+  //   });
+  // });
 }
 
 /**
@@ -369,7 +349,7 @@ function openTaskCardDialog(taskId) {
   setBadgeBackgroundColor();
   clickEventListener(taskCardDialog);
   taskCardDialog.showModal();
-  document.body.classList.add("overlay-open");
+  document.querySelector(".board-container").classList.add("overlay-open");
 }
 
 function setSubtasksCheckedVisually(task) {
@@ -413,7 +393,7 @@ function closeTaskCardDialog() {
 }
 
 document.getElementById("task-card-dialog").addEventListener("close", () => {
-  document.body.classList.remove("overlay-open");
+  document.querySelector(".board-container").classList.remove("overlay-open");
 });
 
 function handleTaskCardClick(event) {

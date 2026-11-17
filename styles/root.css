@@ -120,6 +120,7 @@
     --logo-color-change-duration: var(--bg-change-duration);
 
     /*board*/
+    --board-container-padding: 0 0 calc(var(--padding-top-bottom) + var(--page-link-padding-top-bottom)) var(--padding-left-right);
     --board-search-padding: var(--page-link-padding);
     --search-button-padding-left: clamp(12px, calc(10.857px + 0.357vw), 16px);
     --search-button-image-dimensions: clamp(24px, calc(21.714px + 0.714vw), 32px);
