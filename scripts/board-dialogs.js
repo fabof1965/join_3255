@@ -254,6 +254,13 @@ function updateTaskCardContent(task) {
   setBadgeBackgroundColor();
 }
 
+/**
+ * @description Updates an existing task object by merging current task properties with new data retrieved from the form,
+ * while preserving the editing task ID.
+ * 
+ * @param {Object} currentTask - The original task object before updates.
+ * @returns {Object} The newly updated task object containing the combined properties.
+ */
 function updateTaskFromForm(currentTask) {
   const taskData = getTaskData();
   return {
@@ -262,7 +269,13 @@ function updateTaskFromForm(currentTask) {
     id: editingTaskId,
   };
 }
-
+/**
+ * @description Generates the HTML string for the assigned contacts of a given task,
+ * returning formatted user templates with initials or a fallback message if no contacts are assigned.
+ * 
+ * @param {Object} task - The task object containing the assigned contacts data.
+ * @returns {string} The generated HTML string of user templates or a fallback span.
+ */
 function getOverlayUsersHtml(task) {
   if (!task.assignedContacts) {
     return `<span>No assigned contacts</span>`;
@@ -275,6 +288,13 @@ function getOverlayUsersHtml(task) {
     .join("");
 }
 
+/**
+ * @description Generates the HTML string for the assigned contacts of a given task,
+ * returning formatted user templates with initials or a fallback message if no contacts are assigned.
+ * 
+ * @param {Object} task - The task object containing the assigned contacts data.
+ * @returns {string} The generated HTML string of user templates or a fallback span.
+ */
 function getOverlaySubtasksHtml(task) {
   const subtasks = task.subtasks;
   if (!subtasks) return "";
@@ -287,6 +307,13 @@ function getOverlaySubtasksHtml(task) {
     .join("");
 }
 
+/**
+ * @description Toggles the completion status of a subtask, updates the UI checkbox and progress bar,
+ * and saves the change to the database.
+ * @param {number} index - The index of the subtask in the task's subtasks array.
+ * @param {HTMLInputElement} checkbox - The checkbox element associated with the subtask.
+ * @returns {Promise<void>}
+ */
 async function toggleSubtask(index, checkbox) {
   const task = allTasks.find((task) => task.id === openedTaskId);
   const taskIndex = allTasks.findIndex((task) => task.id === openedTaskId);
@@ -301,6 +328,12 @@ async function toggleSubtask(index, checkbox) {
   updateSubtaskProgressOnCard(task.subtasks, openedTaskId);
 }
 
+/**
+ * @description Updates the checked attributes and aria-states of a DOM element based on the checkbox state.
+ * @param {number} index - The index number of the element.
+ * @param {HTMLInputElement} checkbox - The checkbox input element.
+ * @returns {void}
+ */
 function setCheckedAttributesHTML(index, checkbox) {
   const checked = checkbox.checked;
   const checkboxElement = document.querySelector('[data-index-number="' + index + '"]');
@@ -308,6 +341,12 @@ function setCheckedAttributesHTML(index, checkbox) {
   checkboxElement.setAttribute("aria-checked", checked);
 }
 
+/**
+ * @description Calculates the progress percentage of completed subtasks and updates the progress bar and counter UI on the task card.
+ * @param {Array<Object>} subtasks - The array of subtask objects for the specific task.
+ * @param {string|number} taskID - The unique identifier of the task card.
+ * @returns {void}
+ */
 function updateSubtaskProgressOnCard(subtasks, taskID) {
   const progressFillOnCard = document.getElementById("progress-fill-" + taskID);
   const completedSubtasks = countCompletedSubtasks(subtasks);
@@ -321,22 +360,42 @@ function updateSubtaskProgressOnCard(subtasks, taskID) {
   progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
 }
 
+/**
+ * @description Returns the appropriate priority icon template based on the given priority level.
+ * @param {string} priority - The priority level ("urgent", "medium", "low").
+ * @returns {string} The HTML template string for the corresponding priority icon.
+ */
 function getOverlayPriorityIcon(priority) {
   if (priority === "urgent") return urgentPriorityTemplate;
   if (priority === "medium") return mediumPriorityTemplate;
   return lowPriorityTemplate;
 }
 
+/**
+ * @description Generates the complete HTML markup for the task details overlay by combining priority, subtasks, and task templates.
+ * @param {Object} task - The task object to display in the overlay.
+ * @returns {string} The generated HTML string for the task overlay.
+ */
 function getTaskOverlayHtml(task) {
   const priority = task.priority;
   const subtasksHTML = getOverlaySubtasksHtml(task);
   return getTaskOverlayTemplate(task, priority, subtasksHTML);
 }
 
+/**
+ * @description Capitalizes the first letter of a given string.
+ * @param {string} value - The input string to capitalize.
+ * @returns {string} The string with its first letter converted to uppercase.
+ */
 function capitalize(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+/**
+ * @description Opens the detailed task card modal dialog, populates it with task data, sets up visual states, and dims the background board container.
+ * @param {string|number} taskId - The unique identifier of the task to open.
+ * @returns {void}
+ */
 function openTaskCardDialog(taskId) {
   const taskCardDialog = document.getElementById("task-card-dialog");
   const task = allTasks.find((task) => task.id === taskId);
@@ -352,6 +411,11 @@ function openTaskCardDialog(taskId) {
   document.querySelector(".board-container").classList.add("overlay-open");
 }
 
+/**
+ * @description Updates the visual checked state of all subtask checkboxes in the overlay based on task data.
+ * @param {Object} task - The task object containing subtasks data.
+ * @returns {void}
+ */
 function setSubtasksCheckedVisually(task) {
   const subtasks = task.subtasks;
   subtasks.forEach((subtask, index) => {
@@ -362,6 +426,12 @@ function setSubtasksCheckedVisually(task) {
   });
 }
 
+/**
+ * @description Deletes a task card from the server, removes it from the local array and DOM, 
+ * updates the list layout, closes the dialog, and shows a success notification.
+ * @param {string|number} taskCardId - The unique identifier of the task card to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteTaskCard(taskCardId) {
   const taskIndex = allTasks.findIndex((task) => {
     return task.id === taskCardId;
@@ -379,6 +449,10 @@ async function deleteTaskCard(taskCardId) {
   showSuccessPopup("Task successfully deleted");
 }
 
+/**
+ * @description Closes the task detail dialog and opens the add task dialog pre-filled in edit mode for the currently opened task.
+ * @returns {void}
+ */
 function editTaskCard() {
   const task = allTasks.find((task) => task.id === openedTaskId);
   if (!task) return;
@@ -386,6 +460,10 @@ function editTaskCard() {
   openAddTaskDialogInEditMode(task);
 }
 
+/**
+ * @description Clears the content of the task card dialog and closes the modal element.
+ * @returns {void}
+ */
 function closeTaskCardDialog() {
   const taskCardDialog = document.getElementById("task-card-dialog");
   taskCardDialog.innerHTML = "";
@@ -396,6 +474,11 @@ document.getElementById("task-card-dialog").addEventListener("close", () => {
   document.querySelector(".board-container").classList.remove("overlay-open");
 });
 
+/**
+ * @description Handles click events on task cards, delegating actions to popovers, menu options, dialog openers, deletion, editing, or closing.
+ * @param {MouseEvent} event - The click event object.
+ * @returns {void}
+ */
 function handleTaskCardClick(event) {
   const taskCard = event.target.closest(".task-card");
   const menuOption = event.target.closest(".menu-option");
@@ -437,6 +520,11 @@ function handleMenuOption(event) {
   moveToStatus(event, taskId, newTaskCategory);
 }
 
+/**
+ * @description Handles opening a popover on a task card and stops event propagation if triggered.
+ * @param {MouseEvent|KeyboardEvent} event - The triggering event object.
+ * @returns {void}
+ */
 function handlePopoverOpenOnTaskCard(event) {
   if(onOpenPopoverButton(event)) {
     event.stopPropagation();
@@ -444,6 +532,11 @@ function handlePopoverOpenOnTaskCard(event) {
   }
 }
 
+/**
+ * @description Handles keyboard navigation and interaction on task cards, triggering popovers, menu options, or task dialogs on Enter or Space keys.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ * @returns {void}
+ */
 function handleTaskCardKeydown(event) {
   console.log(event.target);
   const card = event.target.closest(".task-card");
@@ -461,6 +554,11 @@ function handleTaskCardKeydown(event) {
   openTaskCardDialog(card.dataset.taskId);
 }
 
+/**
+ * @description Listens for changes on subtask checkboxes and triggers the subtask toggle logic.
+ * @param {Event} event - The change event object from the DOM.
+ * @returns {void}
+ */
 function handleSubtaskCheckboxChange(event) {
   if (event.target.classList.contains("subtask-checkbox")) {
     const checkbox = event.target;
