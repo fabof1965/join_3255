@@ -1,7 +1,17 @@
+/**
+ * Initializes the summary page after the DOM has been loaded.
+ * @returns {void}
+ */
 document.addEventListener("DOMContentLoaded", function () {
   initSummary();
 });
 
+/**
+ * Initializes all summary page functionality.
+ * Loads task data, the current user's name, card click handlers,
+ * and the dynamic greeting.
+ * @returns {Promise<void>}
+ */
 async function initSummary() {
   await updateSummaryNumbers();
   await loadUserName();
@@ -9,6 +19,10 @@ async function initSummary() {
   updateGreetingText();
 }
 
+/**
+ * Loads all tasks from Firebase.
+ * @returns {Promise<Array<object>>} An array containing all tasks.
+ */
 async function loadAllTaskData() {
   try {
     const taskData = await getData("tasks");
@@ -22,6 +36,11 @@ async function loadAllTaskData() {
   }
 }
 
+/**
+ * Calculates and displays the task counts for the summary page.
+ * Also updates the upcoming deadline based on urgent tasks.
+ * @returns {Promise<void>}
+ */
 async function updateSummaryNumbers() {
   const allTasks = await loadAllTaskData();
   if (!allTasks) {
@@ -36,10 +55,27 @@ async function updateSummaryNumbers() {
   const urgentTasks = allTasks.filter(task => task.priority === "urgent");
   const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
   const totalTasksUrgent = urgentTasks.length;
-  displaySummaryNumbers(totalTasksToDo, totalTasksInProgress, totalTasksFeedback, totalTasksDone, openTasksOnBoard, totalTasksUrgent);
+  displaySummaryNumbers(
+    totalTasksToDo,
+    totalTasksInProgress,
+    totalTasksFeedback,
+    totalTasksDone,
+    openTasksOnBoard,
+    totalTasksUrgent
+  );
   updateUpcomingDeadline(urgentTasks);
 }
 
+/**
+ * Displays the calculated task numbers in the corresponding summary elements.
+ * @param {number|string} todo - Number of tasks to do.
+ * @param {number|string} inprogress - Number of tasks in progress.
+ * @param {number|string} feedback - Number of tasks awaiting feedback.
+ * @param {number|string} done - Number of completed tasks.
+ * @param {number|string} board - Number of open tasks on the board.
+ * @param {number|string} urgent - Number of urgent tasks.
+ * @returns {void}
+ */
 function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent) {
   document.getElementById("summary-todo").innerText = todo;
   document.getElementById("summary-inprogress").innerText = inprogress;
@@ -49,6 +85,11 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent) 
   document.getElementById("summary-urgent").innerText = urgent;
 }
 
+/**
+ * Finds the nearest unfinished urgent task deadline.
+ * @param {Array<object>} urgentTasks - Array of urgent tasks.
+ * @returns {void}
+ */
 function updateUpcomingDeadline(urgentTasks) {
   const urgentTaskDates = urgentTasks.filter(duty => {
     if ((duty.dueDate) && (duty.status !== "done"))
@@ -59,6 +100,12 @@ function updateUpcomingDeadline(urgentTasks) {
   deadlineOutput(closestDateStr, urgentTaskDates);
 }
 
+/**
+ * Updates the deadline information shown on the summary page.
+ * @param {string|undefined} closestDateStr - Date string of the nearest deadline.
+ * @param {Array<object>} urgentTaskDates - Urgent tasks with a due date.
+ * @returns {void}
+ */
 function deadlineOutput(closestDateStr, urgentTaskDates) {
   const dateEl = document.getElementById("date");
   const today = new Date();
@@ -78,6 +125,11 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
   }
 }
 
+/**
+ * Formats a date string for display.
+ * @param {string} dateString - Date string to format.
+ * @returns {string} The formatted date or the original value if invalid.
+ */
 function formatDate(dateString) {
   const date = new Date(dateString);
   if (isNaN(date)) return dateString;
@@ -88,6 +140,10 @@ function formatDate(dateString) {
   });
 }
 
+/**
+ * Loads the current user's name from Firebase and updates the greeting UI.
+ * @returns {Promise<void>}
+ */
 async function loadUserName() {
   const { auth } = await import("./firebaseInit.js");
   await auth.authStateReady();
@@ -97,6 +153,12 @@ async function loadUserName() {
   updateGreetingUI(user, isGuest);
 }
 
+/**
+ * Displays or hides the current user's name in the greeting.
+ * @param {object|null} user - User object loaded from Firebase.
+ * @param {boolean} isGuest - Indicates whether the current user is a guest.
+ * @returns {void}
+ */
 function updateGreetingUI(user, isGuest) {
   const nameEl = document.getElementById("username");
   const commaEl = document.getElementById("comma");
@@ -106,15 +168,28 @@ function updateGreetingUI(user, isGuest) {
   if (commaEl) commaEl.style.display = showName ? "inline" : "none";
 }
 
+/**
+ * Checks whether the guest account is stored in local or session storage.
+ * @returns {boolean} True if a guest account is stored, otherwise false.
+ */
 function isGuestStored() {
   return localStorage.getItem("name") === "Guest" || sessionStorage.getItem("name") === "Guest";
 }
 
+/**
+ * Shortens long user names for display in the greeting.
+ * @param {string} name - Full user name.
+ * @returns {string} The shortened or original user name.
+ */
 function formatUserName(name) {
   const parts = name.trim().split(" ");
   return name.length > 13 ? `${parts[0][0]} ${parts[parts.length - 1]}` : name;
 }
 
+/**
+ * Initializes click listeners for all summary cards.
+ * @returns {void}
+ */
 function initCardClicks() {
   const selectors = [
     ".blue-head-column",
@@ -128,11 +203,20 @@ function initCardClicks() {
   selectors.forEach(addBoardNavigation);
 }
 
+/**
+ * Adds a click listener that navigates to the board page.
+ * @param {string} selector - CSS selector for the summary card.
+ * @returns {void}
+ */
 function addBoardNavigation(selector) {
   const card = document.querySelector(selector);
   if (card) card.addEventListener("click", () => window.location.href = "board.html");
 }
 
+/**
+ * Updates the greeting text and adjusts its font weight when a user name is shown.
+ * @returns {void}
+ */
 function updateGreetingText() {
   const greetingEl = document.getElementById("greeting");
   const nameEl = document.getElementById("username");
@@ -141,6 +225,10 @@ function updateGreetingText() {
   greetingEl.innerText = getDynamicGreeting();
 }
 
+/**
+ * Returns a greeting based on the current time of day.
+ * @returns {string} A morning, afternoon, or evening greeting.
+ */
 function getDynamicGreeting() {
   const now = new Date();
   const hour = now.getHours();
