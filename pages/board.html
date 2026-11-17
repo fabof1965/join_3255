@@ -25,8 +25,9 @@
   <script src="../scripts/add-task-form.js" defer></script>
   <script src="../scripts/dragAndDrop.js" defer></script>
   <script src="../scripts/board.js" defer></script>
-  <script src="../scripts/board-dialogs.js" defer></script>
   <script src="../scripts/taskCardView.js" defer></script>
+  <script src="../scripts/taskCardHandlers.js" defer></script>
+  <script src="../scripts/board-dialogs.js" defer></script>
   <script src="../scripts/success-popup.js" defer></script>
 </head>
 
@@ -63,11 +64,12 @@
           <header class="column-header desktop">
             <h2>To do</h2>
 
-            <button type="button" class="status-btn" id="btn-to-do" data-add-task-status="toDo" aria-label="add to-do task">
+            <button type="button" class="status-btn" id="btn-to-do" data-add-task-status="toDo"
+              aria-label="add to-do task">
               +
             </button>
           </header>
-          
+
           <header class="column-header desktop">
             <h2>In progress</h2>
 
@@ -77,7 +79,7 @@
             </button>
           </header>
 
-           <header class="column-header desktop">
+          <header class="column-header desktop">
             <h2>Await feedback</h2>
 
             <button type="button" class="status-btn" id="btn-await-feedback" data-add-task-status="awaitFeedback"
@@ -100,7 +102,8 @@
           <header class="column-header mobile">
             <h2>To do</h2>
 
-            <button type="button" class="status-btn" id="btn-to-do" data-add-task-status="toDo" aria-label="add to-do task">
+            <button type="button" class="status-btn" id="btn-to-do" data-add-task-status="toDo"
+              aria-label="add to-do task">
               +
             </button>
           </header>
