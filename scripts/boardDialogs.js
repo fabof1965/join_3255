@@ -294,7 +294,7 @@ async function deleteTaskCard(taskCardId) {
     'div.task-list[data-status="' + allTasks[taskIndex].status + '"]',
   );
   await deleteData("tasks/" + taskCardId);
-  taskCard.remove();
+  taskCard?.remove();
   allTasks.splice(taskIndex, 1);
   renderTaskListOnEmptyContent(taskList);
   closeTaskCardDialog();
