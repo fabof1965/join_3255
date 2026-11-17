@@ -38,7 +38,7 @@ h2, h3 {
   height: var(--back-btn-image-dimensions);
 }
 
-.legal-back-button:hover {
+.legal-back-button:hover, .legal-back-button:focus {
   background-color: var(--secondary-color);
   box-shadow: unset;
 }

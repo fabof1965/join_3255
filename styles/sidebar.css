@@ -123,6 +123,6 @@
   text-wrap: nowrap;
 }
 
-.sidebar-footer a:hover, .sidebar-footer a.active {
+.sidebar-footer a:hover, .sidebar-footer a:focus,.sidebar-footer a.active {
   color: var(--primary-color);
 }

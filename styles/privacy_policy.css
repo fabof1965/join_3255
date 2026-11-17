@@ -40,7 +40,7 @@ h2 {
   height: var(--back-btn-image-dimensions);
 }
 
-.privacy-policy-back-button:hover {
+.privacy-policy-back-button:hover, .privacy-policy-back-button:focus {
   background-color: var(--secondary-color);
   box-shadow: unset;
 }
