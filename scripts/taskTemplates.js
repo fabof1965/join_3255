@@ -23,7 +23,6 @@ function getTaskCardContentTemplate(task) {
         <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
         ${getCardMenuTemplate(task.id, task.status)} 
       </header>
-
       <div class="task-content">
         <h3>${task.title}</h3>
         <p>${task.description}</p>
@@ -38,7 +37,6 @@ function getTaskCardContentTemplate(task) {
 
 /**
  * @description Generates the HTML template for the card's dropdown menu container and trigger button.
- * 
  * @param {string|number} taskId - The unique identifier of the task.
  * @param {string} currentStatus - The current status key of the task.
  * @returns {string} HTML string for the card menu container.
@@ -47,10 +45,9 @@ function getCardMenuTemplate(taskId, currentStatus) {
     return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
               <span class="task-card-drag-icon" aria-hidden="true">↕</span>
             </button> 
-    
-          <div id="card-menu-${taskId}" class="card-dropdown-menu" popover>
-            ${getCardMenuOptionsHtml(taskId, currentStatus)}
-          </div>
+            <div id="card-menu-${taskId}" class="card-dropdown-menu" popover>
+              ${getCardMenuOptionsHtml(taskId, currentStatus)}
+            </div>
   `;
 }
 
@@ -70,7 +67,6 @@ function getMenuOptionTemplate(taskId, statuslabel, statusKey){
     `;
  }
 
-
 /**
  * @description Generates the subtask progress bar and counter.
  * @param {number} completed - Number of the completed subtasks.
@@ -82,9 +78,7 @@ function getMenuOptionTemplate(taskId, statuslabel, statusKey){
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
     return `
       <div class="subtask-progress">
-        <progress class="progress-track" id="progress-fill-${taskId}" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}" min="0" max="100" value="${progress}">
-          
-        </progress>
+        <progress class="progress-track" id="progress-fill-${taskId}" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}" min="0" max="100" value="${progress}"></progress>
         <span id="subtaskcontainer-${taskId}">${completed} / ${total} Subtasks</span>
       </div>
   `;
@@ -120,10 +114,7 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
  * @returns {string} The generated HTML string for the task detail overlay.
  */
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-    const subtaskOutput =
-        subtasksHTML === ""
-            ? `<span class="no-subtasks">No Subtasks</span>`
-            : subtasksHTML;
+    const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>`: subtasksHTML;
     return `
       <article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
@@ -204,15 +195,8 @@ const urgentPriorityTemplate = `<svg class="urgent-svg" width="20" height="15" v
   </svg>`;
 
 const mediumPriorityTemplate = `<svg class="medium-svg" width="20" height="8" viewBox="0 0 20 8" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_79630_4973)">
       <path class="medium-svg" d="M18.9041 7.45086H1.09589C0.805242 7.45086 0.526498 7.33456 0.320979 7.12755C0.11546 6.92054 0 6.63977 0 6.34701C0 6.05425 0.11546 5.77349 0.320979 5.56647C0.526498 5.35946 0.805242 5.24316 1.09589 5.24316H18.9041C19.1948 5.24316 19.4735 5.35946 19.679 5.56647C19.8845 5.77349 20 6.05425 20 6.34701C20 6.63977 19.8845 6.92054 19.679 7.12755C19.4735 7.33456 19.1948 7.45086 18.9041 7.45086Z" fill=""/>
       <path class="medium-svg" d="M18.9041 2.2077H1.09589C0.805242 2.2077 0.526498 2.0914 0.320979 1.88439C0.11546 1.67738 0 1.39661 0 1.10385C0 0.81109 0.11546 0.530322 0.320979 0.32331C0.526498 0.116298 0.805242 0 1.09589 0L18.9041 0C19.1948 0 19.4735 0.116298 19.679 0.32331C19.8845 0.530322 20 0.81109 20 1.10385C20 1.39661 19.8845 1.67738 19.679 1.88439C19.4735 2.0914 19.1948 2.2077 18.9041 2.2077Z" fill=""/>
-    </g>
-    <defs>
-      <clipPath id="clip0_79630_4973">
-        <rect class="medium-svg" width="20" height="7.45098" fill=""/>
-      </clipPath>
-    </defs>
   </svg>`;
 
 const lowPriorityTemplate = `<svg class="low-svg" width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
