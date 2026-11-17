@@ -1,4 +1,15 @@
 /**
+ * @description Generates the complete HTML markup for the task details overlay by combining priority, subtasks, and task templates.
+ * @param {Object} task - The task object to display in the overlay.
+ * @returns {string} The generated HTML string for the task overlay.
+ */
+function getTaskOverlayHtml(task) {
+  const priority = task.priority;
+  const subtasksHTML = getOverlaySubtasksHtml(task);
+  return getTaskOverlayTemplate(task, priority, subtasksHTML);
+}
+
+/**
  * @description Generates the HTML string for the assigned contacts of a given task,
  * returning formatted user templates with initials or a fallback message if no contacts are assigned.
  * @param {Object} task - The task object containing the assigned contacts data.
@@ -43,14 +54,18 @@ function getOverlayPriorityIcon(priority) {
 }
 
 /**
- * @description Generates the complete HTML markup for the task details overlay by combining priority, subtasks, and task templates.
- * @param {Object} task - The task object to display in the overlay.
- * @returns {string} The generated HTML string for the task overlay.
+ * @description Updates the visual checked state of all subtask checkboxes in the overlay based on task data.
+ * @param {Object} task - The task object containing subtasks data.
+ * @returns {void}
  */
-function getTaskOverlayHtml(task) {
-  const priority = task.priority;
-  const subtasksHTML = getOverlaySubtasksHtml(task);
-  return getTaskOverlayTemplate(task, priority, subtasksHTML);
+function setSubtasksCheckedVisually(task) {
+  const subtasks = task.subtasks;
+  subtasks.forEach((subtask, index) => {
+    const checkBox = document.querySelector(
+      '[data-index-number="' + index + '"]',
+    );
+    checkBox.checked = subtask.done;
+  });
 }
 
 /**
@@ -103,21 +118,6 @@ function updateSubtaskProgressOnCard(subtasks, taskID) {
   );
   progressFillOnCard.value = progress;
   progressCountOnCard.innerText = `${completedSubtasks} / ${totalSubtasks} Subtasks`;
-}
-
-/**
- * @description Updates the visual checked state of all subtask checkboxes in the overlay based on task data.
- * @param {Object} task - The task object containing subtasks data.
- * @returns {void}
- */
-function setSubtasksCheckedVisually(task) {
-  const subtasks = task.subtasks;
-  subtasks.forEach((subtask, index) => {
-    const checkBox = document.querySelector(
-      '[data-index-number="' + index + '"]',
-    );
-    checkBox.checked = subtask.done;
-  });
 }
 
 /**
