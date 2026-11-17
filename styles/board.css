@@ -189,7 +189,7 @@
   border-radius: var(--element-design-border-radius);
   padding: var(--gap-small);
   position: relative;
-  min-height: 300px;
+  min-height: 100dvh;
 }
 
 @media(max-width: 950px) {
@@ -203,7 +203,7 @@
   }
 
   .task-list {
-    height: 300px;
+    min-height: 300px;
     width: var(--full);
     flex-direction: row;
     overflow-x: auto;
