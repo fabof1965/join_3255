@@ -81,20 +81,6 @@ function closeContactDialog() {
 }
 
 /**
- * @description Resets the error messages from the add-contact-dialog
- */
-function resetContactFormErrors() {
-    const border = document.querySelectorAll('.add-contact-content');
-    border.forEach(borderColor => {
-        borderColor.classList.remove('error-message-border-bottom');
-    });
-    const errMsg = document.querySelectorAll('.error-msg');
-    errMsg.forEach(errorMessage => {
-        errorMessage.classList.add('visibility-hidden');
-    });
-}
-
-/**
  * @description Submits Contact data to firebase
  * @param {SubmitEvent} event 
  * @returns {Promise<void>}
