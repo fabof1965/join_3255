@@ -323,8 +323,6 @@ function getAssignedContactsFromForm() {
  */
 function getTaskData() {
   const formElements = getFormElements();
-  const assignedContactsArray = getAssignedContactsFromForm();
-  const selectedPriorityText = document.querySelector(".selected").dataset.priority;
   const subtasks = getSubtasksFromForm();
   const taskData = {
     title: formElements.taskTitleInputElement.value.trim(),
@@ -332,8 +330,8 @@ function getTaskData() {
     dueDate: formElements.dueDateElement.value,
     category: formElements.categorySelectElement.selectedOptions[0].innerText,
     status: newTaskStatus,
-    assignedContacts: assignedContactsArray,
-    priority: selectedPriorityText,
+    assignedContacts: getAssignedContactsFromForm(),
+    priority: document.querySelector(".selected").dataset.priority,
     subtasks: subtasks,
   };
   return taskData;
