@@ -1,36 +1,55 @@
 let isSubmittingContact = false;
+eventHandler();
 
-document.querySelectorAll(".btn-close-add-contact-dialog").forEach((button) => {
-    button.addEventListener("click", (event) => {
+/**
+ * @description Handles all contact dialog events
+ */
+function eventHandler() {
+    handleClickEvents();
+    handleSubmitEvent();
+    handleCancelEvents();
+}
+
+/**
+ * @description Handles the 'cancel' event for the Add Contact Dialog and the Edit Contact Dialog
+ */
+function handleCancelEvents() {
+    getAddContactDialog().addEventListener("cancel", (event) => {
         closeDialogHandler(event, closeContactDialog);
     });
-});
-
-document.querySelectorAll(".btn-close-edit-dialog").forEach((button) => {
-    button.addEventListener("click", (event) => {
+    document.getElementById("edit-contact-dialog").addEventListener("cancel", (event) => {
         closeDialogHandler(event, closeEditContactDialog);
     });
-});
+}
 
-document.getElementById("contact-form").addEventListener("submit", (event) => {
-    submitHandler(event);
-});
+/**
+ * @description Handles the submit event that is fired by the contact form
+ */
+function handleSubmitEvent() {
+    document.addEventListener("submit", (event) => {
+        if(event.target.closest(".contact-form")) {
+            submitHandler(event);
+        }
+    });
+}
 
-document.getElementById("edit-contact-form").addEventListener("submit", (event) => {
-    submitHandler(event);
-});
-
-getAddContactDialog().addEventListener("cancel", (event) => {
-    closeDialogHandler(event, closeContactDialog);
-});
-
-document.getElementById("edit-contact-dialog").addEventListener("cancel", (event) => {
-    closeDialogHandler(event, closeEditContactDialog);
-});
+/**
+ * @description Handles 'click' events throughout contact-dialogs.
+ */
+function handleClickEvents() {
+    document.addEventListener("click", (event) => {
+        if(event.target.closest(".btn-close-add-contact-dialog")) {
+            closeDialogHandler(event, closeContactDialog);
+        }
+        if(event.target.closest(".btn-close-edit-dialog")) {
+            closeDialogHandler(event, closeEditContactDialog);
+        }
+    });
+}
 
 /**
  * @description Handles the contact form's submit
- * @param {SubmitEvent} event 
+ * @param {SubmitEvent} event
  */
 function submitHandler(event) {
     event.preventDefault();
@@ -38,9 +57,9 @@ function submitHandler(event) {
 }
 
 /**
- * @description Handles the cancel event on the dialogs 
- * @param {Cancel} event 
- * @param {calling function} closingFunction 
+ * @description Handles the cancel event on the dialogs
+ * @param {Cancel} event
+ * @param {calling function} closingFunction
  */
 function closeDialogHandler(event, closingFunction) {
     event.preventDefault();
@@ -63,11 +82,11 @@ function openContactDialog() {
     const dialog = getAddContactDialog();
     dialog.showModal();
     dialog.classList.add('slide-in');
-    clickEventListener(dialog, closeContactDialog);
+    closeDialogOnOutsideClick(dialog, closeContactDialog);
 }
 
 /**
- * @description Closes the 'Add Contact' - Dialog 
+ * @description Closes the 'Add Contact' - Dialog
  */
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
@@ -82,7 +101,7 @@ function closeContactDialog() {
 
 /**
  * @description Submits Contact data to firebase
- * @param {SubmitEvent} event 
+ * @param {SubmitEvent} event
  * @returns {Promise<void>}
  */
 async function submitContactForm(event) {
@@ -101,7 +120,7 @@ async function submitContactForm(event) {
 }
 
 /**
- * @description Inserts a new created contact into the contact list and 
+ * @description Inserts a new created contact into the contact list and
  * loads the data into the global allContacts Array as well as to firebase
  * @returns {Promise<void>}
  */
@@ -125,9 +144,9 @@ async function addNewContact() {
 
 /**
  * @description Inserts a new contact element into the contact list
- * @param {HTMLElement} contactList 
- * @param {string} newContactName 
- * @param {number} indexContact 
+ * @param {HTMLElement} contactList
+ * @param {string} newContactName
+ * @param {number} indexContact
  * @returns {void}
  */
 function insertContact(contactList, newContactName, indexContact) {
@@ -142,10 +161,10 @@ function insertContact(contactList, newContactName, indexContact) {
 }
 
 /**
- * @description Sets the newContactElement to the correct place inside a contact group 
- * @param {string} newContactName 
- * @param {Node} newContactElement 
- * @param {Array<Node>} group 
+ * @description Sets the newContactElement to the correct place inside a contact group
+ * @param {string} newContactName
+ * @param {Node} newContactElement
+ * @param {Array<Node>} group
  */
 function insertContactIntoContactGroup(newContactName, newContactElement, group) {
     const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
@@ -157,9 +176,9 @@ function insertContactIntoContactGroup(newContactName, newContactElement, group)
 
 /**
  * @description Inserts the newContactElement to the correct position at the contact list
- * @param {string} initialLetter 
- * @param {Node} newContactElement 
- * @param {HTMLElement} contactList 
+ * @param {string} initialLetter
+ * @param {Node} newContactElement
+ * @param {HTMLElement} contactList
  */
 function appendContactListByNewElement(initialLetter, newContactElement, contactList) {
     const letterElement = makeLetterElement(initialLetter);
@@ -173,7 +192,7 @@ function appendContactListByNewElement(initialLetter, newContactElement, contact
 
 /**
  * @description Creates a new contact node element and sets all nesseccary attributes
- * @param {number} indexContact 
+ * @param {number} indexContact
  * @returns {Node} contact node
  */
 function makeNewContactNode(indexContact) {
@@ -192,8 +211,8 @@ function makeNewContactNode(indexContact) {
 
 /**
  * @description Creates a letter Element that represents the headline for a contact group
- * grouped by the initial letter of the contacts belonging to this group 
- * @param {string} letter 
+ * grouped by the initial letter of the contacts belonging to this group
+ * @param {string} letter
  * @returns {Node} letter node
  */
 function makeLetterElement(letter) {
@@ -206,8 +225,8 @@ function makeLetterElement(letter) {
 }
 
 /**
- * @description Creates a seperator element 
- * @param {string} letter 
+ * @description Creates a seperator element
+ * @param {string} letter
  * @returns {Node} seperator Node
  */
 function makeSeperatorElement(letter) {
@@ -219,9 +238,9 @@ function makeSeperatorElement(letter) {
 
 /**
  * @description Retrieves the data from the input fields in the contact dialog
- * @returns {JSON} name: 'the name from users input', 
- * email: 'email-address from the users input', 
- * phone: 'pone number from the users input' 
+ * @returns {JSON} name: 'the name from users input',
+ * email: 'email-address from the users input',
+ * phone: 'pone number from the users input'
  */
 function getContactDataFromForm() {
     return {
@@ -233,7 +252,7 @@ function getContactDataFromForm() {
 
 /**
  * Opens the Edit Contact Dialog
- * @param {number} indexContact 
+ * @param {number} indexContact
  */
 function editExistingContact(indexContact) {
     openExistingContactDialog(indexContact);
@@ -241,7 +260,7 @@ function editExistingContact(indexContact) {
 
 /**
  * Fills the edit contact dialog with contact data and opens the dialog
- * @param {number} indexContact 
+ * @param {number} indexContact
  */
 function openExistingContactDialog(indexContact) {
     const contact = allContacts[indexContact];
@@ -255,13 +274,13 @@ function openExistingContactDialog(indexContact) {
     fillContactForm(contact);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
-    clickEventListener(editContactDialog, closeEditContactDialog);
+    closeDialogOnOutsideClick(editContactDialog, closeEditContactDialog);
 }
 
 /**
- * Fills the fiels with following id's with contact-data: 
+ * Fills the fiels with following id's with contact-data:
  * 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
- * @param {object} contact 
+ * @param {object} contact
  */
 function fillContactForm(contact) {
     document.getElementById('existing-contact-name').value = contact.name;
@@ -303,7 +322,7 @@ async function saveEditedContact() {
 
 /**
  * @description Assigns values from the edit contact dialogs input fields to the gien contact object
- * @param {object} contact 
+ * @param {object} contact
  */
 function assignValuesToContact(contact) {
     const INPUT_NAME = document.getElementById('existing-contact-name').value.trim();
@@ -315,7 +334,7 @@ function assignValuesToContact(contact) {
 }
 
 /**
- * @description Updates the contect data that is seen in the contact card as well as in the contact detail 
+ * @description Updates the contect data that is seen in the contact card as well as in the contact detail
  */
 function updateEditedContact() {
     document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
@@ -324,7 +343,7 @@ function updateEditedContact() {
 
 /**
  * @description Deletes the contact with the given index from firebase, the contact list (visually) and from the allContacts array
- * @param {number} indexContact 
+ * @param {number} indexContact
  * @returns {Promise<void>}
  */
 async function deleteContact(indexContact) {
@@ -339,9 +358,9 @@ async function deleteContact(indexContact) {
 }
 
 /**
- * @description Removes the contact card visually from the contact list 
- * @param {number} indexContact 
- * @param {object} contactToRemove 
+ * @description Removes the contact card visually from the contact list
+ * @param {number} indexContact
+ * @param {object} contactToRemove
  */
 function removeContactCard(indexContact, contactToRemove) {
     const firstLetter = contactToRemove.name.charAt(0).toUpperCase();
@@ -355,8 +374,8 @@ function removeContactCard(indexContact, contactToRemove) {
 
 /**
  * @description Changes the name of a contact on task cards with this contact
- * @param {string} oldName 
- * @param {string} newName 
+ * @param {string} oldName
+ * @param {string} newName
  * @returns {Promise<void>}
  */
 async function renameContactFromTaskCard(oldName, newName) {
@@ -371,7 +390,7 @@ async function renameContactFromTaskCard(oldName, newName) {
 
 /**
  * @description Removes a contact from the task card
- * @param {string} contactName 
+ * @param {string} contactName
  * @returns {Promise<void>}
  */
 async function removeContactFromTaskCard(contactName) {
@@ -385,9 +404,9 @@ async function removeContactFromTaskCard(contactName) {
 
 /**
  * @description Gets all contacts excluding the given contactName
- * @param {object} task 
- * @param {string} contactName 
- * @returns {Array<string>}  
+ * @param {object} task
+ * @param {string} contactName
+ * @returns {Array<string>}
  */
 function getRemainingContacts(task, contactName) {
     return task.assignedContacts.filter((name) => name !== contactName);
