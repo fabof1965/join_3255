@@ -86,16 +86,16 @@
 
 .summary-card-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(60px, calc(100vw / 4)));
-    grid-template-rows: repeat(2, minmax(60px, calc(100vw / 7)));
+    grid-template-columns: repeat(4, minmax(60px, calc(100dvw / 4)));
+    grid-template-rows: repeat(2, minmax(calc(100dvh / 10), 250px));
     gap: var(--gap-medium);
     width: fit-content;
 }
 
 @media(max-width: 950px) {
     .summary-card-container {
+        margin-top: var(--padding-top-bottom);
         position: absolute;
-        padding: var(--padding);
         top: -100%;
         animation: slide-up-fade-in 1s ease 2s forwards;
         grid-template-rows: var(--grid-rows-mobile);
