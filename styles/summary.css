@@ -33,6 +33,7 @@
 
 @media(max-width: 950px) {
     .summary-container {
+        position: relative;
         height: var(--full);
     }
 
@@ -93,8 +94,8 @@
 
 @media(max-width: 950px) {
     .summary-card-container {
-        position: fixed;
-        padding: 0 var(--padding-left-right);
+        position: absolute;
+        padding: var(--padding);
         top: -100%;
         animation: slide-up-fade-in 1s ease 2s forwards;
         grid-template-rows: var(--grid-rows-mobile);
@@ -109,7 +110,7 @@
     }
 
     100% {
-        top: 15%;
+        top: 0;
         opacity: 1;
     }
 }
@@ -129,7 +130,7 @@
     border-radius: var(--summary-card-border-radius);
     cursor: pointer;
     transition: var(--element-transition);
-    
+
 }
 
 .blue-head-column:hover {
