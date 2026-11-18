@@ -39,7 +39,7 @@
     --button-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     --headline-underline-border: 2px solid var(--primary-color);
     --form-border-radius: 30px;
-    --element-design-border-radius: 20px;
+    --element-design-border-radius: 8px;
 
     /*transition over all pages for animated elements except
     starting animation*/
@@ -127,6 +127,7 @@
     --search-bar-font-size: var(--small-font-size);
     --add-task-button-padding: var(--board-search-padding);
     --task-card-dimensions: clamp(250px, calc(235.714px + 4.464vw), 300px);
+    --task-card-border-radius: calc(var(--element-design-border-radius) * 2.5);
     --board-column-header-font-size: var(--medium-font-size);
 
     /*summary*/

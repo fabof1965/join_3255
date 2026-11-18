@@ -212,7 +212,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
-  border-radius: var(--element-design-border-radius);
+  border-radius: var(--task-card-border-radius);
   box-shadow: var(--task-card-box-shadow);
   background-color: var(--white-color);
   cursor: grab;
@@ -343,7 +343,7 @@
 .placeholder {
   border: 2px dashed var(--search-bar-outline-color);
   background-color: #eeeeeeda;
-  border-radius: var(--element-design-border-radius);
+  border-radius: var(--task-card-border-radius);
 }
 
 .card-dropdown-menu {
