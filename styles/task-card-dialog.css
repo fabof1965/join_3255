@@ -41,6 +41,17 @@
   align-items: center;
 }
 
+.close-btn {
+  display: flex;
+  border: none;
+  background: none;
+}
+
+.close-btn:hover, .close-btn:focus {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius-circular);
+}
+
 .task-card-dialog-header {
   justify-content: space-between;
 }
@@ -50,7 +61,6 @@
   padding: 4px 16px;
   color: var(--white-color);
   border-radius: 8px;
-  font-size: 16px;
 }
 
 .task-card-dialog-close {
@@ -79,7 +89,6 @@
 .task-card-dialog-row,
 .task-card-dialog-user {
   color: var(--black-color);
-  font-size: 16px;
   overflow-wrap: anywhere;
 }
 
@@ -90,7 +99,6 @@
 .task-card-dialog-row strong,
 .task-card-dialog-section h3 {
   color: var(--menu-color);
-  font-size: 16px;
 }
 
 .task-overlay-priority {
@@ -184,9 +192,9 @@
   border: none;
   color: var(--greeting-text-color);
   background: none;
-  font-size: 16px;
   cursor: pointer;
   transition: color 100ms ease;
+  font-size: var(--small-font-size);
 }
 
 .task-card-dialog-buttons button:hover,
