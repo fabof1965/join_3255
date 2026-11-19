@@ -1,5 +1,5 @@
 /**
- * Initializes the summary page after the DOM has been loaded.
+ * @description Initializes the summary page after the DOM has been loaded.
  * @returns {void}
  */
 document.addEventListener("DOMContentLoaded", function () {
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * Initializes all summary page functionality.
+ * @description Initializes all summary page functionality.
  * Loads task data, the current user's name, card click handlers,
  * and the dynamic greeting.
  * @returns {Promise<void>}
@@ -20,7 +20,7 @@ async function initSummary() {
 }
 
 /**
- * Loads all tasks from Firebase.
+ * @description Loads all tasks from Firebase.
  * @returns {Promise<Array<object>>} An array containing all tasks.
  */
 async function loadAllTaskData() {
@@ -47,7 +47,7 @@ function countByStatus(tasks, status) {
 }
 
 /**
- * Calculates and displays the task counts for the summary page.
+ * @description Calculates and displays the task counts for the summary page.
  * Also updates the upcoming deadline based on urgent tasks.
  * @returns {Promise<void>}
  */
@@ -65,7 +65,7 @@ async function updateSummaryNumbers() {
 }
 
 /**
- * Displays the calculated task numbers in the corresponding summary elements.
+ * @description Displays the calculated task numbers in the corresponding summary elements.
  * @param {number|string} todo - Number of tasks to do.
  * @param {number|string} inprogress - Number of tasks in progress.
  * @param {number|string} feedback - Number of tasks awaiting feedback.
@@ -84,7 +84,7 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent) 
 }
 
 /**
- * Finds the nearest unfinished urgent task deadline.
+ * @description Finds the nearest unfinished urgent task deadline.
  * @param {Array<object>} urgentTasks - Array of urgent tasks.
  * @returns {void}
  */
@@ -99,7 +99,7 @@ function updateUpcomingDeadline(urgentTasks) {
 }
 
 /**
- * Updates the deadline information shown on the summary page.
+ * @description Updates the deadline information shown on the summary page.
  * @param {string|undefined} closestDateStr - Date string of the nearest deadline.
  * @param {Array<object>} urgentTaskDates - Urgent tasks with a due date.
  * @returns {void}
@@ -133,7 +133,7 @@ function normalizeDate(date) {
 }
 
 /**
- * Formats a date string for display.
+ * @description Formats a date string for display.
  * @param {string} dateString - Date string to format.
  * @returns {string} The formatted date or the original value if invalid.
  */
@@ -148,7 +148,7 @@ function formatDate(dateString) {
 }
 
 /**
- * Loads the current user's name from Firebase and updates the greeting UI.
+ * @description Loads the current user's name from Firebase and updates the greeting UI.
  * @returns {Promise<void>}
  */
 async function loadUserName() {
@@ -161,7 +161,7 @@ async function loadUserName() {
 }
 
 /**
- * Displays or hides the current user's name in the greeting.
+ * @description Displays or hides the current user's name in the greeting.
  * @param {object|null} user - User object loaded from Firebase.
  * @param {boolean} isGuest - Indicates whether the current user is a guest.
  * @returns {void}
@@ -176,7 +176,7 @@ function updateGreetingUI(user, isGuest) {
 }
 
 /**
- * Checks whether the guest account is stored in local or session storage.
+ * @description Checks whether the guest account is stored in local or session storage.
  * @returns {boolean} True if a guest account is stored, otherwise false.
  */
 function isGuestStored() {
@@ -184,7 +184,7 @@ function isGuestStored() {
 }
 
 /**
- * Shortens long user names for display in the greeting.
+ * @description Shortens long user names for display in the greeting.
  * @param {string} name - Full user name.
  * @returns {string} The shortened or original user name.
  */
@@ -194,7 +194,7 @@ function formatUserName(name) {
 }
 
 /**
- * Initializes click listeners for all summary cards.
+ * @description Initializes click listeners for all summary cards.
  * @returns {void}
  */
 function initCardClicks() {
@@ -211,7 +211,7 @@ function initCardClicks() {
 }
 
 /**
- * Adds a click listener that navigates to the board page.
+ * @description Adds a click listener that navigates to the board page.
  * @param {string} selector - CSS selector for the summary card.
  * @returns {void}
  */
@@ -221,7 +221,7 @@ function addBoardNavigation(selector) {
 }
 
 /**
- * Updates the greeting text and adjusts its font weight when a user name is shown.
+ * @description Updates the greeting text and adjusts its font weight when a user name is shown.
  * @returns {void}
  */
 function updateGreetingText() {
@@ -233,7 +233,7 @@ function updateGreetingText() {
 }
 
 /**
- * Returns a greeting based on the current time of day.
+ * @description Returns a greeting based on the current time of day.
  * @returns {string} A morning, afternoon, or evening greeting.
  */
 function getDynamicGreeting() {
