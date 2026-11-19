@@ -14,9 +14,9 @@ const EDIT_CONTACT_FIELD_IDS = {
 }
 
 /**
- * @description Checks if the contact form has input fields that are not filled with text
+ * @description Checks if the contact form has input fields that are not filled with text.
  * @param {JSON} contact
- * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled
+ * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled.
  */
 function contactFormHasBlankFields(contact) {
     const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
@@ -27,12 +27,12 @@ function contactFormHasBlankFields(contact) {
 }
 
 /**
- * @description Checks if the given value is an empty string
+ * @description Checks if the given value is an empty string.
  * @param {string} value
  * @param {string} errId
  * @param {string} borderId
  * @param {string} blankMsg
- * @returns {Boolean} If the field, which includes the value is an empty string the return value is true, else the return value is false
+ * @returns {Boolean} If the field, which includes the value is an empty string the return value is true, else the return value is false.
  */
 function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
     const errMsg = document.getElementById(errId);
@@ -44,10 +44,10 @@ function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
 }
 
 /**
- * @description Checks if there are validation errors on the contact form
+ * @description Checks if there are validation errors on the contact form.
  * @param {object} contact
  * @param {string} ownId
- * @returns {Boolean} if name, email or phone number exists in firebase true, else false
+ * @returns {Boolean} if name, email or phone number exists in firebase true, else false.
  */
 async function contactFormHasValidationErrors(contact, ownId) {
     const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
@@ -57,50 +57,50 @@ async function contactFormHasValidationErrors(contact, ownId) {
 }
 
 /**
- * Checks if the given contact name is already available in firebase database
+ * Checks if the given contact name is already available in firebase database.
  * @param {string} inputName
  * @param {string|null} ownId
  * @param {string} errorID
  * @param {string} borderID
- * @returns {Promise<boolean>} If the given input name is found in firebase, the return value is true, else the return value is false
+ * @returns {Promise<boolean>} If the given input name is found in firebase, the return value is true, else the return value is false.
  */
 async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
     return checkContactFieldExists('name', inputName, ownId, errorID, borderID, nameExistsMsg);
 }
 
 /**
- * Checks if the given email is already available in firebase database
+ * Checks if the given email is already available in firebase database.
  * @param {string} inputName
  * @param {string|null} ownId
  * @param {string} errorID
  * @param {string} borderID
- * @returns {Promise<boolean>} If the given input mail is found in firebase, the return value is true, else the return value is false
+ * @returns {Promise<boolean>} If the given input mail is found in firebase, the return value is true, else the return value is false.
  */
 async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
     return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
 }
 
 /**
- * Checks if the given phone number is already available in firebase database
+ * Checks if the given phone number is already available in firebase database.
  * @param {string} inputName
  * @param {string|null} ownId
  * @param {string} errorID
  * @param {string} borderID
- * @returns {Promise<boolean>} If the given input phone is found in firebase, the return value is true, else the return value is false
+ * @returns {Promise<boolean>} If the given input phone is found in firebase, the return value is true, else the return value is false.
  */
 async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
     return await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
 }
 
 /**
- * @description Checks if the value that the user put in already exists in firebase database
+ * @description Checks if the value that the user put in already exists in firebase database.
  * @param {string} field
  * @param {string} value
  * @param {string} ownId
  * @param {string} errorID
  * @param {string} borderID
  * @param {string} existsMsg
- * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false
+ * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false.
  */
 async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
     const response = await getData('contacts');
@@ -110,7 +110,7 @@ async function checkContactFieldExists(field, value, ownId, errorID, borderID, e
 }
 
 /**
- * @description Sets error message on contact field
+ * @description Sets error message on contact field.
  * @param {string} errorID
  * @param {string} borderID
  * @param {boolean} exists
@@ -125,7 +125,7 @@ function updateContactFieldError(errorID, borderID, exists, existsMsg) {
 
 /**
  * @description Sets error eventListeners to hide the errors on Contact fields if a contact field has user input
- * input fields are the fields with following id's: 'name', 'email', 'phone', 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
+ * input fields are the fields with following id's: 'name', 'email', 'phone', 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'.
  */
 function setErrEventListeners() {
     const inputFields = [
@@ -142,7 +142,7 @@ function setErrEventListeners() {
 }
 
 /**
- * @description Hides the error message
+ * @description Hides the error message.
  * @param {InputEvent} event
  */
 function hideContactErrMsg(event) {
@@ -153,7 +153,7 @@ function hideContactErrMsg(event) {
 }
 
 /**
- * @description Resets the error messages from the add-contact-dialog
+ * @description Resets the error messages from the add-contact-dialog.
  */
 function resetContactFormErrors() {
     const border = document.querySelectorAll('.add-contact-content');
@@ -167,7 +167,7 @@ function resetContactFormErrors() {
 }
 
 /**
- * @description Initializes the phone filter on the input fields with id 'phone' and 'existing-contact-phone'
+ * @description Initializes the phone filter on the input fields with id 'phone' and 'existing-contact-phone'.
  */
 function initPhoneFilter() {
     addPhoneFilter('phone', 'phone-err-msg', 'wrong-phone-border');
@@ -175,7 +175,7 @@ function initPhoneFilter() {
 }
 
 /**
- * @description Adds a phone filter to the input field with the given inputId
+ * @description Adds a phone filter to the input field with the given inputId.
  * @param {string} inputId
  * @param {string} errorMsgId
  * @param {string} borderId
@@ -188,7 +188,7 @@ function addPhoneFilter(inputId, errorMsgId, borderId) {
 }
 
 /**
- * @description Validates the input of the phone number
+ * @description Validates the input of the phone number.
  */
 function validatePhoneInput(input, errorMsg, border) {
     const cleaned = input.value.replace(/[^0-9]/g, "");
