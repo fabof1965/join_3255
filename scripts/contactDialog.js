@@ -1,4 +1,3 @@
-let isSubmittingContact = false;
 eventHandler();
 
 /**
@@ -92,9 +91,7 @@ function closeContactDialog() {
     const contactDialog = getAddContactDialog();
     const contactForm = document.getElementById('contact-form');
     contactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        contactDialog.close();
-    }, 500);
+    setTimeout(() => contactDialog.close(), 500);
     resetContactFormErrors();
     contactForm.reset();
 }
@@ -106,17 +103,12 @@ function closeContactDialog() {
  */
 async function submitContactForm(event) {
     event.preventDefault();
-    if (isSubmittingContact) return;
-    isSubmittingContact = true;
-    try {
-        if (editIndex === null) {
-            await addNewContact();
-        } else {
-            await saveEditedContact();
-        }
-    } finally {
-        isSubmittingContact = false;
+    if (editIndex === null) {
+        await addNewContact();
+        return;
     }
+
+    await saveEditedContact();
 }
 
 /**
@@ -127,7 +119,7 @@ async function submitContactForm(event) {
 async function addNewContact() {
     const contactList = document.getElementById("contacts");
     const contact = getContactDataFromForm();
-    if (contactHasBlankFields(contact)) return;
+    if (contactFormHasBlankFields(contact)) return;
     const nameExists = await checkIfContactNameExists(contact.name);
     const emailExists = await checkIfEmailExists(contact.email);
     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
@@ -152,9 +144,9 @@ async function addNewContact() {
 function insertContact(contactList, newContactName, indexContact) {
     const initialLetter = newContactName.charAt(0).toUpperCase();
     const newContactElement = makeNewContactNode(indexContact);
-    const firstLetterGroup = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
-    if (firstLetterGroup.length > 0) {
-        insertContactIntoContactGroup(newContactName, newContactElement, firstLetterGroup);
+    const initialLetterGroup = [...document.querySelectorAll(`[data-initial-letter="${initialLetter}"]`)];
+    if (initialLetterGroup.length > 0) {
+        insertContactIntoContactGroup(newContactName, newContactElement, initialLetterGroup);
         return;
     }
     appendContactListByNewElement(initialLetter, newContactElement, contactList);
@@ -166,10 +158,10 @@ function insertContact(contactList, newContactName, indexContact) {
  * @param {Node} newContactElement
  * @param {Array<Node>} group
  */
-function insertContactIntoContactGroup(newContactName, newContactElement, group) {
-    const nextElement = group.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
+function insertContactIntoContactGroup(newContactName, newContactElement, initialLetterGroup) {
+    const nextElement = initialLetterGroup.find(contact => contact.dataset.name.localeCompare(newContactName, 'de') > 0);
     if (nextElement) nextElement.before(newContactElement);
-    else group.at(-1).after(newContactElement);
+    else initialLetterGroup.at(-1).after(newContactElement);
     setBadgeBackgroundColor();
     initContactCardListeners(newContactElement);
 }
@@ -251,7 +243,7 @@ function getContactDataFromForm() {
 }
 
 /**
- * Opens the Edit Contact Dialog
+ * @description Opens the Edit Contact Dialog
  * @param {number} indexContact
  */
 function editExistingContact(indexContact) {
@@ -259,26 +251,26 @@ function editExistingContact(indexContact) {
 }
 
 /**
- * Fills the edit contact dialog with contact data and opens the dialog
+ * @description Fills the edit contact dialog with contact data and opens the dialog
  * @param {number} indexContact
  */
 function openExistingContactDialog(indexContact) {
-    const contact = allContacts[indexContact];
+    const contact_Edit = allContacts[indexContact];
     const editContactDialog = document.getElementById("edit-contact-dialog");
     const badgeContainer = document.querySelector('.edit-badge-image-container');
-    const initials = getInitials(contact.name).toUpperCase();
+    const initials = getInitials(contact_Edit.name).toUpperCase();
     badgeContainer.innerHTML = getEditBadgeTemplate(initials);
     badgeContainer.classList.add('profile-badge-large');
     setBadgeBackgroundColor();
     editIndex = indexContact;
-    fillContactForm(contact);
+    fillContactForm(contact_Edit);
     editContactDialog.showModal();
     editContactDialog.classList.add("slide-in");
     closeDialogOnOutsideClick(editContactDialog, closeEditContactDialog);
 }
 
 /**
- * Fills the fiels with following id's with contact-data:
+ * @description Fills the fiels with following id's with contact-data:
  * 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
  * @param {object} contact
  */
@@ -300,8 +292,8 @@ function closeEditContactDialog() {
 }
 
 /**
- * Overrides the contact data on firebase with the new contact Data that has been edited.
- * Also the name of a contact is updated in a task card
+ * @description Overrides the contact data on firebase with the new contact Data that has been edited.
+ * Also the name of a contact is updated in the contact card with the corresponding index
  * @returns {Promise<void>}
  */
 async function saveEditedContact() {
@@ -310,7 +302,7 @@ async function saveEditedContact() {
     const oldName = contact.name;
     if (await contactFormHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
-    if (contactHasBlankFields(contact)) return;
+    if (contactFormHasBlankFields(contact)) return;
     allContacts[editIndex] = contact;
     if (oldName !== contact.name) {
         await renameContactFromTaskCard(oldName, contact.name);

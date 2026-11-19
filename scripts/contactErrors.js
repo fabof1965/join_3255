@@ -14,11 +14,11 @@ const EDIT_CONTACT_FIELD_IDS = {
 }
 
 /**
- * Checks if the contact form has input fields that are not filled with text
+ * @description Checks if the contact form has input fields that are not filled with text
  * @param {JSON} contact
  * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled
  */
-function contactHasBlankFields(contact) {
+function contactFormHasBlankFields(contact) {
     const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
     const blankName = fieldIsBlankFeedback(contact.name, ...ids.name, enterNameMsg);
     const blankEmail = fieldIsBlankFeedback(contact.email, ...ids.email, enterEmailMsg);
