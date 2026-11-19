@@ -1,22 +1,28 @@
 let successPopupTimer;
 
-/** Shows a success message in the same style as the registration popup. */
+/**
+ * Creates the success popup dialog with an empty heading and appends it to the body.
+ * @returns {HTMLDialogElement} The newly created dialog element.
+ */
+function createSuccessDialog() {
+  const dialog = document.createElement("dialog");
+  dialog.id = "success-popup";
+  dialog.className = "success-popup";
+  dialog.setAttribute("aria-labelledby", "success-popup-message");
+  dialog.innerHTML = '<h2 id="success-popup-message"></h2>';
+  document.body.appendChild(dialog);
+  return dialog;
+}
+
+/**
+ * Shows a success message in a modal popup and closes it automatically after 1.5 seconds.
+ * Creates the dialog on first use and restarts the timer if the popup is already open.
+ * @param {string} message - The text to display in the popup.
+ */
 function showSuccessPopup(message) {
-  let dialog = document.getElementById("success-popup");
-  if (!dialog) {
-    dialog = document.createElement("dialog");
-    dialog.id = "success-popup";
-    dialog.className = "success-popup";
-    dialog.setAttribute("aria-labelledby", "success-popup-message");
-    const heading = document.createElement("h2");
-    heading.id = "success-popup-message";
-    dialog.appendChild(heading);
-    document.body.appendChild(dialog);
-  }
+  const dialog =  document.getElementById("success-popup") || createSuccessDialog();
   clearTimeout(successPopupTimer);
   dialog.querySelector("h2").textContent = message;
-  if (!dialog.open) {
-    dialog.showModal();
-  }
+  if (!dialog.open) dialog.showModal();
   successPopupTimer = setTimeout(() => dialog.close(), 1500);
 }
