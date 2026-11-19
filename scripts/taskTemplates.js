@@ -330,8 +330,8 @@ function getTaskFormContentTemplate() {
           <div class="subtask-container">
             <input id="board-subtask-input" name="subtask" type="text" placeholder="Add new subtask" />
             <div class="subtask-icon-container">
-              <button id="clear-subtask-icon" type="button" class="handle-subtask-input-btn">${clearSubtaskContentIcon}</button>
-              <button id="save-subtask-icon" type="button" class="handle-subtask-input-btn">${saveSubtaskContentIcon}</button>
+              <button id="clear-subtask-icon" type="button" class="handle-subtask-input-btn" aria-label="Clear subtask">${clearSubtaskContentIcon}</button>
+              <button id="save-subtask-icon" type="button" class="handle-subtask-input-btn" aria-label="Save subtask">${saveSubtaskContentIcon}</button>
             </div>
           </div>
           <ul id="taskSubtasks" class="add-task-subtasks"></ul>
