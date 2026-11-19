@@ -76,12 +76,12 @@ function toHelpPage() {
 /**
  * Adds a click event listener to a dialog element to handle outside clicks (backdrop clicks).
  * If a click occurs outside the dialog boundaries, it either executes a custom closing function or closes the dialog directly.
- * 
+ *
  * @param {HTMLDialogElement} dialog - The dialog element to attach the click listener to.
  * @param {Function|null} [closingFunction=null] - Optional custom callback function to execute when clicking outside.
  * @returns {void}
  */
-function clickEventListener(dialog, closingFunction = null) {
+function closeDialogOnOutsideClick(dialog, closingFunction = null) {
     dialog.addEventListener("click", (event) => {
         if (event.target !== dialog) return;
         const RECT = dialog.getBoundingClientRect();
@@ -96,7 +96,7 @@ function clickEventListener(dialog, closingFunction = null) {
 }
 
 /**
- * @description Navigates to the help page. 
+ * @description Navigates to the help page.
  * @returns {void}
  */
 function handleHelpButtonClick() {
@@ -130,8 +130,8 @@ function initHeaderProfile() {
 }
 
 /**
- * @description Splits the firstAndLastName parameter by ' ' (one empty character) and gets the initials of the given parameter out of it. 
- * @param {string} firstAndLastName 
+ * @description Splits the firstAndLastName parameter by ' ' (one empty character) and gets the initials of the given parameter out of it.
+ * @param {string} firstAndLastName
  * @returns {string} The initials that the parameter firstAndLastName gives.
  */
 function getInitials(firstAndLastName) {
@@ -144,7 +144,7 @@ function getInitials(firstAndLastName) {
 /**
  * @description Calculates the character sum and returns the given color code.
  * @param {string} initials - The initials of the given name
- * @returns {string} The hexadecimal color code for the given badge color. 
+ * @returns {string} The hexadecimal color code for the given badge color.
  */
 function getBadgeColor(initials) {
     let charSum = 0;
@@ -175,21 +175,21 @@ function sortContactsByName(contacts) {
 
 /**
  * @description Compares the given strings a and by by their occurence in the alphabet.
- * @param {string} a 
- * @param {string} b 
+ * @param {string} a
+ * @param {string} b
  * @returns {number} If a comes after b in the alphabet, the return value is a positive number value.
- * If b comes after a in the alphabet, the return value is a negative number value. 
+ * If b comes after a in the alphabet, the return value is a negative number value.
  */
 function compareContactNames(a, b) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 }
 
 /**
- * @description Checks if the current URL is not publicly accessible. 
- * The page is accessible if a logged in user changed the page URL and comes back to his previously opened page or 
- * the pages URL ends with '/index.html', '/privacy_policy_start.html', or '/legal_notice_start.html'. 
- * 
- * @returns {function redirectToLogin(void)} If the current page is not to be accessed publicly and 
+ * @description Checks if the current URL is not publicly accessible.
+ * The page is accessible if a logged in user changed the page URL and comes back to his previously opened page or
+ * the pages URL ends with '/index.html', '/privacy_policy_start.html', or '/legal_notice_start.html'.
+ *
+ * @returns {function redirectToLogin(void)} If the current page is not to be accessed publicly and
  * the local storage does not include an item with "name" the user is redirected to login.
  */
 function authGuard() {
@@ -199,9 +199,9 @@ function authGuard() {
 }
 
 /**
- * @description Checks if the given URL is from a public page. 
+ * @description Checks if the given URL is from a public page.
  * The pulic pages URL's end with: '/index.html', '/privacy_policy_start.html', or '/legal_notice_start.html'.
- * @param {string} url The given page URL 
+ * @param {string} url The given page URL
  * @returns {boolean} True if the given URL includes one of the public pages URL's.
  * If the given URL does not include any of the given URL's it returns false.
  */

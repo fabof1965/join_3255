@@ -21,7 +21,7 @@ function getTaskCardContentTemplate(task) {
     return `
       <header class="task-card-header">
         <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
-        ${getCardMenuTemplate(task.id, task.status)} 
+        ${getCardMenuTemplate(task.id, task.status)}
       </header>
       <div class="task-content">
         <h3>${task.title}</h3>
@@ -42,10 +42,10 @@ function getTaskCardContentTemplate(task) {
  * @returns {string} HTML string for the card menu container.
  */
 function getCardMenuTemplate(taskId, currentStatus) {
-    return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" id="btn-move-task-card-${taskId}">
+    return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" aria-label="Open popover menu">
               <span class="task-card-drag-icon" aria-hidden="true">↕</span>
-            </button> 
-            <div id="card-menu-${taskId}" class="card-dropdown-menu" popover>
+            </button>
+            <div id="card-menu-${taskId}" class="card-dropdown-menu" role="menu" popover>
               ${getCardMenuOptionsHtml(taskId, currentStatus)}
             </div>
   `;
@@ -53,15 +53,15 @@ function getCardMenuTemplate(taskId, currentStatus) {
 
 /**
  * @description Gets the HTML String for a button inside the task-card-menu
- * @param {string} taskId 
- * @param {string} statuslabel 
- * @param {string} statusKey 
+ * @param {string} taskId
+ * @param {string} statuslabel
+ * @param {string} statusKey
  * @returns {HTMLButtonString} The HTML-String, that represents the button
  *  to move a task into another category by clicking on it.
  */
 function getMenuOptionTemplate(taskId, statuslabel, statusKey){
   return `
-    <button class="menu-option btn" data-move-to="${statusKey}" data-task-id="${taskId}">
+    <button role="menuitem" type="button" class="menu-option btn" data-move-to="${statusKey}" data-task-id="${taskId}">
       ${statuslabel}
     </button>
     `;
@@ -116,7 +116,7 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
     const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>`: subtasksHTML;
     return `
-      <article class="task-card-dialog-content" role="dialog" aria-modal="true" aria-labelledby="task-card-dialog-title">
+      <article class="task-card-dialog-content" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
           <span class="task-card-dialog-category ${getCategoryClass(task.category)}">${task.category}</span>
           <button class="close-btn task-card-dialog-close" type="button" aria-label="Close task details">
@@ -282,7 +282,7 @@ function getTaskFormContentTemplate() {
           <input id="taskDueDate" name="dueDate" type="date" />
           <small data-error="dueDate"></small>
         </label>
-        
+
         <fieldset class="add-task-priority">
           <legend>Priority</legend>
           <div class="priority-buttons">

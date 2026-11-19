@@ -133,7 +133,7 @@ async function openAddTaskDialog(status) {
  * @returns {void}
  */
 function initAddTaskDialogListeners(addTaskDialog) {
-  clickEventListener(addTaskDialog);
+  closeDialogOnOutsideClick(addTaskDialog);
   document.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
   document.querySelector(".btn-clear").addEventListener("click", () => resetForm());
 }
@@ -180,7 +180,7 @@ async function openAddTaskDialogInEditMode(task) {
   fillFormElementsWithTaskData(task);
   renderNewSubtasks();
   initAddTaskDialogListeners(addTaskDialog);
-  clickEventListener(addTaskDialog);
+  closeDialogOnOutsideClick(addTaskDialog);
   addTaskDialog.showModal();
 }
 
@@ -273,7 +273,7 @@ function openTaskCardDialog(taskId) {
     setSubtasksCheckedVisually(task);
   }
   setBadgeBackgroundColor();
-  clickEventListener(taskCardDialog);
+  closeDialogOnOutsideClick(taskCardDialog);
   taskCardDialog.showModal();
   document.querySelector(".board-container").classList.add("overlay-open");
 }

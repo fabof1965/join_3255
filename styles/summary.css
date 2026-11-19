@@ -87,7 +87,7 @@
 .summary-card-container {
     display: grid;
     grid-template-columns: repeat(4, minmax(60px, calc(100dvw / 4)));
-    grid-template-rows: repeat(2, minmax(calc(100dvh / 10), 250px));
+    grid-template-rows: repeat(2, minmax(calc(100dvw / 25), 200px));
     gap: var(--gap-medium);
     width: fit-content;
 }

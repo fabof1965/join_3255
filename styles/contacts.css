@@ -101,7 +101,6 @@
     padding: var(--padding-small);
     border-radius: var(--border-radius-circular);
     border: 2px solid var(--white-color);
-    font-size: 16px;
     color: var(--white-color);
 }
 
@@ -245,7 +244,7 @@
     background-color: transparent;
     color: var(--black-color);
     font-size: var(--small-font-size);
-    
+
 }
 
 @media(max-width: 950px) {
@@ -305,11 +304,11 @@
     gap: var(--gap-small);
     transition: transform 300ms ease-in-out,
                 overlay 300ms allow-discrete,
-                display 300ms allow-discrete; 
+                display 300ms allow-discrete;
     background-color: var(--white-color);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
     transform: translateX(100%);
-    
+
     .edit, .delete {
         display: flex;
     }
@@ -319,7 +318,7 @@
     #popover-menu:popover-open {
         display: flex;
         transform: translateX(-25px);
-        
+
         @starting-style {
             transform: translateX(100%);
         }

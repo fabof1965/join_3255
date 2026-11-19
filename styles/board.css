@@ -13,10 +13,6 @@
   }
 }
 
-.main-layout {
-  min-height: var(--page-content-height);
-}
-
 .board-toolbar-wrapper {
   display: flex;
   flex-direction: column;
@@ -40,12 +36,7 @@
 }
 
 @media(max-width: 950px) {
-  .main-layout {
-    height: auto;
-  }
-
-  .board-toolbar-wrapper {
-    padding-top: 0;
+  .board-toolbar-wrapper, .board-toolbar {
     margin: 0;
   }
 }
@@ -62,7 +53,6 @@
   font-size: var(--search-bar-font-size);
   display: flex;
   border: none;
-  
   flex: 1;
 }
 
@@ -195,7 +185,6 @@
 @media(max-width: 950px) {
   .board-columns {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    overflow-y: scroll;
   }
 
   .board-column {
@@ -216,25 +205,14 @@
   background-color: var(--secondary-color);
 }
 
-.task-card-drop-before {
-  box-shadow: 0 -4px 0 var(--primary-color);
-}
-
-.task-list-drop-end::after {
-  content: "";
-  height: 4px;
-  background-color: var(--primary-color);
-}
-
 .task-card {
   position: relative;
   width: var(--full);
-  min-height: 200px;
-  padding: 12px;
+  padding: var(--padding-small);
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
-  border-radius: var(--element-design-border-radius);
+  border-radius: var(--task-card-border-radius);
   box-shadow: var(--task-card-box-shadow);
   background-color: var(--white-color);
   cursor: grab;
@@ -248,6 +226,7 @@
 }
 
 .task-card-dragging {
+  transform: rotate(2deg);
   opacity: 0.5;
   cursor: grabbing;
 }
@@ -262,12 +241,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 28px;
+}
+
+.btn-open-popover-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  box-shadow: var(--task-card-box-shadow);;
 }
 
 .task-card-drag-icon {
   color: var(--greeting-text-color);
-  font-size: 22px;
+  font-size: var(--large-font-size);
   line-height: 1;
 }
 
@@ -288,7 +274,6 @@
 
 .task-content h3 {
   color: var(--black-color);
-  font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
   overflow-wrap: break-word;
@@ -296,7 +281,6 @@
 
 .task-content p {
   color: #9b9b9b;
-  font-size: 16px;
   line-height: 1.45;
   word-break: break-word;
   overflow: hidden;
@@ -311,7 +295,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-small);
-  font-size: 14px;
 }
 
 .progress-track {
@@ -335,20 +318,6 @@
 
 .task-priority {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.task-priority-low {
-  color: var(--green-color);
-}
-
-.task-priority-medium {
-  color: var(--medium-task-color);
-}
-
-.task-priority-urgent {
-  color: var(--red-color);
 }
 
 .profile-badge {
@@ -359,9 +328,7 @@
   height: clamp(32px, calc(29.714px + 0.714vw), 40px);
   border-radius: var(--border-radius-circular);
   border: 2px solid var(--white-color);
-  font-size: 16px;
   color: var(--white-color);
-  padding: 4px;
 }
 
 .assigned-users {
@@ -373,34 +340,28 @@
   margin-left: clamp(-16px, calc(-17.714px + 0.536vw), -10px);
 }
 
-.close-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  border: none;
-}
-
-.close-btn:hover, .close-btn:focus {
-  background-color: var(--secondary-color);
-  border-radius: var(--border-radius-circular);
-}
-
 .placeholder {
   border: 2px dashed var(--search-bar-outline-color);
   background-color: #eeeeeeda;
-  border-radius: var(--element-design-border-radius);
+  border-radius: var(--task-card-border-radius);
 }
 
 .card-dropdown-menu {
   inset: 0;
+  flex-direction: column;
   position: fixed;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
+  position-area: bottom span-left;
+  position-try-fallbacks: flip-block, flip-inline;
+  background-color: var(--white-color);
+  border: none;
   border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); 
-  z-index: 9999; 
+  box-shadow: var(--task-card-box-shadow);
   padding: 4px 0;
+  opacity: 0;
+  transition: display 300ms allow-discrete,
+  opacity 300ms ease-in-out,
+  overlay 300ms allow-discrete,
+  transform 300ms ease-in-out;
 }
 
 .card-dropdown-menu:popover-open {
@@ -410,11 +371,16 @@
   inset: 0;
   position-area: bottom span-left;
   position-try-fallbacks: flip-block, flip-inline;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.25);
+  }
 }
 
 .menu-option {
   padding: 8px;
-  font-size: 16px;
   color: var(--greeting-text-color);
   cursor: pointer;
   white-space: nowrap;
@@ -423,6 +389,7 @@
   box-shadow: none;
   border: none;
   background-color: var(--white-color);
+  font-size: var(--small-font-size);
 }
 
 .menu-option:hover, .menu-option:focus {
