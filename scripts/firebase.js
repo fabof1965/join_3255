@@ -48,14 +48,10 @@ async function postData(path = "", data = {}) {
   try {
     let response = await fetch(await getAuthUrl(path), {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data),
     });
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
+    if (!response.ok) throw new Error("HTTP " + response.status);
     return await response.json();
   } catch (error) {
     console.error("Fehler beim Hochladen der Daten", error);
