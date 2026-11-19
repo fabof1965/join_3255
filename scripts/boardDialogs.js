@@ -286,9 +286,7 @@ async function deleteTaskCard(taskCardId) {
   });
   if (taskIndex === -1) return;
   const taskCard = document.getElementById(taskCardId);
-  const taskList = document.querySelector(
-    'div.task-list[data-status="' + allTasks[taskIndex].status + '"]',
-  );
+  const taskList = document.querySelector('div.task-list[data-status="' + allTasks[taskIndex].status + '"]');
   await deleteData("tasks/" + taskCardId);
   taskCard?.remove();
   allTasks.splice(taskIndex, 1);
