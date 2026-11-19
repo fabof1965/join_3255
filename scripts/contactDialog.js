@@ -1,7 +1,7 @@
 eventHandler();
 
 /**
- * @description Handles all contact dialog events
+ * @description Handles all contact dialog events.
  */
 function eventHandler() {
     handleClickEvents();
@@ -10,7 +10,7 @@ function eventHandler() {
 }
 
 /**
- * @description Handles the 'cancel' event for the Add Contact Dialog and the Edit Contact Dialog
+ * @description Handles the 'cancel' event for the Add Contact Dialog and the Edit Contact Dialog.
  */
 function handleCancelEvents() {
     getAddContactDialog().addEventListener("cancel", (event) => {
@@ -22,7 +22,7 @@ function handleCancelEvents() {
 }
 
 /**
- * @description Handles the submit event that is fired by the contact form
+ * @description Handles the submit event that is fired by the contact form.
  */
 function handleSubmitEvent() {
     document.addEventListener("submit", (event) => {
@@ -47,7 +47,7 @@ function handleClickEvents() {
 }
 
 /**
- * @description Handles the contact form's submit
+ * @description Handles the contact form's submit.
  * @param {SubmitEvent} event
  */
 function submitHandler(event) {
@@ -56,7 +56,7 @@ function submitHandler(event) {
 }
 
 /**
- * @description Handles the cancel event on the dialogs
+ * @description Handles the cancel event on the dialogs.
  * @param {Cancel} event
  * @param {calling function} closingFunction
  */
@@ -67,7 +67,7 @@ function closeDialogHandler(event, closingFunction) {
 }
 
 /**
- * Gets the dialog element with the given id 'add-contact-dialog'
+ * Gets the dialog element with the given id 'add-contact-dialog'.
  * @returns HTML Dialog element
  */
 function getAddContactDialog() {
@@ -75,7 +75,7 @@ function getAddContactDialog() {
 }
 
 /**
- * @description Opens the dialog that makes it possile to create a new contact
+ * @description Opens the dialog that makes it possile to create a new contact.
  */
 function openContactDialog() {
     const dialog = getAddContactDialog();
@@ -85,7 +85,7 @@ function openContactDialog() {
 }
 
 /**
- * @description Closes the 'Add Contact' - Dialog
+ * @description Closes the 'Add Contact' - Dialog.
  */
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
@@ -97,7 +97,7 @@ function closeContactDialog() {
 }
 
 /**
- * @description Submits Contact data to firebase
+ * @description Submits Contact data to firebase.
  * @param {SubmitEvent} event
  * @returns {Promise<void>}
  */
@@ -107,13 +107,12 @@ async function submitContactForm(event) {
         await addNewContact();
         return;
     }
-
     await saveEditedContact();
 }
 
 /**
  * @description Inserts a new created contact into the contact list and
- * loads the data into the global allContacts Array as well as to firebase
+ * loads the data into the global allContacts Array as well as to firebase.
  * @returns {Promise<void>}
  */
 async function addNewContact() {
@@ -135,7 +134,7 @@ async function addNewContact() {
 }
 
 /**
- * @description Inserts a new contact element into the contact list
+ * @description Inserts a new contact element into the contact list.
  * @param {HTMLElement} contactList
  * @param {string} newContactName
  * @param {number} indexContact
@@ -153,7 +152,7 @@ function insertContact(contactList, newContactName, indexContact) {
 }
 
 /**
- * @description Sets the newContactElement to the correct place inside a contact group
+ * @description Sets the newContactElement to the correct place inside a contact group.
  * @param {string} newContactName
  * @param {Node} newContactElement
  * @param {Array<Node>} group
@@ -167,7 +166,7 @@ function insertContactIntoContactGroup(newContactName, newContactElement, initia
 }
 
 /**
- * @description Inserts the newContactElement to the correct position at the contact list
+ * @description Inserts the newContactElement to the correct position at the contact list.
  * @param {string} initialLetter
  * @param {Node} newContactElement
  * @param {HTMLElement} contactList
@@ -183,7 +182,7 @@ function appendContactListByNewElement(initialLetter, newContactElement, contact
 }
 
 /**
- * @description Creates a new contact node element and sets all nesseccary attributes
+ * @description Creates a new contact node element and sets all nesseccary attributes.
  * @param {number} indexContact
  * @returns {Node} contact node
  */
@@ -203,7 +202,7 @@ function makeNewContactNode(indexContact) {
 
 /**
  * @description Creates a letter Element that represents the headline for a contact group
- * grouped by the initial letter of the contacts belonging to this group
+ * grouped by the initial letter of the contacts belonging to this group.
  * @param {string} letter
  * @returns {Node} letter node
  */
@@ -217,7 +216,7 @@ function makeLetterElement(letter) {
 }
 
 /**
- * @description Creates a seperator element
+ * @description Creates a seperator element.
  * @param {string} letter
  * @returns {Node} seperator Node
  */
@@ -229,7 +228,7 @@ function makeSeperatorElement(letter) {
 }
 
 /**
- * @description Retrieves the data from the input fields in the contact dialog
+ * @description Retrieves the data from the input fields in the contact dialog.
  * @returns {JSON} name: 'the name from users input',
  * email: 'email-address from the users input',
  * phone: 'pone number from the users input'
@@ -243,7 +242,7 @@ function getContactDataFromForm() {
 }
 
 /**
- * @description Opens the Edit Contact Dialog
+ * @description Opens the Edit Contact Dialog.
  * @param {number} indexContact
  */
 function editExistingContact(indexContact) {
@@ -251,7 +250,7 @@ function editExistingContact(indexContact) {
 }
 
 /**
- * @description Fills the edit contact dialog with contact data and opens the dialog
+ * @description Fills the edit contact dialog with contact data and opens the dialog.
  * @param {number} indexContact
  */
 function openExistingContactDialog(indexContact) {
@@ -271,7 +270,7 @@ function openExistingContactDialog(indexContact) {
 
 /**
  * @description Fills the fiels with following id's with contact-data:
- * 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'
+ * 'existing-contact-name', 'existing-contact-email', 'existing-contact-phone'.
  * @param {object} contact
  */
 function fillContactForm(contact) {
@@ -281,7 +280,7 @@ function fillContactForm(contact) {
 }
 
 /**
- * Closes the edit Contact dialog
+ * Closes the edit Contact dialog.
  */
 function closeEditContactDialog() {
     const editContactDialog = document.getElementById("edit-contact-dialog");
@@ -293,7 +292,7 @@ function closeEditContactDialog() {
 
 /**
  * @description Overrides the contact data on firebase with the new contact Data that has been edited.
- * Also the name of a contact is updated in the contact card with the corresponding index
+ * Also the name of a contact is updated in the contact card with the corresponding index.
  * @returns {Promise<void>}
  */
 async function saveEditedContact() {
@@ -313,7 +312,7 @@ async function saveEditedContact() {
 }
 
 /**
- * @description Assigns values from the edit contact dialogs input fields to the gien contact object
+ * @description Assigns values from the edit contact dialogs input fields to the gien contact object.
  * @param {object} contact
  */
 function assignValuesToContact(contact) {
@@ -326,7 +325,7 @@ function assignValuesToContact(contact) {
 }
 
 /**
- * @description Updates the contect data that is seen in the contact card as well as in the contact detail
+ * @description Updates the contect data that is seen in the contact card as well as in the contact detail.
  */
 function updateEditedContact() {
     document.getElementById("contact-card" + editIndex).innerHTML = getContactCardContentTemplate(editIndex);
@@ -334,7 +333,7 @@ function updateEditedContact() {
 }
 
 /**
- * @description Deletes the contact with the given index from firebase, the contact list (visually) and from the allContacts array
+ * @description Deletes the contact with the given index from firebase, the contact list (visually) and from the allContacts array.
  * @param {number} indexContact
  * @returns {Promise<void>}
  */
@@ -350,7 +349,7 @@ async function deleteContact(indexContact) {
 }
 
 /**
- * @description Removes the contact card visually from the contact list
+ * @description Removes the contact card visually from the contact list.
  * @param {number} indexContact
  * @param {object} contactToRemove
  */
@@ -365,7 +364,7 @@ function removeContactCard(indexContact, contactToRemove) {
 }
 
 /**
- * @description Changes the name of a contact on task cards with this contact
+ * @description Changes the name of a contact on task cards with this contact.
  * @param {string} oldName
  * @param {string} newName
  * @returns {Promise<void>}
@@ -381,7 +380,7 @@ async function renameContactFromTaskCard(oldName, newName) {
 }
 
 /**
- * @description Removes a contact from the task card
+ * @description Removes a contact from the task card.
  * @param {string} contactName
  * @returns {Promise<void>}
  */
@@ -395,7 +394,7 @@ async function removeContactFromTaskCard(contactName) {
 }
 
 /**
- * @description Gets all contacts excluding the given contactName
+ * @description Gets all contacts excluding the given contactName.
  * @param {object} task
  * @param {string} contactName
  * @returns {Array<string>}
