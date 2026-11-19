@@ -60,20 +60,6 @@
   }
 }
 
-.subtask-container{
-  display: flex;
-  border-bottom: 1px solid var(--search-bar-outline-color);
-}
-
-.subtask-icon-container{
-  display: flex;
-}
-
-.handle-subtask-input-btn{
-  border: unset;
-  background: unset;
-}
-
 input:not([type="checkbox"]),
 select,
 textarea {
@@ -81,6 +67,7 @@ textarea {
   border: none;
   width: var(--full);
   padding: var(--board-search-padding);
+  border-bottom: 1px solid var(--search-bar-outline-color);
 }
 
 .add-task-title-field input {
@@ -136,7 +123,7 @@ textarea {
   height: 100%;
 }
 
-.btn-create-task > span {
+.btn-create-task>span {
   color: var(--white-color);
 }
 
@@ -274,6 +261,26 @@ textarea {
   }
 }
 
+.subtask-container {
+  display: flex;
+  transition: opacity 0.2s ease;
+  border-bottom: 1px solid var(--search-bar-outline-color);
+}
+
+.subtask-container input {
+  border-bottom: none;
+}
+
+.subtask-icon-container {
+  display: flex;
+  opacity: 0;
+}
+
+.handle-subtask-input-btn {
+  border: unset;
+  background: unset;
+}
+
 .subtask-wrapper {
   display: flex;
   justify-content: space-between;
@@ -334,7 +341,7 @@ textarea {
   background-color: var(--white-color);
 }
 
-.assigned-dropdown > summary {
+.assigned-dropdown>summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -346,7 +353,7 @@ textarea {
   list-style: none;
 }
 
-.assigned-dropdown > summary:focus-visible {
+.assigned-dropdown>summary:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }

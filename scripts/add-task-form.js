@@ -243,6 +243,32 @@ function saveSubtask(input) {
   renderNewSubtasks();
 }
 
+document.addEventListener('input', (event) =>{
+  if (event.target.id !== "board-subtask-input") return;
+  const icons = event.target.parentElement.querySelector('.subtask-icon-container');
+  icons.style.opacity = 1;
+  const input = document.getElementById('board-subtask-input');
+  if (input.value === "") {
+    icons.style.opacity = 0;
+  }
+});
+
+document.addEventListener('click', (event)=>{
+  if (!event.target.closest("#save-subtask-icon")) return;
+  const iconContainer = document.querySelector(".subtask-icon-container");
+  const input = document.getElementById('board-subtask-input');
+  addSubtaskFromInput(input);
+  iconContainer.style.opacity = 0;
+})
+
+document.addEventListener('click', (event)=>{
+  if (!event.target.closest('#clear-subtask-icon')) return;
+  const input = document.getElementById('board-subtask-input');
+  const iconContainer = document.querySelector(".subtask-icon-container");
+  input.value = "";
+  iconContainer.style.opacity = 0;
+})
+
 /**
  * @description Resets the add-task form to its original state.
  * @param {HTMLFormElement} form - Form that is being reset. 
