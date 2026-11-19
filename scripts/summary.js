@@ -36,6 +36,10 @@ async function loadAllTaskData() {
   }
 }
 
+function countByStatus(tasks, status) {
+  return tasks.filter((task) => task.status === status).length;
+}
+
 /**
  * Calculates and displays the task counts for the summary page.
  * Also updates the upcoming deadline based on urgent tasks.
@@ -43,26 +47,14 @@ async function loadAllTaskData() {
  */
 async function updateSummaryNumbers() {
   const allTasks = await loadAllTaskData();
-  if (!allTasks) {
-    const zero = "0";
-    displaySummaryNumbers(zero, zero, zero, zero, zero, zero);
-    return;
-  }
-  const totalTasksToDo = allTasks.filter(task => task.status === "toDo").length;
-  const totalTasksInProgress = allTasks.filter(task => task.status === "inProgress").length;
-  const totalTasksFeedback = allTasks.filter(task => task.status === "awaitFeedback").length;
-  const totalTasksDone = allTasks.filter(task => task.status === "done").length;
+  if (!allTasks) displaySummaryNumbers(..."000000");
+  const toDo = countByStatus(allTasks, "toDo");
+  const inProgress = countByStatus(allTasks, "inProgress");
+  const awaitFeedback = countByStatus(allTasks, "awaitFeedback");
+  const done = countByStatus(allTasks, "done");
   const urgentTasks = allTasks.filter(task => task.priority === "urgent");
-  const openTasksOnBoard = totalTasksToDo + totalTasksInProgress + totalTasksFeedback;
-  const totalTasksUrgent = urgentTasks.length;
-  displaySummaryNumbers(
-    totalTasksToDo,
-    totalTasksInProgress,
-    totalTasksFeedback,
-    totalTasksDone,
-    openTasksOnBoard,
-    totalTasksUrgent
-  );
+  const openTasksOnBoard = toDo + inProgress + awaitFeedback;
+  displaySummaryNumbers(toDo, inProgress, awaitFeedback, done, openTasksOnBoard, urgentTasks.length);
   updateUpcomingDeadline(urgentTasks);
 }
 
@@ -116,7 +108,7 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
     dateEl.innerText = "No deadline";
     return;
   }
-  if(urgentTaskDates.length > 0){
+  if (urgentTaskDates.length > 0) {
     upcomingDeadline.innerText = "Upcoming deadline";
   }
   if (closestDate < today) {
