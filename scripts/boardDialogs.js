@@ -48,7 +48,6 @@ function processNewCreatedTask() {
   const newTaskData = allTasks[allTasks.length - 1];
   const newTaskElement = createNewTaskElement(newTaskData);
   appendTaskListByTaskElement(newTaskData, newTaskElement);
-  addDragEventListenersToCard(newTaskElement);
 }
 
 /**

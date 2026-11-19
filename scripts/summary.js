@@ -91,9 +91,9 @@ function displaySummaryNumbers(todo, inprogress, feedback, done, board, urgent) 
  * @returns {void}
  */
 function updateUpcomingDeadline(urgentTasks) {
-  const urgentTaskDates = urgentTasks.filter(duty => {
-    if ((duty.dueDate) && (duty.status !== "done"))
-      return duty;
+  const urgentTaskDates = urgentTasks.filter(task => {
+    if ((task.dueDate) && (task.status !== "done"))
+      return task.dueDate;
   });
   urgentTaskDates.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   const closestDateStr = urgentTaskDates[0]?.dueDate;
@@ -108,14 +108,14 @@ function updateUpcomingDeadline(urgentTasks) {
  */
 function deadlineOutput(closestDateStr, urgentTaskDates) {
   const dateEl = document.getElementById("date");
-  const today = new Date();
-  const closestDate = new Date(closestDateStr);
+  const today = normalizeDate(new Date());
+  const closestDate = normalizeDate(new Date(closestDateStr));
   dateEl.innerText = formatDate(closestDateStr);
   const upcomingDeadline = document.getElementById('deadline-info');
   if (urgentTaskDates.length === 0) {
     dateEl.innerText = "No deadline";
     return;
-  }  
+  }
   if(urgentTaskDates.length > 0){
     upcomingDeadline.innerText = "Upcoming deadline";
   }
@@ -123,6 +123,15 @@ function deadlineOutput(closestDateStr, urgentTaskDates) {
     upcomingDeadline.innerText = "Missed deadline";
     return;
   }
+}
+
+/**
+ * @description Forms the given date parameter to another date object without passed time
+ * @param {Date} date - Date object
+ * @returns Date oject with time 00:00:00 (hours:minutes:seconds)
+ */
+function normalizeDate(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 /**
