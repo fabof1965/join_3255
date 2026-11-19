@@ -29,13 +29,12 @@ function handlePopoverOpenOnTaskCard(event) {
  */
 function handleTaskCardKeydown(event) {
   const card = event.target.closest(".task-card");
-  const menuOption = event.target.closest(".menu-option");
   if (!card || (event.key !== "Enter" && event.key !== " ")) return;
   if (onOpenPopoverButton(event)) {
     handlePopoverOpenOnTaskCard(event);
     return;
   }
-  if (menuOption) {
+  if (event.target.closest(".menu-option")) {
     handleMenuOption(event);
     return;
   }
