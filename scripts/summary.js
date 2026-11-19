@@ -36,6 +36,12 @@ async function loadAllTaskData() {
   }
 }
 
+/**
+ * @description Counts the tasks that have the given status.
+ * @param {Object []} tasks - All tasks.
+ * @param {string} status - Status to count.
+ * @returns {number} Number of matching tasks.
+ */
 function countByStatus(tasks, status) {
   return tasks.filter((task) => task.status === status).length;
 }
