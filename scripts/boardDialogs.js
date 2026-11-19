@@ -327,12 +327,11 @@ document.getElementById("task-card-dialog").addEventListener("close", () => {
  */
 function handleTaskCardClick(event) {
   const taskCard = event.target.closest(".task-card");
-  const menuOption = event.target.closest(".menu-option");
   if (onOpenPopoverButton(event)) {
     handlePopoverOpenOnTaskCard(event);
     return;
   }
-  if (menuOption) {
+  if (event.target.closest(".menu-option")) {
     handleMenuOption(event);
     return;
   }
