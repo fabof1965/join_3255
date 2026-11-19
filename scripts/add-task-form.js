@@ -175,6 +175,8 @@ function addSubtaskOnEnter(event) {
   if (event.key !== "Enter") return;
   event.preventDefault();
   addSubtaskFromInput(event.target);
+  const iconContainer = document.querySelector(".subtask-icon-container");
+  iconContainer.style.opacity = 0;
 }
 
 /**
@@ -243,7 +245,7 @@ function saveSubtask(input) {
   renderNewSubtasks();
 }
 
-document.addEventListener('input', (event) =>{
+document.addEventListener('input', (event) => {
   if (event.target.id !== "board-subtask-input") return;
   const icons = event.target.parentElement.querySelector('.subtask-icon-container');
   icons.style.opacity = 1;
@@ -253,7 +255,7 @@ document.addEventListener('input', (event) =>{
   }
 });
 
-document.addEventListener('click', (event)=>{
+document.addEventListener('click', (event) => {
   if (!event.target.closest("#save-subtask-icon")) return;
   const iconContainer = document.querySelector(".subtask-icon-container");
   const input = document.getElementById('board-subtask-input');
@@ -261,7 +263,7 @@ document.addEventListener('click', (event)=>{
   iconContainer.style.opacity = 0;
 })
 
-document.addEventListener('click', (event)=>{
+document.addEventListener('click', (event) => {
   if (!event.target.closest('#clear-subtask-icon')) return;
   const input = document.getElementById('board-subtask-input');
   const iconContainer = document.querySelector(".subtask-icon-container");
