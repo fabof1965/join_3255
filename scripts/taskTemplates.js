@@ -324,7 +324,13 @@ function getTaskFormContentTemplate() {
 
         <label class="add-task-field">
           <strong>Subtasks <span>(optional)</span></strong>
-          <input name="subtask" type="text" placeholder="Add new subtask" />
+          <div class="subtask-container">
+            <input id="board-subtask-input" name="subtask" type="text" placeholder="Add new subtask" />
+            <div class="subtask-icon-container">
+              <button type="button" class="handle-subtask-input-btn"><img src="../assets/icons/clear-subtask.svg" alt="clear subtask input"></button>
+              <button type="button" class="handle-subtask-input-btn"><img src="../assets/icons/subtask-check.svg" alt="place subtask"></button>
+            </div>
+          </div>
           <ul id="taskSubtasks" class="add-task-subtasks"></ul>
         </label>
 

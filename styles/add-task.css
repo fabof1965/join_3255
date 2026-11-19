@@ -60,12 +60,25 @@
   }
 }
 
+.subtask-container{
+  display: flex;
+  border-bottom: 1px solid var(--search-bar-outline-color);
+}
+
+.subtask-icon-container{
+  display: flex;
+}
+
+.handle-subtask-input-btn{
+  border: unset;
+  background: unset;
+}
+
 input:not([type="checkbox"]),
 select,
 textarea {
   font-size: var(--small-font-size);
   border: none;
-  border-bottom: 1px solid var(--search-bar-outline-color);
   width: var(--full);
   padding: var(--board-search-padding);
 }
