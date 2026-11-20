@@ -95,14 +95,6 @@ async function submitContactForm(event) {
     await saveEditedContact();
 }
 
-// async function contactInformationVerification() {
-//     const contact = getContactDataFromForm();
-//     const nameExists = await checkIfContactNameExists(contact.name);
-//     const emailExists = await checkIfEmailExists(contact.email);
-//     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-//     return (nameExists || emailExists || phoneExists);
-// }
-
 /**
  * @description Inserts a new created contact into the contact list and
  * loads the data into the global allContacts Array as well as to firebase.

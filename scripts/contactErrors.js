@@ -59,14 +59,16 @@ async function contactFormHasValidationErrors(contact, ownId = null) {
 }
 
 /**
- * @description Checks if the value that the user put in already exists in firebase database.
- * @param {string} field
- * @param {string} value
- * @param {string} ownId
- * @param {string} errorID
- * @param {string} borderID
- * @param {string} existsMsg
- * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false.
+ * @description Checks whether a contact has the same name, email address, or phone number 
+ * and show or hides the matching error message. 
+ * @param {Object<string, Object>|null} allJoinContacts - All contacts from firebase. 
+ * @param {string} field - Name of the contact property to compare.
+ * @param {string} value - The value entered by the user.
+ * @param {string} ownId - ID of the edited contact.
+ * @param {string} errorID - ID of the element that displays the error message.
+ * @param {string} borderID - ID of the element whose border is marked as invalid. 
+ * @param {string} existsMsg - Error message shown if the value already exists.
+ * @returns {boolean} True if another contact already uses this value, otherwise false.
  */
 function checkContactFieldExists(allJoinContacts, field, value, ownId, errorID, borderID, existsMsg) {
     const exists = allJoinContacts ? Object.entries(allJoinContacts).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
