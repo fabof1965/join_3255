@@ -13,7 +13,7 @@ function eventHandler() {
  */
 function handleSubmitEvent() {
     document.addEventListener("submit", (event) => {
-        if(event.target.closest(".contact-form")) {
+        if (event.target.closest(".contact-form")) {
             submitHandler(event);
         }
     });
@@ -24,10 +24,10 @@ function handleSubmitEvent() {
  */
 function handleClickEvents() {
     document.addEventListener("click", (event) => {
-        if(event.target.closest(".btn-close-add-contact-dialog")) {
+        if (event.target.closest(".btn-close-add-contact-dialog")) {
             closeDialogHandler(event, closeContactDialog);
         }
-        if(event.target.closest(".btn-close-edit-dialog")) {
+        if (event.target.closest(".btn-close-edit-dialog")) {
             closeDialogHandler(event, closeEditContactDialog);
         }
     });
@@ -95,6 +95,14 @@ async function submitContactForm(event) {
     await saveEditedContact();
 }
 
+// async function contactInformationVerification() {
+//     const contact = getContactDataFromForm();
+//     const nameExists = await checkIfContactNameExists(contact.name);
+//     const emailExists = await checkIfEmailExists(contact.email);
+//     const phoneExists = await checkIfPhoneNumberExists(contact.phone);
+//     return (nameExists || emailExists || phoneExists);
+// }
+
 /**
  * @description Inserts a new created contact into the contact list and
  * loads the data into the global allContacts Array as well as to firebase.
@@ -104,10 +112,7 @@ async function addNewContact() {
     const contactList = document.getElementById("contacts");
     const contact = getContactDataFromForm();
     if (contactFormHasBlankFields(contact)) return;
-    const nameExists = await checkIfContactNameExists(contact.name);
-    const emailExists = await checkIfEmailExists(contact.email);
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone);
-    if (nameExists || emailExists || phoneExists) return;
+    if (await contactFormHasValidationErrors(contact)) return;
     const response = await postData('contacts', contact);
     const contactObject = { id: response.name, ...contact };
     closeContactDialog();
@@ -280,9 +285,9 @@ async function saveEditedContact() {
     const contact = allContacts[editIndex];
     const ownId = contact.id;
     const oldName = contact.name;
-    if (await contactFormHasValidationErrors(contact, ownId)) return;
     assignValuesToContact(contact);
     if (contactFormHasBlankFields(contact)) return;
+    if (await contactFormHasValidationErrors(contact, ownId)) return;
     allContacts[editIndex] = contact;
     if (oldName !== contact.name) {
         await renameContactFromTaskCard(oldName, contact.name);
