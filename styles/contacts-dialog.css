@@ -1,13 +1,13 @@
 /* dialog */
 .add-contact-dialog[open] {
-    border-radius: 32px 0 0 32px;
+    border-radius: var(--dialog-right-edge-border-radius);
     right: 0;
     left: auto;
     transform: translateX(100%);
 }
 
 .edit-contact-dialog[open] {
-    border-radius: 0 32px 32px 0;
+    border-radius: var(--dialog-left-edge-border-radius);
     right: auto;
     left: 0;
     transform: translateX(-100%);
@@ -77,7 +77,7 @@ dialog[open]::backdrop {
     background-color: transparent;
     margin-left: auto;
     border: none;
-    
+
 }
 
 .close-dialog-button:hover {

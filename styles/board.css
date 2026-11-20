@@ -96,6 +96,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap-medium);
+  position: relative;
 }
 
 .board-columns[hidden] {
@@ -241,6 +242,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--gap-small);
 }
 
 .btn-open-popover-menu {

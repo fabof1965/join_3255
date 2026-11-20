@@ -1,19 +1,42 @@
+.task-card-dialog {
+  border: none;
+  margin: auto;
+  position: absolute;
+  transition: display 300ms allow-discrete,
+  opacity 300ms ease-in-out,
+  overlay 300ms allow-discrete,
+  transform 300ms ease-in-out;
+  transform: translateY(100%);
+}
+
 .task-card-dialog[open] {
   width: min(528px, calc(100% - 32px));
-  position: fixed;
-  inset: 0;
-  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
+  border-radius: var(--task-card-border-radius);
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  position: absolute;
+  opacity: 1;
   margin: auto;
-  overflow: hidden;
+  transform: translateY(0);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
 
 .task-card-dialog::backdrop {
+  transition: opacity 300ms ease-in-out;
+  opacity: 0;
+  background-color: var(--addTaskBackdrop-color);
+}
+
+.task-card-dialog[open]::backdrop {
+  transition: opacity 300ms ease-in-out;
+  opacity: 1;
   background-color: var(--addTaskBackdrop-color);
 }
 

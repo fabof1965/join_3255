@@ -1,12 +1,36 @@
+.add-task-dialog {
+  max-width: 500px;
+  position: fixed;
+  height: 100dvh;
+  transform: translateX(100%);
+  transition: display 300ms allow-discrete,
+              opacity 300ms ease-in-out,
+              overlay 300ms allow-discrete,
+              transform 300ms ease-in-out;
+  border: none;
+  top: 0;
+  width: 100%;
+  max-width: 500px;
+  right: 0;
+  top: 0;
+  left: auto;
+  padding: var(--padding);
+  border-radius: var(--dialog-right-edge-border-radius);
+}
+
 .add-task-dialog[open] {
   display: flex;
   padding: var(--padding);
-  border-radius: 30px;
+  border-radius: var(--dialog-right-edge-border-radius);
   border: none;
-  margin: auto;
   max-width: 500px;
   height: 100dvh;
   box-shadow: var(--addTaskBoxShadow);
+  transform: translateX(0);
+
+  @starting-style {
+    transform: translateX(100%);
+  }
 }
 
 .add-task-header {
@@ -27,7 +51,6 @@
   padding: 0;
   align-items: center;
   gap: var(--gap-small);
-  height: 90%;
   overflow-y: auto;
 }
 
@@ -48,6 +71,12 @@
 }
 
 .btn-create-task {
+  margin-left: auto;
+  margin-bottom: var(--padding-top-bottom);
   color: var(--white-color);
   height: 100%;
+}
+
+.btn-clear {
+  display: none;
 }

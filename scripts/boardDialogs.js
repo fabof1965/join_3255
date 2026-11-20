@@ -205,7 +205,6 @@ function closeAddTaskDialog() {
   newTaskStatus = "toDo";
   newTaskSubtasks = [];
   addTaskDialog.close();
-  addTaskDialog.innerHTML = "";
 }
 
 /**

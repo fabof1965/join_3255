@@ -191,8 +191,8 @@ export function addSignupContent() {
 }
 
 /**
- * @description Sets the margin attribute value on the auth-header class.
- * @param {string} marginAttribute
+ * @description Sets the padding attribute value on the auth-header class.
+ * @param {string} paddingAttribute The representing padding value
  */
 function setAuthenticationHeaderPadding(paddingAttribute) {
     document.querySelector(".auth-header").style.padding = paddingAttribute;
