@@ -14,9 +14,14 @@ const EDIT_CONTACT_FIELD_IDS = {
 }
 
 /**
- * @description Checks if the contact form has input fields that are not filled with text.
- * @param {JSON} contact
- * @returns {boolean} true if the contact form has fields that are not filled, false if all fields are filled.
+ * @description Checks whether the name, email or phone field of the contact form is blank
+ * and shows the matching error message for each blank field.
+ * @param {Object} contact - The contact data entered in the form. 
+ * @param {string} contact.name - Name of the contact.
+ * @param {string} contact.email - Email of the contact.
+ * @param {string} contact.phone - Phone number of the contact.
+ * @param {string} ownId - ID of the contact beeing edited.
+ * @returns {boolean} True if at least one of the fields is blank, otherwise false.
  */
 function contactFormHasBlankFields(contact) {
     const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
@@ -47,7 +52,7 @@ function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
  * @description Checks if there are validation errors on the contact form.
  * @param {object} contact
  * @param {string} ownId
- * @returns {Boolean} if name, email or phone number exists in firebase true, else false.
+ * @returns {Boolean} If name, email or phone number exists in firebase true, otherwise false.
  */
 async function contactFormHasValidationErrors(contact, ownId = null) {
     const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
