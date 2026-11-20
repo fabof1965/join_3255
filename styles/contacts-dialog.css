@@ -1,20 +1,5 @@
 /* dialog */
-.add-contact-dialog[open] {
-    border-radius: var(--dialog-right-edge-border-radius);
-    right: 0;
-    left: auto;
-    transform: translateX(100%);
-}
-
-.edit-contact-dialog[open] {
-    border-radius: var(--dialog-left-edge-border-radius);
-    right: auto;
-    left: 0;
-    transform: translateX(-100%);
-}
-
-dialog[open] {
-    display: flex;
+dialog {
     flex-direction: column;
     justify-content: space-between;
     border: none;
@@ -24,7 +9,43 @@ dialog[open] {
     position: fixed;
     top: 0;
     box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
-    transition: transform 500ms ease-in-out;
+    transition: display 300ms allow-discrete,
+                opacity 300ms ease-in-out,
+                overlay 300ms allow-discrete,
+                transform 300ms ease-in-out;
+}
+
+.add-contact-dialog{
+    transform: translateX(100%);
+    border-radius: var(--dialog-right-edge-border-radius);
+    right: 0;
+    left: auto;
+}
+
+.add-contact-dialog[open] {
+    display: flex;
+    transform: translateX(0);
+
+    @starting-style {
+        transform: translateX(100%);
+    }
+}
+
+.edit-contact-dialog {
+    border-radius: var(--dialog-left-edge-border-radius);
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.edit-contact-dialog[open] {
+    display: flex;
+    border-radius: var(--dialog-left-edge-border-radius);
+    transform: translateX(0);
+
+    @starting-style {
+        transform: translateX(-100%);
+    }
 }
 
 dialog[open].slide-in {

@@ -132,7 +132,7 @@
 
     /*dialog*/
     --dialog-right-edge-border-radius: 32px 0 0 32px;
-    --dialog-left-edng-border-radius: 0 32px 32px 0;
+    --dialog-left-edge-border-radius: 0 32px 32px 0;
 
     /*summary*/
     --summary-container-gap: var(--gap-medium);

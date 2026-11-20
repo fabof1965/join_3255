@@ -6,19 +6,6 @@ eventHandler();
 function eventHandler() {
     handleClickEvents();
     handleSubmitEvent();
-    handleCancelEvents();
-}
-
-/**
- * @description Handles the 'cancel' event for the Add Contact Dialog and the Edit Contact Dialog.
- */
-function handleCancelEvents() {
-    getAddContactDialog().addEventListener("cancel", (event) => {
-        closeDialogHandler(event, closeContactDialog);
-    });
-    document.getElementById("edit-contact-dialog").addEventListener("cancel", (event) => {
-        closeDialogHandler(event, closeEditContactDialog);
-    });
 }
 
 /**
@@ -80,7 +67,6 @@ function getAddContactDialog() {
 function openContactDialog() {
     const dialog = getAddContactDialog();
     dialog.showModal();
-    dialog.classList.add('slide-in');
     closeDialogOnOutsideClick(dialog, closeContactDialog);
 }
 
@@ -90,8 +76,7 @@ function openContactDialog() {
 function closeContactDialog() {
     const contactDialog = getAddContactDialog();
     const contactForm = document.getElementById('contact-form');
-    contactDialog.classList.remove("slide-in");
-    setTimeout(() => contactDialog.close(), 500);
+    contactDialog.close()
     resetContactFormErrors();
     contactForm.reset();
 }
@@ -264,7 +249,6 @@ function openExistingContactDialog(indexContact) {
     editIndex = indexContact;
     fillContactForm(contact_Edit);
     editContactDialog.showModal();
-    editContactDialog.classList.add("slide-in");
     closeDialogOnOutsideClick(editContactDialog, closeEditContactDialog);
 }
 
@@ -284,10 +268,7 @@ function fillContactForm(contact) {
  */
 function closeEditContactDialog() {
     const editContactDialog = document.getElementById("edit-contact-dialog");
-    editContactDialog.classList.remove("slide-in");
-    setTimeout(() => {
-        editContactDialog.close();
-    }, 500);
+    editContactDialog.close();
 }
 
 /**
