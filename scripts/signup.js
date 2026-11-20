@@ -22,7 +22,7 @@ document.getElementById("auth-form").addEventListener("submit", (event) => {
 
 /**
  * @description Handles the visual change of the checkbox on enter.
- * @param {KeyboardEvent} event  
+ * @param {KeyboardEvent} event
  */
 function handleChackboxChangeOnEnter(event) {
     event.preventDefault();
@@ -35,7 +35,7 @@ function handleChackboxChangeOnEnter(event) {
 
 /**
  * @description Handles the visual change of the checkbox on click.
- * @param {click} event  
+ * @param {click} event
  */
 function handleCheckboxChangeOnClick(event) {
     event.preventDefault();
@@ -43,7 +43,7 @@ function handleCheckboxChangeOnClick(event) {
 }
 
 /**
- * @description A new user is registered and the registration is shown by a popup that appears 
+ * @description A new user is registered and the registration is shown by a popup that appears
  * on successful registration.
  */
 async function registerUser() {
@@ -72,10 +72,10 @@ async function isRegistrationValid() {
 
 /**
  * @description Saves a user and sends the data up to firebase.
- * @param {string} name 
- * @param {string} email 
- * @param {string} password 
- * @returns 
+ * @param {string} name
+ * @param {string} email
+ * @param {string} password
+ * @returns
  */
 async function saveNewUser(name, email, password) {
     try {
@@ -107,8 +107,8 @@ function validatePassword() {
 
 /**
  * @description Checks the passwords and returns the results as an object.
- * @param {string} password 
- * @param {string} confirmPassword 
+ * @param {string} password
+ * @param {string} confirmPassword
  * @returns {{empty: boolean, tooShort: boolean, matches: boolean, valid: boolean}}
  */
 function getPasswordState(password, confirmPassword) {
@@ -120,7 +120,7 @@ function getPasswordState(password, confirmPassword) {
 
 /**
  * @description Returns the error message that fits the password state.
- * @param {{empty: boolean, tooShort: boolean}} passwordState 
+ * @param {{empty: boolean, tooShort: boolean}} passwordState
  * @returns {string}
  */
 function getPasswordErrorMessage({ emptyPasswordInput, tooShort }) {
@@ -131,8 +131,8 @@ function getPasswordErrorMessage({ emptyPasswordInput, tooShort }) {
 
 /**
  * @description Sets the text and the visibility of both password error messages.
- * @param {string} message 
- * @param {boolean} valid 
+ * @param {string} message
+ * @param {boolean} valid
  */
 function showPasswordError(errorMessage, valid) {
     const errMsgIds = ['signup-password-err-msg', 'invalid-pw-confirm-msg'];
@@ -145,8 +145,8 @@ function showPasswordError(errorMessage, valid) {
 
 /**
  * @description Toggles the red bottom border of the input containers.
- * @param {HTMLInputElement[]} inputs 
- * @param {boolean} valid 
+ * @param {HTMLInputElement[]} inputs
+ * @param {boolean} valid
  */
 function toggleErrorBorder(inputFields, valid) {
     inputFields.forEach(input => {
@@ -187,20 +187,20 @@ export function addSignupContent() {
     setSignupFormContent();
     initPasswordEventListener();
     initRegistrationInputEventListeners();
-    setAuthenticationHeaderMargin("0");
+    setAuthenticationHeaderPadding("0");
 }
 
 /**
  * @description Sets the margin attribute value on the auth-header class.
- * @param {string} marginAttribute 
+ * @param {string} marginAttribute
  */
-function setAuthenticationHeaderMargin(marginAttribute) {
-    document.querySelector(".auth-header").style.margin = marginAttribute;
+function setAuthenticationHeaderPadding(paddingAttribute) {
+    document.querySelector(".auth-header").style.padding = paddingAttribute;
 }
 
 /**
  * @description Sets the text color for the legal links of the page.
- * @param {string} color 
+ * @param {string} color
  */
 function setLegalLinkColor(color) {
     const legalLinks = document.querySelectorAll('.footer-legal-link');
@@ -232,7 +232,7 @@ function resetLegalLinkHoverEffect() {
 
 /**
  * @description Sets the pages background color.
- * @param {string} color 
+ * @param {string} color
  */
 function setPageBackgroundColor(color) {
     document.body.style.animation = "none";
@@ -241,8 +241,8 @@ function setPageBackgroundColor(color) {
 
 /**
  * @description Sets styles for the pages logo.
- * @param {string} color 
- * @param {string} animationStyles 
+ * @param {string} color
+ * @param {string} animationStyles
  */
 function setLogoStyles(color, animationStyles) {
     document.querySelectorAll(".logo-path").forEach(path => {
@@ -253,8 +253,8 @@ function setLogoStyles(color, animationStyles) {
 
 /**
  * @description Sets the fill attribute of the logo svg with the given color.
- * @param {SVGPathElement} path 
- * @param {string} color 
+ * @param {SVGPathElement} path
+ * @param {string} color
  */
 function setLogoColor(path, color) {
     path.style.fill = color;
@@ -262,8 +262,8 @@ function setLogoColor(path, color) {
 
 /**
  * @description Sets the SVG path's animations.
- * @param {SVGPathElement} path 
- * @param {string} animationStyle 
+ * @param {SVGPathElement} path
+ * @param {string} animationStyle
  */
 function setAnimationStyle(path, animationStyle) {
     path.style.animation = animationStyle;
@@ -271,8 +271,8 @@ function setAnimationStyle(path, animationStyle) {
 
 /**
  * @description Sets the visibility of the given element by the visibility argument.
- * @param {HTMLElement} element 
- * @param {string} visibility 
+ * @param {HTMLElement} element
+ * @param {string} visibility
  */
 function setElementVisibility(element, visibility) {
     element.style.display = visibility;
@@ -280,7 +280,7 @@ function setElementVisibility(element, visibility) {
 
 /**
  * @description Sets login element's visibility by the display argument.
- * @param {string} display 
+ * @param {string} display
  */
 function setDisplayForLoginElements(display = "flex") {
     const SUBMIT_BUTTON_CONTAINER = document.getElementById("submit-btn-container");
@@ -290,8 +290,8 @@ function setDisplayForLoginElements(display = "flex") {
 }
 
 /**
- * @description Sets the signup element's visibility by the display argument. 
- * @param {string} display 
+ * @description Sets the signup element's visibility by the display argument.
+ * @param {string} display
  */
 function setDisplayForSignupElements(display = "none") {
     const SIGNUP_BUTTON_CONTAINER = document.getElementById("signup-btn-container");
@@ -305,8 +305,8 @@ function setDisplayForSignupElements(display = "none") {
 
 /**
  * @description Sets the width and height attribute of the given HTML Element by dimensions value.
- * @param {HTMLElement} element 
- * @param {string} dimensions 
+ * @param {HTMLElement} element
+ * @param {string} dimensions
  */
 function styleElementDimensions(element, dimensions) {
     element.style.width = dimensions;
@@ -314,8 +314,8 @@ function styleElementDimensions(element, dimensions) {
 }
 
 /**
- * @description Sets the title for the page. 
- * @param {string} title 
+ * @description Sets the title for the page.
+ * @param {string} title
  */
 function setPageTitle(title) {
     document.title = title;
@@ -325,7 +325,7 @@ function setPageTitle(title) {
  * @description Sets the styles for login page.
  */
 function setLoginPageStyle() {
-    setAuthenticationHeaderMargin("");
+    setAuthenticationHeaderPadding("");
     setPageTitle("Join Log in");
     setLogoStyles("#1268FF", "animation: logo-color-change var(--logo-color-change-duration) ease-in forwards");
     setPageBackgroundColor("var(--white-color)");
@@ -373,16 +373,16 @@ function setSignupFormContent() {
 
 /**
  * @description Sets the background color of the login form to the color attribute.
- * @param {string} color 
+ * @param {string} color
  */
 function setLoginFormBackgroundColor(color) {
     document.getElementById("auth-form").style.backgroundColor = color;
 }
 
 /**
- * @description Sets the element's headline text to the given text. 
+ * @description Sets the element's headline text to the given text.
  * The element must contain the id 'heading' to work.
- * @param {string} text 
+ * @param {string} text
  */
 function setHeadlineText(text) {
     const HEADING = document.getElementById("heading");
