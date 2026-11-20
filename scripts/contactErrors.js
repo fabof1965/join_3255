@@ -49,47 +49,13 @@ function fieldIsBlankFeedback(value, errId, borderId, blankMsg) {
  * @param {string} ownId
  * @returns {Boolean} if name, email or phone number exists in firebase true, else false.
  */
-async function contactFormHasValidationErrors(contact, ownId) {
-    const nameExists = await checkIfContactNameExists(contact.name, ownId, 'existing-contact-name-err-msg', 'existing-contact-wrong-name-border');
-    const emailExists = await checkIfEmailExists(contact.email, ownId, 'existing-contact-email-err-msg', 'existing-contact-wrong-email-border');
-    const phoneExists = await checkIfPhoneNumberExists(contact.phone, ownId, 'existing-contact-phone-err-msg', 'existing-contact-wrong-phone-border');
+async function contactFormHasValidationErrors(contact, ownId = null) {
+    const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
+    const allJoinContacts = await getData('contacts');
+    const nameExists = checkContactFieldExists(allJoinContacts, 'name', contact.name, ownId, ...ids.name, nameExistsMsg);
+    const emailExists = checkContactFieldExists(allJoinContacts, 'email', contact.email, ownId, ...ids.email, emailExistsMsg);
+    const phoneExists = checkContactFieldExists(allJoinContacts, 'phone', contact.phone, ownId, ...ids.phone, phoneExistsMsg);
     return nameExists || emailExists || phoneExists;
-}
-
-/**
- * Checks if the given contact name is already available in firebase database.
- * @param {string} inputName
- * @param {string|null} ownId
- * @param {string} errorID
- * @param {string} borderID
- * @returns {Promise<boolean>} If the given input name is found in firebase, the return value is true, else the return value is false.
- */
-async function checkIfContactNameExists(inputName, ownId = null, errorID = 'name-err-msg', borderID = 'wrong-name-border') {
-    return checkContactFieldExists('name', inputName, ownId, errorID, borderID, nameExistsMsg);
-}
-
-/**
- * Checks if the given email is already available in firebase database.
- * @param {string} inputName
- * @param {string|null} ownId
- * @param {string} errorID
- * @param {string} borderID
- * @returns {Promise<boolean>} If the given input mail is found in firebase, the return value is true, else the return value is false.
- */
-async function checkIfEmailExists(inputMail, ownId = null, errorID = 'email-err-msg', borderID = 'wrong-email-border') {
-    return checkContactFieldExists('email', inputMail, ownId, errorID, borderID, emailExistsMsg);
-}
-
-/**
- * Checks if the given phone number is already available in firebase database.
- * @param {string} inputName
- * @param {string|null} ownId
- * @param {string} errorID
- * @param {string} borderID
- * @returns {Promise<boolean>} If the given input phone is found in firebase, the return value is true, else the return value is false.
- */
-async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'phone-err-msg', borderID = 'wrong-phone-border') {
-    return await checkContactFieldExists('phone', inputPhone, ownId, errorID, borderID, phoneExistsMsg);
 }
 
 /**
@@ -102,9 +68,8 @@ async function checkIfPhoneNumberExists(inputPhone, ownId = null, errorID = 'pho
  * @param {string} existsMsg
  * @returns {Promise<Boolean>} True if the value from the input field is already saved in firebase, else false.
  */
-async function checkContactFieldExists(field, value, ownId, errorID, borderID, existsMsg) {
-    const response = await getData('contacts');
-    const exists = response ? Object.entries(response).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
+function checkContactFieldExists(allJoinContacts, field, value, ownId, errorID, borderID, existsMsg) {
+    const exists = allJoinContacts ? Object.entries(allJoinContacts).some(([id, contact]) => id !== ownId && contact[field] === value) : false;
     updateContactFieldError(errorID, borderID, exists, existsMsg);
     return exists;
 }
