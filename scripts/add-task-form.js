@@ -261,7 +261,7 @@ document.addEventListener('click', (event) => {
   const input = document.getElementById('board-subtask-input');
   addSubtaskFromInput(input);
   iconContainer.style.opacity = 0;
-})
+});
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('#clear-subtask-icon')) return;
@@ -269,7 +269,7 @@ document.addEventListener('click', (event) => {
   const iconContainer = document.querySelector(".subtask-icon-container");
   input.value = "";
   iconContainer.style.opacity = 0;
-})
+});
 
 /**
  * @description Resets the add-task form to its original state.
