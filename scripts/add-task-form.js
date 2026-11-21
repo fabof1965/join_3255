@@ -196,7 +196,7 @@ document.addEventListener("keydown", (event) => {
  * @description Removes subtask when the trash icon is clicked.
  * @param {HTMLButtonElement} button - The delete button inside the subtask list item that was clicked.
  */
-async function deleteSubtask(button) {
+function deleteSubtask(button) {
   const index = Number(button.closest(".subtask-list").dataset.index);
   newTaskSubtasks.splice(index, 1);
   renderNewSubtasks();
