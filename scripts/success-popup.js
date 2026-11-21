@@ -26,3 +26,21 @@ function showSuccessPopup(message) {
   if (!dialog.open) dialog.showModal();
   successPopupTimer = setTimeout(() => dialog.close(), 1500);
 }
+
+
+/**
+ * @description Displays a pop-up message when a task is created.
+ * @param {string} message - “Task created” is shown in the pop-up.
+ */
+function showPopup(message = "Task created") {
+  document.getElementById("popup")?.remove();
+  document.body.insertAdjacentHTML("beforeend", getPopupTemplate());
+  const popup = document.getElementById("popup");
+  if (!popup) throw new Error("Could not create the success popup.");
+  popup.querySelector("h2").textContent = message;
+  popup.showModal();
+  window.setTimeout(() => {
+    if (popup.open) popup.close();
+    popup.remove();
+  }, 3000);
+}
