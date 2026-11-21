@@ -130,7 +130,6 @@
     border-radius: var(--summary-card-border-radius);
     cursor: pointer;
     transition: var(--element-transition);
-
 }
 
 .blue-head-column:hover {

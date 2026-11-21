@@ -33,7 +33,7 @@
     justify-content: flex-start;
     border-radius: var(--element-design-border-radius);;
     padding: var(--page-link-padding);
-    transition: background-color 400ms ease;
+    transition: background-color 120ms ease;
     text-decoration: none;
     text-wrap: nowrap;
     width: var(--full);
