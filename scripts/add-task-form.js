@@ -20,9 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 document.addEventListener("submit", async (event) => {
-  if (event.target.id !== "add-task-form" || event.target.closest("dialog")) {
-    return;
-  }
+  if (event.target.id !== "add-task-form" || event.target.closest("dialog")) return;
   event.preventDefault();
   const saved = await submitTask(event, null);
   if (!saved) return;
@@ -32,21 +30,12 @@ document.addEventListener("submit", async (event) => {
   }, 1500);
 });
 
-initPriorityButtonClickListeners();
-
-/**
- * @description Adds a click listener to every priority button.
- * A click removes the "selected" class from all priority buttons and sets it on the clicked one.
- * @returns {void}
- */
-function initPriorityButtonClickListeners() {
-  document.addEventListener("click", (event) => {
-    if (event.target.closest(".priority-btn")) {
-      removeSelectedClassFromPriorityButtons();
-      event.target.closest(".priority-btn").classList.add("selected");
-    }
-  });
-}
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".priority-btn")) {
+    removeSelectedClassFromPriorityButtons();
+    event.target.closest(".priority-btn").classList.add("selected");
+  }
+});
 
 const btnCleartaskForm = document.getElementById("btn-clear-task-form");
 if (btnCleartaskForm) {
@@ -130,8 +119,7 @@ function renderNewSubtasks() {
   list.innerHTML = newTaskSubtasks
     .map((subtask, index) => {
       return getAddTaskSubtaskTemplate(index, subtask.title);
-    })
-    .join("");
+    }).join("");
   addButtonEventListenersOnSubtask();
 }
 
@@ -158,10 +146,7 @@ function addButtonEventListenersOnSubtask() {
 function addSubtaskFromInput(input) {
   const value = input.value.trim();
   if (!value) return false;
-  newTaskSubtasks.push({
-    title: value,
-    done: false,
-  });
+  newTaskSubtasks.push({ title: value, done: false });
   input.value = "";
   renderNewSubtasks();
   return true;
@@ -184,12 +169,8 @@ function addSubtaskOnEnter(event) {
  * for subtask inputs, triggering either creation or saving depending on the input field name.
  */
 document.addEventListener("keydown", (event) => {
-  if (event.target.name === "subtask") {
-    addSubtaskOnEnter(event);
-  }
-  if (event.target.name === "subtask-edit") {
-    saveSubtaskOnEnter(event);
-  }
+  if (event.target.name === "subtask") addSubtaskOnEnter(event);
+  if (event.target.name === "subtask-edit") saveSubtaskOnEnter(event);
 });
 
 /**
@@ -239,9 +220,7 @@ function saveSubtaskOnEnter(event) {
 function saveSubtask(input) {
   const index = Number(input.closest(".subtask-list").dataset.index);
   const value = input.value.trim();
-  if (value) {
-    newTaskSubtasks[index].title = value;
-  }
+  if (value) newTaskSubtasks[index].title = value;
   renderNewSubtasks();
 }
 
@@ -357,7 +336,7 @@ function getTaskData() {
     status: newTaskStatus,
     assignedContacts: getAssignedContactsFromForm(),
     priority: document.querySelector(".selected").dataset.priority,
-    subtasks: subtasks,
+    subtasks: subtasks
   };
   return taskData;
 }
