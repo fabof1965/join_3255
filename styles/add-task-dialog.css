@@ -54,6 +54,10 @@
   overflow-y: auto;
 }
 
+.add-task-dialog{
+  scrollbar-width: thin;
+}
+
 .form-buttons {
   display: flex;
   align-items: center;
