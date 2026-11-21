@@ -216,3 +216,10 @@ function isPublicPage(url) {
 function redirectToLogin() {
     window.location.href = "../index.html";
 }
+
+/**
+ * @description Makes the document visible by setting the display attribute from 'none' to 'flex'. The flex-direction attribute is set to 'column'.
+ */
+function setPageStylesAfterLogin() {
+    setTimeout(() => { document.body.style.display = "flex"; document.body.style.flexDirection = "column"; }, 1);
+}
