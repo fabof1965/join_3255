@@ -221,6 +221,10 @@ textarea {
   .svg {
     fill: var(--white-color);
   }
+
+  span {
+    color: var(--white-color);
+  }
 }
 
 .urgent-svg {
