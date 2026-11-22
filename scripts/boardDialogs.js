@@ -133,7 +133,7 @@ async function openAddTaskDialog(status) {
  */
 function initAddTaskDialogListeners(addTaskDialog) {
   closeDialogOnOutsideClick(addTaskDialog);
-  document.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
+  addTaskDialog.querySelector(".close-btn").addEventListener("click", () => closeAddTaskDialog());
   document.querySelector(".btn-clear").addEventListener("click", () => resetForm());
 }
 
