@@ -275,7 +275,7 @@
 }
 
 .task-content h3 {
-  color: var(--black-color);
+  color: var(--primary-color);
   font-weight: 700;
   line-height: 1.2;
   overflow-wrap: break-word;
