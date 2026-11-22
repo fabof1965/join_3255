@@ -83,7 +83,6 @@ a {
 }
 
 .landscape-warning {
-  display: none;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -110,10 +109,4 @@ a {
 
 .rotation-icon{
   height: 40px;
-}
-
-@media screen and (orientation: landscape) and (pointer: coarse) {
-  .landscape-warning{
-    display: flex;
-  }
 }
