@@ -1,7 +1,7 @@
 .task-card-dialog {
   border: none;
   margin: auto;
-  position: absolute;
+  position: fixed; /*vorher absolute */
   width: 100%;
   max-width: 500px;
   transition: display 300ms allow-discrete,
@@ -15,16 +15,17 @@
 .task-card-dialog[open] {
   width: 100%;
   max-width: 500px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   border-radius: var(--task-card-border-radius);
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
-  position: absolute;
+  position: fixed; /*vorher absolute */
   opacity: 1;
   margin: auto;
   transform: translateY(0);
+  scrollbar-width: none;
 
   @starting-style {
     opacity: 0;

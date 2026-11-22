@@ -15,6 +15,7 @@
   left: auto;
   padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
+  scrollbar-width: none;
 }
 
 .add-task-dialog[open] {
@@ -49,10 +50,6 @@
   align-items: center;
   gap: var(--gap-small);
   overflow-y: auto;
-}
-
-.add-task-dialog{
-  scrollbar-width: thin;
 }
 
 .form-buttons {
