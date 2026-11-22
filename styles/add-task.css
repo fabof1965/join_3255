@@ -206,6 +206,9 @@ textarea {
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
   flex: 1;
+}
+
+.add-task-priority button > span {
   color: var(--black-color);
 }
 
@@ -215,7 +218,9 @@ textarea {
 
 .add-task-priority [data-priority="urgent"].selected {
   background-color: var(--red-color);
-  color: var(--white-color);
+  span {
+    color: var(--white-color);
+  }
 
   .urgent-svg {
     fill: var(--white-color);
@@ -228,7 +233,10 @@ textarea {
 
 .add-task-priority [data-priority="medium"].selected {
   background-color: var(--medium-task-color);
-  color: var(--white-color);
+
+  span {
+    color: var(--white-color);
+  }
 
   .medium-svg {
     fill: var(--white-color);
@@ -241,7 +249,9 @@ textarea {
 
 .add-task-priority [data-priority="low"].selected {
   background-color: var(--low-task-color);
-  color: var(--white-color);
+  span {
+    color: var(--white-color);
+  }
 
   .low-svg {
     fill: var(--white-color);
