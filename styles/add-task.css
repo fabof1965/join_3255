@@ -452,7 +452,3 @@ input[type="checkbox"] {
   accent-color: var(--primary-color);
   cursor: pointer;
 }
-
-input[type="date"]{
-  cursor: pointer;
-}
