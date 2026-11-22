@@ -1,4 +1,4 @@
-let media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse)");
+const media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse)");
 
 document.addEventListener("DOMContentLoaded", () => {
     showLandscapeMode();

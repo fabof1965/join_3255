@@ -206,6 +206,7 @@ textarea {
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
   flex: 1;
+  color: var(--black-color);
 }
 
 .urgent-svg {
@@ -273,7 +274,7 @@ textarea {
 
 .subtask-icon-container {
   display: flex;
-  align-items: center;  
+  align-items: center;
   opacity: 0;
 }
 
