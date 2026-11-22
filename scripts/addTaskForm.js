@@ -250,6 +250,19 @@ document.addEventListener('click', (event) => {
   iconContainer.style.opacity = 0;
 });
 
+/** Hier ist die Ouside click function */
+document.addEventListener('click', closeAssignedDropdownOnOutsideClick);
+
+/** 
+ * Closes all open assigned-contacts dropdowns when the click happened outside of them.
+ * @param {MouseEvent} event - The click event on the document.
+ */
+function closeAssignedDropdownOnOutsideClick(event) {
+  document.querySelectorAll('.assigned-dropdown[open]').forEach((dropdown) => {
+    if (!dropdown.contains(event.target)) dropdown.removeAttribute('open');
+  });
+}
+
 /**
  * @description Resets the add-task form to its original state.
  * @param {HTMLFormElement} form - Form that is being reset. 
