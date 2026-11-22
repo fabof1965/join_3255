@@ -213,7 +213,7 @@ textarea {
   flex: 1;
 }
 
-.add-task-priority button>span {
+.add-task-priority > span {
   color: var(--black-color);
 }
 
