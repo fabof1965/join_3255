@@ -6,6 +6,11 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
+  scrollbar-color: var(--primary-color) transparent;
+}
+
+body:has(dialog:modal) {
+  overflow: hidden;
 }
 
 .main-layout {

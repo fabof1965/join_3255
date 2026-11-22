@@ -189,6 +189,7 @@
   }
 
   .board-column {
+    max-height: 320px;
     margin-bottom: var(--margin-bottom-medium);
   }
 
@@ -198,7 +199,6 @@
     flex-direction: row;
     overflow-x: auto;
     overflow-y: unset;
-    scrollbar-color: var(--primary-color) transparent;
   }
 }
 

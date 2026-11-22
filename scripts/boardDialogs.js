@@ -270,7 +270,6 @@ function openTaskCardDialog(taskId) {
   setBadgeBackgroundColor();
   closeDialogOnOutsideClick(taskCardDialog);
   setTimeout(() => taskCardDialog.showModal(), 300);
-  document.body.classList.add("overlay-open");
 }
 
 /**
@@ -314,10 +313,6 @@ function closeTaskCardDialog() {
   taskCardDialog.innerHTML = "";
   taskCardDialog.close();
 }
-
-document.getElementById("task-card-dialog").addEventListener("close", () => {
-  document.body.classList.remove("overlay-open");
-});
 
 /**
  * @description Handles click events on task cards, delegating actions to popovers, menu options, dialog openers, deletion, editing, or closing.

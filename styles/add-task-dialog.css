@@ -15,7 +15,6 @@
   left: auto;
   padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
-  scrollbar-width: none;
 }
 
 .add-task-dialog[open] {
