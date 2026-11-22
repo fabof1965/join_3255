@@ -60,6 +60,11 @@
   }
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: url("../assets/icons/calendar.svg") no-repeat center;
+  background-size: contain;
+}
+
 input:not([type="checkbox"]),
 select,
 textarea {
