@@ -8,9 +8,9 @@ function getRotationWarningTemplate() {
         <div class="landscape-warning" role="alert" aria-live="polite">
             <div class="landscape-warning__content">
             <img class="rotation-icon" src="../assets/icons/mobile_rotate.svg" alt="mobile rotation hint">
-                <p class="landscape-warning-title">Bitte Gerät drehen</p>
+                <p class="landscape-warning-title">Please rotate your device!</p>
                 <div>
-                    <p class="landscape-warning-text">Diese Ansicht ist für das Hochformat (Portrait) optimiert.</p>
+                    <p class="landscape-warning-text">Join works best in portrait mode.</p>
                 </div>
                 </p>
             </div>
