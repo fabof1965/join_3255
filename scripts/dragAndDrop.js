@@ -20,7 +20,7 @@ function stopDragging(event) {
   const taskList = event.target.closest?.(".task-list");
   taskList.classList.remove("task-list-dragover");
   taskList.classList.remove("task-list-drop-end");
-  taskCardElement.removeAttribute("id");
+  taskCardElement.id = taskCardElement.dataset.taskId;
   taskCardElement.classList.remove("task-card-dragging");
   taskCardElement.classList.remove("task-card-drop-before");
 }
