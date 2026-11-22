@@ -269,8 +269,8 @@ function openTaskCardDialog(taskId) {
   }
   setBadgeBackgroundColor();
   closeDialogOnOutsideClick(taskCardDialog);
-  taskCardDialog.showModal();
-  document.querySelector(".board-container").classList.add("overlay-open");
+  setTimeout(() => taskCardDialog.showModal(), 300);
+  document.body.classList.add("overlay-open");
 }
 
 /**
@@ -316,7 +316,7 @@ function closeTaskCardDialog() {
 }
 
 document.getElementById("task-card-dialog").addEventListener("close", () => {
-  document.querySelector(".board-container").classList.remove("overlay-open");
+  document.body.classList.remove("overlay-open");
 });
 
 /**

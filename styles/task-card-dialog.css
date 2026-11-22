@@ -2,15 +2,19 @@
   border: none;
   margin: auto;
   position: absolute;
+  width: 100%;
+  max-width: 500px;
   transition: display 300ms allow-discrete,
   opacity 300ms ease-in-out,
   overlay 300ms allow-discrete,
   transform 300ms ease-in-out;
   transform: translateY(100%);
+  border-radius: var(--task-card-border-radius);
 }
 
 .task-card-dialog[open] {
-  width: min(528px, calc(100% - 32px));
+  width: 100%;
+  max-width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +50,7 @@
 
 .task-card-dialog-content {
   width: 100%;
-  max-height: min(760px, calc(100vh - 32px));
+  height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -177,7 +181,6 @@
 
 .task-card-dialog-subtask {
   gap: 16px;
-  height: 32px;
   padding: 6px 16px;
 }
 
