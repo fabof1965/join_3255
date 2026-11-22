@@ -36,7 +36,7 @@
 
 @media(max-width: 950px) {
   #sidebar {
-    z-index: 9999;
+    z-index: 9998;
     background-color: var(--white-color);
     position: sticky;
     bottom: 0;

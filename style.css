@@ -94,7 +94,7 @@ a {
   text-align: center;
 }
 
-.landscape-warning-content{
+.landscape-warning-content {
   max-width: 28rem;
 }
 
@@ -112,7 +112,7 @@ a {
   height: 40px;
 }
 
-@media screen and (orientation: landscape) and (max-height:500px) {
+@media screen and (orientation: landscape) and (pointer: coarse) {
   .landscape-warning{
     display: flex;
   }

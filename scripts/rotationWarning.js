@@ -1,7 +1,18 @@
-function renderRotationWarning() {
-    document.body.insertAdjacentHTML("afterbegin", getRotationWarningTemplate());
+let media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse)");
+
+document.addEventListener("DOMContentLoaded", () => {
+    showLandscapeMode();
+})
+
+media.addEventListener("change", () => {
+    showLandscapeMode();
+});
+
+function showLandscapeMode() {
+    if(media.matches) {
+        document.body.insertAdjacentHTML("afterbegin", getRotationWarningTemplate());
+    }
 }
-document.addEventListener("DOMContentLoaded", renderRotationWarning);
 
 function getRotationWarningTemplate() {
     return`
