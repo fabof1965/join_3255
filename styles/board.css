@@ -329,7 +329,7 @@
   width: clamp(32px, calc(29.714px + 0.714vw), 40px);
   height: clamp(32px, calc(29.714px + 0.714vw), 40px);
   border-radius: var(--border-radius-circular);
-  border: 2px solid var(--white-color);
+  border: 1px solid var(--white-color);
   color: var(--white-color);
 }
 
