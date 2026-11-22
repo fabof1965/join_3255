@@ -256,8 +256,7 @@ document.addEventListener('click', (event) => {
  */
 function resetForm(form = document.getElementById("add-task-form")) {
   if (!form) return;
-  const iconContainer = document.querySelector(".subtask-icon-container");
-  iconContainer.style.opacity = 0;
+  document.querySelector(".subtask-icon-container").style.opacity = 0;
   form.reset();
   form.querySelectorAll("[data-error]").forEach((error) => {
     error.textContent = "";
