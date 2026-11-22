@@ -61,7 +61,8 @@ button {
   transition: var(--element-transition);
 }
 
-.btn:hover, .btn:focus-visible {
+.btn:hover,
+.btn:focus-visible {
   box-shadow: var(--button-box-shadow);
 }
 
@@ -77,6 +78,42 @@ button {
   border: 0;
 }
 
-a{
+a {
   text-decoration: none;
+}
+
+.landscape-warning {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 9999;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  inset: 0;
+  text-align: center;
+}
+
+.landscape-warning-content{
+  max-width: 28rem;
+}
+
+.landscape-warning-title {
+  font-size: var(--large-font-size);
+  font-weight: 700;
+}
+
+.landscape-warning-text {
+  font-size: var(--medium-font-size);
+  line-height: 1.5;
+}
+
+.rotation-icon{
+  height: 40px;
+}
+
+@media screen and (orientation: landscape) and (max-height:500px) {
+  .landscape-warning{
+    display: flex;
+  }
 }
