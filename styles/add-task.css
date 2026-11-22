@@ -208,7 +208,7 @@ textarea {
   flex: 1;
 }
 
-.add-task-priority button > span {
+.add-task-priority button>span {
   color: var(--black-color);
 }
 
@@ -218,6 +218,7 @@ textarea {
 
 .add-task-priority [data-priority="urgent"].selected {
   background-color: var(--red-color);
+
   span {
     color: var(--white-color);
   }
@@ -249,6 +250,7 @@ textarea {
 
 .add-task-priority [data-priority="low"].selected {
   background-color: var(--low-task-color);
+
   span {
     color: var(--white-color);
   }
@@ -410,12 +412,30 @@ textarea {
   background-color: var(--secondary-color);
 }
 
-.assigned-to-label {
+.initial-wrapper{
   display: flex;
-  width: var(--full);
   align-items: center;
   gap: var(--gap-medium);
+}
+
+.assigned-to-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--full);
+  gap: var(--gap-medium);
   cursor: pointer;
+}
+
+.profile-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--small-user-badge-width);
+  height: var(--small-user-badge-width);
+  border-radius: var(--border-radius-circular);
+  color: var(--white-color);
+  flex-shrink: 0;
 }
 
 input[type="checkbox"] {

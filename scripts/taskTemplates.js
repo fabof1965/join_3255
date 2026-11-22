@@ -5,7 +5,7 @@
  * @see getTaskCardContentTemplate
  */
 function getTaskCardTemplate(task) {
-    return `
+  return `
       <article id="${task.id}" class="task-card" role="button" tabindex="0" aria-label="Open task ${task.title}" draggable="true" data-task-id="${task.id}">
         ${getTaskCardContentTemplate(task)}
       </article>
@@ -18,7 +18,7 @@ function getTaskCardTemplate(task) {
  * @returns {string} HTML string with the content of the task card.
  */
 function getTaskCardContentTemplate(task) {
-    return `
+  return `
       <header class="task-card-header">
         <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
         ${getCardMenuTemplate(task.id, task.status)}
@@ -42,7 +42,7 @@ function getTaskCardContentTemplate(task) {
  * @returns {string} HTML string for the card menu container.
  */
 function getCardMenuTemplate(taskId, currentStatus) {
-    return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" aria-label="Open popover menu">
+  return `<button popovertarget="card-menu-${taskId}" class="btn btn-open-popover-menu" aria-label="Open popover menu">
               <span class="task-card-drag-icon" aria-hidden="true">↕</span>
             </button>
             <div id="card-menu-${taskId}" class="card-dropdown-menu" role="menu" popover>
@@ -59,13 +59,13 @@ function getCardMenuTemplate(taskId, currentStatus) {
  * @returns {HTMLButtonString} The HTML-String, that represents the button
  *  to move a task into another category by clicking on it.
  */
-function getMenuOptionTemplate(taskId, statuslabel, statusKey){
+function getMenuOptionTemplate(taskId, statuslabel, statusKey) {
   return `
     <button role="menuitem" type="button" class="menu-option btn" data-move-to="${statusKey}" data-task-id="${taskId}">
       ${statuslabel}
     </button>
     `;
- }
+}
 
 /**
  * @description Generates the subtask progress bar and counter.
@@ -76,7 +76,7 @@ function getMenuOptionTemplate(taskId, statuslabel, statusKey){
  * @returns {string} The generated HTML string for the subtask progress.
  */
 function getSubtaskProgressTemplate(completed, progress, total, taskId) {
-    return `
+  return `
       <div class="subtask-progress">
         <progress class="progress-track" id="progress-fill-${taskId}" role="progressbar" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${total}" min="0" max="100" value="${progress}"></progress>
         <span id="subtaskcontainer-${taskId}">${completed} / ${total} Subtasks</span>
@@ -90,7 +90,7 @@ function getSubtaskProgressTemplate(completed, progress, total, taskId) {
  * @returns {string} The generated HTML string for a single contact badge.
  */
 function getUserBadgeTemplate(initials) {
-    return `
+  return `
       <span class="profile-badge">${initials}</span>
   `;
 }
@@ -101,7 +101,7 @@ function getUserBadgeTemplate(initials) {
  * @returns {string} The generated HTML string for the empty task list message.
  */
 function getEmptyTaskListElement(emptyTaskListMessage) {
-    return `
+  return `
       <p class="empty-task-list">${emptyTaskListMessage}</p>
   `;
 }
@@ -114,8 +114,8 @@ function getEmptyTaskListElement(emptyTaskListMessage) {
  * @returns {string} The generated HTML string for the task detail overlay.
  */
 function getTaskOverlayTemplate(task, priority, subtasksHTML) {
-    const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>`: subtasksHTML;
-    return `
+  const subtaskOutput = subtasksHTML === "" ? `<span class="no-subtasks">No Subtasks</span>` : subtasksHTML;
+  return `
       <article class="task-card-dialog-content" aria-labelledby="task-card-dialog-title">
         <header class="task-card-dialog-header">
           <span class="task-card-dialog-category ${getCategoryClass(task.category)}">${task.category}</span>
@@ -163,7 +163,7 @@ function getTaskOverlayTemplate(task, priority, subtasksHTML) {
  * @returns {string} The generated HTML string for the contact entry.
  */
 function getTaskOverlayUserTemplate(initials, name) {
-    return `
+  return `
       <div class="task-card-dialog-user">
         <span class="profile-badge">${initials}</span>
         <span>${name}</span>
@@ -180,8 +180,8 @@ function getTaskOverlayUserTemplate(initials, name) {
  * @returns {string} The generated HTML string for the subtask entry.
  */
 function getSubtaskTemplate(subtask, checked, taskId, index) {
-    const checkedAttribute = checked ? "true" : false;
-    return `
+  const checkedAttribute = checked ? "true" : false;
+  return `
       <div class="task-card-dialog-subtask">
         <input class="subtask-checkbox" type="checkbox" data-index-number="${index}" aria-labelledby="subtask-title-${taskId}-${index}" checked="${checkedAttribute}" aria-checked="${checkedAttribute}"/>
         <span id="subtask-title-${taskId}-${index}">${subtask.title}</span>
@@ -211,7 +211,7 @@ const lowPriorityTemplate = `<svg class="low-svg" width="20" height="15" viewBox
  * @returns {string} The generated HTML string for the add task content.
  */
 function getAddTaskDialogContentTemplate() {
-    return `
+  return `
       <section class="add-task-dialog-content" aria-labelledby="add-task-title">
         <header class="add-task-header">
           <h2 id="add-task-title">Add Task</h2>
@@ -231,7 +231,7 @@ function getAddTaskDialogContentTemplate() {
  * @returns {string} The generated HTML string for the task form.
  */
 function getTaskFormTemplate() {
-    return `
+  return `
       <form id="add-task-form" class="add-task-form" novalidate>
         ${getTaskFormContentTemplate()}
         <section class="form-buttons">
@@ -267,7 +267,7 @@ const clearSubtaskContentIcon = `<svg width="24" height="24" viewBox="0 0 24 24"
  * @returns {string} The generated HTML string for the task form fields.
  */
 function getTaskFormContentTemplate() {
-    return `
+  return `
       <section class="form-content">
         <label class="add-task-field add-task-title-field">
           <span class="visually-hidden">Title</span>
@@ -360,7 +360,7 @@ const checkIconSvg = `<svg class="check-icon handle-subtask-icon" width="24" hei
  * @returns {string} The generated HTML string for the subtask item with edit and delete actions.
  */
 function getAddTaskSubtaskTemplate(index, title) {
-    return `
+  return `
       <li class="subtask-list" data-index="${index}">
         <div class="subtask-wrapper">
           <span>${title}</span>
@@ -379,7 +379,7 @@ function getAddTaskSubtaskTemplate(index, title) {
  * @returns {string} The generated HTML string for the subtask edit input field.
  */
 function getEditSubtaskTemplate(subtaskTitle) {
-    return `
+  return `
       <input class="subtask-edit-input" name="subtask-edit" value="${subtaskTitle}" />
   `;
 }
@@ -393,9 +393,13 @@ function getEditSubtaskTemplate(subtaskTitle) {
 function getAssignedContactOptionTemplate(initials, name) {
   return `
     <div class="contact-option">
-      <label class="visibility-hidden assigned-to-label" for="chk-box-${name}">
-        <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
+    <label class="visibility-hidden assigned-to-label" for="chk-box-${name}">
+      <div class="initial-wrapper">
+        <span class="profile-badge">${initials.toUpperCase()}</span>
         <option value="${initials}">${name}</option>
+      </div>
+      
+        <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
       </label>
     </div>
   `;

@@ -87,6 +87,7 @@ function renderFirebaseContacts(container, firebaseContacts) {
   contactDropdown.innerHTML = firebaseContacts.map((contact) => {
     return getAssignedContactOptionTemplate(getInitials(contact.name), contact.name)
   }).join("");
+  setBadgeBackgroundColor();
 }
 
 /**
