@@ -249,6 +249,10 @@ function saveSubtaskOnClick(event) {
   iconContainer.style.opacity = 0;
 }
 
+/**
+ * Clears the subtask input field and hides the icons when the clear icon is clicked.
+ * @param {MouseEvent} event - Click event that is fired on the document.
+ */
 function clearSubtaskValue(event) {
   if (!event.target.closest('#clear-subtask-icon')) return;
   const input = document.getElementById('board-subtask-input');
