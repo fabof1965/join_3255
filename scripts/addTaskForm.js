@@ -225,32 +225,37 @@ function saveSubtask(input) {
   renderNewSubtasks();
 }
 
-document.addEventListener('input', (event) => {
+/**
+ * Shows and hides the edit and clear button.
+ * @param {InputEvent} event - Input event that is fired on the `document`. 
+ */
+function toggleSubtaskIcons(event) {
   if (event.target.id !== "board-subtask-input") return;
   const icons = event.target.parentElement.querySelector('.subtask-icon-container');
   icons.style.opacity = 1;
   const input = document.getElementById('board-subtask-input');
-  if (input.value === "") {
-    icons.style.opacity = 0;
-  }
-});
+  if (input.value === "") icons.style.opacity = 0;
+}
 
-document.addEventListener('click', (event) => {
+function saveSubtaskOnClick(event) {
   if (!event.target.closest("#save-subtask-icon")) return;
   const iconContainer = document.querySelector(".subtask-icon-container");
   const input = document.getElementById('board-subtask-input');
   addSubtaskFromInput(input);
   iconContainer.style.opacity = 0;
-});
+}
 
-document.addEventListener('click', (event) => {
+function clearSubtaskValue(event) {
   if (!event.target.closest('#clear-subtask-icon')) return;
   const input = document.getElementById('board-subtask-input');
   const iconContainer = document.querySelector(".subtask-icon-container");
   input.value = "";
   iconContainer.style.opacity = 0;
-});
+}
 
+document.addEventListener('click', clearSubtaskValue);
+document.addEventListener('click', saveSubtaskOnClick);
+document.addEventListener('input', toggleSubtaskIcons);
 document.addEventListener('click', closeAssignedDropdownOnOutsideClick);
 
 /** 
