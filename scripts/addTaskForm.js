@@ -227,7 +227,7 @@ function saveSubtask(input) {
 
 /**
  * Shows and hides the edit and clear button.
- * @param {InputEvent} event - Input event that is fired on the `document`. 
+ * @param {InputEvent} event - Input event that is fired on the document. 
  */
 function toggleSubtaskIcons(event) {
   if (event.target.id !== "board-subtask-input") return;
@@ -237,6 +237,10 @@ function toggleSubtaskIcons(event) {
   if (input.value === "") icons.style.opacity = 0;
 }
 
+/**
+ * Saves the entered subtask when the Save icon is clicked and then hides the icons again.
+ * @param {MouseEvent} event - Click event that is fired on the document.
+ */
 function saveSubtaskOnClick(event) {
   if (!event.target.closest("#save-subtask-icon")) return;
   const iconContainer = document.querySelector(".subtask-icon-container");
