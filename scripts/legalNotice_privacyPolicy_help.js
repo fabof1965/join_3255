@@ -5,7 +5,7 @@ const backBtn = document.querySelector(".back-btn");
  * @returns {void}
  */
 function backToPreviousPage() {
-  if(backBtn.classList.contains("start")) {
+  if (backBtn.classList.contains("start")) {
     window.location.href = "../index.html";
     return;
   }
@@ -16,4 +16,4 @@ function backToPreviousPage() {
   window.location.href = "./board.html";
 }
 
-if(backBtn) backBtn.addEventListener("click", backToPreviousPage);
+if (backBtn) backBtn.addEventListener("click", backToPreviousPage);

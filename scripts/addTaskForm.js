@@ -251,7 +251,6 @@ document.addEventListener('click', (event) => {
   iconContainer.style.opacity = 0;
 });
 
-/** Hier ist die Ouside click function */
 document.addEventListener('click', closeAssignedDropdownOnOutsideClick);
 
 /** 
