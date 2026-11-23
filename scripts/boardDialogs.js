@@ -224,7 +224,6 @@ function submitEditedTask(event) {
   const taskToUpdate = updateTaskFromForm(allTasks[taskIndex]);
   allTasks[taskIndex] = taskToUpdate;
   updateTaskCardContent(taskToUpdate);
-  updateTaskCardContent(taskToUpdate);
   submitTask(event, taskToUpdate);
   return true;
 }
