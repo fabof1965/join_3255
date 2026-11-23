@@ -35,6 +35,8 @@ document.addEventListener("submit", async (event) => {
   }
   if (form.classList.contains(dialogModes.editTaskMode)) {
     event.preventDefault();
+    const savedTask = submitEditedTask(event);
+    if (!savedTask) return;
     submitEditedTask(event);
   }
   closeAddTaskDialog();
@@ -215,15 +217,16 @@ function closeAddTaskDialog() {
  * @returns {void}
  */
 function submitEditedTask(event) {
-  const taskIndex = allTasks.findIndex((task) => {
-    return task.id === editingTaskId;
-  });
-  if (taskIndex === -1) return;
-  const taskToUpdate = allTasks[taskIndex];
-  const updatedTask = updateTaskFromForm(taskToUpdate);
-  allTasks[taskIndex] = updatedTask;
-  updateTaskCardContent(updatedTask);
-  submitTask(event, updatedTask);
+  const form = event.target;
+  if (!isAddTaskFormValid(form)) return false;
+  const taskIndex = allTasks.findIndex((task) => task.id === editingTaskId);
+  if (taskIndex === -1) return false;
+  const taskToUpdate = updateTaskFromForm(allTasks[taskIndex]);
+  allTasks[taskIndex] = taskToUpdate;
+  updateTaskCardContent(taskToUpdate);
+  updateTaskCardContent(taskToUpdate);
+  submitTask(event, taskToUpdate);
+  return true;
 }
 
 /**
