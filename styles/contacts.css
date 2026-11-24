@@ -5,7 +5,7 @@
     padding: var(--padding-top-bottom) var(--zero) var(--zero) var(--zero);
     box-shadow: 1px var(--zero) var(--zero) rgba(var(--zero), var(--zero), var(--zero), 0.1);
     position: relative;
-    /* width: 75%; */
+    width: var(--full);
 }
 
 @media(max-width: 950px) {
@@ -173,6 +173,14 @@
     align-items: flex-start;
     justify-content: center;
     width: var(--full);
+}
+
+#name-detail {
+    width: var(--full);
+    max-width: 250px;
+    white-space: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
 }
 
 @media(max-width: 950px) {
