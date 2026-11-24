@@ -156,11 +156,19 @@ function showSelectedContact(indexContact, contactCard) {
     }, 250);
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
-    if (isMobile) {
-        document.getElementById("popover-menu").innerHTML = getPopoverContent(indexContact);
-        editEventlistener(indexContact);
-        deleteEventListener(indexContact);
-    }
+    if (isMobile) renderPopoverMenu(indexContact);
+}
+
+/**
+ * @description Renders the edit and delete buttons into the popover menu (mobile view)
+ * and attaches their event listeners.
+ * @param {number} indexContact - Index of the contact in allContacts.
+ */
+function renderPopoverMenu(indexContact) {
+    const popover = document.getElementById("popover-menu");
+    popover.innerHTML = getPopoverContent(indexContact);
+    editEventlistener(indexContact, popover);
+    deleteEventListener(indexContact, popover);
 }
 
 /**
@@ -190,29 +198,32 @@ function hideContactDetailOnArrowButtonClick() {
  * @param {number} indexContact - Index of the contact in allContacts.
  */
 function showContactDetail(indexContact) {
+    const detail = document.querySelector("#contact-detail");
     writeContactDataIntoDetailView(indexContact);
-    document.querySelector("#contact-detail").classList.add('animation-right');
+    detail.classList.add('animation-right');
     setBadgeBackgroundColor();
     if(isMobile) hideContactDetailOnArrowButtonClick();
-    editEventlistener(indexContact);
-    deleteEventListener(indexContact);
+    editEventlistener(indexContact, detail);
+    deleteEventListener(indexContact, detail);
     document.querySelector('[data-contact-index="' + indexContact + '"]').setAttribute("aria-label", "Close currently opened contact detail.");
 }
 
 /**
  * @description Adds a click event listener to the edit button that opens the edit dialog for the selected contact.
  * @param {number} indexContact - Index of the contact to edit.
+ * @param {HTMLElement} container - Element that contains the edit button.
  */
-function editEventlistener(indexContact) {
-    document.querySelector(".edit").addEventListener("click", () => editExistingContact(indexContact));
+function editEventlistener(indexContact, container) {
+    container.querySelector(".edit").addEventListener("click", () => editExistingContact(indexContact));
 }
 
 /**
  * @description Adds a click eventlistener to the delete button that deletes the selected contact.
  * @param {number} indexContact - Index of the contact to delete.
+ * @param {HTMLElement} - Element that contains the delete button.
  */
-function deleteEventListener(indexContact) {
-    document.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
+function deleteEventListener(indexContact, container) {
+    container.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
 }
 
 /**

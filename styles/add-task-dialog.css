@@ -23,7 +23,7 @@
   border-radius: var(--dialog-right-edge-border-radius);
   border: none;
   box-shadow: var(--addTaskBoxShadow);
-  transform: translateX(0);
+  transform: translateX(var(--zero));
 
   @starting-style {
     transform: translateX(100%);

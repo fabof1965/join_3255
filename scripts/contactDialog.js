@@ -321,8 +321,9 @@ async function deleteContact(indexContact) {
     await deleteData('contacts/' + contact.id);
     await removeContactFromTaskCard(contact.name);
     if (currentlyOpenedCard) hideContactDetail();
-    removeContactCard(indexContact, contact);
     allContacts.splice(indexContact, 1);
+    renderContacts();
+    initAllContactCardListeners();
     showSuccessPopup('Contact successfully deleted');
 }
 

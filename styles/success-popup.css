@@ -1,3 +1,7 @@
+dialog.success-popup {
+  transition: none;
+}
+
 dialog.success-popup[open] {
   display: block;
   position: fixed;
