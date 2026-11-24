@@ -1,4 +1,6 @@
-const isMobile = window.matchMedia("(max-width: 950px)").matches;
+function isMobile() {
+    return window.matchMedia("(max-width: 950px)").matches;
+}
 
 let allContacts = [];
 let editIndex = null;
@@ -8,12 +10,12 @@ let currentlyOpenedCard = null;
 document.addEventListener("DOMContentLoaded", initContacts);
 
 document.getElementById("open-button").addEventListener("click", () => {
-    if ((isMobile && !isPreviouslyOpenedCard) || !isMobile) {
+    if ((isMobile() && !isPreviouslyOpenedCard) || !isMobile()) {
         openContactDialog();
         document.getElementById("open-button").setAttribute("popovertarget", "");
         return;
     }
-    if (isMobile && isPreviouslyOpenedCard) {
+    if (isMobile() && isPreviouslyOpenedCard) {
         setTimeout(() => showPopover(), 100);
     }
 });
@@ -35,7 +37,7 @@ async function initContacts() {
  */
 function initAddContactButtonAriaLabel() {
     const btnOpenContactDialog = document.getElementById("open-button");
-    if(isMobile) btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
+    if(isMobile()) btnOpenContactDialog.setAttribute("aria-label", "Open Dialog to add a new contact");
 }
 
 /**
@@ -156,7 +158,7 @@ function showSelectedContact(indexContact, contactCard) {
     }, 250);
     isPreviouslyOpenedCard = true;
     currentlyOpenedCard = contactCard;
-    if (isMobile) renderPopoverMenu(indexContact);
+    if (isMobile()) renderPopoverMenu(indexContact);
 }
 
 /**
@@ -202,7 +204,7 @@ function showContactDetail(indexContact) {
     writeContactDataIntoDetailView(indexContact);
     detail.classList.add('animation-right');
     setBadgeBackgroundColor();
-    if(isMobile) hideContactDetailOnArrowButtonClick();
+    hideContactDetailOnArrowButtonClick();
     editEventlistener(indexContact, detail);
     deleteEventListener(indexContact, detail);
     document.querySelector('[data-contact-index="' + indexContact + '"]').setAttribute("aria-label", "Close currently opened contact detail.");
@@ -277,12 +279,15 @@ function showPopover() {
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
     const openButton = document.getElementById("open-button");
     const addContactImage = document.querySelector(".add-new-contact-image");
-    if (addContactImage.getAttribute("src") === defaultSource && isMobile) {
-        addContactImage.setAttribute("src", newSource);
-        openButton.setAttribute("aria-label", "Open popover menu with options to edit or delete the currently opened contact");
+    const showMenuIcon = isMobile() && isPreviouslyOpenedCard;
+
+    addContactImage.setAttribute("src", showMenuIcon ? newSource : defaultSource);
+
+    if (!isMobile()) {
+        openButton.removeAttribute("aria-label");
+        return;
     }
-    else if (addContactImage.getAttribute("src") === newSource && isMobile) {
-        addContactImage.setAttribute("src", defaultSource);
-        openButton.setAttribute("aria-label", "Open Dialog to add a new contact");
-    }
+    openButton.setAttribute("aria-label", showMenuIcon
+        ? "Open popover menu with options to edit or delete the currently opened contact"
+        : "Open Dialog to add a new contact");
 }

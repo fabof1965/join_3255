@@ -5,13 +5,16 @@
     padding: var(--padding-top-bottom) var(--zero) var(--zero) var(--zero);
     box-shadow: 1px var(--zero) var(--zero) rgba(var(--zero), var(--zero), var(--zero), 0.1);
     position: relative;
+    /* width: 75%; */
 }
+
 @media(max-width: 950px) {
     .contacts-section {
         flex: 1;
-        padding: var(--zero);
+        padding: var(--zero); 
     }
 }
+
 .btn-new-contact {
     position: relative;
     display: var(--flex);
@@ -50,6 +53,7 @@
     flex-direction: var(--column-direction);
     overflow-y: auto;
     padding: var(--zero) var(--padding-left-right);
+
 }
 
 @media(max-width: 950px) {
@@ -219,7 +223,8 @@
     }
 }
 
-.arrow-btn:hover, .arrow-btn:focus {
+.arrow-btn:hover,
+.arrow-btn:focus {
     background-color: var(--secondary-color);
 }
 
@@ -302,13 +307,14 @@
     border: none;
     gap: var(--gap-small);
     transition: transform 300ms ease-in-out,
-                overlay 300ms allow-discrete,
-                display 300ms allow-discrete;
+        overlay 300ms allow-discrete,
+        display 300ms allow-discrete;
     background-color: var(--white-color);
     box-shadow: 4px 4px 8px rgba(var(--zero), var(--zero), var(--zero), 0.75);
     transform: translateX(100%);
 
-    .edit, .delete {
+    .edit,
+    .delete {
         display: var(--flex);
     }
 }
