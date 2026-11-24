@@ -109,7 +109,7 @@
         opacity: var(--zero);
     }
 
-    10% {
+    100% {
         top: var(--zero);
         opacity: 1;
     }
