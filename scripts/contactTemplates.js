@@ -82,7 +82,7 @@ function getContactHeaderTemplate(contact, indexContact) {
             <span class="profile-badge-text" id="initials-detail">${getInitials(contact.name).toUpperCase()}</span>
           </div>
           <div class="name-edit-delete">
-            <h2 class="name large-text" id="name-detail">${contact.name}</h2>
+            <h2 class="large-text" id="name-detail">${contact.name}</h2>
             <div class="edit-delete" id="edit-delete-detail">${getPopoverContent(indexContact)}</div>
           </div>
         </div>
