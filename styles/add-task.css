@@ -353,6 +353,7 @@ textarea {
 }
 
 .assigned-dropdown {
+  position: relative;
   width: var(--full);
   color: var(--menu-color);
   background-color: var(--white-color);
@@ -372,6 +373,9 @@ textarea {
 
 .assigned-dropdown-list {
   position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
   width: var(--full);
   margin: 0;
   padding: 0;
