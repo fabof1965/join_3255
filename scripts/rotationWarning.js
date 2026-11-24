@@ -1,4 +1,4 @@
-const media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse) and (max-width: 980px)");
+const media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse) and (max-width: 980px) and (max-height: 500px");
 
 document.addEventListener("DOMContentLoaded", () => {
     initLandscapeDialog();
@@ -10,7 +10,7 @@ media.addEventListener("change", () => {
 });
 
 /**
- * @description Shows the landscape mode hint if media matches and hides landscape mode if media does not match
+ * @description Shows the landscape mode hint if media matches and hides landscape mode if media does not match.
  */
 function toggleLandscapeMode() {
     const landscapeDialog = document.getElementById("landscape-mode");
@@ -31,8 +31,8 @@ function initLandscapeDialog() {
 }
 
 /**
- *  @description Returns the rotation warning HTML template string
- * @returns HTML Template string consisting of the dialog that contains the rotation warning hint
+ *  @description Returns the rotation warning HTML template string.
+ * @returns HTML Template string consisting of the dialog that contains the rotation warning hint.
  */
 function getRotationWarningTemplate() {
     return`

@@ -432,6 +432,7 @@ textarea {
   width: var(--full);
   gap: var(--gap-medium);
   cursor: pointer;
+  color: var(--black-color);
 }
 
 .profile-badge {
