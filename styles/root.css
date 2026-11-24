@@ -164,5 +164,5 @@
     /*legal-notice and privacy-policy*/
     --legal-notice-headline-font-size: var(--large-font-size);
     --legal-notice-subheading-font-size: var(--medium-font-size);
-    --noTextWrap: var(--noTextWrap);
+    --no-text-wrap: nowrap;
 }

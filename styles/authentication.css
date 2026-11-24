@@ -95,7 +95,7 @@
   animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  gap: var(--auth-input-gap);
+  gap: var(--gap-medium);
 }
 
 @media(max-width: 700px) {
@@ -171,8 +171,8 @@
   flex-direction: var(--column-direction);
   justify-content: center;
   width: calc(var(--full) * 0.75);
-  gap: var(--auth-input-gap);
-  margin-bottom: var(--auth-input-gap);
+  gap: var(--gap-medium);
+  margin-bottom: var(--gap-medium);
 }
 
 @media(max-width: 700px) {
@@ -210,7 +210,7 @@
   flex-direction: var(--column-direction);
   align-items: center;
   width: var(--full);
-  margin-bottom: var(--auth-input-gap);
+  margin-bottom: var(--gap-medium);
   justify-content: center;
   gap: var(--gap-small);;
 }
@@ -235,7 +235,7 @@
 @media(max-width: 700px) {
   .submit-btn-container {
     flex-direction: var(--column-direction);
-    gap: var(--auth-input-gap);
+    gap: var(--gap-medium);
     width: calc(var(--full) * 0.4);
     margin-top: 0;
   }

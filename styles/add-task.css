@@ -9,13 +9,6 @@
   max-width: unset;
   flex: 1;
   padding-right: unset;
-  overflow-y: auto;
-}
-
-@media (max-width: 1540px) {
-  .add-task-form {
-    padding: var(--padding);
-  }
 }
 
 @media (max-width: 600px) {
@@ -24,8 +17,6 @@
     justify-content: space-around;
     flex-direction: var(--column-direction);
     padding: var(--padding-small);
-    overflow-y: auto;
-    overflow: auto;
   }
 }
 
