@@ -229,7 +229,9 @@ function writeContactDataIntoDetailView(indexContact) {
  * @param {HTMLElement} contactCard - The contact card whose highlight and detail view are removed.
  */
 function hidePreviouslyOpenedDetail(contactCard) {
-    contactCard.setAttribute("aria-label", "Open contact");
+    const contactIndex = contactCard.dataset.contactIndex;
+    const ariaLabel = "Open contact " + allContacts[contactIndex].name;
+    contactCard.setAttribute("aria-label", ariaLabel);
     contactCard.classList.remove("background-primary");
     hideContactDetail();
 }
