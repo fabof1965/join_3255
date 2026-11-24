@@ -149,6 +149,11 @@
   font-weight: bold;
 }
 
+.status-category{
+  width: 36px;
+  height: 36px;
+}
+
 .column-header button:hover, .column-header button:focus {
   background-color: var(--secondary-color);
 }
