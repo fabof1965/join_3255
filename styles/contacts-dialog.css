@@ -41,7 +41,7 @@ dialog {
 .edit-contact-dialog[open] {
     display: var(--flex);
     border-radius: var(--dialog-left-edge-border-radius);
-    transform: translateX();
+    transform: translateX(0);
 
     @starting-style {
         transform: translateX(-100%);
