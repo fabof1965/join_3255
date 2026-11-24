@@ -1,4 +1,4 @@
-const media = window.matchMedia("orientation: landscape");
+const media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse) and (max-width: 950px) and (max-height: 600px)");
 
 document.addEventListener("DOMContentLoaded", () => {
     initLandscapeDialog();
