@@ -8,10 +8,10 @@
               overlay 300ms allow-discrete,
               transform 300ms ease-in-out;
   border: none;
-  top: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  top: var(--zero);
+  right: var(--zero);
+  top: var(--zero);
+  bottom: var(--zero);
   left: auto;
   padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
@@ -50,7 +50,7 @@
 .add-task-form {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  padding: 0;
+  padding: var(--zero);
   align-items: center;
   gap: var(--gap-small);
   overflow-y: auto;
@@ -59,7 +59,7 @@
 .form-buttons {
   display: var(--flex);
   align-items: center;
-  margin-top: 0;
+  margin-top: var(--zero);
   margin-left: auto;
   width: var(--full);
 }

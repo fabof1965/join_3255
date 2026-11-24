@@ -24,7 +24,7 @@ dialog {
 
 .add-contact-dialog[open] {
     display: var(--flex);
-    transform: translateX(var(--zero));;
+    transform: translateX(var(--zero));
 
     @starting-style {
         transform: translateX(100%);
@@ -136,7 +136,7 @@ dialog[open]::backdrop {
     width: 60%;
 }
 
-@media(max-width: 950px) {
+@media(max-width: 600px) {
     .badge-image-container,
     .edit-badge-image-container {
         margin-top: var(--zero);
