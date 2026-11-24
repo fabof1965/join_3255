@@ -2,8 +2,8 @@
     display: var(--flex);
     flex-direction: var(--column-direction);
     gap: var(--gap-medium);
-    padding: var(--padding-top-bottom)   ;
-    box-shadow: 1px   rgba(var(--zero), var(--zero), var(--zero), 0.1);
+    padding: var(--padding-top-bottom) var(--zero) var(--zero) var(--zero);
+    box-shadow: 1px var(--zero) var(--zero) rgba(var(--zero), var(--zero), var(--zero), 0.1);
     position: relative;
 }
 @media(max-width: 950px) {
@@ -20,11 +20,11 @@
     justify-content: center;
     background-color: var(--primary-color);
     color: var(--white-color);
-    margin:  var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
+    margin: 0 var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
     anchor-name: --popover-anchor;
 }
 
-@media(max-width: 95px) {
+@media(max-width: 950px) {
     .btn-new-contact {
         position: fixed;
         width: calc(var(--back-btn-image-dimensions) * 1.75);
