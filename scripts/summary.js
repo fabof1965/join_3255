@@ -191,30 +191,29 @@ function formatUserName(name) {
 }
 
 /**
- * @description Initializes click listeners for all summary cards.
+ * @description Initializes click and enter listener for all elements that include the css class ".summary-card".
  * @returns {void}
  */
 function initCardClicks() {
-  const selectors = [
-    ".blue-head-column",
-    ".urgent-task",
-    ".tasks-to-do",
-    ".task-in-progress",
-    ".task-feedback",
-    ".task-in-board",
-    ".tasks-done"
-  ];
-  selectors.forEach(addBoardNavigation);
+  const summaryCardClass = ".summary-card";
+  document.addEventListener("click", (event) => {
+    if(event.target.closest(summaryCardClass)) {
+      addBoardNavigation();
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if(event.target.closest(summaryCardClass) && event.key === "Enter") {
+      addBoardNavigation();
+    }
+  })
 }
 
 /**
- * @description Adds a click listener that navigates to the board page.
- * @param {string} selector - CSS selector for the summary card.
- * @returns {void}
+ * @description Navigates to board page.
  */
-function addBoardNavigation(selector) {
-  const card = document.querySelector(selector);
-  if (card) card.addEventListener("click", () => window.location.href = "board.html");
+function addBoardNavigation() {
+ window.location.href = "board.html";
 }
 
 /**
