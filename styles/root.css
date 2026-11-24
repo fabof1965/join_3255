@@ -94,6 +94,7 @@
     --page-header-help-icon-width: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --page-header-help-icon-height: var(--page-header-help-icon-width);
     --header-height: 90.8px;
+    --header-menu-inset: var(--header-height) anchor(right) var(--zero) auto;
 
     --profile-icon-width: clamp(48px, calc(45.714px + 0.714vw), 56px);
     --profile-icon-height: var(--profile-icon-width);

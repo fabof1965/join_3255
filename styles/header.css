@@ -76,11 +76,11 @@
   position-anchor: --profile-badge-anchor;
   position: fixed;
   width: fit-content;
-  inset: var(--header-height) anchor(right)  auto;
+  inset: var(--header-menu-inset);
   flex-direction: var(--column-direction);
-  padding: 8px ;
+  padding: 8px var(--zero);
   background-color: var(--white-color);
-  border-radius:   10px 10px;
+  border-radius: var(--zero) var(--zero) 10px 10px;
   border: none;
   box-shadow: var(--button-box-shadow);
   opacity: var(--zero);
@@ -93,10 +93,10 @@
 
 .header-menu:popover-open {
   position-anchor: --profile-badge-anchor;
-  inset: var(--header-height) anchor(right)  auto;
+  inset: var(--header-menu-inset);
   display: var(--flex);
   opacity: 1;
-  transform: translateY();
+  transform: translateY(var(--zero));
   transition: display 300ms allow-discrete,
     opacity 300ms ease-in-out 140ms,
     overlay 300ms allow-discrete,
