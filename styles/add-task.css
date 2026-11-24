@@ -96,7 +96,7 @@ textarea {
 .btn-clear,
 .btn-create-task {
   display: var(--flex);
-  align-self: flex-end;
+  align-self: stretch;
   gap: var(--gap-small);
   align-items: center;
   font-size: var(--login-form-button-font-size);
@@ -125,7 +125,6 @@ textarea {
 
 .btn-create-task {
   background-color: var(--primary-color);
-  height: var(--full);
 }
 
 .btn-create-task>span {
