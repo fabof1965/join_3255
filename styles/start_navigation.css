@@ -35,7 +35,7 @@
     padding: var(--page-link-padding);
     transition: background-color 120ms ease;
     text-decoration: none;
-    text-wrap: var(--noTextWrap);
+    text-wrap: var(--no-text-wrap);
     width: var(--full);
 }
 
@@ -87,7 +87,7 @@
     color: var(--menu-color);
     text-decoration: none;
     padding: var(--page-link-padding);
-    text-wrap: var(--noTextWrap);
+    text-wrap: var(--no-text-wrap);
 }
 
 .sidebar-footer-before-login a:hover, .sidebar-footer-before-login a.active {
