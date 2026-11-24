@@ -1,28 +1,36 @@
 const media = window.matchMedia("screen and (orientation: landscape) and (pointer: coarse) and (max-width: 950px) and (max-height: 600px)");
 
 document.addEventListener("DOMContentLoaded", () => {
-    showLandscapeMode();
+    initLandscapeDialog();
+    toggleLandscapeMode();
 })
 
 media.addEventListener("change", () => {
-    showLandscapeMode();
+    toggleLandscapeMode();
 });
 
-function showLandscapeMode() {
-    let landscape = document.getElementById("landscape-mode");
-    if (!landscape) {
-        document.body.insertAdjacentHTML("afterbegin", getRotationWarningTemplate());
-        landscape = document.getElementById("landscape-mode");
-    }
+/**
+ * @description Shows the landscape mode hint if media matches and hides landscape mode if media does not match
+ */
+function toggleLandscapeMode() {
+    const landscapeDialog = document.getElementById("landscape-mode");
 
     if(media.matches) {
-        landscape.showModal();
+        landscapeDialog.showModal();
     }
     else if(!media.matches) {
-        landscape.close();
+        landscapeDialog.close();
     }
 }
 
+function initLandscapeDialog() {
+    document.body.insertAdjacentHTML("afterbegin", getRotationWarningTemplate());
+}
+
+/**
+ *  @description Returns the rotation warning HTML template string
+ * @returns HTML Template string consisting of the dialog that contains the rotation warning hint
+ */
 function getRotationWarningTemplate() {
     return`
         <dialog id="landscape-mode" class="landscape-warning" role="alert" aria-live="polite">
