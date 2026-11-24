@@ -423,6 +423,7 @@ textarea {
   display: var(--flex);
   align-items: center;
   gap: var(--gap-medium);
+  color: black;
 }
 
 .assigned-to-label {
