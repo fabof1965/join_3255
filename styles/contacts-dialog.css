@@ -24,7 +24,7 @@ dialog {
 
 .add-contact-dialog[open] {
     display: var(--flex);
-    transform: translateX();
+    transform: translateX(0);
 
     @starting-style {
         transform: translateX(100%);
