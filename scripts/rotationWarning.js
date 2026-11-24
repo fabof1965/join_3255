@@ -23,6 +23,9 @@ function toggleLandscapeMode() {
     }
 }
 
+/**
+ * Renders the rotation warning at the start of the body.
+ */
 function initLandscapeDialog() {
     document.body.insertAdjacentHTML("afterbegin", getRotationWarningTemplate());
 }
@@ -41,5 +44,6 @@ function getRotationWarningTemplate() {
                     <p class="landscape-warning-text">Join works best in portrait mode.</p>
                 </div>
             </div>
-        </dialog>`
+        </dialog>
+        `;
 }
