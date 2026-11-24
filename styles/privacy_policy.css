@@ -9,7 +9,7 @@ h2 {
   gap: var(--gap-medium);
   padding: var(--padding);
   overflow-y: scroll;
-  height: 100%;
+  height: var(--full);
 }
 
 .back-btn-container {

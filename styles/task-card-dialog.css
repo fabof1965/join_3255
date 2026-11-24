@@ -2,7 +2,7 @@
   border: none;
   margin: auto;
   position: fixed;
-  width: 100%;
+  width: var(--full);
   max-width: 500px;
   transition: display 300ms allow-discrete,
               opacity 300ms ease-in-out,
@@ -14,7 +14,7 @@
 }
 
 .task-card-dialog[open] {
-  width: 100%;
+  width: var(--full);
   max-width: 500px;
   border-radius: var(--task-card-border-radius);
   border: none;
@@ -47,7 +47,7 @@
 }
 
 .task-card-dialog-content {
-  width: 100%;
+  width: var(--full);
   max-height: 80dvh;
   overflow-y: auto;
   display: flex;

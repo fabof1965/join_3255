@@ -4,7 +4,7 @@ dialog {
     justify-content: space-between;
     border: none;
     height: 100dvh;
-    width: 100%;
+    width: var(--full);
     max-width: 500px;
     position: fixed;
     top: 0;

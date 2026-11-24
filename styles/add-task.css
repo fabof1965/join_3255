@@ -125,7 +125,7 @@ textarea {
 
 .btn-create-task {
   background-color: var(--primary-color);
-  height: 100%;
+  height: var(--full);
 }
 
 .btn-create-task>span {
@@ -353,7 +353,7 @@ textarea {
 }
 
 .assigned-dropdown {
-  width: 100%;
+  width: var(--full);
   color: var(--menu-color);
   background-color: var(--white-color);
 }
@@ -372,7 +372,7 @@ textarea {
 
 .assigned-dropdown-list {
   position: absolute;
-  width: 100%;
+  width: var(--full);
   margin: 0;
   padding: 0;
   list-style: none;
