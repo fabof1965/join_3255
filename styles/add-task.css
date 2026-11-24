@@ -157,11 +157,7 @@ textarea {
   max-height: 200px;
   resize: vertical;
   border: 1px solid var(--search-bar-outline-color);
-  border-radius: 0 10px 10px;
-}
-
-.add-task-field select[multiple] {
-  height: 82px;
+  border-radius: var(--zero) 10px 10px;
 }
 
 .add-task-field small {
@@ -268,7 +264,7 @@ textarea {
 .subtask-icon-container {
   display: var(--flex);
   align-items: center;
-  opacity: 0;
+  opacity: var(--zero);
 }
 
 .handle-subtask-input-btn {
@@ -333,7 +329,7 @@ textarea {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(var(--zero), var(--zero), var(--zero), var(--zero));
 }
 
 /* Assigned contacts dropdown */
@@ -364,15 +360,15 @@ textarea {
 .assigned-dropdown-list {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: var(--zero);
   z-index: 10;
   width: var(--full);
-  margin: 0;
-  padding: 0;
+  margin: var(--zero);
+  padding: var(--zero);
   list-style: none;
   background-color: var(--white-color);
   border: 1px solid var(--primary-color);
-  border-radius: 0 0 10px 10px;
+  border-radius: var(--zero) var(--zero) 10px 10px;
   box-shadow: var(--addTaskBoxShadow);
 }
 
@@ -388,7 +384,7 @@ textarea {
 }
 
 .assigned-dropdown-arrow {
-  flex-shrink: 0;
+  flex-shrink: var(--zero);
 }
 
 .assigned-dropdown[open] .assigned-dropdown-arrow {
@@ -398,7 +394,7 @@ textarea {
 .assigned-dropdown-list {
   max-height: 200px;
   overflow-y: auto;
-  border-radius: 0 0 10px 10px;
+  border-radius: var(--zero) var(--zero) 10px 10px;
   box-shadow: var(--addTaskBoxShadow);
 }
 
@@ -438,15 +434,15 @@ textarea {
   height: var(--small-user-badge-width);
   border-radius: var(--border-radius-circular);
   color: var(--white-color);
-  flex-shrink: 0;
+  flex-shrink: var(--zero);
 }
 
 input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
+  flex-shrink: var(--zero);
+  margin: var(--zero);
+  padding: var(--zero);
   accent-color: var(--primary-color);
   cursor: pointer;
 }

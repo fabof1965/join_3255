@@ -20,7 +20,7 @@
     justify-content: center;
     background-color: var(--primary-color);
     color: var(--white-color);
-    margin: 0 var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
+    margin: var(--zero) var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
     anchor-name: --popover-anchor;
 }
 

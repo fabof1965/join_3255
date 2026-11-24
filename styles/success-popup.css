@@ -7,13 +7,11 @@ dialog.success-popup[open] {
   bottom: 25%;
   left: var(--zero);
   margin: auto;
-
   width: fit-content;
   height: fit-content;
   min-height: var(--zero);
   max-height: calc(100dvh - 32px);
   max-width: calc(100vw - 32px);
-
   padding: 30px;
   border: none;
   border-radius: 16px;

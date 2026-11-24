@@ -228,7 +228,7 @@
   gap: var(--gap-between-buttons);
   margin-top: 32px;
   padding: var(--login-padding);
-  padding-top: 0;
+  padding-top: var(--zero);
   width: var(--full);
 }
 
@@ -237,7 +237,7 @@
     flex-direction: var(--column-direction);
     gap: var(--gap-medium);
     width: calc(var(--full) * 0.4);
-    margin-top: 0;
+    margin-top: var(--zero);
   }
 }
 
@@ -256,7 +256,7 @@
     display: block;
     content: attr(data-text);
     font-weight: 600;
-    height: 0;
+    height: var(--zero);
     visibility: hidden;
     overflow: hidden;
 }
@@ -275,7 +275,7 @@
   display: var(--flex);
   justify-content: center;
   width: var(--full);
-  flex-shrink: 0;
+  flex-shrink: var(--zero);
   padding: var(--padding);
 }
 
@@ -294,8 +294,8 @@
 }
 
 .password-toggle {
-    border: 0;
-    padding: 0;
+    border: var(--zero);
+    padding: var(--zero);
     background: transparent;
     cursor: pointer;
 }
