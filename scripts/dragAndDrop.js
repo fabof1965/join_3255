@@ -138,7 +138,7 @@ function initializeDragAndDropForTaskLists() {
  * @returns {HTMLLIElement} The placeholder element.
  */
 function makePlaceholder(draggedTask) {
-  const placeholder = document.createElement("li");
+  const placeholder = document.createElement("div");
   placeholder.classList.add("placeholder");
   placeholder.style.height = `${draggedTask.offsetHeight}px`;
   placeholder.style.width = `${draggedTask.offsetWidth}px`;
