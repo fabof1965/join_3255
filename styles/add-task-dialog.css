@@ -30,6 +30,11 @@
   }
 }
 
+.add-task-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .add-task-header {
   display: var(--flex);
   align-items: center;
@@ -69,7 +74,6 @@
 
 .btn-create-task {
   margin-left: auto;
-  margin-bottom: var(--padding-top-bottom);
   color: var(--white-color);
   height: var(--full);
 }

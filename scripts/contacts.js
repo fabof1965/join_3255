@@ -62,8 +62,8 @@ function initAllContactCardListeners() {
  */
 function sortAllContactsByName() {
     allContacts.sort((contactA, contactB) => {
-        const nameA = contactA.name.toUpperCase(); 
-        const nameB = contactB.name.toUpperCase(); 
+        const nameA = contactA.name.toUpperCase();
+        const nameB = contactB.name.toUpperCase();
         if (nameA < nameB) {
             return -1;
         }
@@ -77,7 +77,7 @@ function sortAllContactsByName() {
 /**
  * @description Adds click and Enter-key listeners to a contact card
  * that toggle the display of its contact details.
- * @param {HTMLElement} card - The contact card element. 
+ * @param {HTMLElement} card - The contact card element.
  */
 function initContactCardListeners(card) {
     const contactCardIndex = card.dataset.contactIndex;
@@ -131,7 +131,7 @@ function toggleContactDetail(indexContact, contactCard) {
     showSelectedContact(indexContact, contactCard);
 }
 
-/** 
+/**
  * @description Opens a contact card when activated with the keyboard.
  * @param {KeyboardEvent} event - The keyboard event.
  * @param {number} indexContact - The contact index.
@@ -196,6 +196,7 @@ function showContactDetail(indexContact) {
     if(isMobile) hideContactDetailOnArrowButtonClick();
     editEventlistener(indexContact);
     deleteEventListener(indexContact);
+    document.querySelector('[data-contact-index="' + indexContact + '"]').setAttribute("aria-label", "Close currently opened contact detail.");
 }
 
 /**
@@ -221,13 +222,14 @@ function deleteEventListener(indexContact) {
 function writeContactDataIntoDetailView(indexContact) {
     const CONTACT_DETAIL_CONTAINER = document.getElementById('contact-detail');
     CONTACT_DETAIL_CONTAINER.innerHTML = getContactInformationTemplate(indexContact);
-}   
+}
 
 /**
  * @description Removes the highlight from the given contact card and hides the contact detail.
  * @param {HTMLElement} contactCard - The contact card whose highlight and detail view are removed.
  */
 function hidePreviouslyOpenedDetail(contactCard) {
+    contactCard.setAttribute("aria-label", "Open contact");
     contactCard.classList.remove("background-primary");
     hideContactDetail();
 }
@@ -242,12 +244,11 @@ function hideContactDetail() {
     isPreviouslyOpenedCard = false;
     currentlyOpenedCard = null;
     setButtonContent();
-    setTimeout(() => detail.innerHTML = "", 250);   
 }
 
 /**
  * @description Opens the popover menu of the selected contact that enables the user
- *  to either edit or delete the contact 
+ *  to either edit or delete the contact
  *  that is currently opened (mobile view)
  */
 function showPopover() {
@@ -257,7 +258,7 @@ function showPopover() {
 /**
  * @description Toggles the add contact button icon between the default icon and the menu icon.
  * Only has an effect on mobile devices.
- * @param {string} defaultSource - Path to the default icon.  
+ * @param {string} defaultSource - Path to the default icon.
  * @param {string} newSource - Path to the icon for the mobile view.
  */
 function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", newSource = "../assets/icons/menu.svg") {
