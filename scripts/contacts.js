@@ -20,6 +20,17 @@ document.getElementById("open-button").addEventListener("click", () => {
     }
 });
 
+window.matchMedia("(max-width: 950px)").addEventListener("change", handleViewportChange);
+
+/**
+ * @description Updates the add contact button and the popover menu when the viewport
+ * switches between mobile and desktop layout (e.g. when resizing the window).
+ */
+function handleViewportChange() {
+    setButtonContent();
+    if (currentlyOpenedCard) renderPopoverMenu(currentlyOpenedCard.dataset.contactIndex);
+}
+
 /**
  * @description Initializes the contacts page: loads contact-data, renders all contact cards
  * and sets the ARIA label on the add contact button.
@@ -271,8 +282,9 @@ function showPopover() {
 }
 
 /**
- * @description Toggles the add contact button icon between the default icon and the menu icon.
- * Only has an effect on mobile devices.
+ * @description Sets the add contact button icon and aria-label depending on the viewport
+ * and whether a contact is currently opened. On mobile with an opened contact the menu icon
+ * is shown, otherwise the default icon.
  * @param {string} defaultSource - Path to the default icon.
  * @param {string} newSource - Path to the icon for the mobile view.
  */
@@ -280,9 +292,7 @@ function setButtonContent(defaultSource = "../assets/icons/new_contact.svg", new
     const openButton = document.getElementById("open-button");
     const addContactImage = document.querySelector(".add-new-contact-image");
     const showMenuIcon = isMobile() && isPreviouslyOpenedCard;
-
     addContactImage.setAttribute("src", showMenuIcon ? newSource : defaultSource);
-
     if (!isMobile()) {
         openButton.removeAttribute("aria-label");
         return;
