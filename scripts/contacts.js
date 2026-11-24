@@ -220,7 +220,7 @@ function editEventlistener(indexContact, container) {
 /**
  * @description Adds a click eventlistener to the delete button that deletes the selected contact.
  * @param {number} indexContact - Index of the contact to delete.
- * @param {HTMLElement} - Element that contains the delete button.
+ * @param {HTMLElement} container - Element that contains the delete button.
  */
 function deleteEventListener(indexContact, container) {
     container.querySelector(".delete").addEventListener("click", () => deleteContact(indexContact));
