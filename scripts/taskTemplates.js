@@ -396,9 +396,7 @@ function getAssignedContactOptionTemplate(initials, name) {
       <label class="visibility-hidden assigned-to-label" for="chk-box-${name}">
         <div class="initial-wrapper">
           <span class="profile-badge">${initials.toUpperCase()}</span>
-          <select>
-            <option value="${initials}">${name}</option>
-          </select>
+          <span value="${initials}">${name}</span>
         </div>
         <input id='chk-box-${name}' data-contact-name="${name}" aria-checked="false" class="select-contact-checkbox" type="checkbox">
       </label>
