@@ -1,19 +1,19 @@
 .help-content {
     flex: 1;
-    min-width: 0;
+    min-width: var(--zero);
     height: var(--full);
     overflow-y: auto;
     padding: var(--padding);
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-medium);
 
     .help-header {
-        display: flex;
+        display: var(--flex);
         justify-content: space-between;
         align-items: center;
         width: var(--full);
-        margin-bottom: var(--margin-bottom-medium);
+        margin-bottom: var(--margin-medium);
 
         .help-title {
             font-size: var(--legal-notice-headline-font-size);
@@ -22,7 +22,7 @@
         }
 
         .back-btn {
-            display: flex;
+            display: var(--flex);
             align-items: center;
             justify-content: center;
             border-radius: var(--border-radius-circular);
@@ -48,8 +48,8 @@
 
     .help-section {
         width: var(--full);
-        display: flex;
-        flex-direction: column;
+        display: var(--flex);
+        flex-direction: var(--column-direction);
         gap: var(--gap-medium);
 
         h2 {
@@ -57,14 +57,14 @@
             font-weight: 700;
             line-height: 1.2;
             color: var(--primary-color);
-            margin: 0;
+            margin: var(--zero);
         }
 
         p {
             font-size: var(--small-font-size);
             line-height: 1.5;
             color: var(--black-color);
-            margin: 0;
+            margin: var(--zero);
         }
 
         .help-step-intro {
@@ -72,7 +72,7 @@
         }
 
         .help-step-row {
-            display: flex;
+            display: var(--flex);
             align-items: flex-start;
             gap: var(--gap-large);
 
@@ -85,22 +85,22 @@
             }
 
             .step-content-box {
-                display: flex;
-                flex-direction: column;
+                display: var(--flex);
+                flex-direction: var(--column-direction);
                 gap: 4px;
 
                 h3 {
                     font-size: var(--medium-font-size);
                     font-weight: 700;
                     color: var(--primary-color);
-                    margin: 0;
+                    margin: var(--zero);
                 }
 
                 p {
                     font-size: var(--small-font-size);
                     line-height: 1.4;
                     color: var(--black-color);
-                    margin: 0;
+                    margin: var(--zero);
                 }
             }
         }

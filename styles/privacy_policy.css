@@ -4,8 +4,8 @@ h2 {
 }
 
 .privacy-policy-content {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-medium);
   padding: var(--padding);
   overflow-y: scroll;
@@ -13,17 +13,17 @@ h2 {
 }
 
 .back-btn-container {
-  display: flex;
+  display: var(--flex);
   width: var(--full);
   justify-content: flex-end;
 }
 
 .privacy-policy-header {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   width: var(--full);
-  margin-bottom: var(--margin-bottom-medium);
+  margin-bottom: var(--margin-medium);
 }
 
 .privacy-policy-title-row h1 {
@@ -33,7 +33,7 @@ h2 {
 
 .privacy-policy-back-button {
   border-radius: var(--border-radius-circular);
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   width: var(--back-btn-image-dimensions);
@@ -50,18 +50,18 @@ h2 {
 }
 
 .mobile-navigation {
-  display: flex;
+  display: var(--flex);
   justify-content: space-between;
 }
 
 .log-in {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   align-items: center;
   justify-content: center;
   gap: var(--gap-small);;
 }
 
 .page-links {
-  display: flex;
+  display: var(--flex);
 }

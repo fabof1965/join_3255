@@ -1,31 +1,30 @@
 .contacts-section {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-medium);
-    padding: var(--padding-top-bottom) 0 0 0;
-    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.1);
+    padding: var(--padding-top-bottom)   ;
+    box-shadow: 1px   rgba(var(--zero), var(--zero), var(--zero), 0.1);
     position: relative;
 }
 @media(max-width: 950px) {
     .contacts-section {
         flex: 1;
-        padding: 0;
+        padding: var(--zero);
     }
 }
 .btn-new-contact {
     position: relative;
-    display: flex;
+    display: var(--flex);
     gap: var(--gap-medium);
     align-items: center;
     justify-content: center;
     background-color: var(--primary-color);
     color: var(--white-color);
-    margin: 0 var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
-
+    margin:  var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
     anchor-name: --popover-anchor;
 }
 
-@media(max-width: 950px) {
+@media(max-width: 95px) {
     .btn-new-contact {
         position: fixed;
         width: calc(var(--back-btn-image-dimensions) * 1.75);
@@ -33,7 +32,7 @@
         bottom: 16dvh;
         right: 8dvw;
         z-index: 10;
-        margin: 0;
+        margin: var(--zero);
     }
 
     .btn-new-contact>span {
@@ -47,10 +46,10 @@
 }
 
 #contacts {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     overflow-y: auto;
-    padding: 0 var(--padding-left-right);
+    padding: var(--zero) var(--padding-left-right);
 }
 
 @media(max-width: 950px) {
@@ -71,14 +70,14 @@
 }
 
 .contact-card {
-    display: flex;
+    display: var(--flex);
     justify-content: flex-start;
     align-items: center;
     gap: var(--gap-large);
     padding: var(--padding-small);
     font-size: var(--medium-font-size);
     border-radius: var(--element-design-border-radius);
-    margin: 8px 0;
+    margin: 8px var(--zero);
 }
 
 .contact-card:hover {
@@ -93,25 +92,25 @@
 }
 
 .profile-badge {
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
     width: var(--small-user-badge-width);
     height: var(--small-user-badge-width);
     padding: var(--padding-small);
     border-radius: var(--border-radius-circular);
-    border: 2px solid var(--white-color);
+    border: var(--user-badge-border);
     color: var(--white-color);
 }
 
 .name-and-mail {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: 4px;
 }
 
 .name {
-    text-wrap: nowrap;
+    text-wrap: var(--noTextWrap);
 }
 
 .mail {
@@ -136,8 +135,8 @@
 }
 
 .detailed-contact {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-large);
     padding: var(--padding-top-bottom) var(--padding-left-right);
     position: fixed;
@@ -152,7 +151,7 @@
 }
 
 .profile-badge-large {
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
     width: var(--large-profile-badge-dimensions);
@@ -164,8 +163,8 @@
 }
 
 .detail-header {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-medium);
     align-items: flex-start;
     justify-content: center;
@@ -184,7 +183,7 @@
 }
 
 .header-content-1 {
-    display: flex;
+    display: var(--flex);
     gap: var(--gap-large);
     align-items: center;
 }
@@ -194,14 +193,14 @@
 }
 
 .contact-info-headline-container {
-    display: flex;
+    display: var(--flex);
     justify-content: space-between;
 }
 
 .name-edit-delete {
-    display: flex;
+    display: var(--flex);
     gap: var(--gap-medium);
-    flex-direction: column;
+    flex-direction: var(--column-direction);
 }
 
 .arrow-btn {
@@ -216,7 +215,7 @@
 
 @media(max-width: 950px) {
     .arrow-btn {
-        display: flex;
+        display: var(--flex);
     }
 }
 
@@ -229,7 +228,7 @@
 }
 
 .edit-delete {
-    display: flex;
+    display: var(--flex);
     gap: var(--gap-large);
     ;
     align-items: center;
@@ -237,7 +236,7 @@
 
 .edit,
 .delete {
-    display: flex;
+    display: var(--flex);
     gap: var(--gap-small);
     align-items: center;
     border: none;
@@ -261,8 +260,8 @@
 }
 
 .contact-information {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-large);
 }
 
@@ -277,8 +276,8 @@
 
 .email,
 .phone {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     gap: var(--gap-small);
 }
 
@@ -298,7 +297,7 @@
     top: calc(anchor(top) - 10px);
     left: calc(anchor(left));
     padding: var(--padding-small);
-    flex-direction: column;
+    flex-direction: var(--column-direction);
     border-radius: var(--element-design-border-radius) var(--element-design-border-radius) 0 var(--element-design-border-radius);
     border: none;
     gap: var(--gap-small);
@@ -306,17 +305,17 @@
                 overlay 300ms allow-discrete,
                 display 300ms allow-discrete;
     background-color: var(--white-color);
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 4px 8px rgba(var(--zero), var(--zero), var(--zero), 0.75);
     transform: translateX(100%);
 
     .edit, .delete {
-        display: flex;
+        display: var(--flex);
     }
 }
 
 @media(max-width: 950px) {
     #popover-menu:popover-open {
-        display: flex;
+        display: var(--flex);
         transform: translateX(-25px);
 
         @starting-style {

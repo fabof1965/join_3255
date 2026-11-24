@@ -1,14 +1,14 @@
 /* dialog */
 dialog {
-    flex-direction: column;
+    flex-direction: var(--column-direction);
     justify-content: space-between;
     border: none;
     height: 100dvh;
     width: var(--full);
     max-width: 500px;
     position: fixed;
-    top: 0;
-    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+    top: var(--zero);
+    box-shadow: -8px  24px rgba(0, 0, 0, 0.15);
     transition: display 300ms allow-discrete,
                 opacity 300ms ease-in-out,
                 overlay 300ms allow-discrete,
@@ -18,13 +18,13 @@ dialog {
 .add-contact-dialog{
     transform: translateX(100%);
     border-radius: var(--dialog-right-edge-border-radius);
-    right: 0;
+    right: var(--zero);
     left: auto;
 }
 
 .add-contact-dialog[open] {
-    display: flex;
-    transform: translateX(0);
+    display: var(--flex);
+    transform: translateX();
 
     @starting-style {
         transform: translateX(100%);
@@ -34,22 +34,18 @@ dialog {
 .edit-contact-dialog {
     border-radius: var(--dialog-left-edge-border-radius);
     right: auto;
-    left: 0;
+    left: var(--zero);
     transform: translateX(-100%);
 }
 
 .edit-contact-dialog[open] {
-    display: flex;
+    display: var(--flex);
     border-radius: var(--dialog-left-edge-border-radius);
-    transform: translateX(0);
+    transform: translateX();
 
     @starting-style {
         transform: translateX(-100%);
     }
-}
-
-dialog[open].slide-in {
-    transform: var(--slide-in);
 }
 
 dialog[open]::backdrop {
@@ -57,8 +53,8 @@ dialog[open]::backdrop {
 }
 
 .dialog-header {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     width: var(--full);
     background-color: var(--primary-color);
     align-items: center;
@@ -66,17 +62,17 @@ dialog[open]::backdrop {
 }
 
 .dialog-header-content {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     align-items: center;
     height: var(--full);
 }
 
 .dialog-hedaline-wrapper {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     align-items: center;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem  2rem ;
     color: var(--white-color);
 }
 
@@ -89,9 +85,9 @@ dialog[open]::backdrop {
 }
 
 .close-dialog-button {
-    margin-top: calc(var(--margin-bottom-medium) /2);
-    margin-right: calc(var(--margin-bottom-medium) /2);
-    display: flex;
+    margin-top: calc(var(--margin-medium) /2);
+    margin-right: calc(var(--margin-medium) /2);
+    display: var(--flex);
     justify-content: center;
     align-items: center;
     border-radius: var(--border-radius-circular);
@@ -118,18 +114,18 @@ dialog[open]::backdrop {
 }
 
 .dialog-main {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     flex: 1;
     height: 66%;
 }
 
 .badge-image-container,
 .edit-badge-image-container {
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
-    margin: 16px auto 0 auto;
+    margin: 16px auto  auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
     width: 80px;
@@ -143,7 +139,7 @@ dialog[open]::backdrop {
 @media(max-width: 950px) {
     .badge-image-container,
     .edit-badge-image-container {
-        margin-top: 0;
+        margin-top: var(--zero);
         position: fixed;
         left: 50%;
         top: 33%;
@@ -152,16 +148,16 @@ dialog[open]::backdrop {
 }
 
 .contact-form {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     align-items: center;
     max-width: none;
     flex: 1;
 }
 
 .data-input-area {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     align-items: center;
     flex: 1;
     justify-content: center;
@@ -171,9 +167,9 @@ dialog[open]::backdrop {
 }
 
 .input-wrapper {
-    display: flex;
+    display: var(--flex);
     align-items: center;
-    flex-direction: column;
+    flex-direction: var(--column-direction);
     width: var(--full);
 }
 
@@ -183,18 +179,18 @@ input {
 }
 
 .btn-container {
-    display: flex;
+    display: var(--flex);
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     gap: var(--gap-between-buttons);
     width: var(--full);
-    margin: var(--margin-medium) 0;
+    margin: var(--margin-medium) var(--zero);
 }
 
 .cancel-btn,
 .create-contact-btn {
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
     gap: var(--gap-small);
@@ -220,7 +216,7 @@ input {
     }
 
     .trash-btn {
-        display: flex;
+        display: var(--flex);
         justify-content: center;
         align-items: center;
         gap: var(--gap-small);
@@ -259,7 +255,7 @@ input {
 
 
 .add-contact-content {
-    display: flex;
+    display: var(--flex);
     border-bottom: 2px solid var(--search-bar-outline-color);
     width: var(--full);
     padding: var(--input-wrapper-padding);

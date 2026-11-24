@@ -18,11 +18,11 @@
 @keyframes slide-in-from-bottom {
   from {
     transform: translateY(100vh);
-    opacity: 0;
+    opacity: var(--zero);
   }
 
   to {
-    transform: translateY(0%);
+    transform: translateY(100%);
     opacity: 1;
   }
 }

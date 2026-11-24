@@ -2,15 +2,15 @@ dialog.success-popup[open] {
   display: block;
   position: fixed;
 
-  top: 0;
-  right: 0;
+  top: var(--zero);
+  right: var(--zero);
   bottom: 25%;
-  left: 0;
+  left: var(--zero);
   margin: auto;
 
   width: fit-content;
   height: fit-content;
-  min-height: 0;
+  min-height: var(--zero);
   max-height: calc(100dvh - 32px);
   max-width: calc(100vw - 32px);
 
@@ -31,8 +31,8 @@ dialog.success-popup[open] {
 }
 
 dialog.success-popup > h2 {
-  margin: 0;
-  padding: 0;
+  margin: var(--zero);
+  padding: var(--zero);
 
   color: #ffffff;
   font-family: inherit;
@@ -52,11 +52,11 @@ dialog.success-popup::backdrop {
 @keyframes success-slide-in-from-bottom {
   from {
     transform: translateY(100vh);
-    opacity: 0;
+    opacity: var(--zero);
   }
 
   to {
-    transform: translateY(0);
+    transform: translateY();
     opacity: 1;
   }
 }

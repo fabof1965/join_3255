@@ -1,13 +1,13 @@
 #sidebar-first {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     box-shadow: var(--sidebar-box-shadow);
     padding: var(--padding-top-bottom) var(--padding-left-right);
 }
 
 @media(min-width: 1440px) {
     #sidebar-first {
-        padding-left: 0;
+        padding-left: var(--zero);
     }
 }
 
@@ -16,8 +16,8 @@
 }
 
 .sidebar-navigation-before-login {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     align-items: flex-start;
     justify-content: space-between;
     height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height));
@@ -27,7 +27,7 @@
 .page-links-before-login a {
     color: var(--menu-color);
     text-align: left;
-    display: flex;
+    display: var(--flex);
     align-items: center;
     gap: var(--gap-small);;
     justify-content: flex-start;
@@ -35,7 +35,7 @@
     padding: var(--page-link-padding);
     transition: background-color 120ms ease;
     text-decoration: none;
-    text-wrap: nowrap;
+    text-wrap: var(--noTextWrap);
     width: var(--full);
 }
 
@@ -48,22 +48,22 @@
         z-index: 9999;
         background-color: var(--white-color);
         position: sticky;
-        bottom: 0;
-        padding: 0;
+        bottom: var(--zero);
+        padding: var(--zero);
         box-shadow: unset;
-        border-top: 2px solid rgba(0, 0, 0, 0.1);
+        border-top: 2px solid rgba(var(--zero), var(--zero), var(--zero), 0.1);
     }
 
     .sidebar-navigation-before-login {
-        flex-direction: row;
+        flex-direction: var(--row-direction);
         height: unset;
         padding: 12px var(--padding-left-right);
         align-items: center;
     }
 
     .page-links-before-login a {
-        flex-direction: column;
-        padding: var(--padding-small) 0;
+        flex-direction: var(--column-direction);
+        padding: var(--padding-small) ;
     }
 
     .page-links-before-login a:hover {
@@ -78,8 +78,8 @@
 }
 
 .sidebar-footer-before-login {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     width: var(--full);
 }
 
@@ -87,7 +87,7 @@
     color: var(--menu-color);
     text-decoration: none;
     padding: var(--page-link-padding);
-    text-wrap: nowrap;
+    text-wrap: var(--noTextWrap);
 }
 
 .sidebar-footer-before-login a:hover, .sidebar-footer-before-login a.active {
@@ -96,7 +96,7 @@
 
 @media(max-width: 950px) {
     .sidebar-footer-before-login {
-        flex-direction: row;
+        flex-direction: var(--row-direction);
         width: unset;
     }
 }

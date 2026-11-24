@@ -1,7 +1,7 @@
 .add-task-form {
-  display: flex;
+  display: var(--flex);
   align-items: flex-start;
-  flex-direction: row;
+  flex-direction: var(--row-direction);
   gap: var(--gap-large);
   padding: var(--padding);
   justify-content: space-between;
@@ -22,7 +22,7 @@
   .add-task-form {
     align-items: center;
     justify-content: space-around;
-    flex-direction: column;
+    flex-direction: var(--column-direction);
     padding: var(--padding-small);
     overflow-y: auto;
     overflow: auto;
@@ -30,8 +30,8 @@
 }
 
 .form-content {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   width: var(--full);
   max-width: var(--form-max-width);
   justify-content: space-between;
@@ -80,7 +80,7 @@ textarea {
 }
 
 .form-buttons {
-  display: flex;
+  display: var(--flex);
   justify-content: center;
   align-items: center;
   margin-top: auto;
@@ -95,7 +95,7 @@ textarea {
 
 .btn-clear,
 .btn-create-task {
-  display: flex;
+  display: var(--flex);
   align-self: flex-end;
   gap: var(--gap-small);
   align-items: center;
@@ -145,8 +145,8 @@ textarea {
 }
 
 .add-task-field {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   color: var(--menu-color);
   gap: var(--add-task-label-gap);
   width: var(--full);
@@ -181,15 +181,15 @@ textarea {
 }
 
 .add-task-priority {
-  display: flex;
-  flex-direction: row;
+  display: var(--flex);
+  flex-direction: var(--row-direction);
   gap: var(--gap-large);
   width: var(--full);
   border: none;
 }
 
 .priority-buttons {
-  display: flex;
+  display: var(--flex);
   width: var(--full);
   gap: var(--add-task-label-gap);
 }
@@ -200,7 +200,7 @@ textarea {
 }
 
 .add-task-priority button {
-  display: flex;
+  display: var(--flex);
   justify-content: center;
   align-items: center;
   gap: var(--gap-small);
@@ -266,7 +266,7 @@ textarea {
 }
 
 .subtask-container {
-  display: flex;
+  display: var(--flex);
   transition: opacity 0.2s ease;
   border-bottom: 1px solid var(--search-bar-outline-color);
 }
@@ -276,7 +276,7 @@ textarea {
 }
 
 .subtask-icon-container {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   opacity: 0;
 }
@@ -284,7 +284,7 @@ textarea {
 .handle-subtask-input-btn {
   border: unset;
   background: unset;
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
 }
@@ -295,13 +295,13 @@ textarea {
 }
 
 .subtask-wrapper {
-  display: flex;
+  display: var(--flex);
   justify-content: space-between;
 }
 
 .subtask-button-container {
   opacity: 0;
-  display: flex;
+  display: var(--flex);
   align-items: center;
 }
 
@@ -359,7 +359,7 @@ textarea {
 }
 
 .assigned-dropdown>summary {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -389,7 +389,7 @@ textarea {
 
 .assigned-dropdown-text {
   overflow: hidden;
-  white-space: nowrap;
+  white-space: var(--noTextWrap);
   text-overflow: ellipsis;
 }
 
@@ -409,7 +409,7 @@ textarea {
 }
 
 .contact-option {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   padding: 12px 16px;
 }
@@ -420,13 +420,13 @@ textarea {
 }
 
 .initial-wrapper {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   gap: var(--gap-medium);
 }
 
 .assigned-to-label {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   width: var(--full);
@@ -435,7 +435,7 @@ textarea {
 }
 
 .profile-badge {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   width: var(--small-user-badge-width);

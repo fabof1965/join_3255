@@ -18,28 +18,28 @@
   max-width: 500px;
   border-radius: var(--task-card-border-radius);
   border: none;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  box-shadow:   4px rgba(var(--zero), var(--zero), var(--zero), 0.32);
   position: fixed;
   opacity: 1;
   margin: auto;
-  transform: translateY(0);
+  transform: translateY(var(--zero));
 
   @starting-style {
-    opacity: 0;
+    opacity: var(--zero);
     transform: translateY(100%);
   }
 }
 
 .task-card-dialog::backdrop {
   transition: opacity 300ms ease-in-out;
-  opacity: 0;
-  background-color: var(--addTaskBackdrop-color);
+  opacity: var(--zero);
+  background-color: var(--add-task-backdrop-color);
 }
 
 .task-card-dialog[open]::backdrop {
   transition: opacity 300ms ease-in-out;
   opacity: 1;
-  background-color: var(--addTaskBackdrop-color);
+  background-color: var(--add-task-backdrop-color);
 }
 
 .task-card-dialog[hidden] {
@@ -50,8 +50,8 @@
   width: var(--full);
   max-height: 80dvh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: 24px;
   padding: 16px;
 }
@@ -61,12 +61,12 @@
 .task-card-dialog-user,
 .task-card-dialog-subtask,
 .task-card-dialog-buttons {
-  display: flex;
+  display: var(--flex);
   align-items: center;
 }
 
 .close-btn {
-  display: flex;
+  display: var(--flex);
   border: none;
   background: none;
 }
@@ -88,7 +88,7 @@
 }
 
 .task-card-dialog-close {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-circular);
@@ -126,7 +126,7 @@
 }
 
 .task-overlay-priority {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   gap: 10px;
 }
@@ -139,8 +139,8 @@
 .task-card-dialog-section,
 .task-card-dialog-users,
 .task-card-dialog-subtasks {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
 }
 
 .task-card-dialog-section {
@@ -164,7 +164,7 @@
 .task-card-dialog-user-badge {
   width: 42px;
   height: 42px;
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   color: var(--white-color);
@@ -208,10 +208,10 @@
 }
 
 .task-card-dialog-buttons button {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   gap: 8px;
-  padding: 0;
+  padding: var(--zero);
   border: none;
   color: var(--greeting-text-color);
   background: none;

@@ -1,23 +1,23 @@
 #header {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   width: var(--full);
   position: sticky;
-  top: 0;
+  top: var(--zero);
   z-index: 20;
 }
 
-@media(max-width: 950px) {
+@media(max-width: 95px) {
   #header {
     position: sticky;
-    top: 0;
+    top: var(--zero);
   }
 }
 
 .content-limit {
-  display: flex;
+  display: var(--flex);
   justify-content: space-between;
   max-width: var(--page-max-width);
   width: var(--full);
@@ -31,13 +31,13 @@
 .header-right {
   color: var(--white-color);
   align-items: center;
-  display: flex;
+  display: var(--flex);
   gap: var(--gap-small);
   ;
 }
 
 .header-icon-button {
-  padding: 0;
+  padding: var(--zero);
   border: none;
   background: transparent;
   display: inline-flex;
@@ -46,7 +46,7 @@
 }
 
 .header-icon-button-help {
-  padding: 0;
+  padding: var(--zero);
   border: none;
   background: transparent;
   display: inline-flex;
@@ -76,14 +76,14 @@
   position-anchor: --profile-badge-anchor;
   position: fixed;
   width: fit-content;
-  inset: var(--header-height) anchor(right) 0 auto;
-  flex-direction: column;
-  padding: 8px 0;
+  inset: var(--header-height) anchor(right)  auto;
+  flex-direction: var(--column-direction);
+  padding: 8px ;
   background-color: var(--white-color);
-  border-radius: 0 0 10px 10px;
+  border-radius:   10px 10px;
   border: none;
   box-shadow: var(--button-box-shadow);
-  opacity: 0;
+  opacity: var(--zero);
   transform: translateY(16px);
   transition: display 300ms allow-discrete,
     opacity 300ms ease-in-out,
@@ -93,17 +93,17 @@
 
 .header-menu:popover-open {
   position-anchor: --profile-badge-anchor;
-  inset: var(--header-height) anchor(right) 0 auto;
-  display: flex;
+  inset: var(--header-height) anchor(right)  auto;
+  display: var(--flex);
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY();
   transition: display 300ms allow-discrete,
     opacity 300ms ease-in-out 140ms,
     overlay 300ms allow-discrete,
     transform 300ms ease-in-out;
 
   @starting-style {
-    opacity: 0;
+    opacity: var(--zero);
     transform: translateY(-24px);
   }
 }
@@ -138,7 +138,7 @@
 }
 
 #profile-badge {
-  display: flex;
+  display: var(--flex);
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
@@ -146,12 +146,11 @@
   font-size: var(--medium-font-size);
   font-weight: bold;
   border-radius: var(--border-radius-circular);
-  ;
   border: 2px solid var(--primary-color, #1268FF);
   outline: 3px solid #ffffff;
   user-select: none;
   cursor: pointer;
-  padding: 0;
+  padding: var(--zero);
   line-height: 1;
   width: var(--profile-icon-width);
   height: var(--profile-icon-height);

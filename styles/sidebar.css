@@ -1,6 +1,6 @@
 #sidebar {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   box-shadow: var(--sidebar-box-shadow);
   padding: var(--padding-top-bottom) var(--padding-left-right);
   position: sticky;
@@ -10,7 +10,7 @@
 
 @media(min-width: 1440px) {
   #sidebar {
-    padding-left: 0;
+    padding-left: var(--zero);
   }
 }
 
@@ -19,8 +19,8 @@
 }
 
 .sidebar-navigation{
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   align-items: flex-start;
   justify-content: space-between;
   height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height));
@@ -28,8 +28,8 @@
 }
 
 .page-links {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-medium);
   width: var(--full);
 }
@@ -39,12 +39,12 @@
     z-index: 9998;
     background-color: var(--white-color);
     position: sticky;
-    bottom: 0;
+    bottom: var(--zero);
     top: unset;
     height: unset;
-    padding: 0;
+    padding: var(--zero);
     box-shadow: unset;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: 2px solid rgba(var(--zero), var(--zero), var(--zero), 0.1);
   }
 
   .sidebar-navigation {
@@ -55,7 +55,7 @@
   }
 
   .page-links{
-    flex-direction: row;
+    flex-direction: var(--row-direction);
     gap: var(--gap-small);
     justify-content: space-between;
   }
@@ -64,7 +64,7 @@
 .page-links a{
   color: var(--menu-color);
   text-align: left;
-  display: flex;
+  display: var(--flex);
   align-items: center;
   gap: var(--gap-small);;
   justify-content: flex-start;
@@ -72,7 +72,7 @@
   padding: var(--page-link-padding);
   transition: background-color 120ms ease;
   text-decoration: none;
-  text-wrap: nowrap;
+  text-wrap: var(--noTextWrap);
   width: var(--full);
 }
 
@@ -82,9 +82,9 @@
 
 @media(max-width: 950px) {
   .page-links a {
-    flex-direction: column;
+    flex-direction: var(--column-direction);
     justify-content: center;
-    padding: var(--padding-small) 0;
+    padding: var(--padding-small) ;
   }
 
   .page-links a:hover, .page-links a.active {
@@ -105,8 +105,8 @@
 }
 
 .sidebar-footer {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   width: var(--full);
 }
 
@@ -120,7 +120,7 @@
   text-decoration: none;
   color: var(--menu-color);
   padding: var(--page-link-padding);
-  text-wrap: nowrap;
+  text-wrap: var(--noTextWrap);
 }
 
 .sidebar-footer a:hover, .sidebar-footer a:focus,.sidebar-footer a.active {

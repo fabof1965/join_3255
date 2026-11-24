@@ -1,6 +1,6 @@
 * {
-  margin: 0;
-  padding: 0;
+  margin: var(--zero);
+  padding: var(--zero);
   box-sizing: border-box;
 }
 
@@ -14,7 +14,7 @@ body:has(dialog:modal) {
 }
 
 .main-layout {
-  display: flex;
+  display: var(--flex);
   margin: var(--content-limit-margin);
   max-width: var(--page-max-width);
   width: var(--full);
@@ -29,7 +29,7 @@ body:has(dialog:modal) {
 }
 
 .show {
-  display: flex;
+  display: var(--flex);
 }
 
 .hide {
@@ -50,7 +50,7 @@ button {
 }
 
 .header {
-  display: flex;
+  display: var(--flex);
   justify-content: space-between;
   align-items: center;
   width: var(--full);
@@ -61,7 +61,7 @@ button {
   border: none;
   border-radius: var(--element-design-border-radius);
   background: none;
-  text-wrap: nowrap;
+  text-wrap: var(--noTextWrap);
   font-size: var(--medium-font-size);
   transition: var(--element-transition);
 }
@@ -75,12 +75,12 @@ button {
   position: absolute;
   width: 1px;
   height: 1px;
-  padding: 0;
+  padding: var(--zero);
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  clip: rect(var(--zero), var(--zero), var(--zero), var(--zero));
+  white-space: var(--noTextWrap);
+  border: var(--zero);
 }
 
 a {
@@ -88,7 +88,7 @@ a {
 }
 
 .landscape-warning:open {
-  display: flex;
+  display: var(--flex);
 }
 
 .landscape-warning {
@@ -101,8 +101,8 @@ a {
   height: var(--full);
   max-width: none;
   max-height: none;
-  margin: 0;
-  padding: 0;
+  margin: var(--zero);
+  padding: var(--zero);
   border: none;
 }
 

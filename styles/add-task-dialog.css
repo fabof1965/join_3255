@@ -18,7 +18,7 @@
 }
 
 .add-task-dialog[open] {
-  display: flex;
+  display: var(--flex);
   padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
   border: none;
@@ -31,7 +31,7 @@
 }
 
 .add-task-header {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
@@ -43,8 +43,8 @@
 }
 
 .add-task-form {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   padding: 0;
   align-items: center;
   gap: var(--gap-small);
@@ -52,7 +52,7 @@
 }
 
 .form-buttons {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   margin-top: 0;
   margin-left: auto;

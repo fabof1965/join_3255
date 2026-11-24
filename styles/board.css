@@ -1,6 +1,6 @@
 .board-container {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-small);
   flex: 1;
   padding: var(--board-container-padding);
@@ -14,17 +14,17 @@
 }
 
 .board-toolbar-wrapper {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-medium);
   z-index: 10;
   background-color: var(--white-color);
   position: sticky;
-  top: 0;
+  top: var(--zero);
 }
 
 .board-toolbar {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   gap: var(--gap-large);
   width: var(--full);
@@ -37,12 +37,12 @@
 
 @media(max-width: 950px) {
   .board-toolbar-wrapper, .board-toolbar {
-    margin: 0;
+    margin: var(--zero);
   }
 }
 
 .board-search {
-  display: flex;
+  display: var(--flex);
   border-radius: var(--element-design-border-radius);
   border: 1px solid var(--search-bar-outline-color);
   align-items: center;
@@ -51,13 +51,13 @@
 
 .board-search input {
   font-size: var(--search-bar-font-size);
-  display: flex;
+  display: var(--flex);
   border: none;
   flex: 1;
 }
 
 .search-button {
-  display: flex;
+  display: var(--flex);
   border: none;
   background: none;
   padding-left: var(--search-button-padding-left);
@@ -76,14 +76,14 @@
 }
 
 .add-task-button {
-  display: flex;
+  display: var(--flex);
   background-color: var(--primary-color);
   color: var(--white-color);
   border-radius: var(--element-design-border-radius);
   border: none;
   font-size: var(--search-button-image-dimensions);
   padding: var(--add-task-button-padding);
-  text-wrap: nowrap;
+  text-wrap: var(--noTextWrap);
 }
 
 @media(max-width: 650px) {
@@ -109,7 +109,7 @@
 }
 
 .column-header {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   width: var(--full);
@@ -123,7 +123,7 @@
 
 @media(max-width: 950px) {
   .column-header.mobile {
-    display: flex;
+    display: var(--flex);
   }
 
   .column-header.desktop {
@@ -137,7 +137,7 @@
 }
 
 .column-header button, .placeholder-done {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   width: 36px;
@@ -171,9 +171,9 @@
 }
 
 .task-list {
-  display: flex;
+  display: var(--flex);
   align-items: flex-start;
-  flex-direction: column;
+  flex-direction: var(--column-direction);
   gap: var(--gap-medium);
   flex-wrap: var(--noTextWrap);
   transition: background-color 100ms ease;
@@ -190,13 +190,13 @@
 
   .board-column {
     max-height: 320px;
-    margin-bottom: var(--margin-bottom-medium);
+    margin-bottom: var(--margin-medium);
   }
 
   .task-list {
     min-height: 300px;
     width: var(--full);
-    flex-direction: row;
+    flex-direction: var(--row-direction);
     overflow-x: auto;
     overflow-y: unset;
   }
@@ -210,17 +210,17 @@
   position: relative;
   width: var(--full);
   padding: var(--padding-small);
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-small);
   border-radius: var(--task-card-border-radius);
   box-shadow: var(--task-card-box-shadow);
   background-color: var(--white-color);
   cursor: grab;
-  flex: 0 0 var(--task-card-dimensions);
+  flex: var(--zero) var(--zero) var(--task-card-dimensions);
 }
 
-@media(max-width: 950px) {
+@media(max-width: 95px) {
   .task-card {
     aspect-ratio: 1;
   }
@@ -239,14 +239,14 @@
 }
 
 .task-card-header {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-small);
 }
 
 .btn-open-popover-menu {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: center;
   background-color: var(--secondary-color);
@@ -268,8 +268,8 @@
 }
 
 .task-content {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   gap: var(--gap-small);
   flex: 1;
 }
@@ -293,7 +293,7 @@
 }
 
 .subtask-progress {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-small);
@@ -304,7 +304,7 @@
 }
 
 .subtask-progress span {
-  text-wrap: nowrap;
+  text-wrap: var(--noTextWrap);
 }
 
 .subtask-btn{
@@ -313,17 +313,17 @@
 }
 
 .task-footer {
-  display: flex;
+  display: var(--flex);
   align-items: center;
   justify-content: space-between;
 }
 
 .task-priority {
-  display: flex;
+  display: var(--flex);
 }
 
 .profile-badge {
-  display: flex;
+  display: var(--flex);
   justify-content: center;
   align-items: center;
   width: clamp(32px, calc(29.714px + 0.714vw), 40px);
@@ -334,7 +334,7 @@
 }
 
 .assigned-users {
-  display: flex;
+  display: var(--flex);
   height: 40px;
 }
 
@@ -349,8 +349,8 @@
 }
 
 .card-dropdown-menu {
-  inset: 0;
-  flex-direction: column;
+  inset: var(--zero);
+  flex-direction: var(--column-direction);
   position: fixed;
   position-area: bottom span-left;
   position-try-fallbacks: flip-block, flip-inline;
@@ -358,8 +358,8 @@
   border: none;
   border-radius: 8px;
   box-shadow: var(--task-card-box-shadow);
-  padding: 4px 0;
-  opacity: 0;
+  padding: 4px ;
+  opacity: var(--zero);
   transition: display 300ms allow-discrete,
   opacity 300ms ease-in-out,
   overlay 300ms allow-discrete,
@@ -367,16 +367,16 @@
 }
 
 .card-dropdown-menu:popover-open {
-  display: flex;
-  flex-direction: column;
+  display: var(--flex);
+  flex-direction: var(--column-direction);
   position: fixed;
-  inset: 0;
+  inset: var(--zero);
   position-area: bottom span-left;
   position-try-fallbacks: flip-block, flip-inline;
   opacity: 1;
 
   @starting-style {
-    opacity: 0;
+    opacity: var(--zero);
     transform: scale(0.25);
   }
 }
@@ -385,9 +385,9 @@
   padding: 8px;
   color: var(--greeting-text-color);
   cursor: pointer;
-  white-space: nowrap;
+  white-space: var(--noTextWrap);
   transition: var(--element-transition);
-  border-radius: 0;
+  border-radius: var(--zero);
   box-shadow: none;
   border: none;
   background-color: var(--white-color);

@@ -8,8 +8,8 @@
 }
 
 .summary-container {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     justify-content: center;
     align-items: center;
     width: var(--full);
@@ -18,15 +18,15 @@
 
 .greeting-container {
     width: var(--full);
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
-    text-wrap: nowrap;
-    margin-bottom: var(--margin-bottom-medium);
+    text-wrap: var(--noTextWrap);
+    margin-bottom: var(--margin-medium);
 }
 
 .greeting {
-    display: flex;
+    display: var(--flex);
     justify-content: center;
     align-items: center;
 }
@@ -38,7 +38,7 @@
     }
 
     .greeting-container {
-        flex-direction: column;
+        flex-direction: var(--column-direction);
         position: fixed;
         top: 50%;
         opacity: 1;
@@ -54,7 +54,7 @@
     }
 
     100% {
-        opacity: 0;
+        opacity: var(--zero);
         top: 10%;
     }
 }
@@ -106,11 +106,11 @@
 @keyframes slide-up-fade-in {
     0% {
         top: 100%;
-        opacity: 0;
+        opacity: var(--zero);
     }
 
-    100% {
-        top: 0;
+    10% {
+        top: var(--zero);
         opacity: 1;
     }
 }
@@ -120,7 +120,7 @@
 }
 
 .blue-head-column {
-    display: flex;
+    display: var(--flex);
     align-items: center;
     justify-content: center;
     gap: var(--gap-medium);
@@ -137,7 +137,7 @@
     transform: scale(var(--hover-scale));
     background-color: var(--white-color);
     box-shadow: var(--summary-card-box-shadow);
-    border-top-left-radius: 0;
+    border-top-left-radius: var(--zero);
 
     .task-number, .divider, .task-icons{
         transform: scale(var(--hover-scale));
@@ -170,15 +170,15 @@
 }
 
 .urgent-task {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     justify-content: center;
     align-items: center;
     gap: var(--gap-medium);
 }
 
 .icon-and-number {
-    display: flex;
+    display: var(--flex);
     align-items: center;
     gap: var(--gap-small);
 }
@@ -199,7 +199,7 @@
 .sub-text {
     font-size: var(--small-font-size);
     color: var(--white-color);
-    display: flex;
+    display: var(--flex);
     line-height: 1.2;
 }
 
@@ -220,8 +220,8 @@
 .task-feedback,
 .task-in-board,
 .tasks-done {
-    display: flex;
-    flex-direction: column;
+    display: var(--flex);
+    flex-direction: var(--column-direction);
     justify-content: center;
     align-items: center;
     box-shadow: var(--summary-card-box-shadow);
@@ -245,7 +245,7 @@
 .tasks-done:hover {
     transition: var(--element-transition);
     background-color: var(--primary-color);
-    border-top-left-radius: 0;
+    border-top-left-radius: var(--zero);
     transform: scale(var(--hover-scale));
 
     .task-number, .sub-text, .task-icons{
@@ -263,7 +263,7 @@
     transition: var(--element-transition);
     background-color: var(--white-color);
     transform: scale(var(--hover-scale));
-    border-top-left-radius: 0;
+    border-top-left-radius: var(--zero);
 
     .task-number {
         color: var(--primary-color);
@@ -273,7 +273,7 @@
 
 @media (max-width: 950px) {
     .tasks-to-do {
-        flex-direction: row;
+        flex-direction: var(--row-direction);
         justify-content: center;
         grid-area: 2 / 1 / 2 / 7;
     }
@@ -283,7 +283,7 @@
     .tasks-to-do:hover {
         background-color: var(--white-color);
         transform: unset;
-        border-top-left-radius: 0;
+        border-top-left-radius: var(--zero);
 
         .task-number {
             color: var(--primary-color);
