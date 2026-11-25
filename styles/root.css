@@ -58,7 +58,7 @@
     /*width and max-width*/
     --logo-width: clamp(80px, calc(65.714px + 4.464dvw), 130px);
     --logo-half-width: calc(var(--logo-width) / 2);
-    --content-limit-margin: 0 auto;
+    --content-limit-margin: 0 auto 0 0;
     --page-max-width: 1440px;
     --full: 100%;
     --form-max-width: 500px;

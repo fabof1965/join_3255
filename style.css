@@ -16,11 +16,16 @@ body:has(dialog:modal) {
 .main-layout {
   display: var(--flex);
   margin: var(--content-limit-margin);
-  margin-left: var(--padding-left-right); /*neu hinzugefügt*/
   max-width: var(--page-max-width);
   width: var(--full);
   justify-content: flex-start;
   height: var(--page-content-height);
+}
+
+@media(min-width: 1440px) {
+  .main-layout {
+    margin-left: var(--padding-left-right);
+  }
 }
 
 @media(max-width: 950px) {
