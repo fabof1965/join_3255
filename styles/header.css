@@ -38,7 +38,7 @@
 
 .header-icon-button {
   padding: var(--zero);
-  border: none;
+  border: var(--none-attribute);
   background: transparent;
   display: inline-flex;
 
@@ -47,7 +47,7 @@
 
 .header-icon-button-help {
   padding: var(--zero);
-  border: none;
+  border: var(--none-attribute);
   background: transparent;
   display: inline-flex;
 }
@@ -64,11 +64,11 @@
 
 @media(max-width: 500px) {
   .kanban-text {
-    display: none;
+    display: var(--none-attribute);
   }
 
   .header-icon-button-help {
-    display: none;
+    display: var(--none-attribute);
   }
 }
 
@@ -81,7 +81,7 @@
   padding: 8px var(--zero);
   background-color: var(--white-color);
   border-radius: var(--zero) var(--zero) 10px 10px;
-  border: none;
+  border: var(--none-attribute);
   box-shadow: var(--button-box-shadow);
   opacity: var(--zero);
   transform: translateY(16px);
@@ -111,12 +111,12 @@
 .header-menu a,
 .header-menu button {
   padding: 8px 16px;
-  border: none;
+  border: var(--none-attribute);
   background: transparent;
   color: var(--menu-color);
   font: inherit;
   text-align: center;
-  text-decoration: none;
+  text-decoration: var(--none-attribute);
   cursor: pointer;
 }
 
@@ -128,7 +128,7 @@
 } */
 
 .help {
-  display: none;
+  display: var(--none-attribute);
 }
 
 @media(max-width: 500px) {
@@ -148,7 +148,7 @@
   border-radius: var(--border-radius-circular);
   border: 2px solid var(--primary-color, #1268FF);
   outline: 3px solid #ffffff;
-  user-select: none;
+  user-select: var(--none-attribute);
   cursor: pointer;
   padding: var(--zero);
   line-height: 1;

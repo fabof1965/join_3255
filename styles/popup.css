@@ -3,7 +3,7 @@
   bottom: 25%;
   margin: auto;
   padding: 30px;
-  border: none;
+  border: var(--none-attribute);
   border-radius: 16px;
   background-color: var(--active-menu-color);
   color: var(--white-color);

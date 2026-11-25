@@ -1,5 +1,5 @@
 .task-card-dialog {
-  border: none;
+  border: var(--none-attribute);
   margin: auto;
   position: fixed;
   width: var(--full);
@@ -17,7 +17,7 @@
   width: var(--full);
   max-width: 500px;
   border-radius: var(--task-card-border-radius);
-  border: none;
+  border: var(--none-attribute);
   box-shadow:   4px rgba(var(--zero), var(--zero), var(--zero), 0.32);
   position: fixed;
   opacity: 1;
@@ -43,7 +43,7 @@
 }
 
 .task-card-dialog[hidden] {
-  display: none;
+  display: var(--none-attribute);
 }
 
 .task-card-dialog-content {
@@ -67,8 +67,8 @@
 
 .close-btn {
   display: var(--flex);
-  border: none;
-  background: none;
+  border: var(--none-attribute);
+  background: var(--none-attribute);
 }
 
 .close-btn:hover, .close-btn:focus {
@@ -199,7 +199,7 @@
 }
 
 .task-card-dialog-section-hidden {
-  display: none;
+  display: var(--none-attribute);
 }
 
 .task-card-dialog-buttons {
@@ -212,9 +212,9 @@
   align-items: center;
   gap: 8px;
   padding: var(--zero);
-  border: none;
+  border: var(--none-attribute);
   color: var(--greeting-text-color);
-  background: none;
+  background: var(--none-attribute);
   cursor: pointer;
   transition: color 100ms ease;
   font-size: var(--small-font-size);

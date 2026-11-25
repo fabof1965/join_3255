@@ -11,7 +11,7 @@
 @media(max-width: 950px) {
     .contacts-section {
         flex: 1;
-        padding: var(--zero); 
+        padding: var(--zero);
     }
 }
 
@@ -39,7 +39,7 @@
     }
 
     .btn-new-contact>span {
-        display: none;
+        display: var(--none-attribute);
     }
 
     .btn-new-contact>img {
@@ -217,8 +217,8 @@
 
 .arrow-btn {
     margin-right: 16px;
-    display: none;
-    border: none;
+    display: var(--none-attribute);
+    border: var(--none-attribute);
     background-color: var(--white-color);
     border-radius: var(--border-radius-circular);
     width: var(--back-btn-image-dimensions);
@@ -252,7 +252,7 @@
     display: var(--flex);
     gap: var(--gap-small);
     align-items: center;
-    border: none;
+    border: var(--none-attribute);
     background-color: transparent;
     color: var(--black-color);
     font-size: var(--small-font-size);
@@ -263,7 +263,7 @@
 
     .edit,
     .delete {
-        display: none;
+        display: var(--none-attribute);
     }
 }
 
@@ -279,7 +279,7 @@
 }
 
 .phone-detail {
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
     color: var(--primary-color);
 }
 
@@ -295,13 +295,13 @@
 }
 
 .phone {
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
 }
 
 .email-text {
     font-size: var(--small-font-size);
     color: var(--primary-color);
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
 }
 
 #popover-menu {
@@ -312,7 +312,7 @@
     padding: var(--padding-small);
     flex-direction: var(--column-direction);
     border-radius: var(--element-design-border-radius) var(--element-design-border-radius) 0 var(--element-design-border-radius);
-    border: none;
+    border: var(--none-attribute);
     gap: var(--gap-small);
     transition: transform 300ms ease-in-out,
         overlay 300ms allow-discrete,

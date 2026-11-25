@@ -132,9 +132,9 @@
 }
 
 .arrow-back-btn {
-  display: none;
-  background: none;
-  border: none;
+  display: var(--none-attribute);
+  background: var(--none-attribute);
+  border: var(--none-attribute);
   border-radius: var(--border-radius-circular);
 }
 
@@ -199,14 +199,14 @@
 
 .input-field {
   width: var(--full);
-  border: none;
+  border: var(--none-attribute);
   box-sizing: border-box;
   font-size: 19px;
 
 }
 
 #checkbox-container {
-  display: none;
+  display: var(--none-attribute);
   flex-direction: var(--column-direction);
   align-items: center;
   width: var(--full);
@@ -216,7 +216,7 @@
 }
 
 #signup-btn-container {
-  display: none;
+  display: var(--none-attribute);
   width: var(--full);
   justify-content: center;
   padding: var(--login-padding);
@@ -264,7 +264,7 @@
 .privacy-policy-link {
     display: inline-block;
     color: var(--primary-color);
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
 }
 
 .privacy-policy-link:hover {
@@ -286,11 +286,11 @@
 
 .footer-legal-link {
   color: var(--menu-color);
-  text-decoration: none;
+  text-decoration: var(--none-attribute);
 }
 
 .lock-img {
-    pointer-events: none;
+    pointer-events: var(--none-attribute);
 }
 
 .password-toggle {

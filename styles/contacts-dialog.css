@@ -2,7 +2,7 @@
 dialog {
     flex-direction: var(--column-direction);
     justify-content: space-between;
-    border: none;
+    border: var(--none-attribute);
     height: 100dvh;
     width: var(--full);
     max-width: 500px;
@@ -93,7 +93,7 @@ dialog[open]::backdrop {
     border-radius: var(--border-radius-circular);
     background-color: transparent;
     margin-left: auto;
-    border: none;
+    border: var(--none-attribute);
 
 }
 
@@ -151,7 +151,7 @@ dialog[open]::backdrop {
     display: var(--flex);
     flex-direction: var(--column-direction);
     align-items: center;
-    max-width: none;
+    max-width: var(--none-attribute);
     flex: 1;
 }
 
@@ -175,7 +175,7 @@ dialog[open]::backdrop {
 
 input {
     width: var(--full);
-    border: none;
+    border: var(--none-attribute);
 }
 
 .btn-container {
@@ -202,17 +202,17 @@ input {
 
 @media(max-width: 950px) {
     .cancel-btn {
-        display: none;
+        display: var(--none-attribute);
     }
 }
 
 .trash-btn {
-    display: none;
+    display: var(--none-attribute);
 }
 
 @media(max-width:500px) {
     .cancel-btn {
-        display: none;
+        display: var(--none-attribute);
     }
 
     .trash-btn {
@@ -235,7 +235,7 @@ input {
 .create-contact-btn {
     background-color: var(--primary-color);
     color: var(--white-color);
-    border: none;
+    border: var(--none-attribute);
 }
 
 .cancel-svg {

@@ -90,6 +90,9 @@
     --column-direction: column;
     --row-direction: row;
 
+    /*none attribute*/
+    --none-attribute: var(--none-attribute);
+
     /*page-header*/
     --page-header-help-icon-width: clamp(24px, calc(21.714px + 0.714vw), 32px);
     --page-header-help-icon-height: var(--page-header-help-icon-width);

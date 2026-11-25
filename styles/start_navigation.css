@@ -34,7 +34,7 @@
     border-radius: var(--element-design-border-radius);;
     padding: var(--page-link-padding);
     transition: background-color 120ms ease;
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
     text-wrap: var(--no-text-wrap);
     width: var(--full);
 }
@@ -85,7 +85,7 @@
 
 .sidebar-footer-before-login a {
     color: var(--menu-color);
-    text-decoration: none;
+    text-decoration: var(--none-attribute);
     padding: var(--page-link-padding);
     text-wrap: var(--no-text-wrap);
 }

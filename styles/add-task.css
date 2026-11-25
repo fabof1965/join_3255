@@ -32,8 +32,8 @@
 }
 
 .subtask-btn {
-  background: none;
-  border: none;
+  background: var(--none-attribute);
+  border: var(--none-attribute);
   color: var(--active-menu-color);
 }
 
@@ -60,7 +60,7 @@ input:not([type="checkbox"]),
 select,
 textarea {
   font-size: var(--small-font-size);
-  border: none;
+  border: var(--none-attribute);
   width: var(--full);
   padding: var(--board-search-padding);
   border-bottom: 1px solid var(--search-bar-outline-color);
@@ -125,8 +125,8 @@ textarea {
 .add-task-close {
   width: var(--back-btn-image-dimensions);
   height: var(--back-btn-image-dimensions);
-  border: none;
-  background: none;
+  border: var(--none-attribute);
+  background: var(--none-attribute);
 }
 
 .add-task-close img {
@@ -171,7 +171,7 @@ textarea {
   flex-direction: var(--row-direction);
   gap: var(--gap-large);
   width: var(--full);
-  border: none;
+  border: var(--none-attribute);
 }
 
 .priority-buttons {
@@ -193,7 +193,7 @@ textarea {
   padding: var(--priority-button-padding);
   font-size: var(--small-font-size);
   border-radius: var(--element-design-border-radius);
-  border: none;
+  border: var(--none-attribute);
   background-color: var(--white-color);
   box-shadow: var(--addTaskBoxShadow);
   flex: 1;
@@ -258,7 +258,7 @@ textarea {
 }
 
 .subtask-container input {
-  border-bottom: none;
+  border-bottom: var(--none-attribute);
 }
 
 .subtask-icon-container {
@@ -305,7 +305,7 @@ textarea {
 }
 
 .subtask-edit-input {
-  border: none;
+  border: var(--none-attribute);
 }
 
 .is-editing {
@@ -318,7 +318,7 @@ textarea {
 
 .create-task-button {
   align-self: flex-end;
-  border: none;
+  border: var(--none-attribute);
   border-radius: var(--element-design-border-radius);
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -354,7 +354,7 @@ textarea {
   border-bottom: 1px solid var(--search-bar-outline-color);
   font-size: var(--small-font-size);
   cursor: pointer;
-  list-style: none;
+  list-style: var(--none-attribute);
 }
 
 .assigned-dropdown-list {
@@ -365,7 +365,7 @@ textarea {
   width: var(--full);
   margin: var(--zero);
   padding: var(--zero);
-  list-style: none;
+  list-style: var(--none-attribute);
   background-color: var(--white-color);
   border: 1px solid var(--primary-color);
   border-radius: var(--zero) var(--zero) 10px 10px;

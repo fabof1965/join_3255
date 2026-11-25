@@ -54,7 +54,7 @@
   border-radius: 16px;
   bottom: 25%;
   position: fixed;
-  border: none;
+  border: var(--none-attribute);
 
   background-color: var(--active-menu-color);
   color: var(--white-color);

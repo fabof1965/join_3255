@@ -7,7 +7,7 @@
               opacity 300ms ease-in-out,
               overlay 300ms allow-discrete,
               transform 300ms ease-in-out;
-  border: none;
+  border: var(--none-attribute);
   top: var(--zero);
   right: var(--zero);
   top: var(--zero);
@@ -21,7 +21,7 @@
   display: var(--flex);
   padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
-  border: none;
+  border: var(--none-attribute);
   box-shadow: var(--addTaskBoxShadow);
   transform: translateX(var(--zero));
 
@@ -65,7 +65,7 @@
 }
 
 .add-task-form.edit-task .btn-clear {
-    display: none;
+    display: var(--none-attribute);
 }
 
 .add-task-form.edit-task .form-buttons {
@@ -79,5 +79,5 @@
 }
 
 .btn-clear {
-  display: none;
+  display: var(--none-attribute);
 }

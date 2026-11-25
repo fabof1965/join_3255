@@ -33,7 +33,7 @@ body:has(dialog:modal) {
 }
 
 .hide {
-  display: none;
+  display: var(--none-attribute);
 }
 
 form {
@@ -58,9 +58,9 @@ button {
 
 .btn {
   padding: var(--button-padding);
-  border: none;
+  border: var(--none-attribute);
   border-radius: var(--element-design-border-radius);
-  background: none;
+  background: var(--none-attribute);
   text-wrap: var(--noTextWrap);
   font-size: var(--medium-font-size);
   transition: var(--element-transition);
@@ -84,7 +84,7 @@ button {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: var(--none-attribute);
 }
 
 .landscape-warning:open {
@@ -99,11 +99,11 @@ a {
   text-align: center;
   width: var(--full);
   height: var(--full);
-  max-width: none;
-  max-height: none;
+  max-width: var(--none-attribute);
+  max-height: var(--none-attribute);
   margin: var(--zero);
   padding: var(--zero);
-  border: none;
+  border: var(--none-attribute);
 }
 
 .landscape-warning-content {

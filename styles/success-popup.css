@@ -1,11 +1,10 @@
 dialog.success-popup {
-  transition: none;
+  transition: var(--none-attribute);
 }
 
 dialog.success-popup[open] {
   display: block;
   position: fixed;
-
   top: var(--zero);
   right: var(--zero);
   bottom: 25%;
@@ -17,7 +16,7 @@ dialog.success-popup[open] {
   max-height: calc(100dvh - 32px);
   max-width: calc(100vw - 32px);
   padding: 30px;
-  border: none;
+  border: var(--none-attribute);
   border-radius: 16px;
 
   background-color: var(--active-menu-color, #4589ff);
@@ -26,9 +25,9 @@ dialog.success-popup[open] {
   font-family: "Open Sans", sans-serif;
   text-align: center;
 
-  box-shadow: none;
-  transform: none;
-  transition: none;
+  box-shadow: var(--none-attribute);
+  transform: var(--none-attribute);
+  transition: var(--none-attribute);
   animation: success-slide-in-from-bottom 300ms ease-out;
 }
 
@@ -75,6 +74,6 @@ dialog.success-popup::backdrop {
 
 @media (prefers-reduced-motion: reduce) {
   dialog.success-popup[open] {
-    animation: none;
+    animation: var(--none-attribute);
   }
 }

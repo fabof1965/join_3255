@@ -32,7 +32,7 @@
 }
 
 #task-search {
-  border: none;
+  border: var(--none-attribute);
 }
 
 @media(max-width: 950px) {
@@ -52,14 +52,14 @@
 .board-search input {
   font-size: var(--search-bar-font-size);
   display: var(--flex);
-  border: none;
+  border: var(--none-attribute);
   flex: 1;
 }
 
 .search-button {
   display: var(--flex);
-  border: none;
-  background: none;
+  border: var(--none-attribute);
+  background: var(--none-attribute);
   padding-left: var(--search-button-padding-left);
   border-left: 2px solid var(--search-bar-outline-color);
 }
@@ -80,7 +80,7 @@
   background-color: var(--primary-color);
   color: var(--white-color);
   border-radius: var(--element-design-border-radius);
-  border: none;
+  border: var(--none-attribute);
   font-size: var(--search-button-image-dimensions);
   padding: var(--add-task-button-padding);
   text-wrap: var(--noTextWrap);
@@ -88,7 +88,7 @@
 
 @media(max-width: 650px) {
   .add-task-button {
-    display: none;
+    display: var(--none-attribute);
   }
 }
 
@@ -100,7 +100,7 @@
 }
 
 .board-columns[hidden] {
-  display: none;
+  display: var(--none-attribute);
 }
 
 .search-no-results {
@@ -118,7 +118,7 @@
 }
 
 .column-header.mobile {
-  display: none;
+  display: var(--none-attribute);
 }
 
 @media(max-width: 950px) {
@@ -127,7 +127,7 @@
   }
 
   .column-header.desktop {
-    display: none;
+    display: var(--none-attribute);
   }
 }
 
@@ -144,7 +144,7 @@
   border-radius: 12px;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
-  background: none;
+  background: var(--none-attribute);
   font-size: var(--large-font-size);
   font-weight: bold;
 }
@@ -162,7 +162,7 @@
   cursor: default;
   border: 2px solid var(--white-color);
   color: var(--white-color);
-  outline: none;
+  outline: var(--none-attribute);
 }
 
 .empty-task-list {
@@ -313,8 +313,8 @@
 }
 
 .subtask-btn{
-  background: none;
-  border: none;
+  background: var(--none-attribute);
+  border: var(--none-attribute);
 }
 
 .task-footer {
@@ -360,7 +360,7 @@
   position-area: bottom span-left;
   position-try-fallbacks: flip-block, flip-inline;
   background-color: var(--white-color);
-  border: none;
+  border: var(--none-attribute);
   border-radius: 8px;
   box-shadow: var(--task-card-box-shadow);
   padding: 4px ;
@@ -393,8 +393,8 @@
   white-space: var(--noTextWrap);
   transition: var(--element-transition);
   border-radius: var(--zero);
-  box-shadow: none;
-  border: none;
+  box-shadow: var(--none-attribute);
+  border: var(--none-attribute);
   background-color: var(--white-color);
   font-size: var(--small-font-size);
 }
