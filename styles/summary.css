@@ -66,6 +66,7 @@
 }
 
 #comma {
+    display: var(--none-attribute);
     color: var(--greeting-text-color);
     font-size: var(--large-font-size);
     font-weight: normal;
