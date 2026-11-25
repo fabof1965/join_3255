@@ -117,11 +117,15 @@ function logoutUser() {
  * @description Universal function for the header badge (splits names like Saeed Ghorbani -> SG).
  */
 function initHeaderProfile() {
-    let profileBadgeElement = document.getElementById("profile-badge");
-    if (!profileBadgeElement) return;
-
-    let userName = localStorage.getItem("name") || sessionStorage.getItem("name");
-
+    const headerRightContent = document.querySelector(".header-right");
+    const currentURL = window.location.pathname;
+    if(isPublicPage(currentURL)) {
+        if(headerRightContent) headerRightContent.style.display = "var(--none-attribute)";
+        return;
+    }
+    const profileBadgeElement = document.getElementById("profile-badge");
+    const userName = localStorage.getItem("name") || sessionStorage.getItem("name");
+    headerRightContent.style.display = "var(--flex)";
     if (!userName || userName === "Guest") {
         profileBadgeElement.innerText = "G";
     } else {
@@ -206,7 +210,7 @@ function authGuard() {
  * If the given URL does not include any of the given URL's it returns false.
  */
 function isPublicPage(url) {
-    const publicPage = url.endsWith("index.html") || url.endsWith("privacy_policy_start.html") || url.endsWith("legal_notice_start.html");
+    const publicPage = url.endsWith("/index.html") || url.endsWith("/privacy_policy_start.html") || url.endsWith("/legal_notice_start.html");
     return publicPage;
 }
 
