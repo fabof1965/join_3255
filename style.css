@@ -16,6 +16,7 @@ body:has(dialog:modal) {
 .main-layout {
   display: var(--flex);
   margin: var(--content-limit-margin);
+  margin-left: var(--padding-left-right); /*neu hinzugefügt*/
   max-width: var(--page-max-width);
   width: var(--full);
   justify-content: flex-start;
