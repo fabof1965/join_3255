@@ -50,11 +50,6 @@ button {
   cursor: pointer;
 }
 
-.content-wrapper {
-  max-width: var(--page-max-width);
-  margin: var(--content-limit-margin);
-}
-
 .header {
   display: var(--flex);
   justify-content: space-between;
