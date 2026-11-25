@@ -17,3 +17,4 @@ function backToPreviousPage() {
 }
 
 if (backBtn) backBtn.addEventListener("click", backToPreviousPage);
+
