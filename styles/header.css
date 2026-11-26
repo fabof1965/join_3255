@@ -116,7 +116,7 @@
   background: transparent;
   color: var(--menu-color);
   font: inherit;
-  text-align: center;
+  text-align: left;
   text-decoration: var(--none-attribute);
   cursor: pointer;
 }
