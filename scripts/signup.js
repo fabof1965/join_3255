@@ -65,9 +65,12 @@ async function registerUser() {
  */
 async function isRegistrationValid() {
     acceptPrivacyPolicy();
-    const inputOk = sendFeedbackForEmptySignupInputfield();
-    const passwordOk = validatePassword();
-    return inputOk && passwordOk;
+    const nameOk = validateNameInput();
+    const emailOk = validateEmailInput();
+    const passwordOk = validatePasswordInput();
+    const confirmPasswordOk = validateConfirmPasswordInput();
+    const privacyPolicyOk = document.getElementById("checkbox").checked;
+    return nameOk && emailOk && passwordOk && confirmPasswordOk && privacyPolicyOk;
 }
 
 /**
@@ -91,67 +94,6 @@ async function saveNewUser(name, email, password) {
         else console.error("Fehler beim speichern eines neuen Benutzers", error);
         return false;
     }
-}
-
-/**
- * @description Checks if both passwords that are put into the password fields match each other.
- */
-function validatePassword() {
-    const password = document.getElementById('signup-password');
-    const confirmPassword = document.getElementById('confirm-password');
-    const passwordState = getPasswordState(password.value, confirmPassword.value);
-    showPasswordError(getPasswordErrorMessage(passwordState), passwordState.valid);
-    toggleErrorBorder([password, confirmPassword], passwordState.valid);
-    return passwordState.valid;
-}
-
-/**
- * @description Checks the passwords and returns the results as an object.
- * @param {string} password
- * @param {string} confirmPassword
- * @returns {{empty: boolean, tooShort: boolean, matches: boolean, valid: boolean}}
- */
-function getPasswordState(password, confirmPassword) {
-    const emptyPasswordInput = !password.trim();
-    const tooShort = confirmPassword.length < 6;
-    const matches = password === confirmPassword;
-    return { emptyPasswordInput, tooShort, valid: matches && !emptyPasswordInput && !tooShort };
-}
-
-/**
- * @description Returns the error message that fits the password state.
- * @param {{empty: boolean, tooShort: boolean}} passwordState
- * @returns {string}
- */
-function getPasswordErrorMessage({ emptyPasswordInput, tooShort }) {
-    if (emptyPasswordInput) return requiredMsg;
-    if (tooShort) return pwTooShortMsg;
-    return pwMismatchMsg;
-}
-
-/**
- * @description Sets the text and the visibility of both password error messages.
- * @param {string} message
- * @param {boolean} valid
- */
-function showPasswordError(errorMessage, valid) {
-    const errMsgIds = ['signup-password-err-msg', 'invalid-pw-confirm-msg'];
-    errMsgIds.forEach(id => {
-        const errMsg = document.getElementById(id);
-        errMsg.textContent = errorMessage;
-        errMsg.classList.toggle('visibility-hidden', valid);
-    })
-}
-
-/**
- * @description Toggles the red bottom border of the input containers.
- * @param {HTMLInputElement[]} inputs
- * @param {boolean} valid
- */
-function toggleErrorBorder(inputFields, valid) {
-    inputFields.forEach(input => {
-        input.closest('.input-content-container').classList.toggle('error-message-border-bottom', !valid);
-    })
 }
 
 /**

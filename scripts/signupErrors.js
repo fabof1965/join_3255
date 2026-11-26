@@ -1,5 +1,6 @@
 const requiredMsg = "This field is required.";
 const emailInUse = "Email already in use.";
+const invalidEmailMsg = "Please enter a valid email address.";
 const pwTooShortMsg = "Password should be at least 6 characters.";
 const pwMismatchMsg = "Passwords do not match.";
 
@@ -7,36 +8,90 @@ const pwMismatchMsg = "Passwords do not match.";
  * @description Adds an input event listener for the input fields from the registration.
  */
 function initRegistrationInputEventListeners() {
-    const inputFields = [
-        document.getElementById('signup-name-input'),
-        document.getElementById('email-signup'),
-        document.getElementById('signup-password'),
-        document.getElementById('confirm-password')
-    ];
-    inputFields.forEach((field) => {
-        field.addEventListener('input', hideInputErrorMessage);
-    });
+    const nameInput = document.getElementById('signup-name-input');
+    const emailInput = document.getElementById('email-signup');
+    const passwordInput = document.getElementById('signup-password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+
+    nameInput.addEventListener('input', hideInputErrorMessage);
+    nameInput.addEventListener('blur', validateNameInput);
+
+    emailInput.addEventListener('input', hideInputErrorMessage);
+    emailInput.addEventListener('blur', validateEmailInput);
+
+    passwordInput.addEventListener('input', hideInputErrorMessage);
+    passwordInput.addEventListener('blur', validatePasswordInput);
+
+    confirmPasswordInput.addEventListener('input', hideInputErrorMessage);
+    confirmPasswordInput.addEventListener('blur', validateConfirmPasswordInput);
 }
 
 /**
- * @description Displays an error message and a red border whenever the name
- * and email input fields are empty.
- * @returns {boolean} True if name and email are filled in, otherwise false.
+ * @description Validates the name input.
+ * @returns {boolean} True if the name is filled in, otherwise false.
  */
-function sendFeedbackForEmptySignupInputfield() {
-    const emptyNameInput = !document.getElementById('signup-name-input').value.trim();
-    const emptyEmailInput = !document.getElementById('email-signup').value.trim();
-    const redBorder = document.getElementById('name-err-msg-border');
-    const emailBorder = document.getElementById('invalid-email-border-bottom');
-    redBorder.classList.toggle('error-message-border-bottom', emptyNameInput);
-    emailBorder.classList.toggle('error-message-border-bottom', emptyEmailInput);
-    const nameErrMsg = document.getElementById('signup-name-err-msg');
-    const emailErrMsg = document.getElementById('invalid-email-msg');
-    if (emptyNameInput || emptyEmailInput) {
-        setLoginErrorText(nameErrMsg, emptyNameInput ? requiredMsg : '');
-        setLoginErrorText(emailErrMsg, emptyEmailInput ? requiredMsg : '');
-    }
-    return !emptyNameInput && !emptyEmailInput;
+function validateNameInput() {
+    const input = document.getElementById('signup-name-input');
+    const valid = Boolean(input.value.trim());
+    setSignupFieldFeedback(input, 'signup-name-err-msg', valid ? '' : requiredMsg);
+    return valid;
+}
+
+/**
+ * @description Validates the email input.
+ * @returns {boolean} True if the email is filled in and has a valid format, otherwise false.
+ */
+function validateEmailInput() {
+    const input = document.getElementById('email-signup');
+    const value = input.value.trim();
+    const valid = Boolean(value) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    const message = !value ? requiredMsg : valid ? '' : invalidEmailMsg;
+    setSignupFieldFeedback(input, 'invalid-email-msg', message);
+    return valid;
+}
+
+/**
+ * @description Validates the password input.
+ * @returns {boolean} True if the password is filled in and at least 6 characters long.
+ */
+function validatePasswordInput() {
+    const input = document.getElementById('signup-password');
+    const value = input.value;
+    const valid = Boolean(value) && value.length >= 6;
+    const message = !value ? requiredMsg : valid ? '' : pwTooShortMsg;
+    setSignupFieldFeedback(input, 'signup-password-err-msg', message);
+
+    const confirmInput = document.getElementById('confirm-password');
+    if (confirmInput.value) validateConfirmPasswordInput();
+    return valid;
+}
+
+/**
+ * @description Validates that the confirmation password is filled in and matches.
+ * @returns {boolean} True if both passwords match.
+ */
+function validateConfirmPasswordInput() {
+    const passwordInput = document.getElementById('signup-password');
+    const confirmInput = document.getElementById('confirm-password');
+    const value = confirmInput.value;
+    const valid = Boolean(value) && value.length >= 6 && value === passwordInput.value;
+    let message = '';
+    if (!value) message = requiredMsg;
+    else if (value.length < 6) message = pwTooShortMsg;
+    else if (value !== passwordInput.value) message = pwMismatchMsg;
+    setSignupFieldFeedback(confirmInput, 'invalid-pw-confirm-msg', message);
+    return valid;
+}
+
+/**
+ * @description Updates the error message and border for one signup input.
+ * @param {HTMLInputElement} input
+ * @param {string} errorMessageId
+ * @param {string} message
+ */
+function setSignupFieldFeedback(input, errorMessageId, message) {
+    input.closest('.input-content-container').classList.toggle('error-message-border-bottom', Boolean(message));
+    setLoginErrorText(document.getElementById(errorMessageId), message);
 }
 
 /**
@@ -44,7 +99,6 @@ function sendFeedbackForEmptySignupInputfield() {
  * @param {boolean} emailExists True if email already exists, otherwise false.
  */
 function setEmailExistsFeedback(emailExists) {
-    console.log(emailExists);
     const border = document.getElementById('invalid-email-border-bottom');
     const message = document.getElementById('invalid-email-msg');
     border.classList.toggle('error-message-border-bottom', emailExists);
