@@ -1,5 +1,6 @@
 h2, h3 {
   color: var(--primary-color);
+  font-size: var(--legal-notice-subheading-font-size);
 }
 
 .legal-notice-content {
@@ -8,7 +9,7 @@ h2, h3 {
   gap: var(--gap-medium);
   padding: var(--padding);
   width: var(--full);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .back-btn-container {

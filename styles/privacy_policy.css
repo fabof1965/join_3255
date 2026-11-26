@@ -8,7 +8,7 @@ h2 {
   flex-direction: var(--column-direction);
   gap: var(--gap-medium);
   padding: var(--padding);
-  overflow-y: scroll;
+  overflow-y: auto;
   height: var(--full);
 }
 

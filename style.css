@@ -19,7 +19,7 @@ body:has(dialog:modal) {
   max-width: var(--page-max-width);
   width: var(--full);
   justify-content: flex-start;
-  height: var(--page-content-height);
+  min-height: var(--page-content-height);
 }
 
 @media(min-width: 1440px) {
