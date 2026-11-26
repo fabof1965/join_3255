@@ -4,7 +4,8 @@
   gap: var(--gap-small);
   flex: 1;
   padding: var(--board-container-padding);
-  overflow: auto;
+  overflow-y: auto;
+  height: calc(100dvh - var(--padding-top-bottom) - var(--header-height) + 32px);
 }
 
 @media(max-width: 950px) {

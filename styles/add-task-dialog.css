@@ -56,12 +56,17 @@
   overflow-y: auto;
 }
 
+.form-content {
+  padding: var(--zero);
+}
+
 .form-buttons {
   display: var(--flex);
   align-items: center;
   margin-top: var(--zero);
   margin-left: auto;
   width: var(--full);
+  padding: var(--zero)
 }
 
 .add-task-form.edit-task .btn-clear {

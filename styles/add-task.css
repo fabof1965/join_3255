@@ -2,13 +2,10 @@
   display: var(--flex);
   align-items: flex-start;
   flex-direction: var(--row-direction);
-  gap: var(--gap-large);
-  padding: var(--padding);
   justify-content: space-between;
   width: var(--full);
   max-width: unset;
   flex: 1;
-  padding-right: unset;
 }
 
 @media (max-width: 600px) {
@@ -16,7 +13,6 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: var(--column-direction);
-    padding: var(--padding-small);
   }
 }
 
@@ -24,10 +20,11 @@
   display: var(--flex);
   flex-direction: var(--column-direction);
   width: var(--full);
+  padding: var(--padding);
   max-width: var(--form-max-width);
   justify-content: space-between;
-  gap: var(--gap-small);
-  height: var(--full);
+  gap: var(--gap-medium);
+  height: calc(100dvh - var(--padding-top-bottom) - var(--header-height));
   overflow-y: auto;
 }
 
@@ -43,12 +40,6 @@
 
 .subtask-btn svg {
   fill: currentColor;
-}
-
-@media (max-width: 950px) {
-  .form-content {
-    justify-content: space-around;
-  }
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -76,6 +67,7 @@ textarea {
   align-items: center;
   margin-top: auto;
   gap: var(--gap-between-buttons);
+  padding: 0 var(--padding-left-right) var(--padding-left-right) var(--zero);
 }
 
 @media (max-width: 600px) {
@@ -359,7 +351,7 @@ textarea {
 
 .assigned-dropdown-list {
   position: absolute;
-  top: 100%;
+  top: var(--full);
   left: var(--zero);
   z-index: 10;
   width: var(--full);
