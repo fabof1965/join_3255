@@ -2,6 +2,8 @@ import { signInWithEmailAndPassword, signInAnonymously } from 'https://www.gstat
 import { ref, get } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
 import { addSignupContent } from "./signup.js";
+import { validateEmailInput, validatePasswordInput,  } from "./signupErrors.js"
+import {showErrorMessageForLogin, hideLoginErrors} from './loginErrors.js'
 
 document.addEventListener("DOMContentLoaded", () => initLoginEventListeners());
 document.getElementById('show-sign-up-btn').addEventListener('click', () => {
@@ -13,7 +15,7 @@ document.getElementById('show-sign-up-btn').addEventListener('click', () => {
  * Contains the listeners for the password field, the login field and the form submission.
  */
 export function initLoginEventListeners() {
-    initPasswordEventListener();
+    initPasswordToggleEventListeners();
     initLoginInputEventListeners();
     initEventListenersForLoginForm();
 }
@@ -22,8 +24,8 @@ export function initLoginEventListeners() {
  * Handles the login form submission.
  * @param {Event} event - Login form submission event.
  */
-export function initPasswordEventListener() {
-    getLoginPasswordFieldObject().forEach((field) => {
+export function initPasswordToggleEventListeners() {
+    getLoginPasswordFieldObjects().forEach((field) => {
         if (!field.input || !field.icon || !field.togglePasswordVisibility) return;
         field.input.addEventListener('input', () => handleEmptyPasswordInput(field));
         field.togglePasswordVisibility.addEventListener('click', () => togglePasswordVisibility(field));
@@ -35,13 +37,19 @@ export function initPasswordEventListener() {
  * Each input clears the current error message.
  */
 export function initLoginInputEventListeners() {
-    const inputFields = [
-        document.getElementById('email'),
-        document.getElementById('login-password'),
-    ];
-    inputFields.forEach((field) => {
-        field.addEventListener('input', hideLoginErrors)
-    });
+    const emailInput = document.getElementById('email');
+    const loginPasswordInput = document.getElementById('login-password');
+
+    emailInput.addEventListener('blur', () => validateEmailInput('email', 'email-err-msg'));
+    loginPasswordInput.addEventListener('blur', () => validatePasswordInput('login-password', 'login-password-err-msg'));
+    // const inputFields = [
+    //     document.getElementById('email'),
+    //     document.getElementById('login-password'),
+    // ];
+
+    // inputFields.forEach((field) => {
+    //     field.addEventListener('input', hideLoginErrors)
+    // });
 }
 
 /**
@@ -59,12 +67,22 @@ function initEventListenersForLoginForm() {
 function submitHandler(event) {
     event.preventDefault();
     const loginButton = document.getElementById("login-btn");
-    const guestLoginButton = document.getElementById("guest-login-btn")
+    const guestLoginButton = document.getElementById("guest-login-btn");
     if (event.submitter === loginButton) {
         userLogin(event);
     }
     if (event.submitter === guestLoginButton) {
         logInGuestUser();
+    }
+}
+
+export function isUserInputValid() {
+    const emailInputOk = validateEmailInput('email', 'email-err-msg');
+    const passwordOk = validatePasswordInput('login-password', 'login-password-err-msg');
+    if (emailInputOk && passwordOk) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -137,7 +155,7 @@ async function logInGuestUser() {
  * Creates the password field object of the login form.
  * @returns {Array<Object>} Array with the login password field object.
  */
-function getLoginPasswordFieldObject() {
+function getLoginPasswordFieldObjects() {
     return [
         createPasswordFieldObject('login-password', 'login-password-toggle-icon'),
         createPasswordFieldObject('signup-password', 'signup-password-toggle-icon'),

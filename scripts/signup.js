@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import { ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 import { auth, db } from "./firebaseInit.js";
-import { initLoginEventListeners, initPasswordEventListener } from './login.js';
+import { initLoginEventListeners, initPasswordToggleEventListeners } from './login.js';
+import { initRegistrationInputEventListeners, setEmailExistsFeedback, acceptPrivacyPolicy, resetPrivacyPolicyCheckboxError, validateNameInput, validateEmailInput, validatePasswordInput, validateConfirmPasswordInput } from './signupErrors.js'
 
 document.getElementById("checkbox").addEventListener("keyup", (event) => {
     handleChackboxChangeOnEnter(event);
@@ -66,8 +67,8 @@ async function registerUser() {
 async function isRegistrationValid() {
     acceptPrivacyPolicy();
     const nameOk = validateNameInput();
-    const emailOk = validateEmailInput();
-    const passwordOk = validatePasswordInput();
+    const emailOk = validateEmailInput("email-signup", "invalid-email-msg");
+    const passwordOk = validatePasswordInput("signup-password", "signup-password-err-msg");
     const confirmPasswordOk = validateConfirmPasswordInput();
     const privacyPolicyOk = document.getElementById("checkbox").checked;
     return nameOk && emailOk && passwordOk && confirmPasswordOk && privacyPolicyOk;
@@ -127,7 +128,7 @@ export function addSignupContent() {
     setLegalLinkHoverEffect();
     setLogoStyles("var(--white-color)", "none");
     setSignupFormContent();
-    initPasswordEventListener();
+    initPasswordToggleEventListeners();
     initRegistrationInputEventListeners();
     setAuthenticationHeaderPadding("0");
 }

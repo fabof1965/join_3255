@@ -1,3 +1,5 @@
+// import { isUserInputValid } from './login.js'
+
 const wrongEmail = "Check your email and password. Please try again.";
 const enterLoginEmailMsg = "Please enter your email.";
 const enterLoginPwMsg = "Please enter your password.";
@@ -7,7 +9,7 @@ const enterLoginPwMsg = "Please enter your password.";
  * error messages below the fields.
  * @param {SubmitEvent} event - The submit event of the login form.
  */
-function showErrorMessageForLogin(event) {
+export function showErrorMessageForLogin(event) {
     if (event.submitter !== document.getElementById("login-btn") || !document.getElementById('email')) return;
     const emailErrMsg = document.getElementById('email-err-msg');
     const passwordErrMsg = document.getElementById('login-password-err-msg');
@@ -21,6 +23,7 @@ function showErrorMessageForLogin(event) {
         setLoginErrorText(emailErrMsg, '');
         setLoginErrorText(passwordErrMsg, wrongEmail);
     }
+
 }
 
 /**
@@ -42,7 +45,7 @@ function setBorderColor() {
  * @param {HTMLElement} element - The element that displays the error message below an input field.
  * @param {string} text - The error message to display. An empty string hides the element.
  */
-function setLoginErrorText(element, text) {
+export function setLoginErrorText(element, text) {
     element.textContent = text;
     element.classList.toggle('visibility-hidden', !text);
 }
@@ -50,7 +53,7 @@ function setLoginErrorText(element, text) {
 /**
  * Hides the login error messages and removes the red bottom border from the input fields.
  */
-function hideLoginErrors() {
+export function hideLoginErrors() {
     const borderBottom = document.querySelectorAll('.input-content-container');
     const errorMsg = document.getElementById('login-password-err-msg');
     errorMsg.classList.add('visibility-hidden');
