@@ -22,7 +22,7 @@
   padding: var(--padding);
   justify-content: space-between;
   gap: var(--gap-medium);
-  height: calc(100dvh - var(--padding-top-bottom) - var(--header-height));
+  height: calc(100dvh - var(--header-height));
   overflow-y: auto;
   max-width: var(--form-max-width);
 }
@@ -76,9 +76,9 @@ textarea {
   padding: 0 var(--padding-left-right) var(--padding-left-right) var(--zero);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .form-buttons {
-    margin-top: unset;
+    margin-top: 32px;
   }
 }
 

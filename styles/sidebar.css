@@ -124,7 +124,7 @@
   text-decoration: var(--none-attribute);
   color: var(--menu-color);
   padding: var(--page-link-padding);
-  text-wrap: var(--noTextWrap);
+  text-wrap: var(--no-text-wrap);
 }
 
 .sidebar-footer a:hover, .sidebar-footer a:focus,.sidebar-footer a.active {
