@@ -60,7 +60,7 @@ textarea {
   border: var(--none-attribute);
   width: var(--full);
   padding: var(--board-search-padding);
-  border-bottom: 1px solid var(--search-bar-outline-color);
+  border-bottom: var(--login-input-border-bottom);
 }
 
 .add-task-title-field input {
@@ -252,7 +252,7 @@ textarea {
 .subtask-container {
   display: var(--flex);
   transition: opacity 0.2s ease;
-  border-bottom: 1px solid var(--search-bar-outline-color);
+  border-bottom: var(--login-input-border-bottom);
 }
 
 .subtask-container input {
@@ -350,7 +350,7 @@ textarea {
   justify-content: space-between;
   gap: 12px;
   padding: var(--board-search-padding);
-  border-bottom: 1px solid var(--search-bar-outline-color);
+  border-bottom: var(--login-input-border-bottom);
   font-size: var(--small-font-size);
   cursor: pointer;
   list-style: var(--none-attribute);

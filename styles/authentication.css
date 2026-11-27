@@ -162,6 +162,7 @@
 .auth-heading {
   text-align: var(--center);
   font-size: 48px;
+  margin-bottom: 16px;
 }
 
 .headline-underline {

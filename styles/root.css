@@ -149,7 +149,7 @@
     /*login*/
     --login-header-font-size: var(--medium-font-size);
     --login-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    --login-input-border-bottom: 2px solid var(--search-bar-outline-color);
+    --login-input-border-bottom: 1px solid var(--search-bar-outline-color);
     --auth-form-margin-top: clamp(32px, calc(12.571px + 6.071dvw), 100px);
     --login-form-button-font-size: var(--small-font-size);
     --login-padding: var(--padding-small);

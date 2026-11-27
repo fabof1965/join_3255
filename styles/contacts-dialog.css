@@ -255,7 +255,7 @@ input {
 
 .add-contact-content {
     display: var(--flex);
-    border-bottom: 2px solid var(--search-bar-outline-color);
+    border-bottom: var(--login-input-border-bottom);
     width: var(--full);
     padding: var(--input-wrapper-padding);
 }
