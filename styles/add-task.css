@@ -161,7 +161,6 @@ textarea {
 
 .add-task-field small {
   color: var(--red-color);
-  font-family: Inter, sans-serif;
   font-size: var(--small-font-size);
 }
 
