@@ -35,6 +35,7 @@
     .summary-container {
         position: relative;
         height: calc(100dvh - var(--header-height));
+        overflow-y: unset;
     }
 
     .greeting-container {
