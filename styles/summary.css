@@ -14,7 +14,7 @@
     align-items: var(--center);
     width: var(--full);
     padding: var(--padding);
-    height: calc(100dvh - var(--header-height));
+    height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height) - 60px);
 }
 
 .greeting-container {
@@ -97,7 +97,7 @@
     .summary-card-container {
         margin-top: var(--padding-top-bottom);
         position: absolute;
-        top: -100%;
+        top: calc(-1 * var(--full));
         animation: slide-up-fade-in 1s ease 2s forwards;
         grid-template-rows: var(--grid-rows-mobile);
         grid-template-columns: repeat(6, calc((100dvw  /6) - 16px));
