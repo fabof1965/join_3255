@@ -102,8 +102,9 @@
         left: var(--padding-left-right);
         right: var(--padding-left-right);
         top: calc(-1 * var(--full));
+        height: calc(100% - var(--padding-top-bottom) - var(--gap-medium));
         animation: slide-up-fade-in 1s ease 2s forwards;
-        grid-template-rows: var(--grid-rows-mobile);
+        grid-template-rows: repeat(4, minmax(0, 1fr));
         grid-template-columns: repeat(6, minmax(0, 1fr));
         width: auto;
     }
@@ -281,7 +282,7 @@
     .tasks-to-do {
         flex-direction: var(--row-direction);
         justify-content: var(--center);
-        grid-area: 2 / 1 / 2 / 7;
+        grid-area: 2 / 1 / 3 / 7;
     }
 }
 
@@ -303,7 +304,7 @@
 
 @media (max-width: 950px) {
     .task-in-progress {
-        grid-area: 3 / 4 / 3 / 7;
+        grid-area: 3 / 4 / 4 / 7;
     }
 }
 
@@ -313,7 +314,7 @@
 
 @media (max-width: 950px) {
     .task-feedback {
-        grid-area: 4 / 4 / 4 / 7;
+        grid-area: 4 / 4 / 5 / 7;
     }
 }
 
@@ -323,7 +324,7 @@
 
 @media (max-width: 950px) {
     .task-in-board {
-        grid-area: 4 / 1 / 3 / 4;
+        grid-area: 3 / 1 / 4 / 4;
     }
 }
 
@@ -333,6 +334,6 @@
 
 @media (max-width: 950px) {
     .tasks-done {
-        grid-area: 5 / 1 / 4 / 4;
+        grid-area: 4 / 1 / 5 / 4;
     }
 }
