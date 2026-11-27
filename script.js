@@ -54,7 +54,7 @@ function renderHeader() {
         return;
     }
 
-    headerContainer.innerHTML = getHeaderTemplate();
+    headerContainer.innerHTML = getHeaderContentTemplate();
     initHeaderProfile();
     document.getElementById("logout-button").addEventListener("click", () => logoutUser());
 }

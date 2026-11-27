@@ -161,7 +161,6 @@ textarea {
 
 .add-task-field small {
   color: var(--red-color);
-  font-family: Inter, sans-serif;
   font-size: var(--small-font-size);
 }
 
@@ -282,6 +281,7 @@ textarea {
 .subtask-wrapper {
   display: var(--flex);
   justify-content: space-between;
+  color: var(--black-color);
 }
 
 .subtask-button-container {

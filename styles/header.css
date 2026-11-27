@@ -10,7 +10,7 @@
   min-height: var(--header-height);
 }
 
-@media(max-width: 95px) {
+@media(max-width: 950px) {
   #header {
     position: sticky;
     top: var(--zero);
@@ -42,7 +42,6 @@
   border: var(--none-attribute);
   background: transparent;
   display: inline-flex;
-
   anchor-name: --profile-badge-anchor;
 }
 

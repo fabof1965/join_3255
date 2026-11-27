@@ -9,6 +9,13 @@ body {
   scrollbar-color: var(--primary-color) transparent;
 }
 
+input,
+textarea,
+select,
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
 body:has(dialog:modal) {
   overflow: hidden;
 }
