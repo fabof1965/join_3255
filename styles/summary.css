@@ -14,6 +14,7 @@
     align-items: var(--center);
     width: var(--full);
     padding: var(--padding);
+    height: calc(100dvh - var(--header-height));
 }
 
 .greeting-container {
@@ -34,8 +35,6 @@
 @media(max-width: 950px) {
     .summary-container {
         position: relative;
-        height: calc(100dvh - var(--header-height));
-        overflow-y: unset;
     }
 
     .greeting-container {
