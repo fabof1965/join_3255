@@ -101,7 +101,6 @@
         position: absolute;
         left: var(--padding-left-right);
         right: var(--padding-left-right);
-        /* top: calc(-1 * var(--full)); */
         opacity: var(--zero);
         height: calc(100% - var(--padding-top-bottom) - var(--gap-medium));
         animation: slide-up-fade-in 1s ease 2s forwards;
@@ -138,6 +137,7 @@
     border-radius: var(--summary-card-border-radius);
     cursor: pointer;
     transition: var(--element-transition);
+    min-height: 88px;
 }
 
 .blue-head-column:hover {
@@ -237,6 +237,7 @@
     gap: var(--gap-medium);
     padding: var(--padding-small);
     transition: var(--element-transition);
+    min-height: 88px;
 
     .sub-text {
         color: var(--primary-color);
@@ -259,6 +260,16 @@
     .task-number, .sub-text, .task-icons{
         transform: scale(var(--hover-scale));
         color: var(--white-color);
+    }
+}
+
+@media(min-width: 450px) and (max-width: 950px) {
+    .tasks-to-do,
+    .task-in-progress,
+    .task-feedback,
+    .task-in-board,
+    .tasks-done {
+        flex-direction: row;
     }
 }
 
