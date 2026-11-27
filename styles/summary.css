@@ -14,7 +14,7 @@
     align-items: var(--center);
     width: var(--full);
     padding: var(--padding);
-    height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height) - 60px);
+    container-type: inline-size;
 }
 
 .greeting-container {
@@ -35,6 +35,7 @@
 @media(max-width: 950px) {
     .summary-container {
         position: relative;
+        height: calc(100dvh - 2 * var(--padding-top-bottom) - var(--header-height) - 60px);
     }
 
     .greeting-container {
@@ -86,10 +87,11 @@
 }
 
 .summary-card-container {
+    --summary-card-size: min(160px, calc((100cqi - 3 * var(--gap-large)) / 4));
     display: grid;
-    grid-template-columns: repeat(4, minmax(60px, calc(100dvw / 4)));
-    grid-template-rows: repeat(2, minmax(calc(100dvw / 25), 200px));
-    gap: var(--gap-medium);
+    grid-template-columns: repeat(4, var(--summary-card-size));
+    grid-template-rows: repeat(2, var(--summary-card-size));
+    gap: var(--gap-large);
     width: fit-content;
 }
 
@@ -97,10 +99,13 @@
     .summary-card-container {
         margin-top: var(--padding-top-bottom);
         position: absolute;
+        left: var(--padding-left-right);
+        right: var(--padding-left-right);
         top: calc(-1 * var(--full));
         animation: slide-up-fade-in 1s ease 2s forwards;
         grid-template-rows: var(--grid-rows-mobile);
-        grid-template-columns: repeat(6, calc((100dvw  /6) - 16px));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        width: auto;
     }
 }
 
