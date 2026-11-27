@@ -62,20 +62,20 @@
 
 .greeting-text {
     color: var(--greeting-text-color);
-    font-size: var(--large-font-size);
+    font-size: var(--greeting-text-font-size);
     font-weight: bold;
 }
 
 #comma {
     display: var(--none-attribute);
     color: var(--greeting-text-color);
-    font-size: var(--large-font-size);
+    font-size: var(--greeting-text-font-size);
     font-weight: normal;
 }
 
 .username {
     color: var(--primary-color);
-    font-size: var(--large-font-size);
+    font-size: var(--greeting-text-font-size);
     font-weight: bold;
     text-align: var(--center);
 }
