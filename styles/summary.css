@@ -34,7 +34,7 @@
 @media(max-width: 950px) {
     .summary-container {
         position: relative;
-        height: var(--full);
+        height: calc(100dvh - var(--header-height));
     }
 
     .greeting-container {
