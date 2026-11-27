@@ -282,6 +282,7 @@ textarea {
 .subtask-wrapper {
   display: var(--flex);
   justify-content: space-between;
+  color: var(--black-color);
 }
 
 .subtask-button-container {
