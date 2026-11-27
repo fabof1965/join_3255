@@ -6,6 +6,7 @@
     box-shadow: 1px var(--zero) var(--zero) rgba(var(--zero), var(--zero), var(--zero), 0.1);
     position: relative;
     width: var(--full);
+    height: calc(100dvh - var(--header-height));
 }
 
 @media(max-width: 950px) {
@@ -23,7 +24,7 @@
     justify-content: var(--center);
     background-color: var(--primary-color);
     color: var(--white-color);
-    margin: var(--zero) var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
+    margin: var(--zero) var(--padding-left-right) var(--zero) var(--padding-left-right);
     anchor-name: --popover-anchor;
 }
 
@@ -33,7 +34,7 @@
         width: calc(var(--back-btn-image-dimensions) * 1.75);
         height: calc(var(--back-btn-image-dimensions) * 1.75);
         bottom: 16dvh;
-        right: 8dvw;
+        right: var(--padding-left-right);
         z-index: 10;
         margin: var(--zero);
     }
@@ -216,7 +217,6 @@
 }
 
 .arrow-btn {
-    margin-right: 16px;
     display: var(--none-attribute);
     border: var(--none-attribute);
     background-color: var(--white-color);

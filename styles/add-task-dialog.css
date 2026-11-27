@@ -1,5 +1,5 @@
 .add-task-dialog {
-  width: fit-content;
+  /* width: fit-content; */
   position: fixed;
   height: 100dvh;
   transform: translateX(100%);
@@ -13,13 +13,11 @@
   top: var(--zero);
   bottom: var(--zero);
   left: auto;
-  padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
 }
 
 .add-task-dialog[open] {
   display: var(--flex);
-  padding: var(--padding);
   border-radius: var(--dialog-right-edge-border-radius);
   border: var(--none-attribute);
   box-shadow: var(--addTaskBoxShadow);
@@ -39,7 +37,11 @@
   display: var(--flex);
   align-items: var(--center);
   justify-content: space-between;
-  margin-bottom: 16px;
+  padding: var(--padding);
+  padding-bottom: var(--zero);
+  position: sticky;
+  top: var(--zero);
+  background-color: var(--white-color);
 }
 
 .add-task-header h2 {
@@ -50,23 +52,14 @@
 .add-task-form {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  padding: var(--zero);
   align-items: var(--center);
   gap: var(--gap-small);
-  overflow-y: auto;
-}
-
-.form-content {
-  padding: var(--zero);
+  overflow-y: scroll;
 }
 
 .form-buttons {
-  display: var(--flex);
-  align-items: var(--center);
-  margin-top: var(--zero);
   margin-left: auto;
   width: var(--full);
-  padding: var(--zero)
 }
 
 .add-task-form.edit-task .btn-clear {

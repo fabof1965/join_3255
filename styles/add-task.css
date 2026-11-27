@@ -8,7 +8,7 @@
   flex: 1;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .add-task-form {
     align-items: var(--center);
     justify-content: space-around;
@@ -21,11 +21,18 @@
   flex-direction: var(--column-direction);
   width: var(--full);
   padding: var(--padding);
-  max-width: var(--form-max-width);
   justify-content: space-between;
   gap: var(--gap-medium);
   height: calc(100dvh - var(--padding-top-bottom) - var(--header-height));
   overflow-y: auto;
+  max-width: var(--form-max-width);
+}
+
+@media (max-width: 1000px) {
+  .form-content {
+    max-width: unset;
+    overflow-y: unset;
+  }
 }
 
 .subtask-btn {
@@ -146,7 +153,8 @@ textarea {
 
 .add-task-field textarea {
   field-sizing: content;
-  max-height: 200px;
+  min-height: 100px;
+  max-height: 350px;
   resize: vertical;
   border: 1px solid var(--search-bar-outline-color);
   border-radius: var(--zero) 10px 10px;

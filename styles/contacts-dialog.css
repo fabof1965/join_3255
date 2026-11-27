@@ -8,7 +8,7 @@ dialog {
     max-width: 500px;
     position: fixed;
     top: var(--zero);
-    box-shadow: -8px  24px rgba(0, 0, 0, 0.15);
+    box-shadow: 8px  24px rgba(var(--zero), var(--zero), var(--zero), 0.15);
     transition: display 300ms allow-discrete,
                 opacity 300ms ease-in-out,
                 overlay 300ms allow-discrete,
@@ -65,14 +65,13 @@ dialog[open]::backdrop {
     display: var(--flex);
     flex-direction: var(--column-direction);
     align-items: var(--center);
-    height: var(--full);
+    max-height: var(--full);
 }
 
 .dialog-hedaline-wrapper {
     display: var(--flex);
     flex-direction: var(--column-direction);
     align-items: var(--center);
-    margin: 1rem  2rem ;
     color: var(--white-color);
 }
 
