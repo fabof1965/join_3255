@@ -28,7 +28,7 @@
     color: var(--menu-color);
     text-align: left;
     display: var(--flex);
-    align-items: center;
+    align-items: var(--center);
     gap: var(--gap-small);;
     justify-content: flex-start;
     border-radius: var(--element-design-border-radius);;
@@ -58,7 +58,7 @@
         flex-direction: var(--row-direction);
         height: unset;
         padding: 12px var(--padding-left-right);
-        align-items: center;
+        align-items: var(--center);
     }
 
     .page-links-before-login a {

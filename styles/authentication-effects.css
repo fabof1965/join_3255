@@ -99,7 +99,7 @@ dialog::backdrop {
 }
 
 #privacy-policy-error-msg {
-  text-align: center;
+  text-align: var(--center);
 }
 
 .error-message-border-bottom {

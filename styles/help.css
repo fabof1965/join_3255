@@ -11,7 +11,7 @@
     .help-header {
         display: var(--flex);
         justify-content: space-between;
-        align-items: center;
+        align-items: var(--center);
         width: var(--full);
         margin-bottom: var(--margin-medium);
 
@@ -23,8 +23,8 @@
 
         .back-btn {
             display: var(--flex);
-            align-items: center;
-            justify-content: center;
+            align-items: var(--center);
+            justify-content: var(--center);
             border-radius: var(--border-radius-circular);
             cursor: pointer;
 

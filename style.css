@@ -53,7 +53,7 @@ button {
 .header {
   display: var(--flex);
   justify-content: space-between;
-  align-items: center;
+  align-items: var(--center);
   width: var(--full);
 }
 
@@ -93,11 +93,11 @@ a {
 }
 
 .landscape-warning {
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   background-color: var(--primary-color);
   color: var(--white-color);
-  text-align: center;
+  text-align: var(--center);
   width: var(--full);
   height: var(--full);
   max-width: var(--none-attribute);

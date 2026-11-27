@@ -63,17 +63,20 @@
 
 .page-links a{
   color: var(--menu-color);
-  text-align: left;
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   gap: var(--gap-small);;
   justify-content: flex-start;
   border-radius: var(--element-design-border-radius);;
   padding: var(--page-link-padding);
   transition: background-color 120ms ease;
   text-decoration: var(--none-attribute);
-  text-wrap: var(--noTextWrap);
   width: var(--full);
+}
+
+.page-links a > span {
+  text-align: var(--center);
+  text-wrap: var(--no-text-wrap);
 }
 
 .page-links a:hover, .page-links a.active {
@@ -83,8 +86,9 @@
 @media(max-width: 950px) {
   .page-links a {
     flex-direction: var(--column-direction);
-    justify-content: center;
-    padding: var(--padding-small) ;
+    justify-content: var(--center);
+    padding: var(--padding-small) var(--zero);
+    width: fit-content;
   }
 
   .page-links a:hover, .page-links a.active {

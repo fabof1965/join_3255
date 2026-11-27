@@ -23,7 +23,7 @@ dialog.success-popup[open] {
   color: #ffffff;
 
   font-family: "Open Sans", sans-serif;
-  text-align: center;
+  text-align: var(--center);
 
   box-shadow: var(--none-attribute);
   transform: var(--none-attribute);

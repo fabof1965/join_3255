@@ -57,21 +57,21 @@ dialog[open]::backdrop {
     flex-direction: var(--column-direction);
     width: var(--full);
     background-color: var(--primary-color);
-    align-items: center;
+    align-items: var(--center);
     height: 33%;
 }
 
 .dialog-header-content {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    align-items: center;
+    align-items: var(--center);
     height: var(--full);
 }
 
 .dialog-hedaline-wrapper {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    align-items: center;
+    align-items: var(--center);
     margin: 1rem  2rem ;
     color: var(--white-color);
 }
@@ -88,8 +88,8 @@ dialog[open]::backdrop {
     margin-top: calc(var(--margin-medium) /2);
     margin-right: calc(var(--margin-medium) /2);
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     border-radius: var(--border-radius-circular);
     background-color: transparent;
     margin-left: auto;
@@ -123,8 +123,8 @@ dialog[open]::backdrop {
 .badge-image-container,
 .edit-badge-image-container {
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     margin: 16px auto  auto;
     background-color: var(--badge-dialog-background-color);
     border-radius: var(--border-radius-circular);
@@ -150,7 +150,7 @@ dialog[open]::backdrop {
 .contact-form {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    align-items: center;
+    align-items: var(--center);
     max-width: var(--none-attribute);
     flex: 1;
 }
@@ -158,9 +158,9 @@ dialog[open]::backdrop {
 .data-input-area {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    align-items: center;
+    align-items: var(--center);
     flex: 1;
-    justify-content: center;
+    justify-content: var(--center);
     height: var(--full);
     gap: var(--gap-medium);
     width: calc(var(--full) * 0.9);
@@ -168,7 +168,7 @@ dialog[open]::backdrop {
 
 .input-wrapper {
     display: var(--flex);
-    align-items: center;
+    align-items: var(--center);
     flex-direction: var(--column-direction);
     width: var(--full);
 }
@@ -181,8 +181,8 @@ input {
 .btn-container {
     display: var(--flex);
     flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     gap: var(--gap-between-buttons);
     width: var(--full);
     margin: var(--margin-medium) var(--zero);
@@ -191,8 +191,8 @@ input {
 .cancel-btn,
 .create-contact-btn {
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     gap: var(--gap-small);
     border-radius: var(--element-design-border-radius);
     color: var(--guest-login-button-text-color);
@@ -217,8 +217,8 @@ input {
 
     .trash-btn {
         display: var(--flex);
-        justify-content: center;
-        align-items: center;
+        justify-content: var(--center);
+        align-items: var(--center);
         gap: var(--gap-small);
         border-radius: var(--element-design-border-radius);
         color: var(--guest-login-button-text-color);

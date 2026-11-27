@@ -20,7 +20,7 @@ h2 {
 
 .privacy-policy-header {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   justify-content: space-between;
   width: var(--full);
   margin-bottom: var(--margin-medium);
@@ -34,8 +34,8 @@ h2 {
 .privacy-policy-back-button {
   border-radius: var(--border-radius-circular);
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   width: var(--back-btn-image-dimensions);
   height: var(--back-btn-image-dimensions);
 }
@@ -57,8 +57,8 @@ h2 {
 .log-in {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   gap: var(--gap-small);;
 }
 

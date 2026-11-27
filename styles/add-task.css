@@ -10,7 +10,7 @@
 
 @media (max-width: 600px) {
   .add-task-form {
-    align-items: center;
+    align-items: var(--center);
     justify-content: space-around;
     flex-direction: var(--column-direction);
   }
@@ -43,7 +43,7 @@
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  background: url("../assets/icons/calendar.svg") no-repeat center;
+  background: url("../assets/icons/calendar.svg") no-repeat var(--center);
   background-size: contain;
 }
 
@@ -63,8 +63,8 @@ textarea {
 
 .form-buttons {
   display: var(--flex);
-  justify-content: center;
-  align-items: center;
+  justify-content: var(--center);
+  align-items: var(--center);
   margin-top: auto;
   gap: var(--gap-between-buttons);
   padding: 0 var(--padding-left-right) var(--padding-left-right) var(--zero);
@@ -81,7 +81,7 @@ textarea {
   display: var(--flex);
   align-self: stretch;
   gap: var(--gap-small);
-  align-items: center;
+  align-items: var(--center);
   font-size: var(--login-form-button-font-size);
 }
 
@@ -179,8 +179,8 @@ textarea {
 
 .add-task-priority button {
   display: var(--flex);
-  justify-content: center;
-  align-items: center;
+  justify-content: var(--center);
+  align-items: var(--center);
   gap: var(--gap-small);
   padding: var(--priority-button-padding);
   font-size: var(--small-font-size);
@@ -255,7 +255,7 @@ textarea {
 
 .subtask-icon-container {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   opacity: var(--zero);
 }
 
@@ -263,8 +263,8 @@ textarea {
   border: unset;
   background: unset;
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
 }
 
 .handle-subtask-input-btn:hover {
@@ -280,7 +280,7 @@ textarea {
 .subtask-button-container {
   opacity: 0;
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
 }
 
 .subtask-list:hover {
@@ -339,7 +339,7 @@ textarea {
 
 .assigned-dropdown>summary {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   justify-content: space-between;
   gap: 12px;
   padding: var(--board-search-padding);
@@ -392,7 +392,7 @@ textarea {
 
 .contact-option {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   padding: 12px 16px;
 }
 
@@ -403,14 +403,14 @@ textarea {
 
 .initial-wrapper {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   gap: var(--gap-medium);
   color: black;
 }
 
 .assigned-to-label {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   justify-content: space-between;
   width: var(--full);
   gap: var(--gap-medium);
@@ -420,8 +420,8 @@ textarea {
 
 .profile-badge {
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   width: var(--small-user-badge-width);
   height: var(--small-user-badge-width);
   border-radius: var(--border-radius-circular);

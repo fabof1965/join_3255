@@ -62,7 +62,7 @@
 .task-card-dialog-subtask,
 .task-card-dialog-buttons {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
 }
 
 .close-btn {
@@ -89,8 +89,8 @@
 
 .task-card-dialog-close {
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   border-radius: var(--border-radius-circular);
 }
 
@@ -127,7 +127,7 @@
 
 .task-overlay-priority {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   gap: 10px;
 }
 
@@ -165,8 +165,8 @@
   width: 42px;
   height: 42px;
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   color: var(--white-color);
   background-color: var(--user-badge-background-color);
   border-radius: var(--border-radius-circular);
@@ -209,7 +209,7 @@
 
 .task-card-dialog-buttons button {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   gap: 8px;
   padding: var(--zero);
   border: var(--none-attribute);

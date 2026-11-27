@@ -1,6 +1,6 @@
 #header {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   background-color: var(--primary-color);
   padding: 16px var(--padding-left-right);
   width: var(--full);
@@ -31,7 +31,7 @@
 
 .header-right {
   color: var(--white-color);
-  align-items: center;
+  align-items: var(--center);
   display: var(--flex);
   gap: var(--gap-small);
   ;
@@ -140,8 +140,8 @@
 
 #profile-badge {
   display: var(--flex);
-  justify-content: center;
-  align-items: center;
+  justify-content: var(--center);
+  align-items: var(--center);
   background-color: #ffffff;
   color: var(--primary-color, #1268FF);
   font-size: var(--medium-font-size);

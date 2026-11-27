@@ -33,16 +33,16 @@
   max-width: 1440px;
   margin: 0 auto;
   justify-content: flex-end;
-  align-items: center;
+  align-items: var(--center);
   width: var(--full);
-  text-align: center;
+  text-align: var(--center);
   padding: var(--padding-top-bottom) var(--padding-left-right);
   font-size: var(--login-header-font-size);
 }
 
 @media(max-width: 950px) {
   .auth-header {
-    justify-content: center;
+    justify-content: var(--center);
     padding: 0;
   }
 }
@@ -73,17 +73,17 @@
 
 .auth-wrapper {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   gap: var(--gap-large);
 }
 
 .auth-main {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  align-items: center;
+  align-items: var(--center);
   width: var(--full);
   flex: 1;
-  justify-content: center;
+  justify-content: var(--center);
   padding: var(--padding);
   padding-bottom: var(--zero);
 }
@@ -91,7 +91,7 @@
 .auth-form {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  align-items: center;
+  align-items: var(--center);
   width: calc(var(--full) / 2);
   border-radius: var(--form-border-radius);
   opacity: var(--zero);
@@ -103,7 +103,7 @@
 
 @media(max-width: 700px) {
   .auth-main {
-    justify-content: center;
+    justify-content: var(--center);
   }
 
   .auth-form {
@@ -129,7 +129,7 @@
 
 .form-header {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   width: var(--full);
   padding: var(--login-padding);
 }
@@ -148,19 +148,19 @@
 
 .heading-wrapper {
   display: var(--flex);
-  justify-content: center;
+  justify-content: var(--center);
   width: var(--full);
 }
 
 .heading-container {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  justify-content: center;
-  align-items: center;
+  justify-content: var(--center);
+  align-items: var(--center);
 }
 
 .auth-heading {
-  text-align: center;
+  text-align: var(--center);
   font-size: 48px;
 }
 
@@ -172,7 +172,7 @@
 .auth-input-container {
   display: var(--flex);
   flex-direction: var(--column-direction);
-  justify-content: center;
+  justify-content: var(--center);
   width: calc(var(--full) * 0.75);
   gap: var(--gap-medium);
   margin-bottom: var(--gap-medium);
@@ -186,10 +186,10 @@
 
 .input-wrapper {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
 
   flex-direction: var(--column-direction);
-  justify-content: center;
+  justify-content: var(--center);
 }
 
 .input-content-container {
@@ -211,23 +211,23 @@
 #checkbox-container {
   display: var(--none-attribute);
   flex-direction: var(--column-direction);
-  align-items: center;
+  align-items: var(--center);
   width: var(--full);
   margin-bottom: var(--gap-medium);
-  justify-content: center;
+  justify-content: var(--center);
   gap: var(--gap-small);;
 }
 
 #signup-btn-container {
   display: var(--none-attribute);
   width: var(--full);
-  justify-content: center;
+  justify-content: var(--center);
   padding: var(--login-padding);
 }
 
 .submit-btn-container {
   display: var(--flex);
-  justify-content: center;
+  justify-content: var(--center);
   gap: var(--gap-between-buttons);
   margin-top: 32px;
   padding: var(--login-padding);
@@ -276,7 +276,7 @@
 
 .auth-footer {
   display: var(--flex);
-  justify-content: center;
+  justify-content: var(--center);
   width: var(--full);
   flex-shrink: var(--zero);
   padding: var(--padding);

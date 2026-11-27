@@ -19,8 +19,8 @@
     position: relative;
     display: var(--flex);
     gap: var(--gap-medium);
-    align-items: center;
-    justify-content: center;
+    align-items: var(--center);
+    justify-content: var(--center);
     background-color: var(--primary-color);
     color: var(--white-color);
     margin: var(--zero) var(--padding-left-right) var(--padding-top-bottom) var(--padding-left-right);
@@ -70,13 +70,13 @@
 .seperator {
     border-bottom: 2px solid var(--contact-seperator-color);
     width: var(--full);
-    align-self: center;
+    align-self: var(--center);
 }
 
 .contact-card {
     display: var(--flex);
     justify-content: flex-start;
-    align-items: center;
+    align-items: var(--center);
     gap: var(--gap-large);
     padding: var(--padding-small);
     font-size: var(--medium-font-size);
@@ -97,8 +97,8 @@
 
 .profile-badge {
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     width: var(--small-user-badge-width);
     height: var(--small-user-badge-width);
     padding: var(--padding-small);
@@ -156,8 +156,8 @@
 
 .profile-badge-large {
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     width: var(--large-profile-badge-dimensions);
     height: var(--large-profile-badge-dimensions);
     padding: var(--padding-small);
@@ -171,7 +171,7 @@
     flex-direction: var(--column-direction);
     gap: var(--gap-medium);
     align-items: flex-start;
-    justify-content: center;
+    justify-content: var(--center);
     width: var(--full);
 }
 
@@ -197,7 +197,7 @@
 .header-content-1 {
     display: var(--flex);
     gap: var(--gap-large);
-    align-items: center;
+    align-items: var(--center);
 }
 
 .header-content-2 {
@@ -244,14 +244,14 @@
     display: var(--flex);
     gap: var(--gap-large);
     ;
-    align-items: center;
+    align-items: var(--center);
 }
 
 .edit,
 .delete {
     display: var(--flex);
     gap: var(--gap-small);
-    align-items: center;
+    align-items: var(--center);
     border: var(--none-attribute);
     background-color: transparent;
     color: var(--black-color);

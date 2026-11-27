@@ -37,7 +37,7 @@
 
 .add-task-header {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   justify-content: space-between;
   margin-bottom: 16px;
 }
@@ -51,7 +51,7 @@
   display: var(--flex);
   flex-direction: var(--column-direction);
   padding: var(--zero);
-  align-items: center;
+  align-items: var(--center);
   gap: var(--gap-small);
   overflow-y: auto;
 }
@@ -62,7 +62,7 @@
 
 .form-buttons {
   display: var(--flex);
-  align-items: center;
+  align-items: var(--center);
   margin-top: var(--zero);
   margin-left: auto;
   width: var(--full);

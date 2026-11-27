@@ -21,7 +21,7 @@ h2, h3 {
 .legal-notice-header {
   display: var(--flex);
   justify-content: space-between;
-  align-items: center;
+  align-items: var(--center);
   margin-bottom: var(--margin-medium);
 }
 
@@ -33,8 +33,8 @@ h2, h3 {
 .legal-back-button {
   border-radius: var(--border-radius-circular);
   display: var(--flex);
-  align-items: center;
-  justify-content: center;
+  align-items: var(--center);
+  justify-content: var(--center);
   width: var(--back-btn-image-dimensions);
   height: var(--back-btn-image-dimensions);
 }

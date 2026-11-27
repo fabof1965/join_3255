@@ -10,8 +10,8 @@
 .summary-container {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     width: var(--full);
     padding: var(--padding);
 }
@@ -19,16 +19,16 @@
 .greeting-container {
     width: var(--full);
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     text-wrap: var(--noTextWrap);
     margin-bottom: var(--margin-medium);
 }
 
 .greeting {
     display: var(--flex);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
 }
 
 @media(max-width: 950px) {
@@ -76,7 +76,7 @@
     color: var(--primary-color);
     font-size: var(--large-font-size);
     font-weight: bold;
-    text-align: center;
+    text-align: var(--center);
 }
 
 .greeting-text-guest {
@@ -122,8 +122,8 @@
 
 .blue-head-column {
     display: var(--flex);
-    align-items: center;
-    justify-content: center;
+    align-items: var(--center);
+    justify-content: var(--center);
     gap: var(--gap-medium);
     padding: var(--padding-small);
     grid-area: 1 / 1 / 2 / 4;
@@ -166,21 +166,21 @@
 
 @media(max-width: 600px) {
     .sub-text{
-        text-align: center;
+        text-align: var(--center);
     }
 }
 
 .urgent-task {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     gap: var(--gap-medium);
 }
 
 .icon-and-number {
     display: var(--flex);
-    align-items: center;
+    align-items: var(--center);
     gap: var(--gap-small);
 }
 
@@ -223,8 +223,8 @@
 .tasks-done {
     display: var(--flex);
     flex-direction: var(--column-direction);
-    justify-content: center;
-    align-items: center;
+    justify-content: var(--center);
+    align-items: var(--center);
     box-shadow: var(--summary-card-box-shadow);
     border-radius: var(--summary-card-border-radius);
     gap: var(--gap-medium);
@@ -275,7 +275,7 @@
 @media (max-width: 950px) {
     .tasks-to-do {
         flex-direction: var(--row-direction);
-        justify-content: center;
+        justify-content: var(--center);
         grid-area: 2 / 1 / 2 / 7;
     }
 }
