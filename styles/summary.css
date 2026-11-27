@@ -101,7 +101,8 @@
         position: absolute;
         left: var(--padding-left-right);
         right: var(--padding-left-right);
-        top: calc(-1 * var(--full));
+        /* top: calc(-1 * var(--full)); */
+        opacity: var(--zero);
         height: calc(100% - var(--padding-top-bottom) - var(--gap-medium));
         animation: slide-up-fade-in 1s ease 2s forwards;
         grid-template-rows: repeat(4, minmax(0, 1fr));
