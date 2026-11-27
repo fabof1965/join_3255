@@ -330,7 +330,7 @@
 @media(max-width: 950px) {
     #popover-menu:popover-open {
         display: var(--flex);
-        transform: translateX(-25px);
+        transform: translateX(-40px);
 
         @starting-style {
             transform: translateX(100%);
