@@ -99,7 +99,7 @@
     forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  gap: var(--gap-medium);
+  gap: var(--gap-small);
 }
 
 @media (max-width: 700px) {
@@ -130,9 +130,9 @@
 
 .form-header {
   display: var(--flex);
-  align-items: var(--center);
   width: var(--full);
   padding: var(--login-padding);
+  justify-content: center;
 }
 
 .arrow-back-btn {
@@ -140,18 +140,16 @@
   background: var(--none-attribute);
   border: var(--none-attribute);
   border-radius: var(--border-radius-circular);
+  margin-right: auto;
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-bottom: -48px;
 }
 
 .arrow-back-btn:hover,
 .arrow-back-btn:focus {
   background-color: var(--close-btn-hover-color);
   border-radius: var(--border-radius-circular);
-}
-
-.heading-wrapper {
-  display: var(--flex);
-  justify-content: var(--center);
-  width: var(--full);
 }
 
 .placeholder {
@@ -169,7 +167,6 @@
   text-align: var(--center);
   font-size: 48px;
   font-weight: 700;
-  margin-top: 16px;
   margin-bottom: 16px;
 }
 
@@ -183,8 +180,7 @@
   flex-direction: var(--column-direction);
   justify-content: var(--center);
   width: calc(var(--full) * 0.75);
-  gap: var(--gap-medium);
-  margin-bottom: var(--gap-medium);
+  gap: var(--gap-small);
 }
 
 @media (max-width: 700px) {
@@ -196,7 +192,6 @@
 .input-wrapper {
   display: var(--flex);
   align-items: var(--center);
-
   flex-direction: var(--column-direction);
   justify-content: var(--center);
 }
@@ -221,7 +216,6 @@
   flex-direction: var(--column-direction);
   align-items: var(--center);
   width: var(--full);
-  margin-bottom: var(--gap-medium);
   justify-content: var(--center);
   gap: var(--gap-small);
 }
