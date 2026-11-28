@@ -378,7 +378,7 @@ textarea {
 
 .assigned-dropdown-text {
   overflow: hidden;
-  white-space: var(--noTextWrap);
+  white-space: var(--no-text-wrap);
   text-overflow: ellipsis;
 }
 

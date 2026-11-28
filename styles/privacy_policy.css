@@ -28,7 +28,7 @@ h2 {
 
 .privacy-policy-title-row h1 {
   font-size: var(--legal-notice-headline-font-size);
-  text-wrap: var(--noTextWrap);
+  text-wrap: var(--no-text-wrap);
 }
 
 .privacy-policy-back-button {

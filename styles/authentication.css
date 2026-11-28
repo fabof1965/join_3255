@@ -49,28 +49,12 @@
   }
 }
 
-.spacing {
-  height: var(--login-header-font-size);
-  width: 5px;
-}
-
-@media (max-width: 950px) {
-  .spacing {
-    height: 0;
-    width: 0;
-  }
-}
-
 .auth-btn {
   background-color: var(--primary-color);
   color: white;
   border-radius: var(--element-design-border-radius);
   font-size: var(--login-form-button-font-size);
   font-family: "Open Sans", sans-serif;
-}
-
-#signup-button {
-  font-size: var(--login-header-font-size);
 }
 
 .auth-wrapper {
@@ -102,19 +86,17 @@
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
   gap: var(--gap-small);
+  margin-bottom: 16px;
 }
 
 @media (max-width: 950px) {
   .auth-form {
     width: var(--full);
+    margin-bottom: 0;
   }
 }
 
-/* @media (max-width: 700px) {
-  .auth-form {
-    margin-top: 96px;
-  }
-} */
+
 
 @keyframes fade-in {
   0% {
@@ -181,7 +163,7 @@
   gap: var(--gap-small);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 950px) {
   .auth-input-container {
     width: calc(var(--full) * 0.9);
   }
@@ -216,6 +198,7 @@
   width: var(--full);
   justify-content: var(--center);
   gap: var(--gap-small);
+  margin-top: 16px;
 }
 
 #signup-btn-container {
@@ -227,24 +210,25 @@
 
 .submit-btn-container {
   display: var(--flex);
-  justify-content: var(--center);
   gap: var(--gap-between-buttons);
   margin-top: 32px;
-  padding: var(--login-padding);
+  padding: var(--padding);
   padding-top: var(--zero);
-  width: var(--full);
 }
 
-@media (max-width: 700px) {
+#sign-up-btn {
+  padding: var(--button-padding);
+  width: calc(var(--full) * 0.5);
+}
+
+@media (max-width: 950px) {
   .submit-btn-container {
     flex-direction: var(--column-direction);
-    gap: var(--gap-medium);
-    width: calc(var(--full) * 0.4);
-    margin-top: var(--zero);
+    width: calc(var(--full) * 0.6);
   }
 
   .headline-underline {
-    width: 70%;
+    width: calc(var(--full) * 0.6);
   }
 }
 

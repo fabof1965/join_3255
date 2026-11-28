@@ -12,7 +12,10 @@ document.getElementById("checkbox").addEventListener("change", (event) => {
     handleCheckboxChangeOnClick(event);
 });
 
-document.getElementById('btn-show-login').addEventListener('click', showLoginForm);
+// document.getElementById('btn-show-login').addEventListener('click', () => {
+//     console.log("clicked arrow-back-button");
+//     showLoginForm()
+// });
 
 document.getElementById("auth-form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -131,6 +134,11 @@ export function addSignupContent() {
     initPasswordToggleEventListeners();
     initRegistrationInputEventListeners();
     setAuthenticationHeaderPadding("0");
+    document.getElementById('btn-show-login').addEventListener('click', () => {
+        console.log("clicked arrow-back-button");
+        showLoginForm()
+    },
+        {once: true});
 }
 
 /**

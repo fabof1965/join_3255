@@ -64,16 +64,13 @@ button {
   width: var(--full);
 }
 
-#login-btn {
-  padding: 5px 20px;
-}
-
 .btn {
+  min-width: 50px;
   padding: var(--button-padding);
   border: var(--none-attribute);
   border-radius: var(--element-design-border-radius);
   background: var(--none-attribute);
-  text-wrap: var(--noTextWrap);
+  text-wrap: var(--no-text-wrap);
   font-size: var(--medium-font-size);
   transition: var(--element-transition);
 }
@@ -91,7 +88,7 @@ button {
   margin: -1px;
   overflow: hidden;
   clip: rect(var(--zero), var(--zero), var(--zero), var(--zero));
-  white-space: var(--noTextWrap);
+  white-space: var(--no-text-wrap);
   border: var(--zero);
 }
 
