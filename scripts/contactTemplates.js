@@ -2,6 +2,7 @@ const enterNameMsg = "Please enter your name.";
 const nameExistsMsg = "This Name already exists.";
 const enterEmailMsg = "Please enter your email.";
 const emailExistsMsg = "That email already exists.";
+const invalidEmailMsg = "Please enter a valid email address.";
 const enterPhoneMsg = "Please enter your phonenumber.";
 const phoneExistsMsg = "Please choose a different number.";
 

@@ -15,7 +15,7 @@ const EDIT_CONTACT_FIELD_IDS = {
 
 /**
  * @description Checks whether the name, email or phone field of the contact form is blank
- * and shows the matching error message for each blank field.
+ * or the email has an invalid format, and shows the matching error message for each field.
  * @param {Object} contact - The contact data entered in the form. 
  * @param {string} contact.name - Name of the contact.
  * @param {string} contact.email - Email of the contact.
@@ -27,8 +27,9 @@ function contactFormHasBlankFields(contact) {
     const ids = document.getElementById('edit-contact-dialog').open ? EDIT_CONTACT_FIELD_IDS : ADD_CONTACT_FIELD_IDS;
     const blankName = fieldIsBlankFeedback(contact.name, ...ids.name, enterNameMsg);
     const blankEmail = fieldIsBlankFeedback(contact.email, ...ids.email, enterEmailMsg);
+    const invalidEmail = !blankEmail && emailIsInvalidFeedback(contact.email, ...ids.email);
     const blankPhone = fieldIsBlankFeedback(contact.phone, ...ids.phone, enterPhoneMsg);
-    return blankName || blankEmail || blankPhone;
+    return blankName || blankEmail || invalidEmail || blankPhone;
 }
 
 /**
@@ -61,6 +62,19 @@ async function contactFormHasValidationErrors(contact, ownId = null) {
     const emailExists = checkContactFieldExists(allJoinContacts, 'email', contact.email, ownId, ...ids.email, emailExistsMsg);
     const phoneExists = checkContactFieldExists(allJoinContacts, 'phone', contact.phone, ownId, ...ids.phone, phoneExistsMsg);
     return nameExists || emailExists || phoneExists;
+}
+
+/**
+ * @description Checks the email format with a regex and shows or hides the matching error message.
+ * @param {string} value - The email entered by the user.
+ * @param {string} errorID - ID of the element that displays the error message.
+ * @param {string} borderID - ID of the element whose border is marked as invalid.
+ * @returns {boolean} True if the email format is invalid, otherwise false.
+ */
+function emailIsInvalidFeedback(value, errorID, borderID) {
+    const invalid = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+    updateContactFieldError(errorID, borderID, invalid, invalidEmailMsg);
+    return invalid;
 }
 
 /**
