@@ -87,6 +87,7 @@
   color: var(--black-color);
   gap: var(--gap-small);
   margin-bottom: 16px;
+  padding: var(--login-padding);
 }
 
 @media (max-width: 950px) {
@@ -224,7 +225,7 @@
 @media (max-width: 950px) {
   .submit-btn-container {
     flex-direction: var(--column-direction);
-    width: calc(var(--full) * 0.6);
+    width: calc(var(--full) * 0.7);
   }
 
   .headline-underline {
