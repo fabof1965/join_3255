@@ -154,6 +154,10 @@
   width: var(--full);
 }
 
+.placeholder {
+  width: 28px;
+}
+
 .heading-container {
   display: var(--flex);
   flex-direction: var(--column-direction);
