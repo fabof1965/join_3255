@@ -32,6 +32,20 @@
     align-items: var(--center);
 }
 
+@media(min-width: 1440px) {
+    .summary-container {
+        margin-bottom: auto;
+    }
+
+    .greeting-container {
+        margin-top: calc(var(--margin-medium) * 5);
+    }
+
+    .summary-container .greeting-container {
+        margin-bottom: calc(var(--margin-medium) * 2.25);
+    }
+}
+
 @media(max-width: 950px) {
     .summary-container {
         position: relative;
@@ -122,7 +136,7 @@
     }
 }
 
-.deadline-container{
+.deadline-container {
     color: var(--white-color);
 }
 
@@ -147,7 +161,9 @@
     box-shadow: var(--summary-card-box-shadow);
     border-top-left-radius: var(--zero);
 
-    .task-number, .divider, .task-icons{
+    .task-number,
+    .divider,
+    .task-icons {
         transform: scale(var(--hover-scale));
         color: var(--primary-color);
     }
@@ -156,7 +172,8 @@
         transform: scale(var(--hover-scale));
     }
 
-    .date-text, .sub-text {
+    .date-text,
+    .sub-text {
         color: var(--primary-color);
     }
 
@@ -172,7 +189,7 @@
 }
 
 @media(max-width: 600px) {
-    .sub-text{
+    .sub-text {
         text-align: var(--center);
     }
 }
@@ -257,13 +274,16 @@
     border-top-left-radius: var(--zero);
     transform: scale(var(--hover-scale));
 
-    .task-number, .sub-text, .task-icons{
+    .task-number,
+    .sub-text,
+    .task-icons {
         transform: scale(var(--hover-scale));
         color: var(--white-color);
     }
 }
 
 @media(min-width: 450px) and (max-width: 950px) {
+
     .tasks-to-do,
     .task-in-progress,
     .task-feedback,
