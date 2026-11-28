@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   scrollbar-color: var(--primary-color) transparent;
 }
 
@@ -13,7 +13,7 @@ input,
 textarea,
 select,
 button {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 body:has(dialog:modal) {
@@ -29,13 +29,13 @@ body:has(dialog:modal) {
   min-height: var(--page-content-height);
 }
 
-@media(min-width: 1440px) {
+@media (min-width: 1440px) {
   .main-layout {
     margin-left: var(--padding-left-right);
   }
 }
 
-@media(max-width: 950px) {
+@media (max-width: 950px) {
   .main-layout {
     flex-direction: column-reverse;
   }
@@ -62,6 +62,10 @@ button {
   justify-content: space-between;
   align-items: var(--center);
   width: var(--full);
+}
+
+#login-btn {
+  padding: 5px 20px;
 }
 
 .btn {
