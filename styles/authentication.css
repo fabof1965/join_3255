@@ -44,6 +44,8 @@
   .auth-header {
     justify-content: var(--center);
     padding: 0;
+    margin-bottom: 64px;
+    margin-top: -64px;
   }
 }
 
@@ -102,15 +104,17 @@
   gap: var(--gap-small);
 }
 
-@media (max-width: 700px) {
-  .auth-main {
-    justify-content: var(--center);
-  }
-
+@media (max-width: 950px) {
   .auth-form {
-    margin-top: 88px;
+    width: var(--full);
   }
 }
+
+/* @media (max-width: 700px) {
+  .auth-form {
+    margin-top: 96px;
+  }
+} */
 
 @keyframes fade-in {
   0% {
@@ -119,12 +123,6 @@
 
   100% {
     opacity: 1;
-  }
-}
-
-@media (max-width: 700px) {
-  .auth-form {
-    width: var(--full);
   }
 }
 
@@ -286,6 +284,8 @@
   width: var(--full);
   flex-shrink: var(--zero);
   padding: var(--padding);
+  position: fixed;
+  bottom: 0;
 }
 
 .legal-wrapper {
