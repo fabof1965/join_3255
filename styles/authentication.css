@@ -22,7 +22,7 @@
   justify-content: flex-end;
 }
 
-@media(max-width: 950px) {
+@media (max-width: 950px) {
   .direction-container {
     flex-direction: column-reverse;
   }
@@ -40,35 +40,21 @@
   font-size: var(--login-header-font-size);
 }
 
-@media(max-width: 950px) {
+@media (max-width: 950px) {
   .auth-header {
     justify-content: var(--center);
     padding: 0;
-  }
-}
-
-.spacing {
-  height: var(--login-header-font-size);
-  width: 5px;
-}
-
-@media(max-width: 950px) {
-  .spacing {
-    height: 0;
-    width: 0;
+    margin-bottom: 64px;
+    margin-top: -64px;
   }
 }
 
 .auth-btn {
   background-color: var(--primary-color);
   color: white;
-  border-radius: var(--element-design-border-radius);;
+  border-radius: var(--element-design-border-radius);
   font-size: var(--login-form-button-font-size);
-  font-family: 'Open Sans', sans-serif;
-}
-
-#signup-button {
-  font-size: var(--login-header-font-size);
+  font-family: "Open Sans", sans-serif;
 }
 
 .auth-wrapper {
@@ -92,24 +78,26 @@
   display: var(--flex);
   flex-direction: var(--column-direction);
   align-items: var(--center);
-  width: calc(var(--full) / 2);
+  width: calc(var(--full) * 0.5);
   border-radius: var(--form-border-radius);
   opacity: var(--zero);
-  animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay) forwards;
+  animation: fade-in var(--fade-in-duration) ease-in var(--fade-in-delay)
+    forwards;
   box-shadow: var(--login-box-shadow);
   color: var(--black-color);
-  gap: var(--gap-medium);
+  gap: var(--gap-small);
+  margin-bottom: 16px;
+  padding: var(--login-padding);
 }
 
-@media(max-width: 700px) {
-  .auth-main {
-    justify-content: var(--center);
-  }
-
+@media (max-width: 950px) {
   .auth-form {
-    margin-top: 88px;
+    margin-bottom: 0;
+    width: var(--full);
   }
 }
+
+
 
 @keyframes fade-in {
   0% {
@@ -121,17 +109,11 @@
   }
 }
 
-@media(max-width: 700px) {
-  .auth-form {
-    width: var(--full);
-  }
-}
-
 .form-header {
   display: var(--flex);
-  align-items: var(--center);
   width: var(--full);
   padding: var(--login-padding);
+  justify-content: center;
 }
 
 .arrow-back-btn {
@@ -139,17 +121,21 @@
   background: var(--none-attribute);
   border: var(--none-attribute);
   border-radius: var(--border-radius-circular);
+  margin-right: auto;
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-bottom: -48px;
+  z-index: 9999;
 }
 
-.arrow-back-btn:hover, .arrow-back-btn:focus {
+.arrow-back-btn:hover,
+.arrow-back-btn:focus {
   background-color: var(--close-btn-hover-color);
   border-radius: var(--border-radius-circular);
 }
 
-.heading-wrapper {
-  display: var(--flex);
-  justify-content: var(--center);
-  width: var(--full);
+.placeholder {
+  width: 28px;
 }
 
 .heading-container {
@@ -162,6 +148,8 @@
 .auth-heading {
   text-align: var(--center);
   font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
 .headline-underline {
@@ -174,11 +162,10 @@
   flex-direction: var(--column-direction);
   justify-content: var(--center);
   width: calc(var(--full) * 0.75);
-  gap: var(--gap-medium);
-  margin-bottom: var(--gap-medium);
+  gap: var(--gap-small);
 }
 
-@media(max-width: 700px) {
+@media (max-width: 950px) {
   .auth-input-container {
     width: calc(var(--full) * 0.9);
   }
@@ -187,7 +174,6 @@
 .input-wrapper {
   display: var(--flex);
   align-items: var(--center);
-
   flex-direction: var(--column-direction);
   justify-content: var(--center);
 }
@@ -205,7 +191,6 @@
   border: var(--none-attribute);
   box-sizing: border-box;
   font-size: 19px;
-
 }
 
 #checkbox-container {
@@ -213,9 +198,9 @@
   flex-direction: var(--column-direction);
   align-items: var(--center);
   width: var(--full);
-  margin-bottom: var(--gap-medium);
   justify-content: var(--center);
-  gap: var(--gap-small);;
+  gap: var(--gap-small);
+  margin-top: 16px;
 }
 
 #signup-btn-container {
@@ -227,20 +212,26 @@
 
 .submit-btn-container {
   display: var(--flex);
-  justify-content: var(--center);
   gap: var(--gap-between-buttons);
   margin-top: 32px;
-  padding: var(--login-padding);
+  padding: var(--padding);
   padding-top: var(--zero);
-  width: var(--full);
 }
 
-@media(max-width: 700px) {
+#sign-up-btn {
+  padding: var(--button-padding);
+  width: calc(var(--full) * 0.5);
+}
+
+@media (max-width: 950px) {
   .submit-btn-container {
     flex-direction: var(--column-direction);
-    gap: var(--gap-medium);
-    width: calc(var(--full) * 0.4);
-    margin-top: var(--zero);
+    width: calc(var(--full) * 0.7);
+    /* align-items: var(--center); */
+  }
+
+  .headline-underline {
+    width: calc(var(--full) * 0.6);
   }
 }
 
@@ -248,6 +239,7 @@
   color: var(--guest-login-button-text-color);
   border: var(--guest-login-button-border);
   font-size: var(--login-form-button-font-size);
+  white-space: nowrap;
 }
 
 .guest-login-btn:hover {
@@ -256,22 +248,22 @@
 }
 
 .privacy-policy-link::before {
-    display: block;
-    content: attr(data-text);
-    font-weight: 600;
-    height: var(--zero);
-    visibility: hidden;
-    overflow: hidden;
+  display: block;
+  content: attr(data-text);
+  font-weight: 600;
+  height: var(--zero);
+  visibility: hidden;
+  overflow: hidden;
 }
 
 .privacy-policy-link {
-    display: inline-block;
-    color: var(--primary-color);
-    text-decoration: var(--none-attribute);
+  display: inline-block;
+  color: var(--primary-color);
+  text-decoration: var(--none-attribute);
 }
 
 .privacy-policy-link:hover {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .auth-footer {
@@ -280,6 +272,8 @@
   width: var(--full);
   flex-shrink: var(--zero);
   padding: var(--padding);
+  position: fixed;
+  bottom: 0;
 }
 
 .legal-wrapper {
@@ -293,19 +287,19 @@
 }
 
 .lock-img {
-    pointer-events: var(--none-attribute);
+  pointer-events: var(--none-attribute);
 }
 
 .password-toggle {
-    border: var(--zero);
-    padding: var(--zero);
-    background: transparent;
-    cursor: pointer;
+  border: var(--zero);
+  padding: var(--zero);
+  background: transparent;
+  cursor: pointer;
 }
 
 .password-toggle:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 .checkbox {

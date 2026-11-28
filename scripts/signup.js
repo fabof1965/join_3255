@@ -8,7 +8,7 @@ document.getElementById("checkbox").addEventListener("keyup", (event) => {
     handleChackboxChangeOnEnter(event);
 });
 
-document.getElementById("checkbox").addEventListener("change", (event) => {
+document.getElementById("checkbox").addEventListener("change",(event) => {
     handleCheckboxChangeOnClick(event);
 });
 

@@ -84,7 +84,7 @@
   border: var(--none-attribute);
   font-size: var(--search-button-image-dimensions);
   padding: var(--add-task-button-padding);
-  text-wrap: var(--noTextWrap);
+  text-wrap: var(--no-text-wrap);
 }
 
 @media(max-width: 650px) {
@@ -181,7 +181,7 @@
   align-items: flex-start;
   flex-direction: var(--column-direction);
   gap: var(--gap-medium);
-  flex-wrap: var(--noTextWrap);
+  flex-wrap: var(--no-text-wrap);
   transition: background-color 100ms ease;
   border-radius: var(--element-design-border-radius);
   padding: var(--gap-small);
@@ -310,7 +310,7 @@
 }
 
 .subtask-progress span {
-  text-wrap: var(--noTextWrap);
+  text-wrap: var(--no-text-wrap);
 }
 
 .subtask-btn{
@@ -391,7 +391,7 @@
   padding: 8px;
   color: var(--greeting-text-color);
   cursor: pointer;
-  white-space: var(--noTextWrap);
+  white-space: var(--no-text-wrap);
   transition: var(--element-transition);
   border-radius: var(--zero);
   box-shadow: var(--none-attribute);

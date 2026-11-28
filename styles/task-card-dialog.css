@@ -18,7 +18,7 @@
   max-width: 500px;
   border-radius: var(--task-card-border-radius);
   border: var(--none-attribute);
-  box-shadow:   4px rgba(var(--zero), var(--zero), var(--zero), 0.32);
+  box-shadow: var(--none-attribute);
   position: fixed;
   opacity: 1;
   margin: auto;

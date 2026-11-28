@@ -8,7 +8,7 @@ dialog {
     max-width: 500px;
     position: fixed;
     top: var(--zero);
-    box-shadow: 8px  24px rgba(var(--zero), var(--zero), var(--zero), 0.15);
+    box-shadow: var(--none-attribute);
     transition: display 300ms allow-discrete,
                 opacity 300ms ease-in-out,
                 overlay 300ms allow-discrete,
@@ -255,7 +255,7 @@ input {
 
 .add-contact-content {
     display: var(--flex);
-    border-bottom: 2px solid var(--search-bar-outline-color);
+    border-bottom: var(--login-input-border-bottom);
     width: var(--full);
     padding: var(--input-wrapper-padding);
 }

@@ -22,7 +22,7 @@
     display: var(--flex);
     justify-content: var(--center);
     align-items: var(--center);
-    text-wrap: var(--noTextWrap);
+    text-wrap: var(--no-text-wrap);
     margin-bottom: var(--margin-medium);
 }
 
